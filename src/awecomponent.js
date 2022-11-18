@@ -32,31 +32,12 @@ function gfnMDI(pageContainer,tabContainer) {
 	me.tabContainer = tabContainer;
 	me.pageContainer = pageContainer;
 	me.idx = 0;  
-	//page# 채번
+	//page# 채번 -(페이지 번호 불러와서 하나씩 증가)
 	me.getNext = function() { 
 		me.idx++;
 		return me.idx;
 	} 
-	//page# 지난 번호
-	me.getPrev = function() {
-		me.idx--;
-		return me.idx;
-	}
-	//page# 현재 페이지 번호
-	me.getNum = function() {
-		me.idx;
-		return me.idx;
-	}
-	//frameBottom 의 좌우버튼 색표시
-	me.syncGNB = function() { 
-		var prev = me.tabContainer.children("a.active").prev().length;
-		if(prev > 0) $("#frameBottom button.prev").removeClass("noMore");
-		else $("#frameBottom button.prev").addClass("noMore");
-		var next = me.tabContainer.children("a.active").next().length;
-		if(next > 0) $("#frameBottom button.next").removeClass("noMore");
-		else $("#frameBottom button.next").addClass("noMore"); 
-	}
-	//frameHome 로드 
+	//frameHome 로드 - (삭제 시  apps 버튼 안눌림)
 	me.loadHome = function(afnCallback) { 
 		var oPage = $("<div></div>");
 		oPage.attr("id","frameHome");
@@ -65,55 +46,27 @@ function gfnMDI(pageContainer,tabContainer) {
 			me.pageContainer.children("#frameHome").remove();
 			me.pageContainer.append(oPage);
 			me.go(0);
-			me.syncGNB();
 			me.tabContainer.sortable(); //jquery sortable적용  
 			if(afnCallback==undefined) afnCallback=gfnCallback;
 			afnCallback();
 		});
 	} 
-	//frameLeft 메세지 채널 초기화
+	//frameLeft 메세지 채널 초기화 -(삭제 시  apps 버튼 안눌림)
 	me.portletChat = function() {
-		$("#frameLeft .grpChat *").remove();
-		var portletChat = $("#frameLeft .grpChat");
-		gfnLoad("aweportal", "portletChat", portletChat, function(OUTVAR) {
+		$("#frameLeft ").remove();
+		var portletChat = $("#frameLeft ");
+		gfnLoad("aweportal", function(OUTVAR) {
 		}, true);
 	}
 
+	//삭제 시  apps 버튼 안눌림
 	me.portletAlert = function() {
 		var portletAlert = $("#frameAlert");
-		gfnLoad("aweportal", "portletAlert", portletAlert, function(OUTVAR) {
+		gfnLoad("aweportal",  function(OUTVAR) {
 		}, true);
 	}
 	
-	//한 개의 특정 페이지로 이동
-	me.goOne = function(grpid) {
-		//1. 이미 열려있는 채팅방 페이지로 (채팅방 이름과 id를 사용해서)이동하도록 구현
-		var toPage;
-
-		toPage = me.pageContainer.children(".framepage[grpid='"+grpid+"']");
-
-		toPage.addClass("active");
-		toPage.show();
-
-		//2. 현재 활성화된 페이지의 active를 제거한 뒤, hide()처리
-		me.pageContainer.children(".framepage").removeClass("active");
-		me.pageContainer.children(".framepage").hide();
-
-		//3. 전환될 페이지를 active 상태로 show()
-		toPage.addClass("active");
-		toPage.show();
-
-		//4. 현재 페이지 탭의 active를 제거
-		me.tabContainer.children("a.active").removeClass("active");
-
-		//5. 이동한 페이지의 tab을 active
-		me.tabContainer.children("a[pageidx='"+ toPage.attr("id") +"']").addClass("active");
-
-		//6. frameBottom CSS 추가
-		me.syncGNB();
-	}
-
-	//특정 framepage로 이동 
+	//특정 framepage로 이동 *
 	me.go = function(to) { 
 		var curPage = me.pageContainer.children(".framepage.active");
 		if(curPage.length < 1) {
@@ -132,7 +85,7 @@ function gfnMDI(pageContainer,tabContainer) {
             //prev/next는 tab기준으로 한다
 			var toTab = me.tabContainer.children("a.active")[to]();
 			if(toTab.length==0) {
-				gfnStatus("이동할 수 있는 페이지의 끝입니다.");
+				// gfnStatus("이동할 수 있는 페이지의 끝입니다.");
 				toTab = (to=="prev")?me.tabContainer.children("a").last():me.tabContainer.children("a").first(); //한바퀴 돌리고
 			} 
 			if(toTab.length==0) toPage = $("#frameHome"); //그래도 없으면 frameHome으로 
@@ -155,18 +108,14 @@ function gfnMDI(pageContainer,tabContainer) {
 		toPage.show();
 		me.tabContainer.children("a.active").removeClass("active");
 		me.tabContainer.children("a[pageidx='"+ toPage.attr("id") +"']").addClass("active");		
-		me.syncGNB();  
+		
 	}  
-	//특정 framepage로 이동 
+	//특정 framepage로 이동 *
 	me.focusPage = function(pageidx) {  
 		me.go(pageidx);  
 	}
-	//frameHome만 남기고 다 숨겨줌
-	me.hideAll = function() { 
-		me.go(0);
-	}
 
-	//프레임페이지를 중복 없이 한 개만 열기
+	//프레임페이지를 중복 없이 한 개만 열기*
 	me.openPageOne = function(pgmid, pagenm, grpid, grpnm) {
 		//아래는 openPage와 코드가 같으며, page 넘버링 및 탭 추가, 화면 추가 전환 코드
 		//if(afnCallback==undefined) afnCallback=gfnCallback;
@@ -183,22 +132,10 @@ function gfnMDI(pageContainer,tabContainer) {
 
 		gfnLoad("aweportal", pgmid, oPage, function(OUTVAR){
 			var oTab = $('<a class="tab" pageidx="page'+me.idx+'" grpid="'+grpid+'"><div>'+pagenm+'</div><i class="fa fa-times closetab"></i></a>');
-			oTab.bind('mouseenter', function(){ /* 폭이 좁아져서 ...이 되면 tooltip으로 화면명 표시 */
-				var $this = $(this); 
-				if(this.offsetWidth < this.scrollWidth && !$this.attr('title')){
-					$this.attr('title', $this.text());
-					$this.tooltip({
-						content: $this.text()
-					}); 
-				}
-			});
+			oTab.bind
 			
 			//요청으로 생성되는 탭을 포함해서 카운트하도록 탭을 먼저 생성
 			me.tabContainer.append(oTab);
-
-			//현재 활성화된 탭과 페이지의 넘버는 탭의 개수와 무관하므로(중간 탭을 닫아 중간 번호가 삭제되었을 수 있다)
-			//getNext로 생성된 페이지 넘버만큼 카운트하는 것이 탭의 개수를 구함
-			var countTab = me.getNum();
 
 			//중복 카운트
 			var count = 0;
@@ -234,7 +171,7 @@ function gfnMDI(pageContainer,tabContainer) {
 		});
 	}
 
-	//framepage 열기(추가)
+	//framepage 열기(추가)*
 	me.openPage = function(pgmid, pagenm, afnCallback, appid) { 
 		if(afnCallback==undefined) afnCallback=gfnCallback;
 		//get pgm info 
@@ -256,68 +193,22 @@ function gfnMDI(pageContainer,tabContainer) {
 		gfnLoad(appid, pgmid, oPage, function(OUTVAR){
 			//addTab
 			var oTab = $('<a class="tab" pageidx="page'+me.idx+'"><div>'+pagenm+'</div><i class="fa fa-times closetab"></i></a>');
-			oTab.bind('mouseenter', function(){ /* 폭이 좁아져서 ...이 되면 tooltip으로 화면명 표시 */
-				var $this = $(this); 
-				if(this.offsetWidth < this.scrollWidth && !$this.attr('title')){
-					$this.attr('title', $this.text());
-					$this.tooltip({
-						content: $this.text()
-					}); 
-				}
-			});
 			me.tabContainer.append(oTab); 
 			//addPage
 			me.pageContainer.append(oPage);
 			//focus
 			me.go(oPage); 
-			//flex 리사이즈 기능
-			gfnPageLayoutResizable(oPage); 
+			// //flex 리사이즈 기능
+			// gfnPageLayoutResizable(oPage); 
 
 			//callback
             if(typeof(afnCallback)=='function') afnCallback(OUTVAR);
 
-			//Logging
-			var invar = JSON.stringify({ pgmid : pgmid });
-			gfnTx("aweportal.systemLog", "insertOpenPageLog", { INVAR : invar }, function(OUTVAR) {
-				if(OUTVAR.rtnCd != "OK") console.log(OUTVAR); 
-			});
 		});
 	}
 
-	//채널 생성(중복 x)
-	me.openChat = function(pgmid, grpid) {
-		var count = 0;
-		var container = $("<div id='" + grpid + "' class='frameChat focus'></div>");
 
-		//페이지 카운트
-		if(document.getElementById(grpid)) count++;
-
-		//페이지가 존재하는 경우, 페이지 넘버를 이전으로 돌린 후, 리턴
-		if(count > 0) return;
-		
-		//grpid 메세지 채널이 없는 경우, frameChat 메세지 채널을 삽입
-		else {
-			gfnLoad("aweportal", pgmid, container, function(OUTVAR) {
-				$("#frameChat").append(container);
-			}, true);
-		}
-	}
-
-	//한페이지 생성된 탭닫기
-	me.closeTabOne = function(grpid) {
-		me.goOne(grpid);
-		me.go("next");
-
-		me.pageContainer.children(".framepage[grpid='"+grpid+"']").remove();
- 		me.tabContainer.children("a.tab[grpid='"+grpid+"']").remove();
-
-		if(me.tabContainer.children("a").length==0) {
-			//if(!me.tabContainer.hasClass("hidden")) me.tabContainer.addClass("hidden");
-			me.go(0);
-		}
-	}
-
-	//탭과 페이지 닫기
+	//탭과 페이지 닫기 *
 	me.closeTab = function(pageidx) {
 		if(pageidx=="frameHome") {
 			gfnStatus("홈화면은 닫을 수 없습니다.");
@@ -348,30 +239,6 @@ function gfnMDI(pageContainer,tabContainer) {
 		}
 	} 
 
-	//채널 닫기
-	me.closeChat = function(grpid) {
-		$(".frameChat[id='" + grpid + "']").remove();
-	}
-
-	me.screen = function(bMax) {   
-		var curPage = $("#frameMain .framepage.active");
-		if(curPage.length == 0 || curPage.attr("id")=="frameHome") return;
-		if(bMax==undefined) {
-			bMax = (curPage.attr("stat")!="max");
-		}
-		if(bMax) { 
-			gFrameset.fnShowFrameLeftBar(false);
-			$("#frameGNB").css("display","none");
-			$("#frameBottom nav .screen").addClass("max");
-			gFrameset.fnFramesetLayout(); 
-			curPage.attr("stat","max");
-		} else {
-			$("#frameGNB").css("display","block");
-			$("#frameBottom nav .screen").removeClass("max");
-			gFrameset.fnFramesetLayout();
-			curPage.attr("stat","normal");
-		} 
-	}
 
 	me.close = function() {
 		var curPage = $("#frameMain .framepage.active");
@@ -402,14 +269,6 @@ function gfnMDI(pageContainer,tabContainer) {
 		} 
 	}); 
 
-	/* 현재시간 : frameset의 fnInit()에 있어야 하지만 소스엉킴 문제로 gfnMDI에서 구현 */ 
-	if( $("#frameGNB .curtime").length > 0) $("#frameGNB .curtime").remove(); 
-	var curtime = $("<div class='curtime'></div>"); 
-	$("#frameGNB nav.frameBtnSet.A").append(curtime);
-	function curtime_ticker() {
-		$("#frameGNB .curtime").html( date("today","mm월dd일<br>(w요일)<br>hh24:mi:ss") );
-	} 
-	window.setInterval( curtime_ticker, 1000); 
 	
 	return me;
 }
