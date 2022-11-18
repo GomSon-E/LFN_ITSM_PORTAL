@@ -32,31 +32,12 @@ function gfnMDI(pageContainer,tabContainer) {
 	me.tabContainer = tabContainer;
 	me.pageContainer = pageContainer;
 	me.idx = 0;  
-	//page# 채번
+	//page# 채번 -(페이지 번호 불러와서 하나씩 증가)
 	me.getNext = function() { 
 		me.idx++;
 		return me.idx;
 	} 
-	//page# 지난 번호
-	me.getPrev = function() {
-		me.idx--;
-		return me.idx;
-	}
-	//page# 현재 페이지 번호
-	me.getNum = function() {
-		me.idx;
-		return me.idx;
-	}
-	//frameBottom 의 좌우버튼 색표시
-	me.syncGNB = function() { 
-		var prev = me.tabContainer.children("a.active").prev().length;
-		if(prev > 0) $("#frameBottom button.prev").removeClass("noMore");
-		else $("#frameBottom button.prev").addClass("noMore");
-		var next = me.tabContainer.children("a.active").next().length;
-		if(next > 0) $("#frameBottom button.next").removeClass("noMore");
-		else $("#frameBottom button.next").addClass("noMore"); 
-	}
-	//frameHome 로드 
+	//frameHome 로드 - (삭제 시  apps 버튼 안눌림)
 	me.loadHome = function(afnCallback) { 
 		var oPage = $("<div></div>");
 		oPage.attr("id","frameHome");
@@ -65,55 +46,27 @@ function gfnMDI(pageContainer,tabContainer) {
 			me.pageContainer.children("#frameHome").remove();
 			me.pageContainer.append(oPage);
 			me.go(0);
-			me.syncGNB();
 			me.tabContainer.sortable(); //jquery sortable적용  
 			if(afnCallback==undefined) afnCallback=gfnCallback;
 			afnCallback();
 		});
 	} 
-	//frameLeft 메세지 채널 초기화
+	//frameLeft 메세지 채널 초기화 -(삭제 시  apps 버튼 안눌림)
 	me.portletChat = function() {
-		$("#frameLeft .grpChat *").remove();
-		var portletChat = $("#frameLeft .grpChat");
-		gfnLoad("aweportal", "portletChat", portletChat, function(OUTVAR) {
+		$("#frameLeft ").remove();
+		var portletChat = $("#frameLeft ");
+		gfnLoad("aweportal", function(OUTVAR) {
 		}, true);
 	}
 
+	//삭제 시  apps 버튼 안눌림
 	me.portletAlert = function() {
 		var portletAlert = $("#frameAlert");
-		gfnLoad("aweportal", "portletAlert", portletAlert, function(OUTVAR) {
+		gfnLoad("aweportal",  function(OUTVAR) {
 		}, true);
 	}
 	
-	//한 개의 특정 페이지로 이동
-	me.goOne = function(grpid) {
-		//1. 이미 열려있는 채팅방 페이지로 (채팅방 이름과 id를 사용해서)이동하도록 구현
-		var toPage;
-
-		toPage = me.pageContainer.children(".framepage[grpid='"+grpid+"']");
-
-		toPage.addClass("active");
-		toPage.show();
-
-		//2. 현재 활성화된 페이지의 active를 제거한 뒤, hide()처리
-		me.pageContainer.children(".framepage").removeClass("active");
-		me.pageContainer.children(".framepage").hide();
-
-		//3. 전환될 페이지를 active 상태로 show()
-		toPage.addClass("active");
-		toPage.show();
-
-		//4. 현재 페이지 탭의 active를 제거
-		me.tabContainer.children("a.active").removeClass("active");
-
-		//5. 이동한 페이지의 tab을 active
-		me.tabContainer.children("a[pageidx='"+ toPage.attr("id") +"']").addClass("active");
-
-		//6. frameBottom CSS 추가
-		me.syncGNB();
-	}
-
-	//특정 framepage로 이동 
+	//특정 framepage로 이동 *
 	me.go = function(to) { 
 		var curPage = me.pageContainer.children(".framepage.active");
 		if(curPage.length < 1) {
@@ -132,7 +85,7 @@ function gfnMDI(pageContainer,tabContainer) {
             //prev/next는 tab기준으로 한다
 			var toTab = me.tabContainer.children("a.active")[to]();
 			if(toTab.length==0) {
-				gfnStatus("이동할 수 있는 페이지의 끝입니다.");
+				// gfnStatus("이동할 수 있는 페이지의 끝입니다.");
 				toTab = (to=="prev")?me.tabContainer.children("a").last():me.tabContainer.children("a").first(); //한바퀴 돌리고
 			} 
 			if(toTab.length==0) toPage = $("#frameHome"); //그래도 없으면 frameHome으로 
@@ -155,18 +108,14 @@ function gfnMDI(pageContainer,tabContainer) {
 		toPage.show();
 		me.tabContainer.children("a.active").removeClass("active");
 		me.tabContainer.children("a[pageidx='"+ toPage.attr("id") +"']").addClass("active");		
-		me.syncGNB();  
+		
 	}  
-	//특정 framepage로 이동 
+	//특정 framepage로 이동 *
 	me.focusPage = function(pageidx) {  
 		me.go(pageidx);  
 	}
-	//frameHome만 남기고 다 숨겨줌
-	me.hideAll = function() { 
-		me.go(0);
-	}
 
-	//프레임페이지를 중복 없이 한 개만 열기
+	//프레임페이지를 중복 없이 한 개만 열기*
 	me.openPageOne = function(pgmid, pagenm, grpid, grpnm) {
 		//아래는 openPage와 코드가 같으며, page 넘버링 및 탭 추가, 화면 추가 전환 코드
 		//if(afnCallback==undefined) afnCallback=gfnCallback;
@@ -183,22 +132,10 @@ function gfnMDI(pageContainer,tabContainer) {
 
 		gfnLoad("aweportal", pgmid, oPage, function(OUTVAR){
 			var oTab = $('<a class="tab" pageidx="page'+me.idx+'" grpid="'+grpid+'"><div>'+pagenm+'</div><i class="fa fa-times closetab"></i></a>');
-			oTab.bind('mouseenter', function(){ /* 폭이 좁아져서 ...이 되면 tooltip으로 화면명 표시 */
-				var $this = $(this); 
-				if(this.offsetWidth < this.scrollWidth && !$this.attr('title')){
-					$this.attr('title', $this.text());
-					$this.tooltip({
-						content: $this.text()
-					}); 
-				}
-			});
+			oTab.bind
 			
 			//요청으로 생성되는 탭을 포함해서 카운트하도록 탭을 먼저 생성
 			me.tabContainer.append(oTab);
-
-			//현재 활성화된 탭과 페이지의 넘버는 탭의 개수와 무관하므로(중간 탭을 닫아 중간 번호가 삭제되었을 수 있다)
-			//getNext로 생성된 페이지 넘버만큼 카운트하는 것이 탭의 개수를 구함
-			var countTab = me.getNum();
 
 			//중복 카운트
 			var count = 0;
@@ -234,7 +171,7 @@ function gfnMDI(pageContainer,tabContainer) {
 		});
 	}
 
-	//framepage 열기(추가)
+	//framepage 열기(추가)*
 	me.openPage = function(pgmid, pagenm, afnCallback, appid) { 
 		if(afnCallback==undefined) afnCallback=gfnCallback;
 		//get pgm info 
@@ -256,68 +193,22 @@ function gfnMDI(pageContainer,tabContainer) {
 		gfnLoad(appid, pgmid, oPage, function(OUTVAR){
 			//addTab
 			var oTab = $('<a class="tab" pageidx="page'+me.idx+'"><div>'+pagenm+'</div><i class="fa fa-times closetab"></i></a>');
-			oTab.bind('mouseenter', function(){ /* 폭이 좁아져서 ...이 되면 tooltip으로 화면명 표시 */
-				var $this = $(this); 
-				if(this.offsetWidth < this.scrollWidth && !$this.attr('title')){
-					$this.attr('title', $this.text());
-					$this.tooltip({
-						content: $this.text()
-					}); 
-				}
-			});
 			me.tabContainer.append(oTab); 
 			//addPage
 			me.pageContainer.append(oPage);
 			//focus
 			me.go(oPage); 
-			//flex 리사이즈 기능
-			gfnPageLayoutResizable(oPage); 
+			// //flex 리사이즈 기능
+			// gfnPageLayoutResizable(oPage); 
 
 			//callback
             if(typeof(afnCallback)=='function') afnCallback(OUTVAR);
 
-			//Logging
-			var invar = JSON.stringify({ pgmid : pgmid });
-			gfnTx("aweportal.systemLog", "insertOpenPageLog", { INVAR : invar }, function(OUTVAR) {
-				if(OUTVAR.rtnCd != "OK") console.log(OUTVAR); 
-			});
 		});
 	}
 
-	//채널 생성(중복 x)
-	me.openChat = function(pgmid, grpid) {
-		var count = 0;
-		var container = $("<div id='" + grpid + "' class='frameChat focus'></div>");
 
-		//페이지 카운트
-		if(document.getElementById(grpid)) count++;
-
-		//페이지가 존재하는 경우, 페이지 넘버를 이전으로 돌린 후, 리턴
-		if(count > 0) return;
-		
-		//grpid 메세지 채널이 없는 경우, frameChat 메세지 채널을 삽입
-		else {
-			gfnLoad("aweportal", pgmid, container, function(OUTVAR) {
-				$("#frameChat").append(container);
-			}, true);
-		}
-	}
-
-	//한페이지 생성된 탭닫기
-	me.closeTabOne = function(grpid) {
-		me.goOne(grpid);
-		me.go("next");
-
-		me.pageContainer.children(".framepage[grpid='"+grpid+"']").remove();
- 		me.tabContainer.children("a.tab[grpid='"+grpid+"']").remove();
-
-		if(me.tabContainer.children("a").length==0) {
-			//if(!me.tabContainer.hasClass("hidden")) me.tabContainer.addClass("hidden");
-			me.go(0);
-		}
-	}
-
-	//탭과 페이지 닫기
+	//탭과 페이지 닫기 *
 	me.closeTab = function(pageidx) {
 		if(pageidx=="frameHome") {
 			gfnStatus("홈화면은 닫을 수 없습니다.");
@@ -348,30 +239,6 @@ function gfnMDI(pageContainer,tabContainer) {
 		}
 	} 
 
-	//채널 닫기
-	me.closeChat = function(grpid) {
-		$(".frameChat[id='" + grpid + "']").remove();
-	}
-
-	me.screen = function(bMax) {   
-		var curPage = $("#frameMain .framepage.active");
-		if(curPage.length == 0 || curPage.attr("id")=="frameHome") return;
-		if(bMax==undefined) {
-			bMax = (curPage.attr("stat")!="max");
-		}
-		if(bMax) { 
-			gFrameset.fnShowFrameLeftBar(false);
-			$("#frameGNB").css("display","none");
-			$("#frameBottom nav .screen").addClass("max");
-			gFrameset.fnFramesetLayout(); 
-			curPage.attr("stat","max");
-		} else {
-			$("#frameGNB").css("display","block");
-			$("#frameBottom nav .screen").removeClass("max");
-			gFrameset.fnFramesetLayout();
-			curPage.attr("stat","normal");
-		} 
-	}
 
 	me.close = function() {
 		var curPage = $("#frameMain .framepage.active");
@@ -402,14 +269,6 @@ function gfnMDI(pageContainer,tabContainer) {
 		} 
 	}); 
 
-	/* 현재시간 : frameset의 fnInit()에 있어야 하지만 소스엉킴 문제로 gfnMDI에서 구현 */ 
-	if( $("#frameGNB .curtime").length > 0) $("#frameGNB .curtime").remove(); 
-	var curtime = $("<div class='curtime'></div>"); 
-	$("#frameGNB nav.frameBtnSet.A").append(curtime);
-	function curtime_ticker() {
-		$("#frameGNB .curtime").html( date("today","mm월dd일<br>(w요일)<br>hh24:mi:ss") );
-	} 
-	window.setInterval( curtime_ticker, 1000); 
 	
 	return me;
 }
@@ -770,85 +629,71 @@ function gfnFramepage( page ) {
 function gfnComponent( pageId, containerId, componentDef, afnEH, page ) {
 	var me = this; 
 	me.componentId = containerId;
-	me.containerId = "#"+pageId+" "+((containerId=="pageCond")?".":"#")+containerId;
+	me.containerId = "#"+pageId+", "+((containerId=="pageCond")?".":"#")+containerId;
     me.container = $(me.containerId); 
 	me.componentDef = $.extend({},componentDef);
+
+	// console.log(me.componentId);	// pageCond
+	// console.log(me.containerId);	// #page1, .pageCond
+	// console.log(me.container);		//
+	// console.log(me.componentDef);	// Container에 대한 정보(+Control 정보)
+
 	me.init = function() {
 		me.container.addClass("componentContainer");
-		if(containerId=="pageCond") me.initPageCond();
+		if(containerId=="pageCond")
+		{
+			me.initPageCond();
+		}
 		else me.initComponentTitle();
 		me.initComponentBody();
 		return me;
 	}
 	me.initPageCond = function() {
-		//reset버튼 추가
-		me.container.children(".btnClear").remove();
-		var btnClear = $(`<button class="btnClear">Reset</button>`);
-		btnClear.on("click", me.initComponentBody );
-		me.container.append(btnClear);
-		//pageTitle 옆에 pageCond 숨기기버튼 추가
-		if(isNull(page)) return;
-		if(isNull(page.pageObj["_page"].pageTitle)) return;
-		page.pageObj["_page"].pageTitle.find(".btnCond").remove(); //없애고 추가 
-		var btnCond = $(`<button class="btnCond"><i class="fas fa-chevron-up"></i></button>`);
-		btnCond.on("click",function(e){ // pageCond를 보이거나 숨긴다.
-			if(btnCond.hasClass("closed")) {
-				btnCond.removeClass("closed");
-				btnCond.children("i")
-					.removeClass("fa-chevron-up")
-					.addClass("fa-chevron-down");
-				page.page.find(".pageCond").show();
-			} else {
-				btnCond.addClass("closed");
-				btnCond.children("i")
-					.removeClass("fa-chevron-down")
-				    .addClass("fa-chevron-up");
-				page.page.find(".pageCond").hide();
-			}
-		});
-		page.pageObj["_page"].pageTitle.append(btnCond);
+
 	},
 	me.initComponentTitle = function() {
 		me.container.children("*").remove(); //일단 지우고 시작
 		me.container.html("");
 		me.componentTop = $(`<div class="componentTop"></div>`);
+
 		//ComponentTitle
-		me.componentTitle = $(`<h3 class="componentTitle"></h3>`);
-		if(!isNull(me.componentDef.data_icon)) {
-			me.componentTitle.append(`<i class="${me.componentDef.data_icon}"></i>`);
-		} else {
-			me.componentTitle.append(`<i class="fas fa-square"></i>`);
-		}
-		if(!isNull(me.componentDef.data_nm)) me.componentTitle.append(`<span>${me.componentDef.data_nm}</span>`); 
-		me.componentTitle.on("click",function(e) { //클릭하면 func와 body를 보이거나 숨긴다. 
-			if( me.componentTitle.hasClass("closed")) {
-				me.componentTitle.removeClass("closed"); 
-				me.componentTop.children(".componentFunc").show();
-				me.container.children(".componentBody").show();
-				me.container.removeClass("contentClosed"); 
-			} else {
-				me.componentTitle.addClass("closed");
-				me.componentTop.children(".componentFunc").hide();
-				me.container.children(".componentBody").hide(); 
-				me.container.addClass("contentClosed"); 
-				/*me.container.css("flex","unset !important")
-				if(me.container.siblings(".componentContainer").find(".componentBody.agGrid").length > 0) {
-					me.container.siblings(".componentContainer").css("flex","1 1 auto"); 
-				} 
-				*/ 
-			}
-		});
+		me.componentTitle = $(`<div class="componentTitle">${me.componentDef.data_nm}</div>`);
+		// if(!isNull(me.componentDef.data_icon)) {
+		// 	me.componentTitle.append(`<i class="${me.componentDef.data_icon}"></i>`);
+		// } else {
+		// 	me.componentTitle.append(`<i class="fas fa-square"></i>`);
+		// }
+		// if(!isNull(me.componentDef.data_nm)) me.componentTitle.append(`<span>${me.componentDef.data_nm}</span>`); 
+		// me.componentTitle.on("click",function(e) { //클릭하면 func와 body를 보이거나 숨긴다. 
+		// 	if( me.componentTitle.hasClass("closed")) {
+		// 		me.componentTitle.removeClass("closed"); 
+		// 		me.componentTop.children(".componentFunc").show();
+		// 		me.container.children(".componentBody").show();
+		// 		me.container.removeClass("contentClosed"); 
+		// 	} else {
+		// 		me.componentTitle.addClass("closed");
+		// 		me.componentTop.children(".componentFunc").hide();
+		// 		me.container.children(".componentBody").hide(); 
+		// 		me.container.addClass("contentClosed"); 
+		// 		/*me.container.css("flex","unset !important")
+		// 		if(me.container.siblings(".componentContainer").find(".componentBody.agGrid").length > 0) {
+		// 			me.container.siblings(".componentContainer").css("flex","1 1 auto"); 
+		// 		} 
+		// 		*/ 
+		// 	}
+		// });
 		me.componentTop.append(me.componentTitle);
+		
 		//ComponentFunc  
-		//if(!isNull(me.componentDef.component_option)) { 
+		if(!isNull(me.componentDef.component_option)) { 
 			me.componentTop.children(".componentFunc").remove();
 			me.componentFunc = $(`<div class="componentFunc"></div>`);
 			//component_option .remark, .content, .func
-			if(!isNull(me.componentDef.component_option) &&
-			   !isNull(me.componentDef.component_option.remark)) me.componentFunc.append(`<h5 class="quickGuide">${componentDef.component_option.remark}</h5>`);
+			if(!isNull(me.componentDef.component_option) && !isNull(me.componentDef.component_option.remark)) {
+				me.componentFunc.append(`<h5 class="quickGuide">${componentDef.component_option.remark}</h5>`);
+			}
 			//[SEL:30줄씩][BTN:추가] 등을 구현할때 아래와 같이 사용한다.
-			if(!isNull(me.componentDef.component_option) &&
-			   !isNull(me.componentDef.component_option.content)) { 
+			if(!isNull(me.componentDef.component_option) && !isNull(me.componentDef.component_option.content)) { 
 				me._componentCond = {};
 				for(var i=0; i < me.componentDef.component_option.content.length; i++) {
 					var colinfo = me.componentDef.component_option.content[i]; 
@@ -859,32 +704,36 @@ function gfnComponent( pageId, containerId, componentDef, afnEH, page ) {
 					me.componentFunc.append( me._componentCond[colinfo.colid].dispObj );
 				}
 			} 			
-			if(!isNull(me.componentDef.component_option) &&
-			   !isNull(me.componentDef.component_option.func)) { 
+			if(!isNull(me.componentDef.component_option) && !isNull(me.componentDef.component_option.func)) { 
 				//기능버튼이 있으면 추가해주고
+				console.log("기능버튼이 있어 버튼을 생성합니다.");
 				me._componentFunc = new gfnButtonSet(me.componentFunc, me.componentDef.component_option.func, function(btnSet, evt, funcid, func) { 
 					//이벤트를 바인딩해준다. 이때 이벤트유형은 componentFunc이다.
 					afnEH(me, "componentFunc", funcid, func);
 				}); 
-			} else {
+			} 
+			else {
 				me._componentFunc = new gfnButtonSet(me.componentFunc); 
 			}
 			me.componentTop.append(me.componentFunc);
-		//}
+		}
 		me.container.append(me.componentTop);
+		$(`.${me.componentDef.data_id}`).append(me.componentTop);
 	} 
 	me.initComponentBody = function() {
 		me.componentBody = $(`<div class="componentBody"></div>`); 
 		me.componentBody.addClass(me.componentDef.component_pgmid);
 		me.component_option = me.componentDef.component_option;
+
 		//컴포넌트Body그리드 높이지정: 미지정시 컨텐츠에 맞게 늘어남 
 		if(!isNull(me.component_option)) {
 			if(!isNull(me.component_option.height)) me.componentBody.css("height",me.component_option.height );
 			if(!isNull(me.component_option.width)) me.componentBody.css("width",me.component_option.width );
 			if(!isNull(me.component_option.class)) me.componentBody.addClass( me.component_option.class );
-		}    
+		} 
+		   
         //aweForm의 Body
-		if( me.componentDef.component_pgmid =="aweForm" ) {  
+		if( me.componentDef.component_pgmid =="aweForm" ) {
 			me.colinfo = me.componentDef.content;
 			me.col = {}; //aweForm은 me.col[colid] 로 해당 컬럼에 접근할 수 있다. 
 			me.data = {}; //정의되지 않은 컬럼의 값도 get/set하고 import/export할 수 있다.
@@ -895,26 +744,36 @@ function gfnComponent( pageId, containerId, componentDef, afnEH, page ) {
 			var curColgrp = "_init";
 			for(var i =0; i < me.colinfo.length; i++) {
 				var colinfo = me.colinfo[i];
-				//section이 없거나 바뀌었으면...
-				if(isNull(nvl(colinfo.section,""))) container = me.componentBody;
-				else if (colinfo.section!=curSection) {
-                    curSection = colinfo.section;
-					container = $(`<fieldset section="${curSection}"></fieldset>`).appendTo(me.componentBody);
-					var sLegend = $(`<legend></legend>`);
-					if(!isNull(colinfo.section_icon)) sLegend.append(`<i class="${colinfo.section_icon}"></i>`);
-					sLegend.append( " "+curSection );
-					container.append( sLegend );
-				} 
-				//colgrp이 바뀌었으면...라벨을 달아줘야함
+
 				if(isNull(nvl(colinfo.colgrp,""))) {
-					grpcontainer = $(`<div colgrp="${colinfo.colnm}"></div>`).appendTo(container);
-					grpcontainer.append(`<label>${colinfo.colnm}</label>`);
-				} else if (colinfo.colgrp!=curColgrp) {
-                    curColgrp = colinfo.colgrp;
-					grpcontainer = $(`<div colgrp="${curColgrp}"></div>`).appendTo(container);
-					grpcontainer.append(`<label>${curColgrp}</label>`);
+					// container.append(`<div class="inputWrap ${colinfo.etype}" colgrp="${colinfo.colnm}" style="width: ${colinfo.w}em"></div>`);
+					grpcontainer = $(`<div class="inputWrap ${colinfo.etype}" colgrp="${colinfo.colnm}" style="width: ${colinfo.w}em"></div>`).appendTo(container);
+					$(`<i class="${colinfo.section_icon}"></i>`).appendTo(grpcontainer);
 				} 
-                grpcontainer.addClass(colinfo.attr);
+
+				//section이 없거나 바뀌었으면...
+				// if(isNull(nvl(colinfo.section,""))) {
+				// 	container = me.componentBody;
+				// }
+				// else if (colinfo.section!=curSection) {
+                //     curSection = colinfo.section;
+				// 	container = $(`<fieldset section="${curSection}"></fieldset>`).appendTo(me.componentBody);
+				// 	var sLegend = $(`<legend></legend>`);
+				// 	if(!isNull(colinfo.section_icon)) sLegend.append(`<i class="${colinfo.section_icon}"></i>`);
+				// 	sLegend.append( " "+curSection );
+				// 	container.append( sLegend );
+				// } 
+
+				//colgrp이 바뀌었으면...라벨을 달아줘야함
+				// container = <div class="componentBody aweForm">
+				// else if (colinfo.colgrp!=curColgrp) {
+                //     curColgrp = colinfo.colgrp;
+				// 	grpcontainer = $(`<div colgrp="${curColgrp}"></div>`).appendTo(container);
+				// 	// grpcontainer.append(`<label>${curColgrp}</label>`);
+				// 	grpcontainer.append(`<div>${curColgrp}</div>`);
+				// } 
+                container.addClass(colinfo.attr);
+
 				/*************************************************************************/
 				/* 컬럼: 컨트롤&eventHandler Callback *************************************/
 				/*************************************************************************/
@@ -2943,6 +2802,7 @@ function gfnChkValid(colinfo,val,bWarn,rowid) {
 	
 	return true; 
 }
+
 /** colInfo를 받아서 html control을 return함  
 dtype	etype		attr
 ======	==========	===============	
@@ -2961,7 +2821,7 @@ text	txt			readonly
 */
 function gfnControl(colinfo, afnEH, oComponent, rowid, val, rowPinned, agHack) {
 	var me = this;
-        me.oComponent = oComponent;
+	me.oComponent = oComponent;
 	me.colinfo = $.extend({},colinfo); //colinfo가 null일때 exception처리때문에 {}로 치환 
 	me.afnEH = afnEH;
 	me.obj = $("<span class='aweCol'></span>"); 
@@ -2974,7 +2834,8 @@ function gfnControl(colinfo, afnEH, oComponent, rowid, val, rowPinned, agHack) {
 			me.colinfo.attr = me.colinfo.attr.replace("ymd","").replace("auto","").replace("pop","");
 		}  
 	} 	
-	me.init = function() { 
+	me.init = function() {
+		
 		me.colid = nvl(me.colinfo.colid,"");
 		me.dtype = nvl(me.colinfo.dtype,"text");
 		me.etype = nvl(me.colinfo.etype,"txt");
@@ -3034,28 +2895,28 @@ function gfnControl(colinfo, afnEH, oComponent, rowid, val, rowPinned, agHack) {
 		if( me.etype=="pre") {
 			obj =  $(`<${me.etype}></${me.etype}>`); 
 		} else if(me.etype=="txt") {
-			obj =  $(`<input type="text"/>`); 
+			obj =  $(`<input type="text" placeholder="${me.remark}"/>`); 
 		} else if(me.etype=="pwd") {
-			obj =  $(`<input type="password"/>`); 
-		} else if(me.etype=="cbx") {
-			obj =  $(`<input type="checkbox"/>`);
+			obj =  $(`<input type="password" placeholder="${me.remark}"/>`); 
 		} else if(me.etype=="sel") {
 			if(me.agHack=="selRenderer") {
 				obj = $(`<span></span>`); 
 			} else {
 				obj =  $(`<select></select>`);
 			} 
+		} else if(me.etype=="cbx") {
+			// obj =  $(`<input type="checkbox"/>`);
 		} else if(me.etype=="tarea") {
-			obj =  $(`<textarea></textarea>`); 
+			// obj =  $(`<textarea></textarea>`); 
 		} else if(me.etype=="img") {
-			obj =  $(`<img></img>`); 
+			// obj =  $(`<img></img>`); 
 		} else if(me.etype=="link") {
-			obj =  $(`<a target="_blank"></a>`); 
+			// obj =  $(`<a target="_blank"></a>`); 
 		} else if(me.etype=="btn") { 
-			obj =  $(`<button></button>`); 
-			obj.addClass("ui-button");
+			// obj =  $(`<button></button>`); 
+			// obj.addClass("ui-button");
 		} else if(me.etype=="none") {
-			obj.addClass("hidden");
+			// obj.addClass("hidden");
 		}
 		if(!isNull(me.oOption)) {
 			Object.keys(me.oOption).forEach(key=>{
@@ -3214,6 +3075,7 @@ function gfnControl(colinfo, afnEH, oComponent, rowid, val, rowPinned, agHack) {
 
 		/* select2 적용  */
 		if(me.etype=="sel") {
+			
 			if(me.agHack!="selRenderer") {
 				if(!isNull(me.oComponent) && !isNull(me.oComponent.componentId) && me.oComponent.componentId=="pageCond") {
 					if(!isNull(me.oComponent) && !isNull(me.oComponent.componentId) && me.oComponent.componentId=="pageCond") {
@@ -3240,6 +3102,7 @@ function gfnControl(colinfo, afnEH, oComponent, rowid, val, rowPinned, agHack) {
 	}  
 	//값 변경시 데이터형식에 맞게 값 정제
 	me.setter = function(val) {  
+		// console.log("me.setter") ;
 		if(me.dtype=="num") {
 			if(inStr(me.attr,"dec1")>=0) return format(toNum(val),1);
 			else if(inStr(me.attr,"dec2")>=0) return format(toNum(val),2);
@@ -3273,6 +3136,7 @@ function gfnControl(colinfo, afnEH, oComponent, rowid, val, rowPinned, agHack) {
 	}
 	//값 세팅
     me.setVal = function(val,bIinitialSkip) {
+		// console.log("me.setVal") ;
 		if( me.etype=="raw") {
 			me.obj.includeObj(".aweCol").html(me.setter(val));
 		} else if( me.etype=="pre") {
@@ -3346,6 +3210,7 @@ function gfnControl(colinfo, afnEH, oComponent, rowid, val, rowPinned, agHack) {
 	}
 	//표시값 가져오기 
 	me.dispVal = function() {
+		// console.log("me.disVal") ;
 		var rtn = null;		
 		if( me.etype=="raw") {
 			rtn = me.obj.includeObj(".aweCol").html();
@@ -3378,6 +3243,7 @@ function gfnControl(colinfo, afnEH, oComponent, rowid, val, rowPinned, agHack) {
 	}
 	//데이터형식에 맞는 값 가져오기 
 	me.getVal = function() {
+		// console.log("me.getVal") ;
 		var rtn = me.dispVal();
 		if(me.dtype=="num") return toNum(rtn); 
 		else if (me.dtype=="ymd") return date(rtn,"yyyy-mm-dd","yyyymmdd"); 
@@ -3385,6 +3251,7 @@ function gfnControl(colinfo, afnEH, oComponent, rowid, val, rowPinned, agHack) {
 	}  
 	//ATTR에 따른 상태처리 
 	me.setDisable = function(bLock) {
+		// console.log("me.setDisable") ;
 		if(bLock==true) {
 			me.obj.includeObj(".aweCol").addClass("disabled");
 			me.obj.includeObj(".aweCol").attr("disabled","disabled"); 
@@ -3396,6 +3263,7 @@ function gfnControl(colinfo, afnEH, oComponent, rowid, val, rowPinned, agHack) {
 		}
 	} 
 	me.setReadonly = function(bLock) {
+		// console.log("me.setReadonly") ;
 		if(bLock==true) {
 			me.obj.includeObj(".aweCol").addClass("readonly");
 			me.obj.includeObj(".aweCol").attr("readonly","readonly");
@@ -3410,6 +3278,7 @@ function gfnControl(colinfo, afnEH, oComponent, rowid, val, rowPinned, agHack) {
 		}
 	}		
 	me.setHidden = function(bHide) {
+		// console.log("me.setHidden") ;
 		if(bHide==true) {
 			me.obj.hide();
 			if(!isNull(me.dispObj)) me.dispObj.hide();
@@ -3422,6 +3291,7 @@ function gfnControl(colinfo, afnEH, oComponent, rowid, val, rowPinned, agHack) {
 	}	
 	//컨트롤에 포커스 주기 
 	me.focus = function() {
+		// console.log("me.focus") ;
 		if(!me.obj.includeObj(".aweCol").is(":focus")) { 
 			setTimeout(function() {
 				//console.log("focus on me.obj:"+me.colinfo.colid);
@@ -3433,13 +3303,16 @@ function gfnControl(colinfo, afnEH, oComponent, rowid, val, rowPinned, agHack) {
 	}
 	//option을 변경해 줌
 	me.refreshOptions  = function(arr) {
+		// console.log("me.refreshOption") ;
 		var obj = me.obj.includeObj(".aweCol"); 
 		gfnSetOpts(obj, arr, me.option, me.getVal() );
 	}
 	//값이 Valid한지 Return
 	me.chkValid = function(bWarn) { 
+		// console.log("me.chkValid") ;
 		return gfnChkValid(me.colinfo, me.getVal(), bWarn);
 	}
+
 	me.init(); //초기화호출
 }
 

@@ -191,6 +191,7 @@ body{
 	outline: none;
 }
 
+
 /* Password Control */
 .componentBody > .inputWrap.pwd > input{
 	border: none;
@@ -253,3 +254,4 @@ body{
 	background-color: #1e7ae1;
 	color: white;
 }
+
