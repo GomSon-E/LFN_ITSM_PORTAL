@@ -1,0 +1,154 @@
+<style>[pgmid='TemplateEditro'].framepage .userClass { 
+width:100%; 
+}</style>
+
+<!-- HTML autogen start ---------------------------------------------- -->            
+<div class="pageNav"></div>
+<div class="pageTop"></div>
+<div class="pageCond"></div>
+<div class="pageGuide"></div>
+<div class="pageContent flexRow">
+    <div id='list' style="flex:1 1 20em" class="flexColumn"></div>
+    <div style="flex:1 1 calc(80% - 20em)" class="flexColumn">
+        <div id='mst'></div>
+        <div id='det' class="flexColumn"></div> 
+    </div> 
+</div>
+<div id="edit" style="display:none"></div>
+<!-- HTML autogen end ---------------------------------------------- -->
+<script>
+/*-- SCRIPT autogen start ---------------------------------------------- */        
+$(function() {
+    var appid = "workbench";
+    var pgmid = "TemplateEditor"; 
+    var page = $("*[pgmid='"+pgmid+"'].framepage").last();
+    var pageid = page.attr("id"); 
+    var me = {}
+    var dataSet = {};
+    var dataDef = {};
+    var pageObj = {};
+    var bEdit = false;
+    me.fnInit = function() {
+        gfn[pageid] = me; 
+        me.appid    = appid;
+        me.pgmid    = pgmid;
+        me.pageid   = pageid;
+        me.page     = page; 
+        me.dataSet = dataSet;
+        me.dataDef = dataDef;
+        me.pageObj = pageObj;
+        me.bEdit = bEdit;
+me.dataDef["_pgm"]={"pgmid":"TemplateEditor","pgm_nm":"문서템플릿에디터","pgm_tp":"UX","proc_mst_id":"","proc_mst_nm":"","remark":"문서양식 구조와 구성요소의 유형과 데이터셋을 정의한다.","ver":0.11,"pgm_stat":"Y","reg_usid":"lkh","reg_dt":"2021-10-08 11:27:28","upd_usid":"lkh","upd_dt":"2021-10-08 11:27:28","app_pgmid":"workbench","pgm_grp_nm":"시스템개발","sort_seq":4,"shortcut":"","crud":"C","app_pgm_nm":"개발워크벤치"};
+me.dataDef["_pgm_func"]=[{"func_icon":"fas fa-search","reg_dt":"2021-10-08 11:27:28","reg_usid":"","func_nm":"조회","upd_usid":"","upd_dt":"2021-10-08 11:27:28","func_tp":null,"remark":null,"pgmid":"TemplateEditro","sort_seq":"1","funcid":"search","content":null,"crud":"R"},{"func_icon":"fa fa-file-invoice","reg_dt":"2021-10-08 11:27:28","reg_usid":"","func_nm":"미리보기","upd_usid":"","upd_dt":"2021-10-08 11:27:28","func_tp":null,"remark":null,"pgmid":"TemplateEditro","sort_seq":"2","funcid":"preview","content":null,"crud":"R"},{"func_icon":"fas fa-save","reg_dt":"2021-10-08 11:27:28","reg_usid":"","func_nm":"저장","upd_usid":"","upd_dt":"2021-10-08 11:27:28","func_tp":null,"remark":null,"pgmid":"TemplateEditro","sort_seq":"3","funcid":"save","content":null,"crud":"R"}];
+me.dataDef["_pgm_data"] = {};
+me.dataDef["_pgm_data"]["list"]={"sort_seq":"1","data_id":"list","data_nm":"문서양식 목록","data_icon":null,"component_pgmid":"agGrid","component_option":{"func":[{"funcid":"addRow","func_nm":"줄추가","func_icon":"fas fa-plus"},{"funcid":"delRow","func_nm":"줄삭제","func_icon":"fas fa-minus"}]},"inout_tp":"INOUT","content":[{"sort_seq":1,"section":null,"section_icon":null,"colgrp":null,"colid":"sort_seq","colnm":"정렬순번","dtype":"text","etype":null,"attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":2,"section":null,"section_icon":null,"colgrp":null,"colid":"doc_template_id","colnm":"문서템플릿","dtype":"text","etype":null,"attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":3,"section":null,"section_icon":null,"colgrp":null,"colid":"title","colnm":"제목","dtype":"text","etype":null,"attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"}]};
+me.dataDef["_pgm_data"]["mst"]={"sort_seq":"2","data_id":"mst","data_nm":"문서양식","data_icon":null,"component_pgmid":"aweForm","component_option":null,"inout_tp":"INOUT","content":[{"sort_seq":1,"section":null,"section_icon":null,"colgrp":null,"colid":"doc_template_id","colnm":"문서템플릿","dtype":"text","etype":"txt","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":2,"section":null,"section_icon":null,"colgrp":null,"colid":"title","colnm":"제목","dtype":"text","etype":"txt","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":3,"section":null,"section_icon":null,"colgrp":null,"colid":"content","colnm":"문서구조HTML","dtype":"text","etype":"tarea","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":4,"section":null,"section_icon":null,"colgrp":null,"colid":"doc_tp","colnm":"문서유형","dtype":"text","etype":"sel","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":5,"section":null,"section_icon":null,"colgrp":null,"colid":"doc_fileid","colnm":"아이콘","dtype":"text","etype":"img","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":6,"section":null,"section_icon":null,"colgrp":null,"colid":"ref_info_tp","colnm":"참조정보유형","dtype":"text","etype":"sel","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":7,"section":null,"section_icon":null,"colgrp":null,"colid":"doc_stat_tp","colnm":"문서상태유형","dtype":"text","etype":"cbx","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":8,"section":null,"section_icon":null,"colgrp":null,"colid":"rcv_desc","colnm":"수신설명","dtype":"text","etype":"txt","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":9,"section":null,"section_icon":null,"colgrp":null,"colid":"sort_seq","colnm":"정렬순번","dtype":"num","etype":"txt","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":10,"section":null,"section_icon":null,"colgrp":null,"colid":"reg_usid","colnm":"등록사용자ID","dtype":"text","etype":null,"attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":11,"section":null,"section_icon":null,"colgrp":null,"colid":"reg_dt","colnm":"등록일시","dtype":"text","etype":null,"attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":12,"section":null,"section_icon":null,"colgrp":null,"colid":"upd_usid","colnm":"변경사용자ID","dtype":"text","etype":null,"attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":13,"section":null,"section_icon":null,"colgrp":null,"colid":"upd_dt","colnm":"수정일시","dtype":"text","etype":null,"attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"}]};
+me.dataDef["_pgm_data"]["det"]={"sort_seq":"3","data_id":"det","data_nm":"구성요소","data_icon":null,"component_pgmid":"agGrid","component_option":{"func":[{"funcid":"addRow","func_nm":"줄추가","func_icon":"fas fa-plus"},{"funcid":"delRow","func_nm":"줄삭제","func_icon":"fas fa-minus"}]},"inout_tp":"INOUT","content":[{"sort_seq":1,"section":null,"section_icon":null,"colgrp":null,"colid":"content_seq","colnm":"내용순번","dtype":"num","etype":"txt","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":2,"section":null,"section_icon":null,"colgrp":null,"colid":"content_tp","colnm":"내용유형","dtype":"text","etype":"sel","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":3,"section":null,"section_icon":null,"colgrp":null,"colid":"title","colnm":"제목","dtype":"text","etype":"txt","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":4,"section":null,"section_icon":null,"colgrp":null,"colid":"content","colnm":"내용","dtype":"text","etype":"tarea","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":5,"section":null,"section_icon":null,"colgrp":null,"colid":"reg_usid","colnm":"등록사용자ID","dtype":"text","etype":null,"attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":6,"section":null,"section_icon":null,"colgrp":null,"colid":"reg_dt","colnm":"등록일시","dtype":"text","etype":null,"attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":7,"section":null,"section_icon":null,"colgrp":null,"colid":"upd_usid","colnm":"변경사용자ID","dtype":"text","etype":null,"attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":8,"section":null,"section_icon":null,"colgrp":null,"colid":"upd_dt","colnm":"수정일시","dtype":"text","etype":null,"attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"}]};
+me.dataDef["_pgm_data"]["editor"]={"sort_seq":"4","data_id":"editor","data_nm":"구성요소내용 HTML편집","data_icon":null,"component_pgmid":"aweForm","component_option":null,"inout_tp":"IN","content":[{"sort_seq":1,"section":null,"section_icon":null,"colgrp":null,"colid":"content","colnm":"내용","dtype":"text","etype":"tarea","attr":null,"defval":null,"w":"80","h":"20","refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"}]};
+
+        me.pageObj["_page"] = new gfnFramepage( me ); 
+        for(var component_id in me.dataDef["_pgm_data"]) { 
+            me.pageObj[component_id] = new gfnComponent( me.pageid, component_id, me.dataDef["_pgm_data"][component_id], me.fnEH, me); 
+        }  
+        setTimeout(function(){
+            $("#frameset").scrollTo(0); //스크롤 
+        },10);
+        if(typeof(me.fnInitExtra)=='function') me.fnInitExtra(); 
+    } 
+/*-- SCRIPT autogen end ---------------------------------------------- */
+
+            /* 사용자초기화 */
+    me.fnInitExtra=function() {
+        //탭 설정
+        //gfnTab(pageid, "tabs", {"multi-active":"off","toggle-switch":"on"}); 
+        //사용자 컴포넌트 
+        //me.dataDef["_pgm_data"][myCompoId] = {...};
+        //me.pageObj["myCompoId"] = new gfnComponent( me.pageid, myCompoId, me.dataDef["_pgm_data"][myCompoId], me.fnEH, me); 
+        //me.pageObj["myCompoId"].userComponent = "myCompoId";
+        //사용자 컨트롤
+        //var myColinfo = {colid:...}
+        //me.pageObj["myColId"] = new gfnControl(myColinfo, me.fnEH) 
+        //me.page.find("#myCol").append(me.pageObj["myColId"].dispObj);
+        //me.pageObj["myColId"].getVal(); / myCol.setVal(val);...    
+    }
+    /* 이벤트핸들러 */
+    me.fnEH=function(component, evt, row, col, val) { 
+        //console.log(evt+","+row+","+col+","+val);
+        //화면기능버튼이 눌리면 
+        if (component==me.pageObj["_pageFunc"]){ 
+            if(typeof(me[col])=='function') me[col](); //col=기능명 me["fnSearch"]()=me.fnSearch(); 
+        }
+        //list:문서양식 목록 이벤트처리     
+        else if(component==me.pageObj["list"]) {
+            //if(evt=="change" && col=="colid") {...}
+        }
+
+        //mst:문서양식 이벤트처리     
+        else if(component==me.pageObj["mst"]) {
+            //if(evt=="change" && col=="colid") {...}
+        }
+
+        //det:구성요소 이벤트처리     
+        else if(component==me.pageObj["det"]) {
+            //if(evt=="change" && col=="colid") {...}
+        }
+
+        //사용자 컴포넌트/컨트롤
+        else if(component.userComponent=="myCompoId") {
+            //if(evt=="dblclick" && col=="colid") {...}
+        }
+    }
+    //search:조회 
+    me.fnSearch=function() {
+        if( !me.pageObj["sample"].chkValid() ) return;
+        var args = me.pageObj["sample"].exportData()[0];
+        //console.log(args);
+        var invar = JSON.stringify(args);
+        gfnTx(appid+"."+pgmid,"search",{INVAR:invar},function(OUTVAR){
+            //console.log(OUTVAR);
+            if(OUTVAR.rtnCd=="OK") {
+                me.pageObj["sample"].importData(OUTVAR.sample);
+            } else {
+                gfnAlert("조회오류",OUTVAR.rtnMsg);
+            }
+        });
+    }
+
+    //preview:미리보기 
+    me.fnPreview=function() {
+        if( !me.pageObj["sample"].chkValid() ) return;
+        var args = me.pageObj["sample"].exportData()[0];
+        //console.log(args);
+        var invar = JSON.stringify(args);
+        gfnTx(appid+"."+pgmid,"preview",{INVAR:invar},function(OUTVAR){
+            //console.log(OUTVAR);
+            if(OUTVAR.rtnCd=="OK") {
+                me.pageObj["sample"].importData(OUTVAR.sample);
+            } else {
+                gfnAlert("조회오류",OUTVAR.rtnMsg);
+            }
+        });
+    }
+
+    //save:저장 
+    me.fnSave=function() {
+        if( !me.pageObj["sample"].chkValid() ) return;
+        var args = me.pageObj["sample"].exportData()[0];
+        //console.log(args);
+        var invar = JSON.stringify(args);
+        gfnTx(appid+"."+pgmid,"save",{INVAR:invar},function(OUTVAR){
+            //console.log(OUTVAR);
+            if(OUTVAR.rtnCd=="OK") {
+                me.pageObj["sample"].importData(OUTVAR.sample);
+            } else {
+                gfnAlert("조회오류",OUTVAR.rtnMsg);
+            }
+        });
+    }
+
+
+/*-- SCRIPT autogen ---------------------------------------------------- */        
+if(typeof(me.fnInit)=='function') me.fnInit();
+});
+
+</script>

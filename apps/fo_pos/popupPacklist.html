@@ -1,0 +1,165 @@
+<style>[pgmid='popupPacklist'].framepage .pageContent.flexColumn > *:first-child { 
+    flex:1 1 70% !important; 
+}
+
+[pgmid='popupPacklist'].framepage .pageContent.flexColumn > *:last-child { 
+    flex:1 1 30% !important; 
+}</style>
+
+<!-- HTML autogen start ---------------------------------------------- -->            
+<div class="pageTop"></div>
+<div class="pageCond"></div>
+<div class="pageContent">
+    
+</div><div id='packlist' style="flex:1 1 50%" ></div>
+    <div id='goodslist' style="flex:1 1 50%" class="flexColumn" ></div>
+</div>
+<!-- HTML autogen end ---------------------------------------------- -->
+<script>
+/*-- SCRIPT autogen start ---------------------------------------------- */        
+$(function() {
+    var appid = "fo_pos";
+    var pgmid = "popupPacklist"; 
+    var page = $("*[pgmid='"+pgmid+"'].framepage").last();
+    var pageid = page.attr("id"); 
+    var me = {}
+    var dataSet = {};
+    var dataDef = {};
+    var pageObj = {};
+    var bEdit = false;
+    me.fnInit = function() {
+        gfn[pageid] = me; 
+        me.appid    = appid;
+        me.pgmid    = pgmid;
+        me.pageid   = pageid;
+        me.page     = page; 
+        me.dataSet = dataSet;
+        me.dataDef = dataDef;
+        me.pageObj = pageObj;
+        me.bEdit = bEdit;
+me.dataDef["_pgm"]={"ver":0.6,"upd_dt":"2022-06-21 15:31:08","remark":"","pgmid":"popupPacklist","proc_mst_id":"","pgm_stat":"Y","sort_seq":502,"app_pgmid":"fo_pos","shortcut":"","reg_dt":"2022-02-23 21:18:22","reg_usid":"jjr","pgm_nm":"패킹 검색","upd_usid":"bjh","pgm_tp":"TX","pgm_grp_nm":"반품","proc_mst_nm":"","app_pgm_nm":"매장","":"트랜젝션(화면)","crud":""};
+me.dataDef["_pgm_func"]=[{"func_icon":"fas fa-search","reg_dt":"2022-02-23 21:18:22","reg_usid":"","func_nm":"조회","upd_usid":"","upd_dt":"2022-02-23 21:18:22","func_tp":"DB_R","remark":null,"pgmid":"popupPacklist","sort_seq":"1","funcid":"search","content":null,"crud":"R","id":"0"},{"func_icon":"fas fa-check","reg_dt":"2022-02-23 21:18:22","reg_usid":"","func_nm":"선택","upd_usid":"","upd_dt":"2022-02-23 21:18:22","func_tp":"EH","remark":null,"pgmid":"popupPacklist","sort_seq":"2","funcid":"select","content":null,"crud":"R","id":"1"}];
+me.dataDef["_pgm_data"] = {};
+me.dataDef["_pgm_data"]["pageCond"]={"sort_seq":"1","data_id":"pageCond","data_nm":"조회조건","data_icon":null,"component_pgmid":"aweForm","component_option":null,"inout_tp":null,"content":[{"sort_seq":1,"section":null,"section_icon":null,"colgrp":"패킹일자","colid":"box_dt_from","colnm":"패킹일From","dtype":"ymd","etype":"txt","attr":"ymd","defval":"date(\"1st\")","w":"9","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"0"},{"sort_seq":2,"section":null,"section_icon":null,"colgrp":"패킹일자","colid":"box_dt_to","colnm":"패킹일To","dtype":"ymd","etype":"txt","attr":"ymd","defval":"date(\"today\")","w":"9","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"4"},{"sort_seq":3,"section":null,"section_icon":null,"colgrp":null,"colid":"whcd","colnm":"매장/창고","dtype":"text","etype":"sel","attr":"hidden","defval":null,"w":null,"h":null,"refcd":"whcd","option":"sel:whcd::cdnm","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"1"},{"sort_seq":4,"section":null,"section_icon":null,"colgrp":null,"colid":"pack_tp","colnm":"패킹유형","dtype":"text","etype":"sel","attr":null,"defval":"\"BOX\"","w":null,"h":null,"refcd":"PACK_TP","option":"sel:pack_tp::cdnm","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"2"},{"sort_seq":5,"section":null,"section_icon":null,"colgrp":null,"colid":"remark","colnm":"비고","dtype":"text","etype":"txt","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"3"}]};
+me.dataDef["_pgm_data"]["packlist"]={"sort_seq":"2","data_id":"packlist","data_nm":"목록","data_icon":null,"component_pgmid":"agGrid","component_option":{"gridOpt":"chk"},"inout_tp":"OUT","content":[{"sort_seq":1,"section":null,"section_icon":null,"colgrp":null,"colid":"box_no","colnm":"패킹번호","dtype":"text","etype":"raw","attr":null,"defval":null,"w":"15","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"0"},{"sort_seq":2,"section":null,"section_icon":null,"colgrp":null,"colid":"box_barcd","colnm":"패킹바코드","dtype":"text","etype":"raw","attr":"hidden ","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"1"},{"sort_seq":3,"section":null,"section_icon":null,"colgrp":null,"colid":"whcd","colnm":"창고코드","dtype":"text","etype":"raw","attr":"hidden ","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"2"},{"sort_seq":4,"section":null,"section_icon":null,"colgrp":null,"colid":"box_dt","colnm":"패킹일자","dtype":"text","etype":"raw","attr":"hidden","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"3"},{"sort_seq":5,"section":null,"section_icon":null,"colgrp":null,"colid":"box_seq","colnm":"번호","dtype":"text","etype":"raw","attr":"hidden","defval":null,"w":"8","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"4"},{"sort_seq":6,"section":null,"section_icon":null,"colgrp":null,"colid":"goods_qty","colnm":"입수량","dtype":"num","etype":"raw","attr":null,"defval":"0","w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"5"},{"sort_seq":7,"section":null,"section_icon":null,"colgrp":null,"colid":"remark","colnm":"비고","dtype":"text","etype":"raw","attr":null,"defval":null,"w":"10","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"6"}]};
+me.dataDef["_pgm_data"]["goodslist"]={"sort_seq":"3","data_id":"goodslist","data_nm":"상품목록","data_icon":null,"component_pgmid":"agGrid","component_option":null,"inout_tp":"OUT","content":[{"sort_seq":1,"section":null,"section_icon":null,"colgrp":null,"colid":"goods_cd","colnm":"상품코드","dtype":"text","etype":"raw","attr":"pk","defval":null,"w":"15","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"0"},{"sort_seq":2,"section":null,"section_icon":null,"colgrp":null,"colid":"qty","colnm":"수량","dtype":"num","etype":"raw","attr":"keycol","defval":null,"w":"5","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"1"},{"sort_seq":3,"section":null,"section_icon":null,"colgrp":null,"colid":"goods_seq","colnm":"상제품순번","dtype":"num","etype":"raw","attr":"hidden","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"2"}]};
+
+        me.pageObj["_page"] = new gfnFramepage( me ); 
+        for(var component_id in me.dataDef["_pgm_data"]) { 
+            me.pageObj[component_id] = new gfnComponent( me.pageid, component_id, me.dataDef["_pgm_data"][component_id], me.fnEH, me); 
+        }  
+        setTimeout(function(){
+            $("#frameset").scrollTo(0); //스크롤 
+        },10);
+        if(typeof(me.fnInitExtra)=='function') me.fnInitExtra(); 
+    } 
+/*-- SCRIPT autogen end ---------------------------------------------- */
+
+    /* 사용자초기화 */
+    me.fnInitExtra=function() {
+        if(isNull(gParam.whcd)) {
+            gfnAlert("검색하려는 매장정보가 없습니다.");
+            return;
+        } else {
+            me.pageObj.pageCond.setVal("whcd",gParam.whcd);
+            me.fnSearch();
+            me.fnCallback = gParam.fnCallback;
+        }
+        me.myBoxlist = gParam.myBoxlist; 
+    }
+    /* 이벤트핸들러 */
+    me.fnEH=function(component, evt, row, col, val) { 
+        //console.log(evt+","+row+","+col+","+val);
+        //화면기능버튼이 눌리면 
+        if (component==me.pageObj["_pageFunc"]){ 
+            if(typeof(me[col])=='function') me[col](); //col=기능명 me["fnSearch"]()=me.fnSearch(); 
+        }  
+        //packlist:박스목록 이벤트처리     
+        else if(component==me.pageObj["packlist"]) {
+            if(evt=="focus") {
+                if(row >= 0) {
+                    var box_no = component.getVal(row,"box_no");
+                    me.fnSearchGoods(box_no)
+                }
+            } 
+        } 
+        //goodslist:상품목록 이벤트처리     
+        else if(component==me.pageObj["goodslist"]) {
+            if(evt=="componentFunc") {
+                if(row=="addRow") {
+                    component.addRow();
+                } else if(row=="delRow") {
+                    component.delRow();
+                }
+            }
+            //if(evt=="change" && col=="colid") {...}
+        } 
+    }
+    
+    //search:조회 
+    me.fnSearch=function() {
+        if( !me.pageObj["pageCond"].chkValid() ) return;
+        var args = me.pageObj["pageCond"].exportData()[0];
+        console.log(args);
+        var invar = JSON.stringify(args);
+        gfnTx(appid+"."+pgmid,"search",{INVAR:invar},function(OUTVAR){
+            console.log(OUTVAR);
+            if(OUTVAR.rtnCd=="OK") {
+                for(var i=0; i < OUTVAR.list.length; i++) {
+                    if( inStr(me.myBoxlist, OUTVAR.list[i].box_no) >= 0) {
+                        console.log("상품내역에 추가됨:"+OUTVAR.list[i].box_no);
+                        OUTVAR.list[i]["remark"] = "상품내역에 이미 추가됨";
+                    }
+                } 
+                console.log(OUTVAR.list);
+                me.pageObj["packlist"].importData(OUTVAR.list);
+            } else {
+                gfnAlert("조회오류",OUTVAR.rtnMsg);
+            }
+        });
+    }
+    
+    //searchGoods: 선택된 박스의 상품목록조회 
+    me.fnSearchGoods=function(box_no) {
+        var args = {};
+        args.box_no = box_no;
+        //console.log(args);
+        var invar = JSON.stringify(args);
+        gfnTx(appid+"."+pgmid,"searchGoods",{INVAR:invar},function(OUTVAR){
+            //console.log(OUTVAR);
+            if(OUTVAR.rtnCd=="OK") {
+                me.pageObj["goodslist"].importData(OUTVAR.list);
+            } else {
+                gfnAlert("조회오류",OUTVAR.rtnMsg);
+            }
+        });
+    }
+
+    //select:선택 
+    me.fnSelect=function() {
+        var rtn = me.pageObj.packlist.exportData("selected");
+        if(rtn.length < 1) {
+            gfnAlert("선택확인","선택된 박스번호가 없습니다.");
+            return;
+        } 
+        var args = {};
+        args.packlist = rtn;
+        //console.log(args);
+        var invar = JSON.stringify(args);
+        gfnTx(appid+"."+pgmid,"searchPackGoods",{INVAR:invar},function(OUTVAR){
+            //console.log(OUTVAR);
+            if(OUTVAR.rtnCd=="OK") {
+                me.fnCallback(OUTVAR.list);
+                //팝업창 닫히기 처리
+            } else {
+                gfnAlert("조회오류",OUTVAR.rtnMsg);
+            }
+        }); 
+    }
+
+
+/*-- SCRIPT autogen ---------------------------------------------------- */        
+if(typeof(me.fnInit)=='function') me.fnInit();
+});
+
+</script>

@@ -1,0 +1,278 @@
+<style>.framepage[pgmid='adjust'] .componentBody.agGrid .ag-root-wrapper-body {
+    min-height: 8em !important;
+}
+
+.framepage[pgmid='adjust'] .btnXls {
+    display: none;
+}
+
+
+#apcontent { 
+    padding:1em;
+    text-align:center;
+}
+
+.apdoc {
+    border: 2px solid #4a4a4a;
+    border-spacing: 0;
+    width: 100%;
+}
+
+.apdoc th {
+    border-right: 1px solid #4a4a4a;    
+    border-bottom: 1px solid #4a4a4a;    
+    padding: 1em; 
+    font-size: 12px; 
+    font-weight: bold;
+}
+
+.apdoc td {
+    border-right: 1px solid #4a4a4a;    
+    border-bottom: 1px solid #4a4a4a;    
+    padding: 0.75em 1em; 
+    font-size: 12px; 
+    font-weight: normal;
+}
+
+.apline {
+    width:100%;height:100%;margin:0;border-spacing: 0;
+}
+
+.apline th {
+    padding: 0.25em 1em;
+}
+
+.apline td {
+    width: 18%;
+    padding: 0.5em;
+    text-align: center;
+    height: 6.5em;
+}
+
+.APreport {
+    border: 1px solid #1a1a1a;
+    border-spacing: 0;
+    width: 100%;
+    font-size: 10px;
+}
+
+.APreport thead th {
+    background-color: #c2e8ade8;
+    padding:0.5em 0.5em;
+    border-right: 1px solid #1a1a1a; 
+    border-bottom: 1px solid #1a1a1a;  
+    font-size: 10px;  
+} 
+
+.APreport tbody td {
+    padding:0.5em 0.5em;
+    border-right: 1px solid #1a1a1a;    
+    border-bottom: 1px solid #1a1a1a; 
+    font-size: 10px;   
+}</style>
+
+<!-- HTML autogen start ---------------------------------------------- -->            
+<div class="pageNav"></div>
+<div class="pageTop"></div>
+<div class="pageCond"></div>
+<div class="pageGuide"></div>
+<div id = "adjust" class="pageContent flexColumn">
+    <div class="flexRow" style="height:unset">    
+        <div id='daylist' style="flex:1 1 35%" ></div>
+        <div id='delilist' style="flex:1 1 25%" ></div>
+        <div id='salepricelist' style="flex:1 1 calc(40% - 3em)" ></div>
+    </div>
+    <div id='mattplist' style="flex:0 0 auto"></div>
+    <div id='cdstatlist' style="flex:0 0 auto"></div> 
+    <div class="flexRow flexColumn" style="height:unset">
+        <div id='paytplist' style="flex:1 1 40%" class="flexColumn"></div>
+        <div id='costcomcdlist' style="flex:1 1 60%" class="flexColumn"></div>
+    </div> 
+</div>
+<script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+<!-- HTML autogen end ---------------------------------------------- -->
+<script>
+/*-- SCRIPT autogen start ---------------------------------------------- */        
+$(function() {
+    var appid = "fo_pos";
+    var pgmid = "adjust"; 
+    var page = $("*[pgmid='"+pgmid+"'].framepage").last();
+    var pageid = page.attr("id"); 
+    var me = {}
+    var dataSet = {};
+    var dataDef = {};
+    var pageObj = {};
+    var bEdit = false;
+    me.fnInit = function() {
+        gfn[pageid] = me; 
+        me.appid    = appid;
+        me.pgmid    = pgmid;
+        me.pageid   = pageid;
+        me.page     = page; 
+        me.dataSet = dataSet;
+        me.dataDef = dataDef;
+        me.pageObj = pageObj;
+        me.bEdit = bEdit;
+me.dataDef["_pgm"]={"ver":3.5,"upd_dt":"2022-07-14 15:35:40","remark":"","pgmid":"adjust","proc_mst_id":"","pgm_stat":"Y","sort_seq":720,"app_pgmid":"fo_pos","shortcut":"","reg_dt":"2022-07-14 15:35:40","reg_usid":"mjw","pgm_nm":"기간별 매출현황[정산용]","upd_usid":"mjw","pgm_tp":"UX","pgm_grp_nm":"운영현황","proc_mst_nm":"","app_pgm_nm":"매장","":"트랜젝션(메뉴)","crud":""};
+me.dataDef["_pgm_func"]=[{"func_icon":"fas fa-search","reg_dt":"2022-07-14 15:35:40","reg_usid":"","func_nm":"조회","upd_usid":"","upd_dt":"2022-07-14 15:35:40","func_tp":"DB_R","remark":null,"pgmid":"adjust","sort_seq":"1","funcid":"search","content":"매장 별 정산정보를 조회한다.","crud":"R","id":"0"},{"func_icon":"fas fa-file","reg_dt":"2022-07-14 15:35:40","reg_usid":"","func_nm":"인쇄","upd_usid":"","upd_dt":"2022-07-14 15:35:40","func_tp":"EH","remark":null,"pgmid":"adjust","sort_seq":"2","funcid":"print","content":null,"crud":"R","id":"1"}];
+me.dataDef["_pgm_data"] = {};
+me.dataDef["_pgm_data"]["pageCond"]={"sort_seq":"1","data_id":"pageCond","data_nm":"조회조건","data_icon":null,"component_pgmid":"aweForm","component_option":null,"inout_tp":"IN","content":[{"sort_seq":1,"section":null,"section_icon":null,"colgrp":null,"colid":"shopcd","colnm":"매장명","dtype":"text","etype":"sel","attr":"keycol","defval":null,"w":"15","h":null,"refcd":"shopcd","option":"multi:shopcd::cdnm","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"0"},{"sort_seq":2,"section":null,"section_icon":null,"colgrp":"기간","colid":"dt_from","colnm":"일자from","dtype":"ymd","etype":null,"attr":"ymd","defval":"date(\"1st\")","w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"1"},{"sort_seq":3,"section":null,"section_icon":null,"colgrp":"기간","colid":"dt_to","colnm":"일자to","dtype":"ymd","etype":null,"attr":"ymd","defval":"date(\"today\")","w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"2"}]};
+me.dataDef["_pgm_data"]["daylist"]={"sort_seq":"2","data_id":"daylist","data_nm":"기간매출","data_icon":null,"component_pgmid":"agGrid","component_option":{"height":"9.2em","remark":"(금액단위: 원, VAT포함)"},"inout_tp":"INOUT","content":[{"sort_seq":1,"section":null,"section_icon":null,"colgrp":"총매출액","colid":"총매출액","colnm":"총매출액","dtype":"num","etype":"txt","attr":"readonly keycol","defval":null,"w":"10","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"0"},{"sort_seq":2,"section":null,"section_icon":null,"colgrp":"총매출액","colid":"총매출액vat제외","colnm":"총매출액vat제외","dtype":"num","etype":"txt","attr":"readonly ","defval":null,"w":"10","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"1"},{"sort_seq":3,"section":null,"section_icon":null,"colgrp":"순매출액(총매출액-할인매출)","colid":"순매출액","colnm":"순매출액","dtype":"num","etype":"txt","attr":"readonly keycol","defval":null,"w":"10","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"2"},{"sort_seq":4,"section":null,"section_icon":null,"colgrp":"순매출액(총매출액-할인매출)","colid":"순매출액vat제외","colnm":"순매출액vat제외","dtype":"num","etype":"txt","attr":"readonly ","defval":null,"w":"10","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"3"}]};
+me.dataDef["_pgm_data"]["delilist"]={"sort_seq":"3","data_id":"delilist","data_nm":"출고매출","data_icon":null,"component_pgmid":"agGrid","component_option":{"height":"9.2em","remark":"(금액단위: 원, VAT포함)"},"inout_tp":"INOUT","content":[{"sort_seq":1,"section":null,"section_icon":null,"colgrp":"출고매출","colid":"deli_amt","colnm":"출고매출","dtype":"num","etype":"raw","attr":"readonly keycol","defval":null,"w":"10","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"0"},{"sort_seq":2,"section":null,"section_icon":null,"colgrp":"출고매출","colid":"deli_cfm_amt","colnm":"확정매출","dtype":"num","etype":"raw","attr":"readonly","defval":null,"w":"10","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"1"},{"sort_seq":3,"section":null,"section_icon":null,"colgrp":"출고매출","colid":"deli_ncfm_amt","colnm":"미확정매출","dtype":"num","etype":"raw","attr":"readonly","defval":null,"w":"10","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"2"}]};
+me.dataDef["_pgm_data"]["salepricelist"]={"sort_seq":"4","data_id":"salepricelist","data_nm":"할인매출","data_icon":null,"component_pgmid":"agGrid","component_option":{"height":"9.2em","remark":"(금액단위: 원, VAT포함)"},"inout_tp":"INOUT","content":[{"sort_seq":1,"section":null,"section_icon":null,"colgrp":"할인매출(금액할인=프로모션,쿠폰,기간할인)","colid":"totalsale","colnm":"총할인액","dtype":"num","etype":"raw","attr":"readonly keycol","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"0"},{"sort_seq":2,"section":null,"section_icon":null,"colgrp":"할인매출(금액할인=프로모션,쿠폰,기간할인)","colid":"paysale","colnm":"금액할인","dtype":"num","etype":"raw","attr":"readonly ","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"1"},{"sort_seq":3,"section":null,"section_icon":null,"colgrp":"할인매출(금액할인=프로모션,쿠폰,기간할인)","colid":"addsale","colnm":"추가할인","dtype":"num","etype":"raw","attr":"readonly ","defval":"0","w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"2"}]};
+me.dataDef["_pgm_data"]["mattplist"]={"sort_seq":"5","data_id":"mattplist","data_nm":"매입유형별 매출","data_icon":null,"component_pgmid":"agGrid","component_option":{"height":"6.5em","remark":"(금액단위: 원, VAT포함)"},"inout_tp":"INOUT","content":[{"sort_seq":1,"section":null,"section_icon":null,"colgrp":null,"colid":"총매출액","colnm":"총매출액","dtype":"num","etype":"txt","attr":"readonly keycol","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"0"},{"sort_seq":2,"section":null,"section_icon":null,"colgrp":null,"colid":"매입","colnm":"매입","dtype":"num","etype":"txt","attr":"readonly ","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"1"},{"sort_seq":3,"section":null,"section_icon":null,"colgrp":null,"colid":"기획","colnm":"기획","dtype":"num","etype":"txt","attr":"readonly ","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"2"},{"sort_seq":4,"section":null,"section_icon":null,"colgrp":null,"colid":"위탁","colnm":"위탁","dtype":"num","etype":"txt","attr":"readonly ","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"3"}]};
+me.dataDef["_pgm_data"]["cdstatlist"]={"sort_seq":"6","data_id":"cdstatlist","data_nm":"매출종류별 매출","data_icon":null,"component_pgmid":"agGrid","component_option":{"height":"6.5em","remark":"(금액단위: 원, VAT포함)"},"inout_tp":"INOUT","content":[{"sort_seq":1,"section":null,"section_icon":null,"colgrp":null,"colid":"총매출","colnm":"총매출","dtype":"num","etype":"txt","attr":"readonly keycol","defval":null,"w":"15","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"0"},{"sort_seq":2,"section":null,"section_icon":null,"colgrp":null,"colid":"매장판매","colnm":"매장판매","dtype":"num","etype":"txt","attr":"readonly ","defval":null,"w":"15","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"1"},{"sort_seq":3,"section":null,"section_icon":null,"colgrp":null,"colid":"단체납품","colnm":"단체납품","dtype":"num","etype":"txt","attr":"readonly ","defval":null,"w":"15","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"2"},{"sort_seq":4,"section":null,"section_icon":null,"colgrp":null,"colid":"네이버","colnm":"네이버","dtype":"num","etype":"txt","attr":"readonly ","defval":null,"w":"15","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"3"},{"sort_seq":5,"section":null,"section_icon":null,"colgrp":null,"colid":"자사몰","colnm":"자사몰","dtype":"num","etype":"txt","attr":"readonly ","defval":null,"w":"15","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"4"}]};
+me.dataDef["_pgm_data"]["paytplist"]={"sort_seq":"7","data_id":"paytplist","data_nm":"권종별 매출","data_icon":null,"component_pgmid":"agGrid","component_option":{"remark":"(금액단위: 원, VAT포함)"},"inout_tp":"INOUT","content":[{"sort_seq":1,"section":null,"section_icon":null,"colgrp":null,"colid":"구분","colnm":"구분","dtype":"text","etype":"txt","attr":"readonly ","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"0"},{"sort_seq":2,"section":null,"section_icon":null,"colgrp":null,"colid":"금액","colnm":"금액","dtype":"num","etype":"txt","attr":"readonly ","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"1"}]};
+me.dataDef["_pgm_data"]["costcomcdlist"]={"sort_seq":"8","data_id":"costcomcdlist","data_nm":"신용카드별 매출","data_icon":null,"component_pgmid":"agGrid","component_option":{"height":"20em","remark":"(금액단위: 원, VAT포함)"},"inout_tp":"INOUT","content":[{"sort_seq":1,"section":null,"section_icon":null,"colgrp":null,"colid":"구분","colnm":"구분","dtype":"text","etype":"txt","attr":"readonly ","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"0"},{"sort_seq":2,"section":null,"section_icon":null,"colgrp":null,"colid":"합계금액","colnm":"합계금액","dtype":"num","etype":"txt","attr":"readonly keycol","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"1"},{"sort_seq":3,"section":null,"section_icon":null,"colgrp":null,"colid":"pos승인금액","colnm":"pos승인금액","dtype":"num","etype":"txt","attr":"readonly ","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"2"},{"sort_seq":4,"section":null,"section_icon":null,"colgrp":null,"colid":"임의등록금액","colnm":"임의등록금액","dtype":"num","etype":"txt","attr":"readonly ","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"3"}]};
+
+        me.pageObj["_page"] = new gfnFramepage( me ); 
+        for(var component_id in me.dataDef["_pgm_data"]) { 
+            me.pageObj[component_id] = new gfnComponent( me.pageid, component_id, me.dataDef["_pgm_data"][component_id], me.fnEH, me); 
+        }  
+        setTimeout(function(){
+            $("#frameset").scrollTo(0); //스크롤 
+        },10);
+        if(typeof(me.fnInitExtra)=='function') me.fnInitExtra(); 
+    } 
+/*-- SCRIPT autogen end ---------------------------------------------- */
+
+    /* 사용자초기화 */
+    me.fnInitExtra=function() {
+        //권한제어
+        function _auth(auth) { //auth.save_yn cfm_yn 
+            if(isNull(auth)) { 
+                gfnAlert("시스템 사용권한 점검","화면에 대한 권한이 없습니다!");
+                $("*[pageidx='"+me.pageid+"']").remove();
+                delete gfn[me.pageid]; 
+                me.page.remove(); 
+            } else {
+                //저장권한이 없는 경우 사용자부서정보를 매장으로 세팅하고, 수정할 수 없도록 함
+                if(isNull(auth.save_yn) || auth.save_yn != "Y") {
+                    //me.pageObj._pageFunc.setDisp("save",false);
+                    me.dataDef._pgm_data.pageCond.content[2].attr += " hidden";
+                    me.pageObj.pageCond.reset();
+                    me.pageObj.pageCond.setVal("whcd",gUserinfo.deptcd); 
+                    
+                }  
+            } 
+        }
+        if(subset(gds.comcd,"grpcd","pgm_auth").length==0) { //프로그램 권한조회하여
+            gfnGetData("pgm_auth",function(rtn){
+                _auth(subset(rtn,"pgmid",pgmid)[0]);  //해당 프로그램의 권한값 가져오기
+            }); 
+        } else {
+            _auth(subset(subset(gds.comcd,"grpcd","pgm_auth"),"pgmid",pgmid)[0]) ;
+        } 
+    
+        
+        
+        
+        
+        //탭 설정
+        //gfnTab(pageid, "tabs", {"multi-active":"off","toggle-switch":"on"}); 
+        //사용자 컴포넌트 
+        //me.dataDef["_pgm_data"][myCompoId] = {...};
+        //me.pageObj["myCompoId"] = new gfnComponent( me.pageid, myCompoId, me.dataDef["_pgm_data"][myCompoId], me.fnEH, me); 
+        //me.pageObj["myCompoId"].userComponent = "myCompoId";
+        //사용자 컨트롤
+        //var myColinfo = {colid:...}
+        //me.pageObj["myColId"] = new gfnControl(myColinfo, me.fnEH) 
+        //me.page.find("#myCol").append(me.pageObj["myColId"].dispObj);
+        //me.pageObj["myColId"].getVal(); / myCol.setVal(val);...    
+    }
+    /* 이벤트핸들러 */
+    me.fnEH=function(component, evt, row, col, val) {
+        //console.log(evt+","+row+","+col+","+val);
+        //화면기능버튼이 눌리면 
+        if (component==me.pageObj["_pageFunc"]){ 
+            if(typeof(me[col])=='function') me[col](); //col=기능명 me["fnSearch"]()=me.fnSearch(); 
+        }
+        //사용자 컴포넌트/컨트롤
+        else if(component==me.pageObj["costcomcdlist"]) {
+            //신용카드 별 매출리스트를 더블클릭 했을 때 
+            if(evt=="dblclick"){
+                //gParam에 현재 조회조건 값 넣기
+                gParam = me.pageObj["pageCond"].exportData()[0];
+                //카드승인내역 페이지로 현재 조회조건 값 가지고 이동
+                gMDI.openPage("apvList","카드승인내역",function(gParam){
+                },"fo_pos");
+            }
+        }
+        else if(component==me.pageObj["paytplist"]) {
+            //권종 별 매출리스트를 더블 클릭 했을 때
+            if(evt=="dblclick"){
+                //첫번째 row를 클릭 했을 때(신용카드)
+                if(row == 0){
+                    //gParam에 현재 조회조건 값 넣기
+                    gParam = me.pageObj["pageCond"].exportData()[0];
+                    //카드승인내역 페이지로 현재 조회조건 값 가지고 이동
+                    gMDI.openPage("apvList","카드승인내역",function(gParam){
+                        
+                    },"fo_pos");
+                }
+            }
+        }
+    }
+    //search:조회 
+    me.fnSearch=function() {
+        if( !me.pageObj["pageCond"].chkValid() ) return;
+        var args = me.pageObj["pageCond"].exportData()[0];
+        console.log(args);
+        var invar = JSON.stringify(args);
+        gfnTx(appid+"."+pgmid,"search",{INVAR:invar},function(OUTVAR){
+            console.log(OUTVAR);
+            if(OUTVAR.rtnCd=="OK") {
+                me.pageObj["daylist"].importData(OUTVAR.list);
+                me.pageObj.daylist.sizeColumnsToFit(); 
+                
+                me.pageObj["salepricelist"].importData(OUTVAR.salepricelist);
+                me.pageObj.salepricelist.sizeColumnsToFit(); 
+
+                me.pageObj["mattplist"].importData(OUTVAR.mattplist);
+                me.pageObj.mattplist.sizeColumnsToFit(); 
+                
+                me.pageObj["cdstatlist"].importData(OUTVAR.cdstatlist);
+                me.pageObj.cdstatlist.sizeColumnsToFit(); 
+                
+                me.pageObj["paytplist"].importData(OUTVAR.paytplist);
+                me.pageObj.paytplist.sizeColumnsToFit(); 
+                me.pageObj.paytplist.total("top");
+                
+                me.pageObj["costcomcdlist"].importData(OUTVAR.costcomcdlist);
+                me.pageObj.costcomcdlist.sizeColumnsToFit(); 
+                me.pageObj.costcomcdlist.total("top");
+                
+                me.pageObj["delilist"].importData(OUTVAR.delilist);
+                me.pageObj.delilist.sizeColumnsToFit(); 
+            } else {
+                gfnAlert("조회오류",OUTVAR.rtnMsg);
+            }
+        });
+    }
+    
+    //print:인쇄 
+    me.fnPrint=function() {
+        html2canvas(document.querySelector("#frameMain")).then(canvas => {
+            
+            saveAs(canvas.toDataURL('image/png'),"기간별 매출현황.png");
+        });
+        function saveAs(uri, filename) {
+            // 캡쳐된 파일을 이미지 파일로 내보낸다.
+            var link = document.createElement('a');
+            if (typeof link.download === 'string') {
+            link.href = uri;
+            link.download = filename;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            } else {
+            window.open(uri);
+            }
+        }
+    }
+
+/*-- SCRIPT autogen ---------------------------------------------------- */        
+if(typeof(me.fnInit)=='function') me.fnInit();
+});
+
+</script>

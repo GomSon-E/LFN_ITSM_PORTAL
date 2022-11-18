@@ -1,0 +1,141 @@
+<style>[pgmid='manageCSGNCost'].framepage .aweRow.subsum3 { 
+    background-color: bisque; 
+}
+
+[pgmid='manageCSGNCost'].framepage .aweRow.subsum0 { 
+    background-color: rgba(125,125,125,0.25);
+}</style>
+
+<!-- HTML autogen start ---------------------------------------------- -->            
+<div class="pageNav"></div>
+<div class="pageTop"></div>
+<div class="pageCond"></div>
+<div class="pageGuide"></div>
+<div class="pageContent">
+    <div id='list'></div>
+
+</div>
+<!-- HTML autogen end ---------------------------------------------- -->
+<script>
+/*-- SCRIPT autogen start ---------------------------------------------- */        
+$(function() {
+    var appid = "fo_sd";
+    var pgmid = "manageCSGNCost"; 
+    var page = $("*[pgmid='"+pgmid+"'].framepage").last();
+    var pageid = page.attr("id"); 
+    var me = {}
+    var dataSet = {};
+    var dataDef = {};
+    var pageObj = {};
+    var bEdit = false;
+    me.fnInit = function() {
+        gfn[pageid] = me; 
+        me.appid    = appid;
+        me.pgmid    = pgmid;
+        me.pageid   = pageid;
+        me.page     = page; 
+        me.dataSet = dataSet;
+        me.dataDef = dataDef;
+        me.pageObj = pageObj;
+        me.bEdit = bEdit;
+me.dataDef["_pgm"]={"pgmid":"manageCSGNCost","pgm_nm":"위탁판매 정산현황","pgm_tp":"UX","proc_mst_id":"","proc_mst_nm":"","remark":"","ver":0.3,"pgm_stat":"Y","reg_usid":"lkh","reg_dt":"2021-12-27 16:00:14","upd_usid":"lyj","upd_dt":"2021-12-27 17:52:51","app_pgmid":"fo_sd","pgm_grp_nm":"수수료 정산","sort_seq":42,"shortcut":"","crud":"","app_pgm_nm":"영업/물동"};
+me.dataDef["_pgm_func"]=[{"func_icon":"fas fa-search","reg_dt":"2021-12-27 16:00:14","reg_usid":"","func_nm":"조회","upd_usid":"","upd_dt":"2021-12-27 16:00:14","func_tp":"DB_R","remark":null,"pgmid":"manageCSGNCost","sort_seq":"1","funcid":"search","content":null,"crud":"R","id":"0"}];
+me.dataDef["_pgm_data"] = {};
+me.dataDef["_pgm_data"]["pageCond"]={"sort_seq":"1","data_id":"pageCond","data_nm":"조회조건","data_icon":null,"component_pgmid":"aweForm","component_option":null,"inout_tp":null,"content":[{"sort_seq":1,"section":null,"section_icon":null,"colgrp":"판매기간","colid":"std_dt_from","colnm":"일자from","dtype":"ymd","etype":"txt","attr":"ymd keycol","defval":"date(\"1st\")","w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"0"},{"sort_seq":2,"section":null,"section_icon":null,"colgrp":"판매기간","colid":"std_dt","colnm":"일자to","dtype":"ymd","etype":"txt","attr":"ymd keycol","defval":"date(\"today\")","w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"1"},{"sort_seq":3,"section":null,"section_icon":null,"colgrp":null,"colid":"suprcd","colnm":"공급사","dtype":"text","etype":"sel","attr":null,"defval":null,"w":"20","h":null,"refcd":"supr","option":"multi:suprcd::cdnm","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"2"},{"sort_seq":4,"section":null,"section_icon":null,"colgrp":null,"colid":"st_yn","colnm":"스타일별","dtype":"text","etype":"cbx","attr":null,"defval":"Y","w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"3"},{"sort_seq":5,"section":null,"section_icon":null,"colgrp":null,"colid":"vat_yn","colnm":"VAT포함","dtype":"text","etype":"cbx","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"4"}]};
+me.dataDef["_pgm_data"]["list"]={"sort_seq":"2","data_id":"list","data_nm":"위탁 업체별 매출/수수료 현황","data_icon":null,"component_pgmid":"agGrid","component_option":{"remark":"(수량단위: pcs. 금액단위: 원, VAT조회조건에 따름. 기여익: 매장경영 수수료 11%, 임대료 4% 반영)"},"inout_tp":null,"content":[{"sort_seq":1,"section":null,"section_icon":null,"colgrp":null,"colid":"suprcd","colnm":"공급사","dtype":"text","etype":"sel","attr":"readonly","defval":null,"w":null,"h":null,"refcd":"supr","option":"sel:suprcd::cdnm","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"0"},{"sort_seq":2,"section":null,"section_icon":null,"colgrp":"상품정보","colid":"stcd","colnm":"스타일","dtype":"text","etype":"raw","attr":"keycol","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"1"},{"sort_seq":3,"section":null,"section_icon":null,"colgrp":"상품정보","colid":"goods_cd","colnm":"상품코드","dtype":"text","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"2"},{"sort_seq":4,"section":null,"section_icon":null,"colgrp":"상품정보","colid":"colorcd","colnm":"컬러","dtype":"text","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"3"},{"sort_seq":5,"section":null,"section_icon":null,"colgrp":"상품정보","colid":"sz_cd","colnm":"사이즈","dtype":"text","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"4"},{"sort_seq":6,"section":null,"section_icon":null,"colgrp":"가격(VAT+)","colid":"init_price","colnm":"최초소비자가","dtype":"num","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":"sum('row.init_price*row.gr_qty')/sum('row.gr_qty')","remark":null,"crud":"C","id":"5"},{"sort_seq":7,"section":null,"section_icon":null,"colgrp":"가격(VAT+)","colid":"sale_price","colnm":"판매가","dtype":"num","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":"sum('row.sale_price*row.gr_qty')/sum('row.gr_qty')","remark":null,"crud":"C","id":"6"},{"sort_seq":8,"section":null,"section_icon":null,"colgrp":"누계(수량)","colid":"gr_qty","colnm":"입고량","dtype":"num","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"7"},{"sort_seq":9,"section":null,"section_icon":null,"colgrp":"누계(수량)","colid":"sale_qty","colnm":"판매량","dtype":"num","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"8"},{"sort_seq":10,"section":null,"section_icon":null,"colgrp":"누계(수량)","colid":"stk_qty","colnm":"재고량","dtype":"num","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"9"},{"sort_seq":11,"section":null,"section_icon":null,"colgrp":"누계(금액)","colid":"gr_amt","colnm":"입고액","dtype":"num","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"10"},{"sort_seq":12,"section":null,"section_icon":null,"colgrp":"누계(금액)","colid":"price_amt","colnm":"소가액","dtype":"num","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"11"},{"sort_seq":13,"section":null,"section_icon":null,"colgrp":"누계(금액)","colid":"sqty_rt","colnm":"판매율(%)","dtype":"num","etype":"raw","attr":"dec1","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":"100*sum('row.price_amt')/sum('row.gr_amt')","remark":null,"crud":"C","id":"12"},{"sort_seq":14,"section":null,"section_icon":null,"colgrp":"누계(금액)","colid":"sale_amt","colnm":"매출(판가)액","dtype":"num","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"13"},{"sort_seq":15,"section":null,"section_icon":null,"colgrp":"누계(금액)","colid":"sprice_rt","colnm":"판가율(%)","dtype":"num","etype":"raw","attr":"dec1","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":"100*sum('row.sale_amt')/sum('row.price_amt')","remark":null,"crud":"C","id":"14"},{"sort_seq":16,"section":null,"section_icon":null,"colgrp":"누계(금액)","colid":"stk_amt","colnm":"재고액","dtype":"num","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"15"},{"sort_seq":17,"section":null,"section_icon":null,"colgrp":"기간판매","colid":"sale_qty_month","colnm":"판매량","dtype":"num","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"16"},{"sort_seq":18,"section":null,"section_icon":null,"colgrp":"기간판매","colid":"price_amt_month","colnm":"소가액","dtype":"num","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"17"},{"sort_seq":19,"section":null,"section_icon":null,"colgrp":"기간판매","colid":"sqty_rt_month","colnm":"판매율(%)","dtype":"num","etype":"raw","attr":"dec1","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":"100*sum('row.sale_qty_month')/sum('row.gr_qty')","remark":null,"crud":"C","id":"18"},{"sort_seq":20,"section":null,"section_icon":null,"colgrp":"기간판매","colid":"sale_amt_month","colnm":"매출(판가)액","dtype":"num","etype":"raw","attr":"keycol","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"19"},{"sort_seq":21,"section":null,"section_icon":null,"colgrp":"기간판매","colid":"sprice_rt_month","colnm":"판가율(%)","dtype":"num","etype":"raw","attr":"dec1","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":"100*sum('row.sale_amt_month')/sum('row.price_amt_month')","remark":null,"crud":"C","id":"20"},{"sort_seq":22,"section":null,"section_icon":null,"colgrp":"업체정산","colid":"chrg_rt","colnm":"수수료율(%)","dtype":"num","etype":"raw","attr":"dec1 keycol","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":"100*sum('row.chrg_amt')/sum('row.sale_amt_month')","remark":null,"crud":"C","id":"21"},{"sort_seq":23,"section":null,"section_icon":null,"colgrp":"업체정산","colid":"chrg_amt","colnm":"정산액","dtype":"num","etype":"raw","attr":"keycol","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"22"},{"sort_seq":24,"section":null,"section_icon":null,"colgrp":"자사마진","colid":"margin_rt","colnm":"마진율(%)","dtype":"num","etype":"raw","attr":"dec1","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":"100*sum('row.margin_amt')/sum('row.sale_amt_month')","remark":null,"crud":"C","id":"23"},{"sort_seq":25,"section":null,"section_icon":null,"colgrp":"자사마진","colid":"margin_amt","colnm":"마진액","dtype":"num","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"24"},{"sort_seq":26,"section":null,"section_icon":null,"colgrp":"자사마진","colid":"profit_amt","colnm":"기여익*","dtype":"num","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"25"},{"sort_seq":27,"section":null,"section_icon":null,"colgrp":"비고","colid":"st_cnt","colnm":"스타일수","dtype":"num","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"26"},{"sort_seq":28,"section":null,"section_icon":null,"colgrp":"비고","colid":"sku_cnt","colnm":"SKU수","dtype":"num","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"27"},{"sort_seq":29,"section":null,"section_icon":null,"colgrp":"비고","colid":"shop_cnt","colnm":"매장수","dtype":"num","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"28"},{"sort_seq":30,"section":null,"section_icon":null,"colgrp":"비고","colid":"mov_dt_min","colnm":"최초수불일","dtype":"ymd","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"29"},{"sort_seq":31,"section":null,"section_icon":null,"colgrp":"비고","colid":"mov_dt_max","colnm":"최종수불일","dtype":"ymd","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"30"}]};
+
+        me.pageObj["_page"] = new gfnFramepage( me ); 
+        for(var component_id in me.dataDef["_pgm_data"]) { 
+            me.pageObj[component_id] = new gfnComponent( me.pageid, component_id, me.dataDef["_pgm_data"][component_id], me.fnEH, me); 
+        }  
+        setTimeout(function(){
+            $("#frameset").scrollTo(0); //스크롤 
+        },10);
+        if(typeof(me.fnInitExtra)=='function') me.fnInitExtra(); 
+    } 
+/*-- SCRIPT autogen end ---------------------------------------------- */
+
+    /* 사용자초기화 */
+    me.fnInitExtra=function() {
+        //탭 설정
+        //gfnTab(pageid, "tabs", {"multi-active":"off","toggle-switch":"on"}); 
+        //사용자 컴포넌트 
+        //me.dataDef["_pgm_data"][myCompoId] = {...};
+        //me.pageObj["myCompoId"] = new gfnComponent( me.pageid, myCompoId, me.dataDef["_pgm_data"][myCompoId], me.fnEH, me); 
+        //me.pageObj["myCompoId"].userComponent = "myCompoId";
+        //사용자 컨트롤
+        //var myColinfo = {colid:...}
+        //me.pageObj["myColId"] = new gfnControl(myColinfo, me.fnEH) 
+        //me.page.find("#myCol").append(me.pageObj["myColId"].dispObj);
+        //me.pageObj["myColId"].getVal(); / myCol.setVal(val);...    
+    }
+    /* 이벤트핸들러 */
+    me.fnEH=function(component, evt, row, col, val) { 
+        //console.log(evt+","+row+","+col+","+val);
+        //화면기능버튼이 눌리면 
+        if (component==me.pageObj["_pageFunc"]){ 
+            if(typeof(me[col])=='function') me[col](); //col=기능명 me["fnSearch"]()=me.fnSearch(); 
+        }
+        //pageCond:조회조건 이벤트처리     
+        else if(component==me.pageObj["pageCond"]) {
+            if(evt=="componentFunc") {
+                if(row=="addRow") {
+                    component.addRow();
+                } else if(row=="delRow") {
+                    component.delRow();
+                }
+            }
+            //if(evt=="change" && col=="colid") {...}
+        }
+
+        //list:위탁 업체별 매출/수수료 현황 이벤트처리     
+        else if(component==me.pageObj["list"]) {
+            if(evt=="componentFunc") {
+                if(row=="addRow") {
+                    component.addRow();
+                } else if(row=="delRow") {
+                    component.delRow();
+                }
+            }
+            //if(evt=="change" && col=="colid") {...}
+        }
+
+        //사용자 컴포넌트/컨트롤
+        else if(component.userComponent=="myCompoId") {
+            //if(evt=="dblclick" && col=="colid") {...}
+        }
+    }
+    //search:조회 
+    me.fnSearch=function() {
+        if( !me.pageObj["pageCond"].chkValid() ) return;
+        var args = me.pageObj["pageCond"].exportData()[0];
+        //console.log(args);
+        var invar = JSON.stringify(args);
+        gfnTx(appid+"."+pgmid,"search",{INVAR:invar},function(OUTVAR){
+            //console.log(OUTVAR);
+            if(OUTVAR.rtnCd=="OK") {
+                if(args.st_yn=="Y") {
+                    me.dataDef._pgm_data.list.content[2].attr = "hidden";
+                    me.dataDef._pgm_data.list.content[3].attr = "hidden";
+                    me.dataDef._pgm_data.list.content[4].attr = "hidden";
+                } else {
+                    me.dataDef._pgm_data.list.content[2].attr = " ";
+                    me.dataDef._pgm_data.list.content[3].attr = " ";
+                    me.dataDef._pgm_data.list.content[4].attr = " ";
+                }
+                me.pageObj.list.reset();
+                me.pageObj["list"].importData(OUTVAR.list);
+                me.pageObj.list.autoSizeAllColumns(false);
+                me.pageObj.list.total("top");
+            } else {
+                gfnAlert("조회오류",OUTVAR.rtnMsg);
+            }
+        });
+    }
+
+
+/*-- SCRIPT autogen ---------------------------------------------------- */        
+if(typeof(me.fnInit)=='function') me.fnInit();
+});
+
+</script>

@@ -1,0 +1,1196 @@
+<style>
+    form.frameChat {
+        position: fixed;
+        border: 1px solid hsl(0 0% 80%);
+        border-radius: 3px;
+        min-width: 350px;
+        min-height: 460px;
+        box-shadow: 0 3px 6px rgb(0 0 0 / 16%), 0 3px 6px rgb(0 0 0 / 23%);
+        z-index: 1;
+    }
+    
+    .chatWrap, .chatWrapBtm {
+        display: flex;
+        flex-wrap: nowrap;
+        vertical-align: middle;
+        visibility: visible;
+        background-color: hsl(0 0% 100%);
+    }
+            .chatWrap div.chatInfo i {
+                margin: 10px;
+                font-size: 20px;
+            }       
+        .chatWrap label.chatTitle {
+            border: none;
+            outline: none;
+            width: 100%;
+            padding-left: 10px;
+            font-size: 15px;
+            padding-top: 10px;
+            background-color: hsl(0 0% 100%);
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+    
+    .chatLogBox {
+        background-color: hsl(0 0% 90%);
+        visibility: visible;
+        height: calc(100% - 140px);
+        min-height: 318px;
+    }
+        .chatLogBox #chatLog {
+            margin: 0;
+            padding-left: 10px;
+            padding-right: 10px;
+            overflow-y: auto;
+            height: 100%;
+            min-height: 318px;
+        }
+        #chatLog::-webkit-scrollbar{
+			width: 12px;
+		}
+		#chatLog::-webkit-scrollbar-thumb{
+			height: 20%;
+			background-color: hsl(240 2.5% 69.0%);
+			border-radius: 10px;  
+		}
+		#chatLog::-webkit-scrollbar-track{
+			background-color: hsl(0 0% 100%);
+		}
+            .chatLogBox #chatLog li {
+                list-style: none;
+                display: grid;
+                margin-bottom: 5px;
+                justify-items: start;
+                grid-auto-flow: column;
+                justify-content: start;
+            }
+            .chatLogBox #chatLog li.loginUser {
+                justify-content: end;
+                grid-auto-flow: column;
+                grid-template-columns: none;
+                justify-items: end;
+            }
+                .chatLogBox #chatLog li.loginUser div.userIco {
+                    grid-row: span 3;
+                }
+                    .chatLogBox #chatLog li.loginUser div i.fas.fa-user {
+                        background-color: hsl(0 0% 100%);
+                        font-size: 20px;
+                        padding: 10px;
+                        margin: 5px;
+                        border-radius: 5px;
+                    }
+                .chatLogBox #chatLog li.loginUser div.user_nick_nm {
+                    order: -1;
+                }
+                .chatLogBox #chatLog li.loginUser div.comments {
+                    background-color: hsl(53 100% 55%);
+                    order: -1;
+                }
+                .chatLogBox #chatLog li.loginUser div.dt {
+                    order: -1;
+                }
+                    .chatLogBox #chatLog li div i.fas.fa-user {
+                        background-color: hsl(0 0% 100%);
+                        font-size: 20px;
+                        padding: 10px;
+                        margin: 5px;
+                        border-radius: 5px;
+                        box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+                    }
+                .chatLogBox #chatLog li div.userIco {
+                    grid-row: span 3;
+                }
+                .chatLogBox #chatLog li div.user_nick_nm {
+                    font-weight: 500;
+                    margin-bottom: 3px;
+                }
+                .chatLogBox #chatLog li div.comments {
+                    background-color: hsl(0 0% 100%);
+                    border-radius: 5px;
+                    padding: 10px;
+                    word-break: break-all;
+                    cursor: pointer;
+                    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+                    font-size: 13px;
+                    max-width: 250px;
+                    white-space: pre-wrap;
+                }
+
+                .chatLogBox #chatLog li.file div.comments {
+                    background-color: hsl(0 0% 0%);
+                    color: hsl(0 0% 100%);
+                }
+
+                .chatLogBox #chatLog li.file div.comments img {
+                    pointer-events: none;
+                    max-width: 200px;
+                }
+
+                .chatLogBox #chatLog li div.comments:hover {
+                    zoom: 1;
+                    filter: alpha(opacity=80); 
+                    opacity: 0.7;
+                }
+                .chatLogBox #chatLog li div.dt {
+                    padding-left: 5px;
+                    font-weight: 100;
+                    margin-bottom: 10px;
+                    font-weight: 400;
+                }
+    
+        /*frameChat btn opt*/
+        .chatWrap div, .chatWrapBtm div, .chatWrapBtm label {
+            background-color: hsl(0 0% 100%);
+            width: 60px;
+            height: 40px;
+            border: none;
+            outline: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+            .chatWrap div i, .chatWrapBtm div i, .chatWrapBtm label i {
+                font-size: 15px;
+            }
+        .chatWrapBtm textarea.chatEnter {
+            background-color: hsl(0 0% 100%);
+            resize: none;
+            border: none;
+            outline: none;
+            width: 100%;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            line-height: 40px;
+            font-family: 'Noto Sans KR';
+            font-size: 14px;
+        }
+        .chatWrapEnter textarea.chatEnter {
+            height: 56px;
+            width: calc(100% - 12px);
+            outline: none;
+            border: none;
+            resize: none;
+            padding-left: 10px;
+            font-family: 'Noto Sans KR';
+        }
+        .chatWrapEnter textarea.chatEnter::-webkit-scrollbar{
+			width: 12px;
+		}
+		.chatWrapEnter textarea.chatEnter::-webkit-scrollbar-thumb{
+			height: 20%;
+			background-color: hsl(240 2.5% 69.0%);
+			border-radius: 10px;  
+		}
+		.chatWrapEnter textarea.chatEnter::-webkit-scrollbar-track{
+			background-color: hsl(0 0% 100%);
+		}
+        .chatWrap div:hover, .chatWrapBtm div:hover, .chatWrapBtm label:hover {
+            background-color: hsl(0 0% 90%);
+        }
+
+.chatEmojiBox {
+    width: 100%;
+    height: 60px;
+    position: absolute;
+    background: hsl(0 0% 100%);
+    bottom: 100px;
+}
+
+.copied {
+    position: absolute;
+    width: 100px;
+    height: 20px;
+    background-color: hsla(212deg 10% 15% / .75);
+    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+    text-align: center;
+    border-radius: 6px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    color: hsl(0 0% 100%);
+    font-weight: bold;
+    font-size: 15px;
+    z-index: 4;
+}
+
+.circleProgress {
+    font-size: 10px;
+    width: 1.2em;
+    height: 1.2em;
+    border-radius: 50%;
+    position: absolute;
+    text-indent: -9999em;
+    left: 50%;
+    top: 50%;
+    -webkit-animation: load5 1.1s infinite ease;
+    animation: load5 1.1s infinite ease;
+    -webkit-transform: translateZ(0);
+    -ms-transform: translateZ(0);
+    transform: translateZ(0);
+}
+
+.fileImg {
+    top: 50%;
+    left: 50%;
+    width: auto;
+    position: absolute;
+    transform: translate(-50%, -50%);
+}
+
+#background {
+    top: 0px;
+    left: 0px;
+    width : 100%;
+    height: 100%;
+    position: fixed;
+    border-color: hsl(0 0% 0%);
+    border-style: solid;
+    display: block;
+    opacity: 0.3;
+    text-align: center;
+    box-sizing: border-box;
+    z-index: 99999998;
+}
+
+#screenshot:before, #screenshot:after {
+    width: 100% !important;
+    height: 100% !important;
+    position: absolute !important;
+    border: none !important;
+    content: "" !important;
+}
+
+#screenshot:before {
+    top: -100% !important;
+    left: -100% !important;
+    border-right: 1px solid hsl(0 0% 100%) !important;
+    border-bottom: 1px solid hsl(0 0% 100%) !important;
+}
+
+#screenshot:after {
+    top: 0 !important;
+    left: 0 !important;
+    border-top: 1px solid hsl(0 0% 100%) !important;
+    border-left: 1px solid hsl(0 0% 100%) !important;
+}
+
+#screenshot {
+    width: 100% !important;
+    height: 100% !important;
+    position: fixed !important;
+    z-index: 99999999 !important;
+}
+
+body.snipping_cursor {
+    cursor: crosshair;
+}
+
+.snipAlert {
+    position: absolute;
+    top: 5%;
+    background-color: hsl(0 0% 100%);
+    text-align: center;
+    padding: 20px;
+    border-radius: 10px;
+    z-index: 99999999999;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+#imgFrame {
+  position: absolute;
+  z-index: 99999999999;  
+  width: 90%;
+  min-height: 90%;
+  padding-top: 4em;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+
+@-webkit-keyframes load5 {
+    0%,
+    100% {box-shadow: 0em -2.6em 0em 0em #ffffff, 1.8em -1.8em 0 0em rgba(255, 255, 255, 0.2), 2.5em 0em 0 0em rgba(255, 255, 255, 0.2), 1.75em 1.75em 0 0em rgba(255, 255, 255, 0.2), 0em 2.5em 0 0em rgba(255, 255, 255, 0.2), -1.8em 1.8em 0 0em rgba(255, 255, 255, 0.2), -2.6em 0em 0 0em rgba(255, 255, 255, 0.5), -1.8em -1.8em 0 0em rgba(255, 255, 255, 0.7);}
+    12.5% {box-shadow: 0em -2.6em 0em 0em rgba(255, 255, 255, 0.7), 1.8em -1.8em 0 0em #ffffff, 2.5em 0em 0 0em rgba(255, 255, 255, 0.2), 1.75em 1.75em 0 0em rgba(255, 255, 255, 0.2), 0em 2.5em 0 0em rgba(255, 255, 255, 0.2), -1.8em 1.8em 0 0em rgba(255, 255, 255, 0.2), -2.6em 0em 0 0em rgba(255, 255, 255, 0.2), -1.8em -1.8em 0 0em rgba(255, 255, 255, 0.5);}
+    25% {box-shadow: 0em -2.6em 0em 0em rgba(255, 255, 255, 0.5), 1.8em -1.8em 0 0em rgba(255, 255, 255, 0.7), 2.5em 0em 0 0em #ffffff, 1.75em 1.75em 0 0em rgba(255, 255, 255, 0.2), 0em 2.5em 0 0em rgba(255, 255, 255, 0.2), -1.8em 1.8em 0 0em rgba(255, 255, 255, 0.2), -2.6em 0em 0 0em rgba(255, 255, 255, 0.2), -1.8em -1.8em 0 0em rgba(255, 255, 255, 0.2);}
+    37.5% {box-shadow: 0em -2.6em 0em 0em rgba(255, 255, 255, 0.2), 1.8em -1.8em 0 0em rgba(255, 255, 255, 0.5), 2.5em 0em 0 0em rgba(255, 255, 255, 0.7), 1.75em 1.75em 0 0em #ffffff, 0em 2.5em 0 0em rgba(255, 255, 255, 0.2), -1.8em 1.8em 0 0em rgba(255, 255, 255, 0.2), -2.6em 0em 0 0em rgba(255, 255, 255, 0.2), -1.8em -1.8em 0 0em rgba(255, 255, 255, 0.2);}
+    50% {box-shadow: 0em -2.6em 0em 0em rgba(255, 255, 255, 0.2), 1.8em -1.8em 0 0em rgba(255, 255, 255, 0.2), 2.5em 0em 0 0em rgba(255, 255, 255, 0.5), 1.75em 1.75em 0 0em rgba(255, 255, 255, 0.7), 0em 2.5em 0 0em #ffffff, -1.8em 1.8em 0 0em rgba(255, 255, 255, 0.2), -2.6em 0em 0 0em rgba(255, 255, 255, 0.2), -1.8em -1.8em 0 0em rgba(255, 255, 255, 0.2);}
+    62.5% {box-shadow: 0em -2.6em 0em 0em rgba(255, 255, 255, 0.2), 1.8em -1.8em 0 0em rgba(255, 255, 255, 0.2), 2.5em 0em 0 0em rgba(255, 255, 255, 0.2), 1.75em 1.75em 0 0em rgba(255, 255, 255, 0.5), 0em 2.5em 0 0em rgba(255, 255, 255, 0.7), -1.8em 1.8em 0 0em #ffffff, -2.6em 0em 0 0em rgba(255, 255, 255, 0.2), -1.8em -1.8em 0 0em rgba(255, 255, 255, 0.2);}
+    75% {box-shadow: 0em -2.6em 0em 0em rgba(255, 255, 255, 0.2), 1.8em -1.8em 0 0em rgba(255, 255, 255, 0.2), 2.5em 0em 0 0em rgba(255, 255, 255, 0.2), 1.75em 1.75em 0 0em rgba(255, 255, 255, 0.2), 0em 2.5em 0 0em rgba(255, 255, 255, 0.5), -1.8em 1.8em 0 0em rgba(255, 255, 255, 0.7), -2.6em 0em 0 0em #ffffff, -1.8em -1.8em 0 0em rgba(255, 255, 255, 0.2);}
+    87.5% {box-shadow: 0em -2.6em 0em 0em rgba(255, 255, 255, 0.2), 1.8em -1.8em 0 0em rgba(255, 255, 255, 0.2), 2.5em 0em 0 0em rgba(255, 255, 255, 0.2), 1.75em 1.75em 0 0em rgba(255, 255, 255, 0.2), 0em 2.5em 0 0em rgba(255, 255, 255, 0.2), -1.8em 1.8em 0 0em rgba(255, 255, 255, 0.5), -2.6em 0em 0 0em rgba(255, 255, 255, 0.7), -1.8em -1.8em 0 0em #ffffff;}
+}
+@keyframes load5 {
+    0%,
+    100% {box-shadow: 0em -2.6em 0em 0em #ffffff, 1.8em -1.8em 0 0em rgba(255, 255, 255, 0.2), 2.5em 0em 0 0em rgba(255, 255, 255, 0.2), 1.75em 1.75em 0 0em rgba(255, 255, 255, 0.2), 0em 2.5em 0 0em rgba(255, 255, 255, 0.2), -1.8em 1.8em 0 0em rgba(255, 255, 255, 0.2), -2.6em 0em 0 0em rgba(255, 255, 255, 0.5), -1.8em -1.8em 0 0em rgba(255, 255, 255, 0.7);}
+    12.5% {box-shadow: 0em -2.6em 0em 0em rgba(255, 255, 255, 0.7), 1.8em -1.8em 0 0em #ffffff, 2.5em 0em 0 0em rgba(255, 255, 255, 0.2), 1.75em 1.75em 0 0em rgba(255, 255, 255, 0.2), 0em 2.5em 0 0em rgba(255, 255, 255, 0.2), -1.8em 1.8em 0 0em rgba(255, 255, 255, 0.2), -2.6em 0em 0 0em rgba(255, 255, 255, 0.2), -1.8em -1.8em 0 0em rgba(255, 255, 255, 0.5);}
+    25% {box-shadow: 0em -2.6em 0em 0em rgba(255, 255, 255, 0.5), 1.8em -1.8em 0 0em rgba(255, 255, 255, 0.7), 2.5em 0em 0 0em #ffffff, 1.75em 1.75em 0 0em rgba(255, 255, 255, 0.2), 0em 2.5em 0 0em rgba(255, 255, 255, 0.2), -1.8em 1.8em 0 0em rgba(255, 255, 255, 0.2), -2.6em 0em 0 0em rgba(255, 255, 255, 0.2), -1.8em -1.8em 0 0em rgba(255, 255, 255, 0.2);}
+    37.5% {box-shadow: 0em -2.6em 0em 0em rgba(255, 255, 255, 0.2), 1.8em -1.8em 0 0em rgba(255, 255, 255, 0.5), 2.5em 0em 0 0em rgba(255, 255, 255, 0.7), 1.75em 1.75em 0 0em #ffffff, 0em 2.5em 0 0em rgba(255, 255, 255, 0.2), -1.8em 1.8em 0 0em rgba(255, 255, 255, 0.2), -2.6em 0em 0 0em rgba(255, 255, 255, 0.2), -1.8em -1.8em 0 0em rgba(255, 255, 255, 0.2);}
+    50% {box-shadow: 0em -2.6em 0em 0em rgba(255, 255, 255, 0.2), 1.8em -1.8em 0 0em rgba(255, 255, 255, 0.2), 2.5em 0em 0 0em rgba(255, 255, 255, 0.5), 1.75em 1.75em 0 0em rgba(255, 255, 255, 0.7), 0em 2.5em 0 0em #ffffff, -1.8em 1.8em 0 0em rgba(255, 255, 255, 0.2), -2.6em 0em 0 0em rgba(255, 255, 255, 0.2), -1.8em -1.8em 0 0em rgba(255, 255, 255, 0.2);}
+    62.5% {box-shadow: 0em -2.6em 0em 0em rgba(255, 255, 255, 0.2), 1.8em -1.8em 0 0em rgba(255, 255, 255, 0.2), 2.5em 0em 0 0em rgba(255, 255, 255, 0.2), 1.75em 1.75em 0 0em rgba(255, 255, 255, 0.5), 0em 2.5em 0 0em rgba(255, 255, 255, 0.7), -1.8em 1.8em 0 0em #ffffff, -2.6em 0em 0 0em rgba(255, 255, 255, 0.2), -1.8em -1.8em 0 0em rgba(255, 255, 255, 0.2);}
+    75% {box-shadow: 0em -2.6em 0em 0em rgba(255, 255, 255, 0.2), 1.8em -1.8em 0 0em rgba(255, 255, 255, 0.2), 2.5em 0em 0 0em rgba(255, 255, 255, 0.2), 1.75em 1.75em 0 0em rgba(255, 255, 255, 0.2), 0em 2.5em 0 0em rgba(255, 255, 255, 0.5), -1.8em 1.8em 0 0em rgba(255, 255, 255, 0.7), -2.6em 0em 0 0em #ffffff, -1.8em -1.8em 0 0em rgba(255, 255, 255, 0.2);}
+    87.5% {box-shadow: 0em -2.6em 0em 0em rgba(255, 255, 255, 0.2), 1.8em -1.8em 0 0em rgba(255, 255, 255, 0.2), 2.5em 0em 0 0em rgba(255, 255, 255, 0.2), 1.75em 1.75em 0 0em rgba(255, 255, 255, 0.2), 0em 2.5em 0 0em rgba(255, 255, 255, 0.2), -1.8em 1.8em 0 0em rgba(255, 255, 255, 0.5), -2.6em 0em 0 0em rgba(255, 255, 255, 0.7), -1.8em -1.8em 0 0em #ffffff;}
+}
+</style>
+<div>
+    <form class="frameChat">
+        <div class="chatWrap">
+            <div class="chatInfo"><i class="fas fa-users"></i></div>
+            <label class="chatTitle"></label>
+            <div class="chatMinimize"><i class="fas fa-window-minimize"></i></div>
+            <div class="chatMaximize"><i class="far fa-window-maximize"></i></div>
+            <div class="chatClose"><i class="fas fa-times"></i></div>
+        </div>
+        <div class="chatLogBox">
+            <div class="circleProgress hidden"></div>
+            <div class="copied hidden">Copied!</div>
+            <ul id="chatLog"></ul>
+        </div>
+        <div class="chatEmojiBox hidden">
+            <div id=chatEmoji>
+            </div>
+        </div>
+        <div class="chatWrapBtm">
+            <div class="chatEmoji"><i class="far fa-smile"></i></div>
+            <label class="chatFile"><input type="file" style="display:none;" class="chatFileUpLoad"
+                accept=".jpg, .jpeg, .png, .gif, .bmp,
+                        .hwp, .docx, .doc, .xls, .ppt, .pptx, .txt, .pdf,
+                        .zip" multiple/><i class="fas fa-paperclip"></i></label>
+            <div class="chatSnipping"><i class="fas fa-cut"></i></div>
+            <div class="chatLock"><i class="fas fa-lock"></i></div>
+            <div class="chatUnLock hidden"><i class="fas fa-lock-open"></i></div>
+        </div>
+        <div class="chatWrapEnter">
+            <textarea type="text" class="chatEnter" placeholder="Message (Enter:전송 / Shift+Enter:줄바꿈 / 파일 드래그)"></textarea>   
+        </div>
+    </form>
+</div>
+<script>
+    $(function() {
+        var appid   = "aweportal";
+        var pgmid   = "frameChat";
+        var page    = $("*[pgmid = '" + pgmid + "']").last();
+        //var pageid  = page.attr("id"); 
+        var grpid   = page.attr("id"); 
+        var grpnm   = page.attr("grpnm");
+        var me      = {};
+        var dataDef = {};
+
+        var userid  = gUserinfo.userid;
+        var usernm  = gUserinfo.usernm;
+        var grp_nick_nm   = "";
+        var user_nick_nm  = "";
+
+        var imgCount = 0;
+
+        me.fnInit = function() {
+            gfn[pgmid]      = me;
+            me.appid        = appid;
+            me.pgmid        = pgmid;
+            me.grpid        = grpid;
+            me.grpnm        = grpnm;
+            me.page         = page;
+            me.dataDef      = dataDef;
+
+            me.userid       = userid;
+            me.usernm       = usernm;
+            me.grp_nick_nm  = grp_nick_nm;
+            me.user_nick_nm = user_nick_nm;
+
+            me.imgCount     = me.imgCount;
+
+            me.dataDef["userInfo"] = [];
+            me.dataDef["roomInfo"] = [];
+            me.dataDef["empInfo"]  = [];
+            me.dataDef["chatLog"]  = [];
+            me.dataDef["fileInfo"] = [];
+            
+            if(typeof(me.fnInitExtra) == 'function') me.fnInitExtra();
+        }
+        
+        //grpid 방 정보 수신
+        me.fnInitExtra = function() {
+            //fnInit 데이터 DOM 바인딩
+            me.page.find(".chatFileUpLoad").attr("grpid", me.grpid);
+            
+            //draggable, resiable 설정
+            $("form.frameChat").draggable();
+            $("form.frameChat").resizable();
+
+            $("#" + me.grpid + " div form.frameChat").css("height", "400px");
+            $("#" + me.grpid + " div form.frameChat").css("width", "350px");
+
+            $("#" + me.grpid + " div form.frameChat .chatWrapEnter .chatEnter").focus();
+
+            //방 번호 JSON string으로 가공
+            var args = { 
+                grpid : me.grpid, 
+                usid : me.userid 
+            };
+            var invar = JSON.stringify(args);
+
+            //grpid로 채널 정보, 채널 유저 정보 수신
+            gfnTx("aweportal.manageChat", "selectChatInfo", {INVAR:invar}, function(OUTVAR) {
+                if(OUTVAR.rtnCd == "OK") {
+                    //로그인 유저 정보
+                    me.dataDef["userInfo"].push(OUTVAR.userInfo);
+
+                    //채널 정보
+                    me.dataDef["roomInfo"].push(OUTVAR.chatInfo);
+
+                    //채널 유저 정보
+                    me.dataDef["empInfo"].push(OUTVAR.empInfo);
+
+                    //채널 대화 내용
+                    me.dataDef["chatLog"].push(OUTVAR.chatLog);
+                }
+                me.fnInitChatInfo();
+                me.fnEHChatSent();
+                me.fnEHAjax();
+                me.fnEHDragFile();
+                me.fnEHFile(); 
+                me.fnEHChatReceive();
+                me.fnEHChatButton();
+            }, true);
+        }
+
+        //데이터셋 사용 필드 초기화
+        me.fnInitChatInfo = function() {
+            //채널 데이터 정의
+            var userInfo = me.dataDef["userInfo"][0][0];
+            var roomInfo = me.dataDef["roomInfo"][0][0]; 
+
+            //채널 이름 설정
+            const spFont = userInfo.grp_nick_nm.match(/,/g);     
+            if(spFont != null && ((userInfo.grp_nick_nm).match(/,/g).length) == 1 && (userInfo.grp_nick_nm).indexOf(me.usernm) != -1) { 
+                me.grp_nick_nm = (userInfo.grp_nick_nm).replace(me.usernm, "").replace(",", ""); 
+            
+            } else { 
+                me.grp_nick_nm  = userInfo.grp_nick_nm; 
+            }
+
+            //유저 닉네임 설정
+            me.user_nick_nm = userInfo.user_nick_nm;
+            page.find(".chatTitle").text(me.grp_nick_nm);
+
+            //채팅 로그
+            var chatLogList = me.dataDef["chatLog"].pop(chatLog);
+            chatLogList.forEach((chatLog) => {
+                me.fnInitChatLog(chatLog);
+            }) 
+        }
+
+        //채팅 로그 출력 및 메세지 수신
+        me.fnInitChatLog = function(chatLog) {
+            let chat = document.createElement("li");
+
+            //채팅 로그가 로그인 유저인 경우
+            if(chatLog.reg_usid == me.userid) {
+                chat.classList.add("loginUser");
+                chat.style.gridTemplateRows = "auto auto";
+                chat.style.justifyItems = "unset";
+
+            //채팅 로그 상대 유저
+            } else {
+                //유저 사진 공간
+                let userIco = document.createElement("div");
+                userIco.classList.add("userIco");
+                chat.append(userIco);
+
+                //유저 사진으로 바꿀 아이콘
+                let userIcoI = document.createElement("i");
+                userIcoI.classList.add("fas");
+                userIcoI.classList.add("fa-user");
+                userIco.append(userIcoI);
+
+                //유저 닉네임
+                let user_nick_nm = document.createElement("div");
+                user_nick_nm.classList.add("user_nick_nm");
+                user_nick_nm.textContent = chatLog.user_nick_nm;
+                chat.append(user_nick_nm);
+            }
+            
+            //메세지 내용
+            let comments = document.createElement("div");
+            comments.classList.add("comments");
+            comments.setAttribute("type", chatLog.ref_info_tp);
+            comments.setAttribute("url", chatLog.ref_id);
+
+            //메세지에 URL이 있는 경우,
+            if(chatLog.ref_id && chatLog.ref_id.length > 0) {
+                const imgList = ["gif", "jpg", "png", "jpeg", "bmp"];
+                const docList = ["hwp", "doc", "docx", "ppt", "pptx", "xls", "xlsx", "pdf", "txt"];
+
+                //이미지 타입
+                if(imgList.includes(chatLog.ref_info_tp)) {
+                    let image = document.createElement("img");
+                    image.classList.add("commentsImage");
+                    image.setAttribute("src", chatLog.ref_id);
+                    comments.setAttribute("cnt", imgCount);
+                    comments.append(image);
+                    comments.setAttribute("title", chatLog.comments);
+                    imgCount++;
+                
+                //문서 타입
+                } else if(docList.includes(chatLog.ref_info_tp)) {
+                    comments.innerHTML = chatLog.comments;
+
+                //기타 유형
+                } else {
+                    comments.innerHTML = chatLog.comments;
+                }
+                chat.classList.add("file");
+
+            //메세지가 채팅인 경우
+            } else { 
+                var temp = JSON.parse(CryptoJS.AES.decrypt(chatLog.comments, encdeckey).toString(CryptoJS.enc.Utf8));
+                var urlCheck = new RegExp("([a-zA-Z0-9]+://)?([a-zA-Z0-9_]+:[a-zA-Z0-9_]+@)?([a-zA-Z0-9.-]+\\.[A-Za-z]{2,4})(:[0-9]+)?(/.*)?");
+                var urlFilter = /(([a-zA-Z0-9]+:\/\/)?([a-zA-Z0-9_]+:[a-zA-Z0-9_]+@)?([a-zA-Z0-9.-]+\.[A-Za-z]{2,4})(:[0-9]+)?(\/.*)?)/;
+ 
+                //메세지가 URL인 경우,
+                if(urlCheck.test(temp)) {
+                    comments.innerHTML = temp.replace(urlFilter, '<a href="$1" target="_blank">$1</a>');
+
+                //일반 메세지인 경우,
+                } else {
+                    comments.textContent = JSON.parse(CryptoJS.AES.decrypt(chatLog.comments, encdeckey).toString(CryptoJS.enc.Utf8));
+                }
+            };
+            chat.append(comments);
+
+            //메세지 시간
+            let dt = document.createElement("div");
+            dt.classList.add("dt");
+            dt.textContent = chatLog.reg_dt;
+            chat.append(dt);
+
+            me.page.find("#chatLog").append(chat);
+            
+            //메세지 로드 시 최하단 스크롤 이벤트
+            if(!chatLog.status) page.find("#chatLog").scrollTop(me.page.find("#chatLog")[0].scrollHeight);
+
+            //메세지 수신 시 socket.io로 전달받는 status 값으로 메세지를 구분
+            else me.page.find("#chatLog").animate({ scrollTop: me.page.find("#chatLog")[0].scrollHeight }, 200);
+        }
+
+        //파일 전송 로딩
+        me.fnEHAjax = function() {
+            $(".chatFileUpLoad[grpid=" + me.grpid + "]").ajaxStart(function() {
+                $(".circleProgress").removeClass("hidden");
+
+            }).ajaxStop(function(){
+                $(".circleProgress").addClass("hidden");
+            })
+        }
+
+        //파일 정보 수집
+        me.fnEHFileInfo = function(file, bAddFile) {
+            //파일 첨부 데이터셋 초기화
+            me.dataDef["fileInfo"] = [];
+
+            //파일 정보 변수 별도 저장
+            const fileList = file;
+
+            //파일 정보 수집 함수 정의
+            function getFileInfo(fileList) {
+                //파일 이름
+                let fileName      = fileList.name;
+
+                //파일 타입 명명
+                let fileTypeSplit = fileName.split("\.");
+                let fileType      = fileTypeSplit[fileTypeSplit.length -1];
+
+                //파일 크기 명명
+                let fileSizeC     = undefined;
+                let fileSizeO     = fileList.size;
+                let fileSizeKB    = fileSizeO / 1024;
+                let fileSizeMB    = fileSizeKB / 1024;
+                let fileSizeOver  = false;
+
+                if((1024 * 1024) <= fileSizeO) fileSizeC = fileSizeMB.toFixed(2) + "MB";
+                else if((1024) <= fileSizeO) fileSizeC = parseInt(fileSizeKB) + "KB";
+                else fileSizeC = parseInt(fileSizeO) + "Byte";
+
+                let fileDateDir   = date("today", "yyyymm");
+
+                //DB형태에 맞게 재가공
+                fileInfo = {
+                    fileid       : undefined,
+                    file_tp      : "CHAT",
+                    ref_file_tp  : "T_CHAT",
+                    ref_id       : me.grpid,
+                    file_nm      : undefined,
+                    orgn_nm      : fileName,
+                    file_ext     : fileType,
+                    file_url     : undefined,
+                    file_dir     : undefined,
+                    file_sz      : fileSizeO,
+                    fileSizeC    : fileSizeC,
+                    fileSizeOver : fileSizeOver,
+                    fileDateDir  : fileDateDir
+                };
+                me.dataDef["fileInfo"].push(fileInfo);
+            }
+        
+            //bAddFile 스크린 캡처일 경우,
+            if(!bAddFile) {
+                getFileInfo(fileList);
+                me.fnEHFileSubmit(fileList, false);
+
+            //파일 첨부일 경우,
+            } else {
+                for(let i = 0; i < fileList.length; i++) {
+                    getFileInfo(fileList[i]);
+                }
+                me.fnEHFileCheck(file);
+            }
+        }
+
+        //파일 사이즈 체크 및 제외 체크(JSP에서 제외 처리)
+        me.fnEHFileCheck = function(fileList) {
+            let count            = undefined;
+            let fileSizeAll      = undefined;
+            let fileSizeLimit    = undefined;
+            let fileSizeLimitMax = undefined;
+
+            //each : 10MB,  max : 100MB
+            fileSizeLimit    = 10485760; 
+            fileSizeLimitMax = 104857600;
+            count = 0;
+
+            me.dataDef["fileInfo"].forEach((file) => {
+                if(file.file_sz > fileSizeLimit) {
+                    file.fileSizeOver = true;
+                    gfnStatus("업로드 가능한 크기는 최대 10MB 입니다.");
+                    count++;
+                } else {
+                    if(fileSizeAll > fileSizeLimitMax) {
+                        file.fileSizeOver = true;
+                        gfnStatus("업로드 가능한 크기는 최대 10MB 입니다.");
+                        count++;
+                    } else {
+                        fileSizeAll += file.file_sz;
+                    }
+                }
+            });
+            if(count > 0) return;
+            else me.fnEHFileSubmit(fileList, true);
+        }
+
+        //Ajax 파일 전송
+        me.fnEHFileSubmit = function(fileList, bAddFile) {
+            //Ajax 파일 전송 정의
+            function ajaxUpLoader(fileList) {
+                    $.ajax({
+                    url         : "awegtx.jsp?pgm=aweportal.manageChat",
+                    data        : formData,
+                    dataType    : 'json',
+                    type        : 'POST',
+                    enctype     : 'multipart/form-data',
+                    processData : false,
+                    contentType : false,
+                    success     : function(OUTVAR) {
+                        if(OUTVAR.rtnCd == "OK") {
+                            let fileInfo    = me.dataDef["fileInfo"];
+                            let fileInfoExt = OUTVAR.fileInfoExt;
+
+                            for(let i = 0; i < fileInfo.length; i++) {
+                                for(let j = 0; j < fileInfoExt.length; j++) {
+                                    if(fileInfo[i].orgn_nm == fileInfoExt[j].orgn_nm) {
+                                        Object.assign(fileInfo[i], fileInfoExt[j]);
+                                    }
+                                }
+                            }
+
+                            fileInfo.forEach((file) => {
+                                var args = {
+                                    status       : "file",
+                                    grpid        : me.grpid,
+                                    comments     : file.orgn_nm + "</br>" + "[" + file.fileSizeC + "]",
+                                    ref_info_tp  : file.file_ext,
+                                    ref_id       : file.file_url,
+                                    reg_usid     : me.userid,
+                                    reg_dt       : file.reg_dt,
+                                    user_nick_nm : me.user_nick_nm,
+                                    available    : file.fileSizeOver
+                                }
+
+                                var invar = JSON.stringify(args);
+                                gfnTx("aweportal.manageChat", "insertChatFile", { INVAR : invar }, function(OUTVAR) { 
+                                    if(OUTVAR.rtnCd == "OK") {
+                                        messages.emit("chatMsg", args);
+                                    }
+                                })         
+                            })  
+                        }
+                    }
+                })
+            }
+
+            let args       = {};
+            let formData   = new FormData();
+
+            //파일 정보 JSON 타입 저장
+            args["fileInfo"] = me.dataDef["fileInfo"];
+            const invar = JSON.stringify(args);
+            formData.append("INVAR", invar);
+
+            //bAddFile 스크린 캡처일 경우,
+            if(!bAddFile) {
+                formData.append("file", fileList);
+               
+            //멀티 파일 첨부일 경우,
+            } else {
+                for(let i = 0; i < fileList.length; i++) {
+                    formData.append("file", fileList[i]);
+                };
+            }
+            ajaxUpLoader(fileList);
+        }
+
+        //클릭 파일 전송
+        me.fnEHFile = function() {
+            me.page.find(".chatFileUpLoad[grpid=" + me.grpid + "]").on("change", function() {
+                const fileList = this.files;
+                me.fnEHFileInfo(fileList, true);
+            })
+        }
+
+        //파일 드래그 전송
+        me.fnEHDragFile = function() {
+            const dragArea = $("#frameChat .frameChat[id=" + me.grpid + "] div form.frameChat .chatWrapEnter .chatEnter");
+            dragArea.on('dragenter', (e) => {
+                e.stopPropagation();
+                e.preventDefault();
+                dragArea.css('background-color', 'hsl(197 100% 69.6%)');
+                dragArea.attr("placeholder", "첨부할 파일을 마우스로 끌어서 추가할 수 있습니다.");
+            });
+
+            dragArea.on('dragleave', (e) => {
+                e.stopPropagation();
+                e.preventDefault();
+                dragArea.css('background-color', 'hsl(0 0% 100%)');
+                dragArea.attr("placeholder", "Message (Enter:전송 / Shift+Enter:줄바꿈 / 파일 드래그)");
+            });
+
+            dragArea.on('drop', function(e) {
+                e.preventDefault();
+
+                dragArea.css('background-color', 'hsl(0 0% 100%)');
+                dragArea.attr("placeholder", "Message (Enter:전송 / Shift+Enter:줄바꿈 / 파일 드래그)");
+                const fileList = e.originalEvent.dataTransfer.files;
+                if(fileList.length < 1) {
+                    gfnStatus("폴더는 업로드 불가능합니다.");
+                    return;
+                
+                } else {
+                    //파일 정보 수집
+                    me.fnEHFileInfo(fileList, true);
+
+                    // //파일 크기 체크 후, 이상 없는 경우 전송
+                    // if(me.fnEHFileCheck(fileList) == false) return; 
+                    // else me.fnEHFileSubmit(fileList);
+                }
+            });
+        }
+
+        //스크린 캡쳐 기능
+        me.fnEHChatSnipping = function(e) {
+            let body = document.querySelector("body");
+
+            //채팅창 모두 숨기기
+            document.getElementById("frameChat").style.display = "none";
+
+            //알림 팝업 표시
+            let snipAlert = document.createElement("div");
+            snipAlert.classList.add("snipAlert");
+            snipAlert.innerHTML = "스크린 캡쳐를 시작합니다.</br>영역 선택 : 마우스 드래그 / 전체 화면 : 왼쪽 클릭 / 취소 : 오른쪽 클릭(ESC)";
+            document.querySelector("body").appendChild(snipAlert);
+
+            //좌표 초기화
+            let startX, startY; 
+            let height = window.innerHeight; 
+            let width  = window.innerWidth; 
+
+            //backgroud 영역 생성
+            let background = document.createElement("div"); 
+            background.id = "background"; 
+            background.style.borderWidth = "0 0 " + height + "px 0"; 
+
+            //선택 영역 크기 객체 생성
+            let screenshot = document.createElement("div"); 
+            screenshot.id = "screenshot"; 
+            document.querySelector("body").appendChild(background); 
+            document.querySelector("body").appendChild(screenshot); 
+            
+            let snipping = false; 
+
+            //취소 이벤트
+            let snippingCancel = function() {
+                e.preventDefault();
+
+                //캡쳐 이벤트 제거
+                body.removeEventListener("mousemove", mousemove); 
+                screenshot.parentNode.removeChild(screenshot); 
+                background.parentNode.removeChild(background); 
+                body.removeEventListener("mouseup", mouseup);
+                body.removeEventListener("mousedown", mousedown);
+                document.querySelector("body").classList.remove("snipping_cursor");
+
+                //채팅창 모두 나타내기
+                document.getElementById("frameChat").style.display = "unset";
+
+                const del = document.querySelector("body .snipAlert");
+                del.parentNode.removeChild(del);
+            }
+
+            //ESC키 취소
+            let keyup = function(e) {
+                if(event.keyCode == 27) {
+                    snippingCancel();
+                }
+                body.removeEventListener("keyup", keyup);
+            }
+            body.addEventListener("keyup", keyup);
+
+            //영역 클릭 시작
+            let mousedown = function(e) {
+                //오른쪽 클릭 이벤트
+                if((event.button == 2) || (event.which == 3)) {
+                    snippingCancel();
+
+                //왼쪽 클릭 이벤트
+                } else {
+                    e.preventDefault();
+                    const del = document.querySelector("body .snipAlert");
+                    del.parentNode.removeChild(del);
+
+                    snipping = true; 
+                    startX   = e.clientX; 
+                    startY   = e.clientY; 
+                    body.removeEventListener("mousedown", mousedown);
+                }
+                
+            } 
+            body.addEventListener("mousedown", mousedown); 
+
+            //영역 클릭 끝
+            let mouseup = function(e) {
+                body.removeEventListener("mousemove", mousemove); 
+                screenshot.parentNode.removeChild(screenshot); 
+                background.parentNode.removeChild(background); 
+                
+                snipping = false; 
+                let x      = e.clientX; 
+                let y      = e.clientY; 
+                let top    = Math.min(y, startY); 
+                let left   = Math.min(x, startX); 
+                let width  = Math.max(x, startX) - left; 
+                let height = Math.max(y, startY) - top;
+
+                if(width == 0 ||height == 0) {
+                    html2canvas(document.body).then(function (canvas) {
+                        save(canvas);
+                    });
+
+                } else {
+                    html2canvas(document.body).then(function (canvas) {
+                        let img      = canvas.getContext('2d').getImageData(left, top, width, height); 
+                        let cBody    = document.createElement("canvas"); 
+
+                        cBody.width  = width; 
+                        cBody.height = height; 
+                        cBody.getContext('2d').putImageData(img, 0, 0); 
+                        save(cBody); 
+                    }); 
+                }
+                
+                body.removeEventListener("mouseup", mouseup); 
+                document.querySelector("body").classList.remove("snipping_cursor");
+
+                //채팅창 모두 나타내기
+                document.getElementById("frameChat").style.display = "unset";
+            }
+            body.addEventListener("mouseup", mouseup); 
+            
+            //클릭 영역 지정
+            function mousemove(e) {
+                let x = e.clientX; 
+                let y = e.clientY; 
+
+                screenshot.style.left = x; 
+                screenshot.style.top = y; 
+                
+                if (snipping) {
+                    let top    = Math.min(y, startY); 
+                    let right  = width  - Math.max(x, startX); 
+                    let bottom = height - Math.max(y, startY); 
+                    let left   = Math.min(x, startX); 
+                    background.style.borderWidth = top + 'px ' + right + 'px ' + bottom + 'px ' + left + 'px';
+                }
+            } 
+            body.addEventListener("mousemove", mousemove); 
+            
+            // 캡쳐 이미지 저장 
+            function save(canvas) {
+                const imgName   = 'snipping.png'; //날짜로 변경
+                const imgUrl    = canvas.toDataURL('image/png');
+                const imgBinary = atob(imgUrl.split(',')[1]);
+                const imgArray  = [];
+
+                for(var i = 0; i < imgBinary.length; i++) {
+                    imgArray.push(imgBinary.charCodeAt(i));
+                }
+
+                const imgFile = new Blob([new Uint8Array(imgArray)], {type : 'image/png'});
+                const file    = new File([imgFile], imgName, { type: "image/png", lastModified: new Date().getTime() });
+
+                //데이터 수집 후 파일 전송
+                me.fnEHFileInfo(file, false);
+            }
+        }
+
+        //메세지 송신(form, submit = enter key)
+        me.fnEHChatSent = function() {          
+            $("#frameChat #" + me.grpid + " div form.frameChat .chatWrapEnter .chatEnter").on("keydown", function(e){
+                if(e.keyCode == 13) {
+                    if(!e.shiftKey) {
+                        e.preventDefault();
+                        
+                        //value check(empty etc.hashtag)
+                        if($("#frameChat #" + me.grpid + " div .frameChat .chatWrapBtm .chatEnter").val() == "") return;
+
+                        //메세지 개행문자 가공
+                        var args = {
+                            status       : "msg",
+                            grpid        : me.grpid,
+                            comments     : (CryptoJS.AES.encrypt(JSON.stringify(page.find(".chatEnter").val()), encdeckey)).toString(),
+                            ref_info_tp  : "",
+                            ref_id       : "",
+                            reg_usid     : me.userid,
+                            reg_dt       : "",
+                            user_nick_nm : me.user_nick_nm
+                        }
+                        
+                        $("#frameChat #" + me.grpid + " div form.frameChat .chatWrapEnter .chatEnter").val("");
+
+                        var invar = JSON.stringify(args);
+                                            
+                        //메세지 전송 실패 방지를 위해 우선 DataBase에 저장이 우선된 후,
+                        gfnTx("aweportal.manageChat", "insertChatLog", {INVAR:invar}, function(OUTVAR) {
+                            args.reg_dt = OUTVAR.reg_dt;
+
+                            //socket.io로 메세지 전달
+                            messages.emit("chatMsg", args);
+                        }, true);
+
+                    } else {
+                        //줄 바꿈
+                    }
+                }
+            })
+        }
+ 
+        //메세지 수신
+        //if 조건으로 focus 혹은 selected가 아닌 경우 읽지 않음 처리 ->  읽음 처리
+        me.fnEHChatReceive = function() {
+            messages.on("chatMsg" + me.grpid, function(chatLog) {
+                me.fnInitChatLog(chatLog);
+            });
+        }
+
+        //메세지 알림 효과
+        me.fnEHMsgAlert = (grpid) => {
+            $(".listChat[grpid="+ grpid +"]").animate({"background-color":"black", opacity: 1},5, function(){$(".listChat[grpid="+ grpid +"]").animate({"background-color":"red"},500)}); 
+        }
+
+        //버튼 클릭 이벤트
+        me.fnEHChatButton = function() {
+            //메세지 클릭 이벤트
+            $(document).on("click", ".comments", function(event) {
+                const msg = event.target;
+
+                //URL이 있는 경우,
+                if(msg.getAttribute("url") != "") {
+                    const url = msg.getAttribute("url");
+
+                    //파일인 경우,
+                    if(msg.parentElement.classList.contains("file")) {
+                        //이미지인 경우,
+                        if($(msg).children("img").length > 0) {
+                            const imgFrame = (new Viewer(document.getElementById('chatLog'), {
+                                inline: true,
+                                initialViewIndex: msg.getAttribute("cnt"),
+                            }));
+
+                        //그 외, 파일 다운로드
+                        } else {
+                            const url = $(event.target).attr("url");
+                            window.open(url);
+
+                        }
+                    }
+
+                //URL이 없는 메세지인 경우(메세지 텍스트가 링크인 경우)
+                } else {
+                    let value = event.target.textContent;
+                    let textarea = document.createElement('textarea');
+                    document.body.appendChild(textarea);
+                    textarea.innerHTML = value;
+                    textarea.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(textarea);
+
+                    $(".copied").removeClass("hidden").animate({undefined, opacity: 0.1}, 300, function(){$(".copied").addClass("hidden").animate({undefined, opacity: 1}, 5)});
+                }
+            })
+            
+            //메세지창 상단 버튼 클릭 이벤트
+            me.page.find(".chatWrap").on({
+                click: function(e) {
+                    var oE = $(e.target);
+                    if(oE.isON("div .chatInfo")) {
+                        gfnManageChat(me.grpid, me.userid);
+
+                    //메세지 채널 타이틀 더블 클릭시 최소화창 활성화 옵션
+                    /*} else if(oE.isON("label.chatTitle")) { 
+                        if($(this).hasClass("selected") == true) {
+                            $(this).removeClass("selected");
+                            me.page.find(".chatLogBox").attr('style','visibility:visible');
+                            me.page.find(".chatWrapBtm").attr('style','visibility:visible');
+                            me.page.find(".frameChat").attr('style','height:auto');
+                        }*/
+
+                    //-----------------메세지 채널 프레임 최소화 아이콘 css selected 옵션 추가로 변경 예정
+                    } else if(oE.isON("div .chatMinimize")) {
+                        if($(this).hasClass("selected") == false) {
+                            $(this).addClass("selected");
+                            me.page.find('form.frameChat').css('top', '0px');
+                            me.page.find('form.frameChat').css('left', '0px');
+                            me.page.find('.chatLogBox').css('visibility', 'hidden');
+                            me.page.find('.chatWrapBtm').css('visibility', 'hidden');
+                            me.page.find('.chatEnter').css('visibility', 'hidden');                       
+                            me.page.find('form.frameChat').css('height', '40px');
+                            me.page.find("form.frameChat").css('min-height','unset');
+                            
+                        } else {
+                            $(this).removeClass("selected");
+                            me.page.find('.chatLogBox').css('visibility', 'visible');
+                            me.page.find('.chatWrapBtm').css('visibility', 'visible');
+                            me.page.find('.chatEnter').css('visibility', 'visible');    
+                            me.page.find('form.frameChat').css('height', '460px');
+                            me.page.find("form.frameChat").css('min-height','460px');
+                            me.page.find("#chatLog").scrollTop(page.find("#chatLog")[0].scrollHeight);
+                        }
+
+                    //메세지 채널 프레임 최대화 아이콘
+                    } else if(oE.isON("div .chatMaximize")) {
+                        if($(this).hasClass("selected") == false) {
+                            $(this).addClass("selected");
+                            var frameMainHeight = window.getComputedStyle(document.querySelector("#frameMain")).height;
+                            //var frameMainWidth  = window.getComputedStyle(document.querySelector("#frameMain")).width;
+                            me.page.find('.chatLogBox').css('visibility', 'visible');
+                            me.page.find('.chatWrapBtm').css('visibility', 'visible');
+                            me.page.find('.chatEnter').css('visibility', 'visible');  
+                            me.page.find("form.frameChat").css("right", "20px");
+                            me.page.find("form.frameChat").css("bottom", "20px");
+                            me.page.find("form.frameChat").css("width", '350px');
+                            me.page.find("form.frameChat").css("height", frameMainHeight);
+
+                        } else {
+                            $(this).removeClass("selected");
+                            me.page.find('.chatLogBox').css('visibility', 'visible');
+                            me.page.find('.chatWrapBtm').css('visibility', 'visible');
+                            me.page.find('.chatEnter').css('visibility', 'visible');  
+                            me.page.find('form.frameChat').css('height', '460px');
+                            me.page.find('form.frameChat').css('width', '350px');
+                            page.find("#chatLog").scrollTop(page.find("#chatLog")[0].scrollHeight);
+                        }
+                    
+                    //메세지 채널 프레임 닫기 아이콘
+                    } else if(oE.isON(".chatClose")) {
+                        var args = { usid : me.userid, grpid : me.grpid };
+                        var invar = JSON.stringify(args);
+                        gfnTx("aweportal.manageChat", "selectChatInfo", { INVAR:invar }, function(OUTVAR) {
+                            if(OUTVAR.rtnCd == "OK") {
+                                gParam["userid"] = [];
+                                gParam["grpid"]  = [];
+
+                                gMDI.closeChat(me.grpid);
+                            }
+                        }, true);
+                        
+                        //추후, ES6로 이벤트 리스너 변경
+                        $(document).off("click", ".comments");
+                    }
+                }
+            })
+
+            //메세지 하단 버튼 클릭 이벤트
+            me.page.find(".chatWrapBtm").on({
+                click: function(e) {
+                    var oE = $(e.target);
+                    
+                    //메세지 이모티콘 프레임
+                    if(oE.isON("div .chatEmoji")) {
+                        me.page.find(".chatEmojiBox").toggleClass("hidden");
+
+                    //캡처 아이콘
+                    } else if(oE.isON("div .chatSnipping")) {
+                        document.querySelector("body").classList.add("snipping_cursor");
+                        me.fnEHChatSnipping(e);
+                    
+                    //메세지 입력 잠금 아이콘
+                    } else if(oE.isON("div .chatLock")) {
+                        me.page.find(".chatEnter").prop('disabled', function(i, v) {
+                            me.page.find(".chatEnter").attr('placeholder','메세지 입력이 잠금 설정되었습니다.');
+                            me.page.find(".chatEnter").attr('style','background-color: hsl(0 0% 100%)');
+                            me.page.find(".chatLock").addClass("hidden");
+                            me.page.find(".chatUnLock").removeClass("hidden");
+                        return !v;
+                        });
+
+                    //메세지 입력 잠금 해제 아이콘
+                    } else if(oE.isON("div .chatUnLock")) {
+                        me.page.find(".chatEnter").prop('disabled', function(i, v) {
+                            me.page.find(".chatEnter").attr('placeholder','Message (Enter:전송 / Shift+Enter:줄바꿈 / 파일 드래그)');
+                            me.page.find(".chatEnter").attr('style','filter:none');
+                            me.page.find(".chatEnter").val("");
+                            me.page.find(".chatUnLock").addClass("hidden");
+                            me.page.find(".chatLock").removeClass("hidden");
+                            return !v;
+                        });
+                    };
+                }
+            })
+
+            //메세지 focus 이벤트(활성화된 메세지 창 밖 영역과 구분)
+            $(window).on({
+                click: function(e) {
+                    var oE = $(e.target);
+                    //메세지 프레임 포커스 해제
+                    if(!$("#frameChat #" + grpid).has(e.target).length) {
+                        $("#frameChat #" + grpid).removeClass("focus");
+                        $("#frameChat #" + grpid + " div form.frameChat").css("z-index","1");
+                    
+                    //메세지 프레임 포커스
+                    } else {
+                        $("#frameChat #" + grpid).addClass("focus");
+                        $("#frameChat #" + grpid + " div form.frameChat").css("z-index","2");
+                        
+                        $(".listChat[grpid=" + grpid + "]").attr("style","background-color:hsl(0 0% 10%)");
+                        $(".listChat[grpid=" + grpid + "] .countChat").addClass("hidden");
+                    }
+                }
+            })
+        }
+        if(typeof(me.fnInit) == 'function') me.fnInit();
+    });
+</script>

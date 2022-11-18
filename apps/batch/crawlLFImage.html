@@ -1,0 +1,398 @@
+<style>[pgmid='crawlLFImage'].framepage .userClass { 
+width:100%; 
+}
+[pgmid='crawlLFImage'] #imgBox img {
+    width: 6em;
+    height : 6em;
+    border : 1px solid gray;
+    margin: 8px;
+}
+[pgmid='crawlLFImage'] .oneImg {
+    display: flex;
+    flex-direction: column;
+}
+[pgmid='crawlLFImage'] .oneImg p {
+    display:inline-block;
+}
+[pgmid='crawlLFImage'] p#stcl_name {
+    font-size: 16px;
+    margin: 8px;
+}</style>
+
+<!-- HTML autogen start ---------------------------------------------- -->            
+<div class="pageNav"></div>
+<div class="pageTop"></div>
+<div class="pageCond"></div>
+<div class="pageGuide"></div>
+
+<div class="pageContent flexColumn">
+<p id = "stcl_name"></p>
+<div class="flexColumn">
+<div id="imgBox">
+        <img id = "i00">
+    <img id = "i01">
+    <img id = "i02">
+    <img id = "i03">
+    <img id = "i04">
+    <img id = "i05">
+    <img id = "d0">
+    <img id = "d1">
+    <img id = "d2">
+    <img id = "d3">
+    <img id = "l0">
+    <img id = "l1">
+</div>
+<div id='list' class="flexColumn"></div>
+</div>
+<!-- HTML autogen end ---------------------------------------------- -->
+<script>
+/*-- SCRIPT autogen start ---------------------------------------------- */        
+$(function() {
+    var appid = "batch";
+    var pgmid = "crawlLFImage"; 
+    var page = $("*[pgmid='"+pgmid+"'].framepage").last();
+    var pageid = page.attr("id"); 
+    var me = {}
+    var dataSet = {};
+    var dataDef = {};
+    var pageObj = {};
+    var bEdit = false;
+    me.fnInit = function() {
+        gfn[pageid] = me; 
+        me.appid    = appid;
+        me.pgmid    = pgmid;
+        me.pageid   = pageid;
+        me.page     = page; 
+        me.dataSet = dataSet;
+        me.dataDef = dataDef;
+        me.pageObj = pageObj;
+        me.bEdit = bEdit;
+me.dataDef["_pgm"]={"pgmid":"crawlLFImage","pgm_nm":"LF몰 상품이미지","pgm_tp":"UX","proc_mst_id":"","proc_mst_nm":"","remark":"","ver":1.1,"pgm_stat":"Y","reg_usid":"lyj","reg_dt":"2022-03-23 11:32:26","upd_usid":"lyj","upd_dt":"2022-03-23 11:32:26","app_pgmid":"batch","pgm_grp_nm":"크롤링","sort_seq":96,"shortcut":"","crud":"","app_pgm_nm":"배치작업"};
+me.dataDef["_pgm_func"]=[{"func_icon":"fas fa-search","reg_dt":"2022-03-23 11:32:26","reg_usid":"","func_nm":"조회","upd_usid":"","upd_dt":"2022-03-23 11:32:26","func_tp":"DB_R","remark":null,"pgmid":"crawlLFImage","sort_seq":"1","funcid":"search","content":null,"crud":"R","id":"0"},{"func_icon":"fas fa-play","reg_dt":"2022-03-23 11:32:26","reg_usid":"","func_nm":"수집시작","upd_usid":"","upd_dt":"2022-03-23 11:32:26","func_tp":"DB_W","remark":null,"pgmid":"crawlLFImage","sort_seq":"2","funcid":"startCol","content":null,"crud":"R","id":"1"}];
+me.dataDef["_pgm_data"] = {};
+me.dataDef["_pgm_data"]["pageCond"]={"sort_seq":"1","data_id":"pageCond","data_nm":"조회조건","data_icon":null,"component_pgmid":"aweForm","component_option":null,"inout_tp":"IN","content":[{"sort_seq":1,"section":null,"section_icon":null,"colgrp":null,"colid":"brcd","colnm":"브랜드","dtype":"text","etype":"sel","attr":null,"defval":null,"w":null,"h":null,"refcd":"brcd","option":"multi:brcd::cdnm","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"0"},{"sort_seq":2,"section":null,"section_icon":null,"colgrp":null,"colid":"yyyy","colnm":"상품연도","dtype":"text","etype":"sel","attr":"keycol","defval":"2020","w":null,"h":null,"refcd":"YYYY","option":"multi:yyyy::cdnm","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"1"},{"sort_seq":3,"section":null,"section_icon":null,"colgrp":null,"colid":"sssn_cd","colnm":"대표시즌","dtype":"text","etype":"sel","attr":null,"defval":"SS","w":null,"h":null,"refcd":"SSON_CD","option":"multi:sssn_cd::cdnm","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"2"},{"sort_seq":4,"section":null,"section_icon":null,"colgrp":null,"colid":"sson_cd","colnm":"시즌","dtype":"text","etype":"sel","attr":null,"defval":null,"w":null,"h":null,"refcd":"SBSN_CD","option":"multi:sson_cd::cdnm","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"3"},{"sort_seq":5,"section":null,"section_icon":null,"colgrp":null,"colid":"itemcd","colnm":"품목","dtype":"text","etype":"sel","attr":null,"defval":null,"w":null,"h":null,"refcd":"item","option":"multi:itemcd::cdnm","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"4"},{"sort_seq":6,"section":null,"section_icon":null,"colgrp":null,"colid":"suprcd","colnm":"공급업체","dtype":"text","etype":"sel","attr":null,"defval":null,"w":null,"h":null,"refcd":"supr","option":"multi:suprcd::cdnm","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"5"},{"sort_seq":7,"section":null,"section_icon":null,"colgrp":null,"colid":"goods_cd","colnm":"품번","dtype":"text","etype":"txt","attr":"upper","defval":null,"w":"15","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"6"},{"sort_seq":8,"section":null,"section_icon":null,"colgrp":null,"colid":"collect","colnm":"정보수집대상","dtype":"text","etype":"cbx","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"7"}]};
+me.dataDef["_pgm_data"]["list"]={"sort_seq":"2","data_id":"list","data_nm":"상품목록","data_icon":null,"component_pgmid":"agGrid","component_option":null,"inout_tp":"INOUT","content":[{"sort_seq":1,"section":null,"section_icon":null,"colgrp":null,"colid":"stcd","colnm":"스타일코드","dtype":"text","etype":"raw","attr":"rowSpan","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"0"},{"sort_seq":2,"section":null,"section_icon":null,"colgrp":null,"colid":"colorcd","colnm":"컬러코드","dtype":"text","etype":"raw","attr":"rowSpan","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"1"},{"sort_seq":3,"section":null,"section_icon":null,"colgrp":null,"colid":"i00","colnm":"메인","dtype":"text","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"2"},{"sort_seq":4,"section":null,"section_icon":null,"colgrp":null,"colid":"i01","colnm":"상품1","dtype":"text","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"3"},{"sort_seq":5,"section":null,"section_icon":null,"colgrp":null,"colid":"i02","colnm":"상품2","dtype":"text","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"4"},{"sort_seq":6,"section":null,"section_icon":null,"colgrp":null,"colid":"i03","colnm":"상품3","dtype":"text","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"5"},{"sort_seq":7,"section":null,"section_icon":null,"colgrp":null,"colid":"i04","colnm":"상품4","dtype":"text","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"6"},{"sort_seq":8,"section":null,"section_icon":null,"colgrp":null,"colid":"i05","colnm":"상품5","dtype":"text","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"7"},{"sort_seq":9,"section":null,"section_icon":null,"colgrp":null,"colid":"d0","colnm":"디테일1","dtype":"text","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"8"},{"sort_seq":10,"section":null,"section_icon":null,"colgrp":null,"colid":"d1","colnm":"디테일2","dtype":"text","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"9"},{"sort_seq":11,"section":null,"section_icon":null,"colgrp":null,"colid":"d2","colnm":"디테일3","dtype":"text","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"10"},{"sort_seq":12,"section":null,"section_icon":null,"colgrp":null,"colid":"d3","colnm":"디테일4","dtype":"text","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"11"},{"sort_seq":13,"section":null,"section_icon":null,"colgrp":null,"colid":"l0","colnm":"라벨1","dtype":"text","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"12"},{"sort_seq":14,"section":null,"section_icon":null,"colgrp":null,"colid":"l1","colnm":"라벨2","dtype":"text","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"13"}]};
+
+        me.pageObj["_page"] = new gfnFramepage( me ); 
+        for(var component_id in me.dataDef["_pgm_data"]) { 
+            me.pageObj[component_id] = new gfnComponent( me.pageid, component_id, me.dataDef["_pgm_data"][component_id], me.fnEH, me); 
+        }  
+        setTimeout(function(){
+            $("#frameset").scrollTo(0); //스크롤 
+        },10);
+        if(typeof(me.fnInitExtra)=='function') me.fnInitExtra(); 
+    } 
+/*-- SCRIPT autogen end ---------------------------------------------- */
+
+    /* 사용자초기화 */
+    me.fnInitExtra=function() {
+        // me.page.find('#imgBox img').each(function(idx,el){
+        //     $(el).attr("init","true");
+        //     $(el).on("load",function(e){
+        //         $(e.target).attr("result","OK");
+        //         //me.fnCheckAll();
+        //     })
+        //     $(el).on("error",function(e){
+        //         $(e.target).attr("result","ERR");
+        //         //me.fnCheckAll();
+        //     })
+        // })
+        
+    }
+    /* 이벤트핸들러 */
+    me.fnEH=function(component, evt, row, col, val) { 
+        //console.log(evt+","+row+","+col+","+val);
+        //화면기능버튼이 눌리면 
+        if (component==me.pageObj["_pageFunc"]){ 
+            if(typeof(me[col])=='function') me[col](); //col=기능명 me["fnSearch"]()=me.fnSearch(); 
+        }
+        //사용자 컴포넌트/컨트롤
+        else if(component.userComponent=="myCompoId") {
+            //if(evt=="dblclick" && col=="colid") {...}
+        }
+        
+        if( component =me.pageObj.list){
+            if(evt == "dblclick") {
+                //me.row = row;
+                me.fnDblclick(row);
+            }
+        }
+    }
+    
+    me.fnCheckAll=function() {
+        //저장만
+        var check =0;
+        if(!isNull(me.page.find("#imgBox img#i00").attr("result"))) check++; 
+        if(!isNull(me.page.find("#imgBox img#i01").attr("result"))) check++; 
+        if(!isNull(me.page.find("#imgBox img#i02").attr("result"))) check++; 
+        if(!isNull(me.page.find("#imgBox img#i03").attr("result"))) check++; 
+        if(!isNull(me.page.find("#imgBox img#i04").attr("result"))) check++; 
+        if(!isNull(me.page.find("#imgBox img#i05").attr("result"))) check++; 
+        if(!isNull(me.page.find("#imgBox img#d0").attr("result")))  check++; 
+        if(!isNull(me.page.find("#imgBox img#d1").attr("result")))  check++; 
+        if(!isNull(me.page.find("#imgBox img#d2").attr("result")))  check++; 
+        if(!isNull(me.page.find("#imgBox img#d3").attr("result")))  check++; 
+        if(!isNull(me.page.find("#imgBox img#l0").attr("result")))  check++; 
+        if(!isNull(me.page.find("#imgBox img#l1").attr("result")))  check++; 
+        
+        console.log(check);//n번 찍힘.
+        if(check == 12){
+            //alert(me.row);
+    
+            var list = me.pageObj.list.exportData();
+            var args={};
+            me.page.find('#imgBox img').each(function(idx,el) {
+                args[$(el).attr('id')+'url'] = $(el).attr("src");
+                args[$(el).attr('id')] = $(el).attr("result");
+                args.stcd = $(el).attr("stcd");
+                args.colorcd = $(el).attr("colorcd");
+            })
+            
+            console.log(args);
+            function saveInfo(){ //1 row씩
+                var invar = JSON.stringify(args);
+                console.log('args',args);
+                gfnTx(appid+"."+pgmid,"saveInfo",{INVAR:invar},function(OUTVAR){
+                    console.log(OUTVAR);
+                    if(OUTVAR.rtnCd=="OK"){
+                        //gfnAlert("저장성공","정보가 저장되었습니다.");
+                        // 다음줄 트리거..
+                        me.row++;
+                        console.log('row',me.row);
+                        if(me.row < list.length) {
+                            check = 0;
+                            me.fnDblclick(me.row);
+                        }
+                        if(me.row == list.length) gfnAlert("저장성공","정보가 저장되었습니다.");
+                    }
+                    else {
+                        gfnAlert("조회오류",OUTVAR.rtnMsg);
+                    }
+                    
+                })
+            }
+            saveInfo();
+            
+            var oneStcl = [];
+            me.page.find('#imgBox img').each(function(idx,el) {
+                if($(el).attr("result") == "OK") {
+                    //한묶음
+                    oneStcl.push({'src':$(el).attr("src"), 'stcl':$(el).attr("stcl") });
+                    me.pageObj.list.setVal(me.row,$(el).attr("id"),"OK");
+                }
+            })
+        }
+        
+        
+        /*****node crawling포함*****/
+        // var check =0;
+        // if(!isNull(me.page.find("#imgBox img#i00").attr("result"))) check++; 
+        // if(!isNull(me.page.find("#imgBox img#i01").attr("result"))) check++; 
+        // if(!isNull(me.page.find("#imgBox img#i02").attr("result"))) check++; 
+        // if(!isNull(me.page.find("#imgBox img#i03").attr("result"))) check++; 
+        // if(!isNull(me.page.find("#imgBox img#i04").attr("result"))) check++; 
+        // if(!isNull(me.page.find("#imgBox img#i05").attr("result"))) check++; 
+        // if(!isNull(me.page.find("#imgBox img#d0").attr("result"))) check++; 
+        // if(!isNull(me.page.find("#imgBox img#d1").attr("result"))) check++; 
+        // if(!isNull(me.page.find("#imgBox img#d2").attr("result"))) check++; 
+        // if(!isNull(me.page.find("#imgBox img#d3").attr("result"))) check++; 
+        // if(!isNull(me.page.find("#imgBox img#l0").attr("result"))) check++; 
+        // if(!isNull(me.page.find("#imgBox img#l1").attr("result"))) check++; 
+        
+        // console.log(check);
+        // if(check == 12){
+        //     // alert("Done","done");
+    
+        //     var list = me.pageObj.list.exportData();
+        //     var args={};
+        //     me.page.find('#imgBox img').each(function(idx,el) {
+        //         args[$(el).attr('id')+'url'] = $(el).attr("src");
+        //         args[$(el).attr('id')] = $(el).attr("result");
+        //         args.stcd = $(el).attr("stcd");
+        //         args.colorcd = $(el).attr("colorcd");
+        //     })
+
+        //     console.log(args);
+            
+        //     var oneStcl = [];
+        //     me.page.find('#imgBox img').each(function(idx,el) {
+        //         if($(el).attr("result") == "OK") {
+        //             //한묶음
+        //             oneStcl.push({'src':$(el).attr("src"), 'stcl':$(el).attr("stcl") });
+        //             me.pageObj.list.setVal(me.row,$(el).attr("id"),"OK");
+        //         }
+        //     })
+            
+        //     var curIdx = 0;
+        //     var maxIdx = oneStcl.length;
+            
+        //     var idx = 0;
+            
+        //     function download(){
+        //         console.log("curIdx",curIdx);
+        //         var args2 = oneStcl[curIdx];
+        //         var invar2 = JSON.stringify(args2);
+        //         console.log('args2',args2);
+        //         if(curIdx<maxIdx){
+        //             $.ajax({
+        //                 type: 'POST',
+        //                 url : 'https://fo.lfnetworks.co.kr/img',
+        //                 data : {INVAR:invar2}, //{"src":"https://nimg.lfmall.co.kr/file/product/prd/AE/2020/1500/AEBL0E002P1_00.jpg","stcl":"AEBL0E002P1"}
+        //                 dataType : 'json',
+        //                 success:function(data){
+        //                     //alert(data);
+        //                     curIdx++;
+        //                     download();
+        //                 },
+        //                 error:function(request,status,error){
+        //                     alert("code = "+ request.status + " message = " + request.responseText + " error = " + error); // 실패 시 처리
+        //                 }
+        //             })
+        //         }
+        //         else if(curIdx == maxIdx){
+        //             console.log('다음');
+        //             curIdx = 0;
+        //             // 다음줄 트리거..
+        //             me.row++;
+        //             console.log('row',me.row);
+        //             if(me.row < list.length) me.fnDblclick(me.row);
+        //             if(me.row == list.length) gfnAlert("완료","상품 이미지 크롤링 & 정보수집이 완료되었습니다!");
+        //         }
+        //     }
+            
+            
+        //     function saveInfo(){ //1 row씩
+        //         var invar = JSON.stringify(args);
+        //         console.log('args',args);
+        //         gfnTx(appid+"."+pgmid,"saveInfo",{INVAR:invar},function(OUTVAR){
+        //             console.log(OUTVAR);
+        //             if(OUTVAR.rtnCd=="OK"){
+        //                 //정보수집 저장후, 크롤링시작 
+        //                 //한이미지씩
+        //                 download();
+        //             }
+        //             else {
+        //                 gfnAlert("조회오류",OUTVAR.rtnMsg);
+        //             }
+        //         })
+        //     }
+        //     saveInfo();
+        // }
+        
+        
+    }
+    
+    me.fnDblclick = function(row){
+        var rowData = me.pageObj.list.getRowData(row);
+        me.page.find('#stcl_name').text(rowData.stcl);
+        me.page.find("#imgBox img").each(function(idx,el){
+            $(el).attr("result","");
+            $(el).attr("stcl",rowData.stcl);
+            $(el).attr("stcd",rowData.stcd);
+            $(el).attr("colorcd",rowData.colorcd);
+        })
+        
+        var stcl = rowData.stcl;
+        var stcl_1 = stcl.substr(0,1);
+        var stcl_3 = stcl.substr(0,3);
+        
+        var brcd = rowData.brcd;
+        
+        var yyyy = rowData.yyyy;
+        
+        
+        if(brcd == 'DS'){
+            me.page.find("#imgBox img#i00").attr("src","https://img.pastelmall.com/goods/"+stcl_1+"/"+stcl_3+"/"+stcl+"/750/"+stcl+"_01.jpg");
+            me.page.find("#imgBox img#i01").attr("src","https://img.pastelmall.com/goods/"+stcl_1+"/"+stcl_3+"/"+stcl+"/750/"+stcl+"_02.jpg");
+            me.page.find("#imgBox img#i02").attr("src","https://img.pastelmall.com/goods/"+stcl_1+"/"+stcl_3+"/"+stcl+"/750/"+stcl+"_03.jpg");
+            me.page.find("#imgBox img#i03").attr("src","");
+            me.page.find("#imgBox img#i04").attr("src","https://img.pastelmall.com/goods/"+stcl_1+"/"+stcl_3+"/"+stcl+"/750/"+stcl+"_D1.jpg");
+            me.page.find("#imgBox img#i05").attr("src","https://img.pastelmall.com/goods/"+stcl_1+"/"+stcl_3+"/"+stcl+"/750/"+stcl+"_D2.jpg");
+            me.page.find("#imgBox img#d0").attr("src","https://img.pastelmall.com/goods/"+stcl_1+"/"+stcl_3+"/"+stcl+"/750/"+stcl+"_D3.jpg");
+            me.page.find("#imgBox img#d1").attr("src","https://img.pastelmall.com/goods/"+stcl_1+"/"+stcl_3+"/"+stcl+"/750/"+stcl+"_D4.jpg");
+            me.page.find("#imgBox img#d2").attr("src","https://img.pastelmall.com/goods/"+stcl_1+"/"+stcl_3+"/"+stcl+"/750/"+stcl+"_D5.jpg");
+            me.page.find("#imgBox img#d3").attr("src","https://img.pastelmall.com/goods/"+stcl_1+"/"+stcl_3+"/"+stcl+"/750/"+stcl+"_D6.jpg");
+            me.page.find("#imgBox img#l0").attr("src","https://img.pastelmall.com/goods/"+stcl_1+"/"+stcl_3+"/"+stcl+"/750/"+stcl+"_R1.jpg");
+            me.page.find("#imgBox img#l1").attr("src","");
+        }
+        else{
+            //AR -> A001 쿼리에서 치환해서 가지고 옴
+            me.page.find("#imgBox img#i00").attr("src","https://nimg.lfmall.co.kr/file/product/prd/"+brcd+"/"+yyyy+"/750/"+stcl+"_00.jpg");
+            me.page.find("#imgBox img#i01").attr("src","https://nimg.lfmall.co.kr/file/product/prd/"+brcd+"/"+yyyy+"/750/"+stcl+"_01.jpg");
+            me.page.find("#imgBox img#i02").attr("src","https://nimg.lfmall.co.kr/file/product/prd/"+brcd+"/"+yyyy+"/750/"+stcl+"_02.jpg");
+            me.page.find("#imgBox img#i03").attr("src","https://nimg.lfmall.co.kr/file/product/prd/"+brcd+"/"+yyyy+"/750/"+stcl+"_03.jpg");
+            me.page.find("#imgBox img#i04").attr("src","https://nimg.lfmall.co.kr/file/product/prd/"+brcd+"/"+yyyy+"/750/"+stcl+"_04.jpg");
+            me.page.find("#imgBox img#i05").attr("src","https://nimg.lfmall.co.kr/file/product/prd/"+brcd+"/"+yyyy+"/750/"+stcl+"_05.jpg");
+            me.page.find("#imgBox img#d0").attr("src","https://nimg.lfmall.co.kr/file/product/prd/"+brcd+"/"+yyyy+"/750/"+stcl+"_D0.jpg");
+            me.page.find("#imgBox img#d1").attr("src","https://nimg.lfmall.co.kr/file/product/prd/"+brcd+"/"+yyyy+"/750/"+stcl+"_D1.jpg");
+            me.page.find("#imgBox img#d2").attr("src","https://nimg.lfmall.co.kr/file/product/prd/"+brcd+"/"+yyyy+"/750/"+stcl+"_D2.jpg");
+            me.page.find("#imgBox img#d3").attr("src","https://nimg.lfmall.co.kr/file/product/prd/"+brcd+"/"+yyyy+"/750/"+stcl+"_D3.jpg");
+            me.page.find("#imgBox img#l0").attr("src","https://nimg.lfmall.co.kr/file/product/prd/"+brcd+"/"+yyyy+"/640/"+stcl+"_L0.jpg");
+            me.page.find("#imgBox img#l1").attr("src","https://nimg.lfmall.co.kr/file/product/prd/"+brcd+"/"+yyyy+"/640/"+stcl+"_L1.jpg");
+        }
+    }
+    
+            //DS -> https://img.pastelmall.com/goods/D/DGF/DGF2SHDL102A1/750/DGF2SHDL102A1_01.jpg  01~03, D1~D5, >L0
+        /*  SELECT '00' IMG_tp, {i00url} url FROM DUAL WHERE {i00}='OK'  UNION ALL        01
+              SELECT '01' IMG_tp, {i01url} url FROM DUAL WHERE {i01}='OK'  UNION ALL     02
+              SELECT '02' IMG_TP, {i02url} url FROM DUAL WHERE {i02}='OK'  UNION ALL     03
+              SELECT '03' IMG_TP, {i03url} url FROM DUAL WHERE {i03}='OK'  UNION ALL
+              SELECT '04' IMG_TP, {i04url} url FROM DUAL WHERE {i04}='OK'  UNION ALL     D1
+              SELECT '05' IMG_TP, {i05url} url FROM DUAL WHERE {i05}='OK'  UNION ALL     D2
+              SELECT 'D0' IMG_TP, {d0url} url FROM DUAL WHERE {d0}='OK'  UNION ALL       D3
+              SELECT 'D1' IMG_TP, {d1url} url FROM DUAL WHERE {d1}='OK'  UNION ALL       D4
+              SELECT 'D2' IMG_TP, {d2url} url FROM DUAL WHERE {d2}='OK'  UNION ALL       D5
+              SELECT 'D3' IMG_TP, {d3url} url FROM DUAL WHERE {d3}='OK'  UNION ALL       D6
+              SELECT 'L0' IMG_TP, {l0url} url FROM DUAL WHERE {l0}='OK'  UNION ALL       R1
+              SELECT 'L1' IMG_TP, {l1url} url FROM DUAL WHERE {l1}='OK'  )
+              */
+              
+    //search:조회 
+    me.fnSearch=function() {
+        if( !me.pageObj["pageCond"].chkValid() ) return;
+        var args = me.pageObj["pageCond"].exportData()[0];
+        //console.log(args);
+        var invar = JSON.stringify(args);
+        gfnTx(appid+"."+pgmid,"search",{INVAR:invar},function(OUTVAR){
+            console.log(OUTVAR);
+            if(OUTVAR.rtnCd=="OK") {
+                me.pageObj["list"].importData(OUTVAR.list);
+            } else {
+                gfnAlert("조회오류",OUTVAR.rtnMsg);
+            }
+        });
+    }
+    
+    //수집 시작
+    me.fnStartCol=function() {
+        //var cnt = 0;
+        me.page.find('#imgBox img').each(function(idx,el){
+            $(el).attr("src","");  
+            $(el).attr("result",""); 
+            $(el).attr("init","true");
+            $(el).on("load",function(e){
+                if($(e.target).attr("result") == "") {
+                    $(e.target).attr("result","OK");
+                    me.fnCheckAll();
+                }
+            })
+            $(el).on("error",function(e){
+                if($(e.target).attr("result") == "") {
+                    $(e.target).attr("result","ERR");
+                    me.fnCheckAll();
+                }
+            })
+        })
+        if( !me.pageObj["pageCond"].chkValid() ) return;
+        me.row = 0;
+        me.fnDblclick(me.row);
+        
+        // me.fnCheckAll();
+    }
+    
+
+/*-- SCRIPT autogen ---------------------------------------------------- */        
+if(typeof(me.fnInit)=='function') me.fnInit();
+});
+
+</script>

@@ -1,0 +1,291 @@
+<style>[pgmid='happyNewyear2022'] * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+[pgmid='happyNewyear2022'] .pan {
+    position: absolute;
+    left: 50%;
+    transform: scale(0.25);
+}
+
+[pgmid='happyNewyear2022'] .dice {
+    position: relative;
+    top:-1000px;
+    width:200px;
+    height:200px;
+    font-size:100px;
+    text-align: center;
+    line-height: 200px;
+    color:white;
+    margin:100px auto;
+    transform-style: preserve-3d;
+    transform:rotate3d(1,1,1,45deg);
+    transition:1s; 
+    animation: animateTree 8s ease alternate infinite;
+}
+[pgmid='happyNewyear2022'] .dice:hover{
+    transform:rotate3d(1,1,1,126deg)
+} 
+[pgmid='happyNewyear2022'] .dice > span{
+    width:200px;
+    height:200px;
+    position: absolute;
+    background-color:rgb(255, calc(120 * var(--x)), calc(120 * var(--y)), 0.5);
+    transform: rotateX(calc(90deg * var(--x))) rotateY(calc(90deg * var(--y))) translate3d(0,0,calc(100px * var(--z)));
+} 
+.dice > span::before {
+    content: attr(data-dice);
+    color: black;
+}
+
+
+[pgmid='happyNewyear2022'] .star {
+    width: 500px;
+    height: 500px;
+    position: absolute;
+    left: -1500px;
+    transform-style: preserve-3d;
+    animation: animateTree 8s ease alternate infinite;
+    background-color: rgb(203, 186, 174);
+}
+[pgmid='happyNewyear2022'] .star > span {
+    position: absolute;
+    height: 300px;
+    background-color: rgba(calc(60 * var(--i)), 128, 128, 0.5);
+    clip-path: polygon(0% 0%, 50% 33%, 100% 0%, 67% 50%, 100% 100%, 50% 67%, 0% 100%, 33% 50%);
+    transform-origin: bottom;
+    transform: rotateX(calc(25deg * var(--i))) rotateY(calc(13deg * var(--i))) rotateZ(calc(360deg * var(--i))) translateY(calc(360px * var(--i))) translateX(calc(60px * var(--i))) translateZ(calc(360px * var(--i)));
+    width: 300px;
+    border: 0;
+}
+
+[pgmid='happyNewyear2022'] .tree {
+            position: relative;
+            top: -150px;
+            width: 300px;
+            height: 300px;
+            transform-style: preserve-3d;
+            animation: animateTree 16s linear infinite;
+        } 
+[pgmid='happyNewyear2022'] .tree::before {
+            content: '★';
+            position: absolute;
+            top: -130px;
+            left: calc(50% - 32px);
+            font-size: 4em;
+            font-family: '맑은 고딕';
+            color: gold;
+            -webkit-text-stroke: 3px goldenrod;
+            animation: animateTree 1s linear infinite;
+        }
+        @keyframes animateTree {
+            0% {
+                transform: rotateX(-20deg) rotateY(360deg);
+            }
+            100% {
+                transform: rotateX(-20deg) rotateY(0deg);
+            }
+        }
+[pgmid='happyNewyear2022'] .tree div {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+            transform: translateY(calc(110px * var(--j)));
+        }
+[pgmid='happyNewyear2022'] .tree div.treeTop span {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, #69c069, #77dd77);
+            transform-origin: bottom;
+            transform: rotateY(calc(90deg * var(--i))) rotateX(30deg) translateZ(173px);
+            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+            border-bottom: 10px solid #00000019;
+        }
+[pgmid='happyNewyear2022'] .tree div.treeBottom span {
+            position: absolute;
+            top: 350px;
+            left: calc(50% - 30px);
+            width: 60px;
+            height: 100%;
+            background: linear-gradient(90deg, #bb4622, #df7214);
+            transform: rotateY(calc(90deg * var(--i))) translateZ(30px);
+            clip-path: polygon(0% 0%, 0% 100%, 100% 100%, 100% 0);
+            border-bottom: 10px solid #00000019;
+        }
+[pgmid='happyNewyear2022'] .tree .treeShadow {
+            position: absolute;
+            top: 24px;
+            left: 0;
+            width: 300px;
+            height: 300px;
+            background: #0002;
+            transform-style: preserve-3d;
+            transform: rotateX(90deg) translateZ(-500px);
+            filter: blur(5px);
+        } 
+[pgmid='happyNewyear2022'] .treeText {
+            font-family: 'Tangerine', serif;
+            font-size: 48px;
+            text-shadow: 4px 4px 4px #aaa;
+        }
+[pgmid='happyNewyear2022'] .tree div.treeText span {
+            position: absolute;
+            top: 395px;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            font-size: 5em;
+            color: #ff4242;
+            line-height: 1em;
+            -webkit-text-stroke: 1px #fff;
+            transform-origin: bottom;
+            transform: rotateY(calc(90deg * var(--i))) translateZ(173px);
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            transform-style: preserve-3d;
+        }
+[pgmid='happyNewyear2022'] .tree div.treeText span::before {
+            content: attr(data-text);
+            position: absolute;
+            transform-origin: bottom;
+            transform: rotateX(-90deg);
+            -webkit-text-stroke: 0;
+            bottom: 5px;
+            color: rgba(0,0,0,0.1);
+            filter: blur(5px);
+        }</style>
+
+<!-- HTML autogen start ---------------------------------------------- --> 
+<div class="pan">
+    <div class="star">
+        <span style="--i:0"></span>
+        <span style="--i:1"></span>
+        <span style="--i:2"></span>
+        <span style="--i:3"></span>
+    </div>
+    <div class="tree">          
+        <div class="treeTop" style="--j:0">
+            <span style="--i:0"></span>
+            <span style="--i:1"></span>
+            <span style="--i:2"></span>
+            <span style="--i:3"></span>
+        </div>
+        <div class="treeTop" style="--j:1">
+            <span style="--i:0"></span>
+            <span style="--i:1"></span>
+            <span style="--i:2"></span>
+            <span style="--i:3"></span>
+        </div>
+        <div class="treeTop" style="--j:2">
+            <span style="--i:0"></span>
+            <span style="--i:1"></span>
+            <span style="--i:2"></span>
+            <span style="--i:3"></span>
+        </div>
+        <div class="treeTop" style="--j:3">
+            <span style="--i:0"></span>
+            <span style="--i:1"></span>
+            <span style="--i:2"></span>
+            <span style="--i:3"></span>
+        </div>
+        <div class="treeBottom">
+            <span style="--i:0"></span>
+            <span style="--i:1"></span>
+            <span style="--i:2"></span>
+            <span style="--i:3"></span>
+        </div>
+        <span class="treeShadow"></span>
+        <div class="treeText">
+            <span style="--i:0" data-text="Happy">Happy</span>
+            <span style="--i:1" data-text="New">New</span>
+            <span style="--i:2" data-text="Year">Year</span>
+            <span style="--i:3" data-text="2022">2022</span>
+        </div>
+    </div>
+    <div class="dice">
+        <span style="--x:0;--y:0;--z:1;"  data-dice="1"></span>
+        <span style="--x:0;--y:-1;--z:1;" data-dice="2"></span>
+        <span style="--x:-1;--y:0;--z:1;" data-dice="3"></span>
+        <span style="--x:1;--y:0;--z:1;"  data-dice="4"></span>
+        <span style="--x:0;--y:1;--z:1;"  data-dice="5"></span>
+        <span style="--X:0;--y:2;--z:1;transform: rotateY(180deg) translate3d(0,0,100px);"  data-dice="6"></span>
+    </div>
+</div>    
+<!-- HTML autogen end ---------------------------------------------- -->
+<script>
+/*-- SCRIPT autogen start ---------------------------------------------- */        
+$(function() {
+    var appid = "aweportal";
+    var pgmid = "happyNewyear2022"; 
+    var page = $("*[pgmid='"+pgmid+"'].framepage").last();
+    var pageid = page.attr("id"); 
+    var me = {}
+    var dataSet = {};
+    var dataDef = {};
+    var pageObj = {};
+    var bEdit = false;
+    me.fnInit = function() {
+        gfn[pageid] = me; 
+        me.appid    = appid;
+        me.pgmid    = pgmid;
+        me.pageid   = pageid;
+        me.page     = page; 
+        me.dataSet = dataSet;
+        me.dataDef = dataDef;
+        me.pageObj = pageObj;
+        me.bEdit = bEdit;
+me.dataDef["_pgm"]={"ver":0.1,"upd_dt":"2022-08-24 10:28:34","remark":"","pgmid":"happyNewyear2022","proc_mst_id":"","pgm_stat":"Y","sort_seq":99,"app_pgmid":"aweportal","shortcut":"","reg_dt":"2021-12-30 11:30:40","reg_usid":"lkh","pgm_nm":"2022년","upd_usid":"kihyunlee","pgm_tp":"TX","pgm_grp_nm":"공통","proc_mst_nm":"","app_pgm_nm":"포털","":"트랜젝션(화면)","crud":""};
+me.dataDef["_pgm_func"]=[];
+me.dataDef["_pgm_data"] = {};
+
+        me.pageObj["_page"] = new gfnFramepage( me ); 
+        for(var component_id in me.dataDef["_pgm_data"]) { 
+            me.pageObj[component_id] = new gfnComponent( me.pageid, component_id, me.dataDef["_pgm_data"][component_id], me.fnEH, me); 
+        }  
+        setTimeout(function(){
+            $("#frameset").scrollTo(0); //스크롤 
+        },10);
+        if(typeof(me.fnInitExtra)=='function') me.fnInitExtra(); 
+    } 
+/*-- SCRIPT autogen end ---------------------------------------------- */
+
+    /* 사용자초기화 */
+    me.fnInitExtra=function() {
+        //탭 설정
+        //gfnTab(pageid, "tabs", {"multi-active":"off","toggle-switch":"on"}); 
+        //사용자 컴포넌트 
+        //me.dataDef["_pgm_data"][myCompoId] = {...};
+        //me.pageObj["myCompoId"] = new gfnComponent( me.pageid, myCompoId, me.dataDef["_pgm_data"][myCompoId], me.fnEH, me); 
+        //me.pageObj["myCompoId"].userComponent = "myCompoId";
+        //사용자 컨트롤
+        //var myColinfo = {colid:...}
+        //me.pageObj["myColId"] = new gfnControl(myColinfo, me.fnEH) 
+        //me.page.find("#myCol").append(me.pageObj["myColId"].dispObj);
+        //me.pageObj["myColId"].getVal(); / myCol.setVal(val);...    
+    }
+    /* 이벤트핸들러 */
+    me.fnEH=function(component, evt, row, col, val) { 
+        //console.log(evt+","+row+","+col+","+val);
+        //화면기능버튼이 눌리면 
+        if (component==me.pageObj["_pageFunc"]){ 
+            if(typeof(me[col])=='function') me[col](); //col=기능명 me["fnSearch"]()=me.fnSearch(); 
+        }
+        //사용자 컴포넌트/컨트롤
+        else if(component.userComponent=="myCompoId") {
+            //if(evt=="dblclick" && col=="colid") {...}
+        }
+    }
+
+/*-- SCRIPT autogen ---------------------------------------------------- */        
+if(typeof(me.fnInit)=='function') me.fnInit();
+});
+
+</script>

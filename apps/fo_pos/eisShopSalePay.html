@@ -1,0 +1,150 @@
+<style>[pgmid='eisShopSalePay'].framepage .userClass { 
+width:100%; 
+}</style>
+
+<!-- HTML autogen start ---------------------------------------------- -->            
+<div class="pageNav"></div>
+<div class="pageTop"></div>
+<div class="pageCond"></div>
+<div class="pageGuide"></div>
+<div class="pageContent">
+    <div id="list">
+        
+    </div>
+</div>
+<!-- HTML autogen end ---------------------------------------------- -->
+<script>
+/*-- SCRIPT autogen start ---------------------------------------------- */        
+$(function() {
+    var appid = "fo_pos";
+    var pgmid = "eisShopSalePay"; 
+    var page = $("*[pgmid='"+pgmid+"'].framepage").last();
+    var pageid = page.attr("id"); 
+    var me = {}
+    var dataSet = {};
+    var dataDef = {};
+    var pageObj = {};
+    var bEdit = false;
+    me.fnInit = function() {
+        gfn[pageid] = me; 
+        me.appid    = appid;
+        me.pgmid    = pgmid;
+        me.pageid   = pageid;
+        me.page     = page; 
+        me.dataSet = dataSet;
+        me.dataDef = dataDef;
+        me.pageObj = pageObj;
+        me.bEdit = bEdit;
+me.dataDef["_pgm"]={"ver":1.1,"upd_dt":"2022-07-13 15:28:14","remark":"매장별 매출현황","pgmid":"eisShopSalePay","proc_mst_id":"","pgm_stat":"Y","sort_seq":703,"app_pgmid":"fo_pos","shortcut":"","reg_dt":"2022-07-13 15:28:14","reg_usid":"mjw","pgm_nm":"매장별 매출현황","upd_usid":"mjw","pgm_tp":"UX","pgm_grp_nm":"운영현황","proc_mst_nm":"","app_pgm_nm":"매장","":"트랜젝션(메뉴)","crud":""};
+me.dataDef["_pgm_func"]=[{"func_icon":"fas fa-search","reg_dt":"2022-07-13 15:28:14","reg_usid":"","func_nm":"조회","upd_usid":"","upd_dt":"2022-07-13 15:28:14","func_tp":"DB_R","remark":null,"pgmid":"eisShopSalePay","sort_seq":"1","funcid":"search","content":null,"crud":"R","id":"0"}];
+me.dataDef["_pgm_data"] = {};
+me.dataDef["_pgm_data"]["pageCond"]={"sort_seq":"1","data_id":"pageCond","data_nm":"조회조건","data_icon":null,"component_pgmid":"aweForm","component_option":null,"inout_tp":"IN","content":[{"sort_seq":1,"section":null,"section_icon":null,"colgrp":null,"colid":"from_mov_dt","colnm":"판매시작일","dtype":"ymd","etype":"txt","attr":"ymd ","defval":"date(\"today\",\"yyyymmdd\")","w":"10","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"0"},{"sort_seq":2,"section":null,"section_icon":null,"colgrp":null,"colid":"to_mov_dt","colnm":"판매종료일","dtype":"ymd","etype":"txt","attr":"ymd ","defval":"date(\"today\",\"yyyymmdd\")","w":"10","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"1"},{"sort_seq":3,"section":null,"section_icon":null,"colgrp":null,"colid":"whcd","colnm":"매장코드","dtype":"text","etype":"sel","attr":null,"defval":null,"w":"10","h":null,"refcd":"whcd","option":"all:whcd::cdnm","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"2"},{"sort_seq":4,"section":null,"section_icon":null,"colgrp":null,"colid":"pos_no","colnm":"POS번호","dtype":"text","etype":"txt","attr":null,"defval":null,"w":"10","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"3"}]};
+me.dataDef["_pgm_data"]["list"]={"sort_seq":"2","data_id":"list","data_nm":"매출현황","data_icon":null,"component_pgmid":"agGrid","component_option":{"gridOpt":"rn"},"inout_tp":"OUT","content":[{"sort_seq":1,"section":null,"section_icon":null,"colgrp":null,"colid":"sale_dt","colnm":"매출일자","dtype":"text","etype":null,"attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"0"},{"sort_seq":2,"section":null,"section_icon":null,"colgrp":null,"colid":"so_no","colnm":"영수번호","dtype":"text","etype":"raw","attr":null,"defval":null,"w":"10","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":"count('so_no')+\"건\"","remark":null,"crud":"C","id":"1"},{"sort_seq":3,"section":null,"section_icon":null,"colgrp":null,"colid":"so_nm","colnm":"영수증내역","dtype":"text","etype":"raw","attr":null,"defval":null,"w":"26","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"2"},{"sort_seq":4,"section":null,"section_icon":null,"colgrp":null,"colid":"apv_dt","colnm":"결제시간","dtype":"text","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"3"},{"sort_seq":5,"section":null,"section_icon":null,"colgrp":"매출","colid":"so_stat","colnm":"매출구분","dtype":"text","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"4"},{"sort_seq":6,"section":null,"section_icon":null,"colgrp":"매출","colid":"dir_yn","colnm":"확정여부","dtype":"text","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"5"},{"sort_seq":7,"section":null,"section_icon":null,"colgrp":"매출","colid":"so_amt","colnm":"총매출액","dtype":"num","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"6"},{"sort_seq":8,"section":null,"section_icon":null,"colgrp":"매출","colid":"ac_so_amt","colnm":"순매출액","dtype":"num","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"7"},{"sort_seq":9,"section":null,"section_icon":null,"colgrp":"매출","colid":"discount_amt","colnm":"할인액","dtype":"num","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"8"},{"sort_seq":10,"section":null,"section_icon":null,"colgrp":"차이","colid":"gap_amt","colnm":"GAP","dtype":"num","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"9"},{"sort_seq":11,"section":null,"section_icon":null,"colgrp":"결제","colid":"card_amt","colnm":"카드","dtype":"num","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"10"},{"sort_seq":12,"section":null,"section_icon":null,"colgrp":"결제","colid":"cash_amt","colnm":"현금","dtype":"num","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"11"},{"sort_seq":13,"section":null,"section_icon":null,"colgrp":"결제","colid":"point_amt","colnm":"포인트","dtype":"num","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"12"},{"sort_seq":14,"section":null,"section_icon":null,"colgrp":"결제","colid":"gift_amt","colnm":"상품권","dtype":"num","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"13"},{"sort_seq":15,"section":null,"section_icon":null,"colgrp":"결제","colid":"etc_amt","colnm":"기타","dtype":"num","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"14"},{"sort_seq":16,"section":null,"section_icon":null,"colgrp":null,"colid":"remark","colnm":"비고","dtype":"text","etype":"raw","attr":null,"defval":null,"w":"35","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"15"}]};
+
+        me.pageObj["_page"] = new gfnFramepage( me ); 
+        for(var component_id in me.dataDef["_pgm_data"]) { 
+            me.pageObj[component_id] = new gfnComponent( me.pageid, component_id, me.dataDef["_pgm_data"][component_id], me.fnEH, me); 
+        }  
+        setTimeout(function(){
+            $("#frameset").scrollTo(0); //스크롤 
+        },10);
+        if(typeof(me.fnInitExtra)=='function') me.fnInitExtra(); 
+    } 
+/*-- SCRIPT autogen end ---------------------------------------------- */
+
+    /* 사용자초기화 */
+    me.fnInitExtra=function() {
+        //권한제어
+        function _auth(auth) { //auth.save_yn cfm_yn 
+            if(isNull(auth)) { 
+                gfnAlert("시스템 사용권한 점검","화면에 대한 권한이 없습니다!");
+                $("*[pageidx='"+me.pageid+"']").remove();
+                delete gfn[me.pageid]; 
+                me.page.remove(); 
+            } else {
+                //저장권한이 없는 경우 사용자부서정보를 매장으로 세팅하고, 수정할 수 없도록 함
+                if(isNull(auth.save_yn) || auth.save_yn != "Y") {
+                    //me.pageObj._pageFunc.setDisp("save",false);
+                    me.dataDef._pgm_data.pageCond.content[2].attr += " hidden";
+                    me.pageObj.pageCond.reset();
+                    me.pageObj.pageCond.setVal("whcd",gUserinfo.deptcd); 
+                    
+                }  
+            } 
+        }
+        if(subset(gds.comcd,"grpcd","pgm_auth").length==0) { //프로그램 권한조회하여
+            gfnGetData("pgm_auth",function(rtn){
+                _auth(subset(rtn,"pgmid",pgmid)[0]);  //해당 프로그램의 권한값 가져오기
+            }); 
+        } else {
+            _auth(subset(subset(gds.comcd,"grpcd","pgm_auth"),"pgmid",pgmid)[0]) ;
+        } 
+    }    
+    /* 이벤트핸들러 */
+    me.fnEH=function(component, evt, row, col, val) { 
+        //console.log(evt+","+row+","+col+","+val);
+        //화면기능버튼이 눌리면 
+        if (component==me.pageObj["_pageFunc"]){ 
+            if(typeof(me[col])=='function') me[col](); //col=기능명 me["fnSearch"]()=me.fnSearch(); 
+        }
+        //null:null 이벤트처리     
+        else if(component==me.pageObj["list"]) {
+            if(evt=="dblclick") {
+                if(row < 0) return;
+                if($.type(gParam)!='object') gParam = {};
+                gParam.so_no = component.getVal(row,"so_no");
+                //영수증 검색팝업
+                var searchPop = $("<div id='soPop' class='framepage active'></div>");
+                gfnLoad("fo_pos","popupSO",searchPop,function(){
+                    gfnPopup("영수증 상세정보",searchPop,{width:600, height:800});
+                })
+            }
+        }
+        
+        // else if(component==me.pageObj["pageCond"]) {
+        //     if(evt=="change") {
+        //       me.fnPosSearch();
+        //     }
+        // }
+    }
+    //search:조회 
+    me.fnSearch=function() {
+        if( !me.pageObj["pageCond"].chkValid() ) return;
+        var args = me.pageObj["pageCond"].exportData()[0];
+        console.log(args);
+        var invar = JSON.stringify(args);
+        gfnTx(appid+"."+pgmid,"search",{INVAR:invar},function(OUTVAR){
+            console.log(OUTVAR);
+            if(OUTVAR.rtnCd=="OK") {
+                me.pageObj["list"].importData(OUTVAR.list);
+                me.pageObj["list"].total("top");
+            } else {
+                gfnAlert("조회오류",OUTVAR.rtnMsg);
+            }
+        });
+    }
+    
+    // me.fnPosSearch=function() {
+    //     if( !me.pageObj["pageCond"].chkValid() ) return;
+    //     var args = me.pageObj["pageCond"].exportData()[0];
+    //     console.log(args);
+    //     var invar = JSON.stringify(args);
+    //     gfnTx(appid+"."+pgmid,"possearch",{INVAR:invar},function(OUTVAR){
+    //         console.log(OUTVAR);
+    //         if(OUTVAR.rtnCd=="OK") {
+    //             args.pos_no = OUTVAR.list;
+    //             console.log(args)
+    //             console.log(args.pos_no)
+    //         } else {
+    //             gfnAlert("조회오류",OUTVAR.rtnMsg);
+    //         }
+    //     });
+    // }
+
+
+
+/*-- SCRIPT autogen ---------------------------------------------------- */        
+if(typeof(me.fnInit)=='function') me.fnInit();
+});
+
+</script>

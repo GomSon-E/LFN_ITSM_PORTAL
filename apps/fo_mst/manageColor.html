@@ -1,0 +1,335 @@
+<!-- HTML autogen start ---------------------------------------------- -->
+<div class="pageNav"></div>
+<div class="pageTop"></div>
+<div class="pageCond"></div>
+<div class="pageGuide"></div> 
+<div class="pageContent flexRow">
+    <div id='list' style="flex:1 1 49%" class="flexColumn"></div>
+    <div class="flexColumn" style="flex:1 1 49%">
+        <div id='mst' ></div> 
+        <div id='det' ></div>
+        <div id='map' class="flexColumn" ></div> 
+    </div>
+</div>
+<!-- HTML autogen end ---------------------------------------------- -->
+<script>
+/*-- SCRIPT autogen start ---------------------------------------------- */        
+$(function() {
+    var appid = "fo_mst";
+    var pgmid = "manageColor"; 
+    var page = $("*[pgmid='"+pgmid+"'].framepage").last();
+    var pageid = page.attr("id"); 
+    var me = {}
+    var dataSet = {};
+    var dataDef = {};
+    var pageObj = {};
+    var bEdit = false;
+    me.fnInit = function() {
+        gfn[pageid] = me; 
+        me.appid    = appid;
+        me.pgmid    = pgmid;
+        me.pageid   = pageid;
+        me.page     = page; 
+        me.dataSet = dataSet;
+        me.dataDef = dataDef;
+        me.pageObj = pageObj;
+        me.bEdit = bEdit;
+me.dataDef["_pgm"]={"pgmid":"manageColor","pgm_nm":"■ 컬러 정보관리","pgm_tp":"UX","proc_mst_id":"","proc_mst_nm":"","remark":"컬러/공급처별 컬러코드 매핑","ver":2.7,"pgm_stat":"Y","reg_usid":"admin","reg_dt":"2021-11-10 12:14:06","upd_usid":"admin","upd_dt":"2021-11-10 15:28:53","app_pgmid":"fo_mst","pgm_grp_nm":"상품정보","sort_seq":14,"shortcut":"W4","crud":"","app_pgm_nm":"마스터정보"};
+me.dataDef["_pgm_func"]=[{"func_icon":"fas fa-search","reg_dt":"2021-11-10 12:14:06","reg_usid":"","func_nm":"조회","upd_usid":"","upd_dt":"2021-11-10 12:14:06","func_tp":"DB_R","remark":"회사코드와 컬러코드를 입력합니다. 회사코드는 팝업버튼을 클릭하여 검색 가능 합니다.","pgmid":"manageColor","sort_seq":"1","funcid":"search","content":"회사코드와 컬러코드를 입력받아서 컬러코드목록을 조회한다.","crud":"R","id":"0"},{"func_icon":"fas fa-save","reg_dt":"2021-11-10 12:14:06","reg_usid":"","func_nm":"저장","upd_usid":"","upd_dt":"2021-11-10 12:14:06","func_tp":"DB_W","remark":"한번 등록된 코드는 변경할 수 없습니다.","pgmid":"manageColor","sort_seq":"2","funcid":"save","content":"추가/수정된 컬러코드구분과 컬러목록을 저장한다.","crud":"R","id":"1"}];
+me.dataDef["_pgm_data"] = {};
+me.dataDef["_pgm_data"]["pageCond"]={"sort_seq":"1","data_id":"pageCond","data_nm":"조회조건","data_icon":null,"component_pgmid":"aweForm","component_option":null,"inout_tp":"IN","content":[{"sort_seq":1,"section":null,"section_icon":null,"colgrp":null,"colid":"comcd","colnm":"회사코드","dtype":"text","etype":"sel","attr":"readonly","len":10,"defval":"gUserinfo.orgcd","refcd":"COMCD","option":"sel:comcd::nm","valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","w":"10","h":null}]};
+me.dataDef["_pgm_data"]["list"]={"sort_seq":"2","data_id":"list","data_nm":"컬러그룹 목록","data_icon":null,"component_pgmid":"agGrid","component_option":{"func":[{"funcid":"addRow","func_nm":"줄추가","func_icon":"fas fa-plus"},{"funcid":"delRow","func_nm":"줄삭제","func_icon":"fas fa-minus"}]},"inout_tp":"INOUT","content":[{"sort_seq":1,"section":null,"section_icon":null,"colgrp":null,"colid":"sort_seq","colnm":"정렬순서","dtype":"num","etype":"txt","attr":null,"len":3,"defval":null,"refcd":null,"option":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","w":"5","h":null},{"sort_seq":"2","section":null,"section_icon":null,"colgrp":null,"colid":"colorcd","colnm":"컬러코드","dtype":"text","etype":"txt","attr":"pk upper ","len":9,"defval":null,"refcd":null,"option":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","w":"5","h":null},{"sort_seq":"3","section":null,"section_icon":null,"colgrp":null,"colid":"color_nm","colnm":"컬러명","dtype":"text","etype":"txt","attr":"keycol","len":9,"defval":null,"refcd":null,"option":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","w":"10","h":null},{"sort_seq":"4","section":null,"section_icon":null,"colgrp":null,"colid":"color_cnt","colnm":"하위컬러수","dtype":"num","etype":"raw","attr":null,"defval":null,"w":"5","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":"5","section":null,"section_icon":null,"colgrp":null,"colid":"remark","colnm":"비고","dtype":"text","etype":"tarea","attr":null,"len":30,"defval":null,"refcd":null,"option":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","w":"20","h":null}]};
+me.dataDef["_pgm_data"]["mst"]={"sort_seq":"3","data_id":"mst","data_nm":"컬러그룹 정보","data_icon":null,"component_pgmid":"aweForm","component_option":null,"inout_tp":"INOUT","content":[{"sort_seq":1,"section":null,"section_icon":null,"colgrp":null,"colid":"colorcd","colnm":"컬러코드","dtype":"text","etype":"txt","attr":"pk ","len":9,"defval":null,"refcd":null,"option":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","w":"10","h":null},{"sort_seq":2,"section":null,"section_icon":null,"colgrp":null,"colid":"color_nm","colnm":"컬러명","dtype":"text","etype":"txt","attr":"keycol ","len":9,"defval":null,"refcd":null,"option":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","w":"15","h":null},{"sort_seq":3,"section":null,"section_icon":null,"colgrp":null,"colid":"sort_seq","colnm":"정렬순서","dtype":"num","etype":"txt","attr":null,"len":3,"defval":null,"refcd":null,"option":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","w":"5","h":null},{"sort_seq":4,"section":null,"section_icon":null,"colgrp":null,"colid":"remark","colnm":"비고","dtype":"text","etype":"tarea","attr":null,"len":30,"defval":null,"refcd":null,"option":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","w":"20","h":null}]};
+me.dataDef["_pgm_data"]["det"]={"sort_seq":"4","data_id":"det","data_nm":"컬러 목록","data_icon":null,"component_pgmid":"agGrid","component_option":{"func":[{"funcid":"addRow","func_nm":"줄추가","func_icon":"fas fa-plus"},{"funcid":"delRow","func_nm":"줄삭제","func_icon":"fas fa-minus"},{"funcid":"saveDet","func_nm":"컬러정보 저장","func_icon":"fas fa-save"}]},"inout_tp":"INOUT","content":[{"sort_seq":1,"section":null,"section_icon":null,"colgrp":null,"colid":"sort_seq","colnm":"정렬순서","dtype":"num","etype":"txt","attr":null,"defval":null,"w":"5","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":2,"section":null,"section_icon":null,"colgrp":null,"colid":"colorcd","colnm":"컬러코드","dtype":"text","etype":"txt","attr":"pk upper ","defval":null,"w":"5","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":3,"section":null,"section_icon":null,"colgrp":null,"colid":"color_nm","colnm":"컬러명","dtype":"text","etype":"txt","attr":"keycol","defval":null,"w":"10","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":4,"section":null,"section_icon":null,"colgrp":null,"colid":"remark","colnm":"비고","dtype":"text","etype":"txt","attr":null,"defval":null,"w":"20","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"}]};
+me.dataDef["_pgm_data"]["map"]={"sort_seq":"5","data_id":"map","data_nm":"공급사 코드매칭","data_icon":null,"component_pgmid":"agGrid","component_option":{"func":[{"funcid":"addRow","func_nm":"줄추가","func_icon":"fas fa-plus"},{"funcid":"delRow","func_nm":"줄삭제","func_icon":"fas fa-minus"},{"funcid":"saveMap","func_nm":"매칭정보저장","func_icon":"fas fa-save"}]},"inout_tp":"INOUT","content":[{"sort_seq":"1","section":null,"section_icon":null,"colgrp":"공급사","colid":"suprcd","colnm":"공급사코드","dtype":"text","etype":"txt","attr":"pk pop","defval":null,"w":"10","h":null,"refcd":"supr","option":"sel:suprcd:supr_nm:cdnm","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":"2","section":null,"section_icon":null,"colgrp":"공급사","colid":"supr_nm","colnm":"공급사명","dtype":"text","etype":"raw","attr":null,"defval":null,"w":"15","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":"3","section":null,"section_icon":null,"colgrp":null,"colid":"match_cd","colnm":"매칭코드","dtype":"text","etype":"txt","attr":"pk upper","defval":null,"w":"10","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":"4","section":null,"section_icon":null,"colgrp":null,"colid":"remark","colnm":"비고","dtype":"text","etype":"txt","attr":null,"defval":null,"w":"20","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"}]};
+
+        me.pageObj["_page"] = new gfnFramepage( me ); 
+        for(var component_id in me.dataDef["_pgm_data"]) { 
+            me.pageObj[component_id] = new gfnComponent( me.pageid, component_id, me.dataDef["_pgm_data"][component_id], me.fnEH, me); 
+        }  
+        setTimeout(function(){
+            $("#frameset").scrollTo(0); //스크롤 
+        },10);
+        if(typeof(me.fnInitExtra)=='function') me.fnInitExtra(); 
+    } 
+/*-- SCRIPT autogen end ---------------------------------------------- */
+    /* 사용자초기화 */
+    me.fnInitExtra=function() {
+        me.pageObj["pageCond"].setVal("comcd",gUserinfo.orgcd);
+        function _auth(auth) {
+            if(isNull(auth)) { 
+                gfnAlert("시스템 사용권한 점검","화면에 대한 권한이 없습니다!");
+                $("*[pageidx='"+me.pageid+"']").remove();
+                delete gfn[me.pageid]; 
+                me.page.remove(); 
+            } else {
+                if(isNull(auth.save_yn) || auth.save_yn != "Y") {
+                    /* 각 화면에 맞게 적용*/ 
+                    me.pageObj._pageFunc.setDisp("save",false);
+                    me.pageObj.list._componentFunc.setDisp("addRow",false);
+                    me.pageObj.list._componentFunc.setDisp("delRow",false);
+                    me.pageObj.map._componentFunc.setDisp("addRow",false);
+                    me.pageObj.map._componentFunc.setDisp("delRow",false);
+                    me.pageObj.map._componentFunc.setDisp("saveMap",false); 
+                    me.pageObj.det._componentFunc.setDisp("addRow",false);
+                    me.pageObj.det._componentFunc.setDisp("delRow",false);
+                    me.pageObj.det._componentFunc.setDisp("saveDet",false); 
+                    }
+            } 
+        }
+        if(subset(gds.comcd,"grpcd","pgm_auth").length==0) {
+            gfnGetData("pgm_auth",function(rtn){
+                _auth(subset(rtn,"pgmid",pgmid)[0]);
+            }); 
+        } else {
+            _auth(subset(subset(gds.comcd,"grpcd","pgm_auth"),"pgmid",pgmid)[0]) ;
+        }
+    }
+    /* 이벤트핸들러 */
+    me.fnEH=function(component, evt, row, col, val) { 
+        console.log(evt+","+row+","+col+","+val);
+        //화면기능버튼이 눌리면 
+        if (component==me.pageObj["_pageFunc"]){ 
+            if(typeof(me[col])=='function') me[col](); //col=기능명 me["fnSearch"]()=me.fnSearch(); --
+        }
+        //코드 목록
+        else if(component==me.pageObj["list"]) {
+            //목록이 눌렸을때 mst 폼으로 보내줌
+            if(evt=="focus") {
+                if(row >=0 ) {
+                    var rowData = me.pageObj.list.getRowData(row); 
+                    rowData.currow = row; //선택된 rowid를 넘겨줌 
+                    me.pageObj.mst.importData(rowData,"C");
+                    if(!isNull(rowData.colorcd)) {  
+                        me.fnSearchDet();
+                    }
+                }
+            }
+            else if (evt=="componentFunc") {
+                if(row=="addRow") {
+                    me.pageObj.list.addRow();
+                } else if(row=="delRow") {
+                    var rows = me.pageObj.list.selectedRows();
+                    if(rows.length < 0) {
+                        gfnAlert("줄삭제 확인","선택된 줄이 없습니다."); 
+                    } else {
+                        me.pageObj.list.delRow(rows);
+                    }
+                }  
+            }
+            //if(evt=="dblclick" && col=="colid") {...}
+        }
+        //코드 폼
+        else if(component==me.pageObj["mst"]) {
+            //목록이 눌렸을때 mst 폼으로 보내줌
+            if(evt=="change") {
+                var rowData = me.pageObj.mst.exportData()[0];
+                console.log(rowData);
+                var rowid = me.pageObj.mst.getVal("currow");
+                if(!isNull(rowid)) {
+                    me.pageObj.list.setRowData(rowid,rowData);
+                    //$(".aweCol text").text(rowData);
+                }
+            }
+        } 
+        
+        //하위컬러 
+        else if(component==me.pageObj["det"]) {
+            //컬러목록이 눌렸을 때, map으로 뿌려줌
+            if(evt=="focus") {
+                if(row >=0 ) {
+                    var rowData = me.pageObj.det.getRowData(row);
+                    rowData.currow = row; //선택된 rowid를 넘겨줌 
+                    //me.pageObj.mst.importData(rowData,"C"); //mst
+                    //console.log(rowData.colorcd); //R1
+                    //console.log(rowData);
+                    if(!isNull(rowData.colorcd)) {  
+                        //me.fnSearchMap(row);
+                        me.fnSearchMap(rowData.colorcd);
+                    }
+                }
+            }
+            else if("componentFunc"){ //"componentFunc"
+                
+                if(row=="addRow"){
+                    component.addRow();
+                    //me.pageObj.det.addRow();
+                } else if(row=="delRow"){
+                    var rows = component.selectedRows();//선택된 줄을 받아라
+                    if(rows.length < 0){
+                        gfnAlert("줄 삭제확인","선택된 줄이 없습니다.");
+                    }else{
+                        component.delRow(rows);
+                         //me.pageObj.det.delRow(rows);
+                    }
+                } else if(row=="saveDet") {
+                    me.fnSaveDet();
+                }
+            }
+            
+        }
+        
+        //공급코드매칭 목록 -추가,삭제,매칭정보저장
+        else if(component==me.pageObj["map"]) {
+            
+            if (evt=="componentFunc") {
+                if(row=="addRow") {
+                    me.pageObj.map.addRow();
+                } else if(row=="delRow") {
+                    var rows = me.pageObj.map.selectedRows();
+                    if(rows.length < 0) {
+                        gfnAlert("줄삭제 확인","선택된 줄이 없습니다."); 
+                    } else {
+                        me.pageObj.map.delRow(rows);
+                    }
+                }else if(row=="saveMap") {
+                    me.fnSaveMap();
+                }
+                
+            }
+            //if(evt=="dblclick" && col=="colid") {...}
+        }
+    }
+    
+    
+    //search:조회 
+    me.fnSearch=function() {
+        /* validation */
+        // gParam["arrColid1"] = subset(gds.comcd,"grpcd","GRPCD"); /* 특정배열에 포함되는지 점검 */
+        // gParam["fnColid2"]  = function(val) {  /* 함수식으로 점검 */
+        //     if(val=="aa") return true;
+        //     else return false;
+        //     }
+        if( !me.pageObj["pageCond"].chkValid() ) return;
+        var args = me.pageObj["pageCond"].exportData()[0]; // ex) {comcd : "LFN" , colorcd : "red" , crud : "C"}
+        //console.log(args);
+        //console.log(args.colorcd);
+        console.log(me.pageObj["pageCond"].exportData()[0].colorcd);
+        var invar = JSON.stringify(args);
+        gfnTx(appid+"."+pgmid,"search",{INVAR:invar},function(OUTVAR){ // invar => LFN, red, C 
+            console.log(OUTVAR);
+            if(OUTVAR.rtnCd=="OK") {
+                me.pageObj["list"].importData(OUTVAR.list); //데이터베이스에서 LFN, red에 해당하는 데이터들 가져와서 목록에 넣음. 
+                me.pageObj.mst.reset();
+                me.pageObj.det.reset();
+                me.pageObj.map.reset();
+            } else {
+                gfnAlert("조회오류",OUTVAR.rtnMsg);
+            }
+        });
+    }
+    
+    //하위컬러 조회
+    me.fnSearchDet = function() {
+        if( !me.pageObj["pageCond"].chkValid() ) return; 
+        if( isNull(me.pageObj["mst"].getVal("colorcd")) ) return;
+        var args = me.pageObj["pageCond"].exportData()[0];
+        args.colorcd = me.pageObj["mst"].getVal("colorcd"); 
+        var invar = JSON.stringify(args);
+        console.log(invar);
+        gfnTx(appid+"."+pgmid,"searchDet",{INVAR:invar},function(OUTVAR){
+            //console.log(OUTVAR);
+            if(OUTVAR.rtnCd=="OK") {
+                me.pageObj["det"].importData(OUTVAR.det);
+                me.pageObj.map.reset();
+            } else {
+                gfnAlert("조회오류",OUTVAR.rtnMsg);
+            }
+        });
+    }
+
+    //공급사코드매칭 조회
+    me.fnSearchMap = function(colorcd) { //row
+        if( isNull(colorcd) ) return;
+        var args = {colorcd : colorcd};
+        var invar = JSON.stringify(args);
+    
+        //var args = me.pageObj.det.getRowData(row);
+        console.log(args);
+        //var arg = {colorcd : args.colorcd};
+        var invar = JSON.stringify(args);
+        //console.log(invar);
+        gfnTx(appid+"."+pgmid,"searchMap",{INVAR:invar},function(OUTVAR){ //jsp에서 만들기
+            //console.log(OUTVAR);
+            if(OUTVAR.rtnCd=="OK") {
+                me.pageObj["map"].importData(OUTVAR.map);
+            } else {
+                gfnAlert("조회오류",OUTVAR.rtnMsg);
+            }
+        });
+    }
+    
+    //공급코드매칭 정보 저장 
+    me.fnSaveMap=function() {
+        var args = {map : me.pageObj.map.exportData()};
+        var selectedRow = me.pageObj.det.selectedRow();
+        var list = me.pageObj.det.exportData()[selectedRow];
+        args.grpcd = "COLORCD";
+        args.keycd = list.colorcd;
+        args.nm = list.color_nm;
+        //args.comcd = me.pageObj["pageCond"].getVal("comcd"); 
+        //args.keycd = me.pageObj["det"].getVal("colorcd");
+        //args.map   = me.pageObj["map"].exportData();
+        console.log(args);
+        var invar = JSON.stringify(args);
+       
+        gfnTx(appid+"."+pgmid,"saveMap",{INVAR:invar},function(OUTVAR){
+            //console.log(OUTVAR);
+            if(OUTVAR.rtnCd=="OK") { 
+                gfnAlert("저장성공","매칭 정보가 저장되었습니다."); 
+                me.fnSearchMap(); 
+            } else {
+                gfnAlert("조회오류",OUTVAR.rtnMsg);
+            }
+        });
+    }
+    
+    //save:저장 
+    me.fnSave=function() {
+        if( !me.pageObj["pageCond"].chkValid() ) return; 
+        var args = me.pageObj["pageCond"].exportData()[0]; //{comcd}
+        var list = me.pageObj.list.exportData();    //C,R,U인 애들만 리스트에! 
+        args.list = list;
+        //console.log(args);
+        var invar = JSON.stringify(args);
+        gfnTx(appid+"."+pgmid,"save",{INVAR:invar},function(OUTVAR){
+            //console.log(OUTVAR);
+            if(OUTVAR.rtnCd=="OK") {
+                gfnAlert("저장성공","입력하신 코드가 저장되었습니다.");
+                me.fnSearch();
+            } else {
+                gfnAlert("저장오류",OUTVAR.rtnMsg);
+            }
+        });
+    }
+    
+    //하위컬러 정보 저장 
+    me.fnSaveDet=function() {
+        if( !me.pageObj["pageCond"].chkValid() ) return;
+        if( !me.pageObj["mst"].chkValid() ) return;
+        if( !me.pageObj["det"].chkValid() ) return;
+        var args = me.pageObj["mst"].exportData()[0]; 
+        args.comcd = me.pageObj["pageCond"].getVal("comcd"); 
+        args.det   = me.pageObj["det"].exportData();
+        //console.log(args);
+        var invar = JSON.stringify(args);
+        gfnTx(appid+"."+pgmid,"saveDet",{INVAR:invar},function(OUTVAR){
+            //console.log(OUTVAR);
+            if(OUTVAR.rtnCd=="OK") { 
+                gfnAlert("저장성공","컬러 정보가 저장되었습니다."); 
+                me.fnSearchDet(); 
+            } else {
+                gfnAlert("조회오류",OUTVAR.rtnMsg);
+            }
+        });
+    }
+    
+    
+    
+
+
+/*-- SCRIPT autogen ---------------------------------------------------- */        
+if(typeof(me.fnInit)=='function') me.fnInit();
+});
+
+</script>

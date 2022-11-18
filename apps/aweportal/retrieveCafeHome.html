@@ -1,0 +1,1162 @@
+<style>.cafehome-content {
+    display: flex;
+    /* flex-wrap: wrap; */
+    justify-content: space-between;
+}
+.menu_box{
+    margin:16px;
+}
+.cafe_info_box {
+    padding: 16px;
+    width: 180px;
+    text-align: center;
+    border: 1px solid hsl(0deg 0% 57%);
+    border-radius: 15px;
+}
+.cafe_info_box p{
+    padding: 0 8px;
+}
+button.member_btn {
+    padding: 2px;
+    font-size: 10px;
+    margin: 2px;
+}
+.cafemenu_list li {
+    list-style: none;
+    margin: 24px 16px 16px -16px;
+    font-size: 14px;
+    cursor: pointer;
+}
+button.role-admin,
+button.role-join,
+button.already-joined {
+    padding: 8px 12px;
+    width: 100%;
+    margin: 48px 0 16px 0;
+    background-color: hsl(206deg 37% 96%);
+    border-radius: 5px;
+}
+button.role-admin:hover,
+button.role-join:hover,
+button.already-joined:hover {
+    background-color:hsl(0deg 3% 56%);
+    color:white;
+}
+.member_tbl {
+    margin: 0 16px;
+}
+.cafe_content_box {
+    width: 80%;
+    margin: 16px;
+}
+.cafe_board_head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.CafeBBSTable {
+    width:100%;
+    text-align: center;
+    font-size: 14px;
+    border-collapse: separate;
+    border-spacing: 0 10px;
+}
+.CafeBBSTable > thead > tr > th { 
+    background-color: hsl(0deg 3% 53% / 93%);
+    color: #ffffff; 
+}
+.CafeBBSTable tbody{
+    cursor:pointer;
+}
+.CafeBBSTable tbody tr td{
+    padding:5px;
+    border-bottom: 1px solid hsl(0deg 0% 75%);
+}
+/* 페이징 */
+#pagingul {
+    list-style: none;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-right: 0;
+    padding: 0;
+    display: table;
+    margin: 16px auto;
+}
+#pagingul li {
+    text-align: center;
+    float: left;
+}
+#pagingul li a {
+    display: block;
+    font-size: 14px;
+    padding: 6px 12px;
+    border-right: solid 1px #ccc;
+    box-sizing: border-box;
+}
+#pagingul li.on {
+    background: hsl(41deg 86% 50%);
+}
+#pagingul li.on a {
+    color: #fff;
+}
+.cafe_content_box .bbsListDivFoot {
+    display: flex;
+    justify-content: center;
+    margin: 50px;
+}
+.cafe_content_box .bbsListDivFoot .bbsSearchCond{
+    margin-right: 6px;
+}
+.cafe_content_box .bbsListDivFoot .searchKeyword{
+    min-width: 32%;
+    margin-right: 6px;
+}
+/* bbs */
+#mnBBS .bbsBtn button, #mnBBS .commDiv button{
+    background-color: #3e3e3e;
+    font-weight: bold;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 4px 8px;
+}
+#mnBBS .bbsBtn button:hover, #mnBBS .commDiv button:hover {
+	background-color:#eaeaea;
+    font-weight: bold;
+    color: black;
+}
+
+#mnBBS .titleDiv {
+    border-bottom: 1px solid hsl(0deg 0% 80%);
+    margin-bottom: 30px;
+    padding-top: 10px;
+    padding-bottom: 20px;
+}
+[pgmid='retrieveCafeHome'] #mnBBS .docDiv, [pgmid='retrieveCafeHome'] #mnBBS .commDiv{
+    padding: 16px;
+    border: none;
+    margin: 0;
+}
+#mnBBS .contentForm {
+    margin-bottom: 20px;
+}
+#mnBBS .boardTitle {
+    width: 99%;
+    margin-bottom : 20px; 
+    margin-top : 20px; 
+    display: none;
+}
+#mnBBS .boardTitle2 {
+    width: 90%;
+    overflow: hidden;
+    height: 30px;
+    margin-bottom : 20px; 
+    margin-top : 20px;
+    border: none;
+    font-weight: bold;
+    font-size: 1.8em;
+}
+#mnBBS .boardRegInfo {
+    margin-bottom : 10px; 
+    border: none;
+    font-size: 1.2em;
+}
+#dropZone {
+    margin-top: 5px;
+    min-height: 80px;
+    border : 1px solid hsl(0deg 0% 80%); 
+}
+#dropZone #fileDragDesc {
+    margin: 10px;
+}
+#dropZone #fileDragDesc .fileList:hover {
+    text-decoration: underline;
+	cursor : pointer;
+}
+#dropZone > tr > td {
+    margin-right : 5px;
+}
+#mnBBS .bbsBtn {
+    margin-bottom: 10px;
+    min-height: 25px;
+}
+#mnBBS .bbsBtn button {
+    margin-right: 10px;
+}
+/* [pgmid='retrieveCafeHome'] #mnBBS .commBox::after{
+    content: '';
+    display: block;
+    clear: both;
+} */
+
+[pgmid='retrieveCafeHome'] #mnBBS .toCafeHome,
+[pgmid='retrieveCafeHome'] #mnBBS .insertCommBtn {
+    float: right;
+    margin-right: 0px !important;
+}
+#mnBBS .insertCommDiv, #mnBBS .CommListDiv {
+    margin-top : 20px;
+    margin-bottom : 20px;
+}
+#myCommArea {
+    width: 99.5%;
+    height: 70px;
+    margin-bottom : 20px;
+    resize: none;
+    padding: 5px;
+}
+[pgmid='retrieveCafeHome'] #mnBBS .CommListDiv .bbsComm {
+    font-size: 1.1em;
+    padding: 10px 5px 10px 5px;
+    border-bottom : 1px solid hsl(0deg 0% 80%);
+}
+#mnBBS .CommListDiv textarea {
+    width : 99.5%; 
+    height : 60px;
+    padding: 5px; 
+    margin-bottom : 10px; resize : none;
+}
+#mnBBS .CommListDiv .bbsComm span{
+    margin-right : 20px;
+}
+#mnBBS .CommListDiv button {
+    margin-right: 10px;
+}
+#mnBBS .comments{
+    margin-top:10px; 
+    margin-bottom:10px;
+}
+
+@media (max-width: 800px) {
+    .cafehome-content{
+        flex-wrap: wrap;
+    }
+    .cafe_content_box{
+        width:100%;
+    }
+}</style>
+<!-- HTML autogen start ---------------------------------------------- -->            
+<div class="pageNav"></div>
+<div class="pageTop">
+    <h2>Cafe Home</h2>
+</div>
+<div class="pageCond">
+    <div class="cafename">
+        <!-- 해당 카페명 -->
+    </div>
+</div>
+
+<!-- cafe member list -->
+<div class="member_tbl" class="flexColumn">
+    <div id='list' style="flex:1 1 50%" ></div>
+    <button class='back' style="margin:16px 0"><i class="fas fa-arrow-circle-left"></i> 카페홈으로</button>
+</div>
+        
+<div class="cafehome-content">
+    <div class="menu_box">
+        <div class="cafe_info_box">
+            <p class='cafe_info'></p>
+            <div class="cafeButton"></div>
+                <!-- 카페관리버튼, 가입하기버튼 --> 
+        </div>
+        
+        <!-- 카페메뉴박스 -->
+        <ul class='cafemenu_list'>
+            <li> <i class="far fa-list-alt"></i> 전체글</li>
+            <li> <i class="far fa-list-alt"></i> 공지사항</li>
+        </ul>
+    </div>
+    
+    <!-- cafe main content box -->
+    <div class="cafe_content_box">
+        <!-- board -->
+        <div class='cafe_board_head'>
+            <h3 style="display:inline-block">카페 게시글</h3>
+            <button class='cafe_registerBBS' id='카페 게시판 등록'><i class="fas fa-pen" id='카페 게시판 등록'></i> 글쓰기</button>
+        </div>
+        <table class="CafeBBSTable">
+            <colgroup> 
+                <col style="width:10%" text-align=""> 
+                <col style="width:50%"> 
+                <col style="width:30%"> 
+                <col style="width:10%"> 
+            </colgroup>
+            <thead>
+            <tr>
+                <th>작성자</th>
+                 <th>제목</th>
+                <th>작성일자</th>
+                <th>조회수</th>
+            </tr>    
+            </thead>
+            <tbody class="CafeBBSTbody">
+            </tbody>
+        </table>     
+        <ul id="pagingul"></ul> 
+        
+        <div class="bbsListDivFoot">
+            <select class="bbsSearchCond">
+                <option value="ti">제목</option>
+                <option value="co">내용</option>
+                <option value="tico">제목+내용</option>
+                <option value="regnm">작성자</option>
+                <option value="all">전체글</option>
+            </select>
+            <input type="text" class="searchKeyword"> 
+            <button class="searchBtn"><i class="fa fa-search"></i></button>
+        </div>
+    </div>
+</div>
+<!-- show detail board -->
+<div id="mnBBS" style="display: none;">
+    <div class="docDiv">
+        <form class="contentForm">
+            <input type="text" class="boardTitle" placeholder="제목">
+            <div class="titleDiv">
+                <div class="boardTitle2">
+                </div>
+                <div class="boardRegInfo" style="display: inline-block;">
+                </div>
+            </div>
+            <textarea id="mytextarea" class="boardContent" name="mytextarea" placeholder="내용을 입력하세요"></textarea>
+            <br>
+            <i class="fas fa-file-alt"></i><span>&nbsp;&nbsp;업로드된 파일</span>
+            <div id="dropZone">
+                <div id="fileDragDesc"> 업로드된 파일이 없습니다. </div>
+            </div>
+        </form>
+        <div class="bbsBtn">
+            <button class="fileUploadBtn" style="display : none;"><i class="fas fa-paperclip"></i> 파일선택</button>
+            <button type="button" class="updateBtn">수정</button>
+            <button type="button" class="deleteBtn">삭제</button>
+            <button type="button" class="updateBtn2" style="display: none;">수정하기</button>
+            <button type="button" class="toCafeHome">카페홈으로</button>
+        </div>
+    </div>
+    <br>
+    <div class="commDiv">
+        <div class="insertCommDiv">
+            <h2>댓글</h2>
+            <form class="commBox">
+                <textarea type="text" id="myCommArea" placeholder="댓글을 입력하세요"></textarea>
+                <br>
+                <button type="button" class="insertCommBtn" >댓글 작성</button>
+            </form>
+        </div>
+        <div class="CommListDiv">
+        </div>
+    </div>
+</div>
+<!-- HTML autogen end ---------------------------------------------- -->
+<script>
+/*-- SCRIPT autogen start ---------------------------------------------- */        
+$(function() {
+    var appid = "aweportal";
+    var pgmid = "retrieveCafeHome"; 
+    var page = $("*[pgmid='"+pgmid+"'].framepage").last();
+    var pageid = page.attr("id"); 
+    var me = {}
+    var dataSet = {};
+    var dataDef = {};
+    var pageObj = {};
+    var bEdit = false;
+    me.fnInit = function() {
+        gfn[pageid] = me; 
+        me.appid    = appid;
+        me.pgmid    = pgmid;
+        me.pageid   = pageid;
+        me.page     = page; 
+        me.dataSet = dataSet;
+        me.dataDef = dataDef;
+        me.pageObj = pageObj;
+        me.bEdit = bEdit;
+me.dataDef["_pgm"]={"ver":0.8,"upd_dt":"2022-08-24 10:28:34","remark":"","pgmid":"retrieveCafeHome","proc_mst_id":"","pgm_stat":"Y","sort_seq":12,"app_pgmid":"aweportal","shortcut":"","reg_dt":"2021-11-26 16:25:50","reg_usid":"lyj","pgm_nm":"카페홈","upd_usid":"kihyunlee","pgm_tp":"TX","pgm_grp_nm":"카페","proc_mst_nm":"","app_pgm_nm":"포털","":"트랜젝션(화면)","crud":""};
+me.dataDef["_pgm_func"]=[];
+me.dataDef["_pgm_data"] = {};
+me.dataDef["_pgm_data"]["list"]={"sort_seq":"1","data_id":"list","data_nm":"카페 멤버 목록","data_icon":null,"component_pgmid":"agGrid","component_option":{"height":"30em","gridOpt":"rn chk","gridOptions":{"statusBar":"false"}},"inout_tp":"OUT","content":[{"sort_seq":"1","section":null,"section_icon":null,"colgrp":null,"colid":"usid","colnm":"id","dtype":"text","etype":"txt","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":"10","valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":"2","section":null,"section_icon":null,"colgrp":null,"colid":"nm","colnm":"이름","dtype":"text","etype":"txt","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":"10","valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":"3","section":null,"section_icon":null,"colgrp":null,"colid":"user_nick_nm","colnm":"직급","dtype":"text","etype":"txt","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":"10","valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"}]};
+
+        me.pageObj["_page"] = new gfnFramepage( me ); 
+        for(var component_id in me.dataDef["_pgm_data"]) { 
+            me.pageObj[component_id] = new gfnComponent( me.pageid, component_id, me.dataDef["_pgm_data"][component_id], me.fnEH, me); 
+        }  
+        setTimeout(function(){
+            $("#frameset").scrollTo(0); //스크롤 
+        },10);
+        if(typeof(me.fnInitExtra)=='function') me.fnInitExtra(); 
+    } 
+/*-- SCRIPT autogen end ---------------------------------------------- */
+    var file_tp = "BBS_ATTCH";
+    var ref_file_tp = "T_DOC";
+            
+    function dateFormat(date) {
+        let month = date.getMonth() + 1;
+        let day = date.getDate();
+        let hour = date.getHours();
+        let minute = date.getMinutes();
+        let second = date.getSeconds();
+        month = month >= 10 ? month : '0' + month;
+        day = day >= 10 ? day : '0' + day;
+        hour = hour >= 10 ? hour : '0' + hour;
+        minute = minute >= 10 ? minute : '0' + minute;
+        second = second >= 10 ? second : '0' + second;
+        return date.getFullYear() + '-' + month + '-' + day + ' ' + hour + ':' + minute + ':' + second;
+    }
+            /* 사용자초기화 */
+    me.fnInitExtra=function() {
+        me.dataSet["cafeMember"] = [];
+        me.dataSet["BBSList"] = [];
+        me.dataSet["FileList"] = [];
+        me.dataSet["CommList"] = [];
+        /*** tinymce ***/
+        $("#"+pageid+" #mytextarea").attr("id",pageid+"mytextarea");
+            var plugins = [
+            "advlist", "autolink", "lists", "link", "image", "charmap", "print", "preview", "anchor",
+            "searchreplace", "visualblocks", "code", "fullscreen", "insertdatetime", "media", "table",
+            "paste", "code", "help", "wordcount", "save"
+        ];
+        var edit_toolbar = 'formatselect fontselect fontsizeselect |'
+                    + ' forecolor backcolor |'
+                    + ' bold italic underline strikethrough |'
+                    + ' alignjustify alignleft aligncenter alignright |'
+                    + ' bullist numlist |'
+                    + ' table tabledelete |'
+                    + ' link image';
+        var selector = '#'+pageid+'mytextarea';
+        tinymce.init({
+            selector: selector,
+            branding: false,
+            forced_root_block: false,
+            language: "ko_KR",
+            plugins: 'autoresize',
+            toolbar: edit_toolbar,
+            min_height: 450,
+            statusbar: false,
+            resize: false,
+            readonly : true,
+            paste_data_images: true,
+            init_instance_callback: function (inst) { inst.execCommand('mceAutoResize'); }
+        });   
+        me.fnLoad();
+    }
+    /* 이벤트핸들러 */
+    me.fnEH=function(component, evt, row, col, val) { 
+        //console.log(evt+","+row+","+col+","+val);
+        //화면기능버튼이 눌리면 
+        if (component==me.pageObj["_pageFunc"]){ 
+            if(typeof(me[col])=='function') me[col](); //col=기능명 me["fnSearch"]()=me.fnSearch(); 
+        }
+        //사용자 컴포넌트/컨트롤
+        else if(component.userComponent=="myCompoId") {
+            //if(evt=="dblclick" && col=="colid") {...}
+        }
+    }
+    //카페홈로드
+    me.fnLoad = function() {
+        me.dataSet["cafeMember"] = [];
+        me.dataSet["BBSList"] = [];
+        var cafe_grpid = me.page.attr('grpid');
+        // var cafe_grpid = 'aweportal'
+        if(isNull(cafe_grpid)) gfnAlert("error", "카페가 지정되지 않았습니다.");
+        var args = {cafe:cafe_grpid};
+        var invar = JSON.stringify(args);
+        let cafeAdmin="";
+        gfnTx(appid+"."+pgmid,"loadCafeHome",{INVAR:invar},function(OUTVAR){
+            if(OUTVAR.rtnCd=="OK"){ 
+                me.pageObj["list"].importData(OUTVAR.members);
+                var memberNum = OUTVAR.memberNum[0].num;
+                var oComponent = me.page.find('.cafeButton');
+          
+                if(OUTVAR.role.length>0){
+                    if(OUTVAR.role[0].role_tp=="ADM" && OUTVAR.role[0].role_stat =="Y"){
+                        var button = $(`<button class='role-admin' >카페관리</button>`);
+                        oComponent.html(button);
+                    }else if(OUTVAR.role[0].role_stat=="N"){
+                        var button = $(`<button class='role-join'>가입하기</button>`);
+                        oComponent.html(button);
+                    }else{
+                        var button = $(`<button class='already-joined'>가입하기</button>`);
+                        oComponent.html(button);
+                    }
+                }else {
+                    var button = $(`<button class='role-join'>가입하기</button>`);
+                    oComponent.html(button);
+                }
+                for(var i=0;i<OUTVAR.members.length;i++){
+                    var row = OUTVAR.members[i];
+                    var cafeMember = { 
+                        usid: row.usid,
+                        usnm: row.nm,
+                        usnicknm: row.user_nick_nm
+                    };
+                    if(row.role_tp == "ADM"){
+                        if(isNull(cafeAdmin)) cafeAdmin = row.nm;
+                        else cafeAdmin += ', ' + row.nm;
+                    }
+                    me.dataSet["cafeMember"].push(cafeMember);
+                }
+
+                 //해당cafe grp_nm title에 써주기 
+                var oList = me.page.find('.cafename').html("");
+                var cafe_nm = $(`<h3></h3>`);
+                cafe_nm.text(OUTVAR.grpnm[0].grp_nm);
+                oList.append(cafe_nm);
+
+                //카페정보
+                $('.member_tbl').hide();
+                var cafeInfo = me.page.find(".cafe_info").html("");
+                var cafe_grpnm = me.page.find('.cafename h3').text();
+                cafeInfo.append(`<h2 style='margin-bottom:50px'>${cafe_grpnm}</h2>`);
+                cafeInfo.append(`<p>카페관리자 : ${cafeAdmin}</p>`);
+                cafeInfo.append(`<p class='num'>회원수 : ${memberNum}명 <button class='member_btn'>보기</button></p>`);
+                
+                // gParam["cafe_grpid"] = cafe_grpid;
+                // gParam["cafe_grpnm"] = cafe_grpnm;
+                
+                me.fnCafeBoard(cafe_grpnm);
+                me.fnButton(cafe_grpid, cafe_grpnm);
+            }
+        })
+    }
+    me.fnCafeBoard = function(cafe_grpnm) {
+        var args = {grpnm:cafe_grpnm};
+        var invar = JSON.stringify(args);
+        gfnTx(appid+"."+pgmid, "selectCafeDoc", {INVAR:invar}, function(OUTVAR){
+            for (let i = 0; i < OUTVAR.list.length; i++) {
+                const el = OUTVAR.list[i];
+                var BBSList = {
+                    docid: el.docid,
+                    title: el.title,
+                    content: el.content,
+                    reg_usid: el.reg_usid,
+                    dt: el.reg_dt,
+                    read_cnt: el.read_cnt,
+                    grpid : el.doc_fieldid,
+                    reg_nm: el.nm,
+                };
+                me.dataSet["BBSList"].push(BBSList);
+            };
+            me.fnDrawBBSList();
+        })
+
+        // 게시글 검색
+        $(".searchBtn").on("click",function(){
+            me.dataSet["BBSList"] = [];
+            var disp = $(".active .bbsSearchCond").val();
+            var term = $(".active .searchKeyword").val();
+            var args = {disp: disp, term:term, grpnm:cafe_grpnm};
+            var invar = JSON.stringify(args);
+            if(disp == "all"){
+                gfnTx(appid+"."+pgmid, "selectCafeDoc", {INVAR:invar}, function(OUTVAR){
+                    for (let i = 0; i < OUTVAR.list.length; i++) {
+                        const el = OUTVAR.list[i];
+                        var BBSList = {
+                            docid: el.docid,
+                            title: el.title,
+                            content: el.content,
+                            reg_usid: el.reg_usid,
+                            dt: el.reg_dt,
+                            read_cnt: el.read_cnt,
+                            grpid : el.doc_fieldid,
+                            reg_nm: el.nm,
+                        };
+                        me.dataSet["BBSList"].push(BBSList);
+                    };
+                    me.fnDrawBBSList();
+                })
+                return;
+            }else if(isNull(term)|| term == undefined){
+                gfnAlert("검색 실패", "검색어를 입력해주세요.");
+                return;
+            }
+            gfnTx(appid+"."+pgmid, "searchCafeDoc", {INVAR:invar},function(OUTVAR){
+                if(OUTVAR.list.length ===0){
+                    gfnAlert("검색 실패", "검색 결과가 존재하지 않습니다.");
+                    $(".active .searchKeyword").val("");
+                    return;
+                }
+                else{
+                    for (let i = 0; i < OUTVAR.list.length; i++) {
+                        const el = OUTVAR.list[i];
+                        var BBSList = {
+                            docid: el.docid,
+                            title: el.title,
+                            content: el.content,
+                            reg_usid: el.reg_usid,
+                            dt: el.reg_dt,
+                            read_cnt: el.read_cnt,
+                            grpid : el.doc_fieldid,
+                            reg_nm: el.nm,
+                        };
+                        me.dataSet["BBSList"].push(BBSList);
+                    };
+                    me.fnDrawBBSList();
+                }
+            })
+            $(".active .searchKeyword").val("");
+        })
+    }
+    me.fnButton = function (cafe_grpid, cafe_grpnm) {
+        //회원보기
+        $("#"+pageid+" .cafe_info").on("click"," .member_btn", function(e) {
+            $("#"+pageid+" .member_tbl").show();
+            $("#"+pageid+" .cafehome-content").hide();
+            $("#"+pageid+" #mnBBS").hide();
+        })
+        
+        //카페홈으로
+        page.on("click", ".back", function(e) {
+            $("#"+pageid+" .member_tbl").hide();
+            $("#"+pageid+" .cafehome-content").show();
+            // $("#mnBBS").hide();
+        })
+
+        //카페관리 버튼 클릭시 manageCafe페이지로 이동
+        me.page.find(".cafeButton").on("click",".role-admin",function(e){
+            gParam["cafe_grpid"] = cafe_grpid;
+            gParam["cafe_grpnm"] = cafe_grpnm;
+            var menu = $(e.target);
+            var pgmid = "CAFEmanage";
+            var grpid = `${cafe_grpid}manage`;
+            var pgmnm = `${cafe_grpnm} 카페관리`;
+            
+            gMDI.openPageOne(pgmid,pgmnm,grpid);
+        })
+
+        var args = {cafe:cafe_grpid};
+        var invar = JSON.stringify(args);
+        //가입하기 버튼 클릭시 카페가입
+        me.page.find(".cafeButton").on("click",".role-join",function(e){
+            gfnConfirm("카페 가입", cafe_grpnm+" 카페에 가입하시겠습니까?", function(confirm) {
+                if(confirm) {
+                    gfnTx(appid+"."+pgmid,"joinCafe",{INVAR:invar},function(OUTVAR){
+                        if(OUTVAR.rtnCd=="OK") {
+                            gfnAlert("카페가입","카페에 가입되었습니다.",me.fnLoad());
+                        }else{
+                            gfnAlert("에러",OUTVAR.rtnMsg);
+                        }
+                    })
+                }else return;
+            })
+        });
+        me.page.find(".cafeButton").on("click",".already-joined",function(e){
+            gfnAlert("카페가입","이미 해당 카페에 가입되어 있습니다.");
+        });
+
+        //글쓰기
+        if(subset(me.dataSet["cafeMember"],"usid",gUserinfo.userid).length==0){
+            me.page.find(".cafe_registerBBS").hide();
+        }
+        me.page.find(".cafe_registerBBS").click(function(e){
+            gParam["cafe_grpid"] = cafe_grpid;
+            gParam["cafe_grpnm"] = cafe_grpnm;
+            var target = $(e.target);
+            var pgmid = "cafeBBS";
+            var pgmnm = target.attr('id');
+            gMDI.openPage(pgmid,pgmnm,gfnCallback,'aweportal');
+        });
+    }
+    me.fnDrawBBSList = function() {
+        //paging 함수 page 넘기기
+        function paging(totalData, dataPerPage, pageCount, currentPage) {
+            // console.log("currentPage : " + currentPage);
+            let totalPage = Math.ceil(totalData / dataPerPage); //총 페이지 수
+            if(totalPage<pageCount) pageCount=totalPage;
+            let pageGroup = Math.ceil(currentPage / pageCount); // 페이지 그룹
+            let last = pageGroup * pageCount; //화면에 보여질 마지막 페이지 번호
+            if (last > totalPage) last = totalPage;
+            let first = last - (pageCount - 1); //화면에 보여질 첫번째 페이지 번호
+            let next = last + 1;
+            let prev = first - 1;
+            let pagingul = me.page.find("#pagingul");
+            let pagingNum = "";
+            if (prev > 0) {
+                pagingNum += "<li><a href='#' id='prev'> 이전 </a></li>";
+            }
+            //페이징 번호 표시 
+            for (var i = first; i <= last; i++) {
+                if (currentPage == i) {
+                    pagingNum += "<li class='on'><a href='#' id='" + i + "'>" + i + "</a></li>";
+                } else {
+                    pagingNum += "<li><a href='#' id='" + i + "'>" + i + "</a></li>";
+                }
+            }
+            if (last < totalPage) {
+                pagingNum += "<li><a href='#' id='next'> 다음 </a></li>";
+            }
+            pagingul.html(pagingNum);
+
+
+            //페이징 번호 클릭 이벤트 
+            $("#pagingul li a").click(function () {
+                let $id = $(this).attr("id");
+                let selectedPage = $(this).text();
+                if ($id == "next") selectedPage = next;
+                if ($id == "prev") selectedPage = prev;
+                //전역변수에 선택한 페이지 번호를 담는다
+                globalCurrentPage = selectedPage;
+                //페이징 표시 재호출
+                paging(totalData, dataPerPage, pageCount, selectedPage);
+                //글 목록 표시 재호출
+                drawData(selectedPage, dataPerPage);
+            });
+        }
+
+        //현재 페이지(currentPage)에 페이지당 글 개수(dataPerPage) 맞춰 그리기
+        function drawData(currentPage, dataPerPage) {
+            let bbsTable = "";
+            let bbsTbody = me.page.find(".CafeBBSTbody");
+            let bbsList = me.dataSet["BBSList"];
+            if(!isNull(bbsList)){
+                for (let i = (currentPage - 1) * dataPerPage; i < (currentPage - 1) * dataPerPage + dataPerPage; i++) {
+                    bbsTable += `<tr class='bbs' docid='${bbsList[i].docid}'><td>` +
+                        bbsList[i].reg_nm +
+                        "</td><td>" +
+                        bbsList[i].title +
+                        "</td><td>" +
+                        bbsList[i].dt +
+                        "</td><td>" +
+                        bbsList[i].read_cnt +
+                        "</td></tr>";
+                    if(i==bbsList.length-1) break;
+                }
+            }else{//게시글이 null
+                bbsTable += "<tr><td><td>등록된 게시글이 없습니다.<td><td></td></td></td></td></tr>"
+            }
+            bbsTbody.html(bbsTable);
+
+            $("#"+pageid+" tr.bbs").on("click",function(e){
+                var oE = $(e.target);
+                var oTR = oE.exactObj("tr[docid]");
+                if(oTR.length != 1) return;
+                me.dataSet["FileList"] = [];
+                me.dataSet["CommList"] = [];
+                if(subset(me.dataSet["cafeMember"],"usid",gUserinfo.userid).length==0){
+                    gfnAlert("오류","카페에 가입한 사용자만 열람할 수 있습니다.");
+                }else{
+                    me.fnShowDetail(oTR.attr("docid"));
+                }
+            });
+        }
+
+        let totalData = me.dataSet["BBSList"].length; //총 데이터 수
+        let dataPerPage = 10; //한페이지에 나타낼 글 수 
+        let pageCount = 5; //페이징에 나타낼 페이지 수
+        let globalCurrentPage = 1;
+        
+        //글목록 table생성
+        drawData(1, dataPerPage);
+        //페이징번호 표시
+        paging(totalData, dataPerPage, pageCount, 1);
+    }
+    me.fnShowDetail = function(docid){
+        me.page.find("#dropZone #fileDragDesc").html("");
+        me.page.find(".CommListDiv").html("");
+        $("#"+pageid+" .tox-editor-header").hide();
+        var title = $("#"+pageid+ " .boardTitle").val();
+        var content = tinymce.get(pageid+"mytextarea").getContent();
+        var commnets = $("#"+pageid+ " #myCommArea").val();
+        var userid = gUserinfo.userid;
+        var arg = {docid : docid};
+        var invar = JSON.stringify(arg);
+        gfnTx("aweportal.manageBBS", "selectOneDoc", {INVAR : invar}, function(OUTVAR) {
+            var title = OUTVAR.list[0].title;
+            var content = OUTVAR.list[0].content;
+            var grpid = OUTVAR.list[0].doc_template_id;
+            var reg_usid = OUTVAR.list[0].reg_usid;
+            var reg_nm = OUTVAR.list[0].nm;
+            var reg_dt = OUTVAR.list[0].reg_dt;
+            var expire_dt = OUTVAR.list[0].expire_dt;
+            var grpidList = $(`<span id="grpList"></span>`);
+            grpidList.append("[" +grpid+ "] ");
+            page.find("#grpList").append(grpidList);
+            page.find(".cafehome-content").hide();
+            page.find("#mnBBS").show();
+            page.find("#mnBBS .boardTitle").val(title);
+            page.find("#mnBBS .boardTitle2").html(title);
+            page.find("#mnBBS .boardTitle2").prepend(grpidList);
+            page.find("#mnBBS .boardRegInfo").html("<i class='fas fa-user-circle ' style='color :rgb(197, 194, 194)'></i> <b>" + reg_nm + "</b>&nbsp;&nbsp;&nbsp;<i class='fas fa-clock' style='color :rgb(197, 194, 194)'></i> <b> 유효기간</b>  " + reg_dt + " ~ " + expire_dt);
+            tinyMCE.get(pageid+"mytextarea").setContent(content);
+            
+            // 공지사항은 관리자만 수정, 삭제 권한 부여
+            if(userid != "admin" && userid != reg_usid) {
+                $("#mnBBS .updateBtn").hide();
+                $("#mnBBS .updateBtn").prop("disabled", true);
+                $("#mnBBS .updateBtn2").prop("disabled", true);
+                $("#mnBBS .deleteBtn").hide();
+                $("#mnBBS .deleteBtn").prop("disabled", true);
+            };
+        });
+        gfnTx("aweportal.manageBBS", "increaseReadcnt", {INVAR : invar}, function(OUTVAR) {});
+        gfnTx("aweportal.manageBBS", "selectComm", {INVAR : invar}, function(OUTVAR){
+            for (let i = 0; i < OUTVAR.list.length; i++) {
+                const el = OUTVAR.list[i];
+                var CommList = {
+                    docid: el.ref_id,
+                    commid: el.val_1,
+                    comments: el.comments,
+                    reg_usid: el.reg_usid,
+                    dt: el.reg_dt,
+                    reg_nm: el.nm
+                };
+                me.dataSet["CommList"].push(CommList);
+                me.fnDrawCommList(docid);
+            };
+        });
+        gfnTx("aweportal.manageBBS", "selectFile", {INVAR : invar}, function(OUTVAR) {
+            for (let i = 0; i < OUTVAR.fList.length; i++) {
+                const el = OUTVAR.fList[i];
+                var FileList = {
+                    fileid: el.fileid,
+                    file_tp: el.file_tp,
+                    file_nm: el.file_nm,
+                    filename: el.orgn_nm,
+                    fileSize: el.file_sz,
+                    file_dir: el.file_dir,
+                    file_url: el.file_url
+                };
+                me.dataSet["FileList"].push(FileList);
+                me.fnDrawFileList(docid);
+            };
+        });
+        // 게시글 수정 버튼 클릭시 이벤트 발생
+        $("#"+pageid+" #mnBBS .updateBtn").on("click", function(e) {
+            $("#"+pageid+ " .tox-editor-header").show();
+            $("#"+pageid+ " .boardTitle").show();
+            tinymce.get(pageid+"mytextarea").setMode("design");
+            $("#"+pageid+ " #mnBBS .fileUploadBtn").show();
+            $("#"+pageid+ " #mnBBS .updateBtn").hide();
+            $("#"+pageid+ " #mnBBS .updateBtn2").show();
+            $("#"+pageid+ " #mnBBS .titleDiv").hide();
+        });   
+        // 게시글 삭제 버튼 클릭시 이벤트 발생
+        $("#"+pageid+" #mnBBS .deleteBtn").on("click", function(e) {
+            gfnConfirm("게시글 삭제", "게시글을 삭제하시겠습니까?", function(confirm) {
+                if(confirm) {
+                    me.fnDeleteBBS(docid);
+                    let grp_nm = me.page.find('.cafename h3').text();
+                    $(".active .closetab").click();
+                    $("li[grpnm='"+grp_nm+"']").trigger("click");
+                }
+            })
+        });  
+        $("#"+pageid+" #mnBBS .updateBtn2").on("click", function(e) {
+            gfnConfirm("게시글 수정", "게시글을 수정하시겠습니까?", function(confirm) {
+                if(confirm) {
+                    me.fnUpdateBBS(docid, title, content);
+                    gfnAlert("수정 성공", "수정이 완료되었습니다.");
+                    $("#"+pageid+ " .tox-editor-header").hide();
+                    $("#"+pageid+ " .boardTitle").hide();
+                    $("#"+pageid+ " .titleDiv").show();
+                    tinymce.get(pageid+"mytextarea").setMode("readonly");
+                    $("#"+pageid+ " #mnBBS .updateBtn").show();
+                    $("#"+pageid+ " #mnBBS .updateBtn2").hide();
+                    $("#"+pageid+ " #mnBBS .fileUploadBtn").hide();
+                }
+            })
+        });
+        // 댓글 작성 버튼 클릭시 이벤트 발생
+        $("#"+pageid+" #mnBBS .insertCommBtn").on("click", function(e) {
+            me.fnInsertComm(docid, commnets);
+        });
+        $("#"+pageid+" .fileUploadBtn").click(function(e) {
+            e.preventDefault();
+            gfnUpload(docid, file_tp, ref_file_tp, function(arrFiles) {
+                //저장된 파일목록(arrFiles)을 사용하여 첨부파일 목록을 Refresh한다.
+                me.dataSet["FileList"] = [];
+                if(arrFiles.length > 0) {
+                    for (let i = 0; i < arrFiles.length; i++) {
+                        const el = arrFiles[i];
+                        var FileList = {
+                            fileid: el.fileid,
+                            file_tp: el.file_tp,
+                            file_nm: el.file_nm,
+                            filename: el.orgn_nm,
+                            fileSize: el.file_sz,
+                            file_dir: el.file_dir,
+                            file_url: el.file_url
+                    };
+                        me.dataSet["FileList"].push(FileList);
+                        me.fnDrawFileList(docid);
+                    };
+                } else {
+                    page.find("#dropZone #fileDragDesc").html("");
+                    page.find("#dropZone #fileDragDesc").append("업로드된 파일이 없습니다.");
+                }
+            });
+        }); 
+
+        //카페홈으로
+        $("#"+pageid+" #mnBBS .toCafeHome").click(function() {
+            //수정하기
+            let grp_nm = me.page.find('.cafename h3').text();
+            $(".active .closetab").click();
+            $("li[grpnm='"+grp_nm+"']").trigger("click");//grp_id
+            // $("li[grpid='"+grp_id+"']").trigger("click");//grp_id
+            // page.find(".cafehome-content").show();
+            // page.find("#mnBBS").hide();
+        });
+    }
+    //파일 목록 조회 메소드
+    me.fnDrawFileList = function(docid){
+        me.page.find("#dropZone #fileDragDesc").html("");
+        // if(isNull(me.dataSet["FileList"])) me.page.find("#dropZone #fileDragDesc").append('<p>업로드된 파일이 없습니다.</p>');
+        $.each(me.dataSet["FileList"],function(idx,el) {
+            var fileList = $(`<tr class="fileList" url='${el.file_url}' filename='${el.filename}'>`);
+            fileList.append(`<td class="filename"><b>${el.filename}</b>&nbsp&nbsp&nbsp</td>`);
+            if(el.fileSize > 1000000) { 
+                var convertedSize = Math.round(el.fileSize/1000000);
+                fileList.append(`<td class="fileSize">${convertedSize} MB</td>`);
+            }
+            else {
+                var convertedSize = el.fileSize/1000;
+                fileList.append(`<td class="fileSize">${convertedSize} KB</td>`);
+            }
+            fileList.append(`</tr>`);
+            me.page.find("#dropZone #fileDragDesc").append(fileList);
+            fileList.on("click", function(e){
+                var oE = $(e.target);
+                // if(oE.isON("td.filename")) { 
+                //     var oTR = oE.exactObj("tr[url]"); 
+                //     var url = oTR.attr("url");
+                //     var filename = oTR.attr("filename");
+                //     function fnDownload(url,filename) {
+                //         var frm = $("<form action='/awegtx.jsp?pgm=aweportal.fileDownloader' target='_blank' " +
+                //                     " method='POST' style='display:none'></form>");
+                //         var args = {url:url, filename:filename};
+                //         var sArgs = JSON.stringify(args);
+                //         frm.append("<input type='text' name='INVAR' value='"+sArgs+"'>");
+                //         frm.appendTo("#"+pageid); 
+                //         frm.submit();
+                //     }
+                //     fnDownload(url,filename);
+                // } else {
+                    var oTR = oE.exactObj("tr[url]"); 
+                    var url = oTR.attr("url");
+                    var filename = oTR.attr("filename");
+                    gfnDownloadDirect(url, filename);
+                // }
+            }); 
+        });
+    }
+    // 게시글에 달린 댓글 조회 메소드
+    me.fnDrawCommList = function(docid){
+        var userid = gUserinfo.userid;
+        me.page.find(".CommListDiv").html("");
+        $.each(me.dataSet["CommList"],function(idx,el) {
+            var html = $(`<div id="updateCommDiv${el.commid}" style="display : none; margin-bottom : 20px;">`);
+            html.append(`<textarea class="updateArea${el.commid}" placeholder="수정할 내용을 입력하세요" style="width : 90%; height : 60px; margin-bottom : 10px; resize : none;"></textarea>`);
+            html.append(`<br>`);
+            html.append(`<button type='button' class='updateCommBtn' >댓글 수정</button>`);
+            html.append(`<button type='button' class='returnBtn' >취소</button>`);
+            html.append(`</div>`);
+            
+            var newComm = $(`<div id="${el.commid}" class="bbsComm" docid='${el.docid}'>`);
+            newComm.append(`<i class="fas fa-user-circle"></i><span class="commReg_nm">&nbsp;<b>${el.reg_nm}</b></span>`);
+            newComm.append(`<span class="commDt">${el.dt}</span><br>`);
+            newComm.append(`<div class="comments">${el.comments}</div>`);
+            newComm.append(html);
+            newComm.append(`<button class="commUpdate">수정</button>`);
+            newComm.append(`<button class="commDelete">삭제</button>`);
+            newComm.append(`</div>`);
+            me.page.find(".CommListDiv").append(newComm);
+            // 댓글은 관리자와 작성자만 수정, 삭제 권한 부여
+            if(userid != "admin" && userid != el.reg_usid) {
+                $("#mnBBS .commUpdate").hide();
+                $("#mnBBS .commUpdate").prop("disabled", true);
+                $("#mnBBS .commDelete").hide();
+                $("#mnBBS .commDelete").prop("disabled", true);
+            };
+            // 댓글 삭제 버튼 클릭시 이벤트 발생
+            newComm.on("click",".commDelete", function(e){
+                var oE = $(e.target);
+                var oTR = oE.exactObj("div[id]");
+                var arg = {commid : oTR.attr("id")};
+                invar = JSON.stringify(arg);
+                if(oTR.length != 1) return;
+                gfnConfirm("삭제 확인","댓글을 삭제 하시겠습니까?", function(confirm){
+                    if(confirm) {
+                        gfnTx("aweportal.manageBBS", "deleteComm", {INVAR : invar}, function(OUTVAR) {});
+                        $("#"+oTR.attr("id")).remove();
+                    }
+                });
+            });
+            // 댓글 수정 버튼 클릭시 이벤트 발생
+            newComm.on("click",".commUpdate", function(e){
+                var oE = $(e.target);
+                var oTR = oE.exactObj("div[id]");
+                var commDivId = oTR.attr("id");
+                $(".active .CommListDiv #updateCommDiv" + commDivId).show();
+                $(".active .CommListDiv #" + commDivId + " .commUpdate").hide();
+                $(".active .CommListDiv #" + commDivId + " .commDelete").hide();
+                if(oTR.length != 1) return;
+                $(".active .CommListDiv #updateCommDiv" + commDivId + " .updateCommBtn").on("click", function(e) {
+                    var comments = $(".active .CommListDiv .updateArea" + commDivId).val();
+                    comments = comments.replace(/(?:\r\n|\r|\n)/g, '<br />');
+                    if(isNull(comments) || comments == undefined) {
+                        gfnAlert("수정 실패", "댓글 내용을 입력해 주세요.");
+                        return;
+                    }
+                    else {
+                        me.fnUpdateComm(comments, commDivId);
+                        $("#"+ commDivId + " .comments").html(comments);
+                    }
+                    $(".active .CommListDiv #updateCommDiv" + commDivId).hide();
+                    $(".active .CommListDiv #" + commDivId + " .commUpdate").show();
+                    $(".active .CommListDiv #" + commDivId + " .commDelete").show();
+                });
+            });
+            newComm.on("click", ".returnBtn", function(e) {
+                var oE = $(e.target);
+                var oTR = oE.exactObj("div[id]");
+                var commDivId = oTR.attr("id");
+                $("#"+commDivId).hide();
+                var commAreaId = commDivId.split("updateCommDiv")[1];
+                $(".active .CommListDiv #" + commAreaId + " .commUpdate").show();
+                $(".active .CommListDiv #" + commAreaId + " .commDelete").show();
+                $(".active .CommListDiv #updateArea" + commAreaId).val("");
+            });
+        });
+    }
+    // 게시글 수정 메소드
+    me.fnUpdateBBS = function(docid, title, content) {
+        var content = tinymce.get(pageid+"mytextarea").getContent();
+        var title = $(".active .boardTitle").val();
+        var args = {title:title, content:content, docid:docid};
+        var invar = JSON.stringify(args);
+        gfnTx("aweportal.manageBBS", "updateDoc", {INVAR : invar}, function(OUTVAR){
+            if(OUTVAR.rtnCd != "OK") {
+                gfnAlert("수정 실패", "수정에 실패하였습니다.");
+                return;
+            }
+        });
+        if(title.length > 50) {
+            title = title.substr(0, 49) + "...";
+        }
+        $(".active .boardTitle2").html(title);
+    }
+    // 게시글 삭제 메소드
+    me.fnDeleteBBS = function(docid) {
+        var args = {docid:docid};
+        var invar = JSON.stringify(args);
+        gfnTx("aweportal.manageBBS", "deleteDoc", {INVAR : invar}, function(OUTVAR){
+            if(OUTVAR.rtnCd == "OK") {
+                gfnAlert(" 삭제 완료", "게시글을 삭제하였습니다.");
+            } else {
+                gfnAlert(" 삭제 실패", "게시글 삭제에 실패하였습니다.");
+            }
+        });
+    }
+    // 댓글 작성 메소드
+    me.fnInsertComm = function(docid, comments) {
+        var userid = gUserinfo.userid;
+        var usernm = gUserinfo.usernm;
+        var comments = $(".active #myCommArea").val();
+        comments = comments.replace(/(?:\r\n|\r|\n)/g, '<br />');
+        var ref_info_tp = "T_DOC";
+        var arg = {docid : docid, ref_info_tp: ref_info_tp, comments : comments};
+        var invar = JSON.stringify(arg);
+        var sysdate = new Date();
+        var sDate = dateFormat(sysdate);
+        if(!isNull(comments)){
+            gfnTx("aweportal.manageBBS", "insertComm",{INVAR : invar}, function(OUTVAR){
+                var html = $(`<div id="updateCommDiv${OUTVAR.commid}" style="display : none; margin-bottom : 20px;">`);
+                html.append(`<textarea class="updateArea${OUTVAR.commid}" placeholder="수정할 내용을 입력하세요" style="width : 90%; height : 60px; margin-bottom : 10px; resize : none;"></textarea>`);
+                html.append(`<br>`);
+                html.append(`<button type='button' class='updateCommBtn' >댓글 수정</button>`);
+                html.append(`<button type='button' class='returnBtn' >취소</button>`);
+                html.append(`</div>`);
+                var newComm = $(`<div id="${OUTVAR.commid}" class="bbsComm" docid='${docid}'>`);
+                newComm.append(`<i class="fas fa-user-circle"></i><span class="commReg_nm">&nbsp;<span class="commReg_usid"><b>${usernm}</b></span>`);
+                newComm.append(`<span class="commDt">${sDate}</span><br>`);
+                newComm.append(`<div class="comments">${comments}</div>`);
+                newComm.append(html);
+                newComm.append(`<button class="commUpdate">수정</button>`);
+                newComm.append(`<button class="commDelete">삭제</button>`);
+                newComm.append(`</div>`);
+                page.find(".CommListDiv").append(newComm);
+                $(".active #myCommArea").val("");
+                // 댓글 삭제 버튼 클릭시 이벤트 발생
+                newComm.on("click",".commDelete", function(e){
+                    var oE = $(e.target);
+                    var oTR = oE.exactObj("div[id]");
+                    var arg = {commid : oTR.attr("id")};
+                    invar = JSON.stringify(arg);
+                    if(oTR.length != 1) return;
+                    gfnConfirm("삭제 확인","댓글을 삭제 하시겠습니까?", function(confirm){
+                        if(confirm) {
+                            gfnTx("aweportal.manageBBS", "deleteComm", {INVAR : invar}, function(OUTVAR) {});
+                            $("#"+oTR.attr("id")).remove();
+                        }
+                    });
+                });
+                // 댓글 수정 버튼 클릭시 이벤트 발생
+                newComm.on("click",".commUpdate", function(e){
+                    var oE = $(e.target);
+                    var oTR = oE.exactObj("div[id]");
+                    var commDivId = oTR.attr("id");
+                    $(".active .CommListDiv #updateCommDiv" + commDivId).show();
+                    $(".active .CommListDiv #" + commDivId + " .commUpdate").hide();
+                    $(".active .CommListDiv #" + commDivId + " .commDelete").hide();
+                    if(oTR.length != 1) return;
+                    $(".active .CommListDiv #updateCommDiv" + commDivId + " .updateCommBtn").on("click", function(e) {
+                        var comments = $(".active .CommListDiv .updateArea" + commDivId).val();
+                        comments = comments.replace(/(?:\r\n|\r|\n)/g, '<br />');
+                        me.fnUpdateComm(comments, commDivId);
+                        if(comments != undefined && !isNull(comments)) $("#"+ commDivId + " .comments").html(comments);
+                        $(".active .CommListDiv #updateCommDiv" + commDivId).hide();   
+                        $(".active .CommListDiv #" + commDivId + " .commUpdate").show();
+                        $(".active .CommListDiv #" + commDivId + " .commDelete").show();
+                    });
+                });
+                newComm.on("click", ".returnBtn", function(e) {
+                    var oE = $(e.target);
+                    var oTR = oE.exactObj("div[id]");
+                    var commDivId = oTR.attr("id");
+                    $("#"+commDivId).hide();
+                    var commAreaId = commDivId.split("updateCommDiv")[1];
+                    $(".active .CommListDiv #" + commAreaId + " .commUpdate").show();
+                    $(".active .CommListDiv #" + commAreaId + " .commDelete").show();
+                    $(".active .CommListDiv #updateArea" + commAreaId).val("");
+                });
+            })
+        } 
+        else {
+            gfnAlert("등록 실패", "내용을 입력해 주세요.");
+            return;
+        }
+    }
+    // 댓글 수정 메소드
+    me.fnUpdateComm = function(comments, commid) {
+        var args = {comments:comments, commid : commid};
+        var invar = JSON.stringify(args);
+        if(isNull(comments) || comments == undefined) {
+            gfnAlert("수정 실패", "댓글 내용을 입력해 주세요.");
+            return;
+        }
+        else {
+            gfnTx("aweportal.manageBBS", "updateComm", {INVAR : invar}, function(OUTVAR){
+                if(OUTVAR.rtnCd != "OK") {
+                    gfnAlert("수정 실패", "수정에 실패하였습니다.");
+                    return;
+                } 
+            });
+        }
+    }
+
+    $(".active .bbsSearchCond").on("change",function(){
+        $(".active .searchKeyword").val("");
+        if($(".active .bbsSearchCond").val()==("all")){
+            $(".active .searchKeyword").prop("readonly",true);
+            $(".active .searchKeyword").css("background-color", "rgb(226 226 226 / 93%)");
+            $(".active .searchKeyword").css("border", "0.5px solid black");
+        }else{
+            $(".active .searchKeyword").prop("readonly", false);
+            $(".active .searchKeyword").css("background-color", "#fff");
+        }
+    })
+
+/*-- SCRIPT autogen ---------------------------------------------------- */        
+if(typeof(me.fnInit)=='function') me.fnInit();
+});
+
+</script>

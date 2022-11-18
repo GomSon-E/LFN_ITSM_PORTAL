@@ -1,0 +1,357 @@
+<style>@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800');
+
+[pgmid='retailLogin'].framepage {
+  background: transparent;
+  align-items: center;
+  border: 0;
+  box-shadow: none;
+  /* 
+  background: #642B73;
+  background: linear-gradient(to bottom, #C6426E, #642B73);
+  */
+  display: flex;
+  font-family: 'Open Sans', sans;
+  justify-content: center;
+  overflow: hidden;
+  perspective: 1800px;
+  text-align: center;
+  margin: 0 20px;
+}
+
+[pgmid='retailLogin'].framepage h1 {
+  color: #3e3e42;
+  font-size:32px;
+  font-weight: 800;
+  letter-spacing: -1px;
+  margin-bottom: 30px;
+  transform: translateZ(35px);
+}
+
+[pgmid='retailLogin'].framepage h3 {
+  color: #eb285d;
+  font-size: 16px;
+  margin-bottom: 6px;
+  transform: translateZ(25px);
+}
+
+[pgmid='retailLogin'].framepage .cards {
+  background: #fff;
+  border-radius: 15px;
+  box-shadow: 0px 10px 20px 20px rgba(0,0,0,0.17);
+  display: inline-block;
+  padding: 30px 35px;
+  perspective: 1800px;
+  text-align: left;
+  transform-origin: 50% 50%;
+  transform-style: preserve-3d;
+  transform: rotateX(11deg) rotateY(16.5deg);
+  min-width: 595px;
+}
+
+[pgmid='retailLogin'].framepage .card {
+  border-radius: 15px;
+  box-shadow: 5px 5px 20px -5px rgba(0,0,0,0.6);
+  display: inline-block;
+  height: 250px;
+  overflow: hidden;
+  perspective: 1200px;
+  position: relative;
+  transform-style: preserve-3d;
+  transform: translatez(35px);
+  transition: transform 200ms ease-out;
+  width: 175px;
+  text-align: center;
+  &:not(:last-child) {
+    margin-right: 30px;
+  }
+}
+
+[pgmid='retailLogin'].framepage .card__img {
+  position: relative;
+  height: 100%;
+}
+
+[pgmid='retailLogin'].framepage .card__bg {
+  bottom: -50px;
+  left: -50px;
+  position: absolute;
+  right: -50px;
+  top: -50px;
+  transform-origin: 50% 50%;
+  transform: translateZ(-50px);
+  z-index: 0;
+}
+
+.card__one .card__img {
+    top: 5px;
+    right: -5px;
+}
+.card__one .card__bg {
+    background: url('https://fo.lfnetworks.co.kr/images/lfsqG.jpg') center / cover no-repeat;
+}
+
+.card__two .card__img {
+    top: 5px;
+}
+.card__two .card__bg {
+    background: url('https://fo.lfnetworks.co.kr/images/lfsqY.jpg') center / cover no-repeat;
+}
+
+.card__three .card__img {
+    top: 5px; 
+    left: -5px;  
+}
+.card__three .card__bg {
+    background: url('https://fo.lfnetworks.co.kr/images/lfsqI.jpg') center / cover no-repeat;
+}
+
+.card__text {
+  align-items: center;
+  background: linear-gradient(to bottom, rgba(0,0,0,0) 0%,rgba(0,0,0,0.55) 100%);
+  bottom: 0;
+  display: flex;
+  flex-direction: column; 
+  height: 70px;
+  justify-content: center;
+  position: absolute;
+  width: 100%;
+  z-index: 2;
+}
+
+.card__title {
+  color: #fff;
+  font-size: 18px;
+  font-weight: 700;
+  padding: 0 10px;
+  margin-bottom: 3px;
+}
+
+.mobile .cards {
+    width: 400px !important;
+    min-width: 400px !important;
+}
+
+.mobile .card {
+    width: 31% !important;
+}
+
+[pgmid='retailLogin'].framepage .pageContent { 
+    position: absolute;
+    top: 40%;
+    background: transparent;
+    height: 14em !important; 
+}
+
+[pgmid='retailLogin'].framepage #loginForm .componentTop { 
+    display: none; 
+}
+
+[pgmid='retailLogin'].framepage #loginForm .componentBody { 
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-content: center;
+    justify-content: center;
+    align-items: center; 
+    padding: 0;
+    margin: 2em 0;
+    font-size: 14px;
+}
+
+[pgmid='retailLogin'].framepage #loginForm .aweForm > div[colgrp] {
+    width: 100% !important;
+}
+[pgmid='retailLogin'].framepage #loginForm .aweForm > div[colgrp] > * {
+    padding: 0.5em;
+    font-size: 16px;
+}
+
+[pgmid='retailLogin'].framepage #loginForm .aweForm > div[colgrp]:last-child label {
+    display: none;
+}
+
+[pgmid='retailLogin'] input.aweCol {
+    max-height: unset !important; 
+}
+
+[pgmid='retailLogin'] .pageContent {
+    overflow-x: hidden; 
+}
+
+[pgmid='retailLogin'].framepage .message { 
+    padding: 0.5em;
+    width: 100%;
+    margin: 1em 0;
+}
+
+[pgmid='retailLogin'].framepage button[funcid='login'] { 
+    width: 100%;
+    padding: 1em;
+    height: unset !important;
+    font-size: 18px;
+}
+
+
+
+   
+</style>
+
+<!-- HTML autogen start ---------------------------------------------- -->            
+<script	src="https://cdnjs.cloudflare.com/ajax/libs/js-sha256/0.9.0/sha256.min.js"></script>
+<script type="text/javascript" src="/lib/jquery/core.min.js"></script>
+<script type="text/javascript" src="/lib/jquery/sha256.min.js"></script>
+<div class="cards">
+  <h3>LF SQUARE</h3>
+  <h1>MD Planning System</h1>
+  <div class="card card__one">
+    <div class="card__bg"></div>
+    <img class="card__img" src="https://fo.lfnetworks.co.kr/images/lfsqG.jpg" />
+    <div class="card__text">
+      <p class="card__title">Gwangyang</p>
+    </div>
+  </div>
+  <div class="card card__two">
+    <div class="card__bg"></div>
+    <img class="card__img" src="https://fo.lfnetworks.co.kr/images/lfsqY.jpg" />
+    <div class="card__text">
+      <p class="card__title">Yangju</p>
+    </div>
+  </div>
+  <div class="card card__three">
+    <div class="card__bg"></div>
+    <img class="card__img" src="https://fo.lfnetworks.co.kr/images/lfsqI.jpg" />
+    <div class="card__text">
+      <p class="card__title">Incheon</p>
+    </div>
+  </div>
+</div>
+<div class="pageContent">
+    <div id="loginForm"></div>
+</div>
+
+<!-- HTML autogen end ---------------------------------------------- -->
+<script>
+/*-- SCRIPT autogen start ---------------------------------------------- */        
+$(function() {
+    var appid = "retail";
+    var pgmid = "retailLogin"; 
+    var page = $("*[pgmid='"+pgmid+"'].framepage").last();
+    var pageid = page.attr("id"); 
+    var me = {}
+    var dataSet = {};
+    var dataDef = {};
+    var pageObj = {};
+    var bEdit = false;
+    me.fnInit = function() {
+        gfn[pageid] = me; 
+        me.appid    = appid;
+        me.pgmid    = pgmid;
+        me.pageid   = pageid;
+        me.page     = page; 
+        me.dataSet = dataSet;
+        me.dataDef = dataDef;
+        me.pageObj = pageObj;
+        me.bEdit = bEdit;
+me.dataDef["_pgm"]={"ver":0.2,"upd_dt":"2022-09-21 11:39:58","remark":"","pgmid":"retailLogin","proc_mst_id":"","pgm_stat":"Y","sort_seq":100,"app_pgmid":"retail","shortcut":"","reg_dt":"2022-09-21 11:39:58","reg_usid":"kihyunlee","pgm_nm":"로그인","upd_usid":"kihyunlee","pgm_tp":"TX","pgm_grp_nm":"HOME","proc_mst_nm":"","app_pgm_nm":"유통MD정보관리","":"트랜젝션(화면)","crud":""};
+me.dataDef["_pgm_func"]=[{"func_icon":"fas fa-key","reg_dt":"2022-09-21 11:39:58","reg_usid":"","func_nm":"로그인","upd_usid":"","upd_dt":"2022-09-21 11:39:58","func_tp":"DB_R","remark":null,"pgmid":"retailLogin","sort_seq":"1","funcid":"login","content":null,"crud":"R","id":"0"}];
+me.dataDef["_pgm_data"] = {};
+me.dataDef["_pgm_data"]["loginForm"]={"sort_seq":"1","data_id":"loginForm","data_nm":"로그인폼","data_icon":null,"component_pgmid":"aweForm","component_option":null,"inout_tp":null,"content":[{"sort_seq":1,"section":null,"section_icon":null,"colgrp":null,"colid":"userid","colnm":"아이디","dtype":"text","etype":"txt","attr":"keycol","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"0"},{"sort_seq":2,"section":null,"section_icon":null,"colgrp":null,"colid":"loginpwd","colnm":"패스워드","dtype":"text","etype":"pwd","attr":"keycol","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"1"},{"sort_seq":3,"section":null,"section_icon":null,"colgrp":null,"colid":"btnLogin","colnm":" ","dtype":"text","etype":"btn","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":"로그인:fas fa-key","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"2"}]};
+
+        me.pageObj["_page"] = new gfnFramepage( me ); 
+        for(var component_id in me.dataDef["_pgm_data"]) { 
+            me.pageObj[component_id] = new gfnComponent( me.pageid, component_id, me.dataDef["_pgm_data"][component_id], me.fnEH, me); 
+        }  
+        setTimeout(function(){
+            $("#frameset").scrollTo(0); //스크롤 
+        },10);
+        if(typeof(me.fnInitExtra)=='function') me.fnInitExtra(); 
+    } 
+/*-- SCRIPT autogen end ---------------------------------------------- */
+
+    /* 사용자초기화 */
+    me.fnInitExtra=function() { 
+        //사용자 컨트롤
+        const cards = document.querySelector(".cards");
+        const images = document.querySelectorAll(".card__img");
+        const backgrounds = document.querySelectorAll(".card__bg");
+        const range = 40;
+        
+        // const calcValue = (a, b) => (((a * 100) / b) * (range / 100) -(range / 2)).toFixed(1);
+        const calcValue = (a, b) => (a/b*range-range/2).toFixed(1) // thanks @alice-mx
+        
+        let timeout;
+        document.addEventListener('mousemove', ({x, y}) => {
+          if (timeout) {
+            window.cancelAnimationFrame(timeout);
+          }
+          	
+          timeout = window.requestAnimationFrame(() => {
+            const yValue = calcValue(y, window.innerHeight);
+            const xValue = calcValue(x, window.innerWidth);
+        
+            cards.style.transform = `rotateX(${yValue}deg) rotateY(${xValue}deg)`;
+        
+            [].forEach.call(images, (image) => {
+              image.style.transform = `translateX(${-xValue}px) translateY(${yValue}px)`;
+            });
+        
+            [].forEach.call(backgrounds, (background) => {
+              background.style.backgroundPosition = `${xValue*.45}px ${-yValue*.45}px`;
+            })
+        	})
+        }, false);  
+
+    }
+    /* 이벤트핸들러 */
+    me.fnEH=function(component, evt, row, col, val) { 
+        //console.log(evt+","+row+","+col+","+val);
+        //화면기능버튼이 눌리면 
+        if (component==me.pageObj["_pageFunc"]){ 
+            if(typeof(me[col])=='function') me[col](); //col=기능명 me["fnSearch"]()=me.fnSearch(); 
+        }
+        //loginForm:로그인폼 이벤트처리     
+        else if(component==me.pageObj["loginForm"]) {
+            if(evt=="enter") { 
+                me.fnLogin();  //$("button[funcid='login']").trigger("click");
+            }
+            if(evt=="click" && col=="btnLogin") {
+                me.fnLogin(); //if(evt=="change" && col=="colid") {...}
+            }
+        }
+
+        //사용자 컴포넌트/컨트롤
+        else if(component.userComponent=="myCompoId") {
+            //if(evt=="dblclick" && col=="colid") {...}
+        }
+    }
+    //login:로그인 
+    me.fnLogin=function() {
+        if( !me.pageObj.loginForm.chkValid() ) return;
+        
+        var args = me.pageObj.loginForm.exportData()[0];
+        args.loginpwd = CryptoJS.SHA256(args.loginpwd).toString();
+        var invar = JSON.stringify(args);
+        //console.dir( "fnLogin"+":"+ invar );
+        gfnTx("aweportal.login","loginCheck",{INVAR:invar},function(OUTVAR){ 
+            if(OUTVAR.rtnCd=="OK") {
+                gUserinfo = OUTVAR.userinfo;
+                gUserinfo.temp_pwd = OUTVAR.list[0].temp_yn; //"Y"
+                if(gUserinfo.temp_pwd=="Y") {
+                    gfnAlert("알림","비밀번호를 변경해주세요"); 
+                }
+                var msg = OUTVAR.userinfo.usernm + "님 환영합니다~"; 
+                $(".message").text(msg);
+                setTimeout(gfnHome(),500);
+            } else {
+                var msg = OUTVAR.rtnMsg; 
+                $(".message").text(msg).addClass("ui-state-error");
+            }
+        },true);	
+    }
+
+
+/*-- SCRIPT autogen ---------------------------------------------------- */        
+if(typeof(me.fnInit)=='function') me.fnInit();
+});
+
+</script>

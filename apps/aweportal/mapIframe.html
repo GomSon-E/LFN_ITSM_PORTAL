@@ -1,0 +1,179 @@
+<style>[pgmid='mapIframe'].framepage .userClass { 
+width:100%; 
+}</style>
+
+<!-- HTML autogen start ---------------------------------------------- -->   
+<!-- script>
+    function initMap() {
+        console.log("naver map Initialized!");
+        //naver.maps.Service.fromAddrToCoord({query:"MTU"},function(){console.log(arguments)});
+    }
+</script>
+<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=vx7dhwgcmo&submodules=geocoder,panorama,drawing,visualization&callback=initMap"></script -->
+<div class="pageNav"></div>
+<div class="pageTop"></div>
+<div class="pageCond"></div>
+<div class="pageGuide"></div>
+<div class="pageContent">
+    <div id='map' style='width:500px;height:500px'></div> 
+    <div id='nmap' style='width:500px;height:500px'></div> 
+</div> 
+<!-- HTML autogen end ---------------------------------------------- -->
+<script>
+/*-- SCRIPT autogen start ---------------------------------------------- */        
+$(function() {
+    var appid = "aweportal";
+    var pgmid = "mapIframe"; 
+    var page = $("*[pgmid='"+pgmid+"'].framepage").last();
+    var pageid = page.attr("id"); 
+    var me = {}
+    var dataSet = {};
+    var dataDef = {};
+    var pageObj = {};
+    var bEdit = false;
+    me.fnInit = function() {
+        gfn[pageid] = me; 
+        me.appid    = appid;
+        me.pgmid    = pgmid;
+        me.pageid   = pageid;
+        me.page     = page; 
+        me.dataSet = dataSet;
+        me.dataDef = dataDef;
+        me.pageObj = pageObj;
+        me.bEdit = bEdit;
+me.dataDef["_pgm"]={"ver":0.7,"upd_dt":"2022-09-27 17:59:34","remark":"","pgmid":"mapIframe","proc_mst_id":"","pgm_stat":"Y","sort_seq":99,"app_pgmid":"aweportal","shortcut":"","reg_dt":"2022-09-27 17:59:34","reg_usid":"kihyunlee","pgm_nm":"지도표시","upd_usid":"kihyunlee","pgm_tp":"UX","pgm_grp_nm":"실험실","proc_mst_nm":"","app_pgm_nm":"포털","":"트랜젝션(메뉴)","crud":""};
+me.dataDef["_pgm_func"]=[{"func_icon":"fas fa-gear","reg_dt":"2022-09-27 17:59:34","reg_usid":"","func_nm":"초기화","upd_usid":"","upd_dt":"2022-09-27 17:59:34","func_tp":"EH","remark":null,"pgmid":"mapIframe","sort_seq":"1","funcid":"setup","content":null,"crud":"R","id":"0"},{"func_icon":"fas fa-map","reg_dt":"2022-09-27 17:59:34","reg_usid":"","func_nm":"지도","upd_usid":"","upd_dt":"2022-09-27 17:59:34","func_tp":"EH","remark":null,"pgmid":"mapIframe","sort_seq":"2","funcid":"map","content":null,"crud":"R","id":"1"}];
+me.dataDef["_pgm_data"] = {};
+me.dataDef["_pgm_data"]["pageCond"]={"sort_seq":"1","data_id":"pageCond","data_nm":"조회조건","data_icon":null,"component_pgmid":"aweForm","component_option":null,"inout_tp":null,"content":[{"sort_seq":1,"section":null,"section_icon":null,"colgrp":null,"colid":"addr","colnm":"주소","dtype":"text","etype":"txt","attr":null,"defval":"서울 강남 MTU빌딩","w":"30","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"0"},{"sort_seq":2,"section":null,"section_icon":null,"colgrp":null,"colid":"latlng","colnm":"경위도","dtype":"text","etype":"txt","attr":null,"defval":null,"w":"30","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"2"}]};
+me.dataDef["_pgm_data"]["map"]={"sort_seq":"2","data_id":"map","data_nm":"지도보기","data_icon":null,"component_pgmid":"FreeForm","component_option":null,"inout_tp":null,"content":null};
+me.dataDef["_pgm_data"]["nmap"]={"sort_seq":"3","data_id":"nmap","data_nm":"N지도보기","data_icon":null,"component_pgmid":"FreeForm","component_option":null,"inout_tp":null,"content":null};
+
+        me.pageObj["_page"] = new gfnFramepage( me ); 
+        for(var component_id in me.dataDef["_pgm_data"]) { 
+            me.pageObj[component_id] = new gfnComponent( me.pageid, component_id, me.dataDef["_pgm_data"][component_id], me.fnEH, me); 
+        }  
+        setTimeout(function(){
+            $("#frameset").scrollTo(0); //스크롤 
+        },10);
+        if(typeof(me.fnInitExtra)=='function') me.fnInitExtra(); 
+    } 
+/*-- SCRIPT autogen end ---------------------------------------------- */
+
+    /* 사용자초기화 */
+    me.fnInitExtra=function() {
+        //탭 설정
+        //gfnTab(pageid, "tabs", {"multi-active":"off","toggle-switch":"on"}); 
+    }
+    
+    /* 지도초기화 */
+    me.fnSetup=function() {
+        var mapContainer = me.pageObj.map.componentBody[0];
+        var mapOptions = {
+            center: new kakao.maps.LatLng(37.4940074, 127.0397078),
+            level: 3
+        }; 
+        me.map = new kakao.maps.Map(mapContainer, mapOptions);  
+        me.bounds = new kakao.maps.LatLngBounds();
+        me.bounds.extend(new kakao.maps.LatLng(37.4940074, 127.0397078));
+        
+        //var nmapContainer = me.pageObj.nmap.componentBody[0];
+        //var nmapOptions = {
+        //    center: new naver.maps.LatLng(37.4940074, 127.0397078),
+        //    zoom: 18
+        //}; 
+        //me.nmap = new naver.maps.Map(nmapContainer, nmapOptions);  
+    }
+    
+    /* 이벤트핸들러 */
+    me.fnEH=function(component, evt, row, col, val) { 
+        //console.log(evt+","+row+","+col+","+val);
+        //화면기능버튼이 눌리면 
+        if (component==me.pageObj["_pageFunc"]){ 
+            if(typeof(me[col])=='function') me[col](); //col=기능명 me["fnSearch"]()=me.fnSearch(); 
+        }
+        //pageCond:조회조건 이벤트처리     
+        else if(component==me.pageObj["pageCond"]) {
+            if(evt=="componentFunc") {
+                if(row=="addRow") {
+                    component.addRow();
+                } else if(row=="delRow") {
+                    component.delRow();
+                }
+            }
+            //if(evt=="change" && col=="colid") {...}
+        }
+
+        //map:지도보기 이벤트처리     
+        else if(component==me.pageObj["map"]) {
+            if(evt=="componentFunc") {
+                if(row=="addRow") {
+                    component.addRow();
+                } else if(row=="delRow") {
+                    component.delRow();
+                }
+            }
+            //if(evt=="change" && col=="colid") {...}
+        }
+
+        //사용자 컴포넌트/컨트롤
+        else if(component.userComponent=="myCompoId") {
+            //if(evt=="dblclick" && col=="colid") {...}
+        }
+    }
+    //map:지도 
+    me.fnMap=function() {
+        if( !me.pageObj["pageCond"].chkValid() ) return;
+        var args = me.pageObj["pageCond"].exportData()[0];
+        
+        //좌표로 지도표시
+        function _map(lat=37.4940074, lng=127.0397078) { 
+            me.pageObj.pageCond.setVal("latlng",lat+","+lng);
+            if(isNull(me.map)) me.fnSetup();
+            
+            var coords = new kakao.maps.LatLng(lat, lng);
+            // 결과값으로 받은 위치를 마커로 표시합니다
+            var marker = new kakao.maps.Marker({
+                map: me.map,
+                position: coords
+            }); 
+            // 인포윈도우로 장소에 대한 설명을 표시합니다
+            var infowindow = new kakao.maps.InfoWindow({
+                content: '<div style="width:150px;text-align:center;padding:6px 0;">'+args.addr+'</div>'
+            });
+            infowindow.open(me.map, marker); 
+            me.bounds.extend(coords);
+            
+            // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+            if(me.bounds.length==1) me.map.setCenter(coords);
+            else me.map.setBounds(me.bounds);
+            
+            
+        } 
+        
+        //주소로 좌표찾기
+        var geocoder = new kakao.maps.services.Geocoder(); 
+        geocoder.addressSearch(args.addr, function(result, status) {
+            // 정상적으로 검색이 완료됐으면 
+            if (status === kakao.maps.services.Status.OK) {
+                _map(result[0].y, result[0].x);
+            } else {
+                //없으면 Places서비스
+                var ps = new kakao.maps.services.Places(); 
+                ps.keywordSearch(args.addr, function(data, status, pagination) {
+                    if (status === kakao.maps.services.Status.OK) {
+                        _map(data[0].y, data[0].x);
+                        console.log(data);
+                    } else {
+                        gfnAlert("주소/명칭확인","검색결과가 없습니다..:"+status);
+                    }
+                });
+            }
+        }); 
+    }
+
+
+/*-- SCRIPT autogen ---------------------------------------------------- */        
+if(typeof(me.fnInit)=='function') me.fnInit();
+});
+
+</script>

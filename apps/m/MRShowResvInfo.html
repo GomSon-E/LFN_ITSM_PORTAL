@@ -1,0 +1,352 @@
+<style>.awePop .framepage {
+    background-color: white !important;
+    position: relative;
+}
+
+.awePop .btnClose {
+    content: "X";
+    color: #6d2c2c;
+    position: absolute;
+    top: 0.25em;
+    right: 0.75em;
+    font-size: 2em;
+    cursor: pointer;
+} 
+
+.awePop .pageTitle {
+    display: none;
+}
+.awePop .framepage .btnPdf {
+    display:none;
+}
+
+.aweForm label {
+    width: 9em !important;
+    flex: 8 1 auto;
+}
+
+.aweForm pre.aweCol {
+    line-height: 1.2;
+    white-space: break-spaces;
+}
+
+</style>
+
+<!-- HTML autogen start ---------------------------------------------- --> 
+<div class="btnClose">X</div>           
+<div class="pageContent">
+    <ul id="tabs">
+        <li refid="mst">예약 정보</li> 
+        <li refid="user">예약자 정보</li> 
+        <li refid="room">회의실 정보</li>
+    </ul>
+    <div id='mst'></div> 
+    <div id='user'></div> 
+    <div id='room'></div> 
+</div>
+<div class="pageTop"></div>
+<!-- HTML autogen end ---------------------------------------------- -->
+<script>
+/*-- SCRIPT autogen start ---------------------------------------------- */        
+$(function() {
+    var appid = "m";
+    var pgmid = "MRShowResvInfo"; 
+    var page = $("*[pgmid='"+pgmid+"'].framepage").last();
+    var pageid = page.attr("id"); 
+    var me = {}
+    var dataSet = {};
+    var dataDef = {};
+    var pageObj = {};
+    var bEdit = false;
+    me.fnInit = function() {
+        gfn[pageid] = me; 
+        me.appid    = appid;
+        me.pgmid    = pgmid;
+        me.pageid   = pageid;
+        me.page     = page; 
+        me.dataSet = dataSet;
+        me.dataDef = dataDef;
+        me.pageObj = pageObj;
+        me.bEdit = bEdit;
+me.dataDef["_pgm"]={"ver":0.7,"upd_dt":"2022-09-15 15:00:40","remark":"","pgmid":"MRShowResvInfo","proc_mst_id":"","pgm_stat":"Y","sort_seq":12,"app_pgmid":"m","shortcut":"","reg_dt":"2022-09-15 15:00:40","reg_usid":"jjr","pgm_nm":"예약정보보기","upd_usid":"jjr","pgm_tp":"TX","pgm_grp_nm":"스마트워크_회의실관리","proc_mst_nm":"","app_pgm_nm":"회의실예약시스템","":"트랜젝션(화면)","crud":""};
+me.dataDef["_pgm_func"]=[{"func_icon":"fa fa-door-open","reg_dt":"2022-09-15 15:00:40","reg_usid":"","func_nm":"입실","upd_usid":"","upd_dt":"2022-09-15 15:00:40","func_tp":null,"remark":null,"pgmid":"MRShowResvInfo","sort_seq":"1","funcid":"run","content":null,"crud":"R","id":"0"},{"func_icon":"fa fa-door-closed","reg_dt":"2022-09-15 15:00:40","reg_usid":"","func_nm":"사용종료","upd_usid":"","upd_dt":"2022-09-15 15:00:40","func_tp":null,"remark":null,"pgmid":"MRShowResvInfo","sort_seq":"2","funcid":"finish","content":null,"crud":"R","id":"1"},{"func_icon":"fa fa-ban","reg_dt":"2022-09-15 15:00:40","reg_usid":"","func_nm":"예약취소","upd_usid":"","upd_dt":"2022-09-15 15:00:40","func_tp":null,"remark":null,"pgmid":"MRShowResvInfo","sort_seq":"3","funcid":"cancel","content":null,"crud":"R","id":"2"},{"func_icon":"fa fa-calendar","reg_dt":"2022-09-15 15:00:40","reg_usid":"","func_nm":"이어서 예약","upd_usid":"","upd_dt":"2022-09-15 15:00:40","func_tp":null,"remark":null,"pgmid":"MRShowResvInfo","sort_seq":"4","funcid":"addResv","content":null,"crud":"R","id":"3"},{"func_icon":"fas fa-save","reg_dt":"2022-09-15 15:00:40","reg_usid":"","func_nm":"메모저장","upd_usid":"","upd_dt":"2022-09-15 15:00:40","func_tp":null,"remark":null,"pgmid":"MRShowResvInfo","sort_seq":"5","funcid":"save","content":null,"crud":"R","id":"4"}];
+me.dataDef["_pgm_data"] = {};
+me.dataDef["_pgm_data"]["mst"]={"sort_seq":"1","data_id":"mst","data_nm":"예약 정보","data_icon":null,"component_pgmid":"aweForm","component_option":null,"inout_tp":null,"content":[{"sort_seq":1,"section":null,"section_icon":null,"colgrp":null,"colid":"room_loc","colnm":"층수","dtype":"text","etype":"raw","attr":"keycol","defval":null,"w":"4","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"0"},{"sort_seq":2,"section":null,"section_icon":null,"colgrp":null,"colid":"room_nm","colnm":"회의실","dtype":"text","etype":"raw","attr":"pk","defval":null,"w":"15","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"1"},{"sort_seq":3,"section":null,"section_icon":null,"colgrp":null,"colid":"resv_nm","colnm":"회의명","dtype":"text","etype":"raw","attr":"pk","defval":null,"w":"30","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"2"},{"sort_seq":4,"section":null,"section_icon":null,"colgrp":null,"colid":"attend","colnm":"인원수","dtype":"text","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"3"},{"sort_seq":5,"section":"예약자","section_icon":null,"colgrp":null,"colid":"comcd","colnm":"소속사","dtype":"text","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"4"},{"sort_seq":6,"section":"예약자","section_icon":null,"colgrp":"성명","colid":"nm","colnm":"예약자","dtype":"text","etype":"raw","attr":null,"defval":null,"w":"5","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"5"},{"sort_seq":7,"section":"예약자","section_icon":null,"colgrp":"성명","colid":"jobgradenm","colnm":"직급","dtype":"text","etype":"raw","attr":null,"defval":null,"w":"4","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"6"},{"sort_seq":8,"section":"예약정보","section_icon":null,"colgrp":null,"colid":"resv_dt","colnm":"회의일","dtype":"ymd","etype":"raw","attr":"keycol","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"7"},{"sort_seq":9,"section":"예약정보","section_icon":null,"colgrp":"시작~종료","colid":"start_time","colnm":"시작시각","dtype":"text","etype":"raw","attr":"keycol","defval":null,"w":"4","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"8"},{"sort_seq":10,"section":"예약정보","section_icon":null,"colgrp":"시작~종료","colid":"end_time","colnm":"종료시각","dtype":"text","etype":"raw","attr":"keycol","defval":null,"w":"4","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"9"},{"sort_seq":11,"section":"예약정보","section_icon":null,"colgrp":null,"colid":"duration_time","colnm":"사용시간","dtype":"text","etype":"raw","attr":"readonly","defval":null,"w":"4","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"10"},{"sort_seq":12,"section":null,"section_icon":null,"colgrp":null,"colid":"completion_time","colnm":"실종료시각","dtype":"text","etype":"raw","attr":"readonly","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"11"},{"sort_seq":13,"section":null,"section_icon":null,"colgrp":null,"colid":"resv_stat","colnm":"상태","dtype":"text","etype":"raw","attr":"disabled","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"12"},{"sort_seq":14,"section":null,"section_icon":null,"colgrp":null,"colid":"remark","colnm":"메모","dtype":"text","etype":"txt","attr":null,"defval":null,"w":"50","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"13"}]};
+me.dataDef["_pgm_data"]["user"]={"sort_seq":"2","data_id":"user","data_nm":"예약자정보","data_icon":null,"component_pgmid":"aweForm","component_option":null,"inout_tp":null,"content":[{"sort_seq":1,"section":null,"section_icon":null,"colgrp":null,"colid":"nm","colnm":"성명","dtype":"text","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"0"},{"sort_seq":2,"section":null,"section_icon":null,"colgrp":null,"colid":"email","colnm":"이메일","dtype":"text","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"1"},{"sort_seq":3,"section":null,"section_icon":null,"colgrp":null,"colid":"tel_no","colnm":"연락처","dtype":"text","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"2"},{"sort_seq":4,"section":null,"section_icon":null,"colgrp":null,"colid":"comcd","colnm":"소속사","dtype":"text","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"3"},{"sort_seq":5,"section":null,"section_icon":null,"colgrp":null,"colid":"deptnm","colnm":"부서","dtype":"text","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"4"},{"sort_seq":6,"section":null,"section_icon":null,"colgrp":null,"colid":"jobrolenm","colnm":"직책","dtype":"text","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"5"},{"sort_seq":7,"section":null,"section_icon":null,"colgrp":null,"colid":"jobgradenm","colnm":"직급","dtype":"text","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"6"}]};
+me.dataDef["_pgm_data"]["room"]={"sort_seq":"3","data_id":"room","data_nm":"회의실정보","data_icon":null,"component_pgmid":"aweForm","component_option":null,"inout_tp":null,"content":[{"sort_seq":1,"section":null,"section_icon":null,"colgrp":null,"colid":"room_loc","colnm":"층수","dtype":"text","etype":"raw","attr":"keycol","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"0"},{"sort_seq":2,"section":null,"section_icon":null,"colgrp":null,"colid":"room_id","colnm":"회의실ID","dtype":"text","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"1"},{"sort_seq":3,"section":null,"section_icon":null,"colgrp":null,"colid":"room_nm","colnm":"회의실명","dtype":"text","etype":"raw","attr":"pk","defval":null,"w":"30","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"2"},{"sort_seq":4,"section":null,"section_icon":null,"colgrp":null,"colid":"room_remark","colnm":"사용규칙","dtype":"text","etype":"pre","attr":null,"defval":null,"w":"50","h":"3","refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"3"},{"sort_seq":5,"section":null,"section_icon":null,"colgrp":null,"colid":"quota_usage","colnm":"당월사용율","dtype":"text","etype":"pre","attr":null,"defval":null,"w":"50","h":"3","refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"4"},{"sort_seq":6,"section":null,"section_icon":null,"colgrp":null,"colid":"limit_cd","colnm":"회의실구분","dtype":"text","etype":"pre","attr":null,"defval":null,"w":"50","h":"3","refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"5"},{"sort_seq":7,"section":null,"section_icon":null,"colgrp":null,"colid":"max_time","colnm":"최대사용시간","dtype":"num","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"6"},{"sort_seq":8,"section":null,"section_icon":null,"colgrp":null,"colid":"max_user","colnm":"권장최대인원","dtype":"num","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"7"},{"sort_seq":9,"section":null,"section_icon":null,"colgrp":null,"colid":"resv_forward","colnm":"예약개시일수","dtype":"num","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"8"},{"sort_seq":10,"section":null,"section_icon":null,"colgrp":null,"colid":"forward_dt","colnm":"예약가능일","dtype":"ymd","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"9"},{"sort_seq":11,"section":null,"section_icon":null,"colgrp":null,"colid":"room_stat","colnm":"현재상태","dtype":"text","etype":"txt","attr":"disabled","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"10"}]};
+
+        me.pageObj["_page"] = new gfnFramepage( me ); 
+        for(var component_id in me.dataDef["_pgm_data"]) { 
+            me.pageObj[component_id] = new gfnComponent( me.pageid, component_id, me.dataDef["_pgm_data"][component_id], me.fnEH, me); 
+        }  
+        setTimeout(function(){
+            $("#frameset").scrollTo(0); //스크롤 
+        },10);
+        if(typeof(me.fnInitExtra)=='function') me.fnInitExtra(); 
+    } 
+/*-- SCRIPT autogen end ---------------------------------------------- */
+
+    /* 사용자초기화 */
+    me.fnInitExtra=function() {
+        //탭 설정
+        gfnTab(pageid, "tabs"); 
+        //사용자 컴포넌트 
+        //me.dataDef["_pgm_data"][myCompoId] = {...};
+        //me.pageObj["myCompoId"] = new gfnComponent( me.pageid, myCompoId, me.dataDef["_pgm_data"][myCompoId], me.fnEH, me); 
+        //me.pageObj["myCompoId"].userComponent = "myCompoId";
+        //사용자 컨트롤
+        //var myColinfo = {colid:...}
+        //me.pageObj["myColId"] = new gfnControl(myColinfo, me.fnEH) 
+        //me.page.find("#myCol").append(me.pageObj["myColId"].dispObj);
+        //me.pageObj["myColId"].getVal(); / myCol.setVal(val);... 
+        me.page.find(".btnClose").on('click', function() {
+            gfnClosePop(); 
+        }); 
+        
+        me.pageObj._pageFunc.setDisp("run",false);
+        me.pageObj._pageFunc.setDisp("finish",false);
+        me.pageObj._pageFunc.setDisp("cancel",false);
+        me.pageObj._pageFunc.setDisp("addResv",false);
+        me.pageObj._pageFunc.setDisp("save",false);
+        me.resv_no = gParam.resv_no;
+        if(!isNull(me.resv_no)) me.fnSearch();
+    }
+    /* 이벤트핸들러 */
+    me.fnEH=function(component, evt, row, col, val) { 
+        //console.log(evt+","+row+","+col+","+val);
+        //화면기능버튼이 눌리면 
+        if (component==me.pageObj["_pageFunc"]){ 
+            if(typeof(me[col])=='function') me[col](); //col=기능명 me["fnSearch"]()=me.fnSearch(); 
+        }
+        //mst:회의실 정보 이벤트처리     
+        else if(component==me.pageObj["mst"]) {
+            if(evt=="componentFunc") {
+                if(row=="addRow") {
+                    component.addRow();
+                } else if(row=="delRow") {
+                    component.delRow();
+                }
+            }
+            //if(evt=="change" && col=="colid") {...}
+        }
+
+        //사용자 컴포넌트/컨트롤
+        else if(component.userComponent=="myCompoId") {
+            //if(evt=="dblclick" && col=="colid") {...}
+        }
+    }
+    
+    me.fnSearch=function() {
+        var args = {resv_no:me.resv_no};
+        var invar = JSON.stringify(args); 
+        gfnTx(appid+"."+pgmid,"search",{INVAR:invar},function(OUTVAR){ 
+            if(OUTVAR.rtnCd=="OK") {
+                me.pageObj.mst.importData(OUTVAR.mst); 
+                me.pageObj.room.importData(OUTVAR.mst); 
+                me.pageObj.user.importData(OUTVAR.mst); 
+                me.data = OUTVAR.mst[0];
+                
+                //사용자와 예약자가 동일하면 메모버튼
+                if(gUserinfo.userid==me.data["user_id"]) {
+                    me.pageObj._pageFunc.setDisp("save",true);
+                }    
+                //입실: 상태가 예약이고 현재일자/시간이 시작보다 같고 끝보다 작으면..(미래일자 미리 시작할 수 없음)
+                if(me.data["resv_cd_stat"]=="D") {
+                    var today = date("today","yyyy-mm-dd");
+                    var toymd = date("today","yyyymmdd");
+                    var curtime    = date("today","hh24:mi");
+                    var aymd       = me.data["resv_dt"]; 
+                    var start_time = me.data["start_time"]; 
+                    var end_time   = nvl( me.data["completion_time"], me.data["end_time"] ); 
+                    if(toymd == aymd && (toNum(curtime) >= toNum(start_time) && toNum(curtime) <= toNum(end_time)) || toymd == aymd && timeDiff(start_time,curtime) <= "0:10") {
+                        me.pageObj._pageFunc.setDisp("run",true);
+                    }
+                } 
+                //퇴실: 상태가 사용중이면.. 
+                if(me.data["resv_cd_stat"]=="Y") {
+                    me.pageObj._pageFunc.setDisp("finish",true);
+                } 
+                //예약취소: 상태가 예약중이면 
+                if(me.data["resv_cd_stat"]=="D") {
+                    me.pageObj._pageFunc.setDisp("cancel",true);
+                } 
+                //짜투리시간이 있고 뒤이어 회의가 없다면
+                if(!isNull(gUserinfo.userid)) {
+                    var toymd = date("today","yyyymmdd");
+                    var curtime    = date("today","hh24:mi");
+                    var aymd       = me.data["resv_dt"]; 
+                    var start_time = me.data["start_time"]; 
+                    var end_time   = nvl( me.data["completion_time"], me.data["end_time"] );
+                    if( toymd <= aymd ){ 
+                        me.pageObj._pageFunc.setDisp("addResv",true);
+                    } 
+                }
+        
+            } else {
+                gfnAlert("오류",OUTVAR.rtnMsg); 
+            }
+        });
+    }
+    
+    //메모저장
+    me.fnSave=function() {
+        var args = me.pageObj.mst.exportData()[0]; 
+        if(gUserinfo.userid!=me.data["user_id"]) {
+            gfnAlert("메모저장","예약자 본인만 메모를 저장할 수 있습니다.");
+            return false;
+        }
+        var invar = JSON.stringify(args); 
+        gfnTx(appid+"."+pgmid,"save",{INVAR:invar},function(OUTVAR){ 
+            if(OUTVAR.rtnCd=="OK") {
+                gfnAlert("메모저장","메모가 저장되었습니다.");
+                me.fnSearch();
+            } else {
+                gfnAlert("오류",OUTVAR.rtnMsg); 
+            }
+        });
+    }
+    
+    //예약취소
+    me.fnCancel=function() {
+        var args = me.pageObj.mst.exportData()[0];
+        //키오스크 또는 본인이 아닌 경우 빠른인증으로 예약취소 할 수 있다.
+        if(gUserinfo.userid=="BOT" || gUserinfo.userid!=me.data["user_id"]) {
+            if(!gfnCheckQpass("예약취소", args.user_id)) return;              
+        } 
+        var invar = JSON.stringify(args); 
+        gfnTx(appid+"."+pgmid,"cancel",{INVAR:invar},function(OUTVAR){ 
+            if(OUTVAR.rtnCd=="OK") {
+                function _fnCallback() {
+                    gfnAlert("예약취소","예약이 취소되었습니다.");
+                    gfnClosePop();
+                    gfn.home.fnRefresh();  
+                }
+                //메시지 발송
+                var msg = "["+args.room_nm+"] "+args.resv_nm+"("+date(args.resv_dt,"yyyymmdd","yyyy년mm월dd일(weekday)")+" "+args.start_time+" ~ "+args.end_time+")회의가 예약취소 되었습니다."
+                if(args.comcd=="LFN") {
+                    gfnSendMsg("naverworks",args.email,"회의실 예약시스템 -"+args.nm+"님("+args.email+"), "+msg,null,_fnCallback); 
+                } else {
+                    gfnSendMsg("jandi",args.email,"회의실 예약시스템 -"+args.nm+"님("+args.email+"), "+msg,null,_fnCallback); 
+                }
+            } else {
+                gfnAlert("오류",OUTVAR.rtnMsg); 
+            }
+        });
+    }
+    
+    //회의실 입실
+    me.fnRun=function() { 
+        var args = me.pageObj.mst.exportData()[0];
+        if( args.resv_cd_stat != "D") {
+            gfnAlert("회의실 사용시작 확인","회의실 예약상태일때만 사용처리 가능합니다!");
+            return;
+        } 
+        var curymd = date("today","yyyymmdd");
+        var aymd = args.resv_dt;
+        if( curymd != aymd ) {
+            gfnAlert("회의실 사용시작 확인","회의실 사용처리는 당일에만 가능합니다!");
+            return;
+        }
+        var curtime = date("today","hh24:mi");
+        var start_time = args.start_time;
+        var end_time = args.end_time; 
+        if( !(timeDiff(start_time,curtime) <= "0:10" || timeDiff(start_time,curtime) >= "23:50") ) { 
+            gfnAlert("회의실 사용시작 확인","회의실 사용은 예약시간 10분 전 사용처리 가능 합니다.");
+            return;
+        }
+        if( curtime > end_time ) {
+            gfnAlert("회의실 사용시작 확인","예약된 종료시간 이후입니다. 예약취소만 가능 합니다.");
+            return;
+        }
+        
+        //BOT일때는 빠른체크인
+        if(gUserinfo.userid=="BOT") {
+            if(!gfnCheckQpass("회의실사용(입실)", args.user_id)) return;   
+        } else {
+            //현장 QR체크만 가능
+            // if (isNull(gParam.r) || gParam.r != me.data.room_id ) {
+            //     gfnAlert("현장 입실처리 확인","현장에 부착된 QR코드를 스캔하여 입실처리 해주세요!");
+            //     return false;
+            // } else { 
+            if(gUserinfo.userid!=me.data["user_id"]) { //본인이 아닌 경우 빠른체크인
+                if(!gfnCheckQpass("회의실사용(입실)", args.user_id)) return;   
+            }
+            // }
+        }
+        
+        var invar = JSON.stringify(args); 
+        gfnTx(appid+"."+pgmid,"run",{INVAR:invar},function(OUTVAR){ 
+            if(OUTVAR.rtnCd=="OK") {
+                function _fnCallback() {
+                    gfnAlert("회의실사용(입실)","회의실사용(입실) 처리 되었습니다.");
+                    gfnClosePop();
+                    gfn.home.fnRefresh();  
+                }
+                //메시지 발송
+                var msg = "["+args.room_nm+"] "+args.resv_nm+"("+date(args.resv_dt,"yyyymmdd","yyyy년mm월dd일(weekday)")+" "+args.start_time+" ~ "+args.end_time+") 회의가 시작 되었습니다."
+                if(args.comcd=="LFN") {
+                    gfnSendMsg("naverworks",args.email,"회의실 예약시스템 -"+args.nm+"님("+args.email+"), "+msg,null,_fnCallback); 
+                } else {
+                    gfnSendMsg("jandi",args.email,"회의실 예약시스템 -"+args.nm+"님("+args.email+"), "+msg,null,_fnCallback); 
+                }
+            } else {
+                gfnAlert("오류",OUTVAR.rtnMsg); 
+            }
+        });
+    }    
+    
+    //회의실 사용종료
+    me.fnFinish=function() {
+        var args = me.pageObj.mst.exportData()[0];
+        if( args.resv_cd_stat != "Y") {
+            gfnAlert("회의실 사용종료 확인","회의실 사용상태일때만 종료처리 가능합니다!");
+            return;
+        }  
+        var curtime = date("today","hh24:mi");
+        var start_time = args.start_time;
+        var end_time = args.end_time;  
+        
+        //BOT일때는 빠른체크인
+        if(gUserinfo.userid=="BOT") {
+            if(!gfnCheckQpass("회의실사용종료(퇴실)", args.user_id)) return; 
+        } else {
+            if(gUserinfo.userid!=me.data["user_id"]) { //본인이 아닌 경우 빠른체크인
+                if(!gfnCheckQpass("회의실사용종료(퇴실)", args.user_id)) return; 
+            }
+        } 
+        
+        var invar = JSON.stringify(args); 
+        gfnTx(appid+"."+pgmid,"finish",{INVAR:invar},function(OUTVAR){ 
+            if(OUTVAR.rtnCd=="OK") {
+                function _fnCallback() {
+                    gfnAlert("회의실사용종료(퇴실)","회의실 사용종료(퇴실) 처리 되었습니다.");
+                    gfnClosePop();
+                    gfn.home.fnRefresh();  
+                }
+                //메시지 발송
+                var msg = "["+args.room_nm+"] "+args.resv_nm+"("+date(args.resv_dt,"yyyymmdd","yyyy년mm월dd일(weekday)")+" "+args.start_time+" ~ "+args.end_time+") 회의가 종료 되었습니다."
+                if(args.comcd=="LFN") {
+                    gfnSendMsg("naverworks",args.email,"회의실 예약시스템 -"+args.nm+"님("+args.email+"), "+msg,null,_fnCallback); 
+                } else {
+                    gfnSendMsg("jandi",args.email,"회의실 예약시스템 -"+args.nm+"님("+args.email+"), "+msg,null,_fnCallback); 
+                }
+            } else {
+                gfnAlert("오류",OUTVAR.rtnMsg); 
+            }
+        });
+    }        
+    
+    //이어서 예약하기
+    me.fnAddResv=function() {
+        var args = me.pageObj.mst.exportData()[0]; 
+        gfnClosePop();
+        var start_time = (args.resv_cd_stat=="N")?args.start_time:nvl(args.completion_time,args.end_time); 
+        gfn.home.fnMakeResv(args.room_id, args.resv_dt, start_time);    
+    }
+    
+
+/*-- SCRIPT autogen ---------------------------------------------------- */        
+if(typeof(me.fnInit)=='function') me.fnInit();
+});
+
+</script>

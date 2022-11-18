@@ -1,0 +1,277 @@
+<style>[pgmid='registerAlert'].framepage .userClass { 
+width:100%; 
+}</style>
+<div class="pageNav"></div>
+<div class="pageTop"></div>
+<div class="pageCond"></div>
+<div class="pageGuide"></div>
+<div class="pageContent flexRow">
+    <div id="list" style="flex:1 1 30%" class="flexColumn"></div>
+    <div style="flex:1 1 calc(70% - 3em)" class="flexColumn">
+      <div id="mst"></div>
+      <div class="flexRow">
+        <div id="last"  class="flexColumn" style="flex:1 1 60%"></div>
+        <div id="lastUser" class="flexColumn" style="flex:1 1 30%"></div>
+      </div>
+    </div>
+</div>
+
+<script>
+/*-- SCRIPT autogen start ---------------------------------------------- */        
+$(function() {
+    var appid = "aweportal";
+    var pgmid = "registerAlert"; 
+    var page = $("*[pgmid='"+pgmid+"'].framepage").last();
+    var pageid = page.attr("id"); 
+    var me = {}
+    var dataSet = {};
+    var dataDef = {};
+    var pageObj = {};
+    var bEdit = false;
+    me.fnInit = function() {
+        gfn[pageid] = me; 
+        me.appid    = appid;
+        me.pgmid    = pgmid;
+        me.pageid   = pageid;
+        me.page     = page; 
+        me.dataSet = dataSet;
+        me.dataDef = dataDef;
+        me.pageObj = pageObj;
+        me.bEdit = bEdit;
+me.dataDef["_pgm"]={"ver":3.4,"upd_dt":"2022-08-24 10:28:34","remark":"알림을 전송한다.","pgmid":"registerAlert","proc_mst_id":"","pgm_stat":"Y","sort_seq":71,"app_pgmid":"aweportal","shortcut":"","reg_dt":"2022-08-04 23:01:25","reg_usid":"kihyunlee","pgm_nm":"알림 전송","upd_usid":"kihyunlee","pgm_tp":"UX","pgm_grp_nm":"포털관리자","proc_mst_nm":"","app_pgm_nm":"포털","":"트랜젝션(메뉴)","crud":""};
+me.dataDef["_pgm_func"]=[{"func_icon":"fas fa-file","reg_dt":"2022-08-04 23:01:25","reg_usid":"","func_nm":"신규 알림","upd_usid":"","upd_dt":"2022-08-04 23:01:25","func_tp":"EH","remark":"신규 알림을 작성합니다.","pgmid":"registerAlert","sort_seq":"1","funcid":"new","content":"신규 알림 생성","crud":"R","id":"0"},{"func_icon":"fas fa-search","reg_dt":"2022-08-04 23:01:25","reg_usid":"","func_nm":"사용자 조회","upd_usid":"","upd_dt":"2022-08-04 23:01:25","func_tp":"DB_R","remark":"그룹 유형, 그룹에 따라 특정 사용자를 조회할 수 있으며, 지난 알림 전송 내역을 조회할 수 있습니다.","pgmid":"registerAlert","sort_seq":"2","funcid":"search","content":"전체 사용자를 조회","crud":"R","id":"1"},{"func_icon":"fas fa-save","reg_dt":"2022-08-04 23:01:25","reg_usid":"","func_nm":"알림 전송","upd_usid":"","upd_dt":"2022-08-04 23:01:25","func_tp":"DB_W","remark":"작성한 신규 알림을 알림 메세지 혹은 팝업과 함께 전송합니다.","pgmid":"registerAlert","sort_seq":"3","funcid":"save","content":"알림 전송","crud":"R","id":"2"}];
+me.dataDef["_pgm_data"] = {};
+me.dataDef["_pgm_data"]["pageCond"]={"sort_seq":"1","data_id":"pageCond","data_nm":"조회조건","data_icon":null,"component_pgmid":"aweForm","component_option":null,"inout_tp":"IN","content":[{"sort_seq":1,"section":null,"section_icon":null,"colgrp":null,"colid":"grp_tp","colnm":"그룹유형","dtype":"text","etype":"sel","attr":"center keycol","defval":"ORG","w":"15","h":null,"refcd":"GRP_TP","option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"0"},{"sort_seq":2,"section":null,"section_icon":null,"colgrp":null,"colid":"temp","colnm":null,"dtype":"text","etype":"raw","attr":"center","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":"GRPID 연결용(삭제X)","crud":"C","id":"1"},{"sort_seq":3,"section":null,"section_icon":null,"colgrp":null,"colid":"usid","colnm":"사용자 ID","dtype":"text","etype":"txt","attr":"center","defval":null,"w":"15","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"2"},{"sort_seq":4,"section":null,"section_icon":null,"colgrp":null,"colid":"us_nm","colnm":"사용자 명","dtype":"text","etype":"txt","attr":"center","defval":null,"w":"15","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"3"}]};
+me.dataDef["_pgm_data"]["list"]={"sort_seq":"2","data_id":"list","data_nm":"수신자 선택","data_icon":null,"component_pgmid":"agGrid","component_option":{"height":"30em","gridOpt":"chk","gridOptions":{"statusBar":"false"}},"inout_tp":"INOUT","content":[{"sort_seq":1,"section":null,"section_icon":null,"colgrp":null,"colid":"grp_nm","colnm":"사용자 그룹","dtype":"text","etype":"raw","attr":"readonly","defval":null,"w":"10","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"0"},{"sort_seq":2,"section":null,"section_icon":null,"colgrp":null,"colid":"usid","colnm":"사용자 ID","dtype":"text","etype":"raw","attr":"readonly","defval":null,"w":"8","h":null,"refcd":null,"option":null,"len":15,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"1"},{"sort_seq":3,"section":null,"section_icon":null,"colgrp":null,"colid":"nm","colnm":"사용자 이름","dtype":"text","etype":"raw","attr":"readonly","defval":null,"w":"8","h":null,"refcd":null,"option":null,"len":15,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"2"},{"sort_seq":4,"section":null,"section_icon":null,"colgrp":null,"colid":"nick_nm","colnm":"사용자 닉네임","dtype":"text","etype":"raw","attr":"readonly","defval":null,"w":"10","h":null,"refcd":null,"option":null,"len":15,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"3"}]};
+me.dataDef["_pgm_data"]["mst"]={"sort_seq":"3","data_id":"mst","data_nm":"알림 작성","data_icon":null,"component_pgmid":"aweForm","component_option":null,"inout_tp":"IN","content":[{"sort_seq":1,"section":null,"section_icon":null,"colgrp":null,"colid":"ref_id","colnm":"알림구분","dtype":"text","etype":"sel","attr":"keycol","defval":"SYSTEM","w":"20","h":null,"refcd":"CD_ALERT","option":"all:cd_alert::nm","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"0"},{"sort_seq":2,"section":null,"section_icon":null,"colgrp":null,"colid":"ref_info_tp","colnm":"알림속성","dtype":"text","etype":"txt","attr":null,"defval":null,"w":"20","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"1"},{"sort_seq":3,"section":null,"section_icon":null,"colgrp":null,"colid":"comments","colnm":"알림내용","dtype":"text","etype":"tarea","attr":"keycol","defval":null,"w":"50","h":"10","refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"2"}]};
+me.dataDef["_pgm_data"]["last"]={"sort_seq":"4","data_id":"last","data_nm":"지난 알림 작성 내역","data_icon":null,"component_pgmid":"agGrid","component_option":null,"inout_tp":"OUT","content":[{"sort_seq":1,"section":null,"section_icon":null,"colgrp":null,"colid":"ref_id","colnm":"알림구분","dtype":"text","etype":"raw","attr":"readonly","defval":null,"w":"10","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"0"},{"sort_seq":2,"section":null,"section_icon":null,"colgrp":null,"colid":"comments","colnm":"알림내용","dtype":"text","etype":"raw","attr":"readonly","defval":null,"w":"30","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"1"},{"sort_seq":3,"section":null,"section_icon":null,"colgrp":null,"colid":"ref_info_tp","colnm":"알림속성","dtype":"text","etype":"raw","attr":"readonly","defval":null,"w":"10","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"2"},{"sort_seq":4,"section":null,"section_icon":null,"colgrp":null,"colid":"reg_dt","colnm":"발신날짜","dtype":"text","etype":"raw","attr":"readonly","defval":null,"w":"12","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"3"}]};
+me.dataDef["_pgm_data"]["lastUser"]={"sort_seq":"5","data_id":"lastUser","data_nm":"알림 수신자","data_icon":null,"component_pgmid":"agGrid","component_option":null,"inout_tp":"INOUT","content":[{"sort_seq":1,"section":null,"section_icon":null,"colgrp":null,"colid":"usid","colnm":"사용자 ID","dtype":"text","etype":"raw","attr":"center readonly","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"0"},{"sort_seq":2,"section":null,"section_icon":null,"colgrp":null,"colid":"nm","colnm":"사용자 이름","dtype":"text","etype":"raw","attr":"center readonly","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"1"},{"sort_seq":3,"section":null,"section_icon":null,"colgrp":null,"colid":"read_yn","colnm":"읽음 여부","dtype":"text","etype":"raw","attr":"center readonly","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"2"}]};
+
+        me.pageObj["_page"] = new gfnFramepage( me ); 
+        for(var component_id in me.dataDef["_pgm_data"]) { 
+            me.pageObj[component_id] = new gfnComponent( me.pageid, component_id, me.dataDef["_pgm_data"][component_id], me.fnEH, me); 
+        }  
+        setTimeout(function(){
+            $("#frameset").scrollTo(0); //스크롤 
+        },10);
+        if(typeof(me.fnInitExtra)=='function') me.fnInitExtra(); 
+    } 
+/*-- SCRIPT autogen end ---------------------------------------------- */
+
+    /* 사용자초기화 */
+    me.fnInitExtra=function() {
+        me.dataSet["selectEmp"] = [];
+        if(document.querySelector(".framepage[id=" + me.pageid + "] .pageCond .componentBody .colgrp")) {
+            const del = document.querySelector(".framepage[id=" + me.pageid + "] .pageCond .componentBody .colgrp");
+            del.parentNode.removeChild(del);
+            
+        } else {
+            //사용자 그룹 컴포넌트 추가
+            let colgrp = document.createElement("div");
+            colgrp.classList.add("colgrp");
+            colgrp.setAttribute("colgrp", "그룹");
+            colgrp.style.width = "20em";
+            
+            let label = document.createElement("label");
+            label.textContent = "그룹";
+            colgrp.append(label);
+            
+            let colid = document.createElement("select");
+            colid.setAttribute("colid", "grpid");
+            colid.classList.add("aweCol");
+            colid.classList.add("text");
+            colid.setAttribute("w", "15");
+            colid.style.flex = "15 1 auto";
+            colgrp.append(colid);
+            
+            let optionDef = document.createElement("option");
+            optionDef.setAttribute("value", "");
+            optionDef.setAttribute("selected", "selected");
+            optionDef.textContent = "- 전체 -";
+            colid.append(optionDef);
+            
+            document.querySelector(".framepage[id=" + me.pageid + "] .pageCond .componentBody").append(colgrp);
+            document.querySelector(".framepage[id=" + me.pageid + "] .pageCond .componentBody div[colgrp='null']").replaceWith(document.querySelector(".framepage[id=" + me.pageid + "] .pageCond .componentBody .colgrp"))
+
+            const grp_tp = me.pageObj["pageCond"].getVal("grp_tp");
+            
+            me.fnEHselectGrp(grp_tp);
+        }
+    }
+    
+    /* 이벤트핸들러 */
+    me.fnEH=function(component, evt, row, col, val) {
+        //화면기능버튼이 눌리면 
+        if (component == me.pageObj["_pageFunc"]){ 
+            if(typeof(me[col])=='function') me[col](); //col=기능명 me["fnSearch"]()=me.fnSearch(); 
+        }
+        
+        //사용자 컴포넌트/컨트롤
+        else if(component.userComponent == "myCompoId") {
+            //if(evt=="dblclick" && col=="colid") {...}
+        }
+        
+        //알림 목록 클릭 컨트롤
+        else if(component == me.pageObj["last"]) {
+            if(evt == "focus") {
+                if(row >= 0) {
+                    var last = me.pageObj.last.getRowData(row);
+                    last.currow = row;
+                    me.pageObj.mst.importData(last);
+                    if(!isNull(last)) {
+                        me.fnSearchReceiver(last);
+                    }
+                }
+            }
+        }
+        
+        //그룹 유형에 따른 그룹을 리턴
+        else if(component == me.pageObj["pageCond"]) {
+            if(evt == "change") {
+                var grp_tp = me.pageObj["pageCond"].getVal("grp_tp");
+                me.fnEHselectGrp(grp_tp);
+            }            
+        }
+    }
+    
+    me.fnEHselectGrp = function(grp_tp) {
+        //기존 select 노드 삭제
+        let del = document.querySelector(".framepage[id=" + me.pageid + "] .pageCond .componentBody .colgrp .aweCol");
+        while(del.hasChildNodes()) { del.removeChild(del.firstChild); };
+
+        var args = { grp_tp : grp_tp };
+        var invar = JSON.stringify(args);
+        gfnTx(appid + "." + pgmid, "searchGroup", { INVAR : invar }, function(OUTVAR) {
+            if(OUTVAR.rtnCd == "OK") {
+                var grp = OUTVAR.grp;
+                
+                let optionDef = document.createElement("option");
+                optionDef.setAttribute("value", "");
+                optionDef.setAttribute("selected", "selected");
+                optionDef.textContent = "- 전체 -";
+                del.append(optionDef);
+                
+                grp.forEach((each) => {
+                    var option = document.createElement("option");
+                    option.setAttribute("value", each.grpid);
+                    option.textContent = each.grp_nm;
+                    del.append(option);
+                })
+            }
+        },true);
+    }
+    
+    //new:신규 알림 생성
+    me.fnNew = function() {
+        $(".framepage .pageCond .componentBody .keycol select option:eq(1)").prop("selected", true);
+        $(".framepage .pageCond .componentBody .colgrp .aweCol option:eq(0)").prop("selected", true);
+        me.pageObj["list"].reset();
+        me.pageObj["mst"].reset();
+        me.pageObj["last"].reset();
+        me.pageObj["lastUser"].reset();
+        checkNew=true;
+    }
+    
+    //save: 알림 전송
+    me.fnSave = function() {
+        if( !me.pageObj["mst"].chkValid()) {
+            gfnAlert("전송 확인", "알림 메세지를 모두 입력한 후, 전송 가능합니다.");
+            return;
+        }
+        
+        //입력한 마스터 정보 수집
+        const alertInfo = me.pageObj["mst"].exportData()[0];
+        
+        //선택 유저 집계
+        const rows      = me.pageObj["list"].selectedRows();
+        
+        if(rows.length == 0) {
+            gfnAlert("알림 전송 확인", "알림 전송은 수신자를 선택해야 합니다.");
+            return;
+        
+        } else {
+            let getUsid   = undefined;
+            for(let i = 0; i < rows.length; i++) {
+                getUsid = me.pageObj["list"].getRowData(rows[i]).usid;
+                me.dataSet["selectEmp"].push({ usid : getUsid });
+            }
+            
+            gfnConfirm("알림 전송 확인", "[" + alertInfo.comments + "] 을 전송합니다. 계속하시겠습니까?", function(bConfirm) {
+                if(bConfirm) {
+                    if(typeof(gfnNotice)=='function') {
+                        gfnNotice(me.dataSet["selectEmp"], alertInfo.ref_id, alertInfo.ref_info_tp, alertInfo.comments, gUserinfo.userid);                    
+                        me.dataSet["selectEmp"] = [];
+                        me.fnNew();
+                    } else {
+                        var idx = 0;
+                        var total = me.dataSet["selectEmp"].length;
+                        function _sendMsg() {
+                            if(idx < total) {
+                                var email = me.dataSet["selectEmp"][idx].usid+"@lfnetworks.co.kr";
+                                //console.log(idx+"sendMsg to "+email);
+                                //gfnSendMsg(toSys, useremail, msg, url, afnCallback, ref_info, pgmid)
+                                gfnSendMsg("naverworks", email, alertInfo.comments, null, function(){
+                                    idx++;
+                                    _sendMsg(); //순차적으로 다음 
+                                }, alertInfo.ref_info_tp, me.pgmid); 
+                            } else {
+                                me.dataSet["selectEmp"] = [];
+                                me.fnNew(); 
+                                gfnAlert("메시지전송 완료","메시지 전송을 완료하였습니다.");
+                            }   
+                        }
+                        _sendMsg();
+                    } 
+
+                } else {
+                    return;
+                }
+            }); 
+        }
+    }
+    
+    //search:조회 
+    me.fnSearch = function() {
+        me.pageObj["mst"].reset();
+        if( !me.pageObj["pageCond"].chkValid() ) return;
+
+        var temp = document.querySelector(".framepage .pageCond .componentBody .colgrp .aweCol");
+        temp = temp.options[temp.selectedIndex].value;
+
+        var args = me.pageObj["pageCond"].exportData()[0];
+        
+        Object.assign(args, { grpid : temp });
+        var invar = JSON.stringify(args);
+        
+        gfnTx(appid + "." + pgmid, "search", { INVAR : invar }, function(OUTVAR){
+            if(OUTVAR.rtnCd=="OK") {
+                me.pageObj["list"].importData(OUTVAR.list);
+                me.pageObj["last"].importData(OUTVAR.last);
+
+            } else {
+                gfnAlert("조회오류",OUTVAR.rtnMsg);
+            }
+        });
+    }
+
+    me.fnSearchReceiver=function(rowData) {
+        me.pageObj["lastUser"].reset();
+        
+        var args = { reg_dt : rowData.reg_dt, ref_id : rowData.ref_id };
+        var invar = JSON.stringify(args);
+
+        gfnTx(appid + "." + pgmid, "searchReceiver", { INVAR : invar }, function(OUTVAR) {
+           if(OUTVAR.rtnCd == "OK") {
+               me.pageObj["lastUser"].importData(OUTVAR.lastUser);
+           } else {
+               gfnAlert("조회오류", OUTVAR.rtnMsg);
+           }
+        }, true);
+    }
+    
+
+/*-- SCRIPT autogen ---------------------------------------------------- */        
+if(typeof(me.fnInit)=='function') me.fnInit();
+});
+
+</script>

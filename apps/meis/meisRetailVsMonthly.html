@@ -1,0 +1,903 @@
+<style>[pgmid="meisRetailVsMonthly"] .aweSalesCalendar .calendar tr > * {
+    border-bottom: 1px solid #eaeaea;
+}
+
+[pgmid="meisRetailVsMonthly"] .aweSalesCalendar li.am_sale {
+    background-color: #f5f5dca6;
+}
+
+[pgmid="meisRetailVsMonthly"] th ul.cal {
+    line-height: 1.8;
+}
+[pgmid="meisRetailVsMonthly"] th ul.cal li {
+    position:relative;
+}
+[pgmid="meisRetailVsMonthly"] th ul.cal li::before {
+    font-size: 8px;
+    color: #6a5acda6;
+    position: absolute;
+    top: -6px;
+    left: -6px;
+    font-family: sans-serif;
+}
+[pgmid="meisRetailVsMonthly"] th ul.cal li.am_sale::before {
+    content: "전체";
+}
+[pgmid="meisRetailVsMonthly"] th ul.cal li.am_sale_06::before {
+    content: "광양";
+}
+[pgmid="meisRetailVsMonthly"] th ul.cal li.am_sale_04::before {
+    content: "양주";
+}
+[pgmid="meisRetailVsMonthly"] th ul.cal li.am_sale_03::before {
+    content: "인천";
+}
+
+
+[pgmid="meisRetailVsMonthly"] .badge {
+    line-height: 1.25;
+}
+
+[pgmid="meisRetailVsMonthly"] .agGrid .aweCol.readonly {
+    background-color: #aeaeae21 !important;
+}
+
+[pgmid="meisRetailVsMonthly"] .row.col3 {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: space-between;
+    align-items: center;
+}
+
+[pgmid="meisRetailVsMonthly"] .row.col3 > * {
+    flex: 1 1 33% !important; 
+    min-width: 300px;
+}</style>
+<div class="container-xxl">
+    <div class="pageNav"></div>
+    <div class="pageTop"></div>
+    <div class="pageCond"></div>
+    <div class="pageGuide"></div>
+    
+<div class="pageContent hk-pg-body">
+	<div class="row">
+		<div id="chart" style="border:1px solid #aeaeae;"></div>
+	</div>
+	<div class="row col3" >
+		<div id="chart06" style="border:1px solid #aeaeae;"></div>
+		<div id="chart04" style="border:1px solid #aeaeae;"></div>
+		<div id="chart03" style="border:1px solid #aeaeae;"></div>
+	</div>
+	<!-- /row --> 	
+	<div class="row">
+	    <div id="list2"></div>
+	</div>   
+	<!-- /row --> 	 
+</div>
+<!-- /hk-pg-body --> 	
+</div>
+<!-- /container-xxl --> 	
+
+<script>
+/*-- SCRIPT autogen start ---------------------------------------------- */        
+$(function() {
+    var appid = "meis";
+    var pgmid = "meisRetailVsMonthly"; 
+    var page = $("*[pgmid='"+pgmid+"'].framepage").last();
+    var pageid = page.attr("id"); 
+    var me = {}
+    var dataSet = {};
+    var dataDef = {};
+    var pageObj = {};
+    var bEdit = false;
+    me.fnInit = function() {
+        gfn[pageid] = me; 
+        me.appid    = appid;
+        me.pgmid    = pgmid;
+        me.pageid   = pageid;
+        me.page     = page; 
+        me.dataSet = dataSet;
+        me.dataDef = dataDef;
+        me.pageObj = pageObj;
+        me.bEdit = bEdit;
+me.dataDef["_pgm"]={"ver":0.5,"upd_dt":"2022-10-25 12:31:35","remark":"","pgmid":"meisRetailVsMonthly","proc_mst_id":"","pgm_stat":"Y","sort_seq":240,"app_pgmid":"meis","shortcut":"","reg_dt":"2022-10-25 12:31:35","reg_usid":"kihyunlee","pgm_nm":"유통 대비매출","upd_usid":"kihyunlee","pgm_tp":"UX","pgm_grp_nm":"스퀘어몰","proc_mst_nm":"","app_pgm_nm":"모바일EIS","":"트랜젝션(메뉴)","crud":""};
+me.dataDef["_pgm_func"]=[{"func_icon":"fas fa-search","reg_dt":"2022-10-25 12:31:35","reg_usid":"","func_nm":"조회","upd_usid":"","upd_dt":"2022-10-25 12:31:35","func_tp":"DB_R","remark":null,"pgmid":"meisRetailVsMonthly","sort_seq":"1","funcid":"search","content":null,"crud":"R","id":"0"}];
+me.dataDef["_pgm_data"] = {};
+me.dataDef["_pgm_data"]["pageCond"]={"sort_seq":1,"data_id":"pageCond","data_nm":"조회조건","data_icon":null,"component_pgmid":"aweForm","component_option":null,"inout_tp":null,"content":[{"sort_seq":1,"section":null,"section_icon":null,"colgrp":"조회기간","colid":"from_dt","colnm":"시작일","dtype":"ymd","etype":"txt","attr":"ymd","defval":"date(\"1st\")","w":"10","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"0"},{"sort_seq":2,"section":null,"section_icon":null,"colgrp":"조회기간","colid":"to_dt","colnm":"종료일","dtype":"ymd","etype":"txt","attr":"ymd","defval":"date(\"today\")","w":"10","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"1"},{"sort_seq":3,"section":null,"section_icon":null,"colgrp":"대비기간","colid":"from_dt_by","colnm":"시작일","dtype":"ymd","etype":"txt","attr":"ymd","defval":"date(\"1st\")","w":"10","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"3"},{"sort_seq":4,"section":null,"section_icon":null,"colgrp":"대비기간","colid":"to_dt_by","colnm":"종료일","dtype":"ymd","etype":"txt","attr":"ymd","defval":"date(\"today\")","w":"10","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"2"}]};
+me.dataDef["_pgm_data"]["chart"]={"sort_seq":2,"data_id":"chart","data_nm":"월별 거래액 신장율","data_icon":null,"component_pgmid":"FreeForm","component_option":{"remark":"(거래액: 억원, VAT제외)"},"inout_tp":null,"content":[{"sort_seq":1,"section":null,"section_icon":null,"colgrp":null,"colid":"am_sale","colnm":"거래액","dtype":"text","etype":null,"attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"0"},{"sort_seq":2,"section":null,"section_icon":null,"colgrp":null,"colid":"am_sale_by","colnm":"전년거래액","dtype":"text","etype":null,"attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"1"},{"sort_seq":3,"section":null,"section_icon":null,"colgrp":null,"colid":"am_gap","colnm":"증감액","dtype":"text","etype":null,"attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"2"},{"sort_seq":4,"section":null,"section_icon":null,"colgrp":null,"colid":"rt_expand","colnm":"신장율","dtype":"text","etype":null,"attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"3"}]};
+me.dataDef["_pgm_data"]["chart06"]={"sort_seq":3,"data_id":"chart06","data_nm":"광양 거래액 신장율(그래프)","data_icon":null,"component_pgmid":"FreeForm","component_option":null,"inout_tp":null,"content":null};
+me.dataDef["_pgm_data"]["chart04"]={"sort_seq":4,"data_id":"chart04","data_nm":"양주 거래액 신장율(그래프)","data_icon":null,"component_pgmid":"FreeForm","component_option":null,"inout_tp":null,"content":null};
+me.dataDef["_pgm_data"]["chart03"]={"sort_seq":5,"data_id":"chart03","data_nm":"인천 거래액 신장율(그래프)","data_icon":null,"component_pgmid":"FreeForm","component_option":null,"inout_tp":null,"content":null};
+me.dataDef["_pgm_data"]["list2"]={"sort_seq":6,"data_id":"list2","data_nm":"월별 거래액 증감","data_icon":null,"component_pgmid":"agGrid","component_option":{"remark":"(거래액: 백만원, VAT제외. 전년 동기까지 비교)"},"inout_tp":null,"content":[{"sort_seq":1,"section":null,"section_icon":null,"colgrp":null,"colid":"nm_stor","colnm":"점","dtype":"text","etype":"raw","attr":"keycol fixL","defval":null,"w":"4","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"0"},{"sort_seq":2,"section":null,"section_icon":null,"colgrp":"연간누적","colid":"am_sale","colnm":"거래액","dtype":"num","etype":"raw","attr":"keycol fixL","defval":null,"w":"6","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"1"},{"sort_seq":3,"section":null,"section_icon":null,"colgrp":"연간누적","colid":"am_gap","colnm":"증감액","dtype":"num","etype":"raw","attr":"dec1 keycol fixL","defval":null,"w":"4","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"2"},{"sort_seq":4,"section":null,"section_icon":null,"colgrp":"연간누적","colid":"rt_expand","colnm":"신장(%)","dtype":"num","etype":"raw","attr":"dec1 keycol fixL","defval":null,"w":"4","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":"100*(sum(\"row.am_sale\")-sum(\"row.am_sale_by\"))/sum(\"row.am_sale_by\")","remark":null,"crud":"C","id":"3"},{"sort_seq":5,"section":null,"section_icon":null,"colgrp":null,"colid":"am_sale_by","colnm":"전년거래액","dtype":"num","etype":"raw","attr":"keycol","defval":null,"w":"6","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"4"},{"sort_seq":6,"section":null,"section_icon":null,"colgrp":"1월","colid":"am_sale_01","colnm":"거래액","dtype":"num","etype":"raw","attr":null,"defval":null,"w":"6","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"5"},{"sort_seq":7,"section":null,"section_icon":null,"colgrp":"1월","colid":"am_gap_01","colnm":"증감액","dtype":"num","etype":"raw","attr":null,"defval":null,"w":"4","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"6"},{"sort_seq":8,"section":null,"section_icon":null,"colgrp":"1월","colid":"rt_expand_01","colnm":"신장(%)","dtype":"num","etype":"raw","attr":"dec1","defval":null,"w":"4","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":"100*(sum(\"row.am_sale_01\")-sum(\"row.am_sale_by_01\"))/sum(\"row.am_sale_by_01\")","remark":null,"crud":"C","id":"7"},{"sort_seq":9,"section":null,"section_icon":null,"colgrp":"2월","colid":"am_sale_02","colnm":"거래액","dtype":"num","etype":"raw","attr":"readonly","defval":null,"w":"6","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"8"},{"sort_seq":10,"section":null,"section_icon":null,"colgrp":"2월","colid":"am_gap_02","colnm":"증감액","dtype":"num","etype":"raw","attr":"readonly","defval":null,"w":"4","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"9"},{"sort_seq":11,"section":null,"section_icon":null,"colgrp":"2월","colid":"rt_expand_02","colnm":"신장(%)","dtype":"num","etype":"raw","attr":"dec1 readonly","defval":null,"w":"4","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":"100*(sum(\"row.am_sale_02\")-sum(\"row.am_sale_by_02\"))/sum(\"row.am_sale_by_02\")","remark":null,"crud":"C","id":"10"},{"sort_seq":12,"section":null,"section_icon":null,"colgrp":"3월","colid":"am_sale_03","colnm":"거래액","dtype":"num","etype":"raw","attr":null,"defval":null,"w":"6","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"11"},{"sort_seq":13,"section":null,"section_icon":null,"colgrp":"3월","colid":"am_gap_03","colnm":"증감액","dtype":"num","etype":"raw","attr":null,"defval":null,"w":"4","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"12"},{"sort_seq":14,"section":null,"section_icon":null,"colgrp":"3월","colid":"rt_expand_03","colnm":"신장(%)","dtype":"num","etype":"raw","attr":"dec1","defval":null,"w":"4","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":"100*(sum(\"row.am_sale_03\")-sum(\"row.am_sale_by_03\"))/sum(\"row.am_sale_by_03\")","remark":null,"crud":"C","id":"13"},{"sort_seq":15,"section":null,"section_icon":null,"colgrp":"4월","colid":"am_sale_04","colnm":"거래액","dtype":"num","etype":"raw","attr":"readonly","defval":null,"w":"6","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"14"},{"sort_seq":16,"section":null,"section_icon":null,"colgrp":"4월","colid":"am_gap_04","colnm":"증감액","dtype":"num","etype":"raw","attr":"readonly","defval":null,"w":"4","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"15"},{"sort_seq":17,"section":null,"section_icon":null,"colgrp":"4월","colid":"rt_expand_04","colnm":"신장(%)","dtype":"num","etype":"raw","attr":"dec1 readonly","defval":null,"w":"4","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":"100*(sum(\"row.am_sale_04\")-sum(\"row.am_sale_by_04\"))/sum(\"row.am_sale_by_04\")","remark":null,"crud":"C","id":"16"},{"sort_seq":18,"section":null,"section_icon":null,"colgrp":"5월","colid":"am_sale_05","colnm":"거래액","dtype":"num","etype":"raw","attr":null,"defval":null,"w":"6","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"17"},{"sort_seq":19,"section":null,"section_icon":null,"colgrp":"5월","colid":"am_gap_05","colnm":"증감액","dtype":"num","etype":"raw","attr":null,"defval":null,"w":"4","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"18"},{"sort_seq":20,"section":null,"section_icon":null,"colgrp":"5월","colid":"rt_expand_05","colnm":"신장(%)","dtype":"num","etype":"raw","attr":"dec1","defval":null,"w":"4","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":"100*(sum(\"row.am_sale_05\")-sum(\"row.am_sale_by_05\"))/sum(\"row.am_sale_by_05\")","remark":null,"crud":"C","id":"19"},{"sort_seq":21,"section":null,"section_icon":null,"colgrp":"6월","colid":"am_sale_06","colnm":"거래액","dtype":"num","etype":"raw","attr":"readonly","defval":null,"w":"6","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"20"},{"sort_seq":22,"section":null,"section_icon":null,"colgrp":"6월","colid":"am_gap_06","colnm":"증감액","dtype":"num","etype":"raw","attr":"readonly","defval":null,"w":"4","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"21"},{"sort_seq":23,"section":null,"section_icon":null,"colgrp":"6월","colid":"rt_expand_06","colnm":"신장(%)","dtype":"num","etype":"raw","attr":"dec1 readonly","defval":null,"w":"4","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":"100*(sum(\"row.am_sale_06\")-sum(\"row.am_sale_by_06\"))/sum(\"row.am_sale_by_06\")","remark":null,"crud":"C","id":"22"},{"sort_seq":24,"section":null,"section_icon":null,"colgrp":"7월","colid":"am_sale_07","colnm":"거래액","dtype":"num","etype":"raw","attr":null,"defval":null,"w":"6","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"23"},{"sort_seq":25,"section":null,"section_icon":null,"colgrp":"7월","colid":"am_gap_07","colnm":"증감액","dtype":"num","etype":"raw","attr":null,"defval":null,"w":"4","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"24"},{"sort_seq":26,"section":null,"section_icon":null,"colgrp":"7월","colid":"rt_expand_07","colnm":"신장(%)","dtype":"num","etype":"raw","attr":"dec1","defval":null,"w":"4","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":"100*(sum(\"row.am_sale_07\")-sum(\"row.am_sale_by_07\"))/sum(\"row.am_sale_by_07\")","remark":null,"crud":"C","id":"25"},{"sort_seq":27,"section":null,"section_icon":null,"colgrp":"8월","colid":"am_sale_08","colnm":"거래액","dtype":"num","etype":"raw","attr":"readonly","defval":null,"w":"6","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"26"},{"sort_seq":28,"section":null,"section_icon":null,"colgrp":"8월","colid":"am_gap_08","colnm":"증감액","dtype":"num","etype":"raw","attr":"readonly","defval":null,"w":"4","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"27"},{"sort_seq":29,"section":null,"section_icon":null,"colgrp":"8월","colid":"rt_expand_08","colnm":"신장(%)","dtype":"num","etype":"raw","attr":"dec1 readonly","defval":null,"w":"4","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":"100*(sum(\"row.am_sale_08\")-sum(\"row.am_sale_by_08\"))/sum(\"row.am_sale_by_08\")","remark":null,"crud":"C","id":"28"},{"sort_seq":30,"section":null,"section_icon":null,"colgrp":"9월","colid":"am_sale_09","colnm":"거래액","dtype":"num","etype":"raw","attr":null,"defval":null,"w":"6","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"29"},{"sort_seq":31,"section":null,"section_icon":null,"colgrp":"9월","colid":"am_gap_09","colnm":"증감액","dtype":"num","etype":"raw","attr":null,"defval":null,"w":"4","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"30"},{"sort_seq":32,"section":null,"section_icon":null,"colgrp":"9월","colid":"rt_expand_09","colnm":"신장(%)","dtype":"num","etype":"raw","attr":"dec1","defval":null,"w":"4","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":"100*(sum(\"row.am_sale_09\")-sum(\"row.am_sale_by_09\"))/sum(\"row.am_sale_by_09\")","remark":null,"crud":"C","id":"31"},{"sort_seq":33,"section":null,"section_icon":null,"colgrp":"10월","colid":"am_sale_10","colnm":"거래액","dtype":"num","etype":"raw","attr":"readonly","defval":null,"w":"6","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"32"},{"sort_seq":34,"section":null,"section_icon":null,"colgrp":"10월","colid":"am_gap_10","colnm":"증감액","dtype":"num","etype":"raw","attr":"readonly","defval":null,"w":"4","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"33"},{"sort_seq":35,"section":null,"section_icon":null,"colgrp":"10월","colid":"rt_expand_10","colnm":"신장(%)","dtype":"num","etype":"raw","attr":"dec1 readonly","defval":null,"w":"4","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":"100*(sum(\"row.am_sale_10\")-sum(\"row.am_sale_by_10\"))/sum(\"row.am_sale_by_10\")","remark":null,"crud":"C","id":"34"},{"sort_seq":36,"section":null,"section_icon":null,"colgrp":"11월","colid":"am_sale_11","colnm":"거래액","dtype":"num","etype":"raw","attr":null,"defval":null,"w":"6","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"35"},{"sort_seq":37,"section":null,"section_icon":null,"colgrp":"11월","colid":"am_gap_11","colnm":"증감액","dtype":"num","etype":"raw","attr":null,"defval":null,"w":"4","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"36"},{"sort_seq":38,"section":null,"section_icon":null,"colgrp":"11월","colid":"rt_expand_11","colnm":"신장(%)","dtype":"num","etype":"raw","attr":"dec1","defval":null,"w":"4","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":"100*(sum(\"row.am_sale_11\")-sum(\"row.am_sale_by_11\"))/sum(\"row.am_sale_by_11\")","remark":null,"crud":"C","id":"37"},{"sort_seq":39,"section":null,"section_icon":null,"colgrp":"12월","colid":"am_sale_12","colnm":"거래액","dtype":"num","etype":"raw","attr":"readonly","defval":null,"w":"6","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"38"},{"sort_seq":40,"section":null,"section_icon":null,"colgrp":"12월","colid":"am_gap_12","colnm":"증감액","dtype":"num","etype":"raw","attr":"readonly","defval":null,"w":"4","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"39"},{"sort_seq":41,"section":null,"section_icon":null,"colgrp":"12월","colid":"rt_expand_12","colnm":"신장(%)","dtype":"num","etype":"raw","attr":"dec1 readonly","defval":null,"w":"4","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":"100*(sum(\"row.am_sale_12\")-sum(\"row.am_sale_by_12\"))/sum(\"row.am_sale_by_12\")","remark":null,"crud":"C","id":"40"}]};
+
+        me.pageObj["_page"] = new gfnFramepage( me ); 
+        for(var component_id in me.dataDef["_pgm_data"]) { 
+            me.pageObj[component_id] = new gfnComponent( me.pageid, component_id, me.dataDef["_pgm_data"][component_id], me.fnEH, me); 
+        }  
+        setTimeout(function(){
+            $("#frameset").scrollTo(0); //스크롤 
+        },10);
+        if(typeof(me.fnInitExtra)=='function') me.fnInitExtra(); 
+    } 
+/*-- SCRIPT autogen end ---------------------------------------------- */
+
+    /* 사용자초기화 */
+    me.fnInitExtra=function() {
+        //탭 설정
+        //gfnTab(pageid, "tabs", {"multi-active":"off","toggle-switch":"on"}); 
+        //사용자 컴포넌트 
+        //me.dataDef["_pgm_data"][myCompoId] = {...};
+        //me.pageObj["myCompoId"] = new gfnComponent( me.pageid, myCompoId, me.dataDef["_pgm_data"][myCompoId], me.fnEH, me); 
+        //me.pageObj["myCompoId"].userComponent = "myCompoId";
+        //사용자 컨트롤
+        //var myColinfo = {colid:...}
+        //me.pageObj["myColId"] = new gfnControl(myColinfo, me.fnEH) 
+        //me.page.find("#myCol").append(me.pageObj["myColId"].dispObj);
+        //me.pageObj["myColId"].getVal(); / myCol.setVal(val);...   
+        
+        //화면호출시 조회
+        var from_dt = date("today").substr(0,4)+"0101";
+        var to_dt   = date("today");
+        var from_dt_by = (from_dt.substr(0,4)-1)+"0101";
+        var to_dt_by   = from_dt_by.substr(0,4)+"1231";
+        
+        me.pageObj.pageCond.setVal("from_dt",from_dt);
+        me.pageObj.pageCond.setVal("to_dt",to_dt);
+        me.pageObj.pageCond.setVal("from_dt_by",from_dt_by);
+        me.pageObj.pageCond.setVal("to_dt_by",to_dt_by);
+        setTimeout(me.fnSearch, 10);        
+        
+    }
+    /* 이벤트핸들러 */
+    me.fnEH=function(component, evt, row, col, val) { 
+        //console.log(evt+","+row+","+col+","+val);
+        //화면기능버튼이 눌리면 
+        if (component==me.pageObj["_pageFunc"]){ 
+            if(typeof(me[col])=='function') me[col](); //col=기능명 me["fnSearch"]()=me.fnSearch(); 
+        }
+    }
+    /* 조회 */
+    me.bFirst = true;    
+    me.fnSearch=function() {
+        if( !me.pageObj["pageCond"].chkValid() ) return;
+        var args = me.pageObj["pageCond"].exportData()[0];
+        var invar = JSON.stringify(args);        
+        $(window).scrollTo(0);
+        gfnTx(appid+"."+pgmid,"search",{INVAR:invar}, function(OUTVAR){ 
+            console.log(OUTVAR);
+            if(OUTVAR.rtnCd=="OK") { 
+                //조회조건 숨기기
+                //if(!me.page.find(".btnCond").hasClass("closed")) {
+                //    me.page.find(".btnCond").trigger("click");
+                //}
+                //컴포넌트 타이틀 
+                me.page.find("#title1").text("거래액 대비('"+(args.from_dt_by.substr(2,2))+"~'"+(args.from_dt.substr(2,2))+")");
+
+                //데이터 바인딩 me.pageObj.list.importData(OUTVAR.list); 
+                //cd_stor, nm_stor, mm, ymd, am_sale, am_sale_by, am_gap, rt_expand 
+                
+              /** 차트그리기 **/ 
+                if(me.bFirst) {
+                    me.bFirst = false;
+                    gfnStatus("그래프를 다시 그리고 있습니다.", "잠시만 기다려주세요...");
+                }
+                var lbl_yy  = "'"+(args.from_dt.substr(2,2));
+                var lbl_by  = "'"+(args.from_dt_by.substr(2,2));
+                var data_yy = [];
+                var data_by = [];
+                var data_expand = []; 
+                var cat = [1,2,3,4,5,6,7,8,9,10,11,12]; 
+                var data_min = 150;
+                var data_max = 450;
+                var rt_min = -30;
+                var rt_max = 30;
+                OUTVAR.list.forEach(e=>{
+                    var idx = toNum(e.mm)-1;
+                    data_yy[idx] = nvl(data_yy[idx],0) + toNum(e.am_sale);
+                    data_by[idx] = nvl(data_by[idx],0) + toNum(e.am_sale_by);
+                }); 
+                cat.forEach((e,idx)=>{
+                    data_yy[idx] = toNum(data_yy[idx]/100000000,0);
+                    data_by[idx] = toNum(data_by[idx]/100000000,0);
+                    if(nzl(data_yy[idx],0)!=0 && e != 0) data_expand[idx] = toNum(100*(data_yy[idx]-data_by[idx])/data_by[idx],1);
+                }); 
+                if(!isNull(me.chart)) {
+                    me.chartOptions.xaxis =  { 
+                            categories: cat 
+                        }    
+                    me.chartOptions.series =  [{
+                            name: lbl_by,
+                            type: 'column',
+                            data: data_by
+                        }, {
+                            name: lbl_yy,
+                            type: 'column',
+                            data: data_yy
+                        }, {
+                            name: '신장율(%)',
+                            type: 'line',
+                            data: data_expand
+                        }];
+                    me.chart.updateOptions(me.chartOptions);  
+                } else {
+                    me.chartOptions = { 
+                        chart: {
+                            type: 'line',
+                            height: 350,
+                            stacked: false,
+                            toolbar: {
+                                show: true
+                            },
+                            zoom: {
+                                enabled: false
+                            }
+                        },
+                        series: [{
+                            name: lbl_by,
+                            type: 'column',
+                            data: data_by
+                        }, {
+                            name: lbl_yy,
+                            type: 'column',
+                            data: data_yy
+                        }, {
+                            name: '신장율(%)',
+                            type: 'line',
+                            data: data_expand
+                        }],
+                        xaxis: { 
+                            categories: cat 
+                        },
+                        yaxis: [
+                          {
+                            seriesName: '거래액', 
+                            min: data_min,
+                            max: data_max,
+                            tickAmount: 6,
+                            axisTicks: {
+                              show: true,
+                            },
+                            axisBorder: {
+                              show: true,
+                              color: '#00357c'
+                            },
+                            labels: {
+                              style: {
+                                colors: '#00357c',
+                              }
+                            },
+                            title: {
+                              text: "거래액(억)",
+                              style: {
+                                color: '#00357c',
+                              }
+                            }
+                          },
+                          {
+                            seriesName: '거래액',
+                            show: false,
+                            opposite: false,
+                            min: data_min,
+                            max: data_max,
+                            tickAmount: 6,
+                          }, 
+                          {
+                            seriesName: '신장율',
+                            min: rt_min,
+                            max: rt_max,
+                            tickAmount: 6,
+                            opposite: true,
+                            axisTicks: {
+                              show: true,
+                            },
+                            axisBorder: {
+                              show: true,
+                              color: '#FEB019'
+                            },
+                            labels: {
+                              style: {
+                                colors: '#FEB019',
+                              },
+                            },
+                            title: {
+                              text: "신장율(%)",
+                              style: {
+                                color: '#FEB019',
+                              }
+                            }
+                          },
+                        ],
+                        plotOptions: {
+                            bar: {
+                                horizontal: false,
+                                dataLabels: {
+                                    total: {enabled: true},
+                                }
+                            },
+                        }, 
+                        dataLabels: {
+                            enabled: !$("body").hasClass("mobile"),  
+                        },
+                        stroke: {
+                            width: [1,1,2] 
+                        },
+                        colors:['#00E396', '#4472c4', '#FEB019'], 
+                        toolbar: {
+                            show: true,
+                            tools: {
+                                download: true,
+                                selection: true,
+                                zoom: true,
+                                zoomin: true,
+                                zoomout: true,
+                                pan: true,
+                                reset: true | '<img src="/static/icons/reset.png" width="20">',
+                                customIcons: []
+                            }
+                        },
+                        tooltip: {
+                            fixed: {
+                                enabled: true,
+                                position: 'topLeft', // topRight, topLeft, bottomRight, bottomLeft
+                                offsetY: 30,
+                                offsetX: 60
+                            },
+                        }
+                    }
+                    
+                    me.chart = new ApexCharts(me.pageObj.chart.componentBody[0], me.chartOptions); 
+                    me.chart.render(); 
+                }
+                
+                var rt_min_shop = -120;
+                var rt_max_shop = 40;
+                
+                var data_yy_06 = [];
+                var data_by_06 = [];
+                var data_expand_06 = []; 
+                var data_min_06 = 100;
+                var data_max_06 = 200;  
+                OUTVAR.list.forEach(e=>{
+                    var idx = toNum(e.mm)-1;
+                    if(e.cd_stor=="06") {
+                        data_yy_06[idx] = nvl(data_yy_06[idx],0) + toNum(e.am_sale);
+                        data_by_06[idx] = nvl(data_by_06[idx],0) + toNum(e.am_sale_by);
+                        if(data_yy_06[idx]!=0) data_expand_06[idx] = toNum(e.rt_expand,1);
+                    }
+                }); 
+                cat.forEach((e,idx)=>{
+                    data_yy_06[idx] = toNum(data_yy_06[idx]/100000000,0);
+                    data_by_06[idx] = toNum(data_by_06[idx]/100000000,0); 
+                }); 
+                if(!isNull(me.chart_06)) {
+                    me.chartOptions_06.xaxis =  { 
+                            categories: cat 
+                        }    
+                    me.chartOptions_06.series =  [{
+                            name: lbl_by,
+                            type: 'column',
+                            data: data_by
+                        }, {
+                            name: lbl_yy,
+                            type: 'column',
+                            data: data_yy
+                        }, {
+                            name: '신장율(%)',
+                            type: 'line',
+                            data: data_expand
+                        }];
+                    me.chart_06.updateOptions(me.chartOptions_06);  
+                } else {
+                    me.chartOptions_06 = { 
+                        chart: {
+                            type: 'line',
+                            height: 350,
+                            stacked: false,
+                            toolbar: {
+                                show: true
+                            },
+                            zoom: {
+                                enabled: false
+                            }
+                        },
+                        series: [{
+                            name: lbl_by,
+                            type: 'column',
+                            data: data_by_06
+                        }, {
+                            name: lbl_yy,
+                            type: 'column',
+                            data: data_yy_06
+                        }, {
+                            name: '신장율(%)',
+                            type: 'line',
+                            data: data_expand_06
+                        }],
+                        xaxis: { 
+                            categories: cat 
+                        },
+                        yaxis: [
+                          {
+                            seriesName: '거래액', 
+                            show: false,
+                            min: data_min_06,
+                            max: data_max_06,
+                            tickAmount: 4,
+                            axisTicks: {
+                              show: true,
+                            },
+                            axisBorder: {
+                              show: true,
+                              color: '#00357c'
+                            },
+                            labels: {
+                              style: {
+                                colors: '#00357c',
+                              }
+                            },
+                            title: {
+                              text: "거래액(억)",
+                              style: {
+                                color: '#00357c',
+                              }
+                            }
+                          },
+                          {
+                            seriesName: '거래액',
+                            show: false,
+                            opposite: false,
+                            min: data_min_06,
+                            max: data_max_06,
+                            tickAmount: 4,
+                          }, 
+                          {
+                            seriesName: '신장율',
+                            show: false,
+                            min: rt_min_shop,
+                            max: rt_max_shop,
+                            tickAmount: 4,
+                            opposite: true,
+                            axisTicks: {
+                              show: true,
+                            },
+                            axisBorder: {
+                              show: true,
+                              color: '#FEB019'
+                            },
+                            labels: {
+                              style: {
+                                colors: '#FEB019',
+                              },
+                            },
+                            title: {
+                              text: "신장율(%)",
+                              style: {
+                                color: '#FEB019',
+                              }
+                            }
+                          },
+                        ],
+                        plotOptions: {
+                            bar: {
+                                horizontal: false,
+                                dataLabels: {
+                                    total: {enabled: true},
+                                }
+                            },
+                        }, 
+                        dataLabels: {
+                            enabled: !$("body").hasClass("mobile"),  
+                        },
+                        stroke: {
+                            width: [1,1,2] 
+                        },
+                        colors:['#00E396', '#4472c4', '#FEB019'], 
+                        toolbar: {
+                            show: true,
+                            tools: {
+                                download: true,
+                                selection: true,
+                                zoom: true,
+                                zoomin: true,
+                                zoomout: true,
+                                pan: true,
+                                reset: true | '<img src="/static/icons/reset.png" width="20">',
+                                customIcons: []
+                            }
+                        },
+                        tooltip: {
+                            fixed: {
+                                enabled: true,
+                                position: 'topLeft', // topRight, topLeft, bottomRight, bottomLeft
+                                offsetY: 30,
+                                offsetX: 60
+                            },
+                        }
+                    }
+                    
+                    me.chart_06 = new ApexCharts(me.pageObj.chart06.componentBody[0], me.chartOptions_06); 
+                    me.chart_06.render(); 
+                }
+                
+                var data_yy_04 = [];
+                var data_by_04 = [];
+                var data_expand_04 = []; 
+                var data_min_04 = 0;
+                var data_max_04 = 200; 
+                OUTVAR.list.forEach(e=>{
+                    var idx = toNum(e.mm)-1;
+                    if(e.cd_stor=="04") {
+                        data_yy_04[idx] = nvl(data_yy_04[idx],0) + toNum(e.am_sale);
+                        data_by_04[idx] = nvl(data_by_04[idx],0) + toNum(e.am_sale_by);
+                        if(data_yy_04[idx]!=0) data_expand_04[idx] = toNum(e.rt_expand,1);
+                    }
+                }); 
+                cat.forEach((e,idx)=>{
+                    data_yy_04[idx] = toNum(data_yy_04[idx]/100000000,0);
+                    data_by_04[idx] = toNum(data_by_04[idx]/100000000,0); 
+                }); 
+                if(!isNull(me.chart_04)) {
+                    me.chartOptions_04.xaxis =  { 
+                            categories: cat 
+                        }    
+                    me.chartOptions_04.series =  [{
+                            name: lbl_by,
+                            type: 'column',
+                            data: data_by
+                        }, {
+                            name: lbl_yy,
+                            type: 'column',
+                            data: data_yy
+                        }, {
+                            name: '신장율(%)',
+                            type: 'line',
+                            data: data_expand
+                        }];
+                    me.chart_04.updateOptions(me.chartOptions_04);  
+                } else {
+                    me.chartOptions_04 = { 
+                        chart: {
+                            type: 'line',
+                            height: 350,
+                            stacked: false,
+                            toolbar: {
+                                show: true
+                            },
+                            zoom: {
+                                enabled: false
+                            }
+                        },
+                        series: [{
+                            name: lbl_by,
+                            type: 'column',
+                            data: data_by_04
+                        }, {
+                            name: lbl_yy,
+                            type: 'column',
+                            data: data_yy_04
+                        }, {
+                            name: '신장율(%)',
+                            type: 'line',
+                            data: data_expand_04
+                        }],
+                        xaxis: { 
+                            categories: cat 
+                        },
+                        yaxis: [
+                          {
+                            seriesName: '거래액', 
+                            show: false,
+                            min: data_min_04,
+                            max: data_max_04,
+                            tickAmount: 4,
+                            axisTicks: {
+                              show: true,
+                            },
+                            axisBorder: {
+                              show: true,
+                              color: '#00357c'
+                            },
+                            labels: {
+                              style: {
+                                colors: '#00357c',
+                              }
+                            },
+                            title: {
+                              text: "거래액(억)",
+                              style: {
+                                color: '#00357c',
+                              }
+                            }
+                          },
+                          {
+                            seriesName: '거래액',
+                            show: false,
+                            opposite: false,
+                            min: data_min_04,
+                            max: data_max_04,
+                            tickAmount: 4,
+                          }, 
+                          {
+                            seriesName: '신장율',
+                            show: false,
+                            min: rt_min_shop,
+                            max: rt_max_shop,
+                            tickAmount: 4,
+                            opposite: true,
+                            axisTicks: {
+                              show: true,
+                            },
+                            axisBorder: {
+                              show: true,
+                              color: '#FEB019'
+                            },
+                            labels: {
+                              style: {
+                                colors: '#FEB019',
+                              },
+                            },
+                            title: {
+                              text: "신장율(%)",
+                              style: {
+                                color: '#FEB019',
+                              }
+                            }
+                          },
+                        ],
+                        plotOptions: {
+                            bar: {
+                                horizontal: false,
+                                dataLabels: {
+                                    total: {enabled: true},
+                                }
+                            },
+                        }, 
+                        dataLabels: {
+                            enabled: !$("body").hasClass("mobile"),  
+                        },
+                        stroke: {
+                            width: [1,1,2] 
+                        },
+                        colors:['#00E396', '#4472c4', '#FEB019'], 
+                        toolbar: {
+                            show: true,
+                            tools: {
+                                download: true,
+                                selection: true,
+                                zoom: true,
+                                zoomin: true,
+                                zoomout: true,
+                                pan: true,
+                                reset: true | '<img src="/static/icons/reset.png" width="20">',
+                                customIcons: []
+                            }
+                        },
+                        tooltip: {
+                            fixed: {
+                                enabled: true,
+                                position: 'topLeft', // topRight, topLeft, bottomRight, bottomLeft
+                                offsetY: 30,
+                                offsetX: 60
+                            },
+                        }
+                    }
+                    
+                    me.chart_04 = new ApexCharts(me.pageObj.chart04.componentBody[0], me.chartOptions_04); 
+                    me.chart_04.render(); 
+                }
+                
+                var data_yy_03 = [];
+                var data_by_03 = [];
+                var data_expand_03 = []; 
+                var data_min_03 = 10;
+                var data_max_03 = 50; 
+                OUTVAR.list.forEach(e=>{
+                    var idx = toNum(e.mm)-1;
+                    if(e.cd_stor=="03") {
+                        data_yy_03[idx] = nvl(data_yy_03[idx],0) + toNum(e.am_sale);
+                        data_by_03[idx] = nvl(data_by_03[idx],0) + toNum(e.am_sale_by);
+                        if(data_yy_03[idx]!=0) data_expand_03[idx] = toNum(e.rt_expand,1);
+                    }
+                }); 
+                cat.forEach((e,idx)=>{
+                    data_yy_03[idx] = toNum(data_yy_03[idx]/100000000,0);
+                    data_by_03[idx] = toNum(data_by_03[idx]/100000000,0);
+                }); 
+                if(!isNull(me.chart_03)) {
+                    me.chartOptions_03.xaxis =  { 
+                            categories: cat 
+                        }    
+                    me.chartOptions_03.series =  [{
+                            name: lbl_by,
+                            type: 'column',
+                            data: data_by
+                        }, {
+                            name: lbl_yy,
+                            type: 'column',
+                            data: data_yy
+                        }, {
+                            name: '신장율(%)',
+                            type: 'line',
+                            data: data_expand
+                        }];
+                    me.chart_03.updateOptions(me.chartOptions_03);  
+                } else {
+                    me.chartOptions_03 = { 
+                        chart: {
+                            type: 'line',
+                            height: 350,
+                            stacked: false,
+                            toolbar: {
+                                show: true
+                            },
+                            zoom: {
+                                enabled: false
+                            }
+                        },
+                        series: [{
+                            name: lbl_by,
+                            type: 'column',
+                            data: data_by_03
+                        }, {
+                            name: lbl_yy,
+                            type: 'column',
+                            data: data_yy_03
+                        }, {
+                            name: '신장율(%)',
+                            type: 'line',
+                            data: data_expand_03
+                        }],
+                        xaxis: { 
+                            categories: cat 
+                        },
+                        yaxis: [
+                          {
+                            seriesName: '거래액', 
+                            show: false,
+                            min: data_min_03,
+                            max: data_max_03,
+                            tickAmount: 4,
+                            axisTicks: {
+                              show: true,
+                            },
+                            axisBorder: {
+                              show: true,
+                              color: '#00357c'
+                            },
+                            labels: {
+                              style: {
+                                colors: '#00357c',
+                              }
+                            },
+                            title: {
+                              text: "거래액(억)",
+                              style: {
+                                color: '#00357c',
+                              }
+                            }
+                          },
+                          {
+                            seriesName: '거래액',
+                            show: false,
+                            opposite: false,
+                            min: data_min_03,
+                            max: data_max_03,
+                            tickAmount: 6,
+                          }, 
+                          {
+                            seriesName: '신장율',
+                            show: false,
+                            min: rt_min_shop,
+                            max: rt_max_shop,
+                            tickAmount: 4,
+                            opposite: true,
+                            axisTicks: {
+                              show: true,
+                            },
+                            axisBorder: {
+                              show: true,
+                              color: '#FEB019'
+                            },
+                            labels: {
+                              style: {
+                                colors: '#FEB019',
+                              },
+                            },
+                            title: {
+                              text: "신장율(%)",
+                              style: {
+                                color: '#FEB019',
+                              }
+                            }
+                          },
+                        ],
+                        plotOptions: {
+                            bar: {
+                                horizontal: false,
+                                dataLabels: {
+                                    total: {enabled: true},
+                                }
+                            },
+                        }, 
+                        dataLabels: {
+                            enabled: !$("body").hasClass("mobile"),  
+                        },
+                        stroke: {
+                            width: [1,1,2] 
+                        },
+                        colors:['#00E396', '#4472c4', '#FEB019'], 
+                        toolbar: {
+                            show: true,
+                            tools: {
+                                download: true,
+                                selection: true,
+                                zoom: true,
+                                zoomin: true,
+                                zoomout: true,
+                                pan: true,
+                                reset: true | '<img src="/static/icons/reset.png" width="20">',
+                                customIcons: []
+                            }
+                        },
+                        tooltip: {
+                            fixed: {
+                                enabled: true,
+                                position: 'topLeft', // topRight, topLeft, bottomRight, bottomLeft
+                                offsetY: 30,
+                                offsetX: 60
+                            },
+                        }
+                    }
+                    
+                    me.chart_03 = new ApexCharts(me.pageObj.chart03.componentBody[0], me.chartOptions_03); 
+                    me.chart_03.render(); 
+                }
+                
+                var list2crosstab = []; 
+                OUTVAR.list2.forEach(el=>{
+                    var row; //점별로 있으면 찾고 없으면 만들어준다.
+                    if(list2crosstab.some(e=>e.cd_stor==el.cd_stor)) {
+                        row = list2crosstab.find(e=>e.cd_stor==el.cd_stor);
+                    } else {
+                        row = {cd_stor:el.cd_stor,nm_stor:el.nm_stor}
+                        list2crosstab.push(row);
+                    }
+                    
+                    row["am_sale"]    = nvl(row["am_sale"],0) + toNum(el.am_sale);
+                    row["am_sale_by"] = nvl(row["am_sale_by"],0) + toNum(el.am_sale_by);
+                    row["am_gap"]     = nvl(row["am_gap"],0) + (toNum(el.am_plan)-toNum(el.am_sale_by));
+
+                    row["am_sale_"+el.mm]    = toNum(el.am_sale/1000000,0);
+                    row["am_sale_by_"+el.mm] = toNum(el.am_sale_by/1000000,0);
+                    row["am_gap_"+el.mm]     = toNum((el.am_sale-el.am_sale_by)/1000000,0);
+                    row["rt_expand_"+el.mm]  = format(100*(el.am_sale-el.am_sale_by)/el.am_sale_by,1); 
+                });
+                list2crosstab.forEach(row=>{
+                    row["am_sale"]    = toNum(row["am_sale"]/1000000,0);
+                    row["am_sale_by"] = toNum(row["am_sale_by"]/1000000,0);
+                    row["am_gap"]     = toNum((row["am_sale"]-row["am_sale_by"]),0);
+                    row["rt_expand"]  = format(100*(row["am_sale"]-row["am_sale_by"])/row["am_sale_by"],1);
+                })
+                
+                console.log(list2crosstab);
+                me.pageObj.list2.importData(list2crosstab); 
+                me.pageObj.list2.total("top");
+                me.pageObj.list2.gridOptions.api.ensureColumnVisible("rt_expand_"+date("today","mm"));
+
+            } else {
+                gfnAlert("오류",OUTVAR.rtnMsg);
+                console.log(OUTVAR);
+            }
+        });
+    } 
+    
+    
+    
+
+/*-- SCRIPT autogen ---------------------------------------------------- */        
+if(typeof(me.fnInit)=='function') me.fnInit();
+});
+
+</script>

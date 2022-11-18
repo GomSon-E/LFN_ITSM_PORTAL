@@ -1,0 +1,224 @@
+<script>
+    $(() => {
+        const appid   = "aweportal";
+        const pgmid   = "portletChat";
+        let page      = $("*[pgmid = '" + pgmid + "']").last();
+        let dataSet   = {};
+        let me        = {};
+        
+        me.fnInit = () => {
+            gfn[pgmid] = me;
+            me.appid   = appid;
+            me.pgmid   = pgmid;
+            me.page    = page;
+            me.dataSet = dataSet;
+
+            me.usid    = gUserinfo.userid;
+            me.usnm    = gUserinfo.usernm;
+
+            me.dataSet["listChat"] = [];
+
+            if(typeof(me.fnInitExtra) == 'function') me.fnInitExtra();
+        }
+
+        me.fnInitExtra = () => {
+            gfnTx("aweportal.frameset", "retrieveChat", {}, (OUTVAR) => {
+                if(OUTVAR.rtnCd == "OK") {         
+                    me.dataSet["listChat"].push(OUTVAR.listChat);
+                };
+                var listChat = me.dataSet["listChat"].pop(listChat);
+
+                me.fnInitListChat(listChat);
+            }, true);
+        }
+
+        me.fnInitListChat = (listChat) => {
+            //HTML로 요청시마다 초기화
+            let grp = me.page.html("");
+
+            //타이틀
+            let title = document.createElement("H3");
+            title.classList.add("titleChat");
+            title.textContent = "Messages";
+            grp.append(title);
+
+            //새 메세지 채널 버튼
+            let btnNew = document.createElement("button");
+            btnNew.classList.add("manageChat");
+            btnNew.setAttribute("value", "새 메세지 채널");
+            btnNew.textContent = "NEW";
+            title.append(btnNew);
+
+            //메세지 채널 리스트 헤더
+            let listHeader = document.createElement("ul");
+            listHeader.classList.add("CHAT");
+            grp.append(listHeader);
+
+            //메세지 채널 리스트
+            if(listChat != 0) {
+                listChat.forEach((row) => {
+                    const list = document.createElement("li");
+                    list.classList.add("listChat");
+                    list.setAttribute("grpid", row.grpid);
+
+                    //1:1 메세지 채널은 상대방 이름만 나오도록 가공
+                    const spFont = row.grp_nm.match(/,/g);
+                    if(spFont != null && ((row.grp_nm).match(/,/g).length) == 1 && (row.grp_nm).indexOf(me.usnm) != -1) { list.textContent = (row.grp_nm).replace(me.usnm, "").replace(",", ""); } 
+                    else { list.textContent = row.grp_nm; }
+                    listHeader.append(list);
+
+                    //메세지 카운트
+                    const countChat = document.createElement("div");
+                    countChat.classList.add("countChat");
+                    countChat.classList.add("hidden");
+                    countChat.textContent = row.cnt;
+                    list.append(countChat);
+
+                    //메세지 알림
+                    if(row.cnt != 0) {
+                        $(".listChat[grpid=" + row.grpid + "] .countChat").removeClass("hidden");                    
+                        $(".listChat[grpid=" + row.grpid + "]").animate({ "background-color":"black" }, 50, function(){$(".listChat[grpid="+ row.grpid +"]").animate({ "background-color":"rgb(150, 0, 0)" },500)});             
+                    }
+
+                    //socket.io
+                    //생성한 그룹 소켓 로그인 이벤트(중복 방지로 로그아웃 먼저)
+                    messages.emit("chatLogout", row.grpid);
+                    messages.emit("chatLogin", row.grpid);
+
+                    //메세지 채널 리스너 초기화
+                    messages.removeListener("chatMsg" + me.grpid);
+                    
+                    // 메세지 채널 수신시 프레임이 닫혀있을 경우 이벤트
+                    messages.on("chatMsg" + row.grpid, function(chatLog) { 
+                        //프레임이 없는 경우
+                        if(!document.getElementById(chatLog.grpid)) {
+                            //chaim.play();
+                            me.fnEHMsgAlert(chatLog);
+                            
+                        //프레임이 있는 경우
+                        } else {
+                            //프레임이 있지만 포커스가 없는 경우
+                            if(!$("#" + chatLog.grpid).hasClass("focus")) {
+                            //if(document.getElementById(chatLog.grpid).hasClass("focus")) {
+                                //chaim.play();
+                                me.fnEHMsgAlert(chatLog);
+                            }
+                        }
+                    });  
+                });  
+            } 
+            //클릭 이벤트 핸들러
+            me.fnEHSelect();
+        }
+
+        //버튼 클릭 이벤트
+        me.fnEHSelect = () => {
+            //메세지 채널 생성 선택
+            const manageChat = document.getElementsByClassName('manageChat')[0];
+            manageChat.addEventListener('click', (e) => {
+                gfnManageChat();
+            })
+
+            //메세지 채널 목록 선택
+            const listChat = document.getElementsByClassName('listChat');
+            Array.from(listChat).forEach((select) => {    
+                select.addEventListener('click', () => {        
+                    const pgmid = 'frameChat';
+                    const grpid = select.getAttribute("grpid");
+                    $(".listChat[grpid=" + grpid + "]").attr("style","background-color:hsl(0 0% 10%)");
+                    $(".listChat[grpid=" + grpid + "] .countChat").addClass("hidden");
+                    gMDI.openChat(pgmid, grpid);
+                });
+            });
+        }
+
+        //메세지 알림 효과
+        me.fnEHMsgAlert = (chatLog) => {
+            let count = 0 ;
+                        
+            //좌측 메세지 채널 알림 및 카운트
+            //카운트가 없는 메세지 채널인 경우, 카운트 생성 후 카운트 증가
+            if($(".listChat[grpid=" + chatLog.grpid + "] .countChat").hasClass("hidden") === true) {
+                $(".listChat[grpid=" + chatLog.grpid + "] .countChat").removeClass("hidden");    
+                $(".listChat[grpid=" + chatLog.grpid + "] .countChat").text(Number(count) + Number(1));
+
+                //최상위로 이동
+                $(".listChat[grpid=" + chatLog.grpid + "]").prependTo("ul.CHAT");
+            
+            //카운트가 있는 메세지 채널인 경우, 카운트 증가
+            } else {
+                count = $(".listChat[grpid=" + chatLog.grpid + "] .countChat").text();
+                $(".listChat[grpid=" + chatLog.grpid + "] .countChat").text(Number(count) + Number(1));
+
+                //최상위로 이동
+                $(".listChat[grpid=" + chatLog.grpid + "]").prependTo("ul.CHAT");
+            }
+
+            $(".listChat[grpid="+ chatLog.grpid +"]").animate({ "background-color":"black" }, 50, function(){$(".listChat[grpid="+ chatLog.grpid +"]").animate({ "background-color":"rgb(150, 0, 0)" },500)});
+
+            //우측 하단 메세지 채널 알림 효과
+            let msgAlert = document.createElement("li");
+            msgAlert.classList.add("msg");
+            msgAlert.setAttribute("value", chatLog.grpid);
+
+            let userIco = document.createElement("div");
+            userIco.classList.add("userIco");
+            msgAlert.append(userIco);
+
+            let iuser = document.createElement("i");
+            iuser.classList.add("fas");
+            iuser.classList.add("fa-user");
+            iuser.setAttribute("aria-hidden", "true");
+            userIco.append(iuser);
+
+            let user_nick_nm = document.createElement("div");
+            user_nick_nm.classList.add("user_nick_nm");
+            user_nick_nm.textContent = chatLog.user_nick_nm;
+            msgAlert.append(user_nick_nm);
+
+            let closeMsg = document.createElement("div");
+            closeMsg.classList.add("closeMsg");
+            msgAlert.append(closeMsg);
+
+            let itimes = document.createElement("i");
+            itimes.classList.add("fas");
+            itimes.classList.add("fa-times");
+            closeMsg.append(itimes);
+
+            let comments = document.createElement("div");
+            comments.classList.add("comments");
+            comments.textContent = JSON.parse(CryptoJS.AES.decrypt(chatLog.comments, encdeckey).toString(CryptoJS.enc.Utf8));
+            msgAlert.append(comments);
+
+            $("#frameMsg .msgList").append($(msgAlert).animate({ opacity : 1 }, 4000, function(){$(msgAlert).animate({ opacity : 0 }, 500, function(){$(msgAlert.remove())})}));
+
+            //알림 클릭 이벤트
+            $(msgAlert).on({
+                click: function() {
+                    if(chatLog.status == "msg") {
+                        const pgmid = 'frameChat';
+                        const grpid = chatLog.grpid;
+
+                        gMDI.openChat(pgmid, grpid);
+                        $(".listChat[grpid="+ grpid +"]").attr("style","background-color:hsl(0 0% 10%)");
+                        $(".listChat[grpid=" + grpid + "]").attr("style","background-color:hsl(0 0% 10%)");
+                        $(".listChat[grpid=" + grpid + "] .countChat").addClass("hidden");
+
+                    } else if(chatLog.status == "file") {
+
+                    } else if(chatLog.status == "alert") {
+
+                    }
+                }
+            })
+            
+            //알림 닫기 클릭 이벤트
+            $(closeMsg).on({
+                click: function() {
+                    $(msgAlert).remove();
+                }
+            })
+        }
+        if(typeof(me.fnInit) == 'function') me.fnInit();
+    });
+</script>

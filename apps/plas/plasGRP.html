@@ -1,0 +1,628 @@
+<style>[pgmid='plasGRP'].framepage .ag-center-cols-viewport { 
+    height: calc(100% + 1.5em) !important;
+}
+
+[pgmid='plasGRP'] #orgChart .componentBody  { 
+    border: 1px solid #aeaeae;
+    background-color: beige;
+    padding: 0.5em; 
+}
+
+[pgmid='plasGRP'] .orgChart {
+    display: grid;
+    align-content: space-between;
+    justify-content: center;
+    align-items: start;
+    grid-template-columns: 1fr 10em;
+    column-gap: 1em;
+}
+
+[pgmid='plasGRP'] .org { 
+    display: flex;
+    align-content: space-between;
+    justify-content: space-around;
+    align-items: flex-start;
+    grid-template-columns: repeat(5, minmax(15%, 1fr));
+    column-gap: 1em;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+[pgmid='plasGRP'] .dept {
+    flex: 1 1 auto;
+    display: flex;
+    align-content: space-between;
+    justify-content: center;
+    align-items: stretch;
+    grid-template-columns: minmax(20%, 1fr);
+    padding: 0.5em 3px 3px 0.5em;
+    margin: 0.5em 0 0 0.5em;
+    border: 1px solid #aeaeae;
+    column-gap: 0.5em;
+    background-color: #1a1a1a0a;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    min-width: 10em;
+    max-width: 15em;
+}
+
+[pgmid='plasGRP'] .dept H4 {
+    background-color: #4858a19f;
+    color: white;
+    padding: 0.25em;
+    border-radius: 0.25em;
+    box-shadow: 1px 1px 1px #3a3a3a2a;
+}
+
+[pgmid='plasGRP'] .dept.dragsrc {
+    border: 1px dashed blue;
+}
+
+[pgmid='plasGRP'] .box.dragover {
+    border: 1px dashed orange;
+}
+
+[pgmid='plasGRP'] .new {
+    border: 1px dashed #aeaeff;
+    background-color: yellow;
+    text-align: center;
+    padding: 1em;
+    margin: 1em 0;
+}
+
+[pgmid='plasGRP'] .trash {
+    border: 1px dashed #aeaeff;
+    background-color: grey;
+    text-align: center;
+    padding: 1em;
+    margin: 1em 0;
+}
+
+[pgmid='plasGRP'] .btnSync {
+    padding: 0.5em;
+    margin: 1em 0;
+}
+[pgmid='plasGRP'] .btnMove {
+    padding: 0.5em;
+    margin: 1em 0;
+}
+
+
+
+
+
+</style>
+
+<!-- HTML autogen start ---------------------------------------------- -->            
+<div class="pageNav"></div>
+<div class="pageTop"></div>
+<div class="pageCond"></div>
+<div class="pageGuide"></div>
+<div class="pageContent">
+    <ul id="tabs">
+        <li refid="main">조직도(전자결재용) 편집</li> 
+        <li refid="dz_org">더존 조직정보 조회</li> 
+    </ul>
+    <div id="main" class="flexRow">
+        <div id="orgChart" style="flex:1 1 auto"></div>
+        <div id='dept' style="flex:0 0 35em"></div> 
+    </div>
+    <div id="dz_org" class="flexColumn"></div>
+</div>
+<div class="orgChart">
+    <div class="org">        
+        <!--div class="dept box">
+            <h4 id="2002" draggable="true">임원실</h4>
+            <div class="dept box">
+                <h4 id="5010" draggable="true">본사고문</h4>
+            </div>
+        </div>
+        <div class="dept box">
+            <h4 id="4019" draggable="true">유통부문</h4>
+            <div class="dept box">
+                <h4 id="4002" draggable="true">유통사업부장</h4>
+                <div class="dept box">
+                    <h4 id="4012" draggable="true">매입본부</h4>
+                    <div class="dept box"><h4 id="4003" draggable="true">MD1팀</h4></div>
+                    <div class="dept box"><h4 id="4010" draggable="true">MD2팀</h4></div>
+                    <div class="dept box"><h4 id="4016" draggable="true">MD3팀</h4></div>
+                </div>
+                <div class="dept box"><h4 id="2009" draggable="true">VMD팀</h4></div>
+                <div class="dept box"><h4 id="4008" draggable="true">광양점</h4></div>
+                <div class="dept box"><h4 id="4007" draggable="true">양주점</h4></div>
+                <div class="dept box"><h4 id="4005" draggable="true">인천점</h4></div>
+            </div>
+            <div class="dept box">
+                <h4 id="5001" draggable="true">아울렛사업부(공통)</h4>
+                <div class="dept box">
+                    <h4 id="5004" draggable="true">팩토리운영팀</h4>
+                    <div class="dept box"><h4 id="5006" draggable="true">특판part</h4></div>
+                </div>
+                <div class="dept box"><h4 id="4011" draggable="true">온라인팀</h4></div>
+            </div>
+        </div>
+        <div class="dept box">
+            <h4 id="6001" draggable="true">고려조경(공통)</h4>
+            <div class="dept box">
+                <h4 id="6007" draggable="true">안전기획팀</h4></div>
+                <div class="dept box dragover">
+                    <h4 id="6010" draggable="true">LM본부</h4>
+                    <div class="dept box"><h4 id="6008" draggable="true">LM팀</h4></div>
+                    <div class="dept box"><h4 id="6035" draggable="true">더베르팀</h4></div>
+                    <div class="dept box"><h4 id="A002" draggable="true">일용직(조경)</h4>
+                </div>
+            </div>
+            <div class="dept box">
+                <h4 id="3021" draggable="true">개발본부</h4>
+                <div class="dept box"><h4 id="3022" draggable="true">개발팀</h4></div>
+            </div>
+            <div class="dept box">
+                <h4 id="6020" draggable="true">조경본부</h4>
+                <div class="dept box"><h4 id="6005" draggable="true">공무팀</h4></div>
+                <div class="dept box"><h4 id="6006" draggable="true">설계팀</h4></div>
+            </div>
+        </div>
+        <div class="dept box">
+            <h4 id="2007" draggable="true">경영지원실장</h4>
+            <div class="dept box"><h4 id="2010" draggable="true">재무본부</h4>
+                <div class="dept box"><h4 id="2011" draggable="true">재무·세무팀</h4></div>
+            </div>
+            <div class="dept box"><h4 id="2004" draggable="true">경영관리팀</h4></div>
+            <div class="dept box"><h4 id="2003" draggable="true">자금팀</h4></div>
+            <div class="dept box"><h4 id="2008" draggable="true">인사팀</h4></div>
+            <div class="dept box"><h4 id="3020" draggable="true">법무팀</h4></div>
+            <div class="dept box"><h4 id="3004" draggable="true">안전보건팀</h4></div>
+        </div>
+        <div class="dept box">
+            <h4 id="5030" draggable="true">정보전략실</h4>
+            <div class="dept box"><h4 id="5032" draggable="true">IT팀</h4></div>
+        </div -->  
+    </div>
+    <div>
+        <div class="new box"><h4><i class="fas fa-sitemap"></i> 최상위조직</h4></div>
+        <div class="trash box"><h4><i class="fas fa-trash"></i> 폐점조직</h4></div>
+        <div>
+            <button class="btnMove sortUp"><i class="fas fa-caret-left"></i> 순서</button>
+            <button class="btnMove sortDown"><i class="fas fa-caret-right"></i> 순서</button>
+        </div>
+        <button class="btnSync" style="display:none">조직도-목록반영</button>
+    </div>
+</div>        
+<!-- HTML autogen end ---------------------------------------------- -->
+<script>
+/*-- SCRIPT autogen start ---------------------------------------------- */        
+$(function() {
+    var appid = "plas";
+    var pgmid = "plasGRP"; 
+    var page = $("*[pgmid='"+pgmid+"'].framepage").last();
+    var pageid = page.attr("id"); 
+    var me = {}
+    var dataSet = {};
+    var dataDef = {};
+    var pageObj = {};
+    var bEdit = false;
+    me.fnInit = function() {
+        gfn[pageid] = me; 
+        me.appid    = appid;
+        me.pgmid    = pgmid;
+        me.pageid   = pageid;
+        me.page     = page; 
+        me.dataSet = dataSet;
+        me.dataDef = dataDef;
+        me.pageObj = pageObj;
+        me.bEdit = bEdit;
+me.dataDef["_pgm"]={"ver":2,"upd_dt":"2022-10-05 15:09:44","remark":"","pgmid":"plasGRP","proc_mst_id":"","pgm_stat":"Y","sort_seq":900,"app_pgmid":"plas","shortcut":"","reg_dt":"2022-10-05 15:09:44","reg_usid":"jjr","pgm_nm":"조직정보관리","upd_usid":"jjr","pgm_tp":"UX","pgm_grp_nm":"기준정보관리","proc_mst_nm":"","app_pgm_nm":"경영관리","":"트랜젝션(메뉴)","crud":""};
+me.dataDef["_pgm_func"]=[{"func_icon":"fas fa-search","reg_dt":"2022-10-05 15:09:44","reg_usid":"","func_nm":"조회","upd_usid":"","upd_dt":"2022-10-05 15:09:44","func_tp":"DB_R","remark":null,"pgmid":"plasGRP","sort_seq":"1","funcid":"search","content":"PLAS시스템 조직도 정보를 조회합니다.","crud":"R","id":"0"},{"func_icon":"fas fa-save","reg_dt":"2022-10-05 15:09:44","reg_usid":"","func_nm":"저장","upd_usid":"","upd_dt":"2022-10-05 15:09:44","func_tp":"DB_W","remark":null,"pgmid":"plasGRP","sort_seq":"2","funcid":"save","content":"조직정보를 저장합니다.","crud":"R","id":"1"},{"func_icon":"fas fa-robot","reg_dt":"2022-10-05 15:09:44","reg_usid":"","func_nm":"가져오기","upd_usid":"","upd_dt":"2022-10-05 15:09:44","func_tp":"DB_R","remark":null,"pgmid":"plasGRP","sort_seq":"3","funcid":"insert","content":"더존에서 새벽3시이후 업데이트된 정보 가져와서 저장","crud":"R","id":"2"}];
+me.dataDef["_pgm_data"] = {};
+me.dataDef["_pgm_data"]["pageCond"]={"sort_seq":"1","data_id":"pageCond","data_nm":"조회조건","data_icon":null,"component_pgmid":"aweForm","component_option":null,"inout_tp":null,"content":[{"sort_seq":1,"section":null,"section_icon":null,"colgrp":null,"colid":"dz_org_tp","colnm":"정보구분","dtype":"text","etype":"none","attr":"hidden","defval":"SDEPT","w":null,"h":null,"refcd":"DZ_ORG_TP","option":"sel:dz_org_tp::nm","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"0"},{"sort_seq":2,"section":null,"section_icon":null,"colgrp":null,"colid":"co_cd","colnm":"회사코드","dtype":"text","etype":"sel","attr":"keycol","defval":"gUserinfo.co_cd","w":"20","h":null,"refcd":"DZ_CO_CD","option":"sel:co_cd::cdnm","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"1"}]};
+me.dataDef["_pgm_data"]["orgChart"]={"sort_seq":"2","data_id":"orgChart","data_nm":"조직도(전자결재용) 편집","data_icon":null,"component_pgmid":"FreeForm","component_option":null,"inout_tp":null,"content":[]};
+me.dataDef["_pgm_data"]["list"]={"sort_seq":"3","data_id":"list","data_nm":"목록","data_icon":null,"component_pgmid":"agGrid","component_option":{"gridOptions":{"statusBar":{"statusPanels":[{"statusPanel":"agTotalAndFilteredRowCountComponent","align":"left"},{"statusPanel":"agAggregationComponent","align":"right"}]}}},"inout_tp":null,"content":[{"sort_seq":1,"section":null,"section_icon":null,"colgrp":null,"colid":"dz_org_tp","colnm":"정보구분","dtype":"text","etype":"none","attr":"hidden","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"0"},{"sort_seq":2,"section":null,"section_icon":null,"colgrp":null,"colid":"dz_co_cd","colnm":"회사코드","dtype":"text","etype":"none","attr":"hidden","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"1"},{"sort_seq":3,"section":null,"section_icon":null,"colgrp":null,"colid":"org_cd","colnm":"코드","dtype":"text","etype":"txt","attr":"pk","defval":null,"w":"10","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"2"},{"sort_seq":4,"section":null,"section_icon":null,"colgrp":null,"colid":"org_nm","colnm":"명","dtype":"text","etype":"txt","attr":"keycol","defval":null,"w":"20","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"3"},{"sort_seq":5,"section":null,"section_icon":null,"colgrp":null,"colid":"val_1","colnm":"정보1","dtype":"text","etype":"txt","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"4"},{"sort_seq":6,"section":null,"section_icon":null,"colgrp":null,"colid":"val_2","colnm":"정보2","dtype":"text","etype":"txt","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"5"},{"sort_seq":7,"section":null,"section_icon":null,"colgrp":null,"colid":"val_3","colnm":"정보3","dtype":"text","etype":"txt","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"6"},{"sort_seq":8,"section":null,"section_icon":null,"colgrp":null,"colid":"val_4","colnm":"정보4","dtype":"text","etype":"txt","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"7"},{"sort_seq":9,"section":null,"section_icon":null,"colgrp":null,"colid":"val_5","colnm":"정보5","dtype":"text","etype":"txt","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"8"},{"sort_seq":10,"section":null,"section_icon":null,"colgrp":null,"colid":"cd_stat","colnm":"상태","dtype":"text","etype":"txt","attr":null,"defval":null,"w":"5","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"9"},{"sort_seq":11,"section":null,"section_icon":null,"colgrp":null,"colid":"remark","colnm":"메모","dtype":"text","etype":"txt","attr":null,"defval":null,"w":"20","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"10"},{"sort_seq":12,"section":null,"section_icon":null,"colgrp":null,"colid":"sort_seq","colnm":"정렬순서","dtype":"num","etype":"txt","attr":null,"defval":null,"w":"5","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"11"},{"sort_seq":13,"section":null,"section_icon":null,"colgrp":null,"colid":"reg_dt","colnm":"등록일","dtype":"text","etype":"raw","attr":"disabled","defval":null,"w":"15","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"12"},{"sort_seq":14,"section":null,"section_icon":null,"colgrp":null,"colid":"reg_usid","colnm":"등록자","dtype":"text","etype":"raw","attr":"disabled","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"13"},{"sort_seq":15,"section":null,"section_icon":null,"colgrp":null,"colid":"upd_dt","colnm":"수정일","dtype":"text","etype":"raw","attr":"disabled","defval":null,"w":"15","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"14"},{"sort_seq":16,"section":null,"section_icon":null,"colgrp":null,"colid":"upd_usid","colnm":"수정자","dtype":"text","etype":"raw","attr":"disabled","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"15"}]};
+me.dataDef["_pgm_data"]["dept"]={"sort_seq":"4","data_id":"dept","data_nm":"더존 부서 목록","data_icon":null,"component_pgmid":"agGrid","component_option":{"gridOptions":{"statusBar":{"statusPanels":[{"statusPanel":"agTotalAndFilteredRowCountComponent","align":"left"},{"statusPanel":"agAggregationComponent","align":"right"}]}}},"inout_tp":null,"content":[{"sort_seq":1,"section":null,"section_icon":null,"colgrp":null,"colid":"dept_cd","colnm":"코드","dtype":"text","etype":"raw","attr":"keycol","defval":null,"w":"4","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"0"},{"sort_seq":2,"section":null,"section_icon":null,"colgrp":null,"colid":"dept_nm","colnm":"부서명","dtype":"text","etype":"raw","attr":"keycol","defval":null,"w":"8","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"1"},{"sort_seq":3,"section":null,"section_icon":null,"colgrp":null,"colid":"emp_info2","colnm":"인원정보","dtype":"text","etype":"raw","attr":null,"defval":null,"w":"10","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"2"},{"sort_seq":4,"section":null,"section_icon":null,"colgrp":null,"colid":"cd_stat","colnm":"상태","dtype":"text","etype":"cbx","attr":"readonly","defval":null,"w":"4","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"3"},{"sort_seq":5,"section":null,"section_icon":null,"colgrp":null,"colid":"dept_lv","colnm":"레벨","dtype":"num","etype":"raw","attr":null,"defval":null,"w":"4","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"4"},{"sort_seq":6,"section":null,"section_icon":null,"colgrp":null,"colid":"sort_seq","colnm":"순서","dtype":"num","etype":"raw","attr":null,"defval":null,"w":"4","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"5"}]};
+me.dataDef["_pgm_data"]["dz_org"]={"sort_seq":"5","data_id":"dz_org","data_nm":"더존 조직정보 조회","data_icon":null,"component_pgmid":"agGrid","component_option":{"gridOptions":{"statusBar":{"statusPanels":[{"statusPanel":"agTotalAndFilteredRowCountComponent","align":"left"},{"statusPanel":"agAggregationComponent","align":"right"}]}},"remark":"* 더존에 등록된 조직정보이며 일일주기로 읽기전용 동기화 됩니다.","func":[{"funcid":"saveDeptChief","func_nm":"조직장 정보저장","func_icon":"fas fa-save"}]},"inout_tp":null,"content":[{"sort_seq":1,"section":null,"section_icon":null,"colgrp":"사업장","colid":"div_cd","colnm":"코드","dtype":"text","etype":"raw","attr":"rowSpan","defval":null,"w":"4","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"0"},{"sort_seq":2,"section":null,"section_icon":null,"colgrp":"사업장","colid":"div_nm","colnm":"조직명","dtype":"text","etype":"raw","attr":"rowSpan","defval":null,"w":"20","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"1"},{"sort_seq":3,"section":null,"section_icon":null,"colgrp":"사업부","colid":"sect_cd","colnm":"코드","dtype":"text","etype":"raw","attr":"rowSpan","defval":null,"w":"4","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"2"},{"sort_seq":4,"section":null,"section_icon":null,"colgrp":"사업부","colid":"sect_nm","colnm":"조직명","dtype":"text","etype":"raw","attr":"rowSpan","defval":null,"w":"10","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"3"},{"sort_seq":5,"section":null,"section_icon":null,"colgrp":"부서","colid":"dept_cd","colnm":"코드","dtype":"text","etype":"raw","attr":"pk ","defval":null,"w":"4","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"4"},{"sort_seq":6,"section":null,"section_icon":null,"colgrp":"부서","colid":"dept_nm","colnm":"조직명","dtype":"text","etype":"raw","attr":"keycol","defval":null,"w":"20","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"5"},{"sort_seq":7,"section":null,"section_icon":null,"colgrp":"부서","colid":"emp_info2","colnm":"인원정보","dtype":"text","etype":"raw","attr":null,"defval":null,"w":"15","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"6"},{"sort_seq":8,"section":null,"section_icon":null,"colgrp":"부서","colid":"reg_dt","colnm":"등록일","dtype":"ymd","etype":"raw","attr":"center","defval":null,"w":"10","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"7"},{"sort_seq":9,"section":null,"section_icon":null,"colgrp":"부서","colid":"to_dt","colnm":"폐쇄일","dtype":"ymd","etype":"raw","attr":"center","defval":null,"w":"10","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"8"},{"sort_seq":10,"section":null,"section_icon":null,"colgrp":"전자결재 전결권자","colid":"dept_chief","colnm":"사번","dtype":"text","etype":"txt","attr":"pop","defval":null,"w":"8","h":null,"refcd":"mypop","option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"9"},{"sort_seq":11,"section":null,"section_icon":null,"colgrp":"전자결재 전결권자","colid":"dept_chief_nm","colnm":"성명","dtype":"text","etype":"raw","attr":null,"defval":null,"w":"5","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"10"},{"sort_seq":12,"section":null,"section_icon":null,"colgrp":"정보","colid":"cd_stat","colnm":"상태","dtype":"text","etype":"raw","attr":"disabled center","defval":null,"w":"5","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"11"},{"sort_seq":13,"section":null,"section_icon":null,"colgrp":"정보","colid":"insert_dt","colnm":"등록일","dtype":"text","etype":"raw","attr":"disabled","defval":null,"w":"18","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"12"},{"sort_seq":14,"section":null,"section_icon":null,"colgrp":"정보","colid":"insert_id","colnm":"등록ID","dtype":"text","etype":"raw","attr":"disabled","defval":null,"w":"8","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"13"},{"sort_seq":15,"section":null,"section_icon":null,"colgrp":"정보","colid":"modify_dt","colnm":"수정일","dtype":"text","etype":"raw","attr":"disabled","defval":null,"w":"18","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"14"},{"sort_seq":16,"section":null,"section_icon":null,"colgrp":"정보","colid":"modify_id","colnm":"수정ID","dtype":"text","etype":"raw","attr":"disabled","defval":null,"w":"8","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"15"}]};
+
+        me.pageObj["_page"] = new gfnFramepage( me ); 
+        for(var component_id in me.dataDef["_pgm_data"]) { 
+            me.pageObj[component_id] = new gfnComponent( me.pageid, component_id, me.dataDef["_pgm_data"][component_id], me.fnEH, me); 
+        }  
+        setTimeout(function(){
+            $("#frameset").scrollTo(0); //스크롤 
+        },10);
+        if(typeof(me.fnInitExtra)=='function') me.fnInitExtra(); 
+    } 
+/*-- SCRIPT autogen end ---------------------------------------------- */
+    lds = {};
+
+    /* 사용자초기화 */
+    me.fnInitExtra=function() {
+        //탭 설정
+        gfnTab(pageid, "tabs");
+        
+        //*****  사용자 컴포넌트 ********************************************************************************
+        me.page.find(".orgChart").appendTo("#"+pageid+" #orgChart .componentBody"); //생성된 componentBody에 HTML로 작성한 orgChart를 이동시킴
+        //methond정의: SET 조직추가
+        me.pageObj.orgChart.addDept=function(deptData,up_dept_cd,sort_seq){
+            var dept = me.page.find("H4#"+deptData.dept_cd).parent(".dept");
+            if(dept.length==0) {
+                dept = $("<div class='dept box'></div>");
+                h4   = $("<H4>"+deptData.dept_nm+"</H4>");
+                h4.attr("id",deptData.dept_cd); 
+                h4.attr("draggable","true"); 
+                dept.append(h4); 
+            }
+            if(isNull(up_dept_cd)||up_dept_cd=="new"||me.page.find("#"+up_dept_cd).length == 0) {
+                me.page.find(".org").append( dept );  
+            } else {
+                me.page.find("#"+up_dept_cd).parent(".dept").append( dept ); 
+            }
+            if(!isNull(sort_seq)) me.pageObj.orgChart.changeSortOrder(deptData.dept_cd,sort_seq);
+        };
+        //methond정의: SET 조직삭제
+        me.pageObj.orgChart.delDept=function(dept_cd){
+            me.page.find("#"+dept_cd).parent(".dept").remove(); 
+            me.fnSync();
+            //var row = me.pageObj.dept.findRow("dept_cd",dept_cd);
+            //if(row >= 0) me.pageObj.dept.setVal(row,"cd_stat","N");
+        };
+        //methond정의: GET 조직정보 가져오기
+        me.pageObj.orgChart.getDept=function(dept_cd){
+            if(isNull(dept_cd)) dept_cd = me.page.find(".dragsrc").children("H4").attr("id"); 
+            var rtn = {dept_cd:dept_cd, cd_stat:'N'};
+            var src = me.page.find("H4#"+dept_cd).parent(".dept"); 
+            if(src.length==0) return rtn;
+            rtn.dept_nm  = src.children("H4").text();
+            rtn.sort_seq = src.index();
+            rtn.dept_lv  = src.parents(".dept").length;            
+            if(isNull(rtn.dept_lv)) rtn.sort_seq++;
+            rtn.cd_stat  = 'Y';
+            var up_dept = src.parent(".dept");
+            if(up_dept.length==0) {
+                rtn.up_dept_cd = me.pageObj.pageCond.getVal("co_cd");
+                try {
+                    rtn.up_dept_nm = subset(lds["SCO"],"cd",rtn.up_dept_cd)[0].nm; 
+                } catch {
+                    rtn.up_dept_nm = me.pageObj.pageCond.getVal("co_cd");
+                }
+            } else {
+                rtn.up_dept_cd = up_dept.children("H4").attr("id");
+                rtn.up_dept_nm = up_dept.children("H4").text();
+            } 
+            return rtn; 
+        };
+        //methond정의: GET 조직정보 전체 가져오기
+        me.pageObj.orgChart.exportData=function(){
+            var rtn = [];
+            me.page.find(".org H4").each(function(idx,el){
+                rtn.push( me.pageObj.orgChart.getDept(el.id) );
+            });
+            return rtn;
+        };
+        //methond정의: 동급내에서 순서변경
+        me.pageObj.orgChart.changeSortOrder=function(dept_cd,sortSeq,bSync){
+            var src = me.page.find("#"+dept_cd).parent(".dept");
+            var dept_lv  = src.parents(".dept").length;      
+            var curIdx = src.index();
+            if(isNull(dept_lv)) curIdx++; //lv1부터는 H4로 시작하기 때문에 index를 하나 증가시켜줌
+            var siblingsCnt = src.parent().children(".dept").length;
+            if(sortSeq <= 0) gfnStatus("순서변경확인","가장 앞 순서입니다.");
+            else if(sortSeq > siblingsCnt ) gfnStatus("순서변경확인","가장 뒷 순서입니다.");
+            else if(sortSeq == siblingsCnt || curIdx < sortSeq) src.insertAfter( src.parent().children(".dept:eq("+(sortSeq-1)+")") );
+            else src.insertBefore( src.parent().children(".dept:eq("+(sortSeq-1)+")") );
+            if(bSync) me.fnSync();
+        };
+        //이동처리 이벤트 핸들링
+        me.page.on("dragstart",".dept H4",function(e){
+            me.page.find(".dragsrc").removeClass("dragsrc");
+            me.page.find(".dragover").removeClass("dragover");
+            me.dragObjId = e.target.id;
+            $("#"+me.dragObjId).parent(".dept").addClass("dragsrc");
+            console.log(e.target.id + " is being dragged...");
+        });
+        me.page.on("click",".dept H4",function(e){
+            me.page.find(".dragover").removeClass("dragover");
+            me.page.find(".dragsrc").removeClass("dragsrc");
+            $(e.target).parent(".dept").addClass("dragsrc");
+            me.fnEH(me.pageObj.orgChart,"focus",$(e.target).attr("id"));
+        })
+        me.page.on("dragover",".box",function(e){
+            e.preventDefault();
+            e.stopPropagation();
+            $(e.currentTarget).addClass("dragover");
+            
+        });
+        me.page.on("dragleave",".box",function(e){
+            e.preventDefault();
+            me.page.find(".dragover").removeClass("dragover");
+        });  
+        me.page.on("drop",".dept",function(e){
+            e.preventDefault(); 
+            if(!isNull(me.dragObjId)) {
+                console.log(me.dragObjId + " is dropped...");
+                me.page.find(".dragsrc").removeClass("dragsrc");
+                var obj = $("#"+me.dragObjId).parent(".dept");
+                $(e.currentTarget).append( obj );
+                me.dragObjId = "";
+            } 
+        });
+        //조직도기능 이벤트 핸들링 
+        me.page.on("drop",".new",function(e){
+            e.preventDefault(); 
+            if(!isNull(me.dragObjId)) {
+                console.log(me.dragObjId + " is top-level dept now...");
+                me.page.find(".dragsrc").removeClass("dragsrc");
+                var obj = $("#"+me.dragObjId).parent(".dept");
+                me.page.find(".org").append( obj );  
+                me.dragObjId = "";
+            } 
+        });
+        me.page.on("drop",".trash",function(e){
+            e.preventDefault(); 
+            if(!isNull(me.dragObjId)) {
+                console.log(me.dragObjId + " is wasted...");
+                me.page.find(".dragsrc").removeClass("dragsrc");
+                var obj = $("#"+me.dragObjId).parent(".dept");
+                me.pageObj.orgChart.delDept(me.dragObjId);
+                me.dragObjId = "";
+            } 
+        }); 
+        me.page.find(".btnSync").on("click",me.fnSync);
+        me.page.find(".btnMove").on("click",function(e){
+            var src = me.pageObj.orgChart.getDept();
+            if(src.cd_stat=="N") {
+                gfnStatus("순서이동확인","순서를 변경하려는 부서를 먼저 선택하세요!");
+                return;
+            }
+            var toward = 0;
+            if( $(e.target).exactObj(".btnMove").hasClass("sortUp") ) toward = -1;
+            else toward = 1;
+            console.log(src.dept_cd +  " : " + src.sort_seq + " -> " + (src.sort_seq+toward));
+            me.pageObj.orgChart.changeSortOrder(src.dept_cd,(src.sort_seq+toward),true); 
+        }); 
+
+        
+        //더존회사코드를 가져와서 조회조건SELECT박스를 구성함
+        gfnGetData("T_GRP_CODE", function(OUTVAR){
+            lds["SCO"] = OUTVAR;
+            gfnSetOpts(me.pageObj.pageCond.col["co_cd"].dispObj,lds["SCO"],"cdnm",gUserinfo.co_cd);
+            //me.pageObj.pageCond.    n gfnControl(colinfo, afnEH, oComponent, rowid, val, rowPinned, agHack) {
+            me.pageObj.pageCond.setVal("co_cd",gUserinfo.co_cd);
+            me.fnSearch();
+        },"cdnm","",true,"grpcd='DZ_ORG_TP' AND keycd='SCO' AND grpid='LFN' AND cd_stat IN ('Y') ");
+    }
+    /* 이벤트핸들러 */
+    me.fnEH=function(component, evt, row, col, val) { 
+        //console.log(evt+","+row+","+col+","+val);
+        //화면기능버튼이 눌리면 
+        if (component==me.pageObj["_pageFunc"]){ 
+            if(typeof(me[col])=='function') me[col](); //col=기능명 me["fnSearch"]()=me.fnSearch(); 
+        }
+        //pageCond:조회조건 이벤트처리     
+        else if(component==me.pageObj["orgChart"]) {
+            if(evt=="focus") {
+                if(!isNull(row) && me.pageObj.dept.findRow("dept_cd",row) >= 0) {
+                    me.pageObj.dept.selectRows( undefined, false );
+                    me.pageObj.dept.selectRow( me.pageObj.dept.findRow("dept_cd",row), true );
+                }
+            }
+            //if(evt=="change" && col=="colid") {...}
+        }
+
+        //dept:목록 이벤트처리     
+        else if(component==me.pageObj["dept"]) {
+            if(evt=="dblclick") {
+                me.pageObj.orgChart.addDept( component.getRowData(row), "new");
+                me.fnSync();
+            }  
+
+            if(evt=="componentFunc" && row=="saveDeptChief") {
+                me.pageObj.orgChart.addDept( component.getRowData(row), "new");
+                me.fnSaveDeptChief();
+            } 
+        }
+
+
+        //사용자 컴포넌트/컨트롤
+        else if(component==me.pageObj["dz_org"]) {
+            if(evt=="mypop") {
+                if(col=="dept_chief") { 
+                    /**************************************************************************************/
+                    //조직도에서 사용자 검색은 코드/명 팝업이 아니므로 별도로 구현함 
+                    //var option = val[3]; //"auto:reg_usid:nm:cdnm:"
+                    //var term   = val[4]; //입력된 검색어
+                    var co_cd = me.pageObj.pageCond.getVal("co_cd");
+                    var auto  = (inStr(val[3],"auto")<0)?false:true;
+                    var term  = val[4];
+                    //console.log(val);
+                    gParam ={INVAR:{co_cd:co_cd,term:term,auto:auto}}; 
+                    //gfnLoad(app,pgm,oDOM:body에 붙인후,afnCallback,domChildClear)
+                    gfnLoad("plas","popupPlasEMP",$("body"),function(OUTVAR){
+                        gfnPopup("임직원검색", OUTVAR.rtnMsg, {width:800,height:600}, function(){
+                            //console.log(gParam);
+                            if(!isNull(gParam) && !isNull(gParam.OUTVAR) && gParam.OUTVAR.rtnCd=="OK") {
+                                var rtn = gParam.OUTVAR.list[0]; 
+                                component.setVal(row,"dept_chief_nm",rtn.kor_nm + ' ' + rtn.hcls_nm); 
+                                component.setVal(row,"dept_chief",rtn.emp_cd); 
+                            } else {
+                                component.setVal(row,"dept_chief_nm",""); 
+                                component.setVal(row,"dept_chief"," ");
+                            } 
+                        });     
+                    })
+                    /* mypop 사용자정의 검색창 구현 ****************************************************************/
+                }
+            }
+        }
+    }
+    
+    //조직도->팀목록 연동 
+    me.fnSync=function() {
+        var list = me.pageObj.orgChart.exportData();
+        list.forEach((el,idx)=>{
+            var row = me.pageObj.dept.findRow("dept_cd",el.dept_cd);
+            if(row >= 0) { 
+                var data = me.pageObj.dept.getRowData(row);
+                data.up_dept_cd = el.up_dept_cd;
+                data.up_dept_nm = el.up_dept_nm;
+                data.cd_stat = el.cd_stat;
+                data.sort_seq = el.sort_seq; 
+                data.dept_lv  = el.dept_lv;
+                me.pageObj.dept.setRowData(row,data);
+            } else {
+                me.pageObj.dept.addRow(el);
+            }
+        });
+        var dept = me.pageObj.dept.exportData();
+        dept.forEach((el,idx)=>{
+            if(list.findIndex((li)=>li.dept_cd==el.dept_cd)==-1) {
+                me.pageObj.dept.setVal(el.id, "cd_stat", "N");
+                me.pageObj.dept.setVal(el.id, "sort_seq", null);
+            }
+        })
+    }
+    
+    
+    //search:조회 
+    me.fnSearch=function() {
+        if( !me.pageObj["pageCond"].chkValid() ) return;
+        me.fnSync();
+        var args = me.pageObj["pageCond"].exportData()[0];
+        console.log(args);
+        var invar = JSON.stringify(args);
+        gfnTx(appid+"."+pgmid,"search",{INVAR:invar},function(OUTVAR){
+            console.log(OUTVAR);
+            if(OUTVAR.rtnCd=="OK") {
+                me.pageObj["dept"].importData(OUTVAR.list);
+                me.page.find(".org > *").remove();
+                OUTVAR.list.forEach((el,idx)=>{
+                    if(el.cd_stat=="Y") me.pageObj.orgChart.addDept(el, el.up_dept_cd, el.sort_seq);
+                });
+                me.pageObj["dz_org"].importData(OUTVAR.list);
+            } else {
+                gfnAlert("조회오류",OUTVAR.rtnMsg);
+            }
+        });
+    }
+
+    /* sync:동기화 - 
+    me.fnSync=function() {
+        var args = me.pageObj.pageCond.exportData()[0]; 
+        var invar = JSON.stringify(args);
+        gfnTx(appid+"."+pgmid,"sync",{INVAR:invar},function(OUTVAR){
+            console.log(OUTVAR);
+            if(OUTVAR.rtnCd=="OK") {
+                gfnAlert("성공","더존 정보를 ERP로 가져왔습니다. 신규 추가된 정보(상태 R 미사용)인 건을 확인하여 상태 Y 사용으로 변경하여 정보 하세요!"); 
+            } else {
+                gfnAlert("오류",OUTVAR.rtnMsg);
+            }
+        });
+    }
+    */
+    //save:저장 
+    me.fnSave=function() {
+        if(!gUserinfo.usergrp.some(el=>el.role_tp=="ADM")) {
+            gfnAlert("사용자계정등록 확인","사용자계정등록은 관리자만 할 수 있습니다."); 
+            return;
+        } 
+        me.fnSync();
+        var list  = me.pageObj.dept.exportData();
+        var total = list.length;
+        var args = me.pageObj.pageCond.exportData()[0];
+        
+        function _fnSave() {
+            args.list = list.splice(0,100);
+            console.log(args);
+            var invar = JSON.stringify(args);
+            gfnTx(appid+"."+pgmid,"save",{INVAR:invar},function(OUTVAR){
+                console.log(OUTVAR);
+                if(OUTVAR.rtnCd=="OK") {
+                    if(list.length > 0) {
+                        gfnStatus(list.length+"/"+total+" 건 저장중...");
+                        _fnSave();
+                    } else {
+                        gfnAlert("저장성공","입력한 데이터를 저장하였습니다."); 
+                        me.fnSearch();  
+                    }
+                } else {
+                    gfnAlert("저장오류",OUTVAR.rtnMsg);
+                }
+            });            
+        }
+        _fnSave(); 
+    }     
+
+
+    //save:저장 
+    me.fnSaveDeptChief=function() {
+        if(!gUserinfo.usergrp.some(el=>el.role_tp=="ADM")) {
+            gfnAlert("조직장 정보 저장 확인","조직장 정보관리는 시스템관리자만 할 수 있습니다."); 
+            return;
+        } 
+        var list  = me.pageObj.dz_org.exportData();
+        var total = list.length;
+        var args = me.pageObj.pageCond.exportData()[0];
+        
+        function _fnSave() {
+            args.list = list.splice(0,100);
+            console.log(args);
+            var invar = JSON.stringify(args);
+            gfnTx(appid+"."+pgmid,"saveDeptChief",{INVAR:invar},function(OUTVAR){
+                console.log(OUTVAR);
+                if(OUTVAR.rtnCd=="OK") {
+                    if(list.length > 0) {
+                        gfnStatus(list.length+"/"+total+" 건 저장중...");
+                        _fnSave();
+                    } else {
+                        gfnAlert("저장성공","입력한 데이터를 저장하였습니다."); 
+                        me.fnSearch();  
+                    }
+                } else {
+                    gfnAlert("저장오류",OUTVAR.rtnMsg);
+                }
+            });            
+        }
+        _fnSave(); 
+    }      
+
+    //searchDZ:더존정보조회 
+    me.fnInsert=function() {
+        if( !me.pageObj["pageCond"].chkValid() ) return; 
+        var args = me.pageObj["pageCond"].exportData()[0];
+        //console.log(args);
+        var invar = JSON.stringify(args);
+        gfnTx(appid+"."+pgmid,"searchDZ",{INVAR:invar},function(OUTVAR){
+            console.log(OUTVAR);
+            if(OUTVAR.rtnCd=="OK") { 
+                console.log(OUTVAR.list);
+                me.fnSaveDZ(OUTVAR.list);
+                //me.pageObj["dz_org"].importData(OUTVAR.list);
+            } else {
+                gfnAlert("조회오류",OUTVAR.rtnMsg);
+            }
+        });
+    }
+    
+    
+    me.fnSaveDZ = function(list){
+        var args = me.pageObj.pageCond.exportData()[0];
+        args.list = list;
+        var total = list.length;
+        
+        if(total==0){
+            gfnAlert("확인","(현날짜 03:00am 이후)더존에 등록된 정보가 없습니다.");
+            return;
+        }
+        var invar = JSON.stringify(args);
+            gfnTx(appid+"."+pgmid,"saveDZ",{INVAR:invar},function(OUTVAR){
+                console.log(OUTVAR);
+                if(OUTVAR.rtnCd=="OK") {
+                    gfnAlert("등록","(현날짜 03:00am 이후)더존에 등록된 정보 총 "+total+"건이 업데이트되었습니다.");
+                } else {
+                    gfnAlert("저장오류",OUTVAR.rtnMsg);
+                }
+            });          
+    }
+
+/*-- SCRIPT autogen ---------------------------------------------------- */        
+if(typeof(me.fnInit)=='function') me.fnInit();
+});
+
+</script>

@@ -1,0 +1,331 @@
+<style>.userarea { 
+    position: fixed;
+    top: 0px;
+    bottom: 0;
+    left: 0;
+    right: 0; 
+    z-index: 100;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+}
+[pgmid="MRRegUser"] {
+    background-color: #fffffff0 !important; 
+    border-radius: 2em;
+    position: relative;
+    box-shadow: 0 0 2em 2em #6a6a6ab0;
+}  
+[pgmid="MRRegUser"].framepage .pageContent {
+    position: relative;
+}    
+[pgmid="MRRegUser"].framepage .btnClose {
+    content: "X";
+    color: #6d2c2c;
+    position: absolute;
+    top: 0.25em;
+    right: 0.75em;
+    font-size: 2em;
+    cursor: pointer;
+} 
+
+.regUsertitle{
+    text-align:center; 
+    margin-top: 1.5em;
+}
+.regUserform{
+    width:100%; 
+    text-align:center; 
+    margin:40px 0px 40px;
+}  
+[pgmid='MRRegUser'].framepage .regUser.notice {
+    margin-bottom: 0.5em;
+    text-align: left;
+}
+[pgmid='MRRegUser'].framepage .regUser.notice.warn {
+    color: darkred;
+} 
+[pgmid='MRRegUser'].framepage button{
+    font-size : 15px;
+    width:80%;
+    max-width: 400px; 
+    height:60px;  
+    margin-bottom : 10px;
+}
+[pgmid='MRRegUser'].framepage input{
+    padding:1em;
+    line-height: 3em; 
+    width:80%;
+    max-width: 400px; 
+    height:60px; 
+    margin-top : 10px;
+    font-size: 1.5em;
+}
+.hidden {
+    display: none;
+}
+[pgmid='MRRegUser'] #RegInfo {
+    text-align: left;
+    background-color: #eaeaea;
+    padding: 1em 2em;
+    line-height: 2;
+} 
+#RegInfo label {
+    min-width: 5em;
+    display: inline-block;
+}
+#userRegMail {
+    display: inline-block;
+    width: 100%;
+    text-align: right;
+}</style>
+
+<!-- HTML autogen start ---------------------------------------------- -->            
+<div class="pageContent">
+    <div class="wrapper">
+        <div class="regUsertitle">
+            <h1>임직원 인증</h1>
+        </div>
+        <div class="regUserform">
+            <input type="text" class="kor_nm" placeholder="이름(필수)"><br>
+            <input type="password" class="authkey" autocomplete="new-password" placeholder="사번 또는 생년월일"><br> 
+            <p class="regUser notice">
+* 인사정보에 등록된 사용자이어야 합니다. 사번 또는 생년월일(8자리-ex.20020712)입력 
+            </p>
+            <button class="regUserbtn">인증하기</button><br>
+        </div>
+    </div>
+    <div class="wrapper2 hidden">
+        <div class="regUsertitle">
+            <h1>사용자 정보 등록</h1>
+        </div>
+        <div class="regUserform">
+            <div id="RegInfo"> 
+                <label>사번 : </label><select id="user_cd"></select><br>
+                <div id="userRegInfo"> 
+                </div> 
+            </div> 
+
+            <input type="text" class="usid" placeholder="아이디"><span id="userRegMail"></span><br>
+            <input type="password" class="pwd" placeholder="비밀번호(8자리이상 문자,숫자,특수문자 최소1개 이상)"><br>
+            <input type="password" class="pwdchk" placeholder="비밀번호 확인"><br>
+            <p class="regUser notice">
+* 비밀번호는 8자리이상. 문자/숫자/특수문자 최소1개 이상 포함해야 합니다.
+            </p>
+            <button class="regUserbtn2">등록하기</button><br>
+        </div>
+    </div>
+</div>
+<script	src="https://cdnjs.cloudflare.com/ajax/libs/js-sha256/0.9.0/sha256.min.js"></script>
+<script type="text/javascript" src="/lib/jquery/core.min.js"></script>
+<script type="text/javascript" src="/lib/jquery/sha256.min.js"></script>
+<!-- HTML autogen end ---------------------------------------------- -->
+<script>
+/*-- SCRIPT autogen start ---------------------------------------------- */        
+$(function() {
+    var appid = "m";
+    var pgmid = "MRRegUser"; 
+    var page = $("*[pgmid='"+pgmid+"'].framepage").last();
+    var pageid = page.attr("id"); 
+    var me = {}
+    var dataSet = {};
+    var dataDef = {};
+    var pageObj = {};
+    var bEdit = false;
+    me.fnInit = function() {
+        gfn[pageid] = me; 
+        me.appid    = appid;
+        me.pgmid    = pgmid;
+        me.pageid   = pageid;
+        me.page     = page; 
+        me.dataSet = dataSet;
+        me.dataDef = dataDef;
+        me.pageObj = pageObj;
+        me.bEdit = bEdit;
+me.dataDef["_pgm"]={"ver":1.6,"upd_dt":"2022-05-12 10:39:43","remark":"","pgmid":"MRRegUser","proc_mst_id":"","pgm_stat":"Y","sort_seq":3,"app_pgmid":"m","shortcut":"","reg_dt":"2022-05-09 09:43:01","reg_usid":"jjr","pgm_nm":"사용자등록","upd_usid":"kihyunlee","pgm_tp":"TX","pgm_grp_nm":"스마트워크_회의실관리","proc_mst_nm":"","app_pgm_nm":"모바일EP","":"트랜젝션(화면)","crud":""};
+me.dataDef["_pgm_func"]=[];
+me.dataDef["_pgm_data"] = {};
+me.dataDef["_pgm_data"]["upList"]={"sort_seq":"1","data_id":"upList","data_nm":"업로드목록","data_icon":null,"component_pgmid":"FreeForm","component_option":{"func":[{"funcid":"del","func_nm":"이미지 삭제","func_icon":"fas fa-minus"}]},"inout_tp":"OUT","content":[]};
+me.dataDef["_pgm_data"]["regUser"]={"sort_seq":"2","data_id":"regUser","data_nm":"사용자등록","data_icon":null,"component_pgmid":"FreeForm","component_option":null,"inout_tp":null,"content":null};
+
+        me.pageObj["_page"] = new gfnFramepage( me ); 
+        for(var component_id in me.dataDef["_pgm_data"]) { 
+            me.pageObj[component_id] = new gfnComponent( me.pageid, component_id, me.dataDef["_pgm_data"][component_id], me.fnEH, me); 
+        }  
+        setTimeout(function(){
+            $("#frameset").scrollTo(0); //스크롤 
+        },10);
+        if(typeof(me.fnInitExtra)=='function') me.fnInitExtra(); 
+    } 
+/*-- SCRIPT autogen end ---------------------------------------------- */
+
+    /* 사용자초기화 */
+    me.fnInitExtra=function() { 
+        var RegUser = document.getElementsByClassName("regUserbtn");
+        RegUser[0].addEventListener('click', function() {
+            me.fnSearch(); 
+        });
+        
+        var RegUser2 = document.getElementsByClassName("regUserbtn2");
+        RegUser2[0].addEventListener('click', function() {
+            me.fnSave(); 
+        });
+        
+        /*
+        var preview = document.getElementsByClassName("sendButton");
+        preview[0].addEventListener('click', function() {
+            let selectFile = document.getElementsByClassName("inputImage")[0].files[0];
+            const file = URL.createObjectURL(selectFile);
+            document.querySelector(".uploadImage").src = file;
+            var uploadImage = document.getElementsByClassName("uploadImage");
+            if(uploadImage[0].style.display == 'block'){
+                uploadImage[0].style.display = 'none';
+            }else{
+                uploadImage[0].style.display = 'block';
+            }
+           
+            console.log(selectFile)
+        });
+        */
+    }
+    /* 이벤트핸들러 */
+    me.fnEH=function(component, evt, row, col, val) { 
+        //console.log(evt+","+row+","+col+","+val);
+        //화면기능버튼이 눌리면 
+        if (component==me.pageObj["_pageFunc"]){ 
+            if(typeof(me[col])=='function') me[col](); //col=기능명 me["fnSearch"]()=me.fnSearch(); 
+        }
+        //regUser:사용자등록 이벤트처리     
+        else if(component==me.pageObj["regUser"]) {
+            if(evt=="componentFunc") {
+                if(row=="addRow") {
+                    component.addRow();
+                } else if(row=="delRow") {
+                    component.delRow();
+                }
+            }
+            //if(evt=="change" && col=="colid") {...}
+        }
+
+        //사용자 컴포넌트/컨트롤
+        else if(component.userComponent=="myCompoId") {
+            //if(evt=="dblclick" && col=="colid") {...}
+        }
+    }
+    me.fnSearch=function() {
+        var kor_nm = document.getElementsByClassName('kor_nm')[0].value;
+        var authkey = document.getElementsByClassName('authkey')[0].value; 
+        var authkey_reg = /^[0-9]/; 
+        if(authkey_reg.test(authkey) == false){
+            gfnAlert("인증키 입력","정확한 사번 또는 생년월일을 입력해주세요");
+            return;
+        } 
+        if((""+authkey).length > 8) {
+            gfnAlert("인증키 입력","정확한 사번 또는 생년월일을 입력해주세요");
+            return;
+        }
+        var args = {};
+        args.kor_nm = kor_nm;
+        args.authkey = authkey; 
+        var invar = JSON.stringify(args); 
+        gfnTx(appid+"."+pgmid,"search",{INVAR:invar}, function(OUTVAR) {
+            console.log(OUTVAR);
+            if(OUTVAR.rtnCd=="OK") {
+                if( OUTVAR.list == null || OUTVAR.list.length == 0) {
+                    document.querySelector(".regUser.notice").classList.add("warn");
+                    gfnAlert("임직원 인증오류","입력한 임직원 정보가 존재하지 않습니다. 입력하신 정보를 다시 확인 바랍니다.");
+                } else {
+                    me.userinfo = OUTVAR.list; 
+                    $("#user_cd option").remove();
+                    for(var i=0; i<me.userinfo.length; i++) {
+                        $("#user_cd").append(`<option value=${i}>${me.userinfo[i].dz_key}</option>`);
+                    }
+                    $("#user_cd").on("change",function(e){
+                        var idx = $("#user_cd").val();
+                        me.fnSetRegUserInfo(idx);
+                    }); 
+                    me.fnSetRegUserInfo(0);
+                    document.querySelector('[pgmid="MRRegUser"] .wrapper').classList.add("hidden");
+                    document.querySelector('[pgmid="MRRegUser"] .wrapper2').classList.remove("hidden"); 
+                    if(me.userinfo.length > 1) gfnAlet("사번선택","유효한 임직원 정보가 두건이상 존재합니다. 사용 등록할 사번을 선택하세요");
+                }
+            } else {
+                gfnAlert("오류",OUTVAR.rtnMsg);
+            }
+        }); 
+    }
+
+    me.fnSetRegUserInfo=function(idx) {
+        $("#userRegInfo").html(`<label>성명 : </label><span>${me.userinfo[idx].nm}<br>
+             <label>회사 : </label><span>${me.userinfo[idx].comcd}<br>
+             <label>부서 : </label><span>${me.userinfo[idx].deptnm}<br>
+             <label>직책 : </label><span>${me.userinfo[idx].jobrolenm}<br>
+             <label>직급 : </label><span>${me.userinfo[idx].jobgradenm}<br>
+             <label>전화번호 : </label><span>${me.userinfo[idx].telno}<br>`);
+        var email = "@lfnetworks.co.kr";
+        if(me.userinfo[idx].comcd=="TRIBONS") email = "@tribons.co.kr";
+        else if(me.userinfo[idx].comcd=="PASTEL") email = "@pastelworld.co.kr";
+        else if(me.userinfo[idx].comcd=="LFN") email = "@lfnetworks.co.kr";
+        $("#userRegMail").text(email)     
+    }
+    
+    me.fnSave=function() {
+        var usid = document.querySelector('.wrapper2 .usid').value;
+        usid = usid.replace(/\@.*/,''); //이메일로 입력하는 경우 이메일 없앤 후 저장
+        //console.log(usid);
+        var email = usid+""+ $("#userRegMail").text(); 
+        var pwd = document.querySelector('.wrapper2 .pwd').value;
+        var pwdchk = document.querySelector('.wrapper2 .pwdchk').value;
+        var pwdreg = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
+        if(isNull(usid) || usid.length < 3) {
+            $(".wrapper2 .regUser.notice").addClass("warn").html("<h5>아이디 오류</h5><span>아이디는 2글자 이상이며, 회사이메일아이디와 동일해야 합니다.</span>");
+            return;
+        }
+        if(pwdreg.test(pwd) == false){
+            $(".wrapper2 .regUser.notice").addClass("warn").html("<h5>비밀번호 오류</h5><span>비밀번호 조건에 알맞게 입력해 주세요</span>");
+            return;
+        }
+        if(pwd != pwdchk){
+            $(".wrapper2 .regUser.notice").addClass("warn").html("<h5>비밀번호 오류</h5><span>두 비밀번호가 일치하지 않습니다.</span>"); 
+            return;
+        }
+        var idx = idx = $("#user_cd").val(); 
+        var args = me.userinfo[idx];
+        args.usid = usid;
+        args.email = email; 
+        args.pwd = CryptoJS.SHA256(pwd).toString(); 
+        var invar = JSON.stringify(args);
+        console.log(args);
+        gfnTx(appid+"."+pgmid,"save",{INVAR:invar},function(OUTVAR){
+            console.log(OUTVAR);
+            if(OUTVAR.rtnCd=="OK") {
+                gfnAlert("등록완료","사용자 등록이 완료되었습니다.");
+                
+                if(args.comcd=="LFN") {
+                    gfnSendMsg("naverworks",args.email,"회의실 예약시스템 -"+args.nm+"님의 사용자정보("+args.email+")가 등록되었습니다.",null,
+                        function(OUTVAR) {
+                            console.log(OUTVAR);    
+                        });
+                } else {
+                    gfnSendMsg("jandi",args.email,"회의실 예약시스템 -"+args.nm+"님의 사용자정보("+args.email+")가 등록되었습니다.",null,
+                        function(OUTVAR) {
+                            console.log(OUTVAR);
+                        }); 
+                }
+                const pgm = "MRLogin";
+    			const panel = document.querySelector(".userarea");
+    			panel.innerHTML = "";
+    			gfnLoad(pgm,panel,OUTVAR=>{});  
+            } else {
+                gfnAlert("오류",OUTVAR.rtnMsg);
+            }
+        });
+    }
+
+/*-- SCRIPT autogen ---------------------------------------------------- */        
+if(typeof(me.fnInit)=='function') me.fnInit();
+});
+
+</script>

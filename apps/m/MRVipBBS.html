@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=0.5,maximum-scale=5.0,user-scalable=yes">
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="format-detection" content="telephone=no"/>  
+<title>VIP예약현황공유</title>
+<link rel="shortcut icon" href="/images/vipbbsicon.png" type="image/x-icon" />
+<link rel="stylesheet" href="/lib/jquery-ui/jquery-ui-1.12.1.min.css" /> 
+<style>
+@import url(//fonts.googleapis.com/earlyaccess/nanumgothic.css);
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body { 
+    width: 100vw;
+    overflow-x: hidden; 
+    font-family: 'Nanum Gothic', sans-serif;
+    line-height: 1.5;
+}
+.awe-portal { 
+    text-align: center;
+    background-image: url(/images/bg19007.jpg);
+    background-size: cover;
+    transition: all 2s ease-in;
+}
+.awe-layer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #46464666;
+} 
+.awe-status {
+    position: sticky;
+    top: 0;
+    right: 0; 
+}
+
+.awe-nav {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-content: center;
+    justify-content: space-between;
+    align-items: center;
+    column-gap: 1em;
+    position: sticky;
+    background-color: #2e8b5742;
+    background-image: url(/images/bg-middle.png);
+    padding: 0 1em;
+    box-shadow: 0.25em 0 0.25em 0.25em #7a797963;
+    background-size: contain;
+}
+.awe-nav > *:hover {
+    color: #333360;
+    background-color: #d3d3d357;
+    cursor: pointer;
+}
+.awe-nav-menu {
+    font-size: 2em;
+    color: #3a3a3a;
+    padding: 0.25em;
+    border-radius: 0.125em;
+}
+.awe-nav-logo {
+    width: calc(100% - 7em);
+    overflow-x: hidden;
+    white-space: nowrap;
+}
+.awe-nav-logo > h1 {
+    font-size: 1.5em; 
+    font-weight: 900;
+    text-overflow: ellipsis; 
+}
+.awe-nav-user {
+    padding: 0.5em;
+    border-radius: 0.25em;
+}
+.awe-nav-user > img {
+    height: 2em;
+}
+.hidden {
+    display: none;
+}
+.awe-panel {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #36323240;
+}
+
+
+</style>
+<script type="text/javascript" src="/lib/jquery/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="/lib/jquery-ui/jquery-ui-1.12.1.min.js"></script>
+<script src="https://kit.fontawesome.com/b8597271c4.js" crossorigin="anonymous"></script>
+<script src="/src/awecommon.js?20220504"  type="text/javascript" charset="utf-8"></script>
+<script>
+var gfn = {};
+var gObj = {};
+var gParam = {};
+var gds = {comcd:[]};
+var gUserinfo = {userid:"anonymous"}; 
+var lpcnt = 0;
+function gfnLoad(pgm,oDOM,afnCallback,domChildClear) {
+	lpcnt++;
+	$.ajax({
+		url: "/apps/m/"+pgm+".html?"+(date("today","yyyymmddhh24miss")+""+lpcnt),
+		type: 'GET', /* static content는 POST가 아니라 GET으로 호출 */
+		dataType: "html",   
+		success: function(rtn, stat) {
+			var page = document.createElement("div"); 
+			page.classList.add('framepage');
+			page.setAttribute("pgmid",pgm); 
+			page.setAttribute("id","page"+lpcnt); 
+			var oPage = $(page); 
+			oPage.html(rtn); 
+			if(domChildClear) $(oDOM).children("*").remove();
+			$(oDOM).append(oPage); 
+			var OUTVAR = {rtnCd:"OK",rtnMsg:oPage}; 
+			afnCallback(OUTVAR);
+		},
+		error: function(jqx, stat, err) {
+			var OUTVAR = {rtnCd:"ERR",rtnMsg:"["+jqx.responseText+"]"};
+			afnCallback(OUTVAR); 
+		}
+	});      
+}
+function gfnTx(pgm,func,data,afnCallback) {  
+	$.ajax({
+		url: "/awegtx.jsp?pgm="+pgm+"&func="+func,
+		type: 'POST',
+		dataType: 'json', 
+		async: true,
+		data: data,
+		success: function(OUTVAR, stat) { 
+			afnCallback(OUTVAR); 
+			if(OUTVAR.rtnSubCd=="SESSION") gfnHome();
+		},
+		error: function(jqx, stat, err) {
+			var OUTVAR = {rtnCd:"ERR",rtnMsg:"["+jqx.responseText+"]"};
+			afnCallback(OUTVAR);  
+		}
+	});  
+} 
+function gfnSendMsg(toSys, useremail, msg, url, afnCallback) {
+	if(toSys=="naverworks") {
+		var userlist = [useremail]; //사용자ID
+		var type = "link";  //or "text" // 텍스트 또는 링크
+		var textMsg = msg; //메세지
+		var link = nvl(url,"https://fo.lfnetworks.co.kr/meet.jsp"); //링크
+		
+		var usid = [];
+		for(var i = 0; i<userlist.length; i++){
+			usid.push({'usid':userlist[i], 'msg':textMsg, 'type':type, 'link':link});
+		}
+		var args = {};
+		args.usidlist = usid;
+		var invar = JSON.stringify(args);
+		gfnTx("api.mr_naver_bot","sendMsg",{INVAR:invar},function(OUTVAR){
+			//console.log(OUTVAR);
+			if(OUTVAR.rtnCd=="OK") {
+				afnCallback(OUTVAR);
+			} else {
+				gfnAlert("메세지 발송(네이버웍스 bot 전송) 오류",OUTVAR.rtnMsg);
+			}
+		});	
+	} else if(toSys=="jandi") {
+		var args = {};
+		args.msgs = [{ email: useremail, body: msg,
+		               connectInfo  : [ { title : "회의실 예약시스템",
+                                          imageUrl : nvl(url,"https://fo.lfnetworks.co.kr/meet.jsp") } ] 
+					 }];
+		var invar = JSON.stringify(args);		
+		gfnTx("api.mr_jandi_bot","sendMsg",{INVAR:invar},function(OUTVAR){
+			if(OUTVAR.rtnCd=="OK") {
+				afnCallback(OUTVAR);
+			} else {
+				gfnAlert("메세지 발송(잔디 bot 전송) 오류",OUTVAR.rtnMsg);
+			}
+		}); 
+	}
+}
+function gfnAlert(title,content) {
+	var AlertPopLayer = document.createElement("div");
+	AlertPopLayer.classList.add("awePopLayer"); 
+	var AlertPop = document.createElement("div");
+	AlertPop.classList.add("awePop");
+	var AlertPopTitle = document.createElement("H2");
+	AlertPopTitle.innerHTML = title;
+	AlertPop.append(AlertPopTitle);
+	var AlertPopBody = document.createElement("DIV");
+	AlertPopBody.innerHTML = content; 
+    AlertPop.append(AlertPopBody); 
+	AlertPop.addEventListener('click',e=>{
+		AlertPopLayer.remove();
+	})
+	AlertPopLayer.append(AlertPop)
+	document.body.append(AlertPopLayer); 
+}
+function gfnStatus(title,content) {
+	var StatusPop = document.createElement("div"); 
+	StatusPop.innerHTML = "<h5>"+title+"</h5>"+content; 
+    $(".aweStatus").append(StatusPop);
+	setTimeout(function(){ 
+		StatusPop.remove();
+	},5000); 
+}
+function gfnLoadPage(pgm,afnCallback) {
+	const mainContent = document.querySelector(".mainContent");
+	gfnLoad(pgm,mainContent,OUTVAR=>{
+		if(OUTVAR.rtnCd=="OK") {
+			const panel = document.querySelector(".panel");
+			panel.hidden = true; 
+			mainContent.classList.remove("hidden");
+			mainContent.hidden = false; 
+			if(!isNull(afnCallback)) afnCallback();
+		} else {
+			gfnHome();
+		}
+	},true);
+}
+function gfnClosePop() { 
+	$(".awePopLayer").remove();
+}
+function gfnHome() {
+	const toggle = document.querySelector('.topbar .toggle');
+	const navigation = document.querySelector('.navigation');
+	const main = document.querySelector('.main');
+	toggle.classList.remove('active'); 
+	navigation.classList.remove('active');
+	main.classList.remove('active');
+	const panel = document.querySelector(".panel");
+	panel.hidden = false; 
+	const mainContent = document.querySelector(".mainContent");
+	mainContent.hidden = true;
+	const userarea = document.querySelector(".userarea");
+	userarea.innerHTML = "";
+	userarea.hidden = false;   
+} 
+function gfnLogout() {
+	gfnTx("aweportal.login","logout",{},function(OUTVAR){
+		if(OUTVAR.rtnCd=="OK") {
+			gUserinfo.email=null;
+			gUserinfo.jobgradenm=null;
+			gUserinfo.jobrolenm=null;
+			gUserinfo.tel_no=null;
+			gfnAlert("로그아웃 성공","로그아웃 되었습니다.");
+			location.reload();
+		}		
+	}); 
+}
+function gfnCdNm(grpcd,cd,type) {
+	var rtn;
+	try { 
+		if(type==undefined) type = "nm";
+		rtn = subset(subset(gds["comcd"],"grpcd",grpcd),"cd",cd)[0][type];
+	} catch(e) {
+		rtn = "";
+	}
+	return rtn;
+}
+function gfnInit() {
+    $(".awe-nav-menu").on("click",function(){
+        $(".awe-menu").toggleClass("hidden");
+    });
+} 
+</script>
+</head>
+<body onload="gfnInit()">
+    <div class="awe-portal">
+		<div class="awe-nav">
+            <div class="awe-nav-menu">
+                <i class="fas fa-bars"></i>
+            </div> 
+            <div class="awe-nav-logo">
+                <h1>VIP 예약현황 공유</h1>
+            </div>
+            <div class="awe-nav-user">
+                <img src="/images/memberMe.png">
+            </div>
+		</div>
+        <div class="awe-menu hidden">
+            <div class="awe-nav">
+                <div class="awe-menu-logo">
+                    <h1>VIP 예약현황 공유</h1>
+                </div>
+                <div class="awe-menu-func">
+                    <i class="fas fa-step-backward"></i>
+                </div>
+            </div>
+            <ul class="awe-menu-list">
+                <li class="awe-menu-item">
+                    <h3>골프회원권 마스터 관리</h3>
+                </li>  
+                <li class="awe-menu-item">
+                    <h3>골프회원권 예약현황</h3>
+                </li> 
+            </ul> 
+        </div>   
+        <div class="awe-main">
+			<div class="awe-mdi">
+                <!-- framepage -->
+                <div class="awe-framepage">  
+                    <div class="awe-framepage-nav">
+                        <div class="awe-page-loc">
+                            <span class="awe-page-loc-lv0">
+                                VIP BBS
+                            </span>
+                            <span class="awe-page-loc-lv1">
+                                골프회원권
+                            </span>
+                            <span class="awe-page-loc-lv2">
+                                <span>예약현황</span>
+                                <i class="fas fa-star"></i> 
+                            </span>
+                        </div>
+                        <div class="awe-page-common-func">
+                            <button>
+                                <i class="fas fa-help"></i>
+                                도움말
+                            </button>
+                            <button>
+                                <i class="fas fa-door-close"></i>
+                                닫기
+                            </button>
+                        </div>
+                    </div>
+                    <div class="awe-framepage-top">
+                        <h2 class="awe-page-title">
+                            골프회원권 예약현황('22 11월)
+                        </h2> 
+                        <div class="awe-page-func">
+                            <button>
+                                <i class="fas fa-backward"></i>
+                                이전
+                            </button>
+                            <button>
+                                <i class="fas fa-search"></i>
+                                조회
+                            </button>
+                            <button>
+                                <i class="fas fa-forward"></i>
+                                다음
+                            </button> 
+                            <button>
+                                <i class="fas fa-save"></i>
+                                저장
+                            </button>
+                        </div>
+                        <div class="awe-page-cond awe-page-component awe-form">
+                            <div class="awe-page-componentBody"> 
+                                <div class="awe-row"> 
+                                    <div class="awe-col">
+                                        <label for="book_ym">년월</label>
+                                        <input id="book_yn" type="month">
+                                    </div>
+                                    <div class="awe-col">
+                                        <label for="golf_membership">골프회원권</label>
+                                        <select id="golf_membership">                            
+                                            <option selected>-- 전체 --</option>
+                                            <option value="REX">렉스필드CC</option>
+                                            <option value="ADO">아도니스CC</option>
+                                        </select>
+                                    </div>                                        
+                                </div>
+                            </div>
+                        </div>                         
+                        <div class="awe-page-content">
+<pre>
+OUTVAR = {
+    golf_membership: [   
+        {
+            id: "REX",
+            nm: "렉스필드CC",
+            avail_weekday: 3,
+            avail_weekend: 2,
+            avail_saturday: 0,
+            avail_sunday: 0, 
+            img_cnt: 2,
+            logo_img: "/images/REXlogo.gif",
+            allow_to : "bs, bj, yi, dr, kj, es",
+        }, 
+        {
+            id: "ADO",
+            nm: "아도니스CC",
+            avail_weekday: 7,
+            avail_weekend: 0,
+            avail_saturday: 2,
+            avail_sunday: 3, 
+            img_cnt: 2,
+            logo_img: "/images/ADOlogo.png",
+            allow_to : "bs, bj, yi, dr, kj, es",
+        },        
+    ],
+    book_info: [
+        {
+            golf_membership_id: "ADO",
+            book_dt: "2022-11-05 09:00:00",
+            book_user: "bs",
+            member_cnt: 3,
+            remark: "메모", 
+        },
+        {
+            golf_membership_id: "REX",
+            book_dt: "2022-11-05 09:00:00",
+            book_user: "bs",
+            member_cnt: 3,
+            remark: "메모", 
+        }, 
+    ]
+}
+</pre>                            
+                            <div class="awe-layout-row"> 
+                                <!-- component list1 -->
+                                <div id="list1" class="awe-page-component"> 
+                                    <div class="awe-page-componentTop">
+                                        <h4>렉스필드CC 예약현황</h4>
+                                    </div>
+                                    <div class="awe-page-componentBody"> 
+                                        <div class="awe-row">
+                                            <table>
+                                                <thead>
+                                                    <tr>
+                                                        <th colspan="5">
+                                                            주중(3회)
+                                                        </th>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>No.</th>
+                                                        <th>일시</th>
+                                                        <th>예약자</th>
+                                                        <th>인원</th>
+                                                        <th>비고</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td><span colid="seq"        dtype="num"  etype="raw">1</span></td>
+                                                        <td><span colid="book_dt"    dtype="dttm" etype="raw" attr="btnCal" format="dd일(w) hh24:mi">08일(화) 09:00</span></td>
+                                                        <td><span colid="book_user"  dtype="txt"  etype="raw" icon="usericon">홍길동</span></td>
+                                                        <td><span colid="member_cnt" dtype="num"  etype="raw">3</span></td>
+                                                        <td><span colid="remark"     dtype="txt"  etype="raw"></span></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div> 
+                                    </div>           
+                                </div>
+                                <!-- /component list1 -->
+                            </div>
+                            <div class="awe-layout-row"> 
+                                <!-- component list2 -->
+                                <div id="list2" class="awe-page-component"> 
+                                    <div class="awe-page-componentTop">
+                                        <h4>아도니스CC 예약현황</h4>
+                                    </div>
+                                    <div class="awe-page-componentBody"> 
+                                        <div class="awe-row">
+                                            <table>
+                                                <thead>
+                                                    <tr>
+                                                        <th colspan="5">
+                                                            주중(7회)
+                                                        </th>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>No.</th>
+                                                        <th>일시</th>
+                                                        <th>예약자</th>
+                                                        <th>인원</th>
+                                                        <th>비고</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td><span colid="seq"        dtype="num"  etype="raw">1</span></td>
+                                                        <td><span colid="book_dt"    dtype="dttm" etype="raw" attr="btnCal" format="dd일(w) hh24:mi">08일(화) 09:00</span></td>
+                                                        <td><span colid="book_user"  dtype="txt"  etype="raw" icon="usericon">홍길동</span></td>
+                                                        <td><span colid="member_cnt" dtype="num"  etype="raw">3</span></td>
+                                                        <td><span colid="remark"     dtype="txt"  etype="raw"></span></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div> 
+                                    </div>           
+                                </div>
+                                <!-- /component list1 -->
+                            </div>
+                        </div> 
+                    </div> 
+                </div>
+                <!-- /framepage -->
+            </div>
+			<footer>
+				<p>Copyright © 2022 LF Networks co.,Ltd. All rights reserved.</p>
+			</footer>
+		</div>
+    </div>
+	<div class="awe-layer">
+        <!-- panel -->
+        <div class="awe-panel">
+            <div class="awe-framepage-nav">
+                <div class="awe-page-common-func">
+                    <button>
+                        <i class="fas fa-help"></i>
+                        도움말
+                    </button>
+                    <button>
+                        <i class="fas fa-door-close"></i>
+                        닫기
+                    </button>
+                </div>
+            </div>
+            <div class="awe-framepage-top">
+                <h2 class="awe-page-title">
+                    골프회원권 예약현황('22 11월)
+                </h2> 
+                <div class="awe-page-func">
+                    <button>
+                        <i class="fas fa-search"></i>
+                        조회
+                    </button>
+                    <button>
+                        <i class="fas fa-check"></i>
+                        선택
+                    </button>
+                </div>
+                <div class="awe-page-cond awe-page-component awe-form">
+                    <div class="awe-page-componentBody"> 
+                        <div class="awe-row"> 
+                            <div class="awe-col">
+                                <label for="book_ym">년월</label>
+                                <input id="book_yn" type="month">
+                            </div>
+                            <div class="awe-col">
+                                <label for="golf_membership">골프회원권</label>
+                                <select id="golf_membership">                            
+                                    <option selected>-- 전체 --</option>
+                                    <option value="REX">렉스필드CC</option>
+                                    <option value="ADO">아도니스CC</option>
+                                </select>
+                            </div>                                        
+                        </div>
+                    </div>
+                </div>                         
+                <div class="awe-page-content">                          
+                    <div class="awe-layout-row">  
+                        <div class="awe-page-component"> 
+                            <div class="awe-page-componentTop">
+                                <h4>Component Top</h4>
+                            </div>
+                            <div class="awe-page-componentBody"> 
+                                Component Body
+                            </div>           
+                        </div>
+                    </div> 
+                </div> 
+            </div>  
+        </div>
+    </div>
+	<div class="awe-status">
+        <div class="awe-panel">
+            toast message
+        </div>
+    </div>
+</body>
+</html>

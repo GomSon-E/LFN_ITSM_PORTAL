@@ -1,0 +1,140 @@
+<html>
+	<head>	 
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />	
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.0/jquery.min.js"> </script>
+		<script> 
+			$(function(){
+				var request_msg = "";
+				request_msg = "S_STATUS";
+				console.log("영수증 출력 part");
+				$.ajax
+					({
+						url:"http://127.0.0.1:27098", 
+						type:"POST",
+						async : false,
+						dataType : "jsonp",
+						jsonp : "callback",
+						data : { "REQ": request_msg},
+						success: function(datalist)
+						{	
+							if(datalist != null && datalist.RES_CD == '0000'){
+								console.log("단말기상태 체크 완료");
+								console.log(window.opener.gParam.sndMsg);
+								$.ajax
+								({
+									url:"http://127.0.0.1:27098", 
+									type:"POST",
+									dataType : "jsonp",
+									async : false,
+									jsonp : "callback",
+									data : { "REQ": window.opener.gParam.sndMsg},
+									success: function(data)
+									{	
+										if(data.RES_CD == '0000'){
+											window.opener.gParam.fnCallback( data ); 
+											console.log("단말기에 데이터 전송 및 웹포스에 데이터 CallBack 완료");
+											console.log(data);
+											window.close();
+										}else{
+											alert("오류코드 : " + data.RES_CD + " " + "오류내용 : " + data.DISPLAY + "\n" +"영수증 조회에서 조회 후 재발행 해주세요");
+											return;
+										}
+										
+										//json 디비깅용
+										//document.getElementById("taResponse").innerText =JSON.stringify(data);
+									},
+									error : function(request,status,error){
+										alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+										console.log(request);
+										console.log(error);
+									}
+								});
+							}else{
+								if(confirm('단말기 카드 제거 후 확인을 눌러주세요') == true){
+									console.log("confirm 확인 입장");
+									console.log(window.opener.gParam.sndMsg);
+									console.log(datalist);
+									var request_msg = "";
+									request_msg = "S_STATUS";
+									console.log("영수증 출력 part");
+									$.ajax
+										({
+											url:"http://127.0.0.1:27098", 
+											type:"POST",
+											async : false,
+											dataType : "jsonp",
+											jsonp : "callback",
+											data : { "REQ": request_msg},
+											success: function(datalist)
+											{	
+												if(datalist != null && datalist.RES_CD == '0000'){
+													console.log("단말기상태 체크 완료");
+													console.log(window.opener.gParam.sndMsg);
+													$.ajax
+													({
+														url:"http://127.0.0.1:27098", 
+														type:"POST",
+														dataType : "jsonp",
+														async : false,
+														jsonp : "callback",
+														data : { "REQ": window.opener.gParam.sndMsg},
+														success: function(data)
+														{	
+															if(data.RES_CD == '0000'){
+																window.opener.gParam.fnCallback( data ); 
+																console.log("단말기에 데이터 전송 및 웹포스에 데이터 CallBack 완료");
+																console.log(data);
+																window.close();
+															}else{
+																alert("오류코드 : " + data.RES_CD + " " + "오류내용 : " + data.DISPLAY + "\n" +"영수증 조회에서 조회 후 재발행 해주세요");
+																return;
+															}
+															
+															
+															//json 디비깅용
+															//document.getElementById("taResponse").innerText =JSON.stringify(data);
+														},
+														error : function(request,status,error){
+															alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+															console.log(request);
+															console.log(error);
+														}
+													});
+												}else{
+													alert("오류코드 : " + datalist.RES_CD + " " + "오류내용 : " + datalist.DISPLAY + "\n" +  "영수증 조회에서 조회 후 재발행 해주세요");
+													return;
+												}
+											},
+											error : function(request,status,error){
+													alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+													console.log(request);
+													console.log(error);
+											}
+										})
+										
+								}else{
+									console.log("confirm 취소 입장");
+									alert("영수증 재발행으로 출력 해주세요");
+									return;
+								}
+							}
+							
+							
+							//json 디비깅용
+							//document.getElementById("taResponse").innerText =JSON.stringify(data);
+						},
+						error : function(request,status,error){
+							alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+							console.log(request);
+							console.log(error);
+						}
+					});
+					console.log("Ajax 통신 완료");
+			}); 
+				
+		</script>	
+	</head>
+	
+	<body onload="fntx">전표출력 중입니다. 출력 완료 후 자동으로 창이 닫힙니다.</body>	
+	
+</html>

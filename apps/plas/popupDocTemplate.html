@@ -1,0 +1,175 @@
+<style>[pgmid='popupDocTemplate'] {
+    max-width: 600px;
+}
+
+[pgmid='popupDocTemplate'] .componentTop {
+    display: none;
+}
+
+[pgmid='popupDocTemplate'] .flexRow {
+    column-gap: 0;
+}
+
+[pgmid='popupDocTemplate'] .componentBody .ag-root-wrapper-body {
+    min-height: 20em;
+}</style>
+
+<!-- HTML autogen start ---------------------------------------------- -->            
+<div class="pageTop"></div>
+<div class="pageContent flexRow">
+    <div style="flex:1 1;display:flex;flex-direction:row;min-height:50%">
+        <div id='cat_0' style="flex:1 1 6em"></div>
+        <div id='cat_1' style="flex:1 1 8em"></div>
+        <div id='cat_2' style="flex:1 1 10em"></div>
+    </div>
+    <div id='doc_template' style="flex:1 1;min-height:50%"></div> 
+</div>
+<!-- HTML autogen end ---------------------------------------------- -->
+<script>
+/*-- SCRIPT autogen start ---------------------------------------------- */        
+$(function() {
+    var appid = "plas";
+    var pgmid = "popupDocTemplate"; 
+    var page = $("*[pgmid='"+pgmid+"'].framepage").last();
+    var pageid = page.attr("id"); 
+    var me = {}
+    var dataSet = {};
+    var dataDef = {};
+    var pageObj = {};
+    var bEdit = false;
+    me.fnInit = function() {
+        gfn[pageid] = me; 
+        me.appid    = appid;
+        me.pgmid    = pgmid;
+        me.pageid   = pageid;
+        me.page     = page; 
+        me.dataSet = dataSet;
+        me.dataDef = dataDef;
+        me.pageObj = pageObj;
+        me.bEdit = bEdit;
+me.dataDef["_pgm"]={"ver":0.3,"upd_dt":"2022-08-26 22:06:33","remark":"","pgmid":"popupDocTemplate","proc_mst_id":"","pgm_stat":"Y","sort_seq":912,"app_pgmid":"plas","shortcut":"","reg_dt":"2022-08-26 22:06:33","reg_usid":"kihyunlee","pgm_nm":"문서 템플릿 선택","upd_usid":"kihyunlee","pgm_tp":"TX","pgm_grp_nm":"기준정보관리","proc_mst_nm":"","app_pgm_nm":"경영관리","":"트랜젝션(화면)","crud":""};
+me.dataDef["_pgm_func"]=[{"func_icon":"fas fa-check","reg_dt":"2022-08-26 22:06:33","reg_usid":"","func_nm":"선택","upd_usid":"","upd_dt":"2022-08-26 22:06:33","func_tp":"EH","remark":null,"pgmid":"popupDocTemplate","sort_seq":"1","funcid":"choose","content":"포커스 된 문서유형을 선택합니다.","crud":"R","id":"0"}];
+me.dataDef["_pgm_data"] = {};
+me.dataDef["_pgm_data"]["cat_0"]={"sort_seq":"1","data_id":"cat_0","data_nm":"대분류","data_icon":null,"component_pgmid":"agGrid","component_option":null,"inout_tp":null,"content":[{"sort_seq":1,"section":null,"section_icon":null,"colgrp":null,"colid":"val_1","colnm":"대분류","dtype":"text","etype":"raw","attr":null,"defval":null,"w":"8","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"0"}]};
+me.dataDef["_pgm_data"]["cat_1"]={"sort_seq":"2","data_id":"cat_1","data_nm":"중분류","data_icon":null,"component_pgmid":"agGrid","component_option":null,"inout_tp":null,"content":[{"sort_seq":1,"section":null,"section_icon":null,"colgrp":null,"colid":"val_1","colnm":"대분류","dtype":"text","etype":"raw","attr":"hidden","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"0"},{"sort_seq":2,"section":null,"section_icon":null,"colgrp":null,"colid":"val_2","colnm":"중분류","dtype":"text","etype":"raw","attr":null,"defval":null,"w":"10","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"1"}]};
+me.dataDef["_pgm_data"]["cat_2"]={"sort_seq":"3","data_id":"cat_2","data_nm":"소분류","data_icon":null,"component_pgmid":"agGrid","component_option":null,"inout_tp":null,"content":[{"sort_seq":1,"section":null,"section_icon":null,"colgrp":null,"colid":"val_1","colnm":"대분류","dtype":"text","etype":"raw","attr":"hidden","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"0"},{"sort_seq":2,"section":null,"section_icon":null,"colgrp":null,"colid":"val_2","colnm":"중분류","dtype":"text","etype":"raw","attr":"hidden","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"1"},{"sort_seq":3,"section":null,"section_icon":null,"colgrp":null,"colid":"val_3","colnm":"소분류","dtype":"text","etype":"raw","attr":null,"defval":null,"w":"12","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"2"}]};
+me.dataDef["_pgm_data"]["doc_template"]={"sort_seq":"4","data_id":"doc_template","data_nm":"문서템플릿","data_icon":null,"component_pgmid":"agGrid","component_option":null,"inout_tp":null,"content":[{"sort_seq":1,"section":null,"section_icon":null,"colgrp":"문서템플릿","colid":"doc_template_id","colnm":"ID","dtype":"text","etype":"raw","attr":"pk","defval":null,"w":"6.5","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"0"},{"sort_seq":2,"section":null,"section_icon":null,"colgrp":"문서템플릿","colid":"title","colnm":"명","dtype":"text","etype":"raw","attr":"keycol","defval":null,"w":"15","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"1"},{"sort_seq":3,"section":null,"section_icon":null,"colgrp":"문서템플릿","colid":"remark","colnm":"적요","dtype":"text","etype":"raw","attr":"disabled","defval":null,"w":"10","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"2"},{"sort_seq":4,"section":null,"section_icon":null,"colgrp":"금액구간","colid":"budget_tp","colnm":"예산점검","dtype":"text","etype":"raw","attr":"center","defval":null,"w":"4","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"3"},{"sort_seq":5,"section":null,"section_icon":null,"colgrp":"금액구간","colid":"amt_tp","colnm":"구분","dtype":"text","etype":"sel","attr":"readonly","defval":null,"w":"8","h":null,"refcd":"AMT_TP","option":"sel:amt_tp::nm","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"4"},{"sort_seq":6,"section":null,"section_icon":null,"colgrp":"금액구간","colid":"amt_from","colnm":"이상","dtype":"num","etype":"raw","attr":null,"defval":null,"w":"6","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"5"},{"sort_seq":7,"section":null,"section_icon":null,"colgrp":"금액구간","colid":"amt_to","colnm":"이하","dtype":"num","etype":"raw","attr":null,"defval":null,"w":"8","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"6"}]};
+
+        me.pageObj["_page"] = new gfnFramepage( me ); 
+        for(var component_id in me.dataDef["_pgm_data"]) { 
+            me.pageObj[component_id] = new gfnComponent( me.pageid, component_id, me.dataDef["_pgm_data"][component_id], me.fnEH, me); 
+        }  
+        setTimeout(function(){
+            $("#frameset").scrollTo(0); //스크롤 
+        },10);
+        if(typeof(me.fnInitExtra)=='function') me.fnInitExtra(); 
+    } 
+/*-- SCRIPT autogen end ---------------------------------------------- */
+
+    /* 사용자초기화 */
+    me.fnInitExtra=function() {
+        //문서템플릿선택을 위한 사용자컴포넌트 설정
+        me.co_cd   = gUserinfo.co_cd;
+        
+        //필터링하여 전체목록 추출 gfnGetData(refcd, fnCallback, disp, term, bForceRefresh, where)
+        gfnGetData("DOC_TEMPLATE_ID",function(rtn){
+    
+            if(!isNull(gParam)&&!isNull(gParam.cat_0)) me.arrData = gds.comcd.filter(el=>el.grpcd=="DOC_TEMPLATE_ID"&&el.val_1==gParam.cat_0&&el.val_4==me.co_cd);    
+            else me.arrData = gds.comcd.filter(el=>el.grpcd=="DOC_TEMPLATE_ID"&&el.val_4==me.co_cd);
+
+            me.cat_0   = extract(me.arrData,["val_1"],"distinct");
+            me.cat_1   = extract(me.arrData,["val_1","val_2"],"distinct");
+            me.cat_2   = extract(me.arrData,["val_1","val_2","val_3"],"distinct"); 
+            
+            me.pageObj.cat_0.importData(me.cat_0);
+            me.pageObj.cat_1.importData(me.cat_1);        
+            me.pageObj.cat_2.importData(me.cat_2);  
+
+        }, "cdnm", "", true, " cd_stat = 'Y' ");
+    }
+    
+    
+    /* 이벤트핸들러 */
+    me.fnEH=function(component, evt, row, col, val) { 
+        //console.log(evt+","+row+","+col+","+val);
+        //화면기능버튼이 눌리면 
+        if (component==me.pageObj["_pageFunc"]){ 
+            if(typeof(me[col])=='function') me[col](); //col=기능명 me["fnSearch"]()=me.fnSearch(); 
+        }
+        //cat_0:대분류 이벤트처리     
+        else if(component==me.pageObj["cat_0"]) {
+            if(evt=="focus") {
+                me.fnSearch(component.getVal(row,"val_1"),"",""); 
+            } 
+        }
+
+        //cat_1:중분류 이벤트처리     
+        else if(component==me.pageObj["cat_1"]) {
+            if(evt=="focus") {
+                me.fnSearch(component.getVal(row,"val_1"),component.getVal(row,"val_2"),""); 
+            } 
+        }
+
+        //cat_2:소분류 이벤트처리     
+        else if(component==me.pageObj["cat_2"]) {
+            if(evt=="focus") {
+                me.fnSearch(component.getVal(row,"val_1"),component.getVal(row,"val_2"),component.getVal(row,"val_3")); 
+            } 
+        }
+
+        //doc_template:문서템플릿 이벤트처리     
+        else if(component==me.pageObj["doc_template"]) {
+            if(evt=="componentFunc") {
+                if(row=="addRow") {
+                    component.addRow();
+                } else if(row=="delRow") {
+                    component.delRow();
+                }
+            }
+            if(evt=="dblclick") {
+                me.fnChoose();
+            }  
+        }
+
+        //사용자 컴포넌트/컨트롤
+        else if(component.userComponent=="myCompoId") {
+            //if(evt=="dblclick" && col=="colid") {...}
+        }
+    }
+    
+    me.fnSearch=function(cat_0, cat_1, cat_2) {
+        me.pageObj.cat_1.gridOptions.api.setQuickFilter(cat_0);
+        me.pageObj.cat_2.gridOptions.api.setQuickFilter(cat_0+" "+cat_1);
+        var args = {co_cd:me.co_cd,cat_0:cat_0,cat_1:cat_1,cat_2:cat_2};  
+        var invar = JSON.stringify(args);
+        gfnTx(appid+"."+pgmid,"search",{INVAR:invar},function(OUTVAR){
+            //console.log(OUTVAR);
+            if(OUTVAR.rtnCd=="OK") {
+                me.pageObj.doc_template.importData(OUTVAR.list);
+            } else {
+                gfnAlert("오류",OUTVAR.rtnMsg);
+            }
+        },true);
+    }
+    
+    //choose:선택 
+    me.fnChoose=function() {
+        var row = me.pageObj.doc_template.exportData("selected");
+        if(isNull(row)) {
+            gfnStatus("검색결과 선택확인","선택된 줄이 없습니다!");
+            return;
+        }
+        gParam.OUTVAR = {rtnCd:"OK"};
+        gParam.OUTVAR.list = row;
+        if(typeof(gParam.INVAR.fnCallback)=="function") gParam.INVAR.fnCallback(gParam.OUTVAR);
+        delete gfn[me.pageid];
+        var myPopupId = me.page.exactObj("[role='dialog']").attr("aria-describedby");
+        $("#"+myPopupId).dialog("close");
+    }
+
+
+/*-- SCRIPT autogen ---------------------------------------------------- */        
+if(typeof(me.fnInit)=='function') me.fnInit();
+});
+
+</script>

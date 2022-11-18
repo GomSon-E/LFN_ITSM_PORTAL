@@ -1,0 +1,286 @@
+<style>[pgmid='manageCal'].framepage .flex {
+display: flex;
+flex-direction: row;
+flex-wrap: nowrap;
+align-content: flex-start;
+justify-content: center;
+align-items: flex-start;
+}
+
+[pgmid='manageCal'].framepage .flex > div {
+    flex: 1 1 50%;
+}
+</style>
+
+<div class="pageNav"></div>
+<div class="pageTop"></div>
+<div class="pageCond"></div>
+<div class="pageGuide"></div>
+<div class="pageContent flex flexRow" >
+    <div id="calender" style="flex:1 1 50%" class="flexColumn"></div>
+    <div id="list" style="flex:1 1 calc(50% - 3em)" class="flexColumn"></div>
+</div>
+
+<script>
+/*-- SCRIPT autogen start ---------------------------------------------- */        
+$(function() {
+    var appid = "aweportal";
+    var pgmid = "manageCal"; 
+    var page = $("*[pgmid='"+pgmid+"'].framepage").last();
+    var pageid = page.attr("id"); 
+    var me = {}
+    var dataSet = {};
+    var dataDef = {};
+    var pageObj = {};
+    var bEdit = false;
+    me.fnInit = function() {
+        gfn[pageid] = me; 
+        me.appid    = appid;
+        me.pgmid    = pgmid;
+        me.pageid   = pageid;
+        me.page     = page; 
+        me.dataSet = dataSet;
+        me.dataDef = dataDef;
+        me.pageObj = pageObj;
+        me.bEdit = bEdit;
+me.dataDef["_pgm"]={"ver":5.5,"upd_dt":"2022-10-12 16:14:01","remark":"","pgmid":"manageCal","proc_mst_id":"","pgm_stat":"Y","sort_seq":65,"app_pgmid":"aweportal","shortcut":"ZU2","reg_dt":"2022-10-12 16:14:01","reg_usid":"jjr","pgm_nm":"업무달력","upd_usid":"jjr","pgm_tp":"UX","pgm_grp_nm":"포털","proc_mst_nm":"","app_pgm_nm":"FO Portal","":"트랜젝션(메뉴)","crud":""};
+me.dataDef["_pgm_func"]=[{"func_icon":"fas fa-search","reg_dt":"2022-10-12 16:14:01","reg_usid":"","func_nm":"조회","upd_usid":"","upd_dt":"2022-10-12 16:14:01","func_tp":"DB_R","remark":"검색 기간 내의 일정을 조회합니다","pgmid":"manageCal","sort_seq":"1","funcid":"search","content":"날짜를 입력받아서 일정 목록을 조회한다.","crud":"R","id":"0"},{"func_icon":"fas fa-save","reg_dt":"2022-10-12 16:14:01","reg_usid":"","func_nm":"저장","upd_usid":"","upd_dt":"2022-10-12 16:14:01","func_tp":"DB_W","remark":"한번 등록된 코드는 변경할 수 없습니다.","pgmid":"manageCal","sort_seq":"2","funcid":"save","content":"추가/수정된 일정을 저장한다.","crud":"R","id":"1"},{"func_icon":"fas fa-file","reg_dt":"2022-10-12 16:14:01","reg_usid":"","func_nm":"일정추가","upd_usid":"","upd_dt":"2022-10-12 16:14:01","func_tp":"EH","remark":null,"pgmid":"manageCal","sort_seq":"3","funcid":"new","content":"신규 일정을 추가한다.","crud":"R","id":"2"}];
+me.dataDef["_pgm_data"] = {};
+me.dataDef["_pgm_data"]["pageCond"]={"sort_seq":"1","data_id":"pageCond","data_nm":"조회조건","data_icon":null,"component_pgmid":"aweForm","component_option":null,"inout_tp":"IN","content":[{"sort_seq":1,"section":null,"section_icon":null,"colgrp":null,"colid":"fromdate","colnm":"조회기간","dtype":"ymd","etype":"txt","attr":"ymd ","len":"20","defval":"date(\"today\").substr(0,8)+\"01\"","refcd":"DATE","option":"txt","valid":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","colFormula":null,"w":null,"h":null,"id":"0"},{"sort_seq":2,"section":null,"section_icon":null,"colgrp":null,"colid":"todate","colnm":"~","dtype":"ymd","etype":"txt","attr":"ymd ","len":"20","defval":"date(\"last\")","refcd":"DATE","option":"txt","valid":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","colFormula":null,"w":null,"h":null,"id":"1"},{"sort_seq":3,"section":null,"section_icon":null,"colgrp":null,"colid":"caltype","colnm":"일정구분","dtype":"text","etype":"sel","attr":"keycol","len":"20","defval":"LFN","refcd":"CALTYPE","option":"sel:cd:nm","valid":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","colFormula":null,"w":null,"h":null,"id":"2"}]};
+me.dataDef["_pgm_data"]["calender"]={"sort_seq":"2","data_id":"calender","data_nm":"달력보기","data_icon":null,"component_pgmid":"aweCalendar","component_option":{"caltype":"COMMON","fnTemplate":"row=>row.remark","week_cnt":6},"inout_tp":"IN","content":[]};
+me.dataDef["_pgm_data"]["list"]={"sort_seq":"3","data_id":"list","data_nm":"일정목록","data_icon":null,"component_pgmid":"agGrid","component_option":{"height":"60em","gridOpt":"rn chk","gridOptions":{"statusBar":"false"}},"inout_tp":"INOUT","content":[{"sort_seq":1,"section":null,"section_icon":null,"colgrp":null,"colid":"ymd","colnm":"날짜","dtype":"ymd","etype":"txt","attr":"ymd","len":10,"defval":null,"refcd":null,"option":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","w":"8","h":null,"id":"0"},{"sort_seq":2,"section":null,"section_icon":null,"colgrp":null,"colid":"lunar_ymd","colnm":"음력날짜","dtype":"ymd","etype":"txt","attr":"ymd disabled","defval":null,"w":8,"h":null,"refcd":null,"option":null,"len":10,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"1"},{"sort_seq":3,"section":null,"section_icon":null,"colgrp":null,"colid":"remark","colnm":"일정내용","dtype":"text","etype":"tarea","attr":null,"len":20,"defval":null,"refcd":null,"option":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","w":null,"h":null,"id":"2"},{"sort_seq":6,"section":null,"section_icon":null,"colgrp":null,"colid":"wkday","colnm":"요일","dtype":"text","etype":"txt","attr":null,"len":10,"defval":null,"refcd":null,"option":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","w":null,"h":null,"id":"3"},{"sort_seq":7,"section":null,"section_icon":null,"colgrp":null,"colid":"holi_yn","colnm":"휴무여부","dtype":"text","etype":"cbx","attr":null,"len":7,"defval":null,"refcd":null,"option":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","w":null,"h":null,"id":"4"},{"sort_seq":8,"section":null,"section_icon":null,"colgrp":null,"colid":"holi_remark","colnm":"휴무구분","dtype":"text","etype":"txt","attr":null,"len":7,"defval":null,"refcd":null,"option":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","w":null,"h":null,"id":"5"},{"sort_seq":9,"section":null,"section_icon":null,"colgrp":null,"colid":"work_yn","colnm":"근무여부","dtype":"text","etype":"cbx","attr":null,"len":7,"defval":null,"refcd":null,"option":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","w":null,"h":null,"id":"6"},{"sort_seq":11,"section":null,"section_icon":null,"colgrp":null,"colid":"mweek_yyyy_mm","colnm":"월주차연도월","dtype":"num","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":8,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"7"},{"sort_seq":12,"section":null,"section_icon":null,"colgrp":null,"colid":"yweek_yyyy","colnm":"연주차연도","dtype":"num","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":8,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"8"},{"sort_seq":13,"section":null,"section_icon":null,"colgrp":null,"colid":"mweek","colnm":"월주차","dtype":"text","etype":"txt","attr":null,"len":7,"defval":null,"refcd":null,"option":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","w":null,"h":null,"id":"9"},{"sort_seq":14,"section":null,"section_icon":null,"colgrp":null,"colid":"yweek","colnm":"연주차","dtype":"num","etype":"txt","attr":null,"len":7,"defval":null,"refcd":null,"option":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","w":null,"h":null,"id":"10"},{"sort_seq":15,"section":null,"section_icon":null,"colgrp":null,"colid":"yyyy","colnm":"연도","dtype":"text","etype":"txt","attr":null,"len":5,"defval":null,"refcd":null,"option":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","w":null,"h":null,"id":"11"},{"sort_seq":16,"section":null,"section_icon":null,"colgrp":null,"colid":"mm","colnm":"월","dtype":"num","etype":"txt","attr":null,"len":5,"defval":null,"refcd":null,"option":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","w":null,"h":null,"id":"12"},{"sort_seq":17,"section":null,"section_icon":null,"colgrp":null,"colid":"dd","colnm":"일","dtype":"num","etype":"txt","attr":null,"len":5,"defval":null,"refcd":null,"option":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","w":null,"h":null,"id":"13"}]};
+me.dataDef["_pgm_data"]["test"]={"sort_seq":"4","data_id":"test","data_nm":"달력 test","data_icon":null,"component_pgmid":"aweCalendar","component_option":null,"inout_tp":"INOUT","content":[]};
+
+        me.pageObj["_page"] = new gfnFramepage( me ); 
+        for(var component_id in me.dataDef["_pgm_data"]) { 
+            me.pageObj[component_id] = new gfnComponent( me.pageid, component_id, me.dataDef["_pgm_data"][component_id], me.fnEH, me); 
+        }  
+        setTimeout(function(){
+            $("#frameset").scrollTo(0); //스크롤 
+        },10);
+        if(typeof(me.fnInitExtra)=='function') me.fnInitExtra(); 
+    } 
+/*-- SCRIPT autogen end ---------------------------------------------- */
+  /* 사용자초기화 */
+    me.fnInitExtra=function() {
+        //권한제어
+        function _auth(auth) {
+            if(isNull(auth)) { 
+                gfnAlert("시스템 사용권한 점검","화면에 대한 권한이 없습니다!");
+                $("*[pageidx='"+me.pageid+"']").remove();
+                delete gfn[me.pageid]; 
+                me.page.remove(); 
+            } else {
+                if(isNull(auth.save_yn) || auth.save_yn != "Y") {
+                    me.pageObj._pageFunc.setDisp("save",false);
+                    me.pageObj._pageFunc.setDisp("new",false); 
+                }
+            } 
+        }
+        if(subset(gds.comcd,"grpcd","pgm_auth").length==0) {
+            gfnGetData("pgm_auth",function(rtn){
+                _auth(subset(rtn,"pgmid",pgmid)[0]);
+            }); 
+        } else {
+            _auth(subset(subset(gds.comcd,"grpcd","pgm_auth"),"pgmid",pgmid)[0]) ;
+        } 
+        
+        //달력컴포넌트를 초기화 한다. 이번달 1일부터 말일까지 
+        me.pageObj["calender"].initCalendar();
+
+    }
+    
+    /* 이벤트핸들러 */
+    me.fnEH=function(component, evt, row, col, val) { 
+        console.log(evt+","+row+","+col+","+val);
+        if (component==me.pageObj["_pageFunc"]){ 
+            if(typeof(me[col])=='function') me[col](); //col=기능명 me["fnSearch"]()=me.fnSearch(); 
+        }
+        else if(component==me.pageObj["list"]) {
+            if(evt=="change"&& col=="remark") {
+                if(row >=0 ) {
+                    var rowData = me.pageObj.list.getRowData(row); 
+                    me.pageObj["calender"].setVal(rowData.ymd,rowData);
+                }
+            }
+        }
+    } 
+	
+	/* 연주차 월주차 구하는 함수 */
+    me.calWeek=function(dateFormat) {
+        const inputDate = new Date(dateFormat);
+        let year = inputDate.getFullYear();
+        let month = inputDate.getMonth() + 1;
+            
+        // 목요일 기준 주차 구하기
+        const weekNumberByThurFnc = (paramDate) => {
+            const year = paramDate.getFullYear();
+            const month = paramDate.getMonth();
+            const date = paramDate.getDate();
+         
+            // 인풋한 달의 첫 날과 마지막 날의 요일
+            const firstDate = new Date(year, month, 1);
+            const lastDate = new Date(year, month+1,0);
+            const firstDayOfWeek = firstDate.getDay() === 0 ? 7 : firstDate.getDay();
+            const lastDayOfweek = lastDate.getDay();
+            const lastDay = lastDate.getDate(); 
+            const firstWeekCheck = firstDayOfWeek === 5 || firstDayOfWeek === 6|| firstDayOfWeek === 7; 
+            const lastWeekCheck = lastDayOfweek === 1 || lastDayOfweek === 2 || lastDayOfweek === 3; 
+            const lastWeekNo = Math.ceil((firstDayOfWeek - 1 + lastDay) / 7); 
+            let weekNo = Math.ceil((firstDayOfWeek  + date) / 7);
+            if(weekNo === 1 && firstWeekCheck) weekNo = 'prev';                 // 인풋한 날짜가 첫 주에 있고 첫 날이 월, 화, 수로 시작한다면 'prev'(전달 마지막 주)
+            else if(weekNo === lastWeekNo && lastWeekCheck) weekNo = 'next';   // 인풋한 날짜가 마지막 주에 있고 마지막 날이 월, 화, 수로 끝난다면 'next'(다음달 첫 주)
+            else if(firstWeekCheck)  weekNo = weekNo -1;                      // 인풋한 날짜의 첫 주는 아니지만 첫날이 월, 화 수로 시작하면 -1;
+            return weekNo;
+        };
+        let weekNo = weekNumberByThurFnc(inputDate);
+        // 이전달의 마지막 주차일 떄
+        if(weekNo === 'prev') {
+            const afterDate = new Date(year, month-1, 0);
+            year = month === 1 ? year - 1 : year;
+            month = month === 1 ? 12 : month - 1;
+            weekNo = weekNumberByThurFnc(afterDate);
+        }
+        // 다음달의 첫 주차일 때
+        if(weekNo === 'next') {
+            year = month === 12 ? year + 1 : year;
+            month = month === 12 ? 1 : month + 1;
+            weekNo = 1;
+        }
+        
+        var yearday = 1000 * 60 * 60 * 24;  
+        var firstDay = new Date(year,0,1);
+        var day = firstDay.getDay();
+        day = (day >= 0 ? day : day + 7); 
+        var daynum = Math.floor((inputDate.getTime() - firstDay.getTime() -(inputDate.getTimezoneOffset()-firstDay.getTimezoneOffset())*60000)/86400000) + 1;
+        var weeknum;
+        if(day < 4) {
+            weeknum = Math.floor((daynum+day-1)/7) + 1;
+            if(weeknum > 52) {
+              let nYear = new Date(inputDate.getFullYear() + 1,0,1);
+              let nday = nYear.getDay() ;
+              nday = nday >= 0 ? nday : nday + 7;
+              /*if the next year starts before the middle of
+                the week, it is week #1 of that year*/
+              weeknum = nday < 4 ? 1 : 53;
+            }
+        }else {
+        weeknum = Math.floor((daynum+day-1)/7);}
+        var yweek=weeknum;   
+        return {weekNo,yweek,month,year};
+    }
+			
+    //search:조회 
+    me.fnSearch=function() {
+        me.pageObj["list"].reset();
+        if( !me.pageObj["pageCond"].chkValid() ) return;  
+        var args = me.pageObj["pageCond"].exportData()[0];
+        var invar = JSON.stringify(args);
+        var startDay=args.fromdate;
+        var endDay=args.todate;
+        var row =0;
+        var calarr=[];
+
+        gfnTx(appid+"."+pgmid,"search",{INVAR:invar},function(OUTVAR){
+            var num = OUTVAR.list.length;
+            if(OUTVAR.rtnCd=="OK") {
+                me.pageObj["list"].importData(OUTVAR.list);
+                me.pageObj["calender"].initCalendar(OUTVAR.list[0].ymd);
+                me.pageObj["calender"].importData(OUTVAR.list); 
+            } else {
+                gfnAlert("조회오류",OUTVAR.rtnMsg);
+            }
+         });
+    }
+    
+    me.fnNew=function() {
+        me.pageObj["list"].reset();
+        var args = me.pageObj["pageCond"].exportData()[0];
+        var startDay=args.fromdate;
+        var endDay=args.todate;
+        var row =0;
+        //달력
+        do{
+            me.pageObj.list.addRow();
+            var y=startDay.substr(0,4);
+            var m=startDay.substr(4,2);
+            var d=startDay.substr(6,2);
+            var rowDay=(y + "-" + m + "-" +d);
+            me.calWeek(rowDay);
+            var mweek=me.calWeek(rowDay).weekNo;
+            var yweek=me.calWeek(rowDay).yweek;
+            var mweek_yyyy_mm = me.calWeek(rowDay).month;
+            var yweek_yyyy = me.calWeek(rowDay).year;
+            var wkday=date(startDay,"yyyymmdd","weekday");
+            me.pageObj["list"].setVal(row,"mweek",mweek);
+            me.pageObj["list"].setVal(row,"yweek",yweek);
+            me.pageObj["list"].setVal(row,"yweek_yyyy",yweek_yyyy);
+            me.pageObj["list"].setVal(row,"mweek_yyyy_mm",mweek_yyyy_mm);
+            me.pageObj["list"].setVal(row,"wkday",wkday);
+            me.pageObj["list"].setVal(row,"yyyy",y);
+            me.pageObj["list"].setVal(row,"mm",m);
+            me.pageObj["list"].setVal(row,"dd",d);
+
+            if(me.pageObj["list"].getVal(row,"ymd") === "" ? me.pageObj["list"].setVal(row,"ymd",startDay) : "");
+            startDay=dateAdd(startDay,1,"yyyymmdd");
+            var weekend_yn = me.pageObj["list"].getVal(row,"wkday");
+            if(args.caltype=="COMMON"){
+                if (weekend_yn=="토요일" || weekend_yn == "일요일")  {
+                    me.pageObj["list"].setVal(row,"holi_yn","Y");
+                }else{
+                    me.pageObj["list"].setVal(row,"work_yn","Y");
+                }
+            }
+            row+=1;
+        }
+        while(startDay<=endDay);
+    }
+  
+    //save:저장 
+    me.fnSave=function() {
+        if( !me.pageObj["pageCond"].chkValid() ) {
+            gfnAlert("저장확인", "저장하려는 일정을 확인하세요");
+        }
+        var args = me.pageObj["pageCond"].exportData()[0]; //{grpid, grpcd}
+        var list = me.pageObj.list.exportData("CRU");
+        args.list = list;
+        var num=list.length;
+        
+        /* 날짜, 음력날짜 yyyymmdd형식으로 바꿔서 저장하기*/
+        for (let i =0;i<num;i++){
+            var day=args.list[i].ymd;
+            var yyyy=day.substr(0,4);
+            var mm=day.substr(4,2);
+            var dd=day.substr(6,2); 
+            var newDay=(yyyy + mm +dd);
+            args.list[i].ymd=newDay;
+            args.list[i].yyyy=yyyy;
+            args.list[i].mm=mm;
+            args.list[i].dd=dd;
+            if( args.list[i].lunar_ymd !== null){
+                var lunar_day=args.list[i].lunar_ymd;
+                var y=lunar_day.substr(0,4);
+                var m=lunar_day.substr(4,2);
+                var d=lunar_day.substr(6,2); 
+                var newlunarDay=(y + m +d);
+                args.list[i].lunar_ymd=newlunarDay;
+            }
+        } 
+
+        var invar = JSON.stringify(args);
+        gfnTx(appid+"."+pgmid,"save",{INVAR:invar},function(OUTVAR){
+            if(OUTVAR.rtnCd=="OK") {
+                gfnAlert("저장성공","입력하신 일정이 저장되었습니다.");
+            } else {
+                gfnAlert("저장오류",OUTVAR.rtnMsg);
+            }
+        });
+    }
+ 
+
+
+/*-- SCRIPT autogen ---------------------------------------------------- */        
+if(typeof(me.fnInit)=='function') me.fnInit();
+});
+
+</script>

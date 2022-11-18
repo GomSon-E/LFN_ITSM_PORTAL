@@ -1,0 +1,811 @@
+<style>[pgmid='diligenceStkDSPC'].framepage .userClass { 
+width:100%; 
+}
+
+[pgmid='diligenceStkDSPC'].framepage .flex {
+display: flex;
+flex-direction: row;
+flex-wrap: nowrap;
+align-content: flex-start;
+justify-content: center;
+align-items: flex-start;
+}
+
+[pgmid='diligenceStkDSPC'].framepage .flex > div {
+    flex: 1 1 50%;
+}
+
+[pgmid='diligenceStkDSPC'].framepage .scan { 
+    max-height: 5em;
+    margin-top: 5px;
+    width: 100%;
+    display: flex;
+}
+
+[pgmid='diligenceStkDSPC'].framepage .scan input { 
+    width: 100%;
+    min-height: 2em;
+    font-size: 1.5em;
+    font-weight: bolder;
+    border: 2px solid coral;
+    background-color: beige;
+    text-align: center;
+}
+
+[pgmid='diligenceStkDSPC'].framepage .scan button { 
+    font-size: 1.2em;
+    border: 2px solid coral;
+    margin-left: 5px;
+    display: flex;
+    text-align: center;
+    vertical-align: middle;
+}
+</style>
+
+<!-- HTML autogen start ---------------------------------------------- -->            
+<div class="pageNav"></div>
+<div class="pageTop"></div>
+<div class="pageCond"></div>
+<div class="pageContent flexColumn" >
+    <div id="mst"></div> 
+    <!--<ul id="tabs">
+        <li refid="tab1">재고실사 현황 조회</li>
+        <li refid="tab2">재고실사 등록</li>
+    </ul>-->
+    <div id="tab1" class="flexColumn">
+        <div class="flexRow">
+            <div id="list" style="flex:1 1 50%"></div>             
+            <div id="det" class="flexColumn" style="flex:1 1 50%"></div>             
+        </div>
+    </div> 
+
+</div>             
+     
+<!-- HTML autogen end ---------------------------------------------- -->
+<script>
+/*-- SCRIPT autogen start ---------------------------------------------- */        
+$(function() {
+    var appid = "fo_lg";
+    var pgmid = "diligenceStkDSPC"; 
+    var page = $("*[pgmid='"+pgmid+"'].framepage").last();
+    var pageid = page.attr("id"); 
+    var me = {}
+    var dataSet = {};
+    var dataDef = {};
+    var pageObj = {};
+    var bEdit = false;
+    me.fnInit = function() {
+        gfn[pageid] = me; 
+        me.appid    = appid;
+        me.pgmid    = pgmid;
+        me.pageid   = pageid;
+        me.page     = page; 
+        me.dataSet = dataSet;
+        me.dataDef = dataDef;
+        me.pageObj = pageObj;
+        me.bEdit = bEdit;
+me.dataDef["_pgm"]={"ver":1.9,"upd_dt":"2022-07-21 16:28:04","remark":"창고별 SKU를 스캔하고 수량을 확인하여 등록한다. ","pgmid":"diligenceStkDSPC","proc_mst_id":"","pgm_stat":"Y","sort_seq":65,"app_pgmid":"fo_lg","shortcut":"","reg_dt":"2022-07-21 16:28:04","reg_usid":"jjr","pgm_nm":"3-1. 닥스셔츠 매장실사등록(PC)","upd_usid":"jjr","pgm_tp":"TX","pgm_grp_nm":"재고실사","proc_mst_nm":"","app_pgm_nm":"물류","":"트랜젝션(화면)","crud":""};
+me.dataDef["_pgm_func"]=[{"func_icon":"fas fa-search","reg_dt":"2022-07-21 16:28:04","reg_usid":"","func_nm":"재조회","upd_usid":"","upd_dt":"2022-07-21 16:28:04","func_tp":null,"remark":null,"pgmid":"diligenceStkDSPC","sort_seq":"1","funcid":"searchMst","content":null,"crud":"R","id":"0"},{"func_icon":"fas fa-save","reg_dt":"2022-07-21 16:28:04","reg_usid":"","func_nm":"임시저장","upd_usid":"","upd_dt":"2022-07-21 16:28:04","func_tp":"DB_W","remark":null,"pgmid":"diligenceStkDSPC","sort_seq":"2","funcid":"save","content":"재고실사내역 임시저장","crud":"R","id":"1"},{"func_icon":"fas fa-check","reg_dt":"2022-07-21 16:28:04","reg_usid":"","func_nm":"확정(수불반영)","upd_usid":"","upd_dt":"2022-07-21 16:28:04","func_tp":"DB_W","remark":null,"pgmid":"diligenceStkDSPC","sort_seq":"3","funcid":"cfm","content":"재고실사내역 수불반영","crud":"R","id":"2"},{"func_icon":"fas fa-print","reg_dt":"2022-07-21 16:28:04","reg_usid":"","func_nm":"실사표발행","upd_usid":"","upd_dt":"2022-07-21 16:28:04","func_tp":"EH","remark":null,"pgmid":"diligenceStkDSPC","sort_seq":"4","funcid":"print","content":"재고실사표 발행","crud":"R","id":"3"},{"func_icon":"extra fas fa-trash","reg_dt":"2022-07-21 16:28:04","reg_usid":"","func_nm":"수불반영취소","upd_usid":"","upd_dt":"2022-07-21 16:28:04","func_tp":"DB_W","remark":null,"pgmid":"diligenceStkDSPC","sort_seq":"5","funcid":"cancel","content":"수불반영내역 취소","crud":"R","id":"4"},{"func_icon":"extra fas fa-trash","reg_dt":"2022-07-21 16:28:04","reg_usid":"","func_nm":"임시전표삭제","upd_usid":"","upd_dt":"2022-07-21 16:28:04","func_tp":"DB_W","remark":null,"pgmid":"diligenceStkDSPC","sort_seq":"6","funcid":"delete","content":"임시상태 실사전표 삭제","crud":"R","id":"5"},{"func_icon":null,"reg_dt":"2022-07-21 16:28:04","reg_usid":"","func_nm":"닫기","upd_usid":"","upd_dt":"2022-07-21 16:28:04","func_tp":"EH","remark":null,"pgmid":"diligenceStkDSPC","sort_seq":"7","funcid":"close","content":"화면닫기","crud":"R","id":"6"}];
+me.dataDef["_pgm_data"] = {};
+me.dataDef["_pgm_data"]["mst"]={"sort_seq":"1","data_id":"mst","data_nm":"재고실사 마스터","data_icon":null,"component_pgmid":"aweForm","component_option":null,"inout_tp":null,"content":[{"sort_seq":1,"section":null,"section_icon":null,"colgrp":null,"colid":"lg_ord_no","colnm":"수불전표","dtype":"text","etype":"raw","attr":"pk","defval":"TBD","w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"0"},{"sort_seq":2,"section":null,"section_icon":null,"colgrp":null,"colid":"lg_dt","colnm":"수불일","dtype":"ymd","etype":"txt","attr":"ymd keycol","defval":"date(\"today\")","w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"1"},{"sort_seq":3,"section":null,"section_icon":null,"colgrp":null,"colid":"whcd","colnm":"매장","dtype":"text","etype":"sel","attr":"pk","defval":null,"w":null,"h":null,"refcd":"whcd","option":"sel:whcd::cdnm","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"2"},{"sort_seq":4,"section":null,"section_icon":null,"colgrp":null,"colid":"cd_stat","colnm":"문서상태","dtype":"text","etype":"sel","attr":"readonly","defval":"D","w":null,"h":null,"refcd":"SD_ORD_STAT","option":"sel:cd_stat::cdnm","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"3"},{"sort_seq":5,"section":null,"section_icon":null,"colgrp":null,"colid":"remark","colnm":"내용/비고","dtype":"text","etype":"txt","attr":"keycol","defval":"\"닥스셔츠 재고실사\"","w":"45","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"4"}]};
+me.dataDef["_pgm_data"]["list"]={"sort_seq":"2","data_id":"list","data_nm":"상품시즌별 재고실사 진행현황","data_icon":null,"component_pgmid":"agGrid","component_option":{"remark":"* 소비자가액 VAT포함, 원가액 VAT제외"},"inout_tp":null,"content":[{"sort_seq":1,"section":null,"section_icon":null,"colgrp":null,"colid":"brit","colnm":"브랜드품목","dtype":"text","etype":"raw","attr":"hidden ","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"0"},{"sort_seq":2,"section":null,"section_icon":null,"colgrp":null,"colid":"yyyy","colnm":"상품연도","dtype":"text","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"1"},{"sort_seq":3,"section":null,"section_icon":null,"colgrp":null,"colid":"sssn_cd","colnm":"대표시즌","dtype":"text","etype":"raw","attr":"hidden ","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"2"},{"sort_seq":4,"section":null,"section_icon":null,"colgrp":null,"colid":"brcd","colnm":"브랜드","dtype":"text","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"3"},{"sort_seq":5,"section":null,"section_icon":null,"colgrp":null,"colid":"itemcd","colnm":"품목","dtype":"text","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"4"},{"sort_seq":6,"section":null,"section_icon":null,"colgrp":null,"colid":"sson_cd","colnm":"시즌","dtype":"text","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"5"},{"sort_seq":7,"section":null,"section_icon":null,"colgrp":null,"colid":"item_cnt","colnm":"품목수","dtype":"num","etype":"raw","attr":"hidden","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"6"},{"sort_seq":8,"section":null,"section_icon":null,"colgrp":null,"colid":"box_cnt","colnm":"패킹수","dtype":"num","etype":"raw","attr":"hidden","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"7"},{"sort_seq":9,"section":null,"section_icon":null,"colgrp":null,"colid":"st_cnt","colnm":"스타일수","dtype":"num","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"8"},{"sort_seq":10,"section":null,"section_icon":null,"colgrp":null,"colid":"goods_cnt","colnm":"상품수","dtype":"num","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"9"},{"sort_seq":11,"section":null,"section_icon":null,"colgrp":"전산재고","colid":"qty","colnm":"수량","dtype":"num","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"10"},{"sort_seq":12,"section":null,"section_icon":null,"colgrp":"전산재고","colid":"stk_price_amt","colnm":"소가액","dtype":"num","etype":"raw","attr":"hidden","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"11"},{"sort_seq":13,"section":null,"section_icon":null,"colgrp":"전산재고","colid":"stk_cost_amt","colnm":"원가액","dtype":"num","etype":"raw","attr":"hidden","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"12"},{"sort_seq":14,"section":null,"section_icon":null,"colgrp":"실사","colid":"cfm_qty","colnm":"수량","dtype":"num","etype":"raw","attr":"keycol","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"13"},{"sort_seq":15,"section":null,"section_icon":null,"colgrp":"실사","colid":"cfm_price_amt","colnm":"소가액","dtype":"num","etype":"raw","attr":"keycol hidden","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"14"},{"sort_seq":16,"section":null,"section_icon":null,"colgrp":"실사","colid":"cfm_cost_amt","colnm":"원가액","dtype":"num","etype":"raw","attr":"keycol hidden","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"15"},{"sort_seq":17,"section":null,"section_icon":null,"colgrp":"적용","colid":"app_qty","colnm":"수량","dtype":"num","etype":"raw","attr":"hidden","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"16"},{"sort_seq":18,"section":null,"section_icon":null,"colgrp":"적용","colid":"app_price_amt","colnm":"소가액","dtype":"num","etype":"raw","attr":"hidden","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"17"},{"sort_seq":19,"section":null,"section_icon":null,"colgrp":"적용","colid":"app_cost_amt","colnm":"원가액","dtype":"num","etype":"raw","attr":"hidden","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"18"},{"sort_seq":20,"section":null,"section_icon":null,"colgrp":"조정","colid":"adj_qty","colnm":"수량","dtype":"num","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"19"},{"sort_seq":21,"section":null,"section_icon":null,"colgrp":"조정","colid":"adj_amt","colnm":"소가액","dtype":"num","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"20"},{"sort_seq":22,"section":null,"section_icon":null,"colgrp":"조정","colid":"adj_cost","colnm":"원가액","dtype":"num","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"21"},{"sort_seq":23,"section":null,"section_icon":null,"colgrp":null,"colid":"subsumrow","colnm":"grp","dtype":"text","etype":"none","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"22"}]};
+me.dataDef["_pgm_data"]["det"]={"sort_seq":"3","data_id":"det","data_nm":"상품코드별 재고실사 진행현황","data_icon":null,"component_pgmid":"agGrid","component_option":null,"inout_tp":null,"content":[{"sort_seq":1,"section":null,"section_icon":null,"colgrp":null,"colid":"brit","colnm":"브랜드품목","dtype":"text","etype":"txt","attr":"rowSpan readonly","defval":null,"w":"10","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"0"},{"sort_seq":2,"section":null,"section_icon":null,"colgrp":null,"colid":"box_no","colnm":"박스번호","dtype":"text","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"1"},{"sort_seq":3,"section":null,"section_icon":null,"colgrp":null,"colid":"goods_cd","colnm":"상품코드","dtype":"text","etype":"raw","attr":null,"defval":null,"w":"15","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"2"},{"sort_seq":4,"section":null,"section_icon":null,"colgrp":"전산재고","colid":"qty","colnm":"수량","dtype":"num","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"3"},{"sort_seq":5,"section":null,"section_icon":null,"colgrp":"전산재고","colid":"stk_price_amt","colnm":"소가액","dtype":"num","etype":"raw","attr":"hidden","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"4"},{"sort_seq":6,"section":null,"section_icon":null,"colgrp":"전산재고","colid":"stk_cost_amt","colnm":"원가액","dtype":"num","etype":"raw","attr":"hidden","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"5"},{"sort_seq":7,"section":null,"section_icon":null,"colgrp":"실사","colid":"cfm_qty","colnm":"수량","dtype":"num","etype":"txt","attr":"keycol","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"6"},{"sort_seq":8,"section":null,"section_icon":null,"colgrp":"실사","colid":"cfm_price_amt","colnm":"소가액","dtype":"num","etype":"raw","attr":"keycol hidden","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"7"},{"sort_seq":9,"section":null,"section_icon":null,"colgrp":"실사","colid":"cfm_cost_amt","colnm":"원가액","dtype":"num","etype":"raw","attr":"keycol hidden","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"8"},{"sort_seq":10,"section":null,"section_icon":null,"colgrp":"조정","colid":"adj_qty","colnm":"수량","dtype":"num","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"9"},{"sort_seq":11,"section":null,"section_icon":null,"colgrp":"조정","colid":"adj_amt","colnm":"소가액","dtype":"num","etype":"raw","attr":"hidden","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"10"},{"sort_seq":12,"section":null,"section_icon":null,"colgrp":"조정","colid":"adj_cost","colnm":"원가액","dtype":"num","etype":"raw","attr":"hidden","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"11"},{"sort_seq":13,"section":null,"section_icon":null,"colgrp":null,"colid":"subsumrow","colnm":"grp","dtype":"text","etype":"none","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"12"}]};
+
+        me.pageObj["_page"] = new gfnFramepage( me ); 
+        for(var component_id in me.dataDef["_pgm_data"]) { 
+            me.pageObj[component_id] = new gfnComponent( me.pageid, component_id, me.dataDef["_pgm_data"][component_id], me.fnEH, me); 
+        }  
+        setTimeout(function(){
+            $("#frameset").scrollTo(0); //스크롤 
+        },10);
+        if(typeof(me.fnInitExtra)=='function') me.fnInitExtra(); 
+    } 
+/*-- SCRIPT autogen end ---------------------------------------------- */
+
+    /* 사용자초기화 */
+    me.fnInitExtra=function() {   
+        gfnTab(me.pageid, "tabs");
+        console.log(gParam);
+        if(!isNull(gParam)) {
+            if(!isNull(gParam.fnRefresh)) {
+                me.fnSearch = gParam.fnRefresh;
+            } 
+            if(!isNull(gParam.lg_ord_no)) {
+                me.lg_ord_no = ""+gParam.lg_ord_no;
+                me.whcd = gParam.whcd;
+                me.fnSearchMst(gParam.lg_ord_no,gParam.whcd); 
+            }
+        } else {
+            gfnAlert("재고실사등록","유효하지 않은 시스템 접근입니다. 화면을 닫고 창고 재고실사 화면에서 호출하세요!");
+            me.fnClose();
+        }
+    }
+    
+    /* 이벤트핸들러 */
+    me.fnEH=function(component, evt, row, col, val) { 
+        console.log(evt+","+row+","+col+","+val);
+        //화면기능버튼이 눌리면 
+        if (component==me.pageObj["_pageFunc"]){ 
+            if(typeof(me[col])=='function') me[col](); //col=기능명 me["fnSearch"]()=me.fnSearch(); 
+        } 
+        //packlist: 실사상품 목록 이벤트처리     
+        if(component==me.pageObj["list"]) {
+            if(evt=="focus") {
+                me.fnSearchDet();
+            }
+        }
+        //packlist: 실사상품 목록 이벤트처리     
+        if(component==me.pageObj["det"]) {
+            if(evt=="change") {
+                component.setVal(row, "adj_qty", toNum(component.getVal(row,"cfm_qty"))-toNum(component.getVal(row, "qty")));
+                component.total("top");
+            }
+        }
+    }  
+
+    //searchMst:조회 
+    me.fnSearchMst=function(lg_ord_no,whcd) {
+        if( isNull(lg_ord_no) ) {
+            if(isNull(me.lg_ord_no)) return;
+            lg_ord_no = me.lg_ord_no;
+            whcd = me.whcd;
+        }
+        //var whcd = me.pageObj.mst.getVal("whcd");
+        var args = {};
+        args.lg_ord_no = lg_ord_no;
+        args.whcd = whcd;
+        //{lg_ord_no:lg_ord_no, whcd : whcd};
+        console.log(args);
+        var invar = JSON.stringify(args);
+        gfnTx(appid+"."+pgmid,"searchMst",{INVAR:invar},function(OUTVAR){
+            console.log(OUTVAR);
+            if(OUTVAR.rtnCd=="OK") { 
+                me.pageObj["mst"].importData(OUTVAR.mst);  
+                me.pageObj["list"].importData(OUTVAR.list); 
+                me.pageObj.list.total("top");
+                //me.pageObj["det"].reset(); 
+                me.pageObj["det"].total("top");
+                //재고실사등록 SideDataSet Cleansing
+            } else {
+                gfnAlert("조회오류",OUTVAR.rtnMsg);
+            }
+        });
+    }
+
+    //searchDet: 재고실사현황 상품코드별 조회 
+    me.fnSearchDet=function() {
+        var rowseq = me.pageObj.list.focusedRow();
+        var row = me.pageObj.list.getNodeId(rowseq);
+        if( row < 0 ) return; 
+        var args = me.pageObj.mst.exportData()[0];
+        $.extend(args, me.pageObj.list.getRowData(row)); 
+        console.log(args);
+        var invar = JSON.stringify(args);
+        gfnTx(appid+"."+pgmid,"searchDet",{INVAR:invar},function(OUTVAR){
+            console.log(OUTVAR);
+            if(OUTVAR.rtnCd=="OK") {   
+                me.pageObj["det"].importData(OUTVAR.det);
+                //me.pageObj.det.sizeColumnsToFit();
+                me.pageObj["det"].total("top");
+            } else {
+                gfnAlert("조회오류",OUTVAR.rtnMsg);
+            }
+        });
+    } 
+    
+    
+    //save:임시저장(수불반영) 
+    me.fnSave=function() {
+        if( !me.pageObj["mst"].chkValid() ) return; 
+        var args = me.pageObj["mst"].exportData()[0];
+        args.list = me.pageObj.det.exportData();
+        if((args.list).length==0||isNull(args.list)){
+            gfnAlert("확인","수정된 정보가 없습니다. 실사수량 수정시 저장해주세요.");
+            return;
+        }
+        if( args.cd_stat != 'D') {
+            gfnAlert("확정(수불반영) 확인","임시저장 상태의 건만 저장할 수 있습니다.");
+            return;
+        } 
+        var invar = JSON.stringify(args);
+        console.log(args);
+        gfnTx(appid+"."+pgmid,"save",{INVAR:invar},function(OUTVAR){
+            console.log(OUTVAR);
+            if(OUTVAR.rtnCd=="OK") {
+                //서비스 후처리 : 
+                gfnAlert("임시저장 성공","임시저장 하였습니다.");  
+                me.fnSearchMst(args.lg_ord_no,args.whcd);
+                me.fnSearch();
+                me.fnSearchDet();
+            } else {
+                gfnAlert("오류",OUTVAR.rtnMsg);
+            }
+        });
+    }
+    
+    //cfm:확정(수불반영) 
+    me.fnCfm=function() {
+        if( !me.pageObj["mst"].chkValid() ) return; 
+        var args = me.pageObj["mst"].exportData()[0];
+        if( args.cd_stat != 'D') {
+            gfnAlert("확정(수불반영) 확인","임시저장 상태의 건만 확정할 수 있습니다.");
+            return;
+        } 
+        var invar = JSON.stringify(args);
+        console.log(args);
+        gfnTx(appid+"."+pgmid,"cfm",{INVAR:invar},function(OUTVAR){
+            console.log(OUTVAR);
+            if(OUTVAR.rtnCd=="OK") {
+                //서비스 후처리 : 
+                gfnAlert("성공","수불반영 하였습니다.");  
+                me.fnSearchMst(args.lg_ord_no,args.whcd);
+                me.fnSearch();
+            } else {
+                gfnAlert("오류",OUTVAR.rtnMsg);
+            }
+        });
+    }
+
+    //cancel:취소 
+    me.fnCancel=function() {
+        if( !me.pageObj["mst"].chkValid() ) return;
+        var args = me.pageObj["mst"].exportData()[0];
+        if( args.cd_stat != 'F') {
+            gfnAlert("확정취소 확인","완료 상태의 건만 확정취소 할 수 있습니다.");
+            return;
+        }
+        console.log(args);
+        var invar = JSON.stringify(args);
+        gfnTx(appid+"."+pgmid,"cancel",{INVAR:invar},function(OUTVAR){
+            console.log(OUTVAR);
+            if(OUTVAR.rtnCd=="OK") {
+                //서비스 후처리 : 
+                gfnAlert("성공","수불반영 취소하였습니다.");  
+                me.fnSearchMst(args.lg_ord_no,args.whcd);
+                me.fnSearch();
+            } else {
+                gfnAlert("오류",OUTVAR.rtnMsg);
+            }
+        });
+    }
+    
+
+    //delete:삭제 
+    me.fnDelete=function() {
+        if( !me.pageObj["mst"].chkValid() ) return;
+        var args = me.pageObj["mst"].exportData()[0];
+        if( args.cd_stat != 'D') {
+            gfnAlert("삭제 확인","임시저장 상태의 건만 삭제 할 수 있습니다.");
+            return;
+        }
+        console.log(args);
+        var invar = JSON.stringify(args);
+        gfnTx(appid+"."+pgmid,"delete",{INVAR:invar},function(OUTVAR){
+            console.log(OUTVAR);
+            if(OUTVAR.rtnCd=="OK") {
+                //서비스 후처리 : 
+                gfnAlert("성공","등록정보를 삭제 상태변경 하였습니다.");  
+                me.fnClose();
+            } else {
+                gfnAlert("오류",OUTVAR.rtnMsg);
+            }
+        });
+    }    
+    
+    //화면닫기
+    me.fnClose=function() {
+        if($.type(me.fnSearch)=='function') me.fnSearch(); //닫히기 전에 메인화면 재조회
+        gMDI.close(me.pageid);
+    }
+
+        // if(me.pageObj.mst.getVal("lg_ord_no")=="TBD") {
+        //     gfnAlert("실사표 발행확인","신규 미저장 상태입니다. 저장 후 발행할 수 있습니다.");
+        //     return;
+        // }
+        // var list = me.pageObj.mst.exportData();
+        // if($.type(gParam)!='object') gParam = {};
+        // gParam.list = list;
+        // gMDI.openPage("diligenceList","실사표 발행",function(){},"fo_lg");
+        
+    
+    //print: 재고실사표 발행 
+    me.fnPrint=function() {
+        
+        function _fnPrint(goods_yn){
+            var args = me.pageObj.mst.exportData()[0];
+            args.goods_yn = goods_yn;
+            console.log(args);
+            var invar = JSON.stringify(args);
+            
+            //일자 형식 변환  ex) 2021-04-27
+            function dateSub(x){
+                return x.substring(0, 4)+"-"+ x.substring(4, 6)+"-"+ x.substring(6, 8);    
+            } 
+            //콤마 추가
+            function numCom(x){
+                return nzl(x,'').toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');   
+            } 
+            
+            //발행 데이터 가져오기
+            gfnTx(appid+"."+pgmid,"print",{INVAR:invar},function(OUTVAR){
+                if(OUTVAR.rtnCd=="OK") {
+                    
+                    console.log(OUTVAR);
+                    var mst = OUTVAR.mst[0]; //헤더
+                    var list = OUTVAR.list;  //요약
+                    var det = OUTVAR.det;    //상세
+                
+                    var prtData = list.concat(det);
+                    var total = prtData.length;
+                    var cnt = Math.ceil(total/35); //프린트 수
+                    console.log(cnt);
+                    let df = prtData.filter(x => !list.includes(x)); // 결과 det
+                    
+                    function _fnPrint100(mst, list2, det2) {
+                        
+                        var html = "<html>";
+                        //사이즈 조절, css
+                        html += "<head><style type='text/css'> .stk, .stk2 {white-space:pre/*nowrap*/; border-collapse:collapse; border-spacing:0; /*text-align:center;*/ vertical-align:middle; font-weight: bold;} .stk .subsum3, .stk2 .subsum3 { background-color: hsl(60deg 90% 89%); } .stk .subsum7, .stk2 .subsum7 { background-color: hsl(90deg 85% 89%); } .stk .subsum15, .stk2 .subsum15{ background-color: hsl(120deg 80% 89%); } .stk .subsum31, .stk2 .subsum31 { background-color: hsl(200deg 75% 89%); } .stk .subsum63, .stk2 .subsum63 { background-color: hsl(180deg 70% 89%); } .stk .subsum127, .stk2 .subsum127 { background-color: hsl(200deg 65% 89%); } .stk .tag, .stk2 .tag{ border-top: 1px black solid; border-bottom: 1px black solid;} .stk .tag2, .stk2 .tag2{background-color: rgb(220, 220, 220);} .stk .pad, .stk2 .pad{text-align:right; /*padding-top:5px; padding-bottom:5px;*/} .stk tr, .stk2 tr{border-color:black; border-style:solid; border-width:1px; overflow:hidden; word-break:normal; } .stk td, .stk2 td{padding-left: 5px; padding-right: 5px; font-size:12px; border-color:black; border-style:solid; border-width:1px; overflow:hidden; word-break:normal;} .stk th, .stk2 th{ padding-left: 5px; padding-right: 5px; padding-top: 5px; padding-bottom: 5px; font-size:14px; border-color:black; border-style:solid; border-width:1px; font-weight:bold;overflow:hidden; word-break:normal;} /*Web Print*/ .stk, .stk2{border: 1px black solid;} .page {width: 210mm; min-height: 297mm;} @media screen {.stk2 .headnone { display: none; } } @page {size: landscape; /*margin-left:1; margin-right:1;*/ /*margin:0;*/} @media print { .stk2 .printnone{ display: none; }/*tr.pbreak {display: block; page-break-before: always;}*/ .stk, .stk2{ print-color-adjust: exact; margin: 0;border: initial; border-radius: initial; width: initial; min-height: initial; box-shadow: initial; background: initial; page-break-before: always;}}</style></head>";
+                        html += "<body>";
+                        html += "<div class='page'>";
+                
+                        if(!isNull(list2) || list2.length!=0){
+                            html += "<table class='stk' style='table-layout:fixed;'>";
+                            /*******헤더*******************************************************************/
+                            html += "<thead>";
+                            mstTd(); //헤더 함수
+                            //console.log("list2길이",list2.length);
+                            console.log("프린트되는det2",det2);
+                            
+                            html += "<tbody>";
+                            /*******요약*******************************************************************/
+                            html += "<tr><th colspan='14' style='text-align:left; border-top:hidden; border-left:hidden; border-right:hidden;'>□ 요약</th</tr>";
+                            html += "<tr class='tag2'>";
+                            //html += "<th rowspan='2' colspan='2'>구분</th>";
+                            html += "<th rowspan='2'>구분</th>";
+                            html += "<th rowspan='2'>품목수</th>";
+                            //html += "<th rowspan='2'>패킹수</th>";
+                            html += "<th rowspan='2'>스타일수</th>";
+                            html += "<th rowspan='2'>상품수</th>";
+                            html += "<th colspan='3'>전산재고</th>";
+                            html += "<th colspan='3'>실사</th>";
+                            html += "<th colspan='3'>조정</th>";
+                            html += "</tr>";
+                            
+                            html += "<tr class='tag2'>";
+                            for(var i=0; i<3; i++){
+                                html += "<th>수량</th>";
+                                html += "<th>소가액</th>";
+                                html += "<th>원가액</th>";
+                            }
+                            html += "</tr>";
+                            
+                            //요약 리스트
+                            for(var i =0; i<list2.length; i++){
+                                if(list2[i].subsumrow=="subsum15") html += "<tr class='subsum15'>";
+                                else if(list2[i].subsumrow=="subsum31") html += "<tr class='subsum31'>";
+                                else if(list2[i].subsumrow=="subsum127") html += "<tr class='subsum127'>";
+                                else html += "<tr>";
+                                listTd(i); //요약 리스트 함수
+                                html += "</tr>";
+                            }
+                            html += "</tbody>";
+                            
+                            html += "</table>";
+                        }
+                        
+                        if(!isNull(det2) || det2.length!=0){
+                            
+                            html += "<table class='stk2' style='table-layout:fixed'>";
+                            html += "<tbody>";
+                            
+                            /*******헤더*******************************************************************/
+                            html += "<thead class='headnone'>";
+                            mstTd(); //헤더함수
+                            
+                            /*******상세*******************************************************************/
+                            html += "<tr class='printnone'><th colspan='14' style='border-top:hidden; border-left:hidden; border-right:hidden; border-bottom:hidden;'>"+"<br>"+"</th</tr>";
+                            html += "<tr><th colspan='14' style='text-align:left; border-top:hidden; border-left:hidden; border-right:hidden;'>□ 브랜드 품목별</th</tr>";
+                            html += "<tr class='tag2'>";
+                            html += "<th rowspan='2' colspan='2' style='text-align:center;'>구분</th>";
+                            // html += "<th rowspan='2' style='text-align:center;'>패킹키</th>";
+                            // html += "<th rowspan='2' style='text-align:center;'>패킹번호</th>";
+                            html += "<th rowspan='2' >상품코드</th>"; /* style='text-align:center;*/
+                            html += "<th colspan='3'>전산재고</th>";
+                            html += "<th colspan='3'>실사</th>";
+                            html += "<th colspan='3'>조정</th>";
+                            html += "</tr>";
+                            
+                            html += "<tr class='tag2'>";
+                            for(var i=0; i<3; i++){
+                                html += "<th>수량</th>";
+                                html += "<th>소가액</th>";  
+                                html += "<th>원가액</th>";
+                            }
+                            html += "</tr>";
+                            
+                            //상세 리스트
+                            for(var i =0; i<det2.length; i++){
+                                if(det2[i].subsumrow=="subsum3") html += "<tr class='subsum3'>";
+                                else if(det2[i].subsumrow=="subsum7") html += "<tr class='subsum7'>";
+                                else if(det2[i].subsumrow=="subsum15") html += "<tr class='subsum15'>";
+                                else if(det2[i].subsumrow=="subsum31") html += "<tr class='subsum31'>";
+                                else if(det2[i].subsumrow=="subsum63") html += "<tr class='subsum63'>";
+                                else if(det2[i].subsumrow=="subsum127") html += "<tr class='subsum127'>";
+                                else html += "<tr>";
+                                detTd(i, goods_yn); //상세 리스트 함수
+                                html += "</tr>";
+                            }
+                            /*******************************************************************************/
+                            html += "</tbody>";
+                            html += "</table>";
+                        }
+                        
+                        html += "</div>";
+                        html += "</body>";
+                        html += "</html>";
+                        
+                        function mstTd(){ //헤더함수
+                            html += "<tr>";
+                            html += "<th colspan='3' class='tag2'>제목</th>";
+                            html += "<th colspan='2'>"+"재고실사표"+"</th>";
+                            html += "<th colspan='2' class='tag2'>매장/창고</th>";
+                            html += "<th colspan='3'>"+ mst.whcd +" "+ mst.wh_nm +"</th>";
+                            html += "<th class='tag2'>실사일</th>"
+                            html += "<th colspan='3'>"+ dateSub(mst.lg_dt)+ "</th>";
+                            html += "</tr>";
+                            
+                            html += "<tr>";
+                            html += "<th colspan='3' class='tag2'>내용/비고</th>";
+                            html += "<th colspan='7'>"+ mst.remark+"</th>";
+                            html += "<th class='tag2'>담당</th>"
+                            html += "<th colspan='3'>"+ mst.usernm +" ("+ mst.upd_dt +")</th>";
+                            html += "</tr>";
+                            html += "<tr><th colspan='14' style='border-left:hidden; border-right:hidden; border-bottom:hidden;'>"+"<br>"+"</th></tr>";
+                            html += "</thead>";
+                        }
+                        
+                        function detTd(i, goods_yn){ //상세 리스트 함수
+                            html += "<td colspan = '2'>"+ det2[i].grp_tp +"</td>";
+                            // html += "<td style='text-align:center;'>"+ det2[i].box_keycd +"</td>";
+                            // html += "<td style='text-align:center;'>"+ det2[i].box_barcd +"</td>";
+                            if(goods_yn=='Y'){
+                                html += "<td style='text-align:center;'>"+ nzl(det2[i].goods_cd,'') +"</td>";
+                            }else{
+                                html += "<td style='text-align:center;'>"+ det2[i].stcd +"</td>";
+                            }
+                            //html += "<td style='text-align:center;'>"+ det2[i].goods_cd +"</td>";
+                            //html += "<td style='text-align:center;'>"+ det2[i].stcd +"</td>";
+                            html += "<td class='pad'>"+ nzl(numCom(det2[i].stk_qty),'') +"</td>";
+                            html += "<td class='pad'>"+ nzl(numCom(det2[i].stk_price_amt),'') +"</td>";
+                            html += "<td class='pad'>"+ nzl(numCom(det2[i].stk_cost_amt),'') +"</td>";
+                            html += "<td class='pad'>"+ nzl(numCom(det2[i].cfm_qty),'') +"</td>";
+                            html += "<td class='pad'>"+ nzl(numCom(det2[i].cfm_price_amt),'') +"</td>";
+                            html += "<td class='pad'>"+ nzl(numCom(det2[i].cfm_cost_amt),'') +"</td>";
+                            html += "<td class='pad'>"+ nzl(numCom(det2[i].adj_qty),'') +"</td>";
+                            html += "<td class='pad'>"+ nzl(numCom(det2[i].adj_price_amt),'') +"</td>";
+                            html += "<td class='pad'>"+ nzl(numCom(det2[i].adj_cost_amt),'') +"</td>";
+                        }
+                        
+                        function listTd(i){ //요약 리스트 함수
+                            html += "<td>"+ list[i].grp_tp +"</td>";
+                            html += "<td class='pad'>"+ nzl(numCom(list2[i].item_cnt),'') +"</td>";
+                            // html += "<td class='pad'>"+ nzl(numCom(list[i].box_cnt),'') +"</td>";
+                            html += "<td class='pad'>"+ nzl(numCom(list2[i].st_cnt),'') +"</td>";
+                            html += "<td class='pad'>"+ nzl(numCom(list2[i].goods_cnt),'') +"</td>";
+                            html += "<td class='pad'>"+ nzl(numCom(list2[i].stk_qty),'') +"</td>";
+                            html += "<td class='pad'>"+ nzl(numCom(list2[i].stk_price_amt),'') +"</td>";
+                            html += "<td class='pad'>"+ nzl(numCom(list2[i].stk_cost_amt),'') +"</td>";
+                            html += "<td class='pad'>"+ nzl(numCom(list2[i].cfm_qty),'') +"</td>";
+                            html += "<td class='pad'>"+ nzl(numCom(list2[i].cfm_price_amt),'') +"</td>";
+                            html += "<td class='pad'>"+ nzl(numCom(list2[i].cfm_cost_amt),'') +"</td>";
+                            html += "<td class='pad'>"+ nzl(numCom(list2[i].adj_qty),'') +"</td>";
+                            html += "<td class='pad'>"+ nzl(numCom(list2[i].adj_price_amt),'') +"</td>";
+                            html += "<td class='pad'>"+ nzl(numCom(list2[i].adj_cost_amt),'') +"</td>";
+                        }
+                        
+                        //새로운 페이지로 열어서 인쇄
+                        newPage = window.open('','_blank','directories=no,titlebar=no,toolbar=no, location=no, status=no, menubar=no, scrollbars=no,resizable=no, width=1024, height=1024, modal=yes');
+                        //var prtPage = window.open('','_blank','directories=no,titlebar=no,toolbar=no, location=no, status=no, menubar=no, scrollbars=no,resizable=no, width=1024, height=1024, modal=yes');
+                        newPage.document.write(html);
+                        newPage.focus();
+                        newPage.print();
+                        //console.log(newPage);
+                        html = "";
+                
+                
+                        console.log("print done");
+                            
+                        //인쇄페이지에서 벗어났을 때
+                        newPage.onbeforeunload = function(){
+                            console.log("win unload");
+                            
+                            
+                            console.log("상세페이지 리스트: ",df);
+                            cnt = Math.ceil((df.length)/35); //프린트 수
+                            console.log("상세페이지 프린트 수: ",cnt);
+                            if(cnt > 100) {
+                                gfnConfirm("연속출력 확인","(스타일/상품코드)별 실사내역 100장가량 나누어 발행합니다.",function(rtn){ //발행대상(대상: "+prtData.length+" / 총 : "+total+")을 
+                                    if(rtn) {
+                                        var det2 = df.splice(0,3500); //3500개씩 데이터 교체(한장에 35row정도_100장*35row)
+                                        list = [];
+                                        console.log("넘어간det2",det2);
+                                        _fnPrint100(mst,list,det2);
+                                    }
+                                });    
+                            }else{
+                                if(df.length == 0){ //모든 데이터 출력이 끝나면,
+                                    gfnAlert("연속출력 확인","재고실사표 발행이 완료되었습니다.");//, 총: "+cnt+"건이 완료되었습니다.");
+                                    return;
+                                }
+                                gfnConfirm("연속출력 확인","(스타일/상품코드)별 실사내역 100장가량 나누어 발행합니다.",function(rtn){
+                                    if(rtn) {
+                                        var det2 = df.splice(0,3500);
+                                        list = [];
+                                        console.log("넘어간det2",det2);
+                                        _fnPrint100(mst,list,det2);
+                                    }
+                                }); 
+                            }
+                        }
+                    }
+                    
+                    //총 패킹수 100개 이상일 경우 100건씩 나누어 발행
+                    if(cnt > 100) {
+                        //요약페이지 먼저 출력
+                        gfnConfirm("연속출력 확인","상품시즌별 재고실사내역[요약]부터 발행합니다.",function(rtn){
+                            if(rtn) {
+                                det = [];
+                                _fnPrint100(mst, list, det);
+                            }
+                        });
+                        
+                        // gfnConfirm("연속출력 확인","발행대상(건수 : "+total+")을 100건씩 나누어 발행합니다.",function(rtn){
+                        //     if(rtn) {
+                        //         var data = prtData.splice(0,100); //100건씩 데이터 교체
+                        //         _fnPrint100(data); //라벨찍어내는 함수
+                        //     }
+                        // });
+                    } else {
+                        me.fnPrint2(goods_yn);
+                    }
+    
+                } else {
+                    gfnAlert("조회오류",OUTVAR.rtnMsg);
+                }
+            });
+        }
+        
+        gfnConfirm("출력 확인","스타일만 출력시 '확인'을 눌러주세요.<br>**상품코드까지 출력시, '취소'를 눌러주세요.",function(rtn){
+            if(rtn) { //(상품코드/스타일코드) 옵션 선택하여 출력하도록
+                var goods_yn = 'N';
+                _fnPrint(goods_yn); //스타일코드
+            }else{
+                var goods_yn = 'Y';
+                _fnPrint(goods_yn); //상품코드
+            }
+        });
+        
+    }
+    
+    //print: 재고실사표 발행 
+    me.fnPrint2=function(goods_yn) {
+        //var args = me.pageObj["list"].exportData("selected")[0];
+        var args = me.pageObj.mst.exportData()[0];
+        args.goods_yn = goods_yn;
+        console.log(args);
+        var invar = JSON.stringify(args);
+        
+        //일자 형식 변환  ex) 2021-04-27
+        function dateSub(x){
+            return x.substring(0, 4)+"-"+ x.substring(4, 6)+"-"+ x.substring(6, 8);    
+        } 
+        //콤마 추가
+        function numCom(x){
+            return nzl(x,'').toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');    
+        } 
+        
+        var html = "<html>";
+        //사이즈 조절, css
+        html += "<head><style type='text/css'> .stk, .stk2 {white-space:pre/*nowrap*/; border-collapse:collapse; border-spacing:0; /*text-align:center;*/ vertical-align:middle; font-weight: bold;} .stk .subsum3, .stk2 .subsum3 { background-color: hsl(60deg 90% 89%); } .stk .subsum7, .stk2 .subsum7 { background-color: hsl(90deg 85% 89%); } .stk .subsum15, .stk2 .subsum15{ background-color: hsl(120deg 80% 89%); } .stk .subsum31, .stk2 .subsum31 { background-color: hsl(200deg 75% 89%); } .stk .subsum63, .stk2 .subsum63 { background-color: hsl(180deg 70% 89%); } .stk .subsum127, .stk2 .subsum127 { background-color: hsl(200deg 65% 89%); } .stk .tag, .stk2 .tag{ border-top: 1px black solid; border-bottom: 1px black solid;} .stk .tag2, .stk2 .tag2{background-color: rgb(220, 220, 220);} .stk .pad, .stk2 .pad{text-align:right; /*padding-top:5px; padding-bottom:5px;*/} .stk tr, .stk2 tr{border-color:black; border-style:solid; border-width:1px; overflow:hidden; word-break:normal; } .stk td, .stk2 td{padding-left: 5px; padding-right: 5px; font-size:12px; border-color:black; border-style:solid; border-width:1px; overflow:hidden; word-break:normal;} .stk th, .stk2 th{ padding-left: 5px; padding-right: 5px; padding-top: 5px; padding-bottom: 5px; font-size:14px; border-color:black; border-style:solid; border-width:1px; font-weight:bold;overflow:hidden; word-break:normal;} /*Web Print*/ .stk, .stk2{border: 1px black solid;} .page {width: 210mm; min-height: 297mm;} @media screen {.stk2 .headnone { display: none; } } @page {size: landscape; /*margin-left:1; margin-right:1;*/ /*margin:0;*/} @media print { .stk2 .printnone{ display: none; }/*tr.pbreak {display: block; page-break-before: always;}*/ .stk, .stk2{ margin: 0;border: initial; border-radius: initial; width: initial; min-height: initial; box-shadow: initial; background: initial; page-break-before: always;}}</style></head>";
+        html += "<body>";
+        html += "<div class='page'>";
+        html += "<table class='stk' style='table-layout:fixed'>";
+        
+        //발행 데이터 가져오기
+        gfnTx(appid+"."+pgmid,"print",{INVAR:invar},function(OUTVAR){
+            if(OUTVAR.rtnCd=="OK") {
+                console.log(OUTVAR);
+                var mst = OUTVAR.mst[0]; //헤더
+                var list = OUTVAR.list;  //요약
+                var det = OUTVAR.det;    //상세
+                
+                /*******헤더*******************************************************************/
+                html += "<thead>";
+                mstTd(); //헤더 함수
+                
+                html += "<tbody>";
+                /*******요약*******************************************************************/
+                html += "<tr><th colspan='14' style='text-align:left; border-top:hidden; border-left:hidden; border-right:hidden;'>□ 요약</th</tr>";
+                html += "<tr class='tag2'>";
+                html += "<th rowspan='2'>구분</th>";
+                html += "<th rowspan='2'>품목수</th>";
+                // html += "<th rowspan='2'>패킹수</th>";
+                html += "<th rowspan='2'>스타일수</th>";
+                html += "<th rowspan='2'>상품수</th>";
+                html += "<th colspan='3'>전산재고</th>";
+                html += "<th colspan='3'>실사</th>";
+                html += "<th colspan='3'>조정</th>";
+                html += "</tr>";
+                
+                html += "<tr class='tag2'>";
+                for(var i=0; i<3; i++){
+                    html += "<th>수량</th>";
+                    html += "<th>소가액</th>";
+                    html += "<th>원가액</th>";
+                }
+                html += "</tr>";
+                
+                //요약 리스트
+                for(var i =0; i<list.length; i++){
+                    if(list[i].subsumrow=="subsum15") html += "<tr class='subsum15'>";
+                    else if(list[i].subsumrow=="subsum31") html += "<tr class='subsum31'>";
+                    else if(list[i].subsumrow=="subsum127") html += "<tr class='subsum127'>";
+                    else html += "<tr>";
+                    listTd(i); //요약 리스트 함수
+                    html += "</tr>";
+                }
+                html += "</tbody>";
+                
+                html += "</table>";
+                html += "<table class='stk2' style='table-layout:fixed'>";
+                html += "<tbody>";
+                
+                /*******헤더*******************************************************************/
+                html += "<thead class='headnone'>";
+                mstTd(); //헤더함수
+                
+                /*******상세*******************************************************************/
+                // html += "<tr class='printnone'><th colspan='14' style='border-top:hidden; border-left:hidden; border-right:hidden; border-bottom:hidden;'>"+"<br>"+"</th</tr>";
+                // html += "<tr><th colspan='14' style='text-align:left; border-top:hidden; border-left:hidden; border-right:hidden;'>□ 브랜드 품목별</th</tr>";
+                // html += "<tr class='tag2'>";
+                // html += "<th rowspan='2' colspan='2' style='text-align:center;'>구분</th>";
+                // html += "<th rowspan='2' colspan='3''>상품코드</th>"; /* style='text-align:center;*/
+                // html += "<th colspan='3'>전산재고</th>";
+                // html += "<th colspan='3'>실사</th>";
+                // html += "<th colspan='3'>조정</th>";
+                // html += "</tr>";
+                /*******상세*******************************************************************/
+                html += "<tr class='printnone'><th colspan='14' style='border-top:hidden; border-left:hidden; border-right:hidden; border-bottom:hidden;'>"+"<br>"+"</th</tr>";
+                html += "<tr><th colspan='14' style='text-align:left; border-top:hidden; border-left:hidden; border-right:hidden;'>□ 브랜드 품목별</th</tr>";
+                html += "<tr class='tag2'>";
+                html += "<th rowspan='2' colspan='2' style='text-align:center;'>구분</th>";
+                // html += "<th rowspan='2' style='text-align:center;'>패킹키</th>";
+                // html += "<th rowspan='2' style='text-align:center;'>패킹번호</th>";
+                html += "<th rowspan='2' >상품코드</th>"; /* style='text-align:center;*/
+                html += "<th colspan='3'>전산재고</th>";
+                html += "<th colspan='3'>실사</th>";
+                html += "<th colspan='3'>조정</th>";
+                html += "</tr>";
+                
+                html += "<tr class='tag2'>";
+                for(var i=0; i<3; i++){
+                    html += "<th>수량</th>";
+                    html += "<th>소가액</th>";  
+                    html += "<th>원가액</th>";
+                }
+                html += "</tr>";
+                
+                //상세 리스트
+                for(var i =0; i<det.length; i++){
+                    if(det[i].subsumrow=="subsum3") html += "<tr class='subsum3'>";
+                    else if(det[i].subsumrow=="subsum7") html += "<tr class='subsum7'>";
+                    else if(det[i].subsumrow=="subsum15") html += "<tr class='subsum15'>";
+                    else if(det[i].subsumrow=="subsum31") html += "<tr class='subsum31'>";
+                    else if(det[i].subsumrow=="subsum63") html += "<tr class='subsum63'>";
+                    else if(det[i].subsumrow=="subsum127") html += "<tr class='subsum127'>";
+                    else html += "<tr>";
+                    detTd(i, goods_yn); //상세 리스트 함수
+                    html += "</tr>";
+                }
+                /*******************************************************************************/
+                html += "</tbody>";
+                html += "</table>";
+                html += "</div>";
+                html += "</body>";
+                html += "</html>";
+                
+                function mstTd(){ //헤더함수
+                    html += "<tr>";
+                    html += "<th colspan='3' class='tag2'>제목</th>";
+                    html += "<th colspan='2'>"+"재고실사표"+"</th>";
+                    html += "<th colspan='2' class='tag2'>매장/창고</th>";
+                    html += "<th colspan='3'>"+ mst.whcd +" "+ mst.wh_nm +"</th>";
+                    html += "<th class='tag2'>실사일</th>"
+                    html += "<th colspan='3'>"+ dateSub(mst.lg_dt)+ "</th>";
+                    html += "</tr>";
+                    
+                    html += "<tr>";
+                    html += "<th colspan='3' class='tag2'>내용/비고</th>";
+                    html += "<th colspan='7'>"+ mst.remark+"</th>";
+                    html += "<th class='tag2'>담당</th>"
+                    html += "<th colspan='3'>"+ mst.usernm +" ("+ mst.upd_dt +")</th>";
+                    html += "</tr>";
+                    html += "<tr><th colspan='14' style='border-left:hidden; border-right:hidden; border-bottom:hidden;'>"+"<br>"+"</th></tr>";
+                    html += "</thead>";
+                }
+                
+                // function detTd(i){ //상세 리스트 함수
+                //     html += "<td colspan = '2'>"+ det[i].grp_tp +"</td>";
+                //     html += "<td colspan = '3' style='text-align:center;'>"+ det[i].goods_cd +"</td>";
+                //     html += "<td class='pad'>"+ nzl(numCom(det[i].stk_qty),'') +"</td>";
+                //     html += "<td class='pad'>"+ nzl(numCom(det[i].stk_price_amt),'') +"</td>";
+                //     html += "<td class='pad'>"+ nzl(numCom(det[i].stk_cost_amt),'') +"</td>";
+                //     html += "<td class='pad'>"+ nzl(numCom(det[i].cfm_qty),'') +"</td>";
+                //     html += "<td class='pad'>"+ nzl(numCom(det[i].cfm_price_amt),'') +"</td>";
+                //     html += "<td class='pad'>"+ nzl(numCom(det[i].cfm_cost_amt),'') +"</td>";
+                //     html += "<td class='pad'>"+ nzl(numCom(det[i].adj_qty),'') +"</td>";
+                //     html += "<td class='pad'>"+ nzl(numCom(det[i].adj_price_amt),'') +"</td>";
+                //     html += "<td class='pad'>"+ nzl(numCom(det[i].adj_cost_amt),'') +"</td>";
+                // }
+                function detTd(i, goods_yn){ //상세 리스트 함수
+                    html += "<td colspan = '2'>"+ det[i].grp_tp +"</td>";
+                    // html += "<td style='text-align:center;'>"+ det[i].box_keycd +"</td>";
+                    // html += "<td style='text-align:center;'>"+ det[i].box_barcd +"</td>";
+                    if(goods_yn=="Y"){
+                        html += "<td style='text-align:center;'>"+ nzl(det[i].goods_cd,'') +"</td>";
+                    }else{
+                        html += "<td style='text-align:center;'>"+ det[i].stcd +"</td>";
+                    }
+                    html += "<td class='pad'>"+ nzl(numCom(det[i].stk_qty),'') +"</td>";
+                    html += "<td class='pad'>"+ nzl(numCom(det[i].stk_price_amt),'') +"</td>";
+                    html += "<td class='pad'>"+ nzl(numCom(det[i].stk_cost_amt),'') +"</td>";
+                    html += "<td class='pad'>"+ nzl(numCom(det[i].cfm_qty),'') +"</td>";
+                    html += "<td class='pad'>"+ nzl(numCom(det[i].cfm_price_amt),'') +"</td>";
+                    html += "<td class='pad'>"+ nzl(numCom(det[i].cfm_cost_amt),'') +"</td>";
+                    html += "<td class='pad'>"+ nzl(numCom(det[i].adj_qty),'') +"</td>";
+                    html += "<td class='pad'>"+ nzl(numCom(det[i].adj_price_amt),'') +"</td>";
+                    html += "<td class='pad'>"+ nzl(numCom(det[i].adj_cost_amt),'') +"</td>";
+                }
+                
+                function listTd(i){ //요약 리스트 함수
+                    html += "<td>"+ list[i].grp_tp +"</td>";
+                    html += "<td class='pad'>"+ nzl(numCom(list[i].item_cnt),'') +"</td>";
+                    // html += "<td class='pad'>"+ nzl(numCom(list[i].box_cnt),'') +"</td>";
+                    html += "<td class='pad'>"+ nzl(numCom(list[i].st_cnt),'') +"</td>";
+                    html += "<td class='pad'>"+ nzl(numCom(list[i].goods_cnt),'') +"</td>";
+                    html += "<td class='pad'>"+ nzl(numCom(list[i].stk_qty),'') +"</td>";
+                    html += "<td class='pad'>"+ nzl(numCom(list[i].stk_price_amt),'') +"</td>";
+                    html += "<td class='pad'>"+ nzl(numCom(list[i].stk_cost_amt),'') +"</td>";
+                    html += "<td class='pad'>"+ nzl(numCom(list[i].cfm_qty),'') +"</td>";
+                    html += "<td class='pad'>"+ nzl(numCom(list[i].cfm_price_amt),'') +"</td>";
+                    html += "<td class='pad'>"+ nzl(numCom(list[i].cfm_cost_amt),'') +"</td>";
+                    html += "<td class='pad'>"+ nzl(numCom(list[i].adj_qty),'') +"</td>";
+                    html += "<td class='pad'>"+ nzl(numCom(list[i].adj_price_amt),'') +"</td>";
+                    html += "<td class='pad'>"+ nzl(numCom(list[i].adj_cost_amt),'') +"</td>";
+                }
+                
+                //새로운 페이지로 열어서 인쇄
+                var newPage = window.open('','_blank','directories=no,titlebar=no,toolbar=no, location=no, status=no, menubar=no, scrollbars=no,resizable=no, width=1024, height=1024');
+                newPage.document.write(html);
+                newPage.focus();
+                newPage.print(); 
+                
+                newPage.onbeforeunload = function(){
+                    gfnAlert("발행 확인","재고실사표 발행이 완료되었습니다.");
+                }
+                
+            } else {
+                gfnAlert("조회오류",OUTVAR.rtnMsg);
+            }
+        });
+    }
+    
+    
+    
+
+/*-- SCRIPT autogen ---------------------------------------------------- */        
+if(typeof(me.fnInit)=='function') me.fnInit();
+});
+
+</script>

@@ -1,0 +1,376 @@
+<style>.framepage #imgPreview {
+    padding: 10px;
+    overflow: auto;
+}
+
+
+ul {
+    list-style: none;
+    padding-left: 0px;
+} 
+
+#imgPreview {
+    border-left: 1px solid #cbc3c3;
+}
+#imgPreview .image {
+    width: 90%;
+    height: 90%;
+    margin: 16px;
+}
+ #imgPreview .gbuttonSet button{
+    height: 27px;
+    font-size: 11px;
+}
+
+.goodsArea {
+    border : 3px solid black; 
+    width : 100%; 
+    height : 380px;
+} 
+.imgArea {
+    width: 380px;
+    height: 380px;
+    overflow-x: auto;
+    overflow-y: auto;
+    display: inline-block;
+    border-right: 1px solid black;
+    text-align: center;
+}
+.detailArea {
+    width: calc(100% - 385px);
+    min-height: 147px;
+    display: inline;
+    float: right;
+    background-color : #daeaff;
+}
+
+.detailArea .left {
+    width: 100%;
+    float: left;
+    box-sizing: border-box;
+    
+}
+
+.detail {
+    font-size: 14px;
+    margin: 18px;
+}
+
+.left div {
+    border-bottom : 1px solid rgb(136, 136, 136); 
+    font-size : 1em;
+    padding: 2.4px;
+    /*height : 28.9px;*/
+}
+.left div:last-child {
+    border-bottom: none;
+}
+
+#imgZone img {
+    width: 250px;
+    height: 250px;
+}
+
+#imgZone canvas {
+    margin: 10px 15px 0px 0px
+}
+
+.getImg {
+    flex: unset !important;
+    margin-top: 20px;
+}
+.det_image img {
+    width: 7em;
+    height : 7em;
+    border : 1px solid gray;
+    margin: 8px;
+    cursor : pointer;
+}   </style>
+
+<!-- HTML autogen start ---------------------------------------------- -->            
+<div class="pageNav"></div>
+<div class="pageTop"></div>
+<div class="pageCond"></div>
+<div class="pageGuide"></div>
+<div class="pageContent flexRow">
+    <div style="flex:1 1 28%" id="list" class="flexColumn"></div>
+    <div style="flex:1 1 47%" id="imgPreview" class="flexColumn"></div>
+    <div style="flex:1 1 25%" id="goodslist" class="flexColumn"></div>
+</div>
+<!-- HTML autogen end ---------------------------------------------- -->
+<script>
+/*-- SCRIPT autogen start ---------------------------------------------- */        
+$(function() {
+    var appid = "fo_pos";
+    var pgmid = " reservationSO"; 
+    var page = $("*[pgmid='"+pgmid+"'].framepage").last();
+    var pageid = page.attr("id"); 
+    var me = {}
+    var dataSet = {};
+    var dataDef = {};
+    var pageObj = {};
+    var bEdit = false;
+    me.fnInit = function() {
+        gfn[pageid] = me; 
+        me.appid    = appid;
+        me.pgmid    = pgmid;
+        me.pageid   = pageid;
+        me.page     = page; 
+        me.dataSet = dataSet;
+        me.dataDef = dataDef;
+        me.pageObj = pageObj;
+        me.bEdit = bEdit;
+me.dataDef["_pgm"]={"ver":2,"upd_dt":"2022-06-21 15:31:08","remark":"","pgmid":" reservationSO","proc_mst_id":"","pgm_stat":"Y","sort_seq":103,"app_pgmid":"fo_pos","shortcut":"","reg_dt":"2022-06-03 16:23:49","reg_usid":"kihyunlee","pgm_nm":"예약판매","upd_usid":"bjh","pgm_tp":"TX","pgm_grp_nm":"판매","proc_mst_nm":"","app_pgm_nm":"매장","":"트랜젝션(화면)","crud":""};
+me.dataDef["_pgm_func"]=[{"func_icon":"fas fa-search","reg_dt":"2022-06-03 16:23:49","reg_usid":"","func_nm":"조회","upd_usid":"","upd_dt":"2022-06-03 16:23:49","func_tp":"DB_R","remark":null,"pgmid":" reservationSO","sort_seq":"1","funcid":"search","content":"대상자료 조회","crud":"R","id":"0"}];
+me.dataDef["_pgm_data"] = {};
+me.dataDef["_pgm_data"]["pageCond"]={"sort_seq":"1","data_id":"pageCond","data_nm":"조회조건","data_icon":null,"component_pgmid":"aweForm","component_option":null,"inout_tp":null,"content":[{"sort_seq":1,"section":null,"section_icon":null,"colgrp":null,"colid":"stcd","colnm":"상품코드","dtype":"text","etype":"txt","attr":null,"defval":null,"w":"15","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"0"}]};
+me.dataDef["_pgm_data"]["list"]={"sort_seq":"2","data_id":"list","data_nm":"상품목록","data_icon":null,"component_pgmid":"agGrid","component_option":null,"inout_tp":null,"content":[{"sort_seq":1,"section":null,"section_icon":null,"colgrp":null,"colid":"goods_cd","colnm":"상품코드","dtype":"text","etype":"raw","attr":null,"defval":null,"w":"15","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"0"},{"sort_seq":2,"section":null,"section_icon":null,"colgrp":null,"colid":"stcd","colnm":"스타일코드","dtype":"text","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"1"},{"sort_seq":3,"section":null,"section_icon":null,"colgrp":null,"colid":"colorcd","colnm":"컬러","dtype":"text","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"2"},{"sort_seq":4,"section":null,"section_icon":null,"colgrp":null,"colid":"sz_cd","colnm":"사이즈","dtype":"text","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"3"}]};
+me.dataDef["_pgm_data"]["imgPreview"]={"sort_seq":"3","data_id":"imgPreview","data_nm":"상품세부정보","data_icon":null,"component_pgmid":"FreeForm","component_option":{"func":[{"funcid":"fit","func_nm":"Fit","func_icon":"fas fa-expand"},{"funcid":"+","func_nm":"확대","func_icon":"fas fa-plus"},{"funcid":"-","func_nm":"축소","func_icon":"fas fa-minus"},{"funcid":"100","func_nm":"원본크기","func_icon":" "}]},"inout_tp":null,"content":[{"sort_seq":1,"section":null,"section_icon":null,"colgrp":null,"colid":"stcl","colnm":"스타일컬러코드","dtype":"text","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"0"},{"sort_seq":2,"section":null,"section_icon":null,"colgrp":null,"colid":"img_url","colnm":"이미지경로","dtype":"text","etype":"img","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"1"},{"sort_seq":3,"section":null,"section_icon":null,"colgrp":null,"colid":"fileid","colnm":"파일ID","dtype":"text","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"2"},{"sort_seq":4,"section":null,"section_icon":null,"colgrp":null,"colid":"goods_cd","colnm":"상품코드","dtype":"text","etype":"raw","attr":"hidden ","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"3"}]};
+me.dataDef["_pgm_data"]["goodslist"]={"sort_seq":"4","data_id":"goodslist","data_nm":"가용재고 현황","data_icon":null,"component_pgmid":"agGrid","component_option":null,"inout_tp":null,"content":[{"sort_seq":1,"section":null,"section_icon":null,"colgrp":null,"colid":"wh_nm","colnm":"매장명","dtype":"text","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"0"},{"sort_seq":2,"section":null,"section_icon":null,"colgrp":null,"colid":"avail_stk_qty","colnm":"가용재고","dtype":"text","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"1"},{"sort_seq":3,"section":null,"section_icon":null,"colgrp":null,"colid":"save","colnm":"예약판매","dtype":"text","etype":"btn","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"2"},{"sort_seq":4,"section":null,"section_icon":null,"colgrp":null,"colid":"whcd","colnm":"매장코드","dtype":"text","etype":"raw","attr":"hidden ","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"3"}]};
+
+        me.pageObj["_page"] = new gfnFramepage( me ); 
+        for(var component_id in me.dataDef["_pgm_data"]) { 
+            me.pageObj[component_id] = new gfnComponent( me.pageid, component_id, me.dataDef["_pgm_data"][component_id], me.fnEH, me); 
+        }  
+        setTimeout(function(){
+            $("#frameset").scrollTo(0); //스크롤 
+        },10);
+        if(typeof(me.fnInitExtra)=='function') me.fnInitExtra(); 
+    } 
+/*-- SCRIPT autogen end ---------------------------------------------- */
+
+    /* 사용자초기화 */
+    me.fnInitExtra=function() {
+        //탭 설정
+        //gfnTab(pageid, "tabs", {"multi-active":"off","toggle-switch":"on"}); 
+        //사용자 컴포넌트 
+        //me.dataDef["_pgm_data"][myCompoId] = {...};
+        //me.pageObj["myCompoId"] = new gfnComponent( me.pageid, myCompoId, me.dataDef["_pgm_data"][myCompoId], me.fnEH, me); 
+        //me.pageObj["myCompoId"].userComponent = "myCompoId";
+        //사용자 컨트롤
+        //var myColinfo = {colid:...}
+        //me.pageObj["myColId"] = new gfnControl(myColinfo, me.fnEH) 
+        //me.page.find("#myCol").append(me.pageObj["myColId"].dispObj);
+        //me.pageObj["myColId"].getVal(); / myCol.setVal(val);...   
+        console.log(gObj)
+        me.pageObj.pageCond.setVal("stcd",gObj[0].goods_cd);
+        
+    }
+    /* 이벤트핸들러 */
+    me.fnEH=function(component, evt, row, col, val) { 
+        //console.log(evt+","+row+","+col+","+val);
+        //화면기능버튼이 눌리면 
+        if (component==me.pageObj["_pageFunc"]){ 
+            if(typeof(me[col])=='function') me[col](); //col=기능명 me["fnSearch"]()=me.fnSearch(); 
+        }
+        //pageCond:조회조건 이벤트처리     
+        else if(component==me.pageObj["pageCond"]) {
+            if(evt=="componentFunc") {
+                if(row=="addRow") {
+                    component.addRow();
+                } else if(row=="delRow") {
+                    component.delRow();
+                }
+            }
+            //if(evt=="change" && col=="colid") {...}
+        }
+
+        //list:상품목록 이벤트처리     
+        else if(component==me.pageObj["list"]) {
+            if(evt=="focus") {
+                if(row >=0 ) {
+                    var rowData = me.pageObj.list.getRowData(row); 
+                    if(rowData.avail_stk_qty < 1){
+                        gfnAlert("수량오류","가용재고가 없습니다.");
+                        return;
+                    }
+                    rowData.currow = row; //선택된 rowid를 넘겨줌 
+                    if(!isNull(rowData.goods_cd)) {
+                        me.fnimgSearch(rowData.goods_cd,rowData.colorcd);
+                        me.fnqtySearch(rowData.goods_cd);
+                    }
+                }
+            }
+            //if(evt=="change" && col=="colid") {...}
+        }
+
+        //imgPreview:상품세부정보 이벤트처리     
+        else if(component==me.pageObj["imgPreview"]) {
+            if($('button[funcid="fit"]').on("click",function() {
+                $("#"+pageid+" #imgPreview .image").css("width","90%");
+                $("#"+pageid+" #imgPreview .image").css("height","90%");
+            }));
+            if($('button[funcid="+"]').on("click",function() {
+                var w = $("#"+pageid+" #imgPreview .image").outerWidth();
+                var h = $("#"+pageid+" #imgPreview .image").outerHeight();
+                $("#"+pageid+" #imgPreview .image").css("width",(w*1.1)+"px");
+                $("#"+pageid+" #imgPreview .image").css("height",(h*1.1)+"px");
+                fnCenter();   
+            }));
+            if($('button[funcid="-"]').on("click",function() {
+                var w = $("#"+pageid+" #imgPreview .image").outerWidth();
+                var h = $("#"+pageid+" #imgPreview .image").outerHeight();
+                $("#"+pageid+" #imgPreview .image").css("width",(w/1.1)+"px"); 
+                $("#"+pageid+" #imgPreview .image").css("height",(h/1.1)+"px"); 
+                fnCenter();   
+            })); 
+            if($('button[funcid="100"]').on("click",function() {
+                $("#"+pageid+" #imgPreview .image").css("width","unset");
+                $("#"+pageid+" #imgPreview .image").css("height","unset");
+                fnCenter();   
+            }));  
+            var fnCenter = function() {
+                var outerContent =$("#"+pageid+" #imgPreview .imgArea");
+                var innerContent =$("#"+pageid+" #imgPreview .image"); 
+                outerContent.scrollLeft( (innerContent.width() - outerContent.width()) / 2);       
+            }
+                //if(evt=="change" && col=="colid") {...}
+        }
+
+        //goodslist:가용재고 현황 이벤트처리     
+        else if(component==me.pageObj["goodslist"]) {
+            if(evt=="click" && col == "save") {
+                if(row >=0 ) {
+                    var rowData = me.pageObj.goodslist.getRowData(row); 
+                    console.log(rowData);
+                    rowData.currow = row; //선택된 rowid를 넘겨줌 
+                    if(!isNull(rowData)) {
+                        if(rowData.avail_stk_qty < 1){
+                            gfnAlert("재고오류","가용재고가 없습니다.");
+                            return;
+                        }
+                        gParam.rowData = rowData;
+                        gParam.pre_order_yn = "N";
+                        var searchPop3 = $("<div id='stkPop3' class='framepage active'></div>");
+                        var searchPopup3 = null; 
+                        gfnLoad("fo_pos"," reservationSO2",searchPop3,function(){
+                            searchPopup3 = gfnPopup("예약판매 정보 입력",searchPop3,{width:800, height:600});
+                        });
+                        
+                    }
+                    function _fnreservation(){
+                        // if(!isNull(searchPopup3)) searchPopup3.dialog("close");
+                        searchPopup3.dialog("close"); 
+                        
+                        var Objdata = gParam.rowData;
+                        console.log(Objdata)
+                        console.log(gParam.rowData)
+                        gObj.fnCallback(Objdata.goods_cd,Objdata.ea,Objdata.adress,Objdata.phone,Objdata.nm,Objdata.whcd,Objdata.lg_tp);
+                          
+                    }
+                    gParam.fnCallback = _fnreservation; 
+                }
+            }
+            //if(evt=="change" && col=="colid") {...}
+        }
+
+        //사용자 컴포넌트/컨트롤
+        else if(component.userComponent=="myCompoId") {
+            //if(evt=="dblclick" && col=="colid") {...}
+        }
+    }
+    //search:조회 
+    me.fnSearch=function() {
+        if( !me.pageObj["pageCond"].chkValid() ) return;
+        var pageCond = me.pageObj["pageCond"].exportData()[0];
+        pageCond.stcd = pageCond.stcd.toUpperCase();
+        var args = pageCond;
+        console.log(args);
+        var invar = JSON.stringify(args);
+        gfnTx(appid+"."+pgmid,"search",{INVAR:invar},function(OUTVAR){
+            console.log(OUTVAR);
+            if(OUTVAR.rtnCd=="OK") {
+                me.pageObj["list"].importData(OUTVAR.list);
+            } else {
+                gfnAlert("조회오류",OUTVAR.rtnMsg);
+            }
+        });
+    }
+    
+    me.fnimgSearch=function(goods_cd,colorcd) {
+        if( !me.pageObj["pageCond"].chkValid() ) return;
+        var args = {};
+        args.goods_cd = goods_cd;
+        args.colorcd = colorcd;
+        var invar = JSON.stringify(args);
+        console.log(args)
+        gfnTx(appid+"."+pgmid,"imgsearch",{INVAR:invar},function(OUTVAR){
+            console.log(OUTVAR);
+            if(OUTVAR.rtnCd=="OK") {
+                if(OUTVAR.list.length == 1) {
+                    me.page.find("#imgPreview .componentBody").html("");
+                    me.page.find("#imgPreview .componentBody").prepend("<span class='detail'></span>");
+                    me.page.find("#imgPreview .componentBody .detail").append('<div class="goodsArea"><div class="imgArea"></div></div>');
+                    me.page.find("#imgPreview .componentBody .goodsArea .imgArea").append(`<img class="image" src =${OUTVAR.list[0].url00} />`);
+                    //detail
+                    me.page.find("#imgPreview .componentBody .detail").append('<div class="det_image"></div>');
+                    me.page.find(".det_image").append(`<img src =${OUTVAR.list[0].url00} />`);
+                    me.page.find(".det_image").append(`<img src =${OUTVAR.list[0].url01} />`);
+                    me.page.find(".det_image").append(`<img src =${OUTVAR.list[0].url02} />`);
+                    me.page.find(".det_image").append(`<img src =${OUTVAR.list[0].url03} />`);
+                    me.page.find(".det_image").append(`<img src =${OUTVAR.list[0].url04} />`);
+                    me.page.find(".det_image").append(`<img src =${OUTVAR.list[0].url05} />`);
+                    me.page.find(".det_image").append(`<img src =${OUTVAR.list[0].urld0} />`);
+                    me.page.find(".det_image").append(`<img src =${OUTVAR.list[0].urld1} />`);
+                    me.page.find(".det_image").append(`<img src =${OUTVAR.list[0].urld2} />`);
+                    me.page.find(".det_image").append(`<img src =${OUTVAR.list[0].urld3} />`);
+                    me.page.find(".det_image").append(`<img src =${OUTVAR.list[0].urll0} />`);
+                    me.page.find(".det_image").append(`<img src =${OUTVAR.list[0].urll1} />`);
+                    
+                    me.page.find(".det_image img").click(function(e) {
+                        var src = $(e.target).attr("src");
+                        me.page.find('#imgPreview .image').attr('src', src);
+                    })
+                    
+                    me.page.find(".goodsArea").append('<div class="detailArea"><div class="left"></div></div>');
+                    me.page.find(".left").append("<div><b>스타일코드</b> : "+OUTVAR.list[0].goods_cd+"</div>");
+                    me.page.find(".left").append("<div><b>품&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;명</b> : " +OUTVAR.list[0].goods_nm+"</div>");
+                    me.page.find(".left").append("<div><b>브&nbsp;&nbsp;&nbsp;랜&nbsp;&nbsp;&nbsp;드</b> : "+OUTVAR.list[0].brcd+"</div>");
+                    me.page.find(".left").append("<div><b>연도&nbsp;&nbsp;시즌</b> : "+OUTVAR.list[0].yyyy+ " / " +OUTVAR.list[0].sssn_cd+"</div>");
+                    me.page.find(".left").append("<div class='init_price'><b>최&nbsp;&nbsp;&nbsp;초&nbsp;&nbsp;&nbsp;가</b> : "+OUTVAR.list[0].init_price.replace(/\B(?=(\d{3})+(?!\d))/g, ",")+"</div>");
+                    me.page.find(".left").append("<div><b>판&nbsp;&nbsp;&nbsp;매&nbsp;&nbsp;&nbsp;가</b> : "+OUTVAR.list[0].sale_price.replace(/\B(?=(\d{3})+(?!\d))/g, ",")+"</div>");
+                    // $(".left").append("<div class='salerate'><b>판&nbsp;&nbsp;&nbsp;매&nbsp;&nbsp;&nbsp;율</b> : </div>");
+                    // $(".left").append("<div class='cost_price'><b>원&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;가</b> : </div>");
+                    // $(".left").append("<div class='costrate'><b>원&nbsp;&nbsp;&nbsp;가&nbsp;&nbsp;&nbsp;율</b> : </div>");
+                    // $(".left").append("<div class='incnt'><b>입&nbsp;&nbsp;&nbsp;고&nbsp;&nbsp;&nbsp;량</b> : </div>");
+                    // $(".left").append("<div class='salecnt'><b>판&nbsp;&nbsp;&nbsp;매&nbsp;&nbsp;&nbsp;량</b> : </div>");
+                    // $(".left").append("<div class='invcnt'><b>재&nbsp;&nbsp;&nbsp;고&nbsp;&nbsp;&nbsp;량</b> : </div>");
+                    me.page.find(".left").append("<div><b>색&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;상</b> : "+OUTVAR.list[0].colorcds+"</div>");
+                    me.page.find(".left").append("<div><b>사&nbsp;&nbsp;&nbsp;이&nbsp;&nbsp;&nbsp;즈</b> : "+OUTVAR.list[0].sz_cds+"</div>");
+                }
+                else {
+                    me.page.find(".goodsArea").append('<div class="detailArea"><div class="left"><h3 style="text-align : center"> 등록된 상품 정보가 없습니다.</h3></div>');
+                }
+            } else {
+                gfnAlert("조회오류",OUTVAR.rtnMsg);
+            }
+        });
+    }
+    
+    me.fnqtySearch=function(goods_cd) {
+        var args = {};
+        args.goods_cd = goods_cd;
+        console.log(args);
+        var invar = JSON.stringify(args);
+        gfnTx(appid+"."+pgmid,"qtysearch",{INVAR:invar},function(OUTVAR){
+            console.log(OUTVAR);
+            if(OUTVAR.rtnCd=="OK") {
+                me.pageObj["goodslist"].importData(OUTVAR.list);
+            } else {
+                gfnAlert("조회오류",OUTVAR.rtnMsg);
+            }
+        });
+    }
+    
+    // me.fnresearch = function(){
+    //     console.log("2")
+    //     gObj.fnCallback(gObj.rowData);
+    // }
+    
+
+
+/*-- SCRIPT autogen ---------------------------------------------------- */        
+if(typeof(me.fnInit)=='function') me.fnInit();
+});
+
+</script>

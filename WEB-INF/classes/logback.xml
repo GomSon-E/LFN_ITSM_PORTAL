@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration scan="true">
+        <property name="LOG_LEVEL" value="INFO"/>
+
+        <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+                <encoder>
+                        <charset>UTF-8</charset>
+                        <pattern>%d{yyyy-MM-dd_HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+                </encoder>
+        </appender>
+
+        <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+                <encoder>
+                        <charset>UTF-8</charset>
+                        <pattern>%d{yyyy-MM-dd_HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+                </encoder>
+        </appender>
+
+        <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+                <file>${LOGBACK_DIR}/app_fo.lfnetworks.co.kr.log</file>
+                <append>true</append>
+                <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+                        <charset>UTF-8</charset>
+                        <pattern>%d{yyyy-MM-dd_HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+                </encoder>
+
+                <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+                        <fileNamePattern>${LOGBACK_DIR}/app_fo.lfnetworks.co.kr.%d{yyyy-MM-dd}.log.zip</fileNamePattern>
+                        <!-- keep 30 days' worth of history -->
+                        <maxHistory>30</maxHistory>
+<!--
+                        <MinIndex>1</MinIndex>
+                        <MaxIndex>10</MaxIndex>
+-->
+                </rollingPolicy>
+        </appender>
+
+        <appender name="BIZFILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+                <file>${LOGBACK_DIR}/appBiz_fo.lfnetworks.co.kr.log</file>
+                <append>true</append>
+                <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+                        <charset>UTF-8</charset>
+                        <pattern>%d{yyyy-MM-dd_HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+                </encoder>
+
+                <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+                        <fileNamePattern>${LOGBACK_DIR}/appBiz_fo.lfnetworks.co.kr.%d{yyyy-MM-dd}.log.zip</fileNamePattern>
+                        <!-- keep 30 days' worth of history -->
+                        <maxHistory>365</maxHistory>
+<!--
+                        <MinIndex>1</MinIndex>
+                        <MaxIndex>10</MaxIndex>
+-->
+                </rollingPolicy>
+        </appender>
+
+        <logger name="ep.logback" level="INFO" additivity="false">
+<!--                <appender-ref ref="STDOUT" />
+-->
+                <appender-ref ref="FILE" />
+        </logger>
+
+        <logger name="ep.logbiz" level="INFO" additivity="false">
+<!--                <appender-ref ref="STDOUT" />
+-->
+                <appender-ref ref="BIZFILE" />
+        </logger>
+
+        <!-- SQL문과 해당 SQL을 실행시키는데 수행된 시간 정보(milliseconds)를 포함한다. -->
+        <logger name="jdbc.sqltiming" level="INFO" additivity="false">
+                <appender-ref ref="CONSOLE"/>
+        </logger>
+
+        <!-- By default, the level of the root level is set to INFO -->
+        <root level="${LOG_LEVEL}">
+                <appender-ref ref="CONSOLE"/>
+                <appender-ref ref="FILE" />
+        </root>
+
+</configuration>

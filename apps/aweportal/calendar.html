@@ -1,0 +1,121 @@
+
+<style>[pgmid='calendar'].framepage .userClass { 
+    width:100%; 
+    }</style>
+    <div class="update section">
+        <div id ="clock"></div>
+    </div>
+    </div>
+    <div class="calendar section">
+        <table class="calendar" >        
+            <div class="nav">
+            <button class="nav-btn go-prev" onclick="prevMonth()">&lt;</button>
+            <button class="nav-btn go-today" onclick="nowMonth()">Today</button>
+            <button class="nav-btn go-next" onclick="nextMonth()">&gt;</button>
+          </div>
+
+            <caption id="mm"></caption>
+                <thead>
+                    <tr>
+                        <th>일</th><th>월</th><th>화</th><th>수</th><th>목</th><th>금</th><th>토</th>
+                    </tr>
+                </thead>
+                <tbody id="body">						
+                </tbody>
+            </table>
+    </div>
+    <script>
+    /*-- SCRIPT autogen start ---------------------------------------------- */        
+    
+    $(function() {
+        
+        var appid = "aweportal";
+        var pgmid = "calendar"; 
+        var page = $("*[pgmid='"+pgmid+"'].framepage").last();
+        var pageid = page.attr("id"); 
+
+        function clock() {        
+            var time = new Date(); 
+            var month = time.getMonth(); 
+            var date = time.getDate(); 
+            var day = time.getDay(); 
+            var week = ['일', '월', '화', '수', '목', '금', '토']; 
+            var hours = time.getHours(); 
+            var minutes = time.getMinutes(); 
+            var seconds = time.getSeconds();
+
+            if(hours!==12) hours=hours%12; 
+
+            page.find('#clock').html("");
+            page.find('#clock').append(`<h2>${month + 1}월 ${date}일 ${week[day]}요일 ` + `${hours < 10 ? `0${hours}` : hours}:${minutes < 10 ? `0${minutes}` : minutes}:${seconds < 10 ? `0${seconds}` : seconds}</h2>`);
+        }
+        clock(); 
+        setInterval(clock, 1000);
+        var start_dt =date("today").substr(0,8)+"01";
+
+        buildCaltop = function(mm){
+            var top=page.find('#mm').html("");
+            var calendarTop=$(`<div style="width:100%;"><h2>${mm}월</h2></div>`)
+            top.append(calendarTop);
+        }	
+
+        prevMonth=function() {
+            start_dt= new Date(start_dt);
+            start_dt = new Date(start_dt.getFullYear(), start_dt.getMonth() - 1, start_dt.getDate());
+            start_dt=start_dt.format("yyyy-mm-dd");
+            buildbasicCal(); //만들기
+            
+        }
+
+        nowMonth=function() {
+            start_dt= date("today").substr(0,8)+"01";
+            start_dt= new Date(start_dt);
+            start_dt = new Date(start_dt.getFullYear(), start_dt.getMonth(), start_dt.getDate());
+            start_dt=start_dt.format("yyyy-mm-dd");
+            buildbasicCal();
+        }
+
+        nextMonth=function() {
+            start_dt= new Date(start_dt);
+            start_dt = new Date(start_dt.getFullYear(), start_dt.getMonth() + 1, start_dt.getDate());
+            start_dt=start_dt.format("yyyy-mm-dd");
+            buildbasicCal();
+        }
+
+        buildbasicCal=function() {
+            var newDate = new Date();
+            var initDate=new Date(start_dt);
+            var tb=page.find('#body').html("");
+            for (var i = 0; i <5; i++){				
+                var weekCal= $(`<tr></tr>`);
+                for (var j = 0; j < 7; j++) {
+                    newDate = new Date(initDate.valueOf() + 86400000 * (j - initDate.getDay()));
+                    var day=parseInt(newDate.format("dd"));
+                    var yymmdd=newDate.format("yyyymmdd");
+                    weekCal.append(`<td id=${yymmdd}><div id="top"><b>${day}</b></div><div id="cont"></div></td>`);//${dayData[num]?dayData[num].remark:""}
+                }
+                    initDate =new Date(initDate.valueOf() + 86400000 *7);
+                tb.append(weekCal); 
+            }
+            buildCaltop( start_dt.substr(5,2));
+            var from_dt=start_dt.substr(0,4)+ start_dt.substr(5,2)+start_dt.substr(8,2);
+            var to_dt=newDate.format("yyyymmdd");
+            var args = {fromdate :from_dt, todate:to_dt, caltype:"COMMON"}
+            var invar = JSON.stringify(args);
+            var commonarr=[];
+            gfnTx("aweportal.manageCal","search",{INVAR:invar},function(OUTVAR){
+                var num = OUTVAR.list.length;
+                for(let i=0;i<=num;i++){
+                    commonarr.push(OUTVAR.list[i]); 
+                }
+            //me.calendar.find('#top').html("");
+            for (let i=0 ;i<num;i++){
+                !isNull(commonarr[i]) ? page.find('#'+commonarr[i].ymd + ' #top').append(`${commonarr[i].remark}`):"";
+            }});
+
+        }
+        buildbasicCal();
+        buildCaltop(new Date().getMonth()+1);
+    });
+    
+    </script>

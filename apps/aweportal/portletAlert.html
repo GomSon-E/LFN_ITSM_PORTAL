@@ -1,0 +1,316 @@
+<script>
+    $(() => {
+        const appid   = "aweportal";
+        const pgmid   = "portletAlert";
+        let page    = $("*[pgmid = '" + pgmid + "']").last();
+        let dataSet = {};
+        let me      = {};
+        
+        let countN  = "";
+
+        me.fnInit = () => {
+            gfn[pgmid] = me;
+            me.appid   = appid;
+            me.pgmid   = pgmid;
+            me.page    = page;
+            me.dataSet = dataSet;
+            me.countN  = countN;
+
+            me.dataSet["listAlert"] = [];
+
+            if(typeof(me.fnInitExtra) == 'function') me.fnInitExtra();
+        },
+
+        me.fnInitExtra = (func) => {
+            switch(func) {
+                case "alertD"   : func = "alertD";        break;
+                case "addAlert" : func = "addAlert";      break;
+                default         : func = "retrieveAlert"; break;
+            }
+            gfnTx("aweportal.frameset", func, {}, (OUTVAR) => {
+                if(OUTVAR.rtnCd == "OK") {
+                    me.dataSet["listAlert"].push(OUTVAR.listAlert);
+                    me.countN = (OUTVAR.countAlertN[0].count);
+                };
+                var listAlert = me.dataSet["listAlert"][0];
+                
+                me.fnInitListAlert(listAlert);
+                me.fnEHMessageReceive();
+            },true);
+        }
+
+        me.fnInitListAlert = (listAlert) => {
+            let body = me.page.html("");
+            //프레임
+            let frame = document.createElement("div");
+            frame.classList.add("frameAlert");
+            body.append(frame);
+
+            //타이틀
+            let title = document.createElement("H3");
+            title.classList.add("titleAlert");
+            frame.append(title);
+
+            //지난 알림 버튼
+            let beforeAlert = document.createElement("div");
+            beforeAlert.classList.add("beforeAlert");
+            beforeAlert.textContent = "지난 알림 목록";
+            title.append(beforeAlert);
+
+            //알림 삭제 버튼
+            let btnDel = document.createElement("i");
+            btnDel.classList.add("fas");
+            btnDel.classList.add("fa-times-circle");
+            btnDel.setAttribute("value", "del");
+            title.append(btnDel);
+
+            //알림 리스트 헤더
+            let listHeader = document.createElement("ul");
+            listHeader.classList.add("ALERT");
+            frame.append(listHeader);
+        
+            //알림 리스트
+            if(listAlert != 0) {
+                listAlert.forEach((row) => {
+                    const list = document.createElement("li");
+                    list.classList.add("listAlert");
+                    list.setAttribute("value", row.ref_info_tp);
+                    list.setAttribute("type", row.ref_id);
+                    list.setAttribute("usid", row.grpid);
+                    list.setAttribute("oncontextmenu", "return false");
+
+                    const listType = document.createElement("div");
+                    listType.classList.add("listType");
+
+                    if(inStr(row.pgm_nm, "(") != -1) { listType.textContent = (row.pgm_nm||'').split("(", 1); } 
+                    else { listType.textContent = row.pgm_nm; }
+                    list.append(listType);
+
+                    const listTime = document.createElement("div");
+                    listTime.classList.add("listTime");
+                    listTime.textContent = row.reg_dt;
+                    list.append(listTime);
+
+                    const listMsg = document.createElement("div");
+                    listMsg.classList.add("listMsg");
+                    listMsg.innerHTML = row.comments;
+                    list.append(listMsg);
+
+                    listHeader.append(list);
+
+                    if(row.read_yn == "Y") list.classList.add("read");
+                })
+
+            } else {
+                document.querySelector(".titleAlert i").classList.add("hidden");
+
+                const listEmpty = document.createElement("li");
+                listEmpty.classList.add("listEmpty");
+                listEmpty.textContent = "알림이 없습니다";
+                listHeader.append(listEmpty);
+            }
+
+            //알림 카운트 표시
+            if(me.countN != 0) {
+                //chaim.play();
+                document.querySelector("#frameGNB .gnb nav .notice .countAlert").classList.remove("hidden");
+                $("#frameGNB .gnb nav .notice").animate({ "background-color":"rgb(0, 0, 0)" }, 1000);
+                $("#frameGNB .gnb nav .notice i").animate({ "color":"rgb(255, 255, 255)" }, 1000);
+            }
+            document.querySelector("#frameGNB .gnb nav .notice .countAlert").textContent = me.countN;
+
+            //클릭 이벤트 핸들러
+            me.fnEHSelect();
+        }
+
+        //클릭 이벤트 핸들러 정의 ******************************* gfnTx 합병 ******************************
+        me.fnEHSelect = () => {
+            //모든 알림 프레임 로드
+            const beforeAlert = document.querySelector("#frameAlert .frameAlert .titleAlert .beforeAlert");
+            beforeAlert.addEventListener('click', () => {
+                document.querySelector("#frameAlert").classList.add("hidden");
+                gMDI.openPage("manageAlert", "알림 목록");
+            })
+
+            //모둔 알림 지우기 버튼
+            const manageChat = document.querySelector("#frameAlert .frameAlert .titleAlert i.fas.fa-times-circle");
+            manageChat.addEventListener('click', () => {
+                var args = {};
+                args["listAlert"] = me.dataSet["listAlert"][0];
+
+                var invar = JSON.stringify(args);
+
+                gfnTx("aweportal.frameset", "alertDALL", { INVAR : invar }, function(OUTVAR) {
+                    if(OUTVAR.rtnCd == "OK") {
+                        $("#frameGNB .gnb nav .notice").attr("style","background-color:unset");
+                        $("#frameGNB .gnb nav .notice i").css("color", "hsl(0 12% 12%)");
+                        $("#frameGNB .gnb nav .notice .countAlert").addClass("hidden");
+                        gMDI.portletAlert();
+                    }
+                }, true);
+            })
+
+            //알림 왼쪽 클릭 알림 읽음 이벤트
+            const listAlert = document.getElementsByClassName('listAlert');
+            Array.from(listAlert).forEach((select) => {
+                select.addEventListener('click', () => {
+                    var args = {};
+                    args["listAlert"] = [];
+
+                    //T_CHAT에 기본키가 없으므로
+                    var selectAlert = { 
+                        ref_info_tp : select.getAttribute("value"),                             //알림 전달 값
+                        ref_id      : select.getAttribute("type"),                              //알림 타입
+                        ref_id_nm   : select.getElementsByClassName("listType")[0].textContent, //알림 타입 이름
+                        grpid       : select.getAttribute("usid"),                              //사용자 ID
+                        reg_dt      : select.getElementsByClassName("listTime")[0].textContent, //기본키 날짜
+                        comments    : null,
+                        reg_usid    : null
+                    }
+                    
+                    args["listAlert"].push(selectAlert);
+                    let invar = JSON.stringify(args);
+
+                    gfnTx("aweportal.frameset", "alertIU", { INVAR : invar }, function(OUTVAR) {
+                        if(OUTVAR.rtnCd == "OK") {
+                            switch(selectAlert.ref_id) {
+                                case "BBS"    : console.log(selectAlert.ref_info_tp + " 게시글로 이동"); break;
+                                case "CHAT"   : gMDI.openChat("frameChat", selectAlert.ref_info_tp); break;
+                                case "SYSTEM" : console.log(selectAlert.ref_info_tp + " 메세지 박스로 출력"); break;
+                                default :
+                                gfnGetData("pgm_auth", function(rtn) {
+                                    var pgmInfo = subset(subset(gds.comcd, "grpcd", "pgm_auth"), "pgmid", selectAlert.ref_id)[0];
+                                    if(isNull(pgmInfo)) {
+                                        gfnAlert("프로그램 권한 알림", "해당 화면에 대한 권한이 없습니다.");
+                                    } else {
+                                        gParam["pgmLog"] = selectAlert.ref_info_tp;
+                                        gMDI.openPage(selectAlert.ref_id, selectAlert.ref_id_nm);               
+                                    }
+                                })
+                            }
+
+                            //읽음 카운트
+                            me.countN = me.countN - 1;
+                            if(me.countN <= 0) document.querySelector("#frameGNB .gnb nav .notice .countAlert").classList.add("hidden");
+                            else document.querySelector("#frameGNB .gnb nav .notice .countAlert").textContent = me.countN;
+                            
+                            //읽음 css
+                            select.classList.add("read");
+
+                            //알림 창 자동 닫기
+                            //$("#frameAlert").addClass("hidden");
+                            document.getElementById("frameAlert").classList.add("hidden");
+                        }
+                    }, true);
+                });
+            });
+
+            //개별 알림 지우기 처리
+            const alertD = document.getElementsByClassName('listAlert');
+            Array.from(alertD).forEach((selectEach) => {
+                selectEach.addEventListener('mousedown', () => {
+                    if((event.button == 2) || (event.which == 3)) {
+                        //삭제할 알림 데이터 가공
+                        var args = { 
+                            grpid : gUserinfo.userid,
+                            reg_dt : selectEach.getElementsByClassName("listTime")[0].textContent,
+                            ref_id : selectEach.type,
+                            ref_info_tp : selectEach.getAttribute("value")
+                        }
+
+                        //알림 삭제 이벤트 애니메이션
+                        selectEach.classList.add("selected");
+                        var trash = document.createElement("i");
+                        trash.classList.add("far");
+                        trash.classList.add("fa-trash-alt");
+                        selectEach.textContent = null;
+                        selectEach.append(trash);
+
+                        //timeout 이벤트로 알림 삭제 처리
+                        setTimeout(function() {
+                            var invar = JSON.stringify(args);
+                            gfnTx("aweportal.frameset", "alertD", { INVAR : invar }, function(OUTVAR) {
+                                if(OUTVAR.rtnCd == "OK") {
+                                    //선택 알림 요소 삭제
+                                    selectEach.remove();
+                                    
+                                    //알림 개수 카운트가 1인 경우 portletAlert 새로고침
+                                    if(alertD.length == 0) gMDI.portletAlert();
+                                 }
+                            }, true);
+                        }, 500);   
+                    }
+                })
+            });
+        }
+
+        //socket.io 메세지 리스너
+        me.fnEHMessageReceive = function() {
+            //메인 그룹 메세지 리스너
+            messages.on("main", function(data) {
+            });
+
+            //유저 전용 메세지 리스너
+            messages.on(gUserinfo.userid, function(data) {
+                messages.off(gUserinfo.userid);
+                if(data.ref_id == "CHAT") {
+                    gMDI.portletChat();
+                    gMDI.portletAlert();
+                    me.fnEHAlert(false);
+
+                } else if(data.ref_id == "SYSTEM") {
+                    gMDI.portletAlert();
+                    me.fnEHAlert(false);
+
+                } else if(data.ref_id == "ALERT") {
+                    gMDI.portletAlert();
+                    me.fnEHAlert(true, data.comments);
+                } else {
+                    gMDI.portletAlert();
+                    me.fnEHAlert(false);
+                }
+            });
+        };
+
+        //알림 효과
+        me.fnEHAlert = function(popup, msg) {
+            //팝업 알림과 효과
+            if(popup) {
+                if(document.querySelector("#frameMsg .alertList .alertTop")) {
+                    const del = document.querySelector("#frameMsg .alertList .alertTop");
+                    del.parentNode.removeChild(del);
+                }
+
+                $("#frameGNB .gnb nav .notice").animate({ "background-color" : "rgb(0, 0, 0)" }, 1000);
+                $("#frameGNB .gnb nav .notice i").animate({ "color" : "rgb(255, 255, 255)" }, 1000);      
+               
+                var frameGNBWidth = parseInt(window.getComputedStyle(document.querySelector("nav")).width);
+
+                var alertTop = document.createElement('li');
+                alertTop.classList.add('alertTop');
+                alertTop.style.width = (frameGNBWidth - 10) + "px";
+                alertTop.style.display = "none";
+
+                var comments = document.createElement('div');
+                comments.classList.add('comments');
+                comments.textContent = msg;
+                alertTop.append(comments);
+
+                document.querySelector("#frameMsg .alertList").append(alertTop);
+
+                $(alertTop).slideDown();
+
+                $(alertTop).on({
+                    click: function() {
+                        $(alertTop).remove();
+                    }
+                })
+            //효과
+            } else {
+                $("#frameGNB .gnb nav .notice").animate({ "background-color" : "rgb(0, 0, 0)" }, 1000);
+                $("#frameGNB .gnb nav .notice i").animate({ "color" : "rgb(255, 255, 255)" }, 1000);
+            }
+        }
+        if(typeof(me.fnInit) == 'function') me.fnInit();
+    });
+</script>

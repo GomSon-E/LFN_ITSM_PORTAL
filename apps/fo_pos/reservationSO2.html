@@ -1,0 +1,111 @@
+<style>[pgmid=' reservationSO2'].framepage .userClass { 
+width:100%; 
+}</style>
+
+<!-- HTML autogen start ---------------------------------------------- -->            
+<div class="pageNav"></div>
+<div class="pageTop"></div>
+<div class="pageCond"></div>
+<div class="pageGuide"></div>
+<div class="pageContent flexColumn">
+    <div id='reslist'></div>
+
+</div>
+<!-- HTML autogen end ---------------------------------------------- -->
+<script>
+/*-- SCRIPT autogen start ---------------------------------------------- */        
+$(function() {
+    var appid = "fo_pos";
+    var pgmid = " reservationSO2"; 
+    var page = $("*[pgmid='"+pgmid+"'].framepage").last();
+    var pageid = page.attr("id"); 
+    var me = {}
+    var dataSet = {};
+    var dataDef = {};
+    var pageObj = {};
+    var bEdit = false;
+    me.fnInit = function() {
+        gfn[pageid] = me; 
+        me.appid    = appid;
+        me.pgmid    = pgmid;
+        me.pageid   = pageid;
+        me.page     = page; 
+        me.dataSet = dataSet;
+        me.dataDef = dataDef;
+        me.pageObj = pageObj;
+        me.bEdit = bEdit;
+me.dataDef["_pgm"]={"ver":0.6,"upd_dt":"2022-06-13 17:45:26","remark":"","pgmid":" reservationSO2","proc_mst_id":"","pgm_stat":"Y","sort_seq":104,"app_pgmid":"fo_pos","shortcut":"","reg_dt":"2022-06-13 17:45:26","reg_usid":"lyj","pgm_nm":"예약판매 정보 팝업","upd_usid":"lyj","pgm_tp":"TX","pgm_grp_nm":"판매","proc_mst_nm":"","app_pgm_nm":"매장","":"트랜젝션(화면)","crud":""};
+me.dataDef["_pgm_func"]=[{"func_icon":"fa-fas-save","reg_dt":"2022-06-13 17:45:26","reg_usid":"","func_nm":"정보저장","upd_usid":"","upd_dt":"2022-06-13 17:45:26","func_tp":"DB_W","remark":null,"pgmid":" reservationSO2","sort_seq":"1","funcid":"save","content":null,"crud":"R","id":"0"}];
+me.dataDef["_pgm_data"] = {};
+me.dataDef["_pgm_data"]["reslist"]={"sort_seq":"1","data_id":"reslist","data_nm":"예약정보","data_icon":null,"component_pgmid":"agGrid","component_option":null,"inout_tp":"INOUT","content":[{"sort_seq":1,"section":null,"section_icon":null,"colgrp":null,"colid":"whcd","colnm":"매장코드","dtype":"text","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":"whcd","option":"sel:lg_tp::cdnm","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"0"},{"sort_seq":2,"section":null,"section_icon":null,"colgrp":null,"colid":"nm","colnm":"고객명","dtype":"text","etype":"txt","attr":"keycol ","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"1"},{"sort_seq":3,"section":null,"section_icon":null,"colgrp":null,"colid":"phone","colnm":"전화번호","dtype":"text","etype":"txt","attr":"keycol","defval":null,"w":"15","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"2"},{"sort_seq":4,"section":null,"section_icon":null,"colgrp":null,"colid":"adress","colnm":"주소","dtype":"text","etype":"txt","attr":null,"defval":null,"w":"30","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"3"},{"sort_seq":5,"section":null,"section_icon":null,"colgrp":null,"colid":"lg_tp","colnm":"접수구분","dtype":"text","etype":"sel","attr":"keycol","defval":null,"w":"10","h":null,"refcd":"LG_TP_RES","option":"sel:lg_tp::cdnm","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"4"}]};
+
+        me.pageObj["_page"] = new gfnFramepage( me ); 
+        for(var component_id in me.dataDef["_pgm_data"]) { 
+            me.pageObj[component_id] = new gfnComponent( me.pageid, component_id, me.dataDef["_pgm_data"][component_id], me.fnEH, me); 
+        }  
+        setTimeout(function(){
+            $("#frameset").scrollTo(0); //스크롤 
+        },10);
+        if(typeof(me.fnInitExtra)=='function') me.fnInitExtra(); 
+    } 
+/*-- SCRIPT autogen end ---------------------------------------------- */
+
+    /* 사용자초기화 */
+    me.fnInitExtra=function() {
+        me.fnCallback = gParam.fnCallback;
+        //탭 설정
+        //gfnTab(pageid, "tabs", {"multi-active":"off","toggle-switch":"on"}); 
+        //사용자 컴포넌트 
+        //me.dataDef["_pgm_data"][myCompoId] = {...};
+        //me.pageObj["myCompoId"] = new gfnComponent( me.pageid, myCompoId, me.dataDef["_pgm_data"][myCompoId], me.fnEH, me); 
+        //me.pageObj["myCompoId"].userComponent = "myCompoId";
+        //사용자 컨트롤
+        //var myColinfo = {colid:...}
+        //me.pageObj["myColId"] = new gfnControl(myColinfo, me.fnEH) 
+        //me.page.find("#myCol").append(me.pageObj["myColId"].dispObj);
+        //me.pageObj["myColId"].getVal(); / myCol.setVal(val);...    
+        var list = [];
+        var datalist = gParam.rowData;
+        list.push(datalist);
+        var pre_order_yn = gParam.pre_order_yn = "N";
+        me.fnSearch(list);
+    }
+    /* 이벤트핸들러 */
+    me.fnEH=function(component, evt, row, col, val) { 
+        //console.log(evt+","+row+","+col+","+val);
+        //화면기능버튼이 눌리면 
+        if (component==me.pageObj["_pageFunc"]){ 
+            if(typeof(me[col])=='function') me[col](); //col=기능명 me["fnSearch"]()=me.fnSearch(); 
+        }
+
+        //사용자 컴포넌트/컨트롤
+        else if(component.userComponent=="myCompoId") {
+            //if(evt=="dblclick" && col=="colid") {...}
+        }
+    }
+    //save:RT의뢰 
+    me.fnSave=function() {
+        var list = me.pageObj["reslist"].exportData();
+        for(i=0;i<list.length;i++){
+            // if(isNull(list[i].nm) || isNull(list[i].adress) || isNull(list[i].phone)){
+            if(isNull(list[i].nm) || isNull(list[i].phone)){
+                // gfnAlert("저장오류","고객명,주소,전화번호는 필수 입력 사항입니다.");
+                gfnAlert("저장오류","고객명,전화번호는 필수 입력 사항입니다.");
+                return;
+            }
+        }
+        gfnAlert("저장완료","결제완료 되면 rt의뢰가 자동 진행됩니다.");
+        me.fnCallback(list);       
+    }
+    
+    me.fnSearch=function(list) {
+        console.log(list);
+        me.pageObj["reslist"].importData(list);
+    }
+
+
+/*-- SCRIPT autogen ---------------------------------------------------- */        
+if(typeof(me.fnInit)=='function') me.fnInit();
+});
+
+</script>
