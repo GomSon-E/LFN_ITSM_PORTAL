@@ -653,140 +653,119 @@ function gfnReplaceCss(rule) {
 
 /** framepage 초기화 및 공통이벤트 적용 */
 function gfnFramepage( page ) {
-	var me = this;
-	me.page = $("#"+page.pageid); 
-	me.init = function() {
-		//pageNav세팅
-		me.initPageNav();
-		//pageTop : 조회조건Text와 기능버튼
+    var me = this;
+    me.page = $("#"+page.pageid);
+
+    me.init = function() {
+        me.initPageNav();
 		me.initPageTop(); 
-		//pageGuide : pgm_func 의 Remark에 등록된 내용을 페이지 가이드로 
-		me.initPageGuide(); 
-		//화면의 최소높이를 frameset의 크기에 맞게 지정 
-		//내용(pageContent의 Grid의 높이를 조정해 준다.)
-		//if(me.page.hasClass("framepage") && !me.page.hasClass("popupSearch")) me.page.css("min-height",`calc( ${fH}px - 2.25em )`);
 		window.setTimeout( gfnFramepageLayout, 50); 
-		return me;
-	} 
-	me.initPageNav = function() {
-		var pageNav = me.page.find(".pageNav"); 
+        return me;
+    }
+
+    me.initPageNav = function() {
+        var pageNav = $(".pageNav"); 
         if(pageNav.length <= 0) return; 
-		//console.dir( dataSet._pgm.pgmid );
+
+        // 북마크기능 고쳐야함
 		var userMenuInfo = subset(gds.menu,"pgmid",page.dataDef._pgm.pgmid)[0];
-		var fav = "";
-		if( userMenuInfo!=undefined && userMenuInfo.fav_yn =="Y" ) fav ="fav";
-		pageNav.html(`<div class="navTree">
-			<span colid="app_pgmid">${page.dataDef._pgm.app_pgm_nm}</span> > 
-			<span colid="pgm_grp_nm">${page.dataDef._pgm.pgm_grp_nm}</span> > 
-			<span colid="pgm_nm">${page.dataDef._pgm.pgm_nm}</span> 
-			</div>`);
-		if(!isNull(page.dataDef._pgm.shorcut)) {
-			pageNav.children(".navTree").append(`[<span colid="shortcut">${page.dataDef._pgm.shorcut}</span>]`);
-		}
-		pageNav.children(".navTree").append(`<i class="${fav} fas fa-star"></i>`); 		
-		pageNav.append(`<div class="commonFunc">
-			<button>Help</button>
-			<button>CSR</button>
-			<!-- button>Personalize</button -->
-			<button class="btnScreen">Screen</button>
-			<button class="btnClose">Close</button>
-			</div>`); 
-		//pageNav : Event-Handling
-		pageNav.off("click");
-		pageNav.on("click", function(e) {
-			var oE = $(e.target);
-			if(oE.isON(".commonFunc button")) {
-				/* MDI framepage의 공통버튼 클릭시 이벤트 처리 */			
-				var oEvt = $(e.target); 
-				var func = oEvt.text();
-				if(func=="Help") {
-					var popid =  "help"+gMDI.getNext();
-					var container = $("<div id='"+popid+"' class='framepage active'></div>");
-					me.page.append(container);	 
-					gParam = $.extend(true, gParam, {appid:page.appid, pgmid:page.pgmid, dataDef:page.dataDef});
-					gfnLoad("aweportal","manageHelp",container,function(){ 
-						gfnPopup("프로그램 이용 가이드", container, {width: 1000, height:700});
-					});
-				}
-				else if (func=="CSR") {
-					var popid =  "csr"+gMDI.getNext();
-					var container = $("<div id='"+popid+"' class='framepage active'></div>");
-					me.page.append(container);	 
-					gParam = $.extend(true, gParam, {appid:page.appid, pgmid:page.pgmid, dataDef:page.dataDef});  
-					gfnLoad("aweportal","registerCSR",container,function(){ 
-						gfnPopup("시스템요청", container, {width: 600, height:700});
-					});
-				}
-				else if (func=="Personalize") {
-					gfnAlert("개인화",`${page.appid}.${page.pgmid}/${page.pageid} ${gUserinfo.usernm} 개인화 설정 준비중입니다.`);
-				}
-				else if (func=="Screen") { 
-					gMDI.screen();
-				}
-				else if (func=="Close") { 
-					gMDI.close();
-				}
-			} else if (oE.isON("i.fa-star")) {
-				/* 화면 즐겨찾기 Toggle */
-				oE.toggleClass("fav");
-				var pgmid  = page.dataDef._pgm.pgmid;
-				var fav_yn = oE.hasClass("fav")==true?"Y":"N"; 
-				var args = {pgmid:pgmid,fav_yn:fav_yn};
-				var invar = JSON.stringify(args);
-				//console.dir(invar);
-				gfnTx("aweportal.frameset","updateMenuFav",{INVAR:invar},function(OUTVAR){ 
-					console.log(OUTVAR);
-					if(OUTVAR.rtnCd == "OK") {
-						for(var idx in gds.menu) {
-							if(gds.menu[idx].pgmid==pgmid) gds.menu[idx].fav_yn = fav_yn;
-						}
-					}
-				});
-			}
-		});	 
-	} 
-	me.initPageTop = function() {
-		//화면타이틀
-		me.pageTop = me.page.find(".pageTop");  
+        var fav = "";
+        if( userMenuInfo!=undefined && userMenuInfo.fav_yn =="Y" ) fav ="fav";
+
+        pageNav.html(`<div class="navTree">
+            <span colid="app_pgmid">${page.dataDef._pgm.app_pgm_nm}</span> > 
+            <span colid="pgm_grp_nm">${page.dataDef._pgm.pgm_grp_nm}</span> > 
+            <span colid="pgm_nm">${page.dataDef._pgm.pgm_nm}</span> 
+            </div>`);
+
+        pageNav.append(`<div class="commonFunc">
+            <button class="icon" id="bookmark"><i class="far fa-bookmark"></i></button>
+            <button class="icon" id="help"><i class="fas fa-question"></i></button>
+            <button class="icon" id="csr"><i class="fas fa-desktop"></i></button>
+            <button class="icon" id="close"><i class="fas fa-times"></i></button>
+            </div>`); 
+
+
+        //pageNav : Event-Handling
+        // 여기 고쳐야함 기능들 >>> 북마크/도움말/CSR/창닫기
+        pageNav.off("click");
+        pageNav.on("click", function(e) {
+            var oE = $(e.target);
+                if(oE.isON(".commonFunc button")) {
+                    // MDI framepage의 공통버튼 클릭시 이벤트 처리 
+                    var btnMe = oE.exactObj("button.icon");
+                    if(btnMe.attr("id") == "bookmark") {
+                        console.log('bookmark 기능');
+                    }
+                    else if(btnMe.attr("id") == "help") {
+                        console.log('help 기능');
+                        // var popid = "help" + gMDI.getNext(); // gMDI..가 뭐죠
+                        // var container = $("<div id='"+popid+"' class='framepage active'></div>");
+                        var container = $("<div id='popid' class='framepage active'></div>");
+                        me.page.append(container);
+                        gParam = $.extend(true, gParam, { appid:page.appid, pgmid:page.pgmid, dataDef:page.dataDef });
+                        gfnLoad("aweportal","manageHelp",container,function(){ 
+                            gfnPopup("프로그램 이용 가이드", container, {width: 1000, height:700});
+                        });
+                    }
+                    else if (btnMe.attr("id") == "csr") { 
+                        console.log('csr 기능');
+                    }
+                    else if (btnMe.attr("id") == "close") {
+                        console.log('close 기능');
+                        // gMDI.close();
+                    }
+                } else if (oE.isON("i.fa-star")) {
+                    /* 화면 즐겨찾기 Toggle */
+                    oE.toggleClass("fav");
+                    var pgmid  = page.dataDef._pgm.pgmid;
+                    var fav_yn = oE.hasClass("fav")==true?"Y":"N"; 
+                    var args = {pgmid:pgmid,fav_yn:fav_yn};
+                    var invar = JSON.stringify(args);
+                    //console.dir(invar);
+                    gfnTx("aweportal.frameset","updateMenuFav",{INVAR:invar},function(OUTVAR){ 
+                        console.log(OUTVAR);
+                        if(OUTVAR.rtnCd == "OK") {
+                            for(var idx in gds.menu) {
+                                if(gds.menu[idx].pgmid==pgmid) gds.menu[idx].fav_yn = fav_yn;
+                            }
+                        }
+                    });
+                }
+        });
+    }
+
+    me.initPageTop = function() {
+        //화면타이틀
+        me.pageTop = $(".pageTop");
         if(me.pageTop.length <= 0) return;  
-		me.pageTitle = $(`<div class="pageTitle"></div>`);
-		var initText = $(`<h2>${page.dataDef._pgm.pgm_nm}</h2>`);
-		me.pageTitle.append(initText);
-		me.pageTop.children("*").remove();
-		me.pageTop.html(me.pageTitle); //pageTop초기화
+        me.pageTitle = $(`<div class="pageTitle">${page.dataDef._pgm.pgm_nm}</div>`);
+
+        var viewBtn = $(`<button class="icon moreBtn"><i class="fas fa-caret-down"></i></button>`);
+        me.pageTitle.append(viewBtn);
+
+        // pageCond 숨기는 기능
+        viewBtn.on("click", function(e){
+            if(viewBtn.hasClass("clicked")){
+                viewBtn.removeClass("clicked");
+                $(".pageCond").css("display", "block");
+            }else{
+                viewBtn.addClass("clicked");
+                $(".pageCond").css("display", "none");
+            }
+        })
+
+        me.pageTop.children("*").remove();
+        me.pageTop.html(me.pageTitle); //pageTop초기화
+
         //기능버튼
-		me.pageFunc = $(`<div class="pageFunc"></div>`); 
-		me.pageTop.append(me.pageFunc);
-		page.pageObj["_pageFunc"]  = new gfnButtonSet( "#"+page.pageid+" .pageFunc", page.dataDef["_pgm_func"], page.fnEH );
-	}
-	me.initPageGuide = function() {
-		me.pageGuide = me.page.find(".pageGuide"); 
-        if(me.pageGuide.length <= 0) return;  
-		var guides = subset(page.dataDef["_pgm_func"],"remark"," ",true);
-		if(guides.length <= 0) return;
-		//가이드버튼을 넣어주고, 누를때마다 보이기/숨기기한다.
-		var guideBtn = $(`<div class="guideBtn"><i class="fas fa-caret-right"></i> Guide</div>`);
-		me.pageGuide.children("*").remove();
-		me.pageGuide.html(guideBtn); //pageGuide영역 초기화
-		guideBtn.on("click",function(e){
-			var pageGuide = $(e.target).parents(".pageGuide");
-			if( pageGuide.children(".guideText").css("display") == "none") {
-				pageGuide.children(".guideBtn").removeClass("close");
-				pageGuide.children(".guideText").show();
-			} else {
-				pageGuide.children(".guideBtn").addClass("close");
-				pageGuide.children(".guideText").hide("blind","swing",200);
-			}
-		});
-        //가이드본문을 세팅한다.
-		var guideText = $(`<div class="guideText"></div>`);
-		$.each(guides,function(idx,el){
-			guideText.append(`<li><b><i class="fas fa-circle"></i></b> <span>${el.remark}</span></li>`); 		
-		}); 
-		me.pageGuide.append(guideText);
-	}
-	me.init();
-} 
+        me.pageFunc = $(`<div class="pageFunc"></div>`); 
+        me.pageTop.append(me.pageFunc);
+        page.pageObj["_pageFunc"]  = new gfnButtonSet( "#"+page.pageid+",.pageFunc", page.dataDef["_pgm_func"], page.fnEH );
+    }
+
+    me.init();
+}
 
 function gfnComponent( pageId, containerId, componentDef, afnEH, page ) {
 	var me = this; 
