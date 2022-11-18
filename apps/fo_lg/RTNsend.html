@@ -1,0 +1,891 @@
+<style>[pgmid='RTNsend'].framepage .userClass { 
+width:100%; 
+}</style>
+
+<!-- HTML autogen start ---------------------------------------------- -->            
+<div class="pageNav"></div>
+<div class="pageTop"></div>
+<div class="pageCond"></div>
+<div class="pageGuide"></div>
+<div class="pageContent flexRow">
+    <div style="flex:1 1 calc(50% - 3em)" class="flexColumn">
+        <div id="mst"></div>
+        <div id="det" class="flexColumn"></div>
+    </div>  
+    <div id="list" style="flex:1 1 50%" class="flexColumn"></div>
+</div>
+<div class = "barcode" style="display:none">
+
+<!-- HTML autogen end ---------------------------------------------- -->
+<script>
+/*-- SCRIPT autogen start ---------------------------------------------- */        
+$(function() {
+    var appid = "fo_lg";
+    var pgmid = "RTNsend"; 
+    var page = $("*[pgmid='"+pgmid+"'].framepage").last();
+    var pageid = page.attr("id"); 
+    var me = {}
+    var dataSet = {};
+    var dataDef = {};
+    var pageObj = {};
+    var bEdit = false;
+    me.fnInit = function() {
+        gfn[pageid] = me; 
+        me.appid    = appid;
+        me.pgmid    = pgmid;
+        me.pageid   = pageid;
+        me.page     = page; 
+        me.dataSet = dataSet;
+        me.dataDef = dataDef;
+        me.pageObj = pageObj;
+        me.bEdit = bEdit;
+me.dataDef["_pgm"]={"pgmid":"RTNsend","pgm_nm":"반송 등록","pgm_tp":"UX","proc_mst_id":"","proc_mst_nm":"","remark":"","ver":0.1,"pgm_stat":"Y","reg_usid":"jjr","reg_dt":"2021-11-30","upd_usid":"jjr","upd_dt":"2021-11-30","app_pgmid":"fo_lg","pgm_grp_nm":"반품","sort_seq":null,"shortcut":"","crud":"C","app_pgm_nm":"물류"};
+me.dataDef["_pgm_func"]=[{"sort_seq":"1","funcid":"search","func_nm":"조회","func_icon":"fas fa-search","func_tp":"DB_R","content":"본사 반품지시내역 조회","remark":null,"crud":"C","id":"7"},{"sort_seq":"2","funcid":"new","func_nm":"신규","func_icon":"fas fa-file","func_tp":"EH","content":null,"remark":null,"crud":"C","id":"6"},{"sort_seq":"3","funcid":"save","func_nm":"저장","func_icon":"fas fa-save","func_tp":"DB_W","content":"입력내용 임시저장","remark":null,"crud":"C","id":"5"},{"sort_seq":"4","funcid":"cfm","func_nm":"발송완료","func_icon":"fas fa-check","func_tp":"DB_W","content":"반품지시 수락(확정) 또는 수시반품예정정보 등록","remark":null,"crud":"C","id":"4"},{"sort_seq":"5","funcid":"print","func_nm":"출고송장","func_icon":"fas fa-print","func_tp":"EH","content":"지시내역 발행","remark":null,"crud":"C","id":"3"},{"sort_seq":"6","funcid":"print2","func_nm":"박스라벨","func_icon":"fas fa-print","func_tp":"EH","content":"수락(확정)내역 박스라벨 발행","remark":null,"crud":"C","id":"2"},{"sort_seq":"7","funcid":"print3","func_nm":"박스송장","func_icon":"fas fa-print","func_tp":"EH","content":"수락(확정)내역 박스송장 발행","remark":null,"crud":"C","id":"1"},{"sort_seq":"8","funcid":"reject","func_nm":"예정삭제","func_icon":"extra fas fa-ban","func_tp":"DB_W","content":"반품지시 불가처리(거부) 또는 수신반품예정정보 삭제처리","remark":null,"crud":"C","id":"0"}];
+me.dataDef["_pgm_data"] = {};
+me.dataDef["_pgm_data"]["pageCond"]={"sort_seq":"1","data_id":"pageCond","data_nm":"조회조건","data_icon":null,"component_pgmid":"aweForm","component_option":null,"inout_tp":"IN","content":[{"sort_seq":"1","section":null,"section_icon":null,"colgrp":"보내는창고","colid":"shopcd","colnm":"창고코드","dtype":"text","etype":"sel","attr":null,"defval":"gUserinfo.deptcd","w":"12","h":null,"refcd":"whcd","option":"all:shopcd::cdnm","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"0"},{"sort_seq":"2","section":null,"section_icon":null,"colgrp":"받는매장","colid":"whcd","colnm":"매장코드","dtype":"text","etype":"sel","attr":null,"defval":"\"LF001\"","w":"12","h":null,"refcd":"whcd","option":"all:whcd:cdnm","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"1"},{"sort_seq":"3","section":null,"section_icon":null,"colgrp":"이동일","colid":"rtn_dt_from","colnm":"일자From","dtype":"ymd","etype":"txt","attr":"ymd","defval":"date(\"today\")","w":"8","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"2"},{"sort_seq":"4","section":null,"section_icon":null,"colgrp":"이동일","colid":"rtn_dt_to","colnm":"일자To","dtype":"ymd","etype":"txt","attr":"ymd","defval":"date(\"last\")","w":"8","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"3"},{"sort_seq":"5","section":null,"section_icon":null,"colgrp":null,"colid":"ord_end_yn","colnm":"상태","dtype":"text","etype":"sel","attr":null,"defval":null,"w":"10","h":null,"refcd":"LG_ORD_STAT","option":"all:cd_stat::cdnm","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"4"}]};
+me.dataDef["_pgm_data"]["list"]={"sort_seq":"2","data_id":"list","data_nm":"지시/예정목록","data_icon":null,"component_pgmid":"agGrid","component_option":null,"inout_tp":"OUT","content":[{"sort_seq":"1","section":null,"section_icon":null,"colgrp":null,"colid":"lg_ord_no","colnm":"물류지시번호","dtype":"text","etype":null,"attr":"hidden","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"0"},{"sort_seq":"2","section":null,"section_icon":null,"colgrp":null,"colid":"lg_dt","colnm":"물류일자","dtype":"text","etype":null,"attr":"readonly ","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"1"},{"sort_seq":"3","section":null,"section_icon":null,"colgrp":null,"colid":"lg_tp","colnm":"물류유형","dtype":"text","etype":"raw","attr":"readonly ","defval":"\"반송\"","w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"2"},{"sort_seq":"4","section":null,"section_icon":null,"colgrp":"받는 매장","colid":"to_whcd","colnm":"코드","dtype":"text","etype":null,"attr":"readonly ","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"3"},{"sort_seq":"5","section":null,"section_icon":null,"colgrp":"받는 매장","colid":"to_wh_nm","colnm":"명","dtype":"text","etype":null,"attr":"readonly ","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"4"},{"sort_seq":"6","section":null,"section_icon":null,"colgrp":null,"colid":"box_cnt","colnm":"박스수","dtype":"num","etype":null,"attr":"readonly ","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"5"},{"sort_seq":"7","section":null,"section_icon":null,"colgrp":null,"colid":"goods_qty","colnm":"이동수량","dtype":"num","etype":null,"attr":"readonly ","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"6"},{"sort_seq":"8","section":null,"section_icon":null,"colgrp":null,"colid":"rcv_dt","colnm":"매장접수일","dtype":"text","etype":null,"attr":"readonly ","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"7"},{"sort_seq":"9","section":null,"section_icon":null,"colgrp":null,"colid":"rcv_usid","colnm":"매장담당자","dtype":"text","etype":null,"attr":"readonly ","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"8"},{"sort_seq":"10","section":null,"section_icon":null,"colgrp":null,"colid":"ord_end_yn","colnm":"처리상태","dtype":"text","etype":null,"attr":"readonly ","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"9"},{"sort_seq":"11","section":null,"section_icon":null,"colgrp":null,"colid":"remark","colnm":"비고","dtype":"text","etype":null,"attr":"readonly ","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"10"}]};
+me.dataDef["_pgm_data"]["mst"]={"sort_seq":"3","data_id":"mst","data_nm":"지시/예정내역","data_icon":null,"component_pgmid":"aweForm","component_option":null,"inout_tp":"INOUT","content":[{"sort_seq":"1","section":null,"section_icon":null,"colgrp":null,"colid":"lg_ord_no","colnm":"물류지시번호","dtype":"text","etype":"raw","attr":"pk readonly","defval":"TBD","w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"0"},{"sort_seq":"2","section":null,"section_icon":null,"colgrp":null,"colid":"lg_tp","colnm":"물류유형","dtype":"text","etype":"raw","attr":"keycol","defval":"\"반송\"","w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"1"},{"sort_seq":"3","section":null,"section_icon":null,"colgrp":null,"colid":"lg_dt","colnm":"물류일자","dtype":"ymd","etype":"txt","attr":"ymd","defval":"date(\"today\")","w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"2"},{"sort_seq":"4","section":null,"section_icon":null,"colgrp":"받는 매장","colid":"to_whcd","colnm":"코드","dtype":"text","etype":"txt","attr":"keycol pop","defval":"\"LF001\"","w":null,"h":null,"refcd":"whcd","option":"sel:to_whcd:to_wh_nm:cdnm","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"3"},{"sort_seq":"5","section":null,"section_icon":null,"colgrp":"받는 매장","colid":"to_wh_nm","colnm":"명","dtype":"text","etype":"raw","attr":null,"defval":"\"가산\"","w":null,"h":null,"refcd":"whcd","option":"sel:to_whcd:to_wh_nm:cdnm","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"4"},{"sort_seq":"6","section":null,"section_icon":null,"colgrp":null,"colid":"ord_fileid","colnm":"배송구분","dtype":"text","etype":"txt","attr":"keycol","defval":null,"w":"6","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"5"},{"sort_seq":"7","section":null,"section_icon":null,"colgrp":null,"colid":"ord_content","colnm":"배송정보","dtype":"text","etype":"txt","attr":null,"defval":null,"w":"20","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"6"},{"sort_seq":"8","section":null,"section_icon":null,"colgrp":null,"colid":"remark","colnm":"비고","dtype":"text","etype":"txt","attr":null,"defval":null,"w":"20","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"7"},{"sort_seq":"9","section":null,"section_icon":null,"colgrp":null,"colid":"cd_stat","colnm":"상태코드","dtype":"text","etype":"sel","attr":"readonly ","defval":"D","w":null,"h":null,"refcd":"LG_ORD_STAT","option":"sel:cd_stat::cdnm","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"8"},{"sort_seq":"10","section":null,"section_icon":null,"colgrp":null,"colid":"ord_end_yn","colnm":"완결","dtype":"text","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"9"}]};
+me.dataDef["_pgm_data"]["det"]={"sort_seq":"4","data_id":"det","data_nm":"상품내역","data_icon":null,"component_pgmid":"agGrid","component_option":{"gridOpt":"chk","func":[{"funcid":"search","func_nm":"박스가져오기","func_icon":"fas fa-search"},{"funcid":"delRow","func_nm":"줄삭제","func_icon":"fas fa-minus"}]},"inout_tp":"INOUT","content":[{"sort_seq":"1","section":null,"section_icon":null,"colgrp":null,"colid":"box_no","colnm":"박스번호","dtype":"text","etype":"txt","attr":"rowSpan readonly ","defval":null,"w":"15","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"0"},{"sort_seq":"2","section":null,"section_icon":null,"colgrp":null,"colid":"box_barcd","colnm":"박스바코드","dtype":"text","etype":"txt","attr":"rowSpan readonly ","defval":null,"w":"15","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"1"},{"sort_seq":"3","section":null,"section_icon":null,"colgrp":null,"colid":"goods_seq","colnm":"순번","dtype":"text","etype":"txt","attr":"hidden","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"2"},{"sort_seq":"4","section":null,"section_icon":null,"colgrp":null,"colid":"goods_cd","colnm":"상품코드","dtype":"text","etype":"txt","attr":"readonly ","defval":null,"w":"12","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"3"},{"sort_seq":"5","section":null,"section_icon":null,"colgrp":null,"colid":"qty","colnm":"반품수량","dtype":"num","etype":"txt","attr":"readonly ","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"4"}]};
+
+        me.pageObj["_page"] = new gfnFramepage( me ); 
+        for(var component_id in me.dataDef["_pgm_data"]) { 
+            me.pageObj[component_id] = new gfnComponent( me.pageid, component_id, me.dataDef["_pgm_data"][component_id], me.fnEH, me); 
+        }  
+        setTimeout(function(){
+            $("#frameset").scrollTo(0); //스크롤 
+        },10);
+        if(typeof(me.fnInitExtra)=='function') me.fnInitExtra(); 
+    } 
+/*-- SCRIPT autogen end ---------------------------------------------- */
+
+    /* 사용자초기화 */
+    me.fnInitExtra=function() { 
+        me.fnNew(); //화면이 열리면 신규등록 모드 호출
+    }
+    
+    
+    /* 이벤트핸들러 */
+    me.fnEH=function(component, evt, row, col, val) { 
+        //console.log(evt+","+row+","+col+","+val);
+        //화면기능버튼이 눌리면 
+        if (component==me.pageObj["_pageFunc"]){ 
+            if(typeof(me[col])=='function') me[col](); //col=기능명 me["fnSearch"]()=me.fnSearch(); 
+        }
+        //목록 클릭시 지시내역 상세조회
+        if (component==me.pageObj["list"]){ 
+            if(evt=="focus") {
+                if(row >= 0) {
+                    //var goods_cnt = component.getVal(row,"goods_cnt");
+                    //console.log(goods_cnt);
+                    var lg_ord_no = component.getVal(row,"lg_ord_no");
+                    me.fnSearchOrd(lg_ord_no);
+                } 
+            }
+        }
+        //등록-상품목록 상세
+        if (component==me.pageObj["det"]){ 
+            if(evt=="componentFunc") {
+                if(row=="search") {
+                    me.fnSearchPack();    
+                } 
+                
+                if(row=="delRow") {
+                    
+                    //선택된 row의 박스번호와 박스번호가 같은 row는 전부 선택하여 delRow해줌 
+                    var box_nos = extract(me.pageObj.det.exportData("selected"),"box_no","distinct");
+                    for(var i=0; i < me.pageObj.det.countRow(); i++) {
+                        var rowid = me.pageObj.det.getNodeId(i);
+                        if(inStr(box_nos,me.pageObj.det.getVal(rowid,"box_no")) >= 0) {
+                            me.pageObj.det.selectRow(rowid);
+                        }
+                    }
+                    component.delRow();
+                }
+            }
+        }
+    }
+    
+    //search: 반품문서 목록조회 
+    me.fnSearch=function() {
+        if( !me.pageObj["pageCond"].chkValid() ) return;
+        var args = me.pageObj["pageCond"].exportData()[0];
+        console.log(args);
+        var invar = JSON.stringify(args);
+        gfnTx(appid+"."+pgmid,"search",{INVAR:invar},function(OUTVAR){
+            console.log(OUTVAR);
+            if(OUTVAR.rtnCd=="OK") {
+                me.pageObj["list"].importData(OUTVAR.list);
+            } else {
+                gfnAlert("조회오류",OUTVAR.rtnMsg);
+            }
+            //console.log(OUTVAR.list);
+        });
+    }
+    
+    //searchOrd: 문서내역 조회
+    me.fnSearchOrd=function(lg_ord_no) {
+        if( !me.pageObj["pageCond"].chkValid() ) return;
+        var args = me.pageObj["pageCond"].exportData()[0];
+        args.lg_ord_no = lg_ord_no
+        console.log(args);
+        var invar = JSON.stringify(args);
+        gfnTx(appid+"."+pgmid,"searchOrd",{INVAR:invar},function(OUTVAR){
+            //console.log(OUTVAR);
+            if(OUTVAR.rtnCd=="OK") {
+                me.pageObj["mst"].importData(OUTVAR.mst);
+                me.pageObj["det"].importData(OUTVAR.det);
+                me.pageObj.det.total("top");
+            } else {
+                gfnAlert("조회오류",OUTVAR.rtnMsg);
+            }
+        });
+    }
+
+
+    //fnSearchPack: 패킹박스 목록검색 및 가져오기
+    me.fnSearchPack=function() {
+        var shopcd = me.pageObj.pageCond.getVal("shopcd");
+        var searchPop = $("<div id='soPop' class='framepage active'></div>");
+        var searchPopup = null;
+        gfnLoad("fo_pos","popupPacklist",searchPop,function(){
+            searchPopup = gfnPopup("패킹박스 리스트",searchPop,{width:600, height:800});
+        })
+
+        function _fnSearchPack(arrPacklist) {
+            var det = me.pageObj.det.exportData();
+            det = det.concat(arrPacklist);
+            me.pageObj.det.importData(det,"C");
+            if(!isNull(searchPopup)) searchPopup.dialog("close");
+            me.pageObj.det.total("top");
+        }
+        //팝업호출해서 열기.. 
+        gParam.whcd = shopcd;
+        gParam.myBoxlist = extract(me.pageObj.det.exportData(),"box_no","distinct");
+        console.log(gParam.myBoxlist);
+        gParam.fnCallback = _fnSearchPack; 
+    }
+    
+    //save:대상확정 
+    me.fnSave=function() {
+        if( !me.pageObj["mst"].chkValid() ) return;
+        if( !me.pageObj["det"].chkValid() ) return;
+        var args = me.pageObj["mst"].exportData()[0];
+        args.from_whcd = me.pageObj.pageCond.getVal("shopcd");
+        args.det = me.pageObj["det"].exportData();
+        //console.log(args);
+        var invar = JSON.stringify(args);
+        gfnTx(appid+"."+pgmid,"save",{INVAR:invar},function(OUTVAR){
+            console.log(OUTVAR);
+            if(OUTVAR.rtnCd=="OK") {
+                var lg_ord_no = OUTVAR.lg_ord_no;
+                gfnAlert("저장성공","입력한 정보가 저장되었습니다.");
+                me.fnSearch(); //목록재조회
+                me.fnSearchOrd(lg_ord_no);
+            } else {
+                gfnAlert("저장오류",OUTVAR.rtnMsg);
+            }
+        });
+    }
+
+    //reject:지시불가/예정삭제 
+    me.fnReject=function() {
+        //VALIDATION  : 
+        if( !me.pageObj["pageCond"].chkValid() ) return;
+        //REQUEST OBJ : 
+        var args = me.pageObj["pageCond"].exportData()[0];
+        //SERVICE CALL: 
+        var invar = JSON.stringify(args);
+        gfnTx(appid+"."+pgmid,"reject",{INVAR:invar},function(OUTVAR){
+            //console.log(OUTVAR);
+            if(OUTVAR.rtnCd=="OK") {
+                //서비스 후처리 : 
+                gfnAlert("성공","입력한 정보가 저장되었습니다."); 
+                me.fnSearch();
+                me.fnNew();
+            } else {
+                gfnAlert("오류",OUTVAR.rtnMsg);
+            }
+        });
+    }
+
+    //print : 반품송장 발행
+    me.fnPrint=function() {
+        
+        var args = me.pageObj["pageCond"].exportData()[0];
+        var args_mst = me.pageObj["mst"].exportData()[0]; // lg_dt: 물류일자, to_whcd: 받는창고
+        var args_det = me.pageObj["det"].exportData(); //box_barcd: 박스번호,바코드
+
+        //console.log(args_det);
+        
+        var lg_tp = args_mst.lg_tp;
+        var lg_tp_nm = gfnCdNm("LG_TP",lg_tp,"nm");
+        var box_lst = extract(args_det, "box_barcd", "distinct");
+        var box_no_lst = extract(args_det, "box_no", "distinct"); //매장 박스번호
+
+
+        var j = 0;
+
+        var html = "<html>";
+        //사이즈 조절, css
+        html += "<head><style type='text/css'> .boxLabel {border-collapse:collapse; border-spacing:0;text-align:center; vertical-align:middle; font-weight: bold;} .boxLabel .tag{ background-color: rgb(220, 220, 220); border-top: 3px black solid;}.boxLabel .data{font-size:20px; padding:5px 2px;} .boxLabel tr{border-color:black; border-style:solid; border-width:1px; overflow:hidden; word-break:normal; }.boxLabel td{border-color:black; border-style:solid; border-width:1px; overflow:hidden; word-break:normal; } .boxLabel .goods{border-right: 3px black solid;} .boxLabel th{ font-size:12px; border-color:black; border-style:solid; border-width:1px; font-weight:bold;overflow:hidden; word-break:normal;} /*Web Print*/ .boxLabel{border: 3px black solid; width:100% height:100%} .page {width: 210mm; min-height: 297mm;} @media print {.page { margin: 0;border: initial; border-radius: initial; width: initial; min-height: initial; box-shadow: initial; background: initial; page-break-after: always; /*padding-top:38;*/}}</style></head>";
+        html += "<body>";
+        html += "<div class='page'>";
+        html += "<table class='boxLabel' style='table-layout:fixed'>";
+        html += "<thead>";
+        
+        
+        //일자 형식 변환  ex) 2021-04-27
+        var date = (args_mst.lg_dt).substring(0, 4)+"-"+(args_mst.lg_dt).substring(4, 6)+"-"+(args_mst.lg_dt).substring(6, 8);
+        
+        //물류지시번호 바코드 - 데이터
+        var data   = args_mst.lg_ord_no;
+        var format = "code128"; 
+        
+        console.log(data+":"+format);
+        $(".barcode").barcode(data, format, {
+            "barWidth"   : 1,
+		    "barHeight"  : 30,
+		    "moduleSize" : 5,
+		    "bgColor"    : 'hsl(0 0% 100%)',
+		    "color"      : 'hsl(0 0% 0%)',
+		    "fontSize"   : 10,
+		    "showHRI"    : true, // false시에 숫자 안보임
+		    "output"     : 'bmp', // 그려주는 방식을 css, svg, bmp, canvas 중에서 선택
+        }).css("width","150%");
+
+        src = $(".barcode object").attr("data");
+        
+        var total_qty_lst = [];
+        var total_box_qty = 0;
+        
+        for(var h = 0; h<box_lst.length; h++){
+            var total_qty = 0;
+            for(var i = 0; i<args_det.length; i++){
+                if(box_lst[j]==args_det[i].box_barcd){
+                    total_qty += Number(args_det[i].qty);
+                }
+            }
+            j++;
+            total_qty_lst.push(total_qty);
+        }
+        for(var i = 0; i<total_qty_lst.length; i++){
+            total_box_qty += Number(total_qty_lst[i]);
+        }
+
+        console.log(total_qty_lst);
+        console.log(total_box_qty);
+        
+        //1
+        html += "<tr><th></th>";
+        html += "<th rowspan='2' colspan='3'><div class='barcode_img'><object style='width:160px; height:40px;' type='image/bmp' data="+src+"></object></div></th>"; //바코드
+        html += "<th style='width:15mm'>물류유형</th>";
+        html += "<th style='width:15mm'>일자</th>";
+        html += "<th style='width:45mm' colspan='3'>보내는곳</th>";
+        html += "<th style='width:45mm' colspan='3'>받는곳</th></tr>";
+        
+        
+        //2
+        html += "<tr><th rowspan='2' style='border-top:hidden; vertical-align:middle;'>물류"+"<br>"+"지시번호</th>";
+        html += "<th style='border-bottom:hidden; font-size:15px;'>"+ lg_tp +"</th>"; //REA 
+        html += "<th rowspan='2' style='font-size:10px'>"+ date +"</th>"; //일자
+        html += "<th rowspan='2' style='width:15mm'>"+ args.shopcd +"</th>"; //보내는곳코드 LF001
+        html += "<th rowspan = '2' colspan = '2'>"+ gUserinfo.deptnm +"</th>"; // 가산
+
+        html += "<th rowspan='2' style='width:15mm'>"+ args_mst.to_whcd +"</th>"; //받는곳코드
+        html += "<th rowspan='2' colspan='2'>"+ args_mst.to_wh_nm +"</th></tr>"; //받는곳이름
+        
+        
+        //3
+        html += "<th colspan='3'>"+ args_mst.lg_ord_no +"</th>"; //물류지시번호
+        html += "<th style='font-size:14px;'>"+ lg_tp_nm +"</th>"; //시즌반품
+        html += "</tr>";
+       
+        var today = new Date();   
+        
+        var year = today.getFullYear(); // 년도
+        var month = today.getMonth() + 1;  // 월
+        var date = today.getDate();  // 날짜
+        var dayString = year + "-" + month + "-" + date;
+        
+        var hours = ('0' + today.getHours()).slice(-2); //시
+        var minutes = ('0' + today.getMinutes()).slice(-2); //분
+        var seconds = ('0' + today.getSeconds()).slice(-2);  //초
+        var timeString = hours + ':' + minutes  + ':' + seconds;
+
+       //4
+        html += "<tr><th>배송정보</th>";
+        html += "<th style='width:15mm;'>"+ args_mst.ord_fileid +"</th>"; //배송구분-택배
+        html += "<th colspan='2' style='font-size:10px;'>"+ args_mst.ord_content +"</th>";  //배송정보-대한통운~~~
+        html += "<th rowspan='2' style='font-size:15px;'>"+ box_lst.length +" Box</th>"; //60box
+        html += "<th rowspan='2' style='font-size:15px;'>"+ total_box_qty +" Pcs</th>"; //924pcs
+        html += "<th>담당</th>";
+        html += "<th colspan='2'></th>"; //담당자이름
+        html += "<th colspan='3'>"+ dayString +" "+ timeString +"</th></tr>";
+        
+        //5
+        html += "<tr><th>비고</th>";
+        html += "<th colspan='3'>"+ args_mst.remark +"</th>";
+        
+        html += "<th>접수</th>";
+        html += "<th colspan='2'></th>"; //접수자 이름
+        html += "<th colspan='3'></th></tr>"; //접수자 작성 날짜
+
+        html += "<tr><th class='tag'>No.</th>";
+        html += "<th class='tag' colspan='3'>박스번호</th>";
+        html += "<th class='tag'>입수량</th>";
+        html += "<th class='tag' style='border-right:3px black solid'>확인</th>";
+        html += "<th class='tag'>No.</th>";
+        html += "<th class='tag' colspan='3'>박스번호</th>";
+        html += "<th class='tag'>입수량</th>";
+        html += "<th class='tag'>확인</th></tr>";
+        
+        html += "</thead>";
+        html += "<tbody>";
+
+        
+        if(box_lst.length <= 35){ //상품 갯수가 10개 이하일때
+
+            var cnt = 0;
+            var cnt_right = 0;
+            
+            for(var i = 0; i<box_lst.length; i++){ 
+                cnt++;
+                html += "<tr>";
+                html += "<td>"+(i+1)+"</td>";
+                html += "<td colspan='3'>"+box_lst[i]+"</td>";
+                html += "<td>"+total_qty_lst[i]+"</td>";
+                html += "<td class='goods'>"+"<br>"+"</td>";
+                html += "<td>"+"<br>"+"</td>";
+                html += "<td colspan='3'>"+"<br>"+"</td>";
+                html += "<td>"+"<br>"+"</td>";
+                html += "<td>"+"<br>"+"</td>";
+                html += "</tr>";
+                
+            }
+            for(var i = 0; i<35-cnt; i++){
+                html += "<tr>";
+                html += "<td>"+"<br>"+"</td>";
+                html += "<td colspan='3'>"+"<br>"+"</td>";
+                html += "<td>"+"<br>"+"</td>";
+                html += "<td class='goods'>"+"<br>"+"</td>";
+                html += "<td>"+"<br>"+"</td>";
+                html += "<td colspan='3'>"+"<br>"+"</td>";
+                html += "<td>"+"<br>"+"</td>";
+                html += "<td>"+"<br>"+"</td>";
+                html += "</tr>";
+            }
+        }else { 
+        
+          
+            for(var i = 0; i<box_lst.length-35; i++){
+                cnt_right++;
+                html += "<tr>";
+                html += "<td>"+(i+1)+"</td>";
+                html += "<td colspan='3'>"+box_lst[i]+"</td>";
+                html += "<td>"+total_qty_lst[i]+"</td>";
+                html += "<td class='goods'>"+""+"</td>";
+                html += "<td>"+(i+36)+"</td>";
+                html += "<td colspan='3'>"+box_lst[i+35]+"</td>";
+                html += "<td>"+total_qty_lst[i+35]+"</td>";
+                html += "<td>"+""+"</td>";
+                html += "</tr>";
+            }
+            for(var i = cnt_right; i<35; i++){
+                html += "<tr>";
+                html += "<td>"+(i+1)+"</td>";
+                html += "<td colspan='3'>"+box_lst[i]+"</td>";
+                html += "<td>"+total_qty_lst[i]+"</td>";
+                html += "<td class='goods'>"+"<br>"+"</td>";
+                html += "<td>"+"<br>"+"</td>";
+                html += "<td colspan='3'>"+"<br>"+"</td>";
+                html += "<td>"+"<br>"+"</td>";
+                html += "<td>"+"<br>"+"</td>";
+                html += "</tr>";
+            }
+        }
+    
+        html += "</tbody>";
+        html += "</table>";
+        html += "</div>";
+        html += "</body>";
+        html += "</html>";
+    
+        
+        //새로운 페이지로 열어서 인쇄
+        var newPage = window.open('','_blank','directories=no,titlebar=no,toolbar=no, location=no, status=no, menubar=no, scrollbars=no,resizable=no, width=1024, height=1024');
+        /*
+        //박스수를 담은 변수갯수만큼(박스수만큼) newpage에 붙여준다
+        for(var i = 0; i<html_lst.length; i++){
+            newPage.document.write(html_lst[i]);
+        }*/
+        newPage.document.write(html);
+        newPage.focus();
+        newPage.print();      
+    
+    }
+    //print2 : 박스라벨 생성/발행
+    me.fnPrint2=function() {
+        /*
+        if(isNull(me.pageObj.mst.getVal("lg_ord_no")) || me.pageObj.mst.getVal("cd_stat")!="F") {
+            gfnAlert("박스라벨 발행확인","반품지시/예정내역이 선택되지 않았거나 확정상태가 아닙니다.");
+            return;
+        } 
+        */
+        if(isNull(me.pageObj.mst.getVal("lg_ord_no")) || me.pageObj.mst.getVal("lg_ord_no")=="TBD"){
+            gfnAlert("박스라벨 발행확인","반품지시/예정내역이 선택되지 않았습니다.");
+            return;
+        } 
+        
+        var args = me.pageObj["pageCond"].exportData()[0];
+        var args_mst = me.pageObj["mst"].exportData()[0]; // lg_dt: 물류일자, to_whcd: 받는창고
+        var args_det = me.pageObj["det"].exportData(); //box_barcd: 박스번호,바코드
+        
+        var lg_tp = args_mst.lg_tp;
+        var lg_tp_nm = gfnCdNm("LG_TP",lg_tp,"nm");
+        
+        var box_lst = extract(args_det, "box_barcd", "distinct"); //박스바코드
+        var box_no_lst = extract(args_det, "box_no", "distinct"); //매장 박스번호
+
+        var j = 0;
+
+        var html_lst = [];
+        for(var i = 0; i<box_lst.length; i++){
+            html_lst.push("html"+i);
+        }
+            
+        //박스수만큼 찍어낸다
+        for(var k = 0; k<box_lst.length; k++){ 
+
+            html_lst[k] = "<html>";
+            //사이즈 조절, css
+            html_lst[k] += "<head><style type='text/css'> .boxLabel {border-collapse:collapse;border-spacing:0;text-align:center; vertical-align:middle; font-weight: bold;}.boxLabel .change{font-size:30px; font-weight: bold; border-bottom:hidden} .boxLabel .data{font-size:20px; padding:5px 2px;} .boxLabel .date{font-size: 15px;}.boxLabel .from{ font-size: 15px;} .boxLabel .to{font-size: 15px;}.boxLabel .code{font-size: 15px;} .boxLabel tr{border-color:black; border-style:solid; border-width:1px; overflow:hidden; word-break:normal; font-size: 1;}.boxLabel td{border-color:black; border-style:solid; border-width:1px; overflow:hidden; word-break:normal; font-size: 15px;}.boxLabel th{border-color:black; border-style:solid; border-width:1px; font-weight:bold;overflow:hidden; word-break:normal;} .boxLabel .goods{border-right: 4px black solid;} .boxLabel .boxNum_data{font-weight: bold; text-align:center; vertical-align:middle; font-size: 30px;} .barcode_img>object {width: 80%; height: 50px;} .boxLabel .boxNum{font-weight: bold; text-align:center; vertical-align:middle;}.boxLabel .allcnt_data{font-weight: bold; text-align:center; vertical-align:middle; font-size:30px;} /*Web Print*/ body {margin: 0; padding-left: 28; padding-top:18; padding-bottom:10;} .boxLabel{border: 3px black solid; width: 200mm/*112mm*/; /*225*/height: 140mm/*84mm*/; /*175*/}@page {size: 140mm 110mm; /*7.62cm 5.08cm 94 64 96 62*/ /*인쇄기본설정 => w:66mm, h:88mm*/margin: 0;}@media print {.page { margin: 0;border: initial; border-radius: initial; width: initial; min-height: initial; box-shadow: initial; background: initial; page-break-after: always; padding-top:38;}}</style></head>";
+            html_lst[k] += "<body>";
+            html_lst[k] += "<div class='page'>";
+            html_lst[k] += "<table class='boxLabel' style='table-layout:fixed'>";
+            html_lst[k] += "<thead>";
+            
+            html_lst[k] += "<tr><th class='date' style='width:25mm'>일자</th><th class='from' style='width:40mm;'>보내는곳</th><th class='code' style='width:30mm;'>코드</th><th class='code'>매장 박스번호</th><th class='to'>받는곳</th><th class='code' style='width:30mm;'>코드</th></tr>";
+            
+            //일자 형식 변환  ex) 2021-04-27
+            var date = (args_mst.lg_dt).substring(0, 4)+"-"+(args_mst.lg_dt).substring(4, 6)+"-"+(args_mst.lg_dt).substring(6, 8);
+
+            //박스번호에서 뒤에 4자리 가져오기 -> ex. 0001
+            var box_no_sub = box_no_lst[k].slice(-4);
+            
+            //일자, 보내는곳, 보내는곳코드, 받는곳, 받는곳코드
+            html_lst[k] += "<tr><td style='font-size:17px;'>"+date+"</td>";
+            html_lst[k] += "<td class = 'data'>" +gUserinfo.deptnm+ "</td>";
+            html_lst[k] += "<td class = 'data'>" + args.shopcd+ "</td>";
+            html_lst[k] += "<td class = 'data'>" + box_no_sub + "</td>"; //박스번호 0001
+            html_lst[k] += "<td class = 'data'>" +args_mst.to_wh_nm+ "</td>";
+            html_lst[k] += "<td  class = 'data'>" + args_mst.to_whcd+ "</td></tr>";
+            html_lst[k] += "</thead>";
+            html_lst[k] += "<tbody>";
+        
+            
+            var total_qty = 0; //총수량
+            var goodscd = []; //박스별 상품코드 담아두는 리스트
+            var goodsqty = []; //박스별 상품수량 담아두는 리스트
+            
+           
+            for(var i = 0; i<args_det.length; i++){
+                if(box_lst[j]==args_det[i].box_barcd){
+                    total_qty += Number(args_det[i].qty);
+                    
+                    goodscd.push(args_det[i].goods_cd);
+                    goodsqty.push(args_det[i].qty);
+                }
+            }
+            j++;    
+            
+        
+            //박스바코드 - 데이터
+            var data   = box_lst[k]; 
+            var format = "code128"; 
+            
+            console.log(data+":"+format);
+            $(".barcode").barcode(data, format, {
+                "barWidth"   : 1,
+    		    "barHeight"  : 50,
+    		    "moduleSize" : 5,
+    		    "bgColor"    : 'hsl(0 0% 100%)',
+    		    "color"      : 'hsl(0 0% 0%)',
+    		    "fontSize"   : 10,
+    		    "showHRI"    : true, // false시에 숫자 안보임
+    		    "output"     : 'bmp', // 그려주는 방식을 css, svg, bmp, canvas 중에서 선택
+            }).css("width","100%");
+    
+            src = $(".barcode object").attr("data");
+
+            //반품(이동구분명) REA, REC, RED ...
+            html_lst[k] += "<tr><td class='change'>"+lg_tp+"</td>";
+            
+            //박스바코드
+            html_lst[k] += "<td class='barcode' colspan='5'><div class='barcode_img'><object type='image/bmp' data="+src+"></object></div></td></tr>";
+        
+            //박스바코드번호 형식 변환 (공백추가)
+            var boxnum_sp = box_lst[k].substring(0,4)+" "+box_lst[k].substring(4,8)+" "+box_lst[k].substring(8, );
+            
+            
+            html_lst[k] += "<tr><td>"+ lg_tp_nm +"</td>";
+            
+            
+            //박스바코드번호
+            html_lst[k] += "<td class='boxNum_data' colspan='4'>"+boxnum_sp+"</td>";
+
+            //박스별 총수량
+            html_lst[k] += "<td class='allcnt_data' >"+total_qty+"ea</td></tr>";
+        
+        
+            //상품순번, 상품코드, 수량
+            /*
+            if(args_det == null){
+                for(var i = 0; i<10; i++){
+                    html_lst[k] += "<tr>";
+                    html_lst[k] += "<td>"+"<br>"+"</td>";
+                    html_lst[k] += "<td>"+"<br>"+"</td>";
+                    html_lst[k] += "<td class='goods'>"+"<br>"+"</td>";
+                    html_lst[k] += "<td>"+"<br>"+"</td>";
+                    html_lst[k] += "<td>"+"<br>"+"</td>";
+                    html_lst[k] += "<td>"+"<br>"+"</td>";
+                    html_lst[k] += "</tr>";
+                }
+            }else 
+            */
+            if(goodscd.length <= 10){ //상품 갯수가 10개 이하일때
+
+                var cnt = 0;
+                var cnt_right = 0;
+                
+                for(var i = 0; i<goodscd.length; i++){ 
+                    cnt++;
+                    html_lst[k] += "<tr>";
+                    html_lst[k] += "<td>"+(i+1)+"</td>";
+                    html_lst[k] += "<td>"+goodscd[i]+"</td>";
+                    html_lst[k] += "<td class='goods'>"+goodsqty[i]+"</td>";
+                    html_lst[k] += "<td>"+"<br>"+"</td>";
+                    html_lst[k] += "<td>"+"<br>"+"</td>";
+                    html_lst[k] += "<td>"+"<br>"+"</td>";
+                    html_lst[k] += "</tr>";
+                    
+                }
+                for(var i = 0; i<10-cnt; i++){
+                    html_lst[k] += "<tr>";
+                    html_lst[k] += "<td>"+"<br>"+"</td>";
+                    html_lst[k] += "<td>"+"<br>"+"</td>";
+                    html_lst[k] += "<td class='goods'>"+"<br>"+"</td>";
+                    html_lst[k] += "<td>"+"<br>"+"</td>";
+                    html_lst[k] += "<td>"+"<br>"+"</td>";
+                    html_lst[k] += "<td>"+"<br>"+"</td>";
+                    html_lst[k] += "</tr>";
+                }
+            }else { //상품 갯수가 10개 이상일 때
+            
+                var cnt_right = 0;
+
+                if(goodscd.length <= 20){ //상품 갯수가 20개이하
+                    
+                    for(var i = 0; i<goodscd.length-10; i++){
+                        cnt_right++;
+                        html_lst[k] += "<tr>";
+                        html_lst[k] += "<td>"+(i+1)+"</td>";
+                        html_lst[k] += "<td>"+goodscd[i]+"</td>";
+                        html_lst[k] += "<td class='goods'>"+goodsqty[i]+"</td>";
+                        html_lst[k] += "<td>"+(i+11)+"</td>";
+                        html_lst[k] += "<td>"+goodscd[i+10]+"</td>";
+                        html_lst[k] += "<td>"+goodsqty[i+10]+"</td>";
+                        html_lst[k] += "</tr>";
+                    }
+                    console.log(cnt_right);
+                    for(var i = cnt_right; i<10; i++){
+                        html_lst[k] += "<tr>";
+                        html_lst[k] += "<td>"+(i+1)+"</td>";
+                        html_lst[k] += "<td>"+goodscd[i]+"</td>";
+                        html_lst[k] += "<td class='goods'>"+goodsqty[i]+"</td>";
+                        html_lst[k] += "<td>"+"<br>"+"</td>";
+                        html_lst[k] += "<td>"+"<br>"+"</td>";
+                        html_lst[k] += "<td>"+"<br>"+"</td>";
+                        html_lst[k] += "</tr>";
+                    }
+                }else{ //상품 갯수가 20개 이상일때
+                
+                    for(var i = 0; i<9; i++){
+                        html_lst[k] += "<tr>";
+                        html_lst[k] += "<td>"+(i+1)+"</td>";
+                        html_lst[k] += "<td>"+goodscd[i]+"</td>";
+                        html_lst[k] += "<td class='goods'>"+goodsqty[i]+"</td>";
+                        html_lst[k] += "<td>"+(i+11)+"</td>";
+                        html_lst[k] += "<td>"+goodscd[i+11]+"</td>";
+                        html_lst[k] += "<td>"+goodsqty[i+11]+"</td>";
+                        html_lst[k] += "</tr>";
+                    } 
+                    html_lst[k] += "<tr>";
+                    html_lst[k] += "<td>"+10+"</td>";
+                    html_lst[k] += "<td>"+goodscd[9]+"</td>";
+                    html_lst[k] += "<td class='goods'>"+goodsqty[9]+"</td>";
+                    html_lst[k] += "<td>...</td>";
+                    html_lst[k] += "<td>... 외"+ Number(goodscd.length-20) +"</td>";
+                    html_lst[k] += "<td>...</td>";
+                    html_lst[k] += "</tr>";
+                    
+                }
+                
+            }
+            
+            html_lst[k] += "</tbody>";
+            html_lst[k] += "</table>";
+            html_lst[k] += "</div>";
+            html_lst[k] += "</body>";
+            html_lst[k] += "</html>";
+        }
+        
+        //새로운 페이지로 열어서 인쇄
+        var newPage = window.open('','_blank','directories=no,titlebar=no,toolbar=no, location=no, status=no, menubar=no, scrollbars=no,resizable=no, width=1024, height=1024');
+        
+        //박스수를 담은 변수갯수만큼(박스수만큼) newpage에 붙여준다
+        for(var i = 0; i<html_lst.length; i++){
+            newPage.document.write(html_lst[i]);
+        }
+        //newPage.document.write(html);
+        newPage.focus();
+        newPage.print(); 
+                
+    }
+    
+    //print3 : 박스송장 발행
+    me.fnPrint3=function() {
+        /* 
+        if(isNull(me.pageObj.mst.getVal("lg_ord_no")) || me.pageObj.mst.getVal("cd_stat")!="F") {
+            gfnAlert("박스라벨 발행확인","반품지시/예정내역이 선택되지 않았거나 확정상태가 아닙니다.");
+            return;
+        } */ 
+        if(isNull(me.pageObj.mst.getVal("lg_ord_no")) || me.pageObj.mst.getVal("lg_ord_no")=="TBD"){
+            gfnAlert("박스송장 발행확인","반품지시/예정내역이 선택되지 않았습니다.");
+            return;
+        } 
+        
+        var args = me.pageObj["pageCond"].exportData()[0];
+        var args_mst = me.pageObj["mst"].exportData()[0]; // lg_dt: 물류일자, to_whcd: 받는창고
+        var args_det = me.pageObj["det"].exportData(); //box_barcd: 박스번호,바코드
+
+        var lg_tp = args_mst.lg_tp;
+        var lg_tp_nm = gfnCdNm("LG_TP",lg_tp,"nm");
+        var box_lst = extract(args_det, "box_barcd", "distinct");
+        var box_no_lst = extract(args_det, "box_no", "distinct"); //매장 박스번호
+
+
+        var j = 0;
+
+        var html_lst = [];
+        for(var i = 0; i<box_lst.length; i++){
+            html_lst.push("html"+i);
+        }
+            
+        //박스수만큼 찍어낸다
+        for(var k = 0; k<box_lst.length; k++){ 
+
+            html_lst[k] = "<html>";
+            //사이즈 조절, css
+            html_lst[k] += "<head><style type='text/css'> .boxLabel {border-collapse:collapse;border-spacing:0;text-align:center; vertical-align:middle; font-weight: bold;}.boxLabel .change{font-size:30px; font-weight: bold; border-bottom:hidden}.boxLabel .data{font-size:20px; padding:5px 2px;} .boxLabel .date{font-size: 15px;}.boxLabel .from{ font-size: 15px;} .boxLabel .to{font-size: 15px;}.boxLabel .code{font-size: 15px;} .boxLabel tr{border-color:black; border-style:solid; border-width:1px; overflow:hidden; word-break:normal; font-size: 1;}.boxLabel td{border-color:black; border-style:solid; border-width:1px; overflow:hidden; word-break:normal; font-size: 13px;} .boxLabel th{border-color:black; border-style:solid; border-width:1px; font-weight:bold;overflow:hidden; word-break:normal;}.boxLabel .boxNum_data{font-weight: bold; text-align:center; vertical-align:middle; font-size: 30px;} .boxLabel .boxNum{font-weight: bold; text-align:center; vertical-align:middle;}.boxLabel .allcnt_data{font-weight: bold; text-align:center; vertical-align:middle; font-size:30px;} /*Web Print*/ body {margin: 0; padding-left: 28; padding-top:18;} .barcode_img>object {width: 80%; height: 50px;} .boxLabel{border: 3px black solid; width:100% height:100%}  .page {width: 210mm; min-height: 297mm;} @media print {.page { margin: 0;border: initial; border-radius: initial; width: initial; min-height: initial; box-shadow: initial; background: initial; page-break-after: always; /*padding-top:38;*/}}</style></head>";
+            html_lst[k] += "<body>";
+            html_lst[k] += "<div class='page'>";
+            html_lst[k] += "<table class='boxLabel' style='table-layout:fixed'>";
+            html_lst[k] += "<thead>";
+            
+            html_lst[k] += "<tr><th class='date' style='width:25mm'>일자</th><th class='from' style='width:35mm;'>보내는곳</th><th class='code' style='width:45mm;'>코드</th><th class='to' colspan='2' style='width:35mm;'>받는곳</th><th class='code' style='width:35mm;'>코드</th></tr>";
+            
+            //일자 형식 변환  ex) 2021-04-27
+            var date = (args_mst.lg_dt).substring(0, 4)+"-"+(args_mst.lg_dt).substring(4, 6)+"-"+(args_mst.lg_dt).substring(6, 8);
+
+            
+            //일자, 보내는곳, 보내는곳코드, 받는곳, 받는곳코드
+            html_lst[k] += "<tr><td style='font-size:17px;'>"+ date +"</td>";
+            html_lst[k] += "<td class = 'data'>" + gUserinfo.deptnm + "</td>";
+            html_lst[k] += "<td class = 'data'>" + args.shopcd+ "</td>";
+            html_lst[k] += "<td colspan='2'  class = 'data'>" +args_mst.to_wh_nm+ "</td>";
+            html_lst[k] += "<td  class = 'data'>" + args_mst.to_whcd+ "</td></tr>";
+            html_lst[k] += "</thead>";
+            html_lst[k] += "<tbody>";
+        
+            var total_qty = 0; //총수량
+            var goodscd = []; //박스별 상품코드 담아두는 리스트
+            var goodsqty = []; //박스별 상품수량 담아두는 리스트
+            var goodsnm = []; //박스별 상품명 담아두는 리스트
+            
+            for(var i = 0; i<args_det.length; i++){
+                if(box_lst[j]==args_det[i].box_barcd){
+                    total_qty += Number(args_det[i].qty);
+                    
+                    goodscd.push(args_det[i].goods_cd);
+                    goodsqty.push(args_det[i].qty);
+                    goodsnm.push(args_det[i].goods_nm);
+                }
+            }
+            j++;    
+           
+           //상품명 뒤에 상품코드 자르고 상품명만 가져오기
+            function goodsNm(x) {
+                return (goodsnm[x]).substr(0, (goodsnm[x]).length - 11);
+            }
+            
+            //박스바코드 - 데이터
+            var data   = box_lst[k];  
+            var format = "code128"; 
+            
+            console.log(data+":"+format);
+            $(".barcode").barcode(data, format, {
+                "barWidth"   : 1,
+    		    "barHeight"  : 50,
+    		    "moduleSize" : 5,
+    		    "bgColor"    : 'hsl(0 0% 100%)',
+    		    "color"      : 'hsl(0 0% 0%)',
+    		    "fontSize"   : 10,
+    		    "showHRI"    : true, // false시에 숫자 안보임
+    		    "output"     : 'bmp', // 그려주는 방식을 css, svg, bmp, canvas 중에서 선택
+            }).css("width","100%");
+    
+            src = $(".barcode object").attr("data");
+
+
+            //매장 박스번호에서 뒤에 4자리 가져오기 -> ex. 0001
+            var box_no_sub = box_no_lst[k].slice(-4);
+            
+            //반품(이동구분명) REA, REC, RED ..
+            html_lst[k] += "<tr><td rowspan='2' style='border-bottom:hidden;' class='change'>"+lg_tp+"</td>";
+            html_lst[k] += "<td style='font-size:15px;'>"+ "매장 박스번호" +"</td>";
+            //박스바코드
+            html_lst[k] += "<td class='barcode' rowspan='2' colspan='4'><div class='barcode_img' style='width:400px;'><object type='image/bmp' data="+src+"></object></div></td></tr>";
+
+        
+            //매장박스번호
+            html_lst[k] += "<td class = 'data'>"+ box_no_sub +"</td>";
+            
+            //박스바코드
+            //html_lst[k] += "<td class='barcode' colspan='4'><div class='barcode_img' style='width:400px;'><object type='image/bmp' data="+src+"></object></div></td></tr>";
+        
+            //박스번호 형식 변환 (공백추가)
+            var boxnum_sp = box_lst[k].substring(0,4)+" "+box_lst[k].substring(4,8)+" "+box_lst[k].substring(8, );
+            
+            html_lst[k] += "<tr><td>"+ lg_tp_nm +"</td>";
+            
+            //박스번호
+            html_lst[k] += "<td class='boxNum_data' colspan='4'>"+boxnum_sp+"</td>";
+
+            //박스별 총수량
+            html_lst[k] += "<td class='allcnt_data' >"+total_qty+"ea</td></tr>";
+        
+            //배송구분, 배송정보
+            html_lst[k] += "<tr>";
+            html_lst[k] += "<td style='font-size:15px'>"+"배송구분"+"</td>";
+            html_lst[k] += "<td style='font-size:13px'>"+ args_mst.ord_fileid +"</td>";
+            html_lst[k] += "<td style='font-size:15px'>"+"배송정보"+"</td>";
+            html_lst[k] += "<td colspan='3' style='font-size:13px'>"+ args_mst.ord_content+"</td>"; 
+            html_lst[k] += "</tr>";
+        
+            //상품순번, 상품코드, 상품명, 수량, 확인수량, 비고
+            
+            html_lst[k] += "<tr>";
+            html_lst[k] += "<td style='font-size:15px'>"+"No."+"</td>";
+            html_lst[k] += "<td style='font-size:15px'>"+"상품코드"+"</td>";
+            html_lst[k] += "<td style='font-size:15px'>"+"상품명"+"</td>";
+            html_lst[k] += "<td style='font-size:15px'>"+"수량"+"</td>"; 
+            html_lst[k] += "<td style='font-size:15px'>"+"확인수량"+"</td>"; 
+            html_lst[k] += "<td style='font-size:15px'>"+"비고"+"</td>"; 
+            html_lst[k] += "</tr>";
+            
+            for(var i = 0; i<38; i++){
+               if(typeof goodscd[i]== "undefined"){
+                   
+                    html_lst[k] += "<tr>";
+                    html_lst[k] += "<td>"+"<br>"+"</td>";
+                    html_lst[k] += "<td>"+"<br>"+"</td>";
+                    html_lst[k] += "<td>"+"<br>"+"</td>";
+                    html_lst[k] += "<td>"+"<br>"+"</td>"; 
+                    html_lst[k] += "<td>"+"<br>"+"</td>"; 
+                    html_lst[k] += "<td>"+"<br>"+"</td>"; 
+                    html_lst[k] += "</tr>";
+               }else{
+                   
+                html_lst[k] += "<tr>";
+                html_lst[k] += "<td>"+ (i+1) +"</td>";
+                html_lst[k] += "<td>"+ goodscd[i] +"</td>";
+                html_lst[k] += "<td>"+ goodsNm(i) +"</td>";
+                html_lst[k] += "<td>"+ goodsqty[i] +"</td>"; 
+                html_lst[k] += "<td>"+""+"</td>"; 
+                html_lst[k] += "<td>"+ args_mst.remark +"</td>"; 
+                html_lst[k] += "</tr>";
+               }
+            }
+                
+            html_lst[k] += "</tbody>";
+            html_lst[k] += "</table>";
+            html_lst[k] += "</div>";
+            html_lst[k] += "</body>";
+            html_lst[k] += "</html>";
+        }
+        
+        //새로운 페이지로 열어서 인쇄
+        var newPage = window.open('','_blank','directories=no,titlebar=no,toolbar=no, location=no, status=no, menubar=no, scrollbars=no,resizable=no, width=1024, height=1024');
+        
+        //박스수를 담은 변수갯수만큼(박스수만큼) newpage에 붙여준다
+        for(var i = 0; i<html_lst.length; i++){
+            newPage.document.write(html_lst[i]);
+        }
+        //newPage.document.write(html);
+        newPage.focus();
+        newPage.print();      
+    }
+    
+    //new: 신규문서 생성
+    me.fnNew=function() {
+        me.pageObj.mst.reset();
+        me.pageObj.det.reset();
+    }
+    
+    //reject: 예정정보 삭제
+    me.fnReject=function() {
+        //상태에 따라 삭제가능여부 validation
+        if (false) {
+            gfnAlert("삭제확인","삭제할 수 없는 상태입니다.");
+            return;
+        } 
+        function _fnReject() {
+            var args = me.pageObj["mst"].exportData()[0];
+            var invar = JSON.stringify(args);
+            gfnTx(appid+"."+pgmid,"reject",{INVAR:invar},function(OUTVAR){
+                //console.log(OUTVAR);
+                if(OUTVAR.rtnCd=="OK") {
+                    gfnAlert("성공","입력한 정보가 저장되었습니다."); 
+                } else {
+                    gfnAlert("오류",OUTVAR.rtnMsg);
+                }
+            }); 
+        }
+        
+        gfnConfirm("삭제확인","반품예정정보를 삭제하시겠습니까?",function(rtn){
+            if(rtn) _fnReject();
+        });   
+    }
+    /*
+    me.fnCfm=function() {
+        var args = me.pageObj["list"].exportData();
+        console.log(args);
+        var invar = JSON.stringify(args);
+        gfnTx(appid+"."+pgmid,"cfm",{INVAR:invar},function(OUTVAR){
+            //console.log(OUTVAR);
+            if(OUTVAR.rtnCd=="OK") {
+                gfnAlert("저장성공","입력한 정보가 저장되었습니다.");
+                me.fnSearch();
+            } else {
+                gfnAlert("저장오류",OUTVAR.rtnMsg);
+            }
+        });
+    }
+    */
+
+
+/*-- SCRIPT autogen ---------------------------------------------------- */        
+if(typeof(me.fnInit)=='function') me.fnInit();
+});
+
+</script>

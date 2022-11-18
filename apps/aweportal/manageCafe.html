@@ -1,0 +1,349 @@
+<style>
+    .addBtn,
+    .deleteBtn{
+        display:inline-block;
+        margin-left: 16px;
+    }
+    button.addMember{
+        margin-left: 8px;
+    }
+    [pgmid='manageCafe'] .managecontent{
+        margin-left:16px;
+    }
+    .addTitle{
+        display:inline-block;
+    }
+    /* .list{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin: 10px 0;
+    } */
+    .cafename h3{
+        display:inline-block;
+        margin-right: 8px;
+    }
+    .cafename i{
+        cursor:pointer;
+    }
+    .updateList li.list{
+        display:flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .updateList li.list .label{
+        margin: 16px;
+    }   
+    .updateBtn{
+        margin-left:200px;
+        padding: 4px 8px;
+    }
+    [pgmid='manageCafe'] table {
+        width: 80%;
+        border-collapse: collapse;
+    }
+    [pgmid='manageCafe'] th,td{
+        border: 1px solid hsl(0deg 0% 63%);
+        padding: 10px;
+    }
+    [pgmid='manageCafe'] th{
+        background-color: hsl(206deg 37% 96%);
+    }
+    [pgmid='manageCafe'] tr{
+        text-align: center;
+    }
+</style>
+    <div class="pageNav"></div>
+    <div class="pageTop">
+        <h2>Cafe Manage</h2>
+    </div>
+    <div class="pageCond">
+        <div class="cafename">
+            <!-- 해당 카페명 -->
+        </div>
+    </div>
+
+    <div class="cafeButton">
+        <!-- 저장하기 버튼 -->
+    </div>
+
+    <div class="pageGuide"></div>
+    <div class="managecontent">
+        <h3>회원관리</h3>
+        <table class="listTable">
+            <thead>
+            <tr>
+                <th>id</th>
+                <th>이름</th>
+                <th>직급</th>
+                <th>탈회 버튼</th>
+            </tr>    
+            </thead>
+            <tbody id="memberlist">
+            </tbody>
+        </table>
+        <div>
+            <!-- <h3>회원관리</h3>
+            <ul id="memberlist"></ul> -->
+            <div>
+                <h3 class='addTitle'>회원추가</h3><button class="addMember closed">+</button>
+            </div>
+            <div style="width:80%; height:500px; overflow:auto" class="listTable2">
+                <table class="listTable2" style="width:100%">
+                    <thead>
+                    <tr>
+                        <th>id</th>
+                        <th>이름</th>
+                        <th>직급</th>
+                        <th>추가 버튼</th>
+                    </tr>    
+                    </thead>
+                    <tbody id="userlist">
+                    </tbody>
+                </table>
+            </div>
+            <!-- <ul id="userlist"></ul> -->
+        </div>
+
+        <!-- <div>
+            <h3>게시글관리</h3>
+            <ul id="cafeBoard"></ul>
+        </div> -->
+    </div>
+        
+    <script>
+    $(function() { //page
+            var appid = "aweportal";
+            var pgmid = "manageCafe";  
+            var page = $("*[pgmid='"+pgmid+"']").last(); 
+            var pageid = page.attr("id"); 
+
+            var grpid = gParam["grpid"];
+            var grpnm = gParam["grpnm"];
+        
+            var me = { 
+                //화면 초기화
+                fnInit : function() {
+                    gfn[pageid] = me;
+                    me.appid    = appid;
+                    me.pgmid    = pgmid;
+                    me.pageid   = pageid;
+                    me.page     = page;
+
+                    me.fnLoad();
+                    
+                    //화면초기화 
+                    me.dataSet = {};
+                    me.pageObj = {};
+                    me.bEdit = false;  /* 수정여부 for 빠져나가기, 재조회 */
+                    me.dataSet["_pgm"] = [
+                        {
+                            pgmid:"manageCafe", pgm_nm:"카페관리",
+                            pgm_grp_nm:"시스템개발",
+                            app_pgmid:"aweportal"
+                        }
+                    ][0]; 
+                    me.dataSet["_pgm_func"] = [];  
+                    me.dataSet["memberList"] = [];
+                    me.dataSet["addMemberList"] = [];
+
+                    me.pageObj["_pageFunc"] = new gfnButtonSet( "#"+me.pageid+" .pageFunc",
+                        me.dataSet["_pgm_func"], 
+                        me.fnEH );                    
+                },
+                fnLoad : function() {
+                    var oList = me.page.find('.cafename');
+                    var cafeTitle = $(`<h3></h3>`);
+                    cafeTitle.text(grpnm);
+                    oList.append(cafeTitle);
+                    oList.append(`<i class="fas fa-pen" id=${grpnm}></i>`);
+
+                    //name = cafeName관리
+                    // var args = {cafe:name};
+                    // var cafeName = me.page.attr('grpnm');
+                    // var args = {cafe:cafeName};
+                    var args={cafe:grpid};
+                    var invar = JSON.stringify(args);
+                    
+                    gfnTx(appid+"."+pgmid,"loadManageCafe",{INVAR:invar},function(OUTVAR){
+                        if(OUTVAR.rtnCd=="OK"){
+                            var members = OUTVAR.members;
+
+                            for(var i=0;i<members.length;i++){
+                                var row = members[i];
+                                var row2 = OUTVAR.usnm[i];
+
+                                var memberList = {
+                                    usid: row.usid,
+                                    nick_nm: row.user_nick_nm,
+                                    usnm: row2.nm,
+                                };
+                                me.dataSet["memberList"].push(memberList);
+                                me.fnDrawCafe();
+                            }        
+                        }
+        
+                    })
+
+                    gfnTx(appid+"."+pgmid,"retrieveUser",{INVAR:invar},function(OUTVAR){
+                        if(OUTVAR.rtnCd=="OK"){
+                            var user = OUTVAR.user;//조회된 user목록데이터
+
+                            for( let i=0;i<user.length;i++){
+                                var row = user[i];
+
+                                var addMemberList = {
+                                    usid : row.usid,
+                                    nick_nm: row.nick_nm,
+                                    usnm: row.nm,
+                                };
+                                me.dataSet["addMemberList"].push(addMemberList);
+
+                                me.fnDrawCafe();
+                            }
+                        }
+                    })
+
+                    me.page.find(".listTable2").hide();
+                    //+ 버튼 클릭 이벤트
+                    me.page.find(".addMember").on("click",function(e){
+                        if( me.page.find(".addMember").hasClass("closed")) {
+                            me.page.find(".addMember").removeClass("closed");
+                            me.page.find(".listTable2").show();
+                        } else {
+                            me.page.find(".addMember").addClass("closed");
+                            me.page.find(".listTable2").hide();
+                        }
+                    })
+
+                    me.fnButton();
+                },
+                fnButton: function () {
+                    //'탈회'버튼 클릭시 해당멤버 탈회
+                    me.page.find("#memberlist").on("click",".deleteBtn",function(e){
+                        var btn = $(e.target);
+                        var userid = btn.attr("id");
+                        var args = {cafe:grpid, usid:userid};
+                        var invar = JSON.stringify(args);
+
+                        gfnTx(appid+"."+pgmid,"deleteMember",{INVAR:invar},function(OUTVAR){
+                            if(OUTVAR.rtnCd == "OK") {
+                                gfnAlert("성공", "회원이 탈회되었습니다.")
+                                
+                            } else {
+                                gfnAlert(OUTVAR.rtnCd, OUTVAR.rtnMsg);
+                            }
+                        })
+                    })
+
+                    //'추가' 버튼 클릭시 회원추가
+                    me.page.find("#userlist").on("click",".addBtn",function(e){
+                        var btn = $(e.target);
+                        var userid = btn.attr("id");
+                        var args = {cafe:grpid, usid:userid, nickname:btn.attr("nm")};
+                        var invar = JSON.stringify(args);
+                        gfnTx(appid+"."+pgmid,"joinCafe",{INVAR:invar},function(OUTVAR){
+                           if(OUTVAR.rtnCd=="OK") {
+                               gfnAlert("카페가입성공","카페에 가입되었습니다.");
+                               me.fnLoad();
+                           }else{
+                               gfnAlert("에러",OUTVAR.rtnMsg);
+                           }
+                       })  
+                    })
+
+                    //edit icon클릭시 grpnm 수정
+                    me.page.find(".cafename").on("click","i",function(e){
+                        me.fnUpdatePopUp();
+                    })
+                },
+                fnDrawCafe: function() {
+                    var oList = me.page.find('#memberlist').html("");
+                    $.each(me.dataSet["memberList"],function(idx,el) {
+                        var oTable = $(`<tr id=${el.usid} ></tr>`);
+                        oTable.append(`<td class="id">${el.usid}</td>`);
+                        oTable.append(`<td class="usnm">${el.usnm}</td>`);
+                        oTable.append(`<td class="nick_nm">${el.nick_nm}</td>`);
+                        oTable.append(`<td><button id=${el.usid} nm=${el.nick_nm} class="deleteBtn">탈회</button></td>`);
+                        oList.append(oTable);
+
+                        // var div = $(`<div class='list'></div>`)
+                        // var oCafe = $("<li class='cafeMember'></li>");
+                        // div.append(oCafe.append(`<span>${el.usid}</span>`));
+                        // var deleteBtn = $(`<button id=${el.usid} nm=${el.nick_nm} class="deleteBtn">탈회</button>`);
+                        // div.append(deleteBtn);
+
+                        // oList.append(div);
+                    });
+
+                    var oList = me.page.find("#userlist").html("");
+                    $.each(me.dataSet["addMemberList"],function(idx,el){
+                        var oTable = $(`<tr id=${el.usid} ></tr>`);
+                        oTable.append(`<td class="id">${el.usid}</td>`);
+                        oTable.append(`<td class="usnm">${el.usnm}</td>`);
+                        oTable.append(`<td class="nick_nm">${el.nick_nm}</td>`);
+                        oTable.append(`<td><button id=${el.usid} nm=${el.nick_nm} class="addBtn">추가</button></td>`);
+                        oList.append(oTable);
+
+                        // var div = $(`<div class='list'></div>`)
+                        // var oCafe = $("<li class='addMemberList'></li>");
+                        // div.append(oCafe.append(`<span>${el.usid}</span>`));
+                        // var addBtn = $(`<button id=${el.usid} nm=${el.nick_nm} class="addBtn">추가</button>`);
+                        // div.append(addBtn);
+
+                        // oList.append(div);
+                    });
+                         
+                },
+                //cafe grp_nm update
+                fnUpdatePopUp: function(){
+                    var updateCafe = $("<div></div>");
+                    var updateList = $("<ul class='updateList'></ul>");
+                    updateCafe.append(updateList);
+                    var col = [
+                        {id:"grpnm", nm : "카페그룹이름" , val : grpnm},
+                    ];
+                    var oRow = $(`<li class='list'></li>`);
+                    for(let i=0;i<col.length;i++){
+                        var list = col[i];
+                        var oCol = $(`<input type="text" name="${list.id}" value="${list.val}" autocomplete="off"></input>`);
+                        oRow.append(oCol);
+                        oCol.before($(`<label>${list.nm}</label>`));
+                        updateList.append(oRow);
+                    }
+                    var updateBtn = $(`<br><button class="updateBtn">확인</button>`);
+                    updateCafe.append(updateBtn);
+                    gfnPopup("수정",updateCafe,{resizable:false, width:300,height:180,modal:false});
+
+                    updateBtn.on("click",function(){
+                        var list = [];
+                        var oRows = updateCafe.find(".updateList li");
+                        oRows.each(function(rownum,oRows){
+                            var row = {};
+                            $(oRows).find("input").each(function(colidx,oCol){
+                                var colid = $(oCol).attr("name");
+                                var val = $(oCol).val();
+                                row[colid] = val;
+                            });
+                            list.push(row);
+                            console.log(list);
+                        });
+
+                        // var args = {cafeid:me.page.attr('grpnm'), u_cafeid: list[0].grpid};//update
+                        var args = {cafeid:grpid, u_cafenm: list[0].grpnm};//update
+                        var invar = JSON.stringify(args);
+                        gfnTx(appid+"."+pgmid,"update",{INVAR:invar},function(OUTVAR){
+                            if(OUTVAR.rtnCd=="OK") {
+                                gfnAlert("수정","수정 되었습니다.");
+                            } else {
+                                gfnAlert("실패",OUTVAR.rtnMsg);
+                            }
+                        });
+                    })
+                } 
+
+
+            }  
+            if(typeof(me.fnInit)=='function') me.fnInit();//초기화면실행
+        }); 
+    </script>

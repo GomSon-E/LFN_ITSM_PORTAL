@@ -1,0 +1,91 @@
+<style>
+    [pgmid='cafePortlet'] li.cafelist{
+        cursor: pointer;
+        /* list-style: none; */
+    }
+    h3.cafeTitle{
+        display:flex;
+        justify-content: space-between;
+    }
+</style>
+<div class="cafePortlet">
+
+</div>
+<script>
+    $(function() {
+        var appid = "aweportal";
+        var pgmid = "cafePortlet";
+        var page = $("*[pgmid='"+pgmid+"']").last(); 
+        var pageid = page.attr("id"); 
+
+        var me = { 
+            fnInit : function() {
+                gfn[pgmid] = me;
+                // gfn[pageid] = me;            
+
+                me.appid    = appid;
+                me.pgmid    = pgmid;
+                me.pageid   = pageid;
+                me.page     = page;
+
+                me.dataSet ={};
+
+                me.dataSet["mycafeList"] = [];
+                me.bEdit = false;
+
+                // menu title 
+                me.page.prev("h3").attr('class','cafeTitle');
+                me.page.prev("h3").html("내 카페 <button id=cafeList value=카페리스트>more</button>")
+            
+                //cafe list 불러오기
+                gfnTx("aweportal.retrieveCafeList","loadCafeList",{},function(OUTVAR){
+                    if(OUTVAR.rtnCd=="OK"){
+                        var joinedList = OUTVAR.joinedlist;
+
+                        for(let i=0;i<joinedList.length;i++){
+                            var row = joinedList[i];
+                            var mycafeList = {
+                                grpnm : row.grp_nm,
+                                grpid : row.grpid
+                            };
+                            me.dataSet["mycafeList"].push(mycafeList);
+
+                            me.fnDrawMycafeList();
+                        }
+                    }          
+                })
+
+                me.fnOpen();
+
+		    },
+            fnDrawMycafeList : function() {
+                var oList = me.page.html("");
+                $.each(me.dataSet["mycafeList"],function(idx,el){
+                    oList.append(`<li grpid=${el.grpid} class='cafelist' grpnm=${el.grpnm} name='${el.grpnm} 카페'>${el.grpnm}</li>`);
+                })
+
+            },
+            fnOpen : function() {
+                page.on("click",'li',function(e){
+                    var menu = $(e.target);
+                    var pgmid = "retrieveCafeHome";
+                    var grpid = menu.attr("grpid");
+                    var pgmnm = menu.attr("name");//탭 이름
+
+                    gMDI.openPageOne(pgmid,pgmnm,grpid);
+                })
+
+                page.prev("h3").on("click","button",function(e){
+                    var menu = $(e.target);
+                    var pgmid = "retrieveCafeList";
+                    var grpid = menu.attr("id");
+                    var pgmnm = menu.val();
+                    
+                    gMDI.openPageOne(pgmid,pgmnm,grpid);
+                })
+            }
+
+        }  
+        if(typeof(me.fnInit)=='function') me.fnInit();
+     }); 
+</script>

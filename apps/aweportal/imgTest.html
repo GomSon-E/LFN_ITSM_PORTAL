@@ -1,0 +1,438 @@
+<style>[pgmid='imgTest'].framepage {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    flex-direction: column;
+    align-content: center;
+    justify-content: space-between;
+    align-items: stretch;
+    background-color: #aeaeae;
+}
+[pgmid='imgTest'].framepage .main-area { 
+    margin: auto; 
+}
+[pgmid='imgTest'].framepage canvas { 
+    background-color: #fff;
+}
+
+[pgmid='imgTest'].framepage .btnXls, [pgmid='imgTest'].framepage .btnPdf {
+    display: none;
+}</style>
+<div class="pageTop"></div>
+<div class="pageGuide"></div>
+<div class="pageContent"> 
+    <div class="main-area" >
+        <p>마우스 드래그로 그림을 그려보세요.
+        <br>
+          * 가져오기(<input type='checkbox' id="chk">캔버스를 이미지크기에 맞게 확장, <input type='checkbox' id="chk2">이미지를 캔버스크기에 맞게 조정)
+          <a href="#" id="btnImportFile">파일선택</a><input type="file" id="fileImportFile" style="width:0px">
+          <a href="#" id="btnImportClipboard">클립보드(Ctrl-V)</a>
+        <br>    
+          * 내보내기
+          <a href="#" id="btnFile" download="my_painting.png">다운로드</a>
+          <a href="#" id="btnClipboard">클립보드</a>
+          <a href="#" id="btnServer">서버저장</a>
+        </p> 
+        <canvas id="painter" width="54" height="54"></canvas>
+    </div>
+    <form name="uploadForm" id="uploadForm" enctype="multipart/form-data" method="post" style="height:1px"></form>
+    <div id="drawOption"></div>
+    <div id="fileinfo"></div>
+</div>    
+<pre>
+</pre>
+<script>
+/*-- SCRIPT autogen start ---------------------------------------------- */        
+$(function() {
+    var appid = "aweportal";
+    var pgmid = "imgTest"; 
+    var page = $("*[pgmid='"+pgmid+"'].framepage").last();
+    var pageid = page.attr("id"); 
+    var me = {}
+    var dataSet = {};
+    var dataDef = {};
+    var pageObj = {};
+    var bEdit = false;
+    me.fnInit = function() {
+        gfn[pageid] = me; 
+        me.appid    = appid;
+        me.pgmid    = pgmid;
+        me.pageid   = pageid;
+        me.page     = page; 
+        me.dataSet = dataSet;
+        me.dataDef = dataDef;
+        me.pageObj = pageObj;
+        me.bEdit = bEdit;
+me.dataDef["_pgm"]={"ver":1,"upd_dt":"2022-08-24 10:28:34","remark":"","pgmid":"imgTest","proc_mst_id":"","pgm_stat":"Y","sort_seq":99,"app_pgmid":"aweportal","shortcut":"","reg_dt":"2022-08-17 15:36:43","reg_usid":"kihyunlee","pgm_nm":"이미지그리기","upd_usid":"kihyunlee","pgm_tp":"UX","pgm_grp_nm":"실험실","proc_mst_nm":"","app_pgm_nm":"포털","":"트랜젝션(메뉴)","crud":""};
+me.dataDef["_pgm_func"]=[];
+me.dataDef["_pgm_data"] = {};
+me.dataDef["_pgm_data"]["drawOption"]={"sort_seq":"1","data_id":"drawOption","data_nm":"그리기옵션","data_icon":null,"component_pgmid":"aweForm","component_option":null,"inout_tp":null,"content":[{"sort_seq":1,"section":null,"section_icon":null,"colgrp":"캔버스(너비x높이, px)","colid":"canvasWidth","colnm":"너비","dtype":"num","etype":"txt","attr":null,"defval":"54","w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"0"},{"sort_seq":2,"section":null,"section_icon":null,"colgrp":"캔버스(너비x높이, px)","colid":"canvasHeight","colnm":"높이","dtype":"num","etype":"txt","attr":null,"defval":"54","w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"1"},{"sort_seq":3,"section":null,"section_icon":null,"colgrp":"캔버스(너비x높이, px)","colid":"btnResize","colnm":"적용","dtype":"text","etype":"btn","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":"적용:fas fa-pencil","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"2"},{"sort_seq":4,"section":null,"section_icon":null,"colgrp":null,"colid":"drawMode","colnm":"그리기모드","dtype":"text","etype":"sel","attr":null,"defval":"arc","w":null,"h":null,"refcd":"[\"arc\",\"lineTo\"]","option":"sel:drawMode::nm","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"3"},{"sort_seq":5,"section":null,"section_icon":null,"colgrp":null,"colid":"sz","colnm":"선굵기","dtype":"text","etype":"txt","attr":null,"defval":"4","w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"4"},{"sort_seq":6,"section":null,"section_icon":null,"colgrp":null,"colid":"fsColor","colnm":"색깔","dtype":"text","etype":"txt","attr":null,"defval":"hotpink","w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"5"}]};
+me.dataDef["_pgm_data"]["fileinfo"]={"sort_seq":"2","data_id":"fileinfo","data_nm":"저장옵션","data_icon":null,"component_pgmid":"aweForm","component_option":null,"inout_tp":null,"content":[{"sort_seq":1,"section":null,"section_icon":null,"colgrp":null,"colid":"file_tp","colnm":"파일유형","dtype":"text","etype":"txt","attr":null,"defval":"IMG","w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"4"},{"sort_seq":2,"section":null,"section_icon":null,"colgrp":null,"colid":"ref_file_tp","colnm":"참조문서구분","dtype":"text","etype":"txt","attr":null,"defval":"T_DOC","w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"3"},{"sort_seq":3,"section":null,"section_icon":null,"colgrp":null,"colid":"ref_id","colnm":"참조문서ID","dtype":"text","etype":"txt","attr":null,"defval":"NEW","w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"2"},{"sort_seq":4,"section":null,"section_icon":null,"colgrp":null,"colid":"fileno","colnm":"파일순번","dtype":"text","etype":"txt","attr":null,"defval":"1","w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"1"},{"sort_seq":5,"section":null,"section_icon":null,"colgrp":null,"colid":"filename","colnm":"파일명","dtype":"text","etype":"txt","attr":null,"defval":"my_painting.png","w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"6"},{"sort_seq":6,"section":null,"section_icon":null,"colgrp":null,"colid":"fileSize","colnm":"파일크기","dtype":"num","etype":"raw","attr":null,"defval":"100","w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"0"}]};
+
+        me.pageObj["_page"] = new gfnFramepage( me ); 
+        for(var component_id in me.dataDef["_pgm_data"]) { 
+            me.pageObj[component_id] = new gfnComponent( me.pageid, component_id, me.dataDef["_pgm_data"][component_id], me.fnEH, me); 
+        }  
+        setTimeout(function(){
+            $("#frameset").scrollTo(0); //스크롤 
+        },10);
+        if(typeof(me.fnInitExtra)=='function') me.fnInitExtra(); 
+    } 
+/*-- SCRIPT autogen end ---------------------------------------------- */
+    /* Canvas Drawing */
+    var canvas = null;
+    var c = null;
+    var isDrawing = false;  
+    var ongoingTouches = []; //다중터치
+    me.drawMode = 'arc';
+    me.sz = 4;
+    me.fsColor = 'hotpink';
+
+    function drawStart(x,y) {
+        isDrawing = true;    
+        if(me.drawMode=="arc") {      
+            c.fillStyle = me.fsColor;
+        }
+        if(me.drawMode=="lineTo") {      
+            c.strokeStyle = me.fsColor;       
+            c.lineJoin = 'round';
+            c.lineWidth = me.sz;
+            c.beginPath();
+            c.moveTo(x,y);
+        }
+    } 
+    function draw(x, y) {
+        if (isDrawing) {
+            if(me.drawMode=="arc") { 
+                c.beginPath();     
+                c.arc(x, y, me.sz, 0, Math.PI*2);
+                c.fill();
+                c.closePath(); 
+            }
+            if(me.drawMode=="lineTo") {
+                c.lineTo(x,y);
+                c.stroke();
+            }
+        }
+    } 
+    function drawDone(x,y) { 
+        if(me.drawMode=="lineTo") {      
+            c.closePath();
+        }
+        
+        isDrawing = false;    
+    } 
+    function drawImage(source, autosize, imgResize) { 
+		var pastedImage = new Image();
+		pastedImage.onload = function () {
+			if(autosize == true){
+				//resize
+				//canvas.width = pastedImage.width;
+				//canvas.height = pastedImage.height;
+				me.fnChangeCanvas(pastedImage.width, pastedImage.height);
+				c.drawImage(pastedImage, 0, 0);
+			}
+			else if(imgResize == true) {
+			    //pastedImage.width = canvas.width;
+			    //pastedImage.height = canvas.height;
+			    c.drawImage(pastedImage, 0, 0, canvas.width, canvas.height);
+			} else{
+				//clear canvas
+				c.clearRect(0, 0, canvas.width, canvas.height);
+				c.drawImage(pastedImage, 0, 0);
+			}
+			
+		};
+    	pastedImage.src = source;
+    }
+
+    /* 사용자초기화 */
+    me.fnInitExtra=function() {
+        //var CLIPBOARD = new CLIPBOARD_CLASS("#"+me.pageid+" canvas", false); 
+        
+        canvas = $("#"+me.pageid+" canvas")[0]; //document.querySelector('canvas');
+        c = canvas.getContext('2d');
+        isDrawing = false;    
+        
+        /* 모바일터치이벤트 핸들링 */
+        canvas.addEventListener('touchstart', event => {
+            var touches = event.changedTouches;
+            for(var i=0; i < touches.length; i++) {
+                var idx = touches[i].identifier;
+                if(idx == 0) {
+                    var offsetTop  = 0; //toNum(event.path[0].offsetTop);
+                    var offsetLeft = 0; //toNum(event.path[0].offsetLeft);
+                    var el = event.path[0];
+                    do {
+                        offsetTop  += nvl(toNum(el.offsetTop),0);
+                        offsetLeft += nvl(toNum(el.offsetLeft),0);
+                        el = el.offsetParent;
+                    } while(!isNull(el.offsetParent)) 
+                    var x = touches[i].pageX - offsetLeft;
+                    var y = touches[i].pageY - offsetTop; 
+                    drawStart(x,y);
+                }
+            }
+        });
+        canvas.addEventListener('touchmove', event => {
+            event.preventDefault();        
+            var touches = event.changedTouches;
+            for(var i=0; i < touches.length; i++) {
+                var idx = touches[i].identifier;
+                if(idx == 0) {
+                    var offsetTop  = 0; //toNum(event.path[0].offsetTop);
+                    var offsetLeft = 0; //toNum(event.path[0].offsetLeft);
+                    var el = event.path[0];
+                    do {
+                        offsetTop  += nvl(toNum(el.offsetTop),0);
+                        offsetLeft += nvl(toNum(el.offsetLeft),0);
+                        el = el.offsetParent;
+                    } while(!isNull(el.offsetParent)) 
+                    var x = touches[i].pageX - offsetLeft;
+                    var y = touches[i].pageY - offsetTop; 
+                    draw(x, y);
+                }
+            }
+        });
+        canvas.addEventListener('touchend', event => {
+            var touches = event.changedTouches;
+            for(var i=0; i < touches.length; i++) {
+                var idx = touches[i].identifier;
+                if(idx == 0) {
+                    var offsetTop  = 0; //toNum(event.path[0].offsetTop);
+                    var offsetLeft = 0; //toNum(event.path[0].offsetLeft);
+                    var el = event.path[0];
+                    do {
+                        offsetTop  += nvl(toNum(el.offsetTop),0);
+                        offsetLeft += nvl(toNum(el.offsetLeft),0);
+                        el = el.offsetParent;
+                    } while(!isNull(el.offsetParent)) 
+                    var x = touches[i].pageX - offsetLeft;
+                    var y = touches[i].pageY - offsetTop; 
+                    drawDone(x,y);
+                }
+            }
+        });    
+        /* PC웹 마우스 이벤트 핸들링 */
+        canvas.addEventListener('mousedown', event => {
+            drawStart(event.offsetX,event.offsetY);
+        });
+        canvas.addEventListener('mousemove', event =>
+            draw(event.offsetX, event.offsetY)
+        );
+        canvas.addEventListener('mouseup', event => {
+            drawDone(event.offsetX,event.offsetY);
+        });  
+        
+        /* 내보내기 이벤트 핸들링 */
+        $("#"+me.pageid+" a#btnFile").on("click",function(e){
+            var url = canvas.toDataURL();
+            //console.dir(url);
+            e.target.href = url;
+        }); 
+        $("#"+me.pageid+" a#btnClipboard").on("click",function(e){
+            canvas.toBlob(function(blob) { 
+                const item = new ClipboardItem({ "image/png": blob });
+                navigator.clipboard.write([item]); 
+                gfnStatus("이미지가 클립보드에 저장되었습니다!");
+            });
+        });
+        $("#"+me.pageid+" a#btnServer").on("click",function(e){
+            /*
+            var data = canvas.toDataURL();
+            var byteString = atob(data.split(',')[1]);
+            var mimeString = data.split(',')[0].split(':')[1].split(';')[0];
+            var ab = new ArrayBuffer(byteString.length);
+            var ia = new Uint8Array(ab);
+            var blob = new Blob([ab], {type: mimeString});
+            */ 
+            canvas.toBlob(function(blob){  
+                var frm = $("#"+pageid+" #uploadForm");
+                var formData = new FormData(frm[0]);
+                me.pageObj.fileinfo.setVal("fileSize",blob.size);
+                var args = me.pageObj.fileinfo.exportData()[0];
+                args.dateDir = date("today","yyyymmdd"); 
+                args.sort_seq = args.fileno;
+                var invar = JSON.stringify(args);
+                formData.append("file",blob,me.pageObj.fileinfo.getVal("filename"));
+                formData.append("INVAR",invar);
+                
+                for(var val of formData.values()) console.log(val); 
+                    
+                $.ajax({
+                    url : "awegtx.jsp?pgm=aweportal.popupUpload",
+                    data : formData,
+                    type : 'POST',
+                    enctype : 'multipart/form-data',
+                    processData : false,
+                    contentType : false,
+                    dataType : 'json',
+                    cache : false,
+                    timeout: 60000,
+                    success : function(OUTVAR) {
+                        console.log(OUTVAR);
+                        if(OUTVAR.rtnCd == "OK") {
+                            /*
+                            dateDir: "20220721"
+                            file_url: "https://fo.lfnetworks.co.kr/pds/LFN/IMG/20220721/2207210513265ba425ff.png"
+                            fileid: "2207210513265ba425ff"
+                            filename: "my_painting.png"
+                            fileno: "1"
+                            filetp: "IMG"
+                            rtnCd: "OK"
+                            rtnMsg: ""
+                            */
+                            gfnAlert("파일업로드 성공","파일경로:<a href='"+OUTVAR.file_url+"' target='_blank'>"+OUTVAR.file_url+"</a>로 저장되었습니다!"); 
+                        } else {
+                            gfnAlert("파일업로드 오류",OUTVAR.rtnCd);
+                        }
+                    },
+                    complete: function(jqXHR, rst) {
+                        console.dir(jqXHR);
+                        console.dir(rst);
+                        console.log(rst);
+                    }
+                });  
+            });
+        });
+        
+        /* 가져오기 이벤트 핸들링 */
+        $("#"+me.pageid+" a#btnImportFile").on("click",function(e){
+            $("#"+me.pageid+" #fileImportFile").click(); 
+        });
+        $("#"+me.pageid+" #fileImportFile").bind('change', function() {
+            var fileObject = this.files;
+            if (fileObject != null) { 
+                var file = fileObject[0];
+                if(isNull(file)) { gfnStatus("선택된 이미지가 없습니다."); return; }
+                var fr = new FileReader();
+                fr.onload = function(rtn) {
+                    //console.log(rtn);
+                    //var URLObj = window.URL || window.webkitURL;
+    				//var source = URLObj.createObjectURL(blob);
+    				var source = rtn.target.result;
+    				var bResize = $("#"+me.pageid+" #chk").prop("checked");
+    				var bResize2 = $("#"+me.pageid+" #chk2").prop("checked");
+    				drawImage(source, bResize, bResize2); 
+                };
+                fr.readAsDataURL(file);
+            } 
+        });
+        $("#"+me.pageid+" a#btnImportClipboard").on("click",function(e){
+            gfnAlert("안내","웹페이지를 클릭한 상태에서 Ctrl-V를 눌러야 클립보드 이미지를 가져올 수 있습니다.(웹보안정책)");
+        });
+        document.addEventListener('paste', function (e) {
+            if (e.clipboardData) {
+    			var items = e.clipboardData.items;
+    			if (!items) { gfnStatus("클립보드 데이터가 없습니다."); return; } 
+    			var is_image = false;
+    			for (var i = 0; i < items.length; i++) {
+    				if (items[i].type.indexOf("image") !== -1) {
+    					//image
+    					var blob   = items[i].getAsFile();
+    					var URLObj = window.URL || window.webkitURL;
+    					var source = URLObj.createObjectURL(blob);
+    					var bResize = $("#"+me.pageid+" #chk").prop("checked");
+    					var bResize2 = $("#"+me.pageid+" #chk2").prop("checked");
+    					drawImage(source,bResize,bResize2);
+    					is_image = true;
+    				}
+    			}
+    			if(is_image == true) e.preventDefault(); 
+    		} else {
+    		    gfnStatus("이벤트에 클립보드 데이터가 없습니다.");
+    		}
+        }, false); 
+    }
+    
+    /* 캔버스크기 변경 */
+    me.fnChangeCanvas=function(cW, cH) {
+        canvas.width = cW;
+        canvas.height = cH; 
+        me.pageObj.drawOption.setVal("canvasWidth",cW);
+        me.pageObj.drawOption.setVal("canvasHeight",cH);
+    }
+    
+    /* 이벤트핸들러 */
+    me.fnEH=function(component, evt, row, col, val) { 
+        //console.log(evt+","+row+","+col+","+val);
+        //화면기능버튼이 눌리면 
+        if (component==me.pageObj["_pageFunc"]){ 
+            if(typeof(me[col])=='function') me[col](); //col=기능명 me["fnSearch"]()=me.fnSearch(); 
+        }
+        //사용자 컴포넌트/컨트롤
+        else if(component==me.pageObj.drawOption) {
+            if(evt=="change") {
+                me[col]=val; 
+            } 
+            if(evt=="click" && col=="btnResize") {
+                var cW = component.getVal("canvasWidth");
+                var cH = component.getVal("canvasHeight");
+                me.fnChangeCanvas(cW, cH);
+            }
+        }
+    }
+    
+    /* Clipboard Class : 소스코드 참조용 */
+    /**
+     * image pasting into canvas
+     * 
+     * @param {string} canvas_id - canvas id
+     * @param {boolean} autoresize - if canvas will be resized
+
+    function CLIPBOARD_CLASS(canvas_id, autoresize) {
+    	var _self  = this;
+    	var canvas = $(canvas_id)[0];;
+    	var ctx    = canvas.getContext("2d");
+    
+    	//handlers
+    	document.addEventListener('paste', function (e) { _self.paste_auto(e); }, false);
+    
+    	//on paste
+    	this.paste_auto = function (e) {
+    	    if (e.clipboardData) {
+    			var items = e.clipboardData.items;
+    			if (!items) { gfnStatus("클립보드 데이터가 없습니다."); return; } 
+    			var is_image = false;
+    			for (var i = 0; i < items.length; i++) {
+    				if (items[i].type.indexOf("image") !== -1) {
+    					//image
+    					var blob   = items[i].getAsFile();
+    					var URLObj = window.URL || window.webkitURL;
+    					var source = URLObj.createObjectURL(blob);
+    					me.paste_createImage(source, );
+    					is_image = true;
+    				}
+    			}
+    			if(is_image == true) e.preventDefault(); 
+    		} else {
+    		    gfnStatus("이벤트에 클립보드 데이터가 없습니다.");
+    		}	
+    	};
+    	//draw pasted image to canvas
+    	this.paste_createImage = function (source) {
+    		var pastedImage = new Image();
+    		pastedImage.onload = function () {
+    			if(autoresize == true){
+    				//resize
+    				canvas.width = pastedImage.width;
+    				canvas.height = pastedImage.height;
+    			}
+    			else{
+    				//clear canvas
+    				ctx.clearRect(0, 0, canvas.width, canvas.height);
+    			}
+    			ctx.drawImage(pastedImage, 0, 0);
+    		};
+    		pastedImage.src = source;
+    	};
+    }
+    */    
+
+
+
+/*-- SCRIPT autogen ---------------------------------------------------- */        
+if(typeof(me.fnInit)=='function') me.fnInit();
+});
+
+</script>

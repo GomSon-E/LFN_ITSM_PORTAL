@@ -1,0 +1,408 @@
+<style>[pgmid='plasEMP'] #orgChart .componentBody  { 
+    border: 1px solid #aeaeae;
+    background-color: beige;
+    padding: 0.5em; 
+} 
+
+[pgmid='plasEMP'] .org { 
+    display: flex;
+    align-content: space-between;
+    justify-content: flex-start;
+    align-items: flex-start; 
+    column-gap: 0.5em;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+[pgmid='plasEMP'] .dept {
+    flex: 1 1 auto;
+    display: flex;
+    align-content: space-between;
+    justify-content: center;
+    align-items: stretch; 
+    padding: 0.25em 0 0 0.5em;
+    margin: 0.25em 0 0 0.5em;
+    border-radius: 0.5em;
+    column-gap: 0.5em;
+    background-color: #1a1a1a1a;
+    flex-direction: column;
+    flex-wrap: nowrap; 
+    max-width: 11em;
+}
+
+[pgmid='plasEMP'] .dept H4 {
+    background-color: #4858a1cc;
+    color: white;
+    padding: 0.25em;
+    border-radius: 0.25em;
+    box-shadow: 1px 1px 1px #3a3a3a2a;
+    cursor: pointer;
+}
+
+[pgmid='plasEMP'] .dept H4:hover {
+    background-color: darkorange;
+}
+ 
+[pgmid='plasEMP'] #orgChart > .componentTop {
+    display: none;
+}
+
+[pgmid='plasEMP'] #dz_org > .componentTop {
+    display: none;
+}
+
+
+
+
+</style>
+
+<!-- HTML autogen start ---------------------------------------------- -->            
+<div class="pageNav"></div>
+<div class="pageTop"></div>
+<div class="pageCond"></div>
+<div class="pageGuide"></div>
+<div class="pageContent flexRow">
+    <div style="flex:0 0 400px;height:100%;display:flex;flex-direction:column">
+        <ul id="tabs">
+            <li refid="orgChart">조직도</li> 
+            <li refid="dz_org">더존 조직목록</li> 
+        </ul>
+        <div id="orgChart"></div>
+        <div id="dz_org" class="flexColumn"></div>
+    </div>
+    <div id="list" class="flexColumn"></div>
+    <!-- div id='dept' style="display:none"></div -->
+</div>
+
+<div class="orgChart">
+    <div class="org">   
+    </div> 
+</div>    
+<!-- HTML autogen end ---------------------------------------------- -->
+<script>
+/*-- SCRIPT autogen start ---------------------------------------------- */        
+$(function() {
+    var appid = "plas";
+    var pgmid = "plasEMP"; 
+    var page = $("*[pgmid='"+pgmid+"'].framepage").last();
+    var pageid = page.attr("id"); 
+    var me = {}
+    var dataSet = {};
+    var dataDef = {};
+    var pageObj = {};
+    var bEdit = false;
+    me.fnInit = function() {
+        gfn[pageid] = me; 
+        me.appid    = appid;
+        me.pgmid    = pgmid;
+        me.pageid   = pageid;
+        me.page     = page; 
+        me.dataSet = dataSet;
+        me.dataDef = dataDef;
+        me.pageObj = pageObj;
+        me.bEdit = bEdit;
+me.dataDef["_pgm"]={"ver":1,"upd_dt":"2022-10-20 10:48:31","remark":"","pgmid":"plasEMP","proc_mst_id":"","pgm_stat":"Y","sort_seq":902,"app_pgmid":"plas","shortcut":"","reg_dt":"2022-10-20 10:48:31","reg_usid":"jjr","pgm_nm":"임직원정보관리","upd_usid":"jjr","pgm_tp":"UX","pgm_grp_nm":"기준정보관리","proc_mst_nm":"","app_pgm_nm":"경영관리","":"트랜젝션(메뉴)","crud":""};
+me.dataDef["_pgm_func"]=[{"func_icon":"fas fa-search","reg_dt":"2022-10-20 10:48:31","reg_usid":"","func_nm":"검색 조회","upd_usid":"","upd_dt":"2022-10-20 10:48:31","func_tp":"DB_R","remark":null,"pgmid":"plasEMP","sort_seq":"1","funcid":"searchListQuery","content":"성명, 전화번호, 메일아이디를 검색합니다.","crud":"R","id":"0"},{"func_icon":"fas fa-search","reg_dt":"2022-10-20 10:48:31","reg_usid":"","func_nm":"조직도 조회","upd_usid":"","upd_dt":"2022-10-20 10:48:31","func_tp":"DB_R","remark":null,"pgmid":"plasEMP","sort_seq":"2","funcid":"search","content":"PLAS시스템 조직도와 임직원 정보를 조회합니다.","crud":"R","id":"1"},{"func_icon":"fas fa-robot","reg_dt":"2022-10-20 10:48:31","reg_usid":"","func_nm":"가져오기","upd_usid":"","upd_dt":"2022-10-20 10:48:31","func_tp":"DB_R","remark":null,"pgmid":"plasEMP","sort_seq":"3","funcid":"insert","content":"더존에서 새벽3시이후 업데이트된 정보 가져와서 저장","crud":"R","id":"2"}];
+me.dataDef["_pgm_data"] = {};
+me.dataDef["_pgm_data"]["pageCond"]={"sort_seq":"1","data_id":"pageCond","data_nm":"조회조건","data_icon":null,"component_pgmid":"aweForm","component_option":null,"inout_tp":null,"content":[{"sort_seq":1,"section":null,"section_icon":null,"colgrp":null,"colid":"dz_org_tp","colnm":"정보구분","dtype":"text","etype":"none","attr":"hidden","defval":"SDEPT","w":null,"h":null,"refcd":"DZ_ORG_TP","option":"sel:dz_org_tp::nm","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"0"},{"sort_seq":2,"section":null,"section_icon":null,"colgrp":null,"colid":"co_cd","colnm":"회사코드","dtype":"text","etype":"sel","attr":"keycol","defval":"gUserinfo.co_cd","w":"20","h":null,"refcd":"DZ_CO_CD","option":"sel:co_cd::cdnm","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"1"},{"sort_seq":3,"section":null,"section_icon":null,"colgrp":null,"colid":"search_keyword","colnm":"검색","dtype":"text","etype":"txt","attr":null,"defval":null,"w":"20","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"2"}]};
+me.dataDef["_pgm_data"]["orgChart"]={"sort_seq":"2","data_id":"orgChart","data_nm":"조직도(전자결재용)","data_icon":null,"component_pgmid":"FreeForm","component_option":null,"inout_tp":null,"content":[]};
+me.dataDef["_pgm_data"]["dz_org"]={"sort_seq":"4","data_id":"dz_org","data_nm":"더존 부서정보 조회","data_icon":null,"component_pgmid":"agGrid","component_option":{"gridOptions":{"statusBar":{"statusPanels":[{"statusPanel":"agTotalAndFilteredRowCountComponent","align":"left"},{"statusPanel":"agAggregationComponent","align":"right"}]}}},"inout_tp":null,"content":[{"sort_seq":1,"section":null,"section_icon":null,"colgrp":null,"colid":"div_nm","colnm":"사업장","dtype":"text","etype":"raw","attr":"rowSpan","defval":null,"w":"10","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"0"},{"sort_seq":2,"section":null,"section_icon":null,"colgrp":null,"colid":"sect_nm","colnm":"사업부","dtype":"text","etype":"raw","attr":"rowSpan","defval":null,"w":"9","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"1"},{"sort_seq":3,"section":null,"section_icon":null,"colgrp":null,"colid":"dept_nm","colnm":"부서","dtype":"text","etype":"raw","attr":"keycol","defval":null,"w":"10","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"2"},{"sort_seq":4,"section":null,"section_icon":null,"colgrp":null,"colid":"emp_info2","colnm":"인원정보","dtype":"text","etype":"raw","attr":null,"defval":null,"w":"9","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"3"}]};
+me.dataDef["_pgm_data"]["list"]={"sort_seq":"5","data_id":"list","data_nm":"임직원 목록","data_icon":null,"component_pgmid":"agGrid","component_option":{"gridOptions":{"statusBar":{"statusPanels":[{"statusPanel":"agTotalAndFilteredRowCountComponent","align":"left"},{"statusPanel":"agAggregationComponent","align":"right"}]}},"remark":"좌측 조직도 부서 클릭시 임직원 목록 조회됩니다."},"inout_tp":null,"content":[{"sort_seq":1,"section":null,"section_icon":null,"colgrp":"회사","colid":"co_cd","colnm":"회사","dtype":"text","etype":"sel","attr":"hidden","defval":null,"w":null,"h":null,"refcd":"DZ_CO_CD","option":"sel:co_cd::cdnm","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"0"},{"sort_seq":2,"section":null,"section_icon":null,"colgrp":"사업장","colid":"div_cd","colnm":"코드","dtype":"text","etype":"raw","attr":"rowSpan","defval":null,"w":"4","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"1"},{"sort_seq":3,"section":null,"section_icon":null,"colgrp":"사업장","colid":"div_nm","colnm":"명","dtype":"text","etype":"raw","attr":"rowSpan","defval":null,"w":"10","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"2"},{"sort_seq":4,"section":null,"section_icon":null,"colgrp":"부서","colid":"dept_cd","colnm":"코드","dtype":"text","etype":"raw","attr":"rowSpan","defval":null,"w":"4","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"3"},{"sort_seq":5,"section":null,"section_icon":null,"colgrp":"부서","colid":"dept_nm","colnm":"명","dtype":"text","etype":"raw","attr":"rowSpan","defval":null,"w":"8","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"4"},{"sort_seq":6,"section":null,"section_icon":null,"colgrp":"임직원정보","colid":"emp_cd","colnm":"사번","dtype":"text","etype":"raw","attr":"pk","defval":null,"w":"6","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"5"},{"sort_seq":7,"section":null,"section_icon":null,"colgrp":"임직원정보","colid":"kor_nm","colnm":"성명","dtype":"text","etype":"raw","attr":"keycol","defval":null,"w":"6","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"6"},{"sort_seq":8,"section":null,"section_icon":null,"colgrp":"임직원정보","colid":"hrsp_nm","colnm":"직책","dtype":"text","etype":"raw","attr":"center","defval":null,"w":"4","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"7"},{"sort_seq":9,"section":null,"section_icon":null,"colgrp":"임직원정보","colid":"hcls_nm","colnm":"직급","dtype":"text","etype":"raw","attr":"center","defval":null,"w":"4","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"8"},{"sort_seq":10,"section":null,"section_icon":null,"colgrp":"임직원정보","colid":"tel_no","colnm":"전화번호","dtype":"text","etype":"raw","attr":null,"defval":null,"w":"10","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"9"},{"sort_seq":11,"section":null,"section_icon":null,"colgrp":"임직원정보","colid":"join_dt","colnm":"입사일","dtype":"ymd","etype":"raw","attr":null,"defval":null,"w":"8","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"10"},{"sort_seq":12,"section":null,"section_icon":null,"colgrp":"임직원정보","colid":"rtr_dt","colnm":"퇴사일","dtype":"ymd","etype":"raw","attr":null,"defval":null,"w":"8","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"11"},{"sort_seq":13,"section":null,"section_icon":null,"colgrp":"프로젝트","colid":"pjt_cd","colnm":"코드","dtype":"text","etype":"raw","attr":"rowSpan","defval":null,"w":"4","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"12"},{"sort_seq":14,"section":null,"section_icon":null,"colgrp":"프로젝트","colid":"pjt_nm","colnm":"명","dtype":"text","etype":"raw","attr":"rowSpan","defval":null,"w":"6","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"13"},{"sort_seq":15,"section":null,"section_icon":null,"colgrp":"PLAS사용자정보","colid":"btnSendMsg","colnm":"메시지보내기","dtype":"text","etype":"btn","attr":"center","defval":null,"w":"8","h":null,"refcd":null,"option":"발송:fas fa-comment","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"14"},{"sort_seq":16,"section":null,"section_icon":null,"colgrp":"PLAS사용자정보","colid":"mergeUser","colnm":"사용자등록","dtype":"text","etype":"btn","attr":"center","defval":null,"w":"8","h":null,"refcd":null,"option":"계정:fas fa-user-plus","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"15"},{"sort_seq":17,"section":null,"section_icon":null,"colgrp":"PLAS사용자정보","colid":"usid","colnm":"사용자ID","dtype":"text","etype":"raw","attr":null,"defval":null,"w":"8","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"16"},{"sort_seq":18,"section":null,"section_icon":null,"colgrp":"PLAS사용자정보","colid":"email","colnm":"이메일","dtype":"text","etype":"raw","attr":null,"defval":null,"w":"15","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"17"},{"sort_seq":19,"section":null,"section_icon":null,"colgrp":"PLAS사용자정보","colid":"sort_seq","colnm":"정렬순서","dtype":"num","etype":"raw","attr":null,"defval":null,"w":"5","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"18"},{"sort_seq":20,"section":null,"section_icon":null,"colgrp":"PLAS사용자정보","colid":"cd_stat","colnm":"상태","dtype":"text","etype":"raw","attr":"center","defval":null,"w":"5","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"19"},{"sort_seq":21,"section":null,"section_icon":null,"colgrp":"정보","colid":"insert_dt","colnm":"등록일","dtype":"text","etype":"raw","attr":"disabled","defval":null,"w":"18","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"20"},{"sort_seq":22,"section":null,"section_icon":null,"colgrp":"정보","colid":"insert_id","colnm":"등록ID","dtype":"text","etype":"raw","attr":"disabled","defval":null,"w":"8","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"21"},{"sort_seq":23,"section":null,"section_icon":null,"colgrp":"정보","colid":"modify_dt","colnm":"수정일","dtype":"text","etype":"raw","attr":"disabled","defval":null,"w":"18","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"22"},{"sort_seq":24,"section":null,"section_icon":null,"colgrp":"정보","colid":"modify_id","colnm":"수정ID","dtype":"text","etype":"raw","attr":"disabled","defval":null,"w":"8","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"23"}]};
+
+        me.pageObj["_page"] = new gfnFramepage( me ); 
+        for(var component_id in me.dataDef["_pgm_data"]) { 
+            me.pageObj[component_id] = new gfnComponent( me.pageid, component_id, me.dataDef["_pgm_data"][component_id], me.fnEH, me); 
+        }  
+        setTimeout(function(){
+            $("#frameset").scrollTo(0); //스크롤 
+        },10);
+        if(typeof(me.fnInitExtra)=='function') me.fnInitExtra(); 
+    } 
+/*-- SCRIPT autogen end ---------------------------------------------- */
+    lds = {};
+
+    /* 사용자초기화 */
+    me.fnInitExtra=function() {
+        //탭 설정
+        gfnTab(pageid, "tabs");
+        
+        //*****  사용자 컴포넌트 ********************************************************************************
+        me.page.find(".orgChart").appendTo("#"+pageid+" #orgChart .componentBody"); //생성된 componentBody에 HTML로 작성한 orgChart를 이동시킴
+        //methond정의: SET 조직추가
+        me.pageObj.orgChart.addDept=function(deptData,up_dept_cd,sort_seq){
+            var dept = me.page.find("H4#"+deptData.dept_cd).parent(".dept");
+            if(dept.length==0) {
+                dept = $("<div class='dept box'></div>");
+                h4   = $("<H4>"+deptData.dept_nm+"</H4>");
+                h4.attr("id",deptData.dept_cd);  
+                dept.append(h4); 
+            }
+            if(isNull(up_dept_cd)||up_dept_cd=="new"||me.page.find("#"+up_dept_cd).length == 0) {
+                me.page.find(".org").append( dept );  
+            } else {
+                me.page.find("#"+up_dept_cd).parent(".dept").append( dept ); 
+            }
+            if(!isNull(sort_seq)) me.pageObj.orgChart.changeSortOrder(deptData.dept_cd,sort_seq);
+        }; 
+        //methond정의: GET 조직정보 가져오기
+        me.pageObj.orgChart.getDept=function(dept_cd){
+            if(isNull(dept_cd)) dept_cd = me.page.find(".dragsrc").children("H4").attr("id"); 
+            var rtn = {dept_cd:dept_cd, cd_stat:'N'};
+            var src = me.page.find("H4#"+dept_cd).parent(".dept"); 
+            if(src.length==0) return rtn;
+            rtn.dept_nm  = src.children("H4").text();
+            rtn.sort_seq = src.index();
+            rtn.dept_lv  = src.parents(".dept").length;            
+            if(isNull(rtn.dept_lv)) rtn.sort_seq++;
+            rtn.cd_stat  = 'Y';
+            var up_dept = src.parent(".dept");
+            if(up_dept.length==0) {
+                rtn.up_dept_cd = me.pageObj.pageCond.getVal("co_cd");
+                try {
+                    rtn.up_dept_nm = subset(lds["SCO"],"cd",rtn.up_dept_cd)[0].nm; 
+                } catch {
+                    rtn.up_dept_nm = me.pageObj.pageCond.getVal("co_cd");
+                }
+            } else {
+                rtn.up_dept_cd = up_dept.children("H4").attr("id");
+                rtn.up_dept_nm = up_dept.children("H4").text();
+            } 
+            return rtn; 
+        };
+        //methond정의: GET 조직정보 전체 가져오기
+        me.pageObj.orgChart.exportData=function(){
+            var rtn = [];
+            me.page.find(".org H4").each(function(idx,el){
+                rtn.push( me.pageObj.orgChart.getDept(el.id) );
+            });
+            return rtn;
+        };
+        //methond정의: 동급내에서 순서변경
+        me.pageObj.orgChart.changeSortOrder=function(dept_cd,sortSeq,bSync){
+            var src = me.page.find("#"+dept_cd).parent(".dept");
+            var dept_lv  = src.parents(".dept").length;      
+            var curIdx = src.index();
+            if(isNull(dept_lv)) curIdx++; //lv1부터는 H4로 시작하기 때문에 index를 하나 증가시켜줌
+            var siblingsCnt = src.parent().children(".dept").length;
+            if(sortSeq <= 0) gfnStatus("순서변경확인","가장 앞 순서입니다.");
+            else if(sortSeq > siblingsCnt ) gfnStatus("순서변경확인","가장 뒷 순서입니다.");
+            else if(sortSeq == siblingsCnt || curIdx < sortSeq) src.insertAfter( src.parent().children(".dept:eq("+(sortSeq-1)+")") );
+            else src.insertBefore( src.parent().children(".dept:eq("+(sortSeq-1)+")") ); 
+        };  
+        //이벤트핸들러
+        me.page.on("click",".dept H4",function(e){ 
+            me.fnEH(me.pageObj.orgChart,"focus",$(e.target).attr("id"));
+        })
+        
+        //더존회사코드를 가져와서 조회조건SELECT박스를 구성함
+        gfnGetData("T_GRP_CODE", function(OUTVAR){
+            lds["SCO"] = OUTVAR;
+            gfnSetOpts(me.pageObj.pageCond.col["co_cd"].dispObj,lds["SCO"],"cdnm",gUserinfo.co_cd);
+            //me.pageObj.pageCond.    n gfnControl(colinfo, afnEH, oComponent, rowid, val, rowPinned, agHack) {
+            me.pageObj.pageCond.setVal("co_cd",gUserinfo.co_cd);
+            me.fnSearch();
+        },"cdnm","",true,"grpcd='DZ_ORG_TP' AND keycd='SCO' AND grpid='LFN' AND cd_stat IN ('Y') "); 
+        
+        //검색어
+        me.pageObj.pageCond.col["search_keyword"].dispObj.attr("placeholder","이름, 메일아이디, 전화번호로 검색");
+    }
+    
+    /* 이벤트핸들러 */
+    me.fnEH=function(component, evt, row, col, val) { 
+        //console.log(evt+","+row+","+col+","+val);
+        //화면기능버튼이 눌리면 
+        if (component==me.pageObj["_pageFunc"]){ 
+            if(typeof(me[col])=='function') me[col](); //col=기능명 me["fnSearch"]()=me.fnSearch(); 
+        }
+        //pageCond:조회조건 이벤트처리     
+        else if(component==me.pageObj["pageCond"]) {
+            if(col=="search_keyword") { 
+                if (evt=="enter") {
+                    me.fnSearchListQuery();
+                }
+            } 
+        }  
+        //pageCond:조회조건 이벤트처리     
+        else if(component==me.pageObj["orgChart"]) {
+            if(evt=="focus") {
+                var dept_cd = row;
+                me.fnSearchList(dept_cd);
+            } 
+        }  
+        //pageCond:조회조건 이벤트처리     
+        else if(component==me.pageObj["dz_org"]) {
+            if(evt=="focus") {
+                var dept_cd = component.getVal(row,"dept_cd");
+                me.fnSearchList(dept_cd);
+            } 
+        }  
+        //list 
+        else if(component==me.pageObj["list"]) {
+            if(evt=="click" && col=="btnSendMsg") {
+                var rowData = component.getRowData(row);
+                me.fnSendMsgForm( rowData );
+            } 
+            if(evt=="click" && col=="mergeUser") {
+                //권한체크
+                if(!gUserinfo.usergrp.some(el=>el.role_tp=="ADM"||el.role_tp=="PL")) {
+                    gfnAlert("사용자계정등록 확인","사용자계정등록은 관리자만 할 수 있습니다."); 
+                } else {
+                    var rowData = component.getRowData(row);
+                    me.fnMergeUser( rowData );
+                }
+            } 
+        }  
+    } 
+    
+    //search:조회 
+    me.fnSearch=function() {
+        if( !me.pageObj["pageCond"].chkValid() ) return; 
+        var args = me.pageObj["pageCond"].exportData()[0];
+        console.log(args);
+        var invar = JSON.stringify(args);
+        gfnTx(appid+"."+pgmid,"search",{INVAR:invar},function(OUTVAR){
+            console.log(OUTVAR);
+            if(OUTVAR.rtnCd=="OK") { 
+                me.page.find(".org > *").remove();
+                OUTVAR.list.forEach((el,idx)=>{
+                    if(el.cd_stat=="Y") me.pageObj.orgChart.addDept(el, el.up_dept_cd, el.sort_seq);
+                });
+                me.pageObj["dz_org"].importData(OUTVAR.list);
+            } else {
+                gfnAlert("조회오류",OUTVAR.rtnMsg);
+            }
+        });
+    }
+ 
+    //소속임직원조회
+    me.fnSearchList=function(dept_cd){
+        if( !me.pageObj["pageCond"].chkValid() ) return; 
+        var args = me.pageObj["pageCond"].exportData()[0];
+        args.dept_cd = dept_cd;
+        me.dept_cd = dept_cd;
+        //console.log(args);
+        var invar = JSON.stringify(args);
+        gfnTx(appid+"."+pgmid,"searchList",{INVAR:invar},function(OUTVAR){
+            console.log(OUTVAR);
+            if(OUTVAR.rtnCd=="OK") { 
+                me.pageObj["list"].importData(OUTVAR.list);
+            } else {
+                gfnAlert("조회오류",OUTVAR.rtnMsg);
+            }
+        });
+    } 
+    
+    //검색
+    me.fnSearchListQuery=function() {
+        if( !me.pageObj["pageCond"].chkValid() ) return; 
+        var args = me.pageObj["pageCond"].exportData()[0];  
+        if(args.search_keyword.length < 2) {
+            gfnStatus("검색조회 확인","검색어는 두글자 이상 입력하여야 합니다.");
+            if(isNull(args.search_keyword)) return;
+        }
+        var invar = JSON.stringify(args);
+        gfnTx(appid+"."+pgmid,"searchListQuery",{INVAR:invar},function(OUTVAR){
+            console.log(OUTVAR);
+            if(OUTVAR.rtnCd=="OK") { 
+                me.pageObj["list"].importData(OUTVAR.list);
+            } else {
+                gfnAlert("조회오류",OUTVAR.rtnMsg);
+            }
+        });
+    }   
+    
+    //me.fnSendMsgForm: 메시지발송
+    me.fnSendMsgForm=function(userinfo) {
+        if(isNull(userinfo.email)) {
+            gfnAlert("PLAS사용자등록 확인","plas계정이 등록된 사용자에게만 발송할 수 있습니다.");
+            return;
+        }
+        var co_cd = userinfo.co_cd;
+        if(!(co_cd=="0101" || co_cd=="9001" ||co_cd=="0301" || co_cd=="0401" )) {
+            gfnAlert("메시지발송 확인","해당 회사는 메시지 발송기능을 지원하지 않습니다.(네이버웍스 또는 잔디 사용자이어야 합니다.)")
+        }
+        var msg   = prompt(userinfo.kor_nm+" "+userinfo.hcls_nm+"님께 전송할 메시지를 입력하세요.");
+        if(isNull(msg)) {
+            gfnStatus("메시지발송 확인","전송할 메시지 내용이 없습니다.");
+            return;
+        }
+        if(co_cd=="0101" || co_cd=="9001" ) {
+            //gfnSendMsg(toSys, useremail, msg, url, afnCallback, ref_info, pgmid)
+            gfnSendMsg("naverworks", userinfo.email,"PLAS메신저 - "+gUserinfo.usernm+"님의 메시지: "+msg,null,function(){ gfnStatus("발송성공!","메시지를 발송했습니다.")},"",me.pgmid); 
+        } else if(co_cd=="0301" || co_cd=="0401" ) {
+            //gfnSendMsg(toSys, useremail, msg, url, afnCallback, ref_info, pgmid)
+            gfnSendMsg("jandi", userinfo.email,"PLAS메신저 - "+gUserinfo.usernm+"님의 메시지: "+msg,null,function(){ gfnStatus("발송성공!","메시지를 발송했습니다.")},"",me.pgmid); 
+        } 
+    }
+
+    //me.fnMergeUser: 사용자등록 
+    me.fnMergeUser=function(userinfo) {
+        var args = userinfo;
+        var email = trim(prompt( userinfo.kor_nm+" "+userinfo.hcls_nm+"님의 회사 이메일주소를 정확하게 입력해주세요."));
+        var chkEmail = isEmail(email);
+        if(isNull(chkEmail)) {
+            gfnAlert("사용자등록 확인","사용자의 이메일 주소를 정확하게 입력해주세요! 입력값:["+email+"]" );
+            return;
+        } else {
+            args.email = chkEmail.input;
+        }
+        args.usid = args.email.split("@")[0];
+        if(isNull(args.usid)) {
+            gfnAlert("사용자등록 확인","사용자의 이메일 주소를 정확하게 입력해주세요!");
+            return;
+        }
+        var invar = JSON.stringify(args);
+        gfnTx(appid+"."+pgmid,"mergeUser",{INVAR:invar},function(OUTVAR){
+            console.log(OUTVAR);
+            if(OUTVAR.rtnCd=="OK") {
+                gfnAlert("저장성공"," 사용자 정보를 생성하였습니다. 최초접속을 위한 임시 비밀번호는 1234! 입니다.");  
+                me.fnSearchList( userinfo.dept_cd ); 
+            } else {
+                gfnAlert("저장오류",OUTVAR.rtnMsg);
+            }
+        }); 
+    }
+    
+    //searchDZ:조회 
+    me.fnInsert=function() {
+        if( !me.pageObj["pageCond"].chkValid() ) return; 
+        var args = me.pageObj["pageCond"].exportData()[0];
+        //console.log(args);
+        var invar = JSON.stringify(args);
+        gfnTx(appid+"."+pgmid,"searchDZ",{INVAR:invar},function(OUTVAR){
+            console.log(OUTVAR);
+            if(OUTVAR.rtnCd=="OK") { 
+                console.log(OUTVAR.list);
+                me.fnSaveDZ(OUTVAR.list);
+                //me.pageObj["dz_org"].importData(OUTVAR.list);
+            } else {
+                gfnAlert("조회오류",OUTVAR.rtnMsg);
+            }
+        });
+    }
+    
+    me.fnSaveDZ = function(list){
+        var args = me.pageObj.pageCond.exportData()[0];
+        args.list = list;
+        var total = list.length;
+        
+        if(total==0){
+            gfnAlert("확인","(현날짜 03:00am 이후)더존에 등록된 정보가 없습니다.");
+            return;
+        }
+        var invar = JSON.stringify(args);
+            gfnTx(appid+"."+pgmid,"saveDZ",{INVAR:invar},function(OUTVAR){
+                console.log(OUTVAR);
+                if(OUTVAR.rtnCd=="OK") {
+                    gfnAlert("등록","(현날짜 03:00am 이후)더존에 등록된 정보 총 "+total+"건이 업데이트되었습니다.");
+                } else {
+                    gfnAlert("저장오류",OUTVAR.rtnMsg);
+                }
+            });          
+    }
+
+/*-- SCRIPT autogen ---------------------------------------------------- */        
+if(typeof(me.fnInit)=='function') me.fnInit();
+});
+
+</script>

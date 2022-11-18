@@ -1,0 +1,332 @@
+<style>[pgmid='ccardMng'].framepage .detailGrid{ 
+    min-width:50vw;
+    min-height:30vh; 
+    padding: 0.5em;
+    background-color: slategrey;
+}
+
+[pgmid='ccardMng'].framepage .detailGrid .componentTop { 
+    display: none;
+}
+
+[pgmid='ccardMng'].framepage .detailGrid .componentBody { 
+    display: flex;
+    flex-direction: column !important;
+    flex-wrap: nowrap;
+    align-content: flex-start;
+    justify-content: flex-start;
+    align-items: stretch;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+}
+
+[pgmid='ccardMng'] .componentBody .ag-root-wrapper {
+    flex: 1 1 100%;
+    height: 100%;
+    min-height: 26em;
+}  </style>
+
+<!-- HTML autogen start ---------------------------------------------- -->            
+<div class="pageNav"></div>
+<div class="pageTop"></div>
+<div class="pageCond"></div>
+<div class="pageGuide"></div>
+<div class="pageContent">
+    <ul id="tabs">
+        <li refid="list">문서작성 요청 및 결과확인</li> 
+        <li refid="listAll">한눈에 보기</li> 
+    </ul>
+    <div id='list'></div>
+    <div id='listAll'></div> 
+</div> 
+<!-- HTML autogen end ---------------------------------------------- -->
+<script>
+/*-- SCRIPT autogen start ---------------------------------------------- */        
+$(function() {
+    var appid = "plas";
+    var pgmid = "ccardMng"; 
+    var page = $("*[pgmid='"+pgmid+"'].framepage").last();
+    var pageid = page.attr("id"); 
+    var me = {}
+    var dataSet = {};
+    var dataDef = {};
+    var pageObj = {};
+    var bEdit = false;
+    me.fnInit = function() {
+        gfn[pageid] = me; 
+        me.appid    = appid;
+        me.pgmid    = pgmid;
+        me.pageid   = pageid;
+        me.page     = page; 
+        me.dataSet = dataSet;
+        me.dataDef = dataDef;
+        me.pageObj = pageObj;
+        me.bEdit = bEdit;
+me.dataDef["_pgm"]={"ver":0.5,"upd_dt":"2022-09-06 02:40:12","remark":"","pgmid":"ccardMng","proc_mst_id":"","pgm_stat":"Y","sort_seq":301,"app_pgmid":"plas","shortcut":"","reg_dt":"2022-09-06 02:40:12","reg_usid":"kihyunlee","pgm_nm":"법인카드 사용내역 관리","upd_usid":"kihyunlee","pgm_tp":"UX","pgm_grp_nm":"법인카드","proc_mst_nm":"","app_pgm_nm":"경영관리","":"트랜젝션(메뉴)","crud":""};
+me.dataDef["_pgm_func"]=[{"func_icon":"fas fa-search","reg_dt":"2022-09-06 02:40:12","reg_usid":"","func_nm":"조회","upd_usid":"","upd_dt":"2022-09-06 02:40:12","func_tp":"DB_R","remark":null,"pgmid":"ccardMng","sort_seq":"1","funcid":"search","content":"법인카드 사용내역 목록조회","crud":"R","id":"0"},{"func_icon":"fas fa-file-excel","reg_dt":"2022-09-06 02:40:12","reg_usid":"","func_nm":"업로드","upd_usid":"","upd_dt":"2022-09-06 02:40:12","func_tp":"DB_W","remark":null,"pgmid":"ccardMng","sort_seq":"2","funcid":"upload","content":"법인카드 업로드 내역 저장","crud":"R","id":"1"},{"func_icon":"fas fa-share-square","reg_dt":"2022-09-06 02:40:12","reg_usid":"","func_nm":"문서작성요청","upd_usid":"","upd_dt":"2022-09-06 02:40:12","func_tp":"DB_W","remark":null,"pgmid":"ccardMng","sort_seq":"3","funcid":"sendDoc","content":"법인카드 사용내역 문서작성요청","crud":"R","id":"2"},{"func_icon":"fas fa-trash","reg_dt":"2022-09-06 02:40:12","reg_usid":"","func_nm":"데이터삭제","upd_usid":"","upd_dt":"2022-09-06 02:40:12","func_tp":"DB_W","remark":null,"pgmid":"ccardMng","sort_seq":"4","funcid":"delete","content":"업로드 내역 삭제","crud":"R","id":"3"}];
+me.dataDef["_pgm_data"] = {};
+me.dataDef["_pgm_data"]["pageCond"]={"sort_seq":"1","data_id":"pageCond","data_nm":"조회조건","data_icon":null,"component_pgmid":"aweForm","component_option":null,"inout_tp":null,"content":[{"sort_seq":1,"section":null,"section_icon":null,"colgrp":null,"colid":"co_cd","colnm":"회사코드","dtype":"text","etype":"sel","attr":"keycol","defval":"gUserinfo.co_cd","w":"20","h":null,"refcd":"DZ_CO_CD","option":"sel:co_cd::cdnm","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"0"},{"sort_seq":2,"section":null,"section_icon":null,"colgrp":"사용일","colid":"dt_from","colnm":"일자(부터)","dtype":"ymd","etype":"txt","attr":"ymd","defval":"date(\"1st\")","w":"10","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"1"},{"sort_seq":3,"section":null,"section_icon":null,"colgrp":"사용일","colid":"dt_to","colnm":"일자(까지)","dtype":"ymd","etype":"txt","attr":"ymd","defval":"date(\"last\")","w":"10","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"2"},{"sort_seq":4,"section":null,"section_icon":null,"colgrp":null,"colid":"cd_stat","colnm":"요청상태","dtype":"text","etype":"sel","attr":null,"defval":null,"w":null,"h":null,"refcd":"DOC_STAT","option":"multi:cd_stat::cdnm","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"3"}]};
+me.dataDef["_pgm_data"]["list"]={"sort_seq":"3","data_id":"list","data_nm":"카드사용내역","data_icon":null,"component_pgmid":"agGrid","component_option":{"gridOpt":"rn chk","remark":"문서번호를 클릭하면 회신문서를 조회할 수 있습니다."},"inout_tp":null,"content":[{"sort_seq":1,"section":null,"section_icon":null,"colgrp":null,"colid":"ref_key","colnm":"카드번호","dtype":"text","etype":"raw","attr":"ccard","defval":null,"w":"20","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"0"},{"sort_seq":2,"section":null,"section_icon":null,"colgrp":null,"colid":"in_ym","colnm":"승인년월","dtype":"text","etype":"raw","attr":null,"defval":null,"w":"8","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"1"},{"sort_seq":3,"section":null,"section_icon":null,"colgrp":null,"colid":"dept_nm","colnm":"사용부서","dtype":"text","etype":"raw","attr":null,"defval":null,"w":"10","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"2"},{"sort_seq":4,"section":null,"section_icon":null,"colgrp":null,"colid":"emp_info","colnm":"사용자","dtype":"text","etype":"raw","attr":null,"defval":null,"w":"10","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"3"},{"sort_seq":5,"section":null,"section_icon":null,"colgrp":null,"colid":"chrg_nm","colnm":"담당자","dtype":"text","etype":"raw","attr":"grp","defval":null,"w":"8","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"4"},{"sort_seq":6,"section":null,"section_icon":null,"colgrp":null,"colid":"tamt","colnm":"승인액","dtype":"num","etype":"raw","attr":null,"defval":null,"w":"10","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"5"},{"sort_seq":7,"section":null,"section_icon":null,"colgrp":null,"colid":"ap_cnt","colnm":"사용건수","dtype":"num","etype":"raw","attr":null,"defval":null,"w":"8","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"6"},{"sort_seq":8,"section":null,"section_icon":null,"colgrp":null,"colid":"acct_cd","colnm":"계정코드","dtype":"text","etype":"raw","attr":null,"defval":null,"w":"8","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"7"},{"sort_seq":9,"section":null,"section_icon":null,"colgrp":null,"colid":"acct_nm","colnm":"계정명","dtype":"text","etype":"raw","attr":null,"defval":null,"w":"10","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"8"},{"sort_seq":10,"section":null,"section_icon":null,"colgrp":null,"colid":"acct_am","colnm":"사용액","dtype":"num","etype":"raw","attr":null,"defval":null,"w":"10","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"9"},{"sort_seq":11,"section":null,"section_icon":null,"colgrp":null,"colid":"cd_stat","colnm":"요청상태","dtype":"text","etype":"sel","attr":"readonly","defval":null,"w":"10","h":null,"refcd":"DOC_STAT","option":"sel:cd_stat::nm","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"10"},{"sort_seq":12,"section":null,"section_icon":null,"colgrp":null,"colid":"reg_dt","colnm":"문서요청일","dtype":"text","etype":"raw","attr":"disabled","defval":null,"w":"15","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"11"},{"sort_seq":13,"section":null,"section_icon":null,"colgrp":null,"colid":"doc_no","colnm":"문서번호","dtype":"text","etype":"raw","attr":null,"defval":null,"w":"15","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"15"},{"sort_seq":14,"section":null,"section_icon":null,"colgrp":null,"colid":"doc_stat","colnm":"문서상태","dtype":"text","etype":"sel","attr":"readonly","defval":null,"w":"10","h":null,"refcd":"DOC_STAT","option":"sel:doc_stat::nm","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"12"},{"sort_seq":15,"section":null,"section_icon":null,"colgrp":null,"colid":"upd_dt","colnm":"문서회신일","dtype":"text","etype":"raw","attr":"disabled","defval":null,"w":"15","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"13"},{"sort_seq":16,"section":null,"section_icon":null,"colgrp":null,"colid":"doc_ym","colnm":"문서년월","dtype":"text","etype":"none","attr":"hidden","defval":null,"w":"0","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"14"}]};
+me.dataDef["_pgm_data"]["det"]={"sort_seq":"4","data_id":"det","data_nm":"상세내역","data_icon":null,"component_pgmid":"agGrid","component_option":null,"inout_tp":null,"content":[{"sort_seq":1,"section":null,"section_icon":null,"colgrp":null,"colid":"in_dt","colnm":"승인일자","dtype":"ymd","etype":"raw","attr":null,"defval":null,"w":"10","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"0"},{"sort_seq":2,"section":null,"section_icon":null,"colgrp":null,"colid":"ap_tm","colnm":"승인일시","dtype":"text","etype":"raw","attr":"center","defval":null,"w":"8","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"1"},{"sort_seq":3,"section":null,"section_icon":null,"colgrp":null,"colid":"tr_cd","colnm":"거래처코드","dtype":"text","etype":"raw","attr":null,"defval":null,"w":"6","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"2"},{"sort_seq":4,"section":null,"section_icon":null,"colgrp":null,"colid":"tr_nm","colnm":"가맹점(거래처)","dtype":"text","etype":"raw","attr":null,"defval":null,"w":"12","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"3"},{"sort_seq":5,"section":null,"section_icon":null,"colgrp":null,"colid":"reg_nb","colnm":"사업자번호","dtype":"text","etype":"raw","attr":"biz_no","defval":null,"w":"10","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"4"},{"sort_seq":6,"section":null,"section_icon":null,"colgrp":null,"colid":"amt","colnm":"공급가액","dtype":"num","etype":"raw","attr":null,"defval":null,"w":"8","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"5"},{"sort_seq":7,"section":null,"section_icon":null,"colgrp":null,"colid":"vat","colnm":"부가세","dtype":"num","etype":"raw","attr":null,"defval":null,"w":"8","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"6"},{"sort_seq":8,"section":null,"section_icon":null,"colgrp":null,"colid":"tamt","colnm":"승인액","dtype":"num","etype":"raw","attr":null,"defval":null,"w":"8","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"7"},{"sort_seq":9,"section":null,"section_icon":null,"colgrp":null,"colid":"tr_stat","colnm":"휴폐업상태","dtype":"text","etype":"txt","attr":null,"defval":null,"w":"6","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"8"},{"sort_seq":10,"section":null,"section_icon":null,"colgrp":null,"colid":"tr_tp","colnm":"유형","dtype":"text","etype":"txt","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"9"},{"sort_seq":11,"section":null,"section_icon":null,"colgrp":null,"colid":"deduct_yn","colnm":"공제여부","dtype":"text","etype":"txt","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"10"},{"sort_seq":12,"section":null,"section_icon":null,"colgrp":null,"colid":"acct_cd","colnm":"계정코드","dtype":"text","etype":"txt","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"11"},{"sort_seq":13,"section":null,"section_icon":null,"colgrp":null,"colid":"acct_nm","colnm":"차변계정","dtype":"text","etype":"txt","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"12"},{"sort_seq":14,"section":null,"section_icon":null,"colgrp":null,"colid":"no","colnm":"No","dtype":"text","etype":"txt","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"13"},{"sort_seq":15,"section":null,"section_icon":null,"colgrp":null,"colid":"rmk","colnm":"적요","dtype":"text","etype":"txt","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"14"},{"sort_seq":16,"section":null,"section_icon":null,"colgrp":null,"colid":"acct_unit","colnm":"회계단위","dtype":"text","etype":"txt","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"15"},{"sort_seq":17,"section":null,"section_icon":null,"colgrp":null,"colid":"plas_no","colnm":"결의번호","dtype":"text","etype":"txt","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"16"},{"sort_seq":18,"section":null,"section_icon":null,"colgrp":null,"colid":"reg_dt","colnm":"회신일시","dtype":"text","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"17"},{"sort_seq":19,"section":null,"section_icon":null,"colgrp":null,"colid":"reg_usid","colnm":"회신자","dtype":"text","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"18"},{"sort_seq":20,"section":null,"section_icon":null,"colgrp":null,"colid":"upd_dt","colnm":"작업일시","dtype":"text","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"19"},{"sort_seq":21,"section":null,"section_icon":null,"colgrp":null,"colid":"upd_usid","colnm":"작업자","dtype":"text","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"20"}]};
+me.dataDef["_pgm_data"]["listAll"]={"sort_seq":"5","data_id":"listAll","data_nm":"한눈에보기","data_icon":null,"component_pgmid":"agGrid","component_option":{"remark":"문서번호를 클릭하면 회신문서를 조회할 수 있습니다."},"inout_tp":null,"content":[{"sort_seq":1,"section":null,"section_icon":null,"colgrp":null,"colid":"ref_key","colnm":"카드번호","dtype":"text","etype":"raw","attr":"ccard","defval":null,"w":"20","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"0"},{"sort_seq":2,"section":null,"section_icon":null,"colgrp":null,"colid":"dept_nm","colnm":"사용부서","dtype":"text","etype":"raw","attr":null,"defval":null,"w":"10","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"1"},{"sort_seq":3,"section":null,"section_icon":null,"colgrp":null,"colid":"emp_info","colnm":"사용자","dtype":"text","etype":"raw","attr":null,"defval":null,"w":"10","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"2"},{"sort_seq":4,"section":null,"section_icon":null,"colgrp":null,"colid":"chrg_nm","colnm":"담당자","dtype":"text","etype":"raw","attr":null,"defval":null,"w":"8","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"3"},{"sort_seq":5,"section":null,"section_icon":null,"colgrp":null,"colid":"in_dt","colnm":"승인일자","dtype":"ymd","etype":"raw","attr":null,"defval":null,"w":"10","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"4"},{"sort_seq":6,"section":null,"section_icon":null,"colgrp":null,"colid":"ap_tm","colnm":"승인일시","dtype":"text","etype":"raw","attr":"center","defval":null,"w":"8","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"5"},{"sort_seq":7,"section":null,"section_icon":null,"colgrp":null,"colid":"tr_cd","colnm":"거래처코드","dtype":"text","etype":"raw","attr":null,"defval":null,"w":"6","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"6"},{"sort_seq":8,"section":null,"section_icon":null,"colgrp":null,"colid":"tr_nm","colnm":"가맹점(거래처)","dtype":"text","etype":"raw","attr":null,"defval":null,"w":"12","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"7"},{"sort_seq":9,"section":null,"section_icon":null,"colgrp":null,"colid":"reg_nb","colnm":"사업자번호","dtype":"text","etype":"raw","attr":"biz_no","defval":null,"w":"10","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"8"},{"sort_seq":10,"section":null,"section_icon":null,"colgrp":null,"colid":"amt","colnm":"공급가액","dtype":"num","etype":"raw","attr":null,"defval":null,"w":"8","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"9"},{"sort_seq":11,"section":null,"section_icon":null,"colgrp":null,"colid":"vat","colnm":"부가세","dtype":"num","etype":"raw","attr":null,"defval":null,"w":"8","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"10"},{"sort_seq":12,"section":null,"section_icon":null,"colgrp":null,"colid":"tamt","colnm":"승인액","dtype":"num","etype":"raw","attr":null,"defval":null,"w":"8","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"11"},{"sort_seq":13,"section":null,"section_icon":null,"colgrp":null,"colid":"tr_stat","colnm":"휴폐업상태","dtype":"text","etype":"txt","attr":null,"defval":null,"w":"6","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"12"},{"sort_seq":14,"section":null,"section_icon":null,"colgrp":null,"colid":"tr_tp","colnm":"유형","dtype":"text","etype":"txt","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"13"},{"sort_seq":15,"section":null,"section_icon":null,"colgrp":null,"colid":"deduct_yn","colnm":"공제여부","dtype":"text","etype":"txt","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"14"},{"sort_seq":16,"section":null,"section_icon":null,"colgrp":null,"colid":"acct_cd","colnm":"계정코드","dtype":"text","etype":"txt","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"15"},{"sort_seq":17,"section":null,"section_icon":null,"colgrp":null,"colid":"acct_nm","colnm":"차변계정","dtype":"text","etype":"txt","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"16"},{"sort_seq":18,"section":null,"section_icon":null,"colgrp":null,"colid":"no","colnm":"No","dtype":"text","etype":"txt","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"17"},{"sort_seq":19,"section":null,"section_icon":null,"colgrp":null,"colid":"rmk","colnm":"적요","dtype":"text","etype":"txt","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"18"},{"sort_seq":20,"section":null,"section_icon":null,"colgrp":null,"colid":"acct_unit","colnm":"회계단위","dtype":"text","etype":"txt","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"19"},{"sort_seq":21,"section":null,"section_icon":null,"colgrp":null,"colid":"plas_no","colnm":"결의번호","dtype":"text","etype":"txt","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"20"},{"sort_seq":22,"section":null,"section_icon":null,"colgrp":null,"colid":"cd_stat","colnm":"요청상태","dtype":"text","etype":"sel","attr":"readonly","defval":null,"w":null,"h":null,"refcd":"DOC_STAT","option":"sel:cd_stat::nm","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"21"},{"sort_seq":23,"section":null,"section_icon":null,"colgrp":null,"colid":"upd_dt","colnm":"작업일시","dtype":"text","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"22"},{"sort_seq":24,"section":null,"section_icon":null,"colgrp":null,"colid":"upd_usid","colnm":"작업자","dtype":"text","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"23"},{"sort_seq":25,"section":null,"section_icon":null,"colgrp":null,"colid":"doc_no","colnm":"문서번호","dtype":"text","etype":"raw","attr":null,"defval":null,"w":"15","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"27"},{"sort_seq":26,"section":null,"section_icon":null,"colgrp":null,"colid":"doc_stat","colnm":"회신상태","dtype":"text","etype":"sel","attr":"readonly","defval":null,"w":null,"h":null,"refcd":"DOC_STAT","option":"sel:doc_stat::nm","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"24"},{"sort_seq":27,"section":null,"section_icon":null,"colgrp":null,"colid":"reg_dt","colnm":"회신일시","dtype":"text","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"25"},{"sort_seq":28,"section":null,"section_icon":null,"colgrp":null,"colid":"reg_usid","colnm":"회신자","dtype":"text","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"26"}]};
+
+        me.pageObj["_page"] = new gfnFramepage( me ); 
+        for(var component_id in me.dataDef["_pgm_data"]) { 
+            me.pageObj[component_id] = new gfnComponent( me.pageid, component_id, me.dataDef["_pgm_data"][component_id], me.fnEH, me); 
+        }  
+        setTimeout(function(){
+            $("#frameset").scrollTo(0); //스크롤 
+        },10);
+        if(typeof(me.fnInitExtra)=='function') me.fnInitExtra(); 
+    } 
+/*-- SCRIPT autogen end ---------------------------------------------- */
+
+    /* 사용자초기화 */
+    me.fnInitExtra=function() {
+        //탭 설정
+        gfnTab(pageid, "tabs"); 
+        //사용자 컴포넌트 
+        //me.dataDef["_pgm_data"][myCompoId] = {...};
+        //me.pageObj["myCompoId"] = new gfnComponent( me.pageid, myCompoId, me.dataDef["_pgm_data"][myCompoId], me.fnEH, me); 
+        //me.pageObj["myCompoId"].userComponent = "myCompoId";
+        //사용자 컨트롤
+        //var myColinfo = {colid:...}
+        //me.pageObj["myColId"] = new gfnControl(myColinfo, me.fnEH) 
+        //me.page.find("#myCol").append(me.pageObj["myColId"].dispObj);
+        //me.pageObj["myColId"].getVal(); / myCol.setVal(val);...    
+        me.co_cd = gUserinfo.co_cd;
+    }
+    /* 이벤트핸들러 */
+    me.fnEH=function(component, evt, row, col, val) { 
+        //console.log(evt+","+row+","+col+","+val);
+        //화면기능버튼이 눌리면 
+        if (component==me.pageObj["_pageFunc"]){ 
+            if(typeof(me[col])=='function') me[col](); //col=기능명 me["fnSearch"]()=me.fnSearch(); 
+        }
+        //pageCond:조회조건 이벤트처리     
+        else if(component==me.pageObj["pageCond"]) { 
+        } 
+
+        //list:카드사용내역 이벤트처리     
+        else if(component==me.pageObj["list"]) {
+            //승인액 클릭시 상세표시
+            if(evt=="focus" && (col=="chrg_nm")) {
+                //gObj에 pgmid-list를 선언해놓으면 grp컬럼 클릭시에 params를 던져줌
+                gObj[pgmid+"-list"]=function(params) {
+                    var di = "det"+row; 
+                    var args = me.pageObj.pageCond.exportData()[0];
+                    $.extend(true, args, params.data);
+                    console.log(args);
+                    var invar = JSON.stringify(args);
+                    gfnTx(appid+"."+pgmid,"searchDetail",{INVAR:invar},function(OUTVAR){
+                        if(OUTVAR.rtnCd=="OK") { 
+                            me.pageObj[di] = new gfnComponent( me.pageid, di, me.dataDef["_pgm_data"]["det"], me.fnEH, me); 
+                            me.pageObj[di].importData(OUTVAR.list);
+                            me.pageObj[di].total("top");
+                        } else {
+                            gfnAlert("조회오류",OUTVAR.rtnMsg);
+                        }
+                    });
+                    return "<div id='"+di+"' class='detailGrid'>detail info initialing...</div>";
+                }
+            }
+            if(evt=="dblclick" && col=="doc_no") {
+                var docid = component.getVal(row,"docid");
+                gfnShowPlasDoc( docid );   
+            }
+        }
+
+        //det:상세내역 이벤트처리     
+        else if(component==me.pageObj["det"]) {
+            if(evt=="componentFunc") {
+                if(row=="addRow") {
+                    component.addRow();
+                } else if(row=="delRow") {
+                    component.delRow();
+                }
+            } 
+        }
+
+        //listAll:한눈에보기 이벤트처리     
+        else if(component==me.pageObj["listAll"]) {
+            if(evt=="componentFunc") {
+                if(row=="addRow") {
+                    component.addRow();
+                } else if(row=="delRow") {
+                    component.delRow();
+                }
+            }
+            if(evt=="dblclick" && col=="doc_no") {
+                var docid = component.getVal(row,"docid");
+                gfnShowPlasDoc( docid );   
+            }
+        } 
+    }
+    
+    //업로드창 호출
+    me.fnUpload=function() {
+        gMDI.openPage("ccardReg","법인카드 승인내역 업로드");
+    }
+    //search:조회 
+    me.fnSearch=function() {
+        if( !me.pageObj["pageCond"].chkValid() ) return;
+        var args = me.pageObj["pageCond"].exportData()[0];
+        //console.log(args);
+        var invar = JSON.stringify(args);
+        gfnTx(appid+"."+pgmid,"search",{INVAR:invar},function(OUTVAR){
+            //console.log(OUTVAR);
+            if(OUTVAR.rtnCd=="OK") {
+                me.pageObj["list"].importData(OUTVAR.list);
+                me.pageObj["list"].total("top");
+                me.pageObj["listAll"].importData(OUTVAR.listAll);
+                me.pageObj["listAll"].total("top");
+            } else {
+                gfnAlert("조회오류",OUTVAR.rtnMsg);
+            }
+        });
+    } 
+
+    //save:저장 
+    me.fnSave=function() {
+        if( !me.pageObj["pageCond"].chkValid() ) return;
+        if( !me.pageObj["list"].chkValid() ) return;
+        var args = me.pageObj["pageCond"].exportData()[0];
+        var list = me.pageObj["listAll"].exportData(); 
+        var total = list.length;
+        
+        function _fnSave() {
+            args.list = list.splice(0,100);
+            //console.log(args);
+            var invar = JSON.stringify(args);
+            gfnTx(appid+"."+pgmid,"save",{INVAR:invar},function(OUTVAR){
+                //console.log(OUTVAR);
+                if(OUTVAR.rtnCd=="OK") {
+                    if(list.length > 0) {
+                        gfnStatus(det.length+"/"+total+" 건 저장중...");
+                        _fnSave();
+                    } else {
+                        gfnAlert("저장성공","입력한 데이터를 저장하였습니다."); 
+                        me.pageObj.upload.reset();
+                    } 
+                } else { 
+                    gfnAlert("저장오류",OUTVAR.rtnMsg);
+                }
+            });
+        }
+        _fnSave();  
+    }
+
+    //sendDoc:문서작성요청 
+    me.fnSendDoc=function() { 
+        if( !me.pageObj["pageCond"].chkValid() ) return;
+        var selectedRows = me.pageObj.list.selectedRows();
+        if( selectedRows.length <= 0 ) {
+            gfnAlert("문서작성요청 확인","문서작성요청 탭에서 선택된 줄이 없습니다.");
+            return;
+        }
+        var list = [];
+        var bChk = true;
+        selectedRows.forEach(el=>{
+            var row = me.pageObj.list.getRowData(el);
+            if(row.cd_stat!="D") {
+                gfnAlert("삭제확인","요청상태가 이미 문서작성 요청중입니다. 문서작성요청을 보낼 수 없습니다.<br>"+
+                                    "카드번호:"+ row.ref_key+" 승인년월:"+row.in_ym+" 사용자:"+row.emp_info+" 승인액:"+row.tamt+" 건수:"+row.ap_cnt);
+                bChk = false;
+                return false;
+            }
+            list.push(row);
+        })
+        if(!bChk) return;
+        
+        gfnConfirm("문서작성요청","선택된 카드승인 내역에 대한 사용내역 문서를 생성하시겠습니까?",function(bAnswer){
+            if(bAnswer) {
+                //REQUEST OBJ : 
+                var args = me.pageObj["pageCond"].exportData()[0];
+                args.list = list;
+                console.log(args);
+                var invar = JSON.stringify(args);
+                gfnTx(appid+"."+pgmid,"sendDoc",{INVAR:invar},function(OUTVAR){
+                    console.log(OUTVAR);
+                    if(OUTVAR.rtnCd=="OK") {
+                        var rcvlist = OUTVAR.rcvlist.split(";");
+                        rcvlist.pop(); //끝에 공란은 날려준다. 
+                        function _sendMsg() {
+                            if(rcvlist.length > 0) {
+                                var row = rcvlist.splice(0,1);
+                                row = row[0];
+                                var useremail = row.split(":")[0];  
+                                var docid = row.split(":")[1];
+                                var msg = "법인카드 사용내역 등록이 요청되었습니다.\n\n";
+                                var sender = gds.comcd.find(el=>el.grpcd=="PLAS_USID"&&el.cd==gUserinfo.userid);
+                                msg += " - 요청자 : "+sender.deptnm+" "+sender.nm+" "+sender.jobgradenm;
+                                var url = "https://fo.lfnetworks.co.kr/plas.jsp?d="+docid;
+                                var ref_info = docid;
+                                gfnSendMsg("naverworks", useremail, msg, url, function(OUTVAR) { 
+                                    _sendMsg();
+                                }, ref_info, "plasDocUpd");
+                            } else {
+                                gfnAlert("문서작성요청","법인카드 사용내역 문서작성이 요청 되었습니다."); 
+                                me.fnSearch();        
+                            }
+                        }
+                        _sendMsg();  
+                    } else {
+                        gfnAlert("오류",OUTVAR.rtnMsg);
+                    }
+                });
+            }
+        })
+    }
+    
+    //delete:문서작성요청전 데이터 삭제 
+    me.fnDelete=function() {
+        //VALIDATION  : 
+        if( !me.pageObj["pageCond"].chkValid() ) return;
+        var selectedRows = me.pageObj.list.selectedRows();
+        if( selectedRows.length <= 0 ) {
+            gfnAlert("삭제확인","문서작성요청 탭에서 선택된 줄이 없습니다.");
+            return;
+        }
+        var list = [];
+        selectedRows.forEach(el=>{
+            var row = me.pageObj.list.getRowData(el);
+            if(row.cd_stat!="D") {
+                gfnAlert("삭제확인","요청상태가 이미 문서작성 요청중입니다. 삭제할 수 없습니다.<br>"+
+                                    "카드번호:"+ row.ref_key+" 승인년월:"+row.in_ym+" 사용자:"+row.emp_info+" 승인액:"+row.tamt+" 건수:"+row.ap_cnt);
+                return;
+            }
+            list.push(row);
+        })
+        
+        gfnConfirm("데이터삭제","선택된 카드승인 내역을 삭제하시겠습니까?",function(bAnswer){
+            if(bAnswer) {
+                //REQUEST OBJ : 
+                var args = me.pageObj["pageCond"].exportData()[0];
+                args.list = list;
+                console.log(args);
+                var invar = JSON.stringify(args);
+                gfnTx(appid+"."+pgmid,"delete",{INVAR:invar},function(OUTVAR){
+                    console.log(OUTVAR);
+                    if(OUTVAR.rtnCd=="OK") {
+                        //서비스 후처리 : 
+                        gfnAlert("삭제성공","법인카드 승인내역이 삭제되었습니다. 다시 업로드 후 진행해 주세요"); 
+                        me.fnSearch();
+                    } else {
+                        gfnAlert("오류",OUTVAR.rtnMsg);
+                    }
+                });
+            }
+        }) 
+    }
+    
+    
+    
+    
+    
+
+
+/*-- SCRIPT autogen ---------------------------------------------------- */        
+if(typeof(me.fnInit)=='function') me.fnInit();
+});
+
+</script>

@@ -1,0 +1,259 @@
+<style>[pgmid='budgetACCT'].framepage #dz_org .subsum0 { 
+    background-color: yellowgreen; 
+}
+[pgmid='budgetACCT'].framepage #dz_org .subsum2 { 
+    background-color: yellow; 
+}</style>
+
+<!-- HTML autogen start ---------------------------------------------- -->            
+<div class="pageNav"></div>
+<div class="pageTop"></div>
+<div class="pageCond"></div>
+<div class="pageGuide"></div>
+<div class="pageContent flexRow">
+    <div  id="dz_org" class="flexColumn" style="flex:1 1 50%;height:100%;"></div>
+    <div id="list" class="flexColumn" style="flex:1 1 20%"></div>
+    <div class="flexColumn" style="1 1 20%">
+        <div id="mst" style="flex:0 0 auto"></div>
+        <div id="det" class="flexColumn" style="flex:1 1 auto"></div>
+    </div>
+</div>
+
+</div>
+<!-- HTML autogen end ---------------------------------------------- -->
+<script>
+/*-- SCRIPT autogen start ---------------------------------------------- */        
+$(function() {
+    var appid = "plas";
+    var pgmid = "budgetACCT"; 
+    var page = $("*[pgmid='"+pgmid+"'].framepage").last();
+    var pageid = page.attr("id"); 
+    var me = {}
+    var dataSet = {};
+    var dataDef = {};
+    var pageObj = {};
+    var bEdit = false;
+    me.fnInit = function() {
+        gfn[pageid] = me; 
+        me.appid    = appid;
+        me.pgmid    = pgmid;
+        me.pageid   = pageid;
+        me.page     = page; 
+        me.dataSet = dataSet;
+        me.dataDef = dataDef;
+        me.pageObj = pageObj;
+        me.bEdit = bEdit;
+me.dataDef["_pgm"]={"ver":0.3,"upd_dt":"2022-08-23 08:48:39","remark":"","pgmid":"budgetACCT","proc_mst_id":"","pgm_stat":"Y","sort_seq":701,"app_pgmid":"plas","shortcut":"","reg_dt":"2022-08-23 08:48:39","reg_usid":"kihyunlee","pgm_nm":"예산계정관리","upd_usid":"kihyunlee","pgm_tp":"UX","pgm_grp_nm":"통제예산관리","proc_mst_nm":"","app_pgm_nm":"경영관리","":"트랜젝션(메뉴)","crud":""};
+me.dataDef["_pgm_func"]=[{"func_icon":"fas fa-search","reg_dt":"2022-08-23 08:48:39","reg_usid":"","func_nm":"조회","upd_usid":"","upd_dt":"2022-08-23 08:48:39","func_tp":"DB_R","remark":"예산관리계정을 지정하고 하위계정을 연결합니다.","pgmid":"budgetACCT","sort_seq":"1","funcid":"search","content":"예산관리계정 및 하위계정 조회","crud":"R","id":"0"},{"func_icon":"fas fa-save","reg_dt":"2022-08-23 08:48:39","reg_usid":"","func_nm":"저장","upd_usid":"","upd_dt":"2022-08-23 08:48:39","func_tp":"DB_W","remark":"경영관리팀은 예산관리계정 기초예산을 등록하고, 하위계정의 집행내역은 관리계정으로 집계되어 점검됩니다.","pgmid":"budgetACCT","sort_seq":"2","funcid":"save","content":"예산관리계정 및 하위계정 저장","crud":"R","id":"1"}];
+me.dataDef["_pgm_data"] = {};
+me.dataDef["_pgm_data"]["pageCond"]={"sort_seq":"1","data_id":"pageCond","data_nm":"조회조건","data_icon":null,"component_pgmid":"aweForm","component_option":null,"inout_tp":null,"content":[{"sort_seq":1,"section":null,"section_icon":null,"colgrp":null,"colid":"co_cd","colnm":"회사","dtype":"text","etype":"sel","attr":"keycol","defval":"gUserinfo.co_cd","w":"15","h":null,"refcd":"DZ_CO_CD","option":"sel:co_cd::cdnm","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"0"}]};
+me.dataDef["_pgm_data"]["dz_org"]={"sort_seq":"2","data_id":"dz_org","data_nm":"더존 회계계정정보 조회","data_icon":null,"component_pgmid":"agGrid","component_option":{"remark":"*대표계정(###00) 중 대표계정코드 그대로 사용된 건은 노란색, 하위계정만 사용된 건은 연두색으로 표시됩니다.","gridOptions":{"statusBar":{"statusPanels":[{"statusPanel":"agTotalAndFilteredRowCountComponent","align":"left"},{"statusPanel":"agAggregationComponent","align":"right"}]}}},"inout_tp":null,"content":[{"sort_seq":1,"section":null,"section_icon":null,"colgrp":"회계계정","colid":"acct_cd","colnm":"계정코드","dtype":"text","etype":"raw","attr":"pk","defval":null,"w":"5","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"22"},{"sort_seq":2,"section":null,"section_icon":null,"colgrp":"회계계정","colid":"acct_nm","colnm":"계정명","dtype":"text","etype":"raw","attr":"keycol","defval":null,"w":"15","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"21"},{"sort_seq":3,"section":null,"section_icon":null,"colgrp":"전체기간","colid":"cnt","colnm":"건수","dtype":"num","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"20"},{"sort_seq":4,"section":null,"section_icon":null,"colgrp":"전체기간","colid":"amt","colnm":"금액","dtype":"num","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"19"},{"sort_seq":5,"section":null,"section_icon":null,"colgrp":"차변","colid":"dr_cnt","colnm":"건수","dtype":"num","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"18"},{"sort_seq":6,"section":null,"section_icon":null,"colgrp":"차변","colid":"dr_amt","colnm":"금액","dtype":"num","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"17"},{"sort_seq":7,"section":null,"section_icon":null,"colgrp":"대변","colid":"cr_cnt","colnm":"건수","dtype":"num","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"16"},{"sort_seq":8,"section":null,"section_icon":null,"colgrp":"대변","colid":"cr_amt","colnm":"금액","dtype":"num","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"15"},{"sort_seq":9,"section":null,"section_icon":null,"colgrp":"더존 관리정보","colid":"acct_fg","colnm":"계정구분","dtype":"text","etype":"raw","attr":"center disabled","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"14"},{"sort_seq":10,"section":null,"section_icon":null,"colgrp":"더존 관리정보","colid":"drcr_fg","colnm":"차대구분","dtype":"text","etype":"raw","attr":"center disabled","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"13"},{"sort_seq":11,"section":null,"section_icon":null,"colgrp":"사업장","colid":"div_cnt","colnm":"건수","dtype":"num","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"12"},{"sort_seq":12,"section":null,"section_icon":null,"colgrp":"사업장","colid":"div_min","colnm":"사업장명","dtype":"text","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"11"},{"sort_seq":13,"section":null,"section_icon":null,"colgrp":"사업장","colid":"div_max","colnm":"사업장명","dtype":"text","etype":"raw","attr":"hidden","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"10"},{"sort_seq":14,"section":null,"section_icon":null,"colgrp":"부서","colid":"dept_cnt","colnm":"건수","dtype":"num","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"9"},{"sort_seq":15,"section":null,"section_icon":null,"colgrp":"부서","colid":"dept_min","colnm":"부서명","dtype":"text","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"8"},{"sort_seq":16,"section":null,"section_icon":null,"colgrp":"부서","colid":"dept_max","colnm":"부서명","dtype":"text","etype":"raw","attr":"hidden","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"7"},{"sort_seq":17,"section":null,"section_icon":null,"colgrp":"프로젝트","colid":"pjt_cnt","colnm":"건수","dtype":"num","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"6"},{"sort_seq":18,"section":null,"section_icon":null,"colgrp":"프로젝트","colid":"pjt_min","colnm":"프로젝트명","dtype":"text","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"5"},{"sort_seq":19,"section":null,"section_icon":null,"colgrp":"프로젝트","colid":"pjt_max","colnm":"프로젝트명","dtype":"text","etype":"raw","attr":"hidden","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"4"},{"sort_seq":20,"section":null,"section_icon":null,"colgrp":"거래선","colid":"tr_cnt","colnm":"건수","dtype":"num","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"3"},{"sort_seq":21,"section":null,"section_icon":null,"colgrp":"거래선","colid":"tr_min","colnm":"거래선명","dtype":"text","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"2"},{"sort_seq":22,"section":null,"section_icon":null,"colgrp":"거래선","colid":"tr_max","colnm":"거래선명","dtype":"text","etype":"raw","attr":"hidden","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"1"}]};
+me.dataDef["_pgm_data"]["list"]={"sort_seq":"3","data_id":"list","data_nm":"관리계정 목록","data_icon":null,"component_pgmid":"agGrid","component_option":{"func":[{"funcid":"addRow","func_nm":"줄추가","func_icon":"fas fa-plus"},{"funcid":"delRow","func_nm":"줄삭제","func_icon":"fas fa-minus"}]},"inout_tp":null,"content":[{"sort_seq":1,"section":null,"section_icon":null,"colgrp":"관리계정","colid":"val_1","colnm":"코드","dtype":"text","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"0"},{"sort_seq":2,"section":null,"section_icon":null,"colgrp":"관리계정","colid":"val_2","colnm":"명","dtype":"text","etype":"raw","attr":null,"defval":null,"w":"20","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"1"},{"sort_seq":3,"section":null,"section_icon":null,"colgrp":"관리계정","colid":"val_3","colnm":"정렬순서","dtype":"num","etype":"txt","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"2"}]};
+me.dataDef["_pgm_data"]["mst"]={"sort_seq":"4","data_id":"mst","data_nm":"관리계정","data_icon":null,"component_pgmid":"aweForm","component_option":null,"inout_tp":null,"content":[{"sort_seq":1,"section":null,"section_icon":null,"colgrp":null,"colid":"val_1","colnm":"관리계정","dtype":"text","etype":"raw","attr":null,"defval":null,"w":"5","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"0"},{"sort_seq":2,"section":null,"section_icon":null,"colgrp":null,"colid":"val_2","colnm":"관리계정명","dtype":"text","etype":"raw","attr":null,"defval":null,"w":"10","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"1"},{"sort_seq":3,"section":null,"section_icon":null,"colgrp":null,"colid":"val_3","colnm":"정렬순서","dtype":"num","etype":"raw","attr":null,"defval":null,"w":"5","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"2"}]};
+me.dataDef["_pgm_data"]["det"]={"sort_seq":"5","data_id":"det","data_nm":"하위계정","data_icon":null,"component_pgmid":"agGrid","component_option":{"func":[{"funcid":"addRow","func_nm":"줄추가","func_icon":"fas fa-plus"},{"funcid":"delRow","func_nm":"줄삭제","func_icon":"fas fa-minus"}]},"inout_tp":null,"content":[{"sort_seq":1,"section":null,"section_icon":null,"colgrp":null,"colid":"cd","colnm":"계정코드","dtype":"text","etype":"raw","attr":null,"defval":null,"w":"5","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"0"},{"sort_seq":2,"section":null,"section_icon":null,"colgrp":null,"colid":"nm","colnm":"계정명","dtype":"text","etype":"raw","attr":null,"defval":null,"w":"10","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"1"},{"sort_seq":3,"section":null,"section_icon":null,"colgrp":null,"colid":"use_yn","colnm":"사용","dtype":"text","etype":"cbx","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"2"},{"sort_seq":4,"section":null,"section_icon":null,"colgrp":null,"colid":"sort_sq","colnm":"순서","dtype":"num","etype":"txt","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"3"}]};
+
+        me.pageObj["_page"] = new gfnFramepage( me ); 
+        for(var component_id in me.dataDef["_pgm_data"]) { 
+            me.pageObj[component_id] = new gfnComponent( me.pageid, component_id, me.dataDef["_pgm_data"][component_id], me.fnEH, me); 
+        }  
+        setTimeout(function(){
+            $("#frameset").scrollTo(0); //스크롤 
+        },10);
+        if(typeof(me.fnInitExtra)=='function') me.fnInitExtra(); 
+    } 
+/*-- SCRIPT autogen end ---------------------------------------------- */
+
+    /* 사용자초기화 */
+    me.fnInitExtra=function() {
+        //탭 설정
+        gfnTab(pageid, "tabs");
+        
+        me.fnSearch();
+    }
+    /* 이벤트핸들러 */
+    me.fnEH=function(component, evt, row, col, val) { 
+        //console.log(evt+","+row+","+col+","+val);
+        //화면기능버튼이 눌리면 
+        if (component==me.pageObj["_pageFunc"]){ 
+            if(typeof(me[col])=='function') me[col](); //col=기능명 me["fnSearch"]()=me.fnSearch(); 
+        }
+        //pageCond:조회조건 이벤트처리     
+        else if(component==me.pageObj["pageCond"]) { 
+        }
+
+        //dz_org:더존 회계계정정보 조회 이벤트처리     
+        else if(component==me.pageObj["dz_org"]) {
+            if(evt=="focus") {
+                if(me.mode=="addCNTR") {
+                    //console.log(arguments);
+                    var cntr = component.getVal(row,"acct_cd"); 
+                    var node = me.dz_org.find(el=>el.acct_cd==cntr); //row = clicked acct_cd
+                    node.val_1 = node.acct_cd;
+                    node.val_2 = node.acct_nm; 
+                    node.val_3 = nvl(node.val_3,1);
+                    node.cd    = node.acct_cd;
+                    node.nm    = node.acct_nm; 
+                    node.use_yn = 'Y'; 
+                    node.sort_sq = 1; 
+                    node.cud    = 'Y';
+                    me.fnSetCntr();
+                    me.fnSetACCT( node.val_1 );
+                }
+                if(me.mode=="addACCT") {
+                    //console.log(arguments);
+                    var acct = component.getVal(row,"acct_cd"); 
+                    var node = me.dz_org.find(el=>el.acct_cd==acct);  
+                    var cntr_info = me.pageObj.mst.exportData()[0];
+                    node.val_1 = cntr_info.val_1;
+                    node.val_2 = cntr_info.val_2; 
+                    node.val_3 = cntr_info.val_3; 
+                    node.cd    = node.acct_cd;
+                    node.nm    = node.acct_nm; 
+                    node.use_yn  = 'Y'; 
+                    node.sort_sq = 1+me.pageObj.det.countRow();
+                    node.cud    = 'Y';
+                    //me.fnSetCntr();
+                    me.fnSetACCT( node.val_1 );
+                }
+            }
+        }
+
+        //list:관리계정 목록 이벤트처리     
+        else if(component==me.pageObj["list"]) {
+            if(evt=="componentFunc") {
+                if(row=="addRow") {
+                    me.mode="addCNTR";
+                    gfnStatus("관리계정 추가","추가하려는 관리계정을 회계계정목록에서 클릭하세요");
+                } else if(row=="delRow") {
+                    var node = component.selectedRow();
+                    var cntr = component.getVal(node,"val_1");
+                    component.delRow(node, true);
+                    me.dz_org.forEach(el=>{
+                        if(el.val_1==cntr) {
+                            el.val_1=null;
+                            el.val_2=null;
+                            el.val_3=null;
+                            el.cd   =null;
+                            el.nm   =null;
+                            el.use_yn = 'N';
+                            el.sort_sq = null; 
+                            el.cud    = 'Y';
+                        }
+                    })
+                    me.fnSetCntr();
+                }
+            }
+            if(evt=="change" && col=="val_3") {
+                var val_1 = component.getVal(row,"val_1");
+                me.dz_org.forEach(el=>{
+                    if(el.val_1==val_1) {
+                        el.val_3 = val;
+                        el.cud    = 'Y';
+                    }
+                })
+            }
+            if(evt=="focus") {
+                var val_1 = component.getVal(row,"val_1");
+                me.fnSetACCT(val_1);
+            }
+        }
+
+        //mst:관리계정 이벤트처리     
+        else if(component==me.pageObj["mst"]) { 
+        }
+
+        //det:하위계정 이벤트처리     
+        else if(component==me.pageObj["det"]) {
+            if(evt=="componentFunc") {
+                if(row=="addRow") {
+                    me.mode="addACCT";
+                    gfnStatus("하위계정 추가","손익센터에 추가하려는 하위계정을 더존 회계계정목록에서 클릭하세요");
+                } else if(row=="delRow") {
+                    var node = component.selectedRow();
+                    var acct = component.getVal(node,"cd");
+                    component.delRow(node, true);
+                    me.dz_org.forEach(el=>{
+                        if(el.cd==acct) {
+                            el.val_1=null;
+                            el.val_2=null;
+                            el.val_3=null;
+                            el.cd   =null;
+                            el.nm   =null;
+                            el.use_yn = 'N';
+                            el.sort_sq = null; 
+                            el.cud = 'Y';
+                        }
+                    })
+                }
+            }
+            if(evt=="change") {
+                if(col=="use_yn"||col=="sort_sq") {
+                    var acct = component.getVal(row,"cd"); 
+                    me.dz_org.forEach(el=>{
+                        if(el.cd==acct) {
+                            el.use_yn = component.getVal(row,"use_yn");
+                            el.sort_seq = component.getVal(row,"sort_sq");
+                            el.cud = 'Y';
+                        }
+                    })
+                }
+            }
+        } 
+    }
+    //search:조회 
+    me.fnSearch=function() {
+        if( !me.pageObj["pageCond"].chkValid() ) return;
+        var args = me.pageObj["pageCond"].exportData()[0];
+        //console.log(args);
+        var invar = JSON.stringify(args);
+        gfnTx(appid+"."+pgmid,"search",{INVAR:invar},function(OUTVAR){
+            //console.log(OUTVAR);
+            if(OUTVAR.rtnCd=="OK") {
+                me.pageObj["dz_org"].importData(OUTVAR.dz_org); 
+                me.dz_org = OUTVAR.dz_org;
+                me.fnSetCntr();
+            } else {
+                gfnAlert("조회오류",OUTVAR.rtnMsg);
+            }
+        });
+    }
+
+    //더존계정목록에서 관리계정 목록 추출
+    me.fnSetCntr=function() {
+        var cntrs = extract(me.dz_org,"val_1","distinct");
+        var list  = me.dz_org.filter(el=>inStr(cntrs,el.acct_cd)>=0); 
+        me.pageObj.list.importData(list); 
+    }
+    
+    //선택된 관리계정의 하위 계정목록 추출
+    me.fnSetACCT=function(cntr) {
+        var mst = me.dz_org.find(el=>el.val_1==cntr);
+        me.pageObj.mst.importData(mst);
+        var det = me.dz_org.filter(el=>el.val_1==cntr);
+        me.pageObj.det.importData(det); 
+    }
+    
+    //save:저장 
+    me.fnSave=function() {
+        if( !me.pageObj["pageCond"].chkValid() ) return;
+        var args = me.pageObj["pageCond"].exportData()[0];
+        args.list = me.dz_org.filter(el=>el.cud=='Y'); 
+        //console.log(args);
+        var invar = JSON.stringify(args);
+        gfnTx(appid+"."+pgmid,"save",{INVAR:invar},function(OUTVAR){
+            console.log(OUTVAR);
+            if(OUTVAR.rtnCd=="OK") {
+                gfnAlert("저장성공","입력한 정보가 저장되었습니다.");
+                me.fnSearch();
+            } else {
+                gfnAlert("저장오류",OUTVAR.rtnMsg);
+            }
+        });
+    }
+
+
+/*-- SCRIPT autogen ---------------------------------------------------- */        
+if(typeof(me.fnInit)=='function') me.fnInit();
+});
+
+</script>

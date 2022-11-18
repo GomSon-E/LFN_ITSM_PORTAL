@@ -1,0 +1,184 @@
+<style>[pgmid='checkAlert'].framepage .componentTop { 
+    display: none;
+}
+
+[pgmid='checkAlert'].framepage .aweCol {
+    white-space: break-spaces;
+}</style>
+
+<!-- HTML autogen start ---------------------------------------------- -->            
+<div class="pageTop"></div>
+<div class="pageContent">
+    <div id='mst' ></div>
+</div>
+<!-- HTML autogen end ---------------------------------------------- -->
+<script>
+/*-- SCRIPT autogen start ---------------------------------------------- */        
+$(function() {
+    var appid = "aweportal";
+    var pgmid = "checkAlert"; 
+    var page = $("*[pgmid='"+pgmid+"'].framepage").last();
+    var pageid = page.attr("id"); 
+    var me = {}
+    var dataSet = {};
+    var dataDef = {};
+    var pageObj = {};
+    var bEdit = false;
+    me.fnInit = function() {
+        gfn[pageid] = me; 
+        me.appid    = appid;
+        me.pgmid    = pgmid;
+        me.pageid   = pageid;
+        me.page     = page; 
+        me.dataSet = dataSet;
+        me.dataDef = dataDef;
+        me.pageObj = pageObj;
+        me.bEdit = bEdit;
+me.dataDef["_pgm"]={"ver":0.2,"upd_dt":"2022-09-06 16:03:05","remark":"알림확인","pgmid":"checkAlert","proc_mst_id":"","pgm_stat":"Y","sort_seq":7,"app_pgmid":"aweportal","shortcut":"","reg_dt":"2022-09-06 16:03:05","reg_usid":"kihyunlee","pgm_nm":"알림확인","upd_usid":"kihyunlee","pgm_tp":"TX","pgm_grp_nm":"사용자","proc_mst_nm":"","app_pgm_nm":"포털","":"트랜젝션(화면)","crud":""};
+me.dataDef["_pgm_func"]=[{"func_icon":"fas fa-check","reg_dt":"2022-09-06 16:03:05","reg_usid":"","func_nm":"확인","upd_usid":"","upd_dt":"2022-09-06 16:03:05","func_tp":null,"remark":null,"pgmid":"checkAlert","sort_seq":"1","funcid":"read","content":null,"crud":"R","id":"0"},{"func_icon":null,"reg_dt":"2022-09-06 16:03:05","reg_usid":"","func_nm":"문서열기","upd_usid":"","upd_dt":"2022-09-06 16:03:05","func_tp":null,"remark":null,"pgmid":"checkAlert","sort_seq":"2","funcid":"open","content":null,"crud":"R","id":"1"},{"func_icon":"fas fa-comment","reg_dt":"2022-09-06 16:03:05","reg_usid":"","func_nm":"회신","upd_usid":"","upd_dt":"2022-09-06 16:03:05","func_tp":null,"remark":null,"pgmid":"checkAlert","sort_seq":"4","funcid":"msg","content":null,"crud":"R","id":"2"}];
+me.dataDef["_pgm_data"] = {};
+me.dataDef["_pgm_data"]["mst"]={"sort_seq":"3","data_id":"mst","data_nm":"알림확인","data_icon":null,"component_pgmid":"aweForm","component_option":null,"inout_tp":"OUT","content":[{"sort_seq":1,"section":null,"section_icon":null,"colgrp":null,"colid":"ref_id","colnm":"프로그램","dtype":"text","etype":"sel","attr":"center readonly","defval":"TBD","w":"20","h":"2","refcd":"pgmid","option":"sel:ref_id::nm","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"0"},{"sort_seq":2,"section":null,"section_icon":null,"colgrp":null,"colid":"ref_info_tp","colnm":"문서번호","dtype":"text","etype":"raw","attr":"center readonly","defval":null,"w":"20","h":"2","refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"1"},{"sort_seq":3,"section":null,"section_icon":null,"colgrp":null,"colid":"comments","colnm":"내용","dtype":"text","etype":"raw","attr":"readonly","defval":null,"w":"100","h":"23","refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"2"},{"sort_seq":4,"section":null,"section_icon":null,"colgrp":"발신정보","colid":"sender","colnm":"발신자","dtype":"text","etype":"raw","attr":"center readonly","defval":null,"w":"10","h":"2","refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"3"},{"sort_seq":5,"section":null,"section_icon":null,"colgrp":"발신정보","colid":"reg_dt","colnm":"발신일시","dtype":"text","etype":"raw","attr":"center readonly","defval":null,"w":"12","h":"2","refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"4"}]};
+
+        me.pageObj["_page"] = new gfnFramepage( me ); 
+        for(var component_id in me.dataDef["_pgm_data"]) { 
+            me.pageObj[component_id] = new gfnComponent( me.pageid, component_id, me.dataDef["_pgm_data"][component_id], me.fnEH, me); 
+        }  
+        setTimeout(function(){
+            $("#frameset").scrollTo(0); //스크롤 
+        },10);
+        if(typeof(me.fnInitExtra)=='function') me.fnInitExtra(); 
+    } 
+/*-- SCRIPT autogen end ---------------------------------------------- */
+
+    /* 사용자초기화 */
+    me.fnInitExtra=function() {
+        /* console.log(gParam.data);
+        comments: "PLAS메신저 -이기현님의 메시지: 나에게 메시지 "
+        crud: "R"
+        read_yn: "N"
+        receiver: "kihyunlee"
+        ref_id: "registerAlert"
+        ref_info_tp: ""
+        reg_dt: "2022-08-04 22:07:48"
+        sender: "이기현"
+        sender_id: "kihyunlee"
+        */
+        console.log("checkAlert args:");
+        console.log(gParam.data);
+        me.pageObj.mst.importData(gParam.data); 
+        //me.fnReadDone();
+    }
+    /* 이벤트핸들러 */
+    me.fnEH=function(component, evt, row, col, val) { 
+        //console.log(evt+","+row+","+col+","+val);
+        //화면기능버튼이 눌리면 
+        if (component==me.pageObj["_pageFunc"]){ 
+            if(typeof(me[col])=='function') me[col](); //col=기능명 me["fnSearch"]()=me.fnSearch(); 
+        }
+        if(component == me.pageObj["mst"]) {
+            if(col == "ref_info_tp" && evt == "dblclick") {
+                var rowData = me.pageObj["mst"].exportData()[0];
+                me.fnRunPgm(rowData);
+            }
+        }
+    } 
+    
+    me.fnOpen=function() {
+        var rowData = me.pageObj["mst"].exportData()[0];
+        me.fnRunPgm(rowData);
+        me.fnClose();
+    }
+    
+    //상세 내역 클릭 프로그램 실행
+    me.fnRunPgm = function(rowData) {
+        if( inStr(rowData.ref_id,"plasDoc") >=0 ) {
+            gfnShowPlasDoc(rowData.ref_info_tp, "preview");
+            return;
+        }
+        //console.log(rowData);
+        gfnGetData("pgm_auth", function(rtn) {
+            const pgmInfo = subset(subset(gds.comcd, "grpcd", "pgm_auth"), "pgmid", rowData.ref_id)[0];
+            if(isNull(pgmInfo)) {
+                gfnAlert(me.dataSet[me.pgmid +"pgm_nm"], "해당 화면에 대한 권한이 없습니다.");
+            } else {
+                //console.log(pgmInfo);
+                var pgm_info = subset(gds.menu, "pgmid", rowData.ref_id)[0];
+                if(isNull(pgm_info)) return;
+                const pgm_nm = pgm_info.pgm_nm;
+                const appid = pgm_info.app_pgmid;
+                //console.log(rowData);
+                gParam["pgmLog"] = rowData.ref_info_tp;
+                //me.openPage = function(pgmid, pagenm, afnCallback, appid)
+                gMDI.openPage(rowData.ref_id, pgm_nm, undefined, appid);
+            }
+        })
+    }
+    
+    //확인/닫기
+    me.fnRead=function() {
+        var args = me.pageObj["mst"].exportData()[0];
+        var invar = JSON.stringify(args);
+        gfnTx("aweportal.manageAlert","readAlert",{INVAR:invar},function(OUTVAR){
+           if(OUTVAR.rtnCd=="OK") {
+                me.fnClose();
+            } else {
+                gfnAlert("확인처리 오류",OUTVAR.rtnMsg);
+            } 
+        });
+    } 
+    
+    //checkAlert이 열리면 읽음상태로 바꿔줌 
+    me.fnReadDone=function() {
+        var args = me.pageObj["mst"].exportData()[0];
+        var invar = JSON.stringify(args);
+        gfnTx("aweportal.manageAlert","readAlert",{INVAR:invar},function(OUTVAR){
+            if(OUTVAR.rtnCd=="OK") { 
+                console.log("read:"+args.rowid);
+            } else {
+                gfnAlert("확인처리 오류",OUTVAR.rtnMsg);
+            } 
+        });
+    } 
+    
+    //발신자에게 회신메시지
+    me.fnMsg=function() {
+        /*
+        comments: "PLAS메신저 -이기현님의 메시지: 나에게 메시지 "
+        crud: "R"
+        read_yn: "N"
+        receiver: "kihyunlee"
+        ref_id: "registerAlert"
+        ref_info_tp: ""
+        reg_dt: "2022-08-04 22:07:48"
+        sender: "이기현"
+        sender_id: "kihyunlee" 
+        */
+        var data = me.pageObj.mst.exportData()[0];
+        var msg   = prompt(data.sender+"("+data.sender_id+")님께 전송할 메시지를 입력하세요.");
+        if(isNull(msg)) {
+            gfnStatus("메시지발송 확인","전송할 메시지 내용이 없습니다.");
+            return;
+        } 
+        var email = data.sender_id+"@lfnetworks.co.kr";
+        //gfnSendMsg(toSys, useremail, msg, url, afnCallback, ref_info, pgmid)
+        gfnSendMsg("naverworks", email, msg+"<br><i>Re:"+data.comments+"</i>", null, function(){
+            me.fnClose();
+        }, data.ref_info_tp, data.ref_id);  
+    }
+    
+    //팝업창닫기 
+    me.fnClose=function() { 
+        var myPopupId = me.page.exactObj("[role='dialog']").attr("aria-describedby");
+        $("#"+myPopupId).dialog("close");
+    }
+    
+    
+    
+    
+    
+
+/*-- SCRIPT autogen ---------------------------------------------------- */        
+if(typeof(me.fnInit)=='function') me.fnInit();
+});
+
+</script>

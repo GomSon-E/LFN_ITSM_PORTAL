@@ -1,0 +1,345 @@
+<style>#login {
+        display:table-cell;vertical-align:middle;min-width:10em;max-width:30em;
+    }
+    .loginForm {
+        background-color:hsl(0,0%,100%);border:2px solid #0b6ab2;padding:2em;max-width:40em;
+    }
+    .loginForm h1 {
+    font-size: 2em;
+        color: #ffe200;
+        margin-left: -0.1em;
+        margin-top: 0;
+        float: left;
+        text-shadow: 2px 2px 2px grey;
+    } 
+    .loginForm  p:eq(0) {
+        color:#549bd8;
+    }
+    #frmLogin {
+        color: #549bd8; 
+        line-height:1.5;
+    } 
+    #frmLogin h1 {
+        font-size:2em;color:#ffe200;text-shadow:unset;
+    } 
+    #frmLogin div {
+        padding: 0.25em;
+    }
+    #frmLogin label {
+        min-width:5em;
+        text-align:right;
+        font-weight: bold;
+        text-decoration: underline;
+        padding-right:0.5em;
+    }
+    #frmLogin input[type='text'],#frmLogin input[type='password'] {
+        padding: 1em;
+        font-size: 1.25em !important;
+        border: 1px solid #aeaeae;
+        border-radius: 0.25em;
+        width: calc(100% -  2em);
+        
+    }
+    .loginForm button { 
+        padding: 1em;
+        font-size: 1.25em !important;
+        border-radius: 0.25em;
+        font-weight: bold;
+        color: #ffffff;
+        background-color: #3a3f42;
+        width: 100%;
+    }
+    .helpdesk {
+        color: hsl(342 95% 50%);
+        float: left;
+        font-weight:bold;
+        font-size: 1.5em;
+        cursor: pointer;
+        font-family: sans-serif; 
+    } 
+    
+    .pwdClear {
+    float: right; 
+        color: #fff;
+        text-decoration: none;
+        background: #e83e4b;
+        padding: 5px 10px;
+        margin-bottom: 1em;
+    }
+    
+    #helpdeskform label {
+        width: 30%;
+        text-decoration: underline;
+        min-width: 100px;
+        text-align: right;
+        display: block;
+        margin: 1em 2px 2px 2px;
+        text-align: left;
+        color: #549bd8;
+    }
+    #helpdeskform input {
+        width: calc(100% - 2em);
+        min-width: 200px;
+        border: 1px solid #aeaeae;
+        padding: 0.5em;
+    }
+    #helpdeskform textarea {
+        width: calc(100% - 2em);
+        min-width: 200px;
+        min-height: 6em;
+        padding: 0.5em;
+    }
+    #helpdeskform button { 
+        padding: 0.5em 1em;
+        font-size: 1.25em !important;
+        border-radius: 0.25em;
+        font-weight: bold;
+        color: #ffffff;
+        background-color: #3a3f42;
+        width: 100%;
+    }
+    #pwdclearform label {
+        width: 30%;
+        text-decoration: underline;
+        min-width: 100px;
+        text-align: right;
+        display: block;
+        margin: 1em 2px 2px 2px;
+        text-align: left;
+        color: #549bd8;
+    }
+    #pwdclearform input {
+        width: calc(100% - 2em);
+        min-width: 200px;
+        border: 1px solid #aeaeae;
+        padding: 0.5em;
+    } 
+    #pwdclearform button { 
+        padding: 0.5em 1em;
+        font-size: 1.25em !important;
+        border-radius: 0.25em;
+        font-weight: bold;
+        color: #ffffff;
+        background-color: #3a3f42;
+        width: 100%;
+    }
+    .hidden {
+        display: none;
+    }</style>
+
+<!-- HTML autogen start ---------------------------------------------- -->            
+<div id="login">
+        <div class="loginForm">
+            <img src="./images/CI.jpg">
+            <p style="float: right;"> Smart workplace <i class="fa fa-chart-line"></i></p>
+            <h1>Enterprise Portal</h1>
+            <hr style="clear: both;">
+            <div id="frmLogin">
+                <p class="message">환영합니다. 로그인 해 주세요</p>
+                <div><input type="text" id="userid" placeholder="로그인 계정(사번)"></div>
+                <div><input type="password" id="loginpwd" placeholder="비밀번호"></div>
+                <div><input type="checkbox" id="idSaveCheck">아이디 저장</div>
+            </div> 
+            <button><i class="fas fa-key" aria-hidden="true"></i> L o g i n </button>
+        </div>
+        <div style="max-width:40em;font-size: 1em;margin-top:1em">
+            <!-- span id="helpdesk" class="helpdesk"> HelpDesk </span> 
+            <a id="pwdclear" href="#" class="pwdClear">비밀번호 초기화</a -->
+    </div>
+    
+    <div id='helpdeskform' class="hidden">
+        <label>이름</label><input type='text' name='nm'/> 
+        <label>이메일</label><input type='email' name='email'/>
+        <label>제목</label><input type='text' name='title'/>
+        <label>내용</label><textarea name='content'></textarea>
+        <button>문의등록</button>
+        <hr>
+        <p> 
+            <li>담당: 이기현 부장 (kihyunlee@lfnetworks.co.kr)</li>
+        </p>
+        <hr>
+        <h5>이메일주소 무단수집 거부</h5>
+        <p>본 홈페이지에 게시된 이메일 주소가 전자우편 수집 프로그램이나 그 밖의 기술적 장치를 이용하여 무단으로 수집되는 것을 거부하며, 
+        이를 위반 시 정보통신망법에 의해 형사 처벌됨을 유념하시기 바랍니다.</p>
+        <span>게시일: 2021년 10월 26일</span>
+    </div>     
+    
+    <div id='pwdclearform' class="hidden">
+        <p>이메일을 입력하면 암호초기화Key가 발송됩니다.</p>
+        <label>이메일</label>
+        <input type='email' name='email'/>
+        <button>암호변경 메일발송</button>
+    </div>
+    <script	src="https://cdnjs.cloudflare.com/ajax/libs/js-sha256/0.9.0/sha256.min.js"></script>
+    <script type="text/javascript" src="/lib/jquery/core.min.js"></script>
+    <script type="text/javascript" src="/lib/jquery/sha256.min.js"></script>  
+<!-- HTML autogen end ---------------------------------------------- -->
+<script>
+/*-- SCRIPT autogen start ---------------------------------------------- */        
+$(function() {
+    var appid = "aweportal";
+    var pgmid = "login"; 
+    var page = $("*[pgmid='"+pgmid+"'].framepage").last();
+    var pageid = page.attr("id"); 
+    var me = {}
+    var dataSet = {};
+    var dataDef = {};
+    var pageObj = {};
+    var bEdit = false;
+    me.fnInit = function() {
+        gfn[pageid] = me; 
+        me.appid    = appid;
+        me.pgmid    = pgmid;
+        me.pageid   = pageid;
+        me.page     = page; 
+        me.dataSet = dataSet;
+        me.dataDef = dataDef;
+        me.pageObj = pageObj;
+        me.bEdit = bEdit;
+me.dataDef["_pgm"]={"ver":1.8,"upd_dt":"2022-09-27 08:37:59","remark":"","pgmid":"login","proc_mst_id":"","pgm_stat":"Y","sort_seq":91,"app_pgmid":"aweportal","shortcut":"","reg_dt":"2022-09-04 20:55:28","reg_usid":"kihyunlee","pgm_nm":"로그인","upd_usid":"kihyunlee","pgm_tp":"TX","pgm_grp_nm":"공통","proc_mst_nm":"","app_pgm_nm":"FO Portal","":"트랜젝션(화면)","crud":""};
+me.dataDef["_pgm_func"]=[];
+me.dataDef["_pgm_data"] = {};
+
+        me.pageObj["_page"] = new gfnFramepage( me ); 
+        for(var component_id in me.dataDef["_pgm_data"]) { 
+            me.pageObj[component_id] = new gfnComponent( me.pageid, component_id, me.dataDef["_pgm_data"][component_id], me.fnEH, me); 
+        }  
+        setTimeout(function(){
+            $("#frameset").scrollTo(0); //스크롤 
+        },10);
+        if(typeof(me.fnInitExtra)=='function') me.fnInitExtra(); 
+    } 
+/*-- SCRIPT autogen end ---------------------------------------------- */
+
+    /* 사용자초기화 */
+    me.fnInitExtra=function() {
+        page = $("*[pgmid='login']");
+        //쿠키 아이디 세팅
+        var userInputId = getCookie("userid");
+        var userCdCompany = getCookie("cd_company");
+        $("#userid").val(userInputId);
+        $("#cd_company").val(userCdCompany);
+        if(userInputId != "") { // 그 전에 ID를 저장해서 처음 페이지 로딩 시, 입력 칸에 저장된 ID가 표시된 상태라면,
+            $("#idSaveCheck").attr("checked", true); // ID 저장하기를 체크 상태로 두기.
+        }	    
+        $("#userid").select();
+
+        //event-handler
+        page.on("change click keyup",function(e) {
+            var oE = $(e.target);
+            gDebug = oE;
+            //뭐든 바뀌었을대 idSaveCheck 체크여부에 따라  
+            if($("#idSaveCheck").is(":checked")){ // ID 저장하기 체크했을 때,
+                var userInputId = $("#userid").val();
+                setCookie("userid", userInputId, 7); // 7일 동안 쿠키 보관
+                var userCdCompany = getCookie("cd_company");
+                setCookie("cd_company", userCdCompany, 7); // 7일 동안 쿠키 보관
+            }else{ // ID 저장하기 체크 해제 시,
+                deleteCookie("userid");
+                deleteCookie("cd_company");
+            }
+
+            //버튼클릭
+            if(oE.isON(".loginForm button")) me.fnLogin(); 
+            else if(oE.is("#loginpwd") && e.keyCode==13 && $("#loginpwd").val() != "") me.fnLogin();
+            else if(oE.is("#helpdesk")) me.fnHelpdesk();
+            else if(oE.is("#pwdclear")) me.fnPwdclear();
+        });  
+    }
+    /* 이벤트핸들러 */
+    me.fnEH=function(component, evt, row, col, val) { 
+        //console.log(evt+","+row+","+col+","+val);
+        //화면기능버튼이 눌리면 
+        if (component==me.pageObj["_pageFunc"]){ 
+            if(typeof(me[col])=='function') me[col](); //col=기능명 me["fnSearch"]()=me.fnSearch(); 
+        }
+        //사용자 컴포넌트/컨트롤
+        else if(component.userComponent=="myCompoId") {
+            //if(evt=="dblclick" && col=="colid") {...}
+        }
+    }
+    me.fnLogin= function() { 
+        //로그인 시 콘솔창이나 세션에 패스워드 보이지 않도록 암호화 
+        var args = {userid:$("#userid").val(), loginpwd:CryptoJS.SHA256($("#loginpwd").val()).toString()};
+        var invar = JSON.stringify(args);
+        console.dir( "fnLogin"+":"+ invar );
+        gfnTx("aweportal.login","loginCheck",{INVAR:invar},function(OUTVAR){ 
+            if(OUTVAR.rtnCd=="OK") {
+                gUserinfo = OUTVAR.userinfo;
+                gUserinfo.temp_pwd = OUTVAR.list[0].temp_yn; //"Y"
+                if(gUserinfo.temp_pwd=="Y") {
+                    gfnAlert("알림","비밀번호를 변경해주세요"); 
+                }
+                var msg = OUTVAR.userinfo.usernm + "님 환영합니다~"; 
+                $(".message").text(msg).addClass("ui-state-highlight");
+                var oFrameset = $("<div></div>"); 
+                gfnLoad("aweportal","frameset",oFrameset,function(OUTVAR){ 
+                    $("body").html( oFrameset.html() );
+                },true);  
+            } else {
+                var msg = OUTVAR.rtnMsg; 
+                $(".message").text(msg).addClass("ui-state-error");
+            }
+        },true);	
+    },
+    me.fnHelpdesk= function() {         
+        var oPop = null;
+        var popBody = $("#helpdeskform").clone();
+        popBody.removeClass("hidden");
+        $(popBody).on("click","button",function(e){
+            var data = {};
+            data.nm = popBody.find("[name='nm']").val();
+            data.email = popBody.find("[name='email']").val();
+            data.title = popBody.find("[name='title']").val();
+            data.content = popBody.find("[name='content']").val();
+            if(isNull(data.nm)||isNull(data.email)||isNull(data.title)||isNull(data.content)) {
+                gfnAlert("문의등록 확인","이름, 이메일, 제목, 내용 모두 입력하여야 합니다.");
+                return;
+            }
+            var args = JSON.stringify(data);
+            gfnTx("aweportal.login","sendReq",{INVAR:args},function(OUTVAR){
+                if(OUTVAR.rtnCd=="OK") {
+                    gfnAlert("문의등록 완료","문의내용이 등록되었습니다. 내용 확인하여 회신드리겠습니다!");
+                    gParam["rtn"]="OK";
+                    if(oPop!=null) oPop.dialog("close");
+                } else {
+                    gfnAlert("문의등록 오류","문의등록시 오류가 발생하였습니다.:"+OUTVAR.rtnMsg);
+                } 
+            }); 
+        }); 
+        oPop = gfnPopup("HelpDesk", popBody, {width:300,height:400}); 
+    },
+    me.fnPwdclear= function() {
+        var oPop = null;
+        var popBody = $("#pwdclearform").clone();
+        popBody.removeClass("hidden");            
+        $(popBody).on("click","button",function(e){
+            var data = {}; 
+            data.email = popBody.find("[name='email']").val(); 
+            if(isNull(data.email)) {
+                gfnAlert("비밀번호 초기화 확인","이메일 주소를 정확히 입력하세요!");
+                return;
+            }
+            var args = JSON.stringify(data);
+            gfnTx("aweportal.login","pwdclearReq",{INVAR:args},function(OUTVAR){
+                if(OUTVAR.rtnCd=="OK") {
+                    gfnAlert("비밀번호 초기화 등록","입력한 메일로 암호변경 키와 주소가 회신되었습니다.");
+                    gParam["rtn"]="OK";
+                    if(oPop!=null) oPop.dialog("close");
+                } else {
+                    gfnAlert("비밀번호 초기화 등록 오류","비밀번호 초기화 등록시 오류가 발생하였습니다.:"+OUTVAR.rtnMsg);
+                } 
+            }); 
+        });    
+        oPop = gfnPopup("비밀번호 초기화", popBody, {width:300,height:200}); 
+    }
+    
+    
+    
+    
+
+/*-- SCRIPT autogen ---------------------------------------------------- */        
+if(typeof(me.fnInit)=='function') me.fnInit();
+});
+
+</script>

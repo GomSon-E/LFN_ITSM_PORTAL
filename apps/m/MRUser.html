@@ -1,0 +1,148 @@
+<style>.userarea { 
+    position: fixed;
+    top: 0px;
+    bottom: 0;
+    left: 0;
+    right: 0; 
+    z-index: 100;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+}
+[pgmid="MRUser"] {
+    background-color: #fffffff0 !important; 
+    border-radius: 2em;
+    position: relative;
+    box-shadow: 0 0 2em 2em #6a6a6ab0;
+    width: 80%;
+    max-width: 400px;
+    padding: 2em;
+}  
+[pgmid="MRUser"].framepage .pageContent {
+    position: relative;
+}    
+[pgmid="MRUser"].framepage .btnClose {
+    content: "X";
+    color: #6d2c2c;
+    position: absolute;
+    top: 0.25em;
+    right: 0.75em;
+    font-size: 2em;
+    cursor: pointer;
+} 
+ 
+[pgmid='MRUser'].framepage button{
+    font-size : 15px;
+    width:80%;
+    max-width: 400px; 
+    height:60px;  
+    margin-bottom : 10px;
+}  </style>
+
+<!-- HTML autogen start ---------------------------------------------- -->            
+<div class="pageContent">
+    <div class="btnClose">X</div>
+    <div id="userRegInfo"></div><BR>
+    <div id="mobileInfo" class="hidden">
+        <h3>
+            [ 회의실 예약시스템 접속URL ]
+        </h3>
+        http://m.site.naver.com/0X9ys<br>
+        또는 https://fo.lfnetworks.co.kr/meet.jsp<br>
+        <hr>
+        QR코드를 스캔하여 스마트폰으로 접속하고,
+        사용자계정 등록 후 사용해주세요!
+        <img src="/images/meetQR.png">
+    </div> 
+    <button id="btnLogout">로그아웃</button><br>
+</div>
+<!-- HTML autogen end ---------------------------------------------- -->
+<script>
+/*-- SCRIPT autogen start ---------------------------------------------- */        
+$(function() {
+    var appid = "m";
+    var pgmid = "MRUser"; 
+    var page = $("*[pgmid='"+pgmid+"'].framepage").last();
+    var pageid = page.attr("id"); 
+    var me = {}
+    var dataSet = {};
+    var dataDef = {};
+    var pageObj = {};
+    var bEdit = false;
+    me.fnInit = function() {
+        gfn[pageid] = me; 
+        me.appid    = appid;
+        me.pgmid    = pgmid;
+        me.pageid   = pageid;
+        me.page     = page; 
+        me.dataSet = dataSet;
+        me.dataDef = dataDef;
+        me.pageObj = pageObj;
+        me.bEdit = bEdit;
+me.dataDef["_pgm"]={"ver":0.3,"upd_dt":"2022-05-12 10:39:43","remark":"","pgmid":"MRUser","proc_mst_id":"","pgm_stat":"Y","sort_seq":6,"app_pgmid":"m","shortcut":"","reg_dt":"2022-05-02 03:14:02","reg_usid":"kihyunlee","pgm_nm":"사용자정보","upd_usid":"kihyunlee","pgm_tp":"TX","pgm_grp_nm":"스마트워크_회의실관리","proc_mst_nm":"","app_pgm_nm":"모바일EP","":"트랜젝션(화면)","crud":""};
+me.dataDef["_pgm_func"]=[];
+me.dataDef["_pgm_data"] = {};
+me.dataDef["_pgm_data"]["userRegInfo"]={"sort_seq":"1","data_id":"userRegInfo","data_nm":"사용자정보","data_icon":null,"component_pgmid":"FreeForm","component_option":null,"inout_tp":null,"content":null};
+
+        me.pageObj["_page"] = new gfnFramepage( me ); 
+        for(var component_id in me.dataDef["_pgm_data"]) { 
+            me.pageObj[component_id] = new gfnComponent( me.pageid, component_id, me.dataDef["_pgm_data"][component_id], me.fnEH, me); 
+        }  
+        setTimeout(function(){
+            $("#frameset").scrollTo(0); //스크롤 
+        },10);
+        if(typeof(me.fnInitExtra)=='function') me.fnInitExtra(); 
+    } 
+/*-- SCRIPT autogen end ---------------------------------------------- */
+
+    /* 사용자초기화 */
+    me.fnInitExtra=function() { 
+        if(isNull(gUserinfo.usernm)) {
+            gfnAlert("세션확인","세션이 끊겼습니다. 다시 로그인하세요!!");
+            gfnLogout();
+            return;
+        } else if(gUserinfo.userid=="BOT") { 
+            me.page.find("#mobileInfo").removeClass("hidden");
+        }
+        me.fnSetUserInfo(gUserinfo);
+        me.page.find("#btnLogout").on('click', function() {
+            if(gUserinfo.userid=="BOT") {
+                if(prompt("봇 로그아웃 비밀번호를 입력하세요!")=="2580") {
+                    gfnLogout();
+                }   
+            } else {
+                console.log("logout");
+                gfnLogout();
+            }
+        });
+        me.page.find(".btnClose").on('click', function() {
+            var userarea = document.querySelector(".userarea");
+            userarea.innerHTML = "";
+        });
+    }
+    /* 이벤트핸들러 */
+    me.fnEH=function(component, evt, row, col, val) { 
+        //console.log(evt+","+row+","+col+","+val); 
+    } 
+    
+    me.fnSetUserInfo=function(userinfo) {
+        var remark = userinfo.admin_yn=="Y"?"*환영합니다, 관리자님!":"";
+        $("#userRegInfo .componentBody").html(`<label>성명 : </label><span>${gUserinfo.usernm}<br>
+             <label>회사 : </label><span>${userinfo.orgnm}<br>
+             <label>부서 : </label><span>${userinfo.deptnm}<br>
+             <label>직책 : </label><span>${userinfo.jobrolenm}<br>
+             <label>직급 : </label><span>${userinfo.jobgradenm}<br>
+             <label>전화번호 : </label><span>${userinfo.tel_no}<br> 
+             <label>이메일 : </label><span>${userinfo.email}<br> 
+             ${remark}<br>`); 
+    }
+     
+
+/*-- SCRIPT autogen ---------------------------------------------------- */        
+if(typeof(me.fnInit)=='function') me.fnInit();
+});
+
+</script>

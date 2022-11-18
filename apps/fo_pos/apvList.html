@@ -1,0 +1,193 @@
+<style>[pgmid='retrieveSO'].framepage .userClass { 
+width:100%; 
+}</style>
+
+<!-- HTML autogen start ---------------------------------------------- -->            
+<div class="pageNav"></div>
+<div class="pageTop"></div>
+<div class="pageCond"></div>
+<div class="pageGuide"></div>
+<div class="pageContent flexColumn">
+    <div id='cd_list'></div>
+    <div id='so_list' class='flexColumn'></div>
+
+</div>
+
+<!-- HTML autogen end ---------------------------------------------- -->
+<script>
+/*-- SCRIPT autogen start ---------------------------------------------- */        
+$(function() {
+    var appid = "fo_pos";
+    var pgmid = "apvList"; 
+    var page = $("*[pgmid='"+pgmid+"'].framepage").last();
+    var pageid = page.attr("id"); 
+    var me = {}
+    var dataSet = {};
+    var dataDef = {};
+    var pageObj = {};
+    var bEdit = false;
+    me.fnInit = function() {
+        gfn[pageid] = me; 
+        me.appid    = appid;
+        me.pgmid    = pgmid;
+        me.pageid   = pageid;
+        me.page     = page; 
+        me.dataSet = dataSet;
+        me.dataDef = dataDef;
+        me.pageObj = pageObj;
+        me.bEdit = bEdit;
+me.dataDef["_pgm"]={"pgmid":"apvList","pgm_nm":"카드승인내역","pgm_tp":"UX","proc_mst_id":"","proc_mst_nm":"","remark":"매장별 일별 POS별 카드사/현금 승인-취소내역 조회","ver":1,"pgm_stat":"Y","reg_usid":"mjw","reg_dt":"2021-12-13 18:18:37","upd_usid":"jjr","upd_dt":"2022-02-09 17:09:21","app_pgmid":"fo_pos","pgm_grp_nm":"판매","sort_seq":23,"shortcut":"","crud":"","app_pgm_nm":"매장"};
+me.dataDef["_pgm_func"]=[{"func_icon":"fas fa-search","reg_dt":"2021-12-13 18:18:37","reg_usid":"","func_nm":"조회","upd_usid":"","upd_dt":"2021-12-13 18:18:37","func_tp":"DB_R","remark":null,"pgmid":"apvList","sort_seq":"1","funcid":"search","content":"대상자료 조회","crud":"R","id":"0"}];
+me.dataDef["_pgm_data"] = {};
+me.dataDef["_pgm_data"]["pageCond"]={"sort_seq":"1","data_id":"pageCond","data_nm":"조회조건","data_icon":null,"component_pgmid":"aweForm","component_option":null,"inout_tp":"IN","content":[{"sort_seq":"1","section":null,"section_icon":null,"colgrp":"매출일","colid":"sale_dt_from","colnm":"매출일","dtype":"ymd","etype":"txt","attr":"ymd keycol","defval":"date(\"1st\")","w":"8","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"0"},{"sort_seq":"2","section":null,"section_icon":null,"colgrp":"매출일","colid":"sale_dt_to","colnm":"매출일","dtype":"ymd","etype":"txt","attr":"ymd keycol","defval":"date(\"today\")","w":"8","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"1"},{"sort_seq":"3","section":null,"section_icon":null,"colgrp":null,"colid":"shopcd","colnm":"매장코드","dtype":"text","etype":"sel","attr":null,"defval":"gUserinfo.deptcd","w":"15","h":null,"refcd":"SHOPCD","option":"sel:shopcd::cdnm","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"2"}]};
+me.dataDef["_pgm_data"]["cd_list"]={"sort_seq":"2","data_id":"cd_list","data_nm":"상태별 요약","data_icon":null,"component_pgmid":"agGrid","component_option":{"gridOptions":{"domLayout":"autoHeight"}},"inout_tp":"INOUT","content":[{"sort_seq":"1","section":null,"section_icon":null,"colgrp":null,"colid":"pos_no","colnm":"POS번호","dtype":"text","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"0"},{"sort_seq":"2","section":null,"section_icon":null,"colgrp":null,"colid":"pay_tp","colnm":"지급유형","dtype":"text","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"1"},{"sort_seq":"3","section":null,"section_icon":null,"colgrp":null,"colid":"cost_comcd","colnm":"카드사","dtype":"text","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"2"},{"sort_seq":"4","section":null,"section_icon":null,"colgrp":null,"colid":"apv_cnt","colnm":"승인건수","dtype":"num","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"3"},{"sort_seq":"5","section":null,"section_icon":null,"colgrp":null,"colid":"apv_amt","colnm":"승인금액","dtype":"num","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"4"},{"sort_seq":"6","section":null,"section_icon":null,"colgrp":null,"colid":"cancel_cnt","colnm":"반품건수","dtype":"num","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"5"},{"sort_seq":"7","section":null,"section_icon":null,"colgrp":null,"colid":"cancel_amt","colnm":"반품금액","dtype":"num","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"6"}]};
+me.dataDef["_pgm_data"]["so_list"]={"sort_seq":"3","data_id":"so_list","data_nm":"영수증별 목록","data_icon":null,"component_pgmid":"agGrid","component_option":null,"inout_tp":"INOUT","content":[{"sort_seq":1,"section":null,"section_icon":null,"colgrp":null,"colid":"shopcd","colnm":"매장코드","dtype":"text","etype":"raw","attr":"hidden","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"0"},{"sort_seq":2,"section":null,"section_icon":null,"colgrp":null,"colid":"so_no","colnm":"판매번호","dtype":"num","etype":"raw","attr":"hidden","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"1"},{"sort_seq":3,"section":null,"section_icon":null,"colgrp":null,"colid":"sale_dt","colnm":"판매일자","dtype":"ymd","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"2"},{"sort_seq":4,"section":null,"section_icon":null,"colgrp":null,"colid":"pos_no","colnm":"POS번호","dtype":"text","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"3"},{"sort_seq":5,"section":null,"section_icon":null,"colgrp":null,"colid":"sale_seq","colnm":"판매순번","dtype":"num","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"4"},{"sort_seq":6,"section":null,"section_icon":null,"colgrp":null,"colid":"so_nm","colnm":"판매명","dtype":"text","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"5"},{"sort_seq":7,"section":null,"section_icon":null,"colgrp":null,"colid":"so_stat","colnm":"판매상태","dtype":"text","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"6"},{"sort_seq":8,"section":null,"section_icon":null,"colgrp":null,"colid":"pay_tp","colnm":"지급유형","dtype":"text","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"7"},{"sort_seq":9,"section":null,"section_icon":null,"colgrp":null,"colid":"cost_comcd","colnm":"카드사","dtype":"text","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"8"},{"sort_seq":10,"section":null,"section_icon":null,"colgrp":null,"colid":"apv_cnt","colnm":"승인건수","dtype":"num","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"9"},{"sort_seq":11,"section":null,"section_icon":null,"colgrp":null,"colid":"apv_amt","colnm":"승인금액","dtype":"num","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"10"},{"sort_seq":12,"section":null,"section_icon":null,"colgrp":null,"colid":"승인번호","colnm":"승인번호","dtype":"text","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"11"},{"sort_seq":13,"section":null,"section_icon":null,"colgrp":null,"colid":"cancel_cnt","colnm":"반품건수","dtype":"num","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"12"},{"sort_seq":14,"section":null,"section_icon":null,"colgrp":null,"colid":"cancel_amt","colnm":"반품금액","dtype":"num","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"13"}]};
+
+        me.pageObj["_page"] = new gfnFramepage( me ); 
+        for(var component_id in me.dataDef["_pgm_data"]) { 
+            me.pageObj[component_id] = new gfnComponent( me.pageid, component_id, me.dataDef["_pgm_data"][component_id], me.fnEH, me); 
+        }  
+        setTimeout(function(){
+            $("#frameset").scrollTo(0); //스크롤 
+        },10);
+        if(typeof(me.fnInitExtra)=='function') me.fnInitExtra(); 
+    } 
+/*-- SCRIPT autogen end ---------------------------------------------- */
+
+    /* 사용자초기화 */
+    me.fnInitExtra=function() {
+        //페이지 로딩 시 넘겨받은 gParam.shopcd가 있다면
+        
+        if(!isNull(gParam.shopcd)){
+            
+            //조회조건에 넘겨받은 값 세팅
+            var pageCond = me.pageObj["pageCond"].exportData()[0];
+            pageCond.sale_dt_from = gParam.dt_from;
+            pageCond.sale_dt_to = gParam.dt_to;
+            pageCond.shopcd = gParam.shopcd;
+            me.pageObj["pageCond"].importData(pageCond);
+            
+            //세팅한 값으로 결과값 조회
+            me.fnSearch();
+            
+            //넘겨받은 값 초기화
+            gParam = {};
+        }
+        
+        //탭 설정
+        //gfnTab(pageid, "tabs", {"multi-active":"off","toggle-switch":"on"}); 
+        //사용자 컴포넌트 
+        //me.dataDef["_pgm_data"][myCompoId] = {...};
+        //me.pageObj["myCompoId"] = new gfnComponent( me.pageid, myCompoId, me.dataDef["_pgm_data"][myCompoId], me.fnEH, me); 
+        //me.pageObj["myCompoId"].userComponent = "myCompoId";
+        //사용자 컨트롤
+        //var myColinfo = {colid:...}
+        //me.pageObj["myColId"] = new gfnControl(myColinfo, me.fnEH) 
+        //me.page.find("#myCol").append(me.pageObj["myColId"].dispObj);
+        //me.pageObj["myColId"].getVal(); / myCol.setVal(val);...    
+    }
+    /* 이벤트핸들러 */
+    me.fnEH=function(component, evt, row, col, val) { 
+        //console.log(evt+","+row+","+col+","+val);
+        //화면기능버튼이 눌리면 
+        if (component==me.pageObj["_pageFunc"]){ 
+            if(typeof(me[col])=='function') me[col](); //col=기능명 me["fnSearch"]()=me.fnSearch(); 
+        }
+        //pageCond:조회조건 이벤트처리     
+        else if(component==me.pageObj["pageCond"]) {
+            if(evt=="componentFunc") {
+                if(row=="addRow") {
+                    component.addRow();
+                } else if(row=="delRow") {
+                    component.delRow();
+                }
+            }
+            //if(evt=="change" && col=="colid") {...}
+        }
+        else if(component==me.pageObj["so_list"]) {
+            if(evt=="dblclick") {
+                if(row < 0) return;
+                if($.type(gParam)!='object') gParam = {};
+                gParam.so_no = component.getVal(row,"so_no");
+                //영수증 검색팝업
+                var searchPop = $("<div id='soPop' class='framepage active'></div>");
+                gfnLoad("fo_pos","popupSO",searchPop,function(){
+                    gfnPopup("영수증 상세정보",searchPop,{width:600, height:800});
+                })
+            }
+        }
+
+        //null:null 이벤트처리     
+        else if(component==me.pageObj["so_list"]) {
+            if(evt=="dblclick") {
+                if($.type(gParam)!='object') gParam = {};
+                gParam.so_no = component.getVal(row,"so_no");
+            }
+            //if(evt=="change" && col=="colid") {...}
+        }
+        
+        //공지사항
+        else if(component==me.pageObj["so_list"]) {
+            if (evt=="componentFunc") {
+                gMDI.openPage( "manageBBS", "공지사항 관리" );
+            } else if(evt=="dblclick") {
+                var rows = me.pageObj.so_list.selectedRows();
+                var rowData = me.pageObj.so_list.getRowData(rows);
+                var invar = JSON.stringify(rowData);
+                gfnTx("aweportal.manageBBS", "selectOneDoc", {"INVAR" : invar}, function(OUTVAR){
+                    if(OUTVAR.rtnCd=="OK") {
+                        gfnPopupDetailBBS(rowData.docid);
+                    } else {
+                        gfnAlert("조회오류",OUTVAR.rtnMsg);
+                    }
+                });
+            }
+        }
+    }
+    //search:조회 
+    me.fnSearch=function() {
+        if( !me.pageObj["pageCond"].chkValid() ) return;
+        var args = me.pageObj["pageCond"].exportData()[0];
+        // args.pos_no = gUserinfo.pos_no;
+        // if(me.auth == "Y") args.pos_no=""; //확정권한자는 모든 POS를 조회할 수 있음.
+        console.log(args);
+        var invar = JSON.stringify(args);
+        gfnTx(appid+"."+pgmid,"search",{INVAR:invar},function(OUTVAR){
+            console.log(OUTVAR);
+            if(OUTVAR.rtnCd=="OK") {
+                var list = [];
+                var cd_list = OUTVAR.cd_list;
+                for(i=0;i<cd_list.length;i++){
+                    if(cd_list[i].pay_tp == "" || cd_list[i].pay_tp == '1 신용카드'){
+                        list.push(cd_list[i]);
+                    } 
+                }
+                me.pageObj["cd_list"].importData(list);
+                // me.pageObj["cd_list"].importData(OUTVAR.cd_list);
+                me.pageObj.cd_list.total("top");
+                // me.pageObj["list"].total("top");                     
+                // me.bEdit = false;
+                
+                
+                var list2 = [];
+                var so_list = OUTVAR.so_list;
+                for(i=0;i<so_list.length;i++){
+                    if(so_list[i].pay_tp == "" || so_list[i].pay_tp == '1 신용카드'){
+                        list2.push(so_list[i]);
+                    } 
+                }
+                me.pageObj["so_list"].importData(list2);
+                // me.pageObj["so_list"].importData(OUTVAR.so_list);
+                me.pageObj.so_list.total("top");
+            } else {
+                gfnAlert("조회오류",OUTVAR.rtnMsg);
+            }
+        });
+    }
+
+
+/*-- SCRIPT autogen ---------------------------------------------------- */        
+if(typeof(me.fnInit)=='function') me.fnInit();
+});
+
+</script>

@@ -1,0 +1,316 @@
+<style>[pgmid='meisRetailShop'].framepage .userClass { 
+width:100%; 
+}</style>
+
+<!-- HTML autogen start ---------------------------------------------- -->            
+<div class="pageNav"></div>
+<div class="pageTop"></div>
+<div class="pageCond"></div>
+<div class="pageGuide"></div>
+<div class="pageContent">
+    <div id='graph' style="height:350px;position:relative">
+        <canvas id="myChart" style="height:100%;width:100%;"></canvas>    
+    </div>
+    <div id='list'></div>
+
+</div>
+<!-- HTML autogen end ---------------------------------------------- -->
+<script>
+/*-- SCRIPT autogen start ---------------------------------------------- */        
+$(function() {
+    var appid = "meis";
+    var pgmid = "meisFoSalesMonthly"; 
+    var page = $("*[pgmid='"+pgmid+"'].framepage").last();
+    var pageid = page.attr("id"); 
+    var me = {}
+    var dataSet = {};
+    var dataDef = {};
+    var pageObj = {};
+    var bEdit = false;
+    me.fnInit = function() {
+        gfn[pageid] = me; 
+        me.appid    = appid;
+        me.pgmid    = pgmid;
+        me.pageid   = pageid;
+        me.page     = page; 
+        me.dataSet = dataSet;
+        me.dataDef = dataDef;
+        me.pageObj = pageObj;
+        me.bEdit = bEdit;
+me.dataDef["_pgm"]={"ver":0.1,"upd_dt":"2022-10-25 17:23:29","remark":"","pgmid":"meisFoSalesMonthly","proc_mst_id":"","pgm_stat":"Y","sort_seq":310,"app_pgmid":"meis","shortcut":"","reg_dt":"2022-10-25 17:23:29","reg_usid":"kihyunlee","pgm_nm":"팩토리 월간 매출현황","upd_usid":"kihyunlee","pgm_tp":"UX","pgm_grp_nm":"팩토리아울렛","proc_mst_nm":"","app_pgm_nm":"모바일EIS","":"트랜젝션(메뉴)","crud":""};
+me.dataDef["_pgm_func"]=[{"func_icon":"fas fa-search","reg_dt":"2022-10-25 17:23:29","reg_usid":"","func_nm":"조회","upd_usid":"","upd_dt":"2022-10-25 17:23:29","func_tp":"DB_R","remark":null,"pgmid":"meisFoSalesMonthly","sort_seq":"1","funcid":"search","content":null,"crud":"R","id":"0"}];
+me.dataDef["_pgm_data"] = {};
+me.dataDef["_pgm_data"]["pageCond"]={"sort_seq":"1","data_id":"pageCond","data_nm":"조회조건","data_icon":null,"component_pgmid":"aweForm","component_option":null,"inout_tp":null,"content":[{"sort_seq":1,"section":null,"section_icon":null,"colgrp":"조회기간","colid":"from_dt","colnm":"시작일","dtype":"ymd","etype":"txt","attr":"ymd","defval":"date(\"1st\")","w":"10","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"0"},{"sort_seq":2,"section":null,"section_icon":null,"colgrp":"조회기간","colid":"to_dt","colnm":"종료일","dtype":"ymd","etype":"txt","attr":"ymd","defval":"date(\"last\")","w":"10","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"2"},{"sort_seq":3,"section":null,"section_icon":null,"colgrp":"대비기간","colid":"from_dt_by","colnm":"시작일","dtype":"ymd","etype":"txt","attr":"ymd","defval":"date(\"1st\")","w":"10","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"1"},{"sort_seq":4,"section":null,"section_icon":null,"colgrp":"대비기간","colid":"to_dt_by","colnm":"종료일","dtype":"ymd","etype":"txt","attr":"ymd","defval":"date(\"last\")","w":"10","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"3"}]};
+me.dataDef["_pgm_data"]["list"]={"sort_seq":"2","data_id":"list","data_nm":"목록","data_icon":null,"component_pgmid":"aweCalendar","component_option":{"caltype":"FO_SHOP","fnTemplate":"gfn.fnFOCalTemplate","remark":"(수량단위: pcs. 매출액: 백만원, VAT제외)"},"inout_tp":null,"content":[{"sort_seq":1,"section":null,"section_icon":null,"colgrp":null,"colid":"ymd","colnm":"일자","dtype":"text","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"4"},{"sort_seq":2,"section":null,"section_icon":null,"colgrp":"기준일","colid":"qty","colnm":"판매량","dtype":"num","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"3"},{"sort_seq":3,"section":null,"section_icon":null,"colgrp":"기준일","colid":"amt","colnm":"판가액","dtype":"num","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"2"},{"sort_seq":4,"section":null,"section_icon":null,"colgrp":"전년","colid":"qtyb","colnm":"판매량","dtype":"num","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"1"},{"sort_seq":5,"section":null,"section_icon":null,"colgrp":"전년","colid":"amtb","colnm":"판가액","dtype":"num","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"0"}]};
+
+        me.pageObj["_page"] = new gfnFramepage( me ); 
+        for(var component_id in me.dataDef["_pgm_data"]) { 
+            me.pageObj[component_id] = new gfnComponent( me.pageid, component_id, me.dataDef["_pgm_data"][component_id], me.fnEH, me); 
+        }  
+        setTimeout(function(){
+            $("#frameset").scrollTo(0); //스크롤 
+        },10);
+        if(typeof(me.fnInitExtra)=='function') me.fnInitExtra(); 
+    } 
+/*-- SCRIPT autogen end ---------------------------------------------- */
+
+    /* 사용자초기화 */
+    me.fnInitExtra=function() {
+        //탭 설정
+        //gfnTab(pageid, "tabs", {"multi-active":"off","toggle-switch":"on"}); 
+        //사용자 컴포넌트 
+        //me.dataDef["_pgm_data"][myCompoId] = {...};
+        //me.pageObj["myCompoId"] = new gfnComponent( me.pageid, myCompoId, me.dataDef["_pgm_data"][myCompoId], me.fnEH, me); 
+        //me.pageObj["myCompoId"].userComponent = "myCompoId";
+        //사용자 컨트롤
+        //var myColinfo = {colid:...}
+        //me.pageObj["myColId"] = new gfnControl(myColinfo, me.fnEH) 
+        //me.page.find("#myCol").append(me.pageObj["myColId"].dispObj);
+        //me.pageObj["myColId"].getVal(); / myCol.setVal(val);...    
+         
+        
+        gfn.fnFOCalTemplate=function(data) {
+            return `<div class='cal'>
+    <span class='qty'>${data.qty}</span> 
+    <span class='factor'>pcs</span>
+</div>
+<div class='cal'>
+    <span class='amt'>${data.amt}</span> 
+    <span class='factor'>M</span>
+</div>`;
+        }
+        me.pageObj.list.initCalendar();
+        
+        //화면호출시 조회
+        var from_dt    = date("1st","yyyymmdd");
+        var to_dt      = date("last","yyyymmdd");
+        me.pageObj.pageCond.setVal("from_dt_by", (toNum(from_dt.substr(0,4))-1)+""+from_dt.substr(4,4) ); 
+        me.pageObj.pageCond.setVal("to_dt_by", (toNum(to_dt.substr(0,4))-1)+""+to_dt.substr(4,4) );  
+        setTimeout(me.fnSearch,10);
+    }
+    /* 이벤트핸들러 */
+    me.fnEH=function(component, evt, row, col, val) { 
+        //console.log(evt+","+row+","+col+","+val);
+        //화면기능버튼이 눌리면 
+        if (component==me.pageObj["_pageFunc"]){ 
+            if(typeof(me[col])=='function') me[col](); //col=기능명 me["fnSearch"]()=me.fnSearch(); 
+        }
+        //pageCond:조회조건 이벤트처리     
+        else if(component==me.pageObj["pageCond"]) { 
+        }
+
+        //list:목록 이벤트처리     
+        else if(component==me.pageObj["list"]) { 
+        } 
+    }
+    //search:조회 
+    me.fnSearch=function() {
+        if( !me.pageObj["pageCond"].chkValid() ) return;
+        var args = me.pageObj["pageCond"].exportData()[0];
+        //console.log(args);
+        var invar = JSON.stringify(args);
+        gfnTx(appid+"."+pgmid,"search",{INVAR:invar},function(OUTVAR){
+            console.log(OUTVAR);
+            if(OUTVAR.rtnCd=="OK") {
+                if(isNull(OUTVAR.list)) {
+                    gfnStatus("조회확인","조회결과가 없습니다.");
+                    return;
+                }
+                me.pageObj.list.importData(OUTVAR.list);
+                me.fnChart(OUTVAR.list);
+            } else {
+                gfnAlert("조회오류",OUTVAR.rtnMsg);
+            }
+        });
+    }
+    
+me.fnChart=function(data) { 
+    //이미 chart가 있으면 data를 사용하여 update
+    if(!isNull(me.myChart)) {
+        var datasets = [
+            {
+                type: 'line',
+                label: '판매량(pcs)', 
+                yAxisID: 'y',
+                data: extract(data,"qty"),
+                borderColor: 'rgba(255, 99, 132, 0.8)', 
+                backgroundColor: 'rgba(255, 99, 132, 0.8)'  
+            },
+            {
+                type: 'bar',
+                label: '매출액(백만,VAT제외)', 
+                yAxisID: 'y1', 
+                data: extract(data,"amt"), 
+                borderColor: 'rgba(255, 99, 100, 0.5)', 
+                backgroundColor: 'rgba(255, 99, 100, 0.5)' 
+            },
+            {
+                type: 'line',
+                label: '전년판매량', 
+                yAxisID: 'y',
+                data: extract(data,"qtyb"),
+                borderColor: 'rgba(128, 128, 128, 0.8)', 
+                backgroundColor: 'rgba(128, 128, 128, 0.8)'  
+            },
+            {
+                type: 'bar',
+                label: '전년매출액', 
+                yAxisID: 'y1',
+                data: extract(data,"amtb"),
+                borderColor: 'rgba(128, 128, 128, 0.5)', 
+                backgroundColor: 'rgba(128, 128, 128, 0.5)'  
+            }
+        ];
+        me.myChart.data.datasets = datasets; 
+        me.myChart.update();
+        return;
+    }  
+    
+    
+    me.page.find("#myChart").children("*").remove(); 
+    var datasets = [
+            {
+                type: 'line',
+                label: '판매량(pcs)', 
+                yAxisID: 'y',
+                data: extract(data,"qty"),
+                borderColor: 'rgba(255, 99, 132, 0.8)', 
+                backgroundColor: 'rgba(255, 99, 132, 0.8)'  
+            },
+            {
+                type: 'bar',
+                label: '매출액(백만,VAT제외)', 
+                yAxisID: 'y1', 
+                data: extract(data,"amt"), 
+                borderColor: 'rgba(255, 99, 100, 0.5)', 
+                backgroundColor: 'rgba(255, 99, 100, 0.5)' 
+            },
+            {
+                type: 'line',
+                label: '전년판매량', 
+                yAxisID: 'y',
+                data: extract(data,"qtyb"),
+                borderColor: 'rgba(128, 128, 128, 0.8)', 
+                backgroundColor: 'rgba(128, 128, 128, 0.8)'  
+            },
+            {
+                type: 'bar',
+                label: '전년매출액', 
+                yAxisID: 'y1',
+                data: extract(data,"amtb"),
+                borderColor: 'rgba(128, 128, 128, 0.5)', 
+                backgroundColor: 'rgba(128, 128, 128, 0.5)'  
+            }
+        ];
+    //ymd qty amt qtyb amtb
+    var DATA_COUNT = data.length;
+    var DATA_MIN   = arrFormula(data,"min('amt')");
+    var DATA_MAX   = arrFormula(data,"max('amt')");
+    var NUMBER_CFG = {count: DATA_COUNT, min: DATA_MIN, max: DATA_MAX};
+    var DATA_LABEL = extract(data,"dt");  
+    var data = {
+        labels: DATA_LABEL,
+        datasets: datasets, 
+    };
+    var config = { 
+        type: 'bar',
+        data: data,
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'top',
+                },
+                title: {
+                    display: true,
+                    text: '당월 매출현황(전년 동월비)'
+                }
+            },
+            scales: {
+                y: {
+                    position: 'left',
+                },
+                y1: {
+                    position: 'right',
+                }
+            }
+        }, 
+    };
+
+    setTimeout(function(){
+        /* instance변수로 myChart선언 */
+        me.myChart = new Chart(
+            me.page.find("#myChart")[0],
+            config
+        );    
+    },100); 
+    
+    var actions = [
+    {
+        name: 'Randomize',
+        handler(chart) {
+        chart.data.datasets.forEach(dataset => {
+            dataset.data = Utils.numbers({count: chart.data.labels.length, min: -100, max: 100});
+        });
+        chart.update();
+        }
+    },
+    {
+        name: 'Add Dataset',
+        handler(chart) {
+        const data = chart.data;
+        const dsColor = Utils.namedColor(chart.data.datasets.length);
+        const newDataset = {
+            label: 'Dataset ' + (data.datasets.length + 1),
+            backgroundColor: Utils.transparentize(dsColor, 0.5),
+            borderColor: dsColor,
+            borderWidth: 1,
+            data: Utils.numbers({count: data.labels.length, min: -100, max: 100}),
+        };
+        chart.data.datasets.push(newDataset);
+        chart.update();
+        }
+    },
+    {
+        name: 'Add Data',
+        handler(chart) {
+        const data = chart.data;
+        if (data.datasets.length > 0) {
+            data.labels = Utils.months({count: data.labels.length + 1});
+
+            for (var index = 0; index < data.datasets.length; ++index) {
+            data.datasets[index].data.push(Utils.rand(-100, 100));
+            }
+
+            chart.update();
+        }
+        }
+    },
+    {
+        name: 'Remove Dataset',
+        handler(chart) {
+        chart.data.datasets.pop();
+        chart.update();
+        }
+    },
+    {
+        name: 'Remove Data',
+        handler(chart) {
+        chart.data.labels.splice(-1, 1); // remove the label first
+
+        chart.data.datasets.forEach(dataset => {
+            dataset.data.pop();
+        });
+
+        chart.update();
+        }
+    }
+    ];   
+}
+
+
+/*-- SCRIPT autogen ---------------------------------------------------- */        
+if(typeof(me.fnInit)=='function') me.fnInit();
+});
+
+</script>

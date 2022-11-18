@@ -1,0 +1,405 @@
+<style>[pgmid='manageSize'].framepage .flex50 > * { 
+    flex: 1 1 50% !important; 
+}</style>
+
+<!-- HTML autogen start ---------------------------------------------- -->            
+<div class="pageNav"></div>
+<div class="pageTop"></div>
+<div class="pageCond"></div>
+<div class="pageGuide"></div>
+<div class="pageContent flexRow">
+    <div style="flex:1 1 30%" class="flexColumn flex50">
+        <div id='list'></div>
+        <div id='map' class="flexColumn"></div>
+    </div>
+    <div id='rangelist' style="flex:1 1 30%" class="flexColumn"></div>
+    <div style="flex:1 1 calc(40% - 3em)" class="flexColumn">
+        <div id='mst'></div>
+        <div id='det' class="flexColumn"></div>
+    </div>
+</div>
+<!-- HTML autogen end ---------------------------------------------- -->
+<script>
+/*-- SCRIPT autogen start ---------------------------------------------- */        
+$(function() {
+    var appid = "fo_mst";
+    var pgmid = "manageSize"; 
+    var page = $("*[pgmid='"+pgmid+"'].framepage").last();
+    var pageid = page.attr("id"); 
+    var me = {}
+    var dataSet = {};
+    var dataDef = {};
+    var pageObj = {};
+    var bEdit = false;
+    me.fnInit = function() {
+        gfn[pageid] = me; 
+        me.appid    = appid;
+        me.pgmid    = pgmid;
+        me.pageid   = pageid;
+        me.page     = page; 
+        me.dataSet = dataSet;
+        me.dataDef = dataDef;
+        me.pageObj = pageObj;
+        me.bEdit = bEdit;
+me.dataDef["_pgm"]={"pgmid":"manageSize","pgm_nm":"■ 사이즈 코드관리","pgm_tp":"UX","proc_mst_id":"","proc_mst_nm":"","remark":"공급처별 사이즈코드 매핑 -> Size Range/Size","ver":0.7,"pgm_stat":"Y","reg_usid":"admin","reg_dt":"2021-11-10 15:14:35","upd_usid":"admin","upd_dt":"2021-11-10 15:28:53","app_pgmid":"fo_mst","pgm_grp_nm":"상품정보","sort_seq":15,"shortcut":"W5","crud":"","app_pgm_nm":"마스터정보"};
+me.dataDef["_pgm_func"]=[{"func_icon":"fas fa-search","reg_dt":"2021-11-10 15:14:35","reg_usid":"","func_nm":"조회","upd_usid":"","upd_dt":"2021-11-10 15:14:35","func_tp":"DB_R","remark":"품목별 사이즈유형과 호칭에 따른 신체치수와 조견표 정보를 입력합니다.","pgmid":"manageSize","sort_seq":"1","funcid":"search","content":"사이즈코드 목록조회","crud":"R","id":"0"},{"func_icon":"fas fa-file","reg_dt":"2021-11-10 15:14:35","reg_usid":"","func_nm":"사이즈유형 신규","upd_usid":"","upd_dt":"2021-11-10 15:14:35","func_tp":"EH","remark":null,"pgmid":"manageSize","sort_seq":"2","funcid":"new","content":null,"crud":"R","id":"1"},{"func_icon":"fas fa-save","reg_dt":"2021-11-10 15:14:35","reg_usid":"","func_nm":"저장","upd_usid":"","upd_dt":"2021-11-10 15:14:35","func_tp":"DB_W","remark":null,"pgmid":"manageSize","sort_seq":"3","funcid":"save","content":null,"crud":"R","id":"2"},{"func_icon":"extra fas fa-trash","reg_dt":"2021-11-10 15:14:35","reg_usid":"","func_nm":"사이즈유형 삭제","upd_usid":"","upd_dt":"2021-11-10 15:14:35","func_tp":"DB_W","remark":null,"pgmid":"manageSize","sort_seq":"4","funcid":"del","content":null,"crud":"R","id":"3"}];
+me.dataDef["_pgm_data"] = {};
+me.dataDef["_pgm_data"]["pageCond"]={"sort_seq":"1","data_id":"pageCond","data_nm":"조회조건","data_icon":null,"component_pgmid":"aweForm","component_option":null,"inout_tp":"IN","content":[{"sort_seq":1,"section":null,"section_icon":null,"colgrp":null,"colid":"comcd","colnm":"회사 코드","dtype":"text","etype":"sel","attr":"readonly","defval":"gUserinfo.orgcd","w":"10","h":null,"refcd":"COMCD","option":"sel:comcd::nm","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"}]};
+me.dataDef["_pgm_data"]["list"]={"sort_seq":"2","data_id":"list","data_nm":"사이즈코드 목록","data_icon":"fas fa-list","component_pgmid":"agGrid","component_option":{"func":[{"funcid":"addRow","func_nm":"줄추가","func_icon":"fas fa-plus"},{"funcid":"delRow","func_nm":"줄삭제","func_icon":"fas fa-minus"},{"funcid":"saveSize","func_nm":"사이즈코드저장","func_icon":"fas fa-save"}]},"inout_tp":"INOUT","content":[{"sort_seq":1,"section":null,"section_icon":null,"colgrp":null,"colid":"szcd","colnm":"사이즈코드","dtype":"text","etype":"txt","attr":"pk upper","defval":null,"w":"10","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":2,"section":null,"section_icon":null,"colgrp":null,"colid":"sz_nm","colnm":"호칭","dtype":"text","etype":"txt","attr":"keycol","defval":null,"w":"15","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":3,"section":null,"section_icon":null,"colgrp":null,"colid":"remark","colnm":"비고","dtype":"text","etype":"txt","attr":null,"defval":null,"w":"20","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":4,"section":null,"section_icon":null,"colgrp":null,"colid":"reg_usid","colnm":"등록자ID","dtype":"text","etype":"raw","attr":null,"defval":null,"w":"8","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":5,"section":null,"section_icon":null,"colgrp":null,"colid":"reg_dt","colnm":"등록일","dtype":"text","etype":"raw","attr":null,"defval":null,"w":"10","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":6,"section":null,"section_icon":null,"colgrp":null,"colid":"upd_usid","colnm":"수정자ID","dtype":"text","etype":"raw","attr":null,"defval":null,"w":"8","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":7,"section":null,"section_icon":null,"colgrp":null,"colid":"upd_dt","colnm":"수정일","dtype":"text","etype":"raw","attr":null,"defval":null,"w":"10","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"}]};
+me.dataDef["_pgm_data"]["map"]={"sort_seq":"3","data_id":"map","data_nm":"공급사 코드매칭","data_icon":null,"component_pgmid":"agGrid","component_option":{"func":[{"funcid":"addRow","func_nm":"줄추가","func_icon":"fas fa-plus"},{"funcid":"delRow","func_nm":"줄삭제","func_icon":"fas fa-minus"},{"funcid":"saveMap","func_nm":"매칭정보저장","func_icon":"fas fa-save"}]},"inout_tp":"INOUT","content":[{"sort_seq":"1","section":null,"section_icon":null,"colgrp":"공급사","colid":"suprcd","colnm":"공급사코드","dtype":"text","etype":"txt","attr":"pk pop","defval":null,"w":"5","h":null,"refcd":"supr","option":"sel:suprcd:supr_nm:cdnm","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":"2","section":null,"section_icon":null,"colgrp":"공급사","colid":"supr_nm","colnm":"공급사명","dtype":"text","etype":"txt","attr":null,"defval":null,"w":"12","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":"3","section":null,"section_icon":null,"colgrp":null,"colid":"match_cd","colnm":"매칭코드","dtype":"text","etype":"txt","attr":"pk upper","defval":null,"w":"5","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":"4","section":null,"section_icon":null,"colgrp":null,"colid":"remark","colnm":"비고","dtype":"text","etype":"txt","attr":null,"defval":null,"w":"20","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"}]};
+me.dataDef["_pgm_data"]["rangelist"]={"sort_seq":"4","data_id":"rangelist","data_nm":"품목-사이즈유형","data_icon":null,"component_pgmid":"agGrid","component_option":null,"inout_tp":"INOUT","content":[{"sort_seq":1,"section":null,"section_icon":null,"colgrp":null,"colid":"sz_range_cd","colnm":"사이즈범위코드","dtype":"text","etype":"raw","attr":null,"defval":null,"w":"8","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":2,"section":null,"section_icon":null,"colgrp":null,"colid":"sz_range_nm","colnm":"사이즈범위명","dtype":"text","etype":"raw","attr":null,"defval":null,"w":"10","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":3,"section":null,"section_icon":null,"colgrp":null,"colid":"apply_itemcd","colnm":"적용품목코드","dtype":"text","etype":"raw","attr":null,"defval":null,"w":"20","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"}]};
+me.dataDef["_pgm_data"]["mst"]={"sort_seq":"5","data_id":"mst","data_nm":"사이즈유형 정보","data_icon":null,"component_pgmid":"aweForm","component_option":null,"inout_tp":"INOUT","content":[{"sort_seq":1,"section":null,"section_icon":null,"colgrp":null,"colid":"sz_range_cd","colnm":"사이즈범위코드","dtype":"text","etype":"txt","attr":"pk upper","defval":null,"w":"10","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":2,"section":null,"section_icon":null,"colgrp":null,"colid":"sz_range_nm","colnm":"사이즈범위명","dtype":"text","etype":"txt","attr":"keycol","defval":null,"w":"20","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":3,"section":null,"section_icon":null,"colgrp":null,"colid":"apply_itemcd","colnm":"적용품목코드","dtype":"text","etype":"txt","attr":"keycol auto upper","defval":null,"w":"20","h":null,"refcd":"item","option":"multi:apply_itemcd::cdnm","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":4,"section":null,"section_icon":null,"colgrp":null,"colid":"std_szcd","colnm":"기준사이즈코드","dtype":"text","etype":"raw","attr":null,"defval":null,"w":"5","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":5,"section":null,"section_icon":null,"colgrp":null,"colid":"std_sz_seq","colnm":"기준사이즈순번","dtype":"text","etype":"raw","attr":null,"defval":null,"w":"5","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":6,"section":null,"section_icon":null,"colgrp":null,"colid":"remark","colnm":"비고","dtype":"text","etype":"txt","attr":null,"defval":null,"w":"20","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":7,"section":"호칭-부위","section_icon":null,"colgrp":null,"colid":"meas_nm_1","colnm":"부위명1","dtype":"text","etype":"txt","attr":null,"defval":null,"w":"15","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":8,"section":"호칭-부위","section_icon":null,"colgrp":null,"colid":"meas_nm_2","colnm":"부위명2","dtype":"text","etype":"txt","attr":null,"defval":null,"w":"15","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":9,"section":"호칭-부위","section_icon":null,"colgrp":null,"colid":"meas_nm_3","colnm":"부위명3","dtype":"text","etype":"txt","attr":null,"defval":null,"w":"15","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"}]};
+me.dataDef["_pgm_data"]["det"]={"sort_seq":"6","data_id":"det","data_nm":"사이즈정보","data_icon":null,"component_pgmid":"agGrid","component_option":{"remark":"(치수단위:센티미터)","func":[{"funcid":"addRow","func_nm":"줄추가","func_icon":"fas fa-plus"},{"funcid":"delRow","func_nm":"줄삭제","func_icon":"fas fa-minus"}]},"inout_tp":"INOUT","content":[{"sort_seq":1,"section":null,"section_icon":null,"colgrp":null,"colid":"sort_seq","colnm":"정렬순번","dtype":"num","etype":"txt","attr":"keycol","defval":null,"w":"5","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":2,"section":null,"section_icon":null,"colgrp":null,"colid":"szcd","colnm":"사이즈코드","dtype":"text","etype":"txt","attr":"keycol upper","defval":null,"w":"10","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":3,"section":null,"section_icon":null,"colgrp":null,"colid":"std_szcd_yn","colnm":"기준사이즈","dtype":"text","etype":"cbx","attr":null,"defval":null,"w":"5","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":4,"section":null,"section_icon":null,"colgrp":"호칭-부위","colid":"meas_sz_1","colnm":"치수1","dtype":"text","etype":"txt","attr":null,"defval":null,"w":"7","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":5,"section":null,"section_icon":null,"colgrp":"호칭-부위","colid":"meas_sz_2","colnm":"치수2","dtype":"text","etype":"txt","attr":null,"defval":null,"w":"7","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":6,"section":null,"section_icon":null,"colgrp":"호칭-부위","colid":"meas_sz_3","colnm":"치수3","dtype":"text","etype":"txt","attr":null,"defval":null,"w":"7","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":7,"section":null,"section_icon":null,"colgrp":null,"colid":"remark","colnm":"비고","dtype":"text","etype":"txt","attr":null,"defval":null,"w":"20","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"}]};
+
+        me.pageObj["_page"] = new gfnFramepage( me ); 
+        for(var component_id in me.dataDef["_pgm_data"]) { 
+            me.pageObj[component_id] = new gfnComponent( me.pageid, component_id, me.dataDef["_pgm_data"][component_id], me.fnEH, me); 
+        }  
+        setTimeout(function(){
+            $("#frameset").scrollTo(0); //스크롤 
+        },10);
+        if(typeof(me.fnInitExtra)=='function') me.fnInitExtra(); 
+    } 
+/*-- SCRIPT autogen end ---------------------------------------------- */
+
+    /* 사용자초기화 */
+    me.fnInitExtra=function() {
+        me.pageObj["pageCond"].setVal("comcd",gUserinfo.orgcd);
+         function _auth(auth) {
+            if(isNull(auth)) { 
+                gfnAlert("시스템 사용권한 점검","화면에 대한 권한이 없습니다!");
+                $("*[pageidx='"+me.pageid+"']").remove();
+                delete gfn[me.pageid]; 
+                me.page.remove(); 
+            } else {
+                if(isNull(auth.save_yn) || auth.save_yn != "Y") {
+                    /* 각 화면에 맞게 적용*/ 
+                    me.pageObj._pageFunc.setDisp("save",false);
+                    me.pageObj.list._componentFunc.setDisp("addRow",false);
+                    me.pageObj.list._componentFunc.setDisp("delRow",false);
+	                me.pageObj.list._componentFunc.setDisp("saveSize",false);
+                    me.pageObj.map._componentFunc.setDisp("addRow",false);
+                    me.pageObj.map._componentFunc.setDisp("delRow",false);
+                    me.pageObj.map._componentFunc.setDisp("saveMap",false); 
+                    me.pageObj.det._componentFunc.setDisp("addRow",false);
+                    me.pageObj.det._componentFunc.setDisp("delRow",false);
+                    }
+                if(isNull(auth.del_yn) || auth.del_yn != "Y") {
+                    /* 각 화면에 맞게 적용*/ 
+                    me.pageObj._pageFunc.setDisp("extra",false);
+                    me.pageObj._pageFunc.setDisp("del",false);
+                    }
+            } 
+        }
+        if(subset(gds.comcd,"grpcd","pgm_auth").length==0) {
+            gfnGetData("pgm_auth",function(rtn){
+                _auth(subset(rtn,"pgmid",pgmid)[0]);
+            }); 
+        } else {
+            _auth(subset(subset(gds.comcd,"grpcd","pgm_auth"),"pgmid",pgmid)[0]) ;
+        }
+    }
+    /* 이벤트핸들러 */
+    me.fnEH=function(component, evt, row, col, val) { 
+        //console.log(evt+","+row+","+col+","+val);
+        //화면기능버튼이 눌리면 
+        if (component==me.pageObj["_pageFunc"]){ 
+            if(typeof(me[col])=='function') me[col](); //col=기능명 me["fnSearch"]()=me.fnSearch(); 
+        }
+        //pageCond:조회조건 이벤트처리     
+        else if(component==me.pageObj["pageCond"]) {
+            //if(evt=="change" && col=="colid") {...}
+        }
+
+        //list:사이즈코드 목록 이벤트처리     
+        else if(component==me.pageObj["list"]) {
+            //row선택시
+            if(evt=="focus"){
+                if(row>=0){
+                    var rowData = me.pageObj.list.getRowData(row);//rowdata추출
+                    //rowData.currow = row; //선택된 rowid를 넘겨줌
+                    //me.pageObj.map.importData(rowData);
+                    me.fnSearchMap(rowData);
+                }
+            }
+            //줄추가
+            else if(evt == "componentFunc") {
+                if(row == "addRow") {
+                    me.pageObj.list.addRow();
+                    
+                } else if(row == "delRow") {
+                    var rows = me.pageObj.list.selectedRows();
+                    if(rows.length < 0) {
+                        gfnAlert("줄 삭제 확인", "선택된 줄이 없습니다.");
+                    } else {
+                        me.pageObj.list.delRow(rows);
+                    }
+                } else if (row == "saveSize" ) {
+                    me.fnSaveSize();
+                }
+            }
+            
+        }
+        
+        //map:공급사 코드매칭 목록 이벤트처리     
+        else if(component==me.pageObj["map"]) {
+            if(evt == "componentFunc") {
+                if(row == "addRow") {
+                    me.pageObj.map.addRow();
+                    
+                } else if(row == "delRow") {
+                    var rows = me.pageObj.map.selectedRows();
+                    if(rows.length < 0) {
+                        gfnAlert("줄 삭제 확인", "선택된 줄이 없습니다.");
+                    } else {
+                        me.pageObj.map.delRow(rows);
+                    }
+                } else if (row == "saveMap" ) {
+                    me.fnSaveMap();
+                }
+            }
+        }
+        
+        //rangelist: 품목 사이즈 유형 목록 이벤트처리     
+        else if(component==me.pageObj["rangelist"]) {
+            if(evt=="focus") {
+                if(row >=0 ) {
+                    var rowData = component.getRowData(row); 
+                    rowData.currow = row; //선택된 rowid를 넘겨줌 
+                    me.pageObj.mst.importData(rowData);
+                    if(!isNull(rowData.sz_range_cd)) {  
+                        me.fnSearchDet();
+                    }
+                }
+            }
+            if(evt == "componentFunc") {
+                if(row == "addRow") {
+                    component.addRow();
+                    
+                } else if(row == "delRow") {
+                    var rows = component.selectedRows();
+                    if(rows.length < 0) {
+                        gfnAlert("줄 삭제 확인", "선택된 줄이 없습니다.");
+                    } else {
+                        component.delRow(rows);
+                    }
+                } 
+            }
+        }
+
+        //mst:사이즈유형
+        else if(component==me.pageObj["mst"]) {
+            if(evt == "componentFunc") {
+                if (row == "rangeSave" ) {
+                    me.fnSave();
+                }
+            }
+        }
+        
+        //det:사이즈유형에 딸린 사이코드 목록 이벤트처리     
+        else if(component==me.pageObj["det"]) {
+            if(evt == "componentFunc") {
+                if(row == "addRow") {
+                    component.addRow();
+                    
+                } else if(row == "delRow") {
+                    var rows = component.selectedRows();
+                    if(rows.length < 0) {
+                        gfnAlert("줄 삭제 확인", "선택된 줄이 없습니다.");
+                    } else {
+                        component.delRow(rows);
+                    }
+                } 
+                for(var i=0; i < component.countRow(); i++) {
+                    var rowid = component.getNodeId(i);
+                    component.setVal(rowid,"sort_seq",(i+1));
+                }
+            }
+            if(evt=="change" && col=="std_szcd_yn") {
+                if(val=="Y") {
+                    for(var i=0; i < component.countRow(); i++) {
+                        var rn = component.getNodeId(i);
+                        if(rn!=row) { 
+                            component.setVal(rn, "std_szcd_yn","N");
+                        }
+                    }
+                    me.pageObj.mst.setVal("std_szcd", component.getVal(row,"szcd"));
+                    me.pageObj.mst.setVal("std_sz_seq", component.getVal(row,"sort_seq"));
+                }
+            }
+        }
+    }
+    //search:조회 
+    me.fnSearch=function() {
+        if( !me.pageObj["pageCond"].chkValid() ) return;
+        var args = me.pageObj["pageCond"].exportData()[0];
+        var invar = JSON.stringify(args);
+        gfnTx(appid+"."+pgmid,"search",{INVAR:invar},function(OUTVAR){
+            if(OUTVAR.rtnCd=="OK") {
+                //console.log(OUTVAR.list);
+                me.pageObj["list"].importData(OUTVAR.list);
+                me.pageObj["rangelist"].importData(OUTVAR.rangelist);
+            } else {
+                gfnAlert("조회오류",OUTVAR.rtnMsg);
+            }
+        });
+    }
+    
+    me.fnSearchMap=function(rowData) {
+        var args = {szcd:rowData.szcd}; //szcd:szcd값("00M")
+        var invar = JSON.stringify(args);
+        gfnTx(appid+"."+pgmid,"mapSearch",{INVAR:invar},function(OUTVAR){
+            if(OUTVAR.rtnCd=="OK") {
+                me.pageObj["map"].importData(OUTVAR.map);
+            } else {
+                gfnAlert("조회오류",OUTVAR.rtnMsg);
+            }
+        });
+    }
+    //save:저장 
+    me.fnSaveSize=function() {
+        if( !me.pageObj["pageCond"].chkValid() ) return;
+        
+        var args = me.pageObj["pageCond"].exportData()[0];
+        var list = me.pageObj.list.exportData();
+        args.list = list;
+        
+        var invar = JSON.stringify(args);
+         gfnTx(appid+"."+pgmid, "save", {INVAR:invar}, function(OUTVAR){
+             if(OUTVAR.rtnCd=="OK") {
+                 gfnAlert("저장성공","입력하신 코드가 저장되었습니다.");
+                 me.fnSearch();
+             } else {
+                 gfnAlert("조회오류",OUTVAR.rtnMsg);
+             }
+         });
+    }
+    
+    //save:공급사 코드매칭 저장 
+    me.fnSaveMap=function() {
+        var args = {map:me.pageObj.map.exportData()};
+        var selectedRow = me.pageObj.list.selectedRow();
+        var list = me.pageObj.list.exportData()[selectedRow];
+        if(selectedRow<0){
+            gfnAlert("저장실패","매칭할 사이즈코드 목록을 선택해주세요.")
+        }
+        else{
+            args.grpcd = 'SZCD';
+            args.keycd = list.szcd;
+            args.nm = list.sz_nm;
+            
+            var invar = JSON.stringify(args);
+            gfnTx(appid+"."+pgmid, "saveMap", {INVAR:invar}, function(OUTVAR){
+                if(OUTVAR.rtnCd=="OK") {
+                    gfnAlert("저장성공","공급사 코드매칭 정보가 저장되었습니다.");
+                    me.fnSearchMap(list);
+                } else {
+                    gfnAlert("조회오류",OUTVAR.rtnMsg);
+                }
+            });
+        }
+    }
+    
+    //사이즈Range 신규
+    me.fnNew = function() {
+        me.pageObj.mst.reset();
+        me.pageObj.det.reset();
+    }
+    
+    //사이즈Range 하위정보 조회: TM_SIZE_RANGE, TM_SIZE_ITEM 
+    me.fnSearchDet = function() {
+        if( !me.pageObj["pageCond"].chkValid() ) return; 
+        if( isNull(me.pageObj["mst"].getVal("sz_range_cd")) ) return;
+        var args = me.pageObj["pageCond"].exportData()[0];
+        args.sz_range_cd = me.pageObj["mst"].getVal("sz_range_cd"); 
+        var invar = JSON.stringify(args);
+        gfnTx(appid+"."+pgmid,"searchDet",{INVAR:invar},function(OUTVAR){
+            //console.log(OUTVAR);
+            if(OUTVAR.rtnCd=="OK") {
+                me.pageObj["det"].importData(OUTVAR.det);
+            } else {
+                gfnAlert("조회오류",OUTVAR.rtnMsg);
+            }
+        });
+    } 
+    
+    //사이즈Range 사이즈 정보 저장 
+    me.fnSave=function() {
+        if( !me.pageObj["pageCond"].chkValid() ) return;
+        if( !me.pageObj["mst"].chkValid() ) return;
+        if( !me.pageObj["det"].chkValid() ) return;
+        //validation추가
+        //존재하는 사이즈코드
+        //정렬순서
+        //1부터 빠짐없이 
+        //기준사이즈는 반드시1건 
+        //하위사이즈는 최대 15
+        
+        var args = me.pageObj["mst"].exportData()[0]; 
+        args.comcd = me.pageObj["pageCond"].getVal("comcd"); 
+        args.det   = me.pageObj["det"].exportData("CRU");
+        //mst의 szcd기준사이즈코드/순번 잡아준다.
+        sort(args.det,"sort_seq");
+        for(var i=0; i < 15; i++) {
+            if(i < args.det.length) {
+                args["szcd_"+((i+1).zf(2))] = args.det[i].szcd;
+                if(args.det[i].std_szcd_yn=="Y") {
+                    args.std_szcd = args.det[i].szcd;
+                    args.std_sz_seq = (i+1);
+                }
+                args.det[i].meas_nm_1 = args.meas_nm_1;
+                args.det[i].meas_nm_2 = args.meas_nm_2;
+                args.det[i].meas_nm_3 = args.meas_nm_3;
+            } else {
+                args["szcd_"+((i+1).zf(2))] = "";
+            }
+        }
+        for(var i=0; i < args.det.length; i++) {
+            args.det[i].std_szcd = args.std_szcd;
+        }
+        //console.log(args);
+        var invar = JSON.stringify(args);
+        gfnTx(appid+"."+pgmid,"saveDet",{INVAR:invar},function(OUTVAR){
+            //console.log(OUTVAR);
+            if(OUTVAR.rtnCd=="OK") { 
+                gfnAlert("저장성공","사이즈유형 정보가 저장되었습니다."); 
+                me.pageObj["rangelist"].importData(OUTVAR.rangelist); 
+            } else {
+                gfnAlert("조회오류",OUTVAR.rtnMsg);
+            }
+        });
+    }
+    
+    //사이즈Range 사이즈 정보 저장 
+    me.fnDel=function() {
+        if( !me.pageObj["pageCond"].chkValid() ) return;
+        if( !me.pageObj["mst"].chkValid() ) return; 
+        
+        function fnExecDel() {
+            var args = me.pageObj["mst"].exportData()[0]; 
+            args.comcd = me.pageObj["pageCond"].getVal("comcd");  
+            //console.log(args);
+            var invar = JSON.stringify(args);
+            gfnTx(appid+"."+pgmid,"deleteRange",{INVAR:invar},function(OUTVAR){
+                //console.log(OUTVAR);
+                if(OUTVAR.rtnCd=="OK") { 
+                    gfnAlert("저장성공","사이즈유형 정보가 삭제되었습니다."); 
+                    me.fnSearchDet(); 
+                } else {
+                    gfnAlert("조회오류",OUTVAR.rtnMsg);
+                }
+            });
+        }        
+        gfnConfirm("삭제확인","사이즈유형 정보를 삭제하시겠습니까? 삭제시 복구할 수 없습니다. <br/> (잘못 입력하여 삭제 후 다시 입력하는 경우에만 삭제하십시오)",
+            function(rtn) {
+                if(rtn) fnExecDel();
+            }
+        );
+    }    
+
+
+/*-- SCRIPT autogen ---------------------------------------------------- */        
+if(typeof(me.fnInit)=='function') me.fnInit();
+});
+
+</script>

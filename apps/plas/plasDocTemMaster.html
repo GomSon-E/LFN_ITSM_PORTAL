@@ -1,0 +1,851 @@
+<style>[pgmid='plasDocTemMaster'].framepage .componentFunc .gButton { 
+    height: 2.5em;
+    padding: 0.25em 0.5em;  
+    font-size: 0.75rem;
+}
+
+[pgmid='plasDocTemMaster'].framepage .btnXls, [pgmid='plasDocTemMaster'].framepage .btnPdf  { 
+    display: none;  
+} 
+
+[pgmid='plasDocTemMaster'] .side > div:first-child {
+    flex: 1 1 auto !important; 
+}
+
+[pgmid='plasDocTemMaster'] .side > div:last-child {
+    min-height: unset;
+}
+
+[pgmid='plasDocTemMaster'] #mst .componentBody, [pgmid='plasDocTemMaster'] #mst .componentBody .aweCol {
+    font-size: 11px;
+}
+
+[pgmid='plasDocTemMaster'] [colgrp='전결'] label {
+    flex: 0 0 3em;
+    min-width: 3em;
+}
+[pgmid='plasDocTemMaster'] [colgrp='합의'] label {
+    flex: 0 0 3em;
+    min-width: 3em;
+}
+[pgmid='plasDocTemMaster'] [colgrp='보고'] label {
+    flex: 0 0 3em;
+    min-width: 3em;
+}
+
+[pgmid='plasDocTemMaster'] #edit {
+    background-color: #ffffff;
+    box-shadow: 0 0 2px 2px #a3a3a3;
+} 
+
+[pgmid='plasDocTemMaster'] #edit.float {
+    position: absolute;
+    min-width: 90vw;
+    max-width: calc(100% - 5vh);
+    min-height: 75vh;
+    max-height: calc(100% - 5vw);
+    top: 3px;
+    left: 5vw;
+    z-index: 1;
+    background-color: #e5eaef;;
+    padding: 1em;
+    box-shadow: 0 0 1em 1em #3a3a3aa3;
+}
+
+#mst .componentBody {
+    max-height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    max-width: 622px;
+}
+
+[pgmid='plasDocTemMaster'] .row  {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    max-width: 593px;
+} 
+
+[pgmid='plasDocTemMaster'] .hidePanel {
+    display: none;
+    position: absolute;
+    min-width: 90vw;
+    min-height: 75vh;
+    top: 5vh;
+    left: 5vw;
+    z-index: 1;
+    background-color: slategray;
+    padding: 1em;
+    box-shadow: 0 0 1em 1em #3a3a3aa3;
+    height: 75vh;
+    padding-bottom: 3em !important;
+}
+
+[pgmid='plasDocTemMaster'] .hidePanel.float {
+    display: block;
+}
+
+</style>
+
+<!-- HTML autogen start ---------------------------------------------- --> 
+<div class="pageNav"></div>
+<div class="pageTop"></div>
+<div class="pageCond"></div>
+<div class="pageContent flexRow">
+    <div id="list" class="flexColumn" style="flex:1 1 auto"></div> 
+    <div id="edit" style="display:none;flex: 1 1 auto;justify-content: space-around;max-height:calc(100% - 44px)" class="float flexRow">
+        <div id='mst' style="flex:1 1 auto;"></div>
+        <div class="txEditor flexColumn" style="flex:0 0 auto; width: 190mm">
+            <textarea id="mytextarea" class="boardContent" name="mytextarea" placeholder="내용을 입력하세요"></textarea> 
+        </div>             
+    </div>
+</div>
+<div id="doc_src_def" class="hidePanel"></div>
+<div id="doc_pay_def" class="hidePanel"></div>
+<div id="doc_pjt_def" class="hidePanel"></div>
+<div id="drcr_acct_def" class="hidePanel"></div>
+<!-- HTML autogen end ---------------------------------------------- -->
+<script>
+/*-- SCRIPT autogen start ---------------------------------------------- */        
+$(function() {
+    var appid = "plas";
+    var pgmid = "plasDocTemMaster"; 
+    var page = $("*[pgmid='"+pgmid+"'].framepage").last();
+    var pageid = page.attr("id"); 
+    var me = {}
+    var dataSet = {};
+    var dataDef = {};
+    var pageObj = {};
+    var bEdit = false;
+    me.fnInit = function() {
+        gfn[pageid] = me; 
+        me.appid    = appid;
+        me.pgmid    = pgmid;
+        me.pageid   = pageid;
+        me.page     = page; 
+        me.dataSet = dataSet;
+        me.dataDef = dataDef;
+        me.pageObj = pageObj;
+        me.bEdit = bEdit;
+me.dataDef["_pgm"]={"ver":1.5,"upd_dt":"2022-09-05 15:28:57","remark":"문서분류체계와 표준문서템플릿을 정의합니다.\n표준문서템플릿에는 결재/합의선, 문서 표준양식과 필수 첨부파일 및 참조문서명, 원천데이터입력항목, 회계분개유형 등이 포함됩니다.","pgmid":"plasDocTemMaster","proc_mst_id":"","pgm_stat":"Y","sort_seq":910,"app_pgmid":"plas","shortcut":"","reg_dt":"2022-09-02 17:07:05","reg_usid":"kihyunlee","pgm_nm":"문서분류 및 표준템플릿 관리","upd_usid":"kihyunlee","pgm_tp":"UX","pgm_grp_nm":"기준정보관리","proc_mst_nm":"","app_pgm_nm":"경영관리","":"트랜젝션(메뉴)","crud":""};
+me.dataDef["_pgm_func"]=[{"func_icon":"fas fa-search","reg_dt":"2022-09-02 17:07:05","reg_usid":"","func_nm":"목록조회","upd_usid":"","upd_dt":"2022-09-02 17:07:05","func_tp":"DB_R","remark":null,"pgmid":"plasDocTemMaster","sort_seq":"1","funcid":"search","content":"문서분류 / 표준템플릿 조회","crud":"R","id":"0"},{"func_icon":"fas fa-plus","reg_dt":"2022-09-02 17:07:05","reg_usid":"","func_nm":"신규","upd_usid":"","upd_dt":"2022-09-02 17:07:05","func_tp":"EH","remark":"먼저 소분류에 해당하는 표준템플릿을 정의하고, Variant에 따른 문서템플릿을 관리합니다.","pgmid":"plasDocTemMaster","sort_seq":"2","funcid":"new","content":"신규 문서분류 추가","crud":"R","id":"1"}];
+me.dataDef["_pgm_data"] = {};
+me.dataDef["_pgm_data"]["pageCond"]={"sort_seq":"1","data_id":"pageCond","data_nm":"조회조건","data_icon":null,"component_pgmid":"aweForm","component_option":null,"inout_tp":null,"content":[{"sort_seq":2,"section":null,"section_icon":null,"colgrp":null,"colid":"co_cd","colnm":"회사코드","dtype":"text","etype":"sel","attr":"keycol","defval":"gUserinfo.co_cd","w":"20","h":null,"refcd":"DZ_CO_CD","option":"sel:co_cd::cdnm","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"1"},{"sort_seq":2,"section":null,"section_icon":null,"colgrp":null,"colid":"cd_stat","colnm":"상태","dtype":"text","etype":"sel","attr":null,"defval":"Y","w":null,"h":null,"refcd":"CD_STAT","option":"multi:cd_stat::cdnm","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"0"}]};
+me.dataDef["_pgm_data"]["list"]={"sort_seq":"2","data_id":"list","data_nm":"문서분류 및 표준템플릿 목록","data_icon":null,"component_pgmid":"agGrid","component_option":null,"inout_tp":null,"content":[{"sort_seq":1,"section":null,"section_icon":null,"colgrp":"문서분류","colid":"cat_0","colnm":"대분류","dtype":"text","etype":"raw","attr":"fixL","defval":null,"w":"6","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"0"},{"sort_seq":2,"section":null,"section_icon":null,"colgrp":"문서분류","colid":"cat_1","colnm":"중분류","dtype":"text","etype":"raw","attr":"fixL","defval":null,"w":"6","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"1"},{"sort_seq":3,"section":null,"section_icon":null,"colgrp":"문서분류","colid":"cat_2","colnm":"소분류","dtype":"text","etype":"raw","attr":"fixL","defval":null,"w":"12","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"2"},{"sort_seq":4,"section":null,"section_icon":null,"colgrp":"표준템플릿","colid":"doc_template_id","colnm":"ID","dtype":"text","etype":"raw","attr":"pk fixL","defval":null,"w":"7","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"3"},{"sort_seq":5,"section":null,"section_icon":null,"colgrp":"표준템플릿","colid":"title","colnm":"명","dtype":"text","etype":"raw","attr":"keycol fixL","defval":null,"w":"20","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"4"},{"sort_seq":6,"section":null,"section_icon":null,"colgrp":null,"colid":"remark","colnm":"적요","dtype":"text","etype":"raw","attr":"disabled","defval":null,"w":"15","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"5"},{"sort_seq":7,"section":null,"section_icon":null,"colgrp":"작성부서","colid":"div_cd","colnm":"최상위","dtype":"text","etype":"raw","attr":null,"defval":null,"w":"30","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"6"},{"sort_seq":8,"section":null,"section_icon":null,"colgrp":"결재선","colid":"ap_line","colnm":"전결","dtype":"text","etype":"sel","attr":"readonly","defval":null,"w":"6","h":null,"refcd":"AP_LINE","option":"sel:ap_line::nm","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"7"},{"sort_seq":9,"section":null,"section_icon":null,"colgrp":"결재선","colid":"rpt_line","colnm":"보고","dtype":"text","etype":"sel","attr":"readonly","defval":null,"w":"6","h":null,"refcd":"AP_LINE","option":"sel:rpt_line::nm","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"8"},{"sort_seq":10,"section":null,"section_icon":null,"colgrp":"결재선","colid":"co_line","colnm":"필수합의","dtype":"text","etype":"raw","attr":null,"defval":null,"w":"10","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"9"},{"sort_seq":11,"section":null,"section_icon":null,"colgrp":"결재선","colid":"cc_line","colnm":"수신,참조","dtype":"text","etype":"raw","attr":null,"defval":null,"w":"10","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"10"},{"sort_seq":12,"section":null,"section_icon":null,"colgrp":null,"colid":"amt_tp","colnm":"하위템플릿","dtype":"text","etype":"sel","attr":null,"defval":null,"w":"8","h":null,"refcd":"AMT_TP","option":"sel:amt_tp::nm","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"11"},{"sort_seq":13,"section":null,"section_icon":null,"colgrp":null,"colid":"content","colnm":"문서양식","dtype":"text","etype":"btn","attr":"center","defval":null,"w":"6","h":null,"refcd":null,"option":"편집:fas fa-edit","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"12"},{"sort_seq":14,"section":null,"section_icon":null,"colgrp":"개정정보","colid":"cd_stat","colnm":"상태","dtype":"text","etype":"raw","attr":"disabled","defval":null,"w":"3","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"13"},{"sort_seq":15,"section":null,"section_icon":null,"colgrp":"개정정보","colid":"reg_usid","colnm":"등록자","dtype":"text","etype":"sel","attr":"disabled","defval":null,"w":"5","h":null,"refcd":"USID","option":"sel:reg_usid::nm","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"14"},{"sort_seq":16,"section":null,"section_icon":null,"colgrp":"개정정보","colid":"reg_dt","colnm":"등록일시","dtype":"text","etype":"raw","attr":"disabled","defval":null,"w":"15","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"15"},{"sort_seq":17,"section":null,"section_icon":null,"colgrp":"개정정보","colid":"upd_usid","colnm":"수정자","dtype":"text","etype":"sel","attr":"disabled","defval":null,"w":"5","h":null,"refcd":"USID","option":"sel:upd_usid::nm","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"16"},{"sort_seq":18,"section":null,"section_icon":null,"colgrp":"개정정보","colid":"upd_dt","colnm":"수정일시","dtype":"text","etype":"raw","attr":"disabled","defval":null,"w":"15","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"17"}]};
+me.dataDef["_pgm_data"]["mst"]={"sort_seq":"3","data_id":"mst","data_nm":"표준템플릿","data_icon":null,"component_pgmid":"aweForm","component_option":{"remark":"*항목은 시스템담당 확인하여 수정하세요!","func":[{"funcid":"save","func_nm":"저장","func_icon":"fas fa-save"},{"funcid":"clone","func_nm":"복사","func_icon":"fas fa-clone"},{"funcid":"close","func_nm":"닫기","func_icon":"fas fa-close"}]},"inout_tp":null,"content":[{"sort_seq":1,"section":"문서분류","section_icon":null,"colgrp":null,"colid":"cat_0","colnm":"대분류","dtype":"text","etype":"txt","attr":"keycol","defval":null,"w":"12","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"0"},{"sort_seq":2,"section":"문서분류","section_icon":null,"colgrp":null,"colid":"cat_1","colnm":"중분류","dtype":"text","etype":"txt","attr":"keycol","defval":null,"w":"12","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"1"},{"sort_seq":3,"section":"문서분류","section_icon":null,"colgrp":null,"colid":"cat_2","colnm":"소분류","dtype":"text","etype":"txt","attr":"keycol","defval":null,"w":"12","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"2"},{"sort_seq":4,"section":null,"section_icon":null,"colgrp":null,"colid":"doc_template_id","colnm":"템플릿ID","dtype":"text","etype":"txt","attr":"pk","defval":null,"w":"5","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"3"},{"sort_seq":5,"section":null,"section_icon":null,"colgrp":null,"colid":"title","colnm":"템플릿명","dtype":"text","etype":"txt","attr":"keycol","defval":null,"w":"15","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"4"},{"sort_seq":6,"section":null,"section_icon":null,"colgrp":null,"colid":"sort_seq","colnm":"정렬순서","dtype":"num","etype":"txt","attr":"keycol","defval":null,"w":"3","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"5"},{"sort_seq":7,"section":null,"section_icon":null,"colgrp":null,"colid":"cd_stat","colnm":"상태","dtype":"text","etype":"cbx","attr":null,"defval":"Y","w":"3","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"6"},{"sort_seq":8,"section":null,"section_icon":null,"colgrp":null,"colid":"remark","colnm":"적요","dtype":"text","etype":"txt","attr":null,"defval":null,"w":"50","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"7"},{"sort_seq":9,"section":null,"section_icon":null,"colgrp":"등록","colid":"reg_usid","colnm":"등록자","dtype":"text","etype":"sel","attr":"disabled","defval":"gUserinfo.userid","w":"5","h":null,"refcd":"USID","option":"sel:reg_usid::nm","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"8"},{"sort_seq":10,"section":null,"section_icon":null,"colgrp":"등록","colid":"reg_dt","colnm":"등록일시","dtype":"text","etype":"raw","attr":"disabled","defval":"date(\"today\",\"yyyy-mm-dd hh24:mi:ss\")","w":"15","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"9"},{"sort_seq":11,"section":null,"section_icon":null,"colgrp":"수정","colid":"upd_usid","colnm":"수정자","dtype":"text","etype":"sel","attr":"disabled","defval":"gUserinfo.userid","w":"5","h":null,"refcd":"USID","option":"sel:upd_usid::nm","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"10"},{"sort_seq":12,"section":null,"section_icon":null,"colgrp":"수정","colid":"upd_dt","colnm":"수정일시","dtype":"text","etype":"raw","attr":"disabled","defval":"date(\"today\",\"yyyy-mm-dd hh24:mi:ss\")","w":"15","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"11"},{"sort_seq":13,"section":"작성부서(최상위)","section_icon":null,"colgrp":"부서1~4","colid":"div_cd1","colnm":"부서1","dtype":"text","etype":"txt","attr":"keycol pop nm","defval":null,"w":"10","h":null,"refcd":"mypop","option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"12"},{"sort_seq":14,"section":"작성부서(최상위)","section_icon":null,"colgrp":"부서1~4","colid":"div_cd2","colnm":"부서2","dtype":"text","etype":"txt","attr":"pop nm","defval":null,"w":"10","h":null,"refcd":"mypop","option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"13"},{"sort_seq":15,"section":"작성부서(최상위)","section_icon":null,"colgrp":"부서1~4","colid":"div_cd3","colnm":"부서3","dtype":"text","etype":"txt","attr":"pop nm","defval":null,"w":"10","h":null,"refcd":"mypop","option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"14"},{"sort_seq":16,"section":"작성부서(최상위)","section_icon":null,"colgrp":"부서1~4","colid":"div_cd4","colnm":"부서4","dtype":"text","etype":"txt","attr":"pop nm","defval":null,"w":"10","h":null,"refcd":"mypop","option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"15"},{"sort_seq":17,"section":"결재선Variant 및 금액점검 여부","section_icon":null,"colgrp":null,"colid":"amt_tp","colnm":"Variant","dtype":"text","etype":"sel","attr":"keycol","defval":null,"w":"10","h":null,"refcd":"AMT_TP","option":"sel:amt_tp::nm","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"16"},{"sort_seq":18,"section":"결재선Variant 및 금액점검 여부","section_icon":null,"colgrp":null,"colid":"budget_tp","colnm":"금액점검","dtype":"text","etype":"sel","attr":"keycol","defval":null,"w":"10","h":null,"refcd":"BUDGET_TP","option":"sel:budget_tp::nm","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"17"},{"sort_seq":19,"section":"결재선Variant 및 금액점검 여부","section_icon":null,"colgrp":null,"colid":"exec_yn","colnm":"집행집계","dtype":"text","etype":"cbx","attr":null,"defval":null,"w":"3","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":"예산점검을 위해 이 품의에 등록된 금액은 승인후 집행금액으로 집계됩니다.","crud":"C","id":"18"},{"sort_seq":20,"section":"사업부결재선(전결권자, 필수합의부서)","section_icon":null,"colgrp":"구분1","colid":"budget_in","colnm":"예산범위내","dtype":"text","etype":"txt","attr":"readonly","defval":"\"예산범위내\"","w":"5","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"19"},{"sort_seq":21,"section":"사업부결재선(전결권자, 필수합의부서)","section_icon":null,"colgrp":"구분1","colid":"amt_from","colnm":"이상","dtype":"num","etype":"txt","attr":null,"defval":"1","w":"10","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"20"},{"sort_seq":22,"section":"사업부결재선(전결권자, 필수합의부서)","section_icon":null,"colgrp":"구분1","colid":"amt_to","colnm":"이하","dtype":"num","etype":"txt","attr":null,"defval":null,"w":"10","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"21"},{"sort_seq":23,"section":"사업부결재선(전결권자, 필수합의부서)","section_icon":null,"colgrp":null,"colid":"ap_line","colnm":"전결","dtype":"text","etype":"sel","attr":"keycol","defval":null,"w":"5","h":null,"refcd":"AP_LINE","option":"sel:ap_line::nm","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"22"},{"sort_seq":24,"section":"사업부결재선(전결권자, 필수합의부서)","section_icon":null,"colgrp":null,"colid":"rpt_line","colnm":"보고","dtype":"text","etype":"sel","attr":null,"defval":null,"w":"5","h":null,"refcd":"AP_LINE","option":"sel:rpt_line::nm","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"23"},{"sort_seq":25,"section":"사업부결재선(전결권자, 필수합의부서)","section_icon":null,"colgrp":"합의","colid":"co_line1","colnm":"부서1","dtype":"text","etype":"txt","attr":"pop nm","defval":null,"w":"8","h":null,"refcd":"mypop","option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"24"},{"sort_seq":26,"section":"사업부결재선(전결권자, 필수합의부서)","section_icon":null,"colgrp":"합의","colid":"co_line2","colnm":"부서2","dtype":"text","etype":"txt","attr":"pop nm","defval":null,"w":"8","h":null,"refcd":"mypop","option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"25"},{"sort_seq":27,"section":"사업부결재선(전결권자, 필수합의부서)","section_icon":null,"colgrp":"합의","colid":"co_line3","colnm":"부서3","dtype":"text","etype":"txt","attr":"pop nm","defval":null,"w":"8","h":null,"refcd":"mypop","option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"26"},{"sort_seq":28,"section":"사업부결재선(전결권자, 필수합의부서)","section_icon":null,"colgrp":"합의","colid":"co_line4","colnm":"부서4","dtype":"text","etype":"txt","attr":"pop nm","defval":null,"w":"8","h":null,"refcd":"mypop","option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"27"},{"sort_seq":29,"section":"사업부결재선(전결권자, 필수합의부서)","section_icon":null,"colgrp":"구분2","colid":"budget_out","colnm":"예산범위초과","dtype":"text","etype":"txt","attr":"readonly","defval":"\"예산범위초과\"","w":"5","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"28"},{"sort_seq":30,"section":"사업부결재선(전결권자, 필수합의부서)","section_icon":null,"colgrp":"구분2","colid":"amt_from_1","colnm":"이상","dtype":"num","etype":"txt","attr":null,"defval":null,"w":"10","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"29"},{"sort_seq":31,"section":"사업부결재선(전결권자, 필수합의부서)","section_icon":null,"colgrp":"구분2","colid":"amt_to_1","colnm":"이하","dtype":"num","etype":"txt","attr":null,"defval":null,"w":"10","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"30"},{"sort_seq":32,"section":"사업부결재선(전결권자, 필수합의부서)","section_icon":null,"colgrp":null,"colid":"ap_line_1","colnm":"전결","dtype":"text","etype":"sel","attr":null,"defval":null,"w":"5","h":null,"refcd":"AP_LINE","option":"sel:ap_line_1::nm","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"31"},{"sort_seq":33,"section":"사업부결재선(전결권자, 필수합의부서)","section_icon":null,"colgrp":null,"colid":"rpt_line_1","colnm":"보고","dtype":"text","etype":"sel","attr":null,"defval":null,"w":"5","h":null,"refcd":"AP_LINE","option":"sel:rpt_line_1::nm","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"32"},{"sort_seq":34,"section":"사업부결재선(전결권자, 필수합의부서)","section_icon":null,"colgrp":"합의","colid":"co_line1_1","colnm":"부서1","dtype":"text","etype":"txt","attr":"pop nm","defval":null,"w":"8","h":null,"refcd":"mypop","option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"33"},{"sort_seq":35,"section":"사업부결재선(전결권자, 필수합의부서)","section_icon":null,"colgrp":"합의","colid":"co_line2_1","colnm":"부서2","dtype":"text","etype":"txt","attr":"pop nm","defval":null,"w":"8","h":null,"refcd":"mypop","option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"34"},{"sort_seq":36,"section":"사업부결재선(전결권자, 필수합의부서)","section_icon":null,"colgrp":"합의","colid":"co_line3_1","colnm":"부서3","dtype":"text","etype":"txt","attr":"pop nm","defval":null,"w":"8","h":null,"refcd":"mypop","option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"35"},{"sort_seq":37,"section":"사업부결재선(전결권자, 필수합의부서)","section_icon":null,"colgrp":"합의","colid":"co_line4_1","colnm":"부서4","dtype":"text","etype":"txt","attr":"pop nm","defval":null,"w":"8","h":null,"refcd":"mypop","option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"36"},{"sort_seq":38,"section":"사업부결재선(전결권자, 필수합의부서)","section_icon":null,"colgrp":"구분3","colid":"amt_from_2","colnm":"이상","dtype":"num","etype":"txt","attr":null,"defval":null,"w":"12.5","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"37"},{"sort_seq":39,"section":"사업부결재선(전결권자, 필수합의부서)","section_icon":null,"colgrp":"구분3","colid":"amt_to_2","colnm":"이하","dtype":"num","etype":"txt","attr":null,"defval":null,"w":"12.5","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"38"},{"sort_seq":40,"section":"사업부결재선(전결권자, 필수합의부서)","section_icon":null,"colgrp":null,"colid":"ap_line_2","colnm":"전결","dtype":"text","etype":"sel","attr":null,"defval":null,"w":"5","h":null,"refcd":"AP_LINE","option":"sel:ap_line_2::nm","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"39"},{"sort_seq":41,"section":"사업부결재선(전결권자, 필수합의부서)","section_icon":null,"colgrp":null,"colid":"rpt_line_2","colnm":"보고","dtype":"text","etype":"sel","attr":null,"defval":null,"w":"5","h":null,"refcd":"AP_LINE","option":"sel:rpt_line_2::nm","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"40"},{"sort_seq":42,"section":"사업부결재선(전결권자, 필수합의부서)","section_icon":null,"colgrp":"합의","colid":"co_line1_2","colnm":"부서1","dtype":"text","etype":"txt","attr":"pop nm","defval":null,"w":"8","h":null,"refcd":"mypop","option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"41"},{"sort_seq":43,"section":"사업부결재선(전결권자, 필수합의부서)","section_icon":null,"colgrp":"합의","colid":"co_line2_2","colnm":"부서2","dtype":"text","etype":"txt","attr":"pop nm","defval":null,"w":"8","h":null,"refcd":"mypop","option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"42"},{"sort_seq":44,"section":"사업부결재선(전결권자, 필수합의부서)","section_icon":null,"colgrp":"합의","colid":"co_line3_2","colnm":"부서3","dtype":"text","etype":"txt","attr":"pop nm","defval":null,"w":"8","h":null,"refcd":"mypop","option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"43"},{"sort_seq":45,"section":"사업부결재선(전결권자, 필수합의부서)","section_icon":null,"colgrp":"합의","colid":"co_line4_2","colnm":"부서4","dtype":"text","etype":"txt","attr":"pop nm","defval":null,"w":"8","h":null,"refcd":"mypop","option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"44"},{"sort_seq":46,"section":"사업부결재선(전결권자, 필수합의부서)","section_icon":null,"colgrp":"구분4","colid":"amt_from_3","colnm":"이상","dtype":"num","etype":"txt","attr":null,"defval":null,"w":"12.5","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"45"},{"sort_seq":47,"section":"사업부결재선(전결권자, 필수합의부서)","section_icon":null,"colgrp":"구분4","colid":"amt_to_3","colnm":"이하","dtype":"num","etype":"txt","attr":null,"defval":null,"w":"12.5","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"46"},{"sort_seq":48,"section":"사업부결재선(전결권자, 필수합의부서)","section_icon":null,"colgrp":null,"colid":"ap_line_3","colnm":"전결","dtype":"text","etype":"sel","attr":null,"defval":null,"w":"5","h":null,"refcd":"AP_LINE","option":"sel:ap_line_3::nm","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"47"},{"sort_seq":49,"section":"사업부결재선(전결권자, 필수합의부서)","section_icon":null,"colgrp":null,"colid":"rpt_line_3","colnm":"보고","dtype":"text","etype":"sel","attr":null,"defval":null,"w":"5","h":null,"refcd":"AP_LINE","option":"sel:rpt_line_3::nm","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"48"},{"sort_seq":50,"section":"사업부결재선(전결권자, 필수합의부서)","section_icon":null,"colgrp":"합의","colid":"co_line1_3","colnm":"부서1","dtype":"text","etype":"txt","attr":"pop nm","defval":null,"w":"8","h":null,"refcd":"mypop","option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"49"},{"sort_seq":51,"section":"사업부결재선(전결권자, 필수합의부서)","section_icon":null,"colgrp":"합의","colid":"co_line2_3","colnm":"부서2","dtype":"text","etype":"txt","attr":"pop nm","defval":null,"w":"8","h":null,"refcd":"mypop","option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"50"},{"sort_seq":52,"section":"사업부결재선(전결권자, 필수합의부서)","section_icon":null,"colgrp":"합의","colid":"co_line3_3","colnm":"부서3","dtype":"text","etype":"txt","attr":"pop nm","defval":null,"w":"8","h":null,"refcd":"mypop","option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"51"},{"sort_seq":53,"section":"사업부결재선(전결권자, 필수합의부서)","section_icon":null,"colgrp":"합의","colid":"co_line4_3","colnm":"부서4","dtype":"text","etype":"txt","attr":"pop nm","defval":null,"w":"8","h":null,"refcd":"mypop","option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"52"},{"sort_seq":54,"section":"수신부서 또는 필수참조부서","section_icon":null,"colgrp":null,"colid":"cc_line1","colnm":"부서1","dtype":"text","etype":"txt","attr":"pop nm","defval":null,"w":"8","h":null,"refcd":"mypop","option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"53"},{"sort_seq":55,"section":"수신부서 또는 필수참조부서","section_icon":null,"colgrp":null,"colid":"cc_line2","colnm":"부서2","dtype":"text","etype":"txt","attr":"pop nm","defval":null,"w":"8","h":null,"refcd":"mypop","option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"54"},{"sort_seq":56,"section":"수신부서 또는 필수참조부서","section_icon":null,"colgrp":null,"colid":"cc_line3","colnm":"부서3","dtype":"text","etype":"txt","attr":"pop nm","defval":null,"w":"8","h":null,"refcd":"mypop","option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"55"},{"sort_seq":57,"section":"수신부서 또는 필수참조부서","section_icon":null,"colgrp":null,"colid":"cc_line4","colnm":"부서4","dtype":"text","etype":"txt","attr":"pop nm","defval":null,"w":"8","h":null,"refcd":"mypop","option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"56"},{"sort_seq":58,"section":null,"section_icon":null,"colgrp":null,"colid":"attach","colnm":"첨부파일","dtype":"text","etype":"txt","attr":null,"defval":null,"w":"45","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":"예시가 되는 필수 첨부파일명을 입력합니다.(문서 작성시 첨부파일이 없으면 안내메시지를 표시합니다.)","crud":"C","id":"57"},{"sort_seq":59,"section":null,"section_icon":null,"colgrp":null,"colid":"ref_doc","colnm":"참조문서","dtype":"text","etype":"txt","attr":null,"defval":null,"w":"45","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":"예시가 되는 필수 참조문서명을 입력합니다.(문서 작성시 참조문서가 없으면 안내메시지를 표시합니다.)","crud":"C","id":"58"},{"sort_seq":60,"section":"원천DATA","section_icon":null,"colgrp":null,"colid":"src_desc_clob","colnm":"거래내역CLOB","dtype":"text","etype":"raw","attr":"hidden","defval":null,"w":"0","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"59"},{"sort_seq":61,"section":"원천DATA","section_icon":null,"colgrp":null,"colid":"src_desc","colnm":"거래내역*","dtype":"text","etype":"tarea","attr":"readonly","defval":null,"w":"10","h":"14","refcd":null,"option":"편집:fas fa-edit","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":"클릭하여 내용을 편집합니다.","crud":"C","id":"60"},{"sort_seq":62,"section":"원천DATA","section_icon":null,"colgrp":null,"colid":"pay_desc","colnm":"지급조건*","dtype":"text","etype":"tarea","attr":"readonly","defval":null,"w":"10","h":"14","refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"61"},{"sort_seq":63,"section":"원천DATA","section_icon":null,"colgrp":null,"colid":"pay_desc_clob","colnm":"지급조건CLOB","dtype":"text","etype":"raw","attr":"hidden","defval":null,"w":"0","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"62"},{"sort_seq":64,"section":"원천DATA","section_icon":null,"colgrp":null,"colid":"pjt_desc","colnm":"금액배부*","dtype":"text","etype":"tarea","attr":"readonly","defval":null,"w":"10","h":"14","refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"63"},{"sort_seq":65,"section":"원천DATA","section_icon":null,"colgrp":null,"colid":"pjt_desc_clob","colnm":"금액배부CLOB","dtype":"text","etype":"raw","attr":"hidden","defval":null,"w":"0","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"64"},{"sort_seq":66,"section":"PLAS","section_icon":null,"colgrp":"재무결재선","colid":"fi_line1","colnm":"담당1","dtype":"text","etype":"txt","attr":"pop nm","defval":null,"w":"10","h":null,"refcd":"mypop","option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"65"},{"sort_seq":67,"section":"PLAS","section_icon":null,"colgrp":"재무결재선","colid":"fi_line2","colnm":"담당2","dtype":"text","etype":"txt","attr":"pop nm","defval":null,"w":"10","h":null,"refcd":"mypop","option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"66"},{"sort_seq":68,"section":"PLAS","section_icon":null,"colgrp":"재무결재선","colid":"fi_line3","colnm":"담당3","dtype":"text","etype":"txt","attr":"pop nm","defval":null,"w":"10","h":null,"refcd":"mypop","option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"67"},{"sort_seq":69,"section":"PLAS","section_icon":null,"colgrp":"재무결재선","colid":"fi_line4","colnm":"담당4","dtype":"text","etype":"txt","attr":"pop nm","defval":null,"w":"10","h":null,"refcd":"mypop","option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"68"},{"sort_seq":70,"section":"PLAS","section_icon":null,"colgrp":null,"colid":"drcr_acct","colnm":"분개유형","dtype":"text","etype":"tarea","attr":null,"defval":null,"w":"40","h":"8","refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"69"},{"sort_seq":71,"section":"PLAS","section_icon":null,"colgrp":null,"colid":"drcr_acct_clob","colnm":"분개유형CLOB","dtype":"text","etype":"raw","attr":"hidden","defval":null,"w":"0","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"70"},{"sort_seq":72,"section":"PLAS","section_icon":null,"colgrp":null,"colid":"evidence_tp","colnm":"증빙관리","dtype":"text","etype":"sel","attr":null,"defval":null,"w":"15","h":null,"refcd":"EVIDENCE_TP","option":"sel:evidence_tp::nm","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"71"},{"sort_seq":73,"section":"PLAS","section_icon":null,"colgrp":null,"colid":"auto_chit_tp","colnm":"간소화*","dtype":"text","etype":"txt","attr":null,"defval":null,"w":"15","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"72"}]};
+me.dataDef["_pgm_data"]["doc_src_def"]={"sort_seq":"4","data_id":"doc_src_def","data_nm":"원천DATA 거래내역 항목정의","data_icon":null,"component_pgmid":"agGrid","component_option":{"remark":"*항목은 시스템 담당자와 상의하여 변경바랍니다.","func":[{"funcid":"apply","func_nm":"반영","func_icon":"fas fa-check"}]},"inout_tp":null,"content":[{"sort_seq":1,"section":null,"section_icon":null,"colgrp":null,"colid":"entry_yn","colnm":"입력여부","dtype":"text","etype":"cbx","attr":"fixL","defval":null,"w":"5","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"0"},{"sort_seq":2,"section":null,"section_icon":null,"colgrp":null,"colid":"sort_seq","colnm":"표시순서","dtype":"num","etype":"txt","attr":"fixL","defval":null,"w":"5","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"1"},{"sort_seq":3,"section":null,"section_icon":null,"colgrp":null,"colid":"colid","colnm":"항목ID","dtype":"text","etype":"txt","attr":"pk fixL","defval":null,"w":"8","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"2"},{"sort_seq":4,"section":null,"section_icon":null,"colgrp":null,"colid":"colnm","colnm":"항목명","dtype":"text","etype":"txt","attr":"keycol fixL","defval":null,"w":"10","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"3"},{"sort_seq":5,"section":null,"section_icon":null,"colgrp":null,"colid":"dtype","colnm":"데이터유형","dtype":"text","etype":"sel","attr":"keycol","defval":"text","w":"8","h":null,"refcd":"DTYPE","option":"sel:dtype::cdnm","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"4"},{"sort_seq":6,"section":null,"section_icon":null,"colgrp":null,"colid":"etype","colnm":"입력컨트롤*","dtype":"text","etype":"sel","attr":"keycol","defval":"txt","w":"12","h":null,"refcd":"ETYPE","option":"sel:etype::cdnm","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"5"},{"sort_seq":7,"section":null,"section_icon":null,"colgrp":null,"colid":"attr","colnm":"속성*","dtype":"text","etype":"txt","attr":"auto","defval":null,"w":"10","h":null,"refcd":"ATTR","option":"multi:attr::cdnm:remark","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"6"},{"sort_seq":8,"section":null,"section_icon":null,"colgrp":null,"colid":"refcd","colnm":"참조코드*","dtype":"text","etype":"txt","attr":"auto","defval":null,"w":"7","h":null,"refcd":"GRPCD","option":"sel:refcd::cdnm","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"7"},{"sort_seq":9,"section":null,"section_icon":null,"colgrp":null,"colid":"option","colnm":"옵션*","dtype":"text","etype":"txt","attr":null,"defval":null,"w":"20","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"8"},{"sort_seq":10,"section":null,"section_icon":null,"colgrp":null,"colid":"defval","colnm":"기본값*","dtype":"text","etype":"txt","attr":null,"defval":null,"w":"10","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"9"},{"sort_seq":11,"section":null,"section_icon":null,"colgrp":null,"colid":"colFormula","colnm":"수식*","dtype":"text","etype":"txt","attr":null,"defval":null,"w":"20","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"10"},{"sort_seq":12,"section":null,"section_icon":null,"colgrp":null,"colid":"totFormula","colnm":"합계식*","dtype":"text","etype":"txt","attr":null,"defval":null,"w":"20","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"11"},{"sort_seq":13,"section":null,"section_icon":null,"colgrp":null,"colid":"tbl_yn","colnm":"문서표에 추가","dtype":"text","etype":"cbx","attr":null,"defval":null,"w":"5","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"12"},{"sort_seq":14,"section":null,"section_icon":null,"colgrp":null,"colid":"remark","colnm":"비고","dtype":"text","etype":"txt","attr":null,"defval":null,"w":"10","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"13"}]};
+me.dataDef["_pgm_data"]["doc_pay_def"]={"sort_seq":"5","data_id":"doc_pay_def","data_nm":"원천DATA 지급조건 항목정의","data_icon":null,"component_pgmid":"agGrid","component_option":{"remark":"*항목은 시스템 담당자와 상의하여 변경바랍니다.","func":[{"funcid":"apply","func_nm":"반영","func_icon":"fas fa-check"}]},"inout_tp":null,"content":[{"sort_seq":1,"section":null,"section_icon":null,"colgrp":null,"colid":"entry_yn","colnm":"입력여부","dtype":"text","etype":"cbx","attr":"fixL","defval":null,"w":"5","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"0"},{"sort_seq":2,"section":null,"section_icon":null,"colgrp":null,"colid":"sort_seq","colnm":"표시순서","dtype":"num","etype":"txt","attr":"fixL","defval":null,"w":"5","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"1"},{"sort_seq":3,"section":null,"section_icon":null,"colgrp":null,"colid":"colid","colnm":"항목ID","dtype":"text","etype":"txt","attr":"pk fixL","defval":null,"w":"8","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"2"},{"sort_seq":4,"section":null,"section_icon":null,"colgrp":null,"colid":"colnm","colnm":"항목명","dtype":"text","etype":"txt","attr":"keycol fixL","defval":null,"w":"10","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"3"},{"sort_seq":5,"section":null,"section_icon":null,"colgrp":null,"colid":"dtype","colnm":"데이터유형","dtype":"text","etype":"sel","attr":"keycol","defval":"text","w":"8","h":null,"refcd":"DTYPE","option":"sel:dtype::cdnm","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"4"},{"sort_seq":6,"section":null,"section_icon":null,"colgrp":null,"colid":"etype","colnm":"입력컨트롤*","dtype":"text","etype":"sel","attr":"keycol","defval":"txt","w":"12","h":null,"refcd":"ETYPE","option":"sel:etype::cdnm","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"5"},{"sort_seq":7,"section":null,"section_icon":null,"colgrp":null,"colid":"attr","colnm":"속성*","dtype":"text","etype":"txt","attr":"auto","defval":null,"w":"10","h":null,"refcd":"ATTR","option":"multi:attr::cdnm:remark","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"6"},{"sort_seq":8,"section":null,"section_icon":null,"colgrp":null,"colid":"refcd","colnm":"참조코드*","dtype":"text","etype":"txt","attr":"auto","defval":null,"w":"7","h":null,"refcd":"GRPCD","option":"sel:refcd::cdnm","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"7"},{"sort_seq":9,"section":null,"section_icon":null,"colgrp":null,"colid":"option","colnm":"옵션*","dtype":"text","etype":"txt","attr":null,"defval":null,"w":"20","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"8"},{"sort_seq":10,"section":null,"section_icon":null,"colgrp":null,"colid":"defval","colnm":"기본값*","dtype":"text","etype":"txt","attr":null,"defval":null,"w":"10","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"9"},{"sort_seq":11,"section":null,"section_icon":null,"colgrp":null,"colid":"colFormula","colnm":"수식*","dtype":"text","etype":"txt","attr":null,"defval":null,"w":"20","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"10"},{"sort_seq":12,"section":null,"section_icon":null,"colgrp":null,"colid":"totFormula","colnm":"합계식*","dtype":"text","etype":"txt","attr":null,"defval":null,"w":"20","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"11"},{"sort_seq":13,"section":null,"section_icon":null,"colgrp":null,"colid":"tbl_yn","colnm":"문서표에 추가","dtype":"text","etype":"cbx","attr":null,"defval":null,"w":"5","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"12"},{"sort_seq":14,"section":null,"section_icon":null,"colgrp":null,"colid":"remark","colnm":"비고","dtype":"text","etype":"txt","attr":null,"defval":null,"w":"10","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"13"}]};
+me.dataDef["_pgm_data"]["doc_pjt_def"]={"sort_seq":"6","data_id":"doc_pjt_def","data_nm":"원천DATA 금액배부 항목정의","data_icon":null,"component_pgmid":"agGrid","component_option":{"remark":"*항목은 시스템 담당자와 상의하여 변경바랍니다.","func":[{"funcid":"apply","func_nm":"반영","func_icon":"fas fa-check"}]},"inout_tp":null,"content":[{"sort_seq":1,"section":null,"section_icon":null,"colgrp":null,"colid":"entry_yn","colnm":"입력여부","dtype":"text","etype":"cbx","attr":"fixL","defval":null,"w":"5","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"0"},{"sort_seq":2,"section":null,"section_icon":null,"colgrp":null,"colid":"sort_seq","colnm":"표시순서","dtype":"num","etype":"txt","attr":"fixL","defval":null,"w":"5","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"1"},{"sort_seq":3,"section":null,"section_icon":null,"colgrp":null,"colid":"colid","colnm":"항목ID","dtype":"text","etype":"txt","attr":"pk fixL","defval":null,"w":"8","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"2"},{"sort_seq":4,"section":null,"section_icon":null,"colgrp":null,"colid":"colnm","colnm":"항목명","dtype":"text","etype":"txt","attr":"keycol fixL","defval":null,"w":"10","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"3"},{"sort_seq":5,"section":null,"section_icon":null,"colgrp":null,"colid":"dtype","colnm":"데이터유형","dtype":"text","etype":"sel","attr":"keycol","defval":"text","w":"8","h":null,"refcd":"DTYPE","option":"sel:dtype::cdnm","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"4"},{"sort_seq":6,"section":null,"section_icon":null,"colgrp":null,"colid":"etype","colnm":"입력컨트롤*","dtype":"text","etype":"sel","attr":"keycol","defval":"txt","w":"12","h":null,"refcd":"ETYPE","option":"sel:etype::cdnm","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"5"},{"sort_seq":7,"section":null,"section_icon":null,"colgrp":null,"colid":"attr","colnm":"속성*","dtype":"text","etype":"txt","attr":"auto","defval":null,"w":"10","h":null,"refcd":"ATTR","option":"multi:attr::cdnm:remark","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"6"},{"sort_seq":8,"section":null,"section_icon":null,"colgrp":null,"colid":"refcd","colnm":"참조코드*","dtype":"text","etype":"txt","attr":"auto","defval":null,"w":"7","h":null,"refcd":"GRPCD","option":"sel:refcd::cdnm","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"7"},{"sort_seq":9,"section":null,"section_icon":null,"colgrp":null,"colid":"option","colnm":"옵션*","dtype":"text","etype":"txt","attr":null,"defval":null,"w":"20","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"8"},{"sort_seq":10,"section":null,"section_icon":null,"colgrp":null,"colid":"defval","colnm":"기본값*","dtype":"text","etype":"txt","attr":null,"defval":null,"w":"10","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"9"},{"sort_seq":11,"section":null,"section_icon":null,"colgrp":null,"colid":"colFormula","colnm":"수식*","dtype":"text","etype":"txt","attr":null,"defval":null,"w":"20","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"10"},{"sort_seq":12,"section":null,"section_icon":null,"colgrp":null,"colid":"totFormula","colnm":"합계식*","dtype":"text","etype":"txt","attr":null,"defval":null,"w":"20","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"11"},{"sort_seq":13,"section":null,"section_icon":null,"colgrp":null,"colid":"tbl_yn","colnm":"문서표에 추가","dtype":"text","etype":"cbx","attr":null,"defval":null,"w":"5","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"12"},{"sort_seq":14,"section":null,"section_icon":null,"colgrp":null,"colid":"remark","colnm":"비고","dtype":"text","etype":"txt","attr":null,"defval":null,"w":"10","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"13"}]};
+me.dataDef["_pgm_data"]["drcr_acct_def"]={"sort_seq":"7","data_id":"drcr_acct_def","data_nm":"PLAS 분개유형 항목정의","data_icon":null,"component_pgmid":"agGrid","component_option":{"remark":"*항목은 시스템 담당자와 상의하여 변경바랍니다.","func":[{"funcid":"addRow","func_nm":"줄추가","func_icon":"fas fa-plus"},{"funcid":"delRow","func_nm":"줄삭제","func_icon":"fas fa-minus"},{"funcid":"apply","func_nm":"반영","func_icon":"fas fa-check"}]},"inout_tp":null,"content":[{"sort_seq":1,"section":null,"section_icon":null,"colgrp":null,"colid":"sort_seq","colnm":"정렬순서","dtype":"num","etype":"txt","attr":null,"defval":null,"w":"5","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"0"},{"sort_seq":2,"section":null,"section_icon":null,"colgrp":null,"colid":"in_dt","colnm":"일자","dtype":"text","etype":"txt","attr":null,"defval":"증빙일","w":"8","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"1"},{"sort_seq":3,"section":null,"section_icon":null,"colgrp":null,"colid":"dept_nm","colnm":"사용부서","dtype":"text","etype":"txt","attr":null,"defval":"필수,코드","w":"10","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"2"},{"sort_seq":4,"section":null,"section_icon":null,"colgrp":null,"colid":"pjt_nm","colnm":"프로젝트","dtype":"text","etype":"txt","attr":null,"defval":"선택,코드","w":"10","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"3"},{"sort_seq":5,"section":null,"section_icon":null,"colgrp":null,"colid":"drcr_fg","colnm":"차대구분","dtype":"text","etype":"sel","attr":"keycol","defval":"\"차변\"","w":"8","h":null,"refcd":"[\"차변\",\"대변\",\"현금지출\"]","option":"sel:drcr_fg::cd","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"4"},{"sort_seq":6,"section":null,"section_icon":null,"colgrp":null,"colid":"acct_cd","colnm":"계정코드","dtype":"text","etype":"txt","attr":"pop keycol","defval":null,"w":"8","h":null,"refcd":"lds['DZ_ACCT_CD']","option":"sel:acct_cd:acct_nm:cdnm","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"5"},{"sort_seq":7,"section":null,"section_icon":null,"colgrp":null,"colid":"acct_nm","colnm":"회계계정","dtype":"text","etype":"txt","attr":"keycol","defval":null,"w":"10","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"6"},{"sort_seq":8,"section":null,"section_icon":null,"colgrp":null,"colid":"amt","colnm":"금액","dtype":"text","etype":"txt","attr":null,"defval":"필수, VAT제외","w":"20","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"7"},{"sort_seq":9,"section":null,"section_icon":null,"colgrp":null,"colid":"rmk","colnm":"적요규칙","dtype":"text","etype":"txt","attr":null,"defval":"(자동생성*)","w":"30","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"8"},{"sort_seq":10,"section":null,"section_icon":null,"colgrp":null,"colid":"tr_nm","colnm":"거래처","dtype":"text","etype":"txt","attr":null,"defval":"필수,코드","w":"10","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"9"},{"sort_seq":11,"section":null,"section_icon":null,"colgrp":null,"colid":"remark","colnm":"비고","dtype":"text","etype":"txt","attr":null,"defval":null,"w":"20","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"10"}]};
+
+        me.pageObj["_page"] = new gfnFramepage( me ); 
+        for(var component_id in me.dataDef["_pgm_data"]) { 
+            me.pageObj[component_id] = new gfnComponent( me.pageid, component_id, me.dataDef["_pgm_data"][component_id], me.fnEH, me); 
+        }  
+        setTimeout(function(){
+            $("#frameset").scrollTo(0); //스크롤 
+        },10);
+        if(typeof(me.fnInitExtra)=='function') me.fnInitExtra(); 
+    } 
+/*-- SCRIPT autogen end ---------------------------------------------- */
+    /* agGrid RN사이즈 줄이기 */
+    RN_WIDTH = 32;  
+    lds = {};
+
+    /* 사용자초기화 */
+    me.fnInitExtra=function() {
+        //문서양식 편집창
+        var mstBody = $("<div class='flexRow2'></div>");
+        me.page.find("#mst").append(mstBody);
+        me.page.find("#mst .componentBody").appendTo(mstBody);
+        me.page.find(".txEditor").appendTo(mstBody);
+    
+        //PLAS에서는 회사코드도 중요함
+        me.pageObj.mst.setVal("co_cd",gUserinfo.co_cd);
+        
+        $("[pgmid='"+pgmid+"'] .ag-center-cols-clipper").css("background", "url(/images/illust+"+rnd(26,1)+".png) no-repeat 99% 99%;"); 
+        
+        //사용자 컨트롤 
+        $("#"+pageid+" #mytextarea").attr("id",pageid+"mytextarea");
+        var plugins = [
+            "advlist", "autolink", "lists", "link", "image", "charmap", "print", "preview", "anchor",
+            "searchreplace", "visualblocks", "code", "fullscreen", "insertdatetime", "media", "table",
+            "paste", "code", "help", "wordcount", "save"
+        ];
+        var edit_toolbar = 'formatselect fontselect fontsizeselect |'
+                    + ' forecolor backcolor |'
+                    + ' bold italic underline strikethrough |'
+                    + ' alignjustify alignleft aligncenter alignright |'
+                    + ' bullist numlist |'
+                    + ' table tabledelete |'
+                    + ' link image';
+        var selector = '#'+pageid+'mytextarea';
+        tinymce.init({
+            content_style: "body {font-size: 9pt;}",
+            selector: selector,
+            branding: false, 
+            language: "ko_KR",
+            plugins: plugins,
+            toolbar: edit_toolbar,
+            height: 320, 
+            statusbar: false,
+            resize: false,
+            paste_data_images: true
+        }); 
+        
+        //결재선 부분 벽돌현황 줄바꿈 없도록 한번 row로 싸줌
+        var sec = me.page.find("[section='사업부결재선(전결권자, 필수합의부서)']");
+        var grp1 = $("<div class='row'></div>");
+        var grp2 = $("<div class='row'></div>");
+        var grp3 = $("<div class='row'></div>");
+        var grp4 = $("<div class='row'></div>");
+        sec.children("[colgrp]").each((idx,el)=>{
+            if(idx>=0 && idx<4*1) $(el).appendTo(grp1);
+            if(idx>=4 && idx<4*2) $(el).appendTo(grp2);
+            if(idx>=8 && idx<4*3) $(el).appendTo(grp3);
+            if(idx>=12 && idx<4*4) $(el).appendTo(grp4);
+        });
+        sec.append(grp1).append(grp2).append(grp3).append(grp4);
+        
+        //회계계정참조창 
+        var co_cd = gUserinfo.co_cd;
+        gfnGetData("T_GRP_CODE", function(OUTVAR){
+            lds["DZ_ACCT_CD"] = OUTVAR; 
+        }, "cdnm", "", true, "grpcd = 'DZ_ACCT_INFO' AND grpid='"+co_cd+"' AND keycd='DZ_ACCT_CD' AND cd_stat='Y'");
+        
+        //목록조회
+        me.fnSearch();
+    }
+    
+    /* 이벤트핸들러 */
+    me.fnEH=function(component, evt, row, col, val) { 
+        //204console.log(evt+","+row+","+col+","+val);
+        //화면기능버튼이 눌리면 
+        if (component==me.pageObj["_pageFunc"]){ 
+            if(typeof(me[col])=='function') me[col](); //col=기능명 me["fnSearch"]()=me.fnSearch(); 
+        } 
+        else if(component==me.pageObj["pageCond"]) {        
+            if(evt=="change" && col=="co_cd") {
+                var co_cd = val;
+                gfnGetData("T_GRP_CODE", function(OUTVAR){
+                    lds["DZ_ACCT_CD"] = OUTVAR; 
+                }, "cdnm", "", true, "grpcd = 'DZ_ACCT_INFO' AND grpid='"+co_cd+"' AND keycd='DZ_ACCT_CD' AND cd_stat='Y'");
+            }
+        }
+        else if(component==me.pageObj["list"]) {        
+            if((evt=="click" && col=="content")||evt=="dblclick") {
+                var rowData = component.getRowData(row); 
+                me.fnEdit(rowData);
+            }
+        } 
+        else if(component==me.pageObj["mst"]) {
+            if(evt=="componentFunc") {
+                if(row=="close") {
+                    me.page.find("#edit").hide();
+                }
+                if(row=="save") {
+                    me.fnSave();
+                }
+                if(row=="clone") {
+                    var data = me.pageObj.mst.exportData()[0];
+                    //console.log(data);
+                    data.crud = 'C';
+                    data.doc_template_id="";
+                    me.pageObj.mst.importData(data,"C");
+                }
+            }
+            if(evt=="mypop") {
+                if(col=="div_cd1"||col=="div_cd2"||col=="div_cd3"||col=="div_cd4"||
+                   col=="co_line1"||col=="co_line2"||col=="co_line3"||col=="co_line4"||
+                   col=="co_line1_1"||col=="co_line2_1"||col=="co_line3_1"||col=="co_line4_1"||
+                   col=="co_line1_2"||col=="co_line2_2"||col=="co_line3_2"||col=="co_line4_2"||
+                   col=="co_line1_3"||col=="co_line2_3"||col=="co_line3_3"||col=="co_line4_3"||
+                   col=="cc_line1"||col=="cc_line2"||col=="cc_line3"||col=="cc_line4") {
+                    /* mypop 사용자정의 검색창 구현 ****************************************************************/
+                    //console.log(val);
+                    var co_cd = me.pageObj.mst.getVal("co_cd");
+                    var auto  = (inStr(val[3],"auto")<0)?false:true;
+                    var term  = val[4];
+                    if(auto==true && isNull(term)) return; //내용지운경우 팝업띄우지 않음
+                    gParam ={INVAR:{co_cd:co_cd,term:term,auto:auto}}; 
+                    gfnLoad("plas","popupPlasGRP",$("body"),function(OUTVAR){
+                        gfnPopup("조직도 검색", OUTVAR.rtnMsg, {width:600,height:600}, function(){
+                            if(!isNull(gParam) && !isNull(gParam.OUTVAR) && gParam.OUTVAR.rtnCd=="OK") { 
+                                gParam.OUTVAR.list.forEach((rtn,idx)=>{
+                                    me.pageObj.mst.setVal(col,rtn.dept_cd+":"+rtn.dept_nm);
+                                }); 
+                            } else { 
+                                me.pageObj.mst.setVal(col,"");
+                            } 
+                        });     
+                    })
+                    /* mypop 사용자정의 검색창 구현 ****************************************************************/ 
+                }
+                if(col=="fi_line1"||col=="fi_line2"||col=="fi_line3"||col=="fi_line4") {/* mypop 사용자정의 검색창 구현 ****************************************************************/
+                    var co_cd = me.pageObj.mst.getVal("co_cd");
+                    var auto  = (inStr(val[3],"auto")<0)?false:true;
+                    var term  = val[4];
+                    if(auto==true && isNull(term)) return; //내용지운경우 팝업띄우지 않음
+                    gParam ={INVAR:{co_cd:co_cd,term:term,auto:auto}}; 
+                    gfnLoad("plas","popupPlasEMP",$("body"),function(OUTVAR){
+                        gfnPopup("조직도 검색", OUTVAR.rtnMsg, {width:800,height:600}, function(){
+                            if(!isNull(gParam) && !isNull(gParam.OUTVAR) && gParam.OUTVAR.rtnCd=="OK") { 
+                                gParam.OUTVAR.list.forEach((rtn,idx)=>{
+                                    me.pageObj.mst.setVal(col,rtn.emp_cd+":"+rtn.kor_nm);
+                                }); 
+                            } else { 
+                                me.pageObj.mst.setVal(col,"");
+                            } 
+                        });     
+                    })
+                    /* mypop 사용자정의 검색창 구현 ****************************************************************/ 
+                }
+            }
+            if(evt=="change") {
+                me.bEdit = true;
+                //금액점검방식 바뀌면 결재선 구분1~4세팅
+                if(col=="amt_tp") {
+                    if(val=="N") me.pageObj.mst.setVal("budget_tp","N");
+                    else if(val=="AMT") me.pageObj.mst.setVal("budget_tp","Y");
+                    else if(val=="BUDGET") me.pageObj.mst.setVal("budget_tp","DR");
+                    me.fnSetVariant();
+                }
+                if(col=="div_cd1"||col=="div_cd2"||col=="div_cd3"||col=="div_cd4"||
+                   col=="co_line1"||col=="co_line2"||col=="co_line3"||col=="co_line4"||
+                   col=="co_line1_1"||col=="co_line2_1"||col=="co_line3_1"||col=="co_line4_1"||
+                   col=="co_line1_2"||col=="co_line2_2"||col=="co_line3_2"||col=="co_line4_2"||
+                   col=="co_line1_3"||col=="co_line2_3"||col=="co_line3_3"||col=="co_line4_3"||
+                   col=="fi_line1"||col=="fi_line2"||col=="fi_line3"||col=="fi_line4"||
+                   col=="cc_line1"||col=="cc_line2"||col=="cc_line3"||col=="cc_line4") {
+                    if(isNull(trim(val))) component.setVal(col,"");       
+                }
+            }
+            if(evt=="dblclick") {
+                //거래내역을 클릭하면 
+                if(col=="src_desc") {
+                    me.page.find("#doc_src_def").toggleClass("float");
+                    me.fnSyncSrcDesc();
+                }
+                //지급조건을 클릭하면 
+                if(col=="pay_desc") {
+                    me.page.find("#doc_pay_def").toggleClass("float");
+                    me.fnSyncPayDesc();
+                }
+                //금액배부를 클릭하면 
+                if(col=="pjt_desc") {
+                    me.page.find("#doc_pjt_def").toggleClass("float");
+                    me.fnSyncPjtDesc();
+                }
+                //분개유형을 클릭하면 
+                if(col=="drcr_acct") {
+                    me.page.find("#drcr_acct_def").toggleClass("float");
+                    me.fnSyncDrcrAcct();
+                }
+            }
+        } 
+        else if(component==me.pageObj["doc_src_def"]) {
+            if(evt=="componentFunc" && row=="apply") {
+                me.page.find("#doc_src_def").removeClass("float");
+                me.fnSyncSrcDesc("export");
+            }
+        }
+        else if(component==me.pageObj["doc_pay_def"]) {
+            if(evt=="componentFunc" && row=="apply") {
+                me.page.find("#doc_pay_def").removeClass("float");
+                me.fnSyncPayDesc("export");
+            }
+        }
+        else if(component==me.pageObj["doc_pjt_def"]) {
+            if(evt=="componentFunc" && row=="apply") {
+                me.page.find("#doc_pjt_def").removeClass("float");
+                me.fnSyncPjtDesc("export");
+            }
+        }
+        else if(component==me.pageObj["drcr_acct_def"]) {
+            if(evt=="componentFunc") {
+                if(row=="addRow") {
+                    component.addRow();
+                }
+                if(row=="delRow") {
+                    component.delRow(undefined,true);
+                }
+                if(row=="apply") {
+                    me.page.find("#drcr_acct_def").removeClass("float");
+                    me.fnSyncDrcrAcct("export");
+                }
+            }
+        }
+    } 
+    
+    //문서 템플릿 목록조회
+    me.fnSearch=function() {
+        var args  = me.pageObj.pageCond.exportData()[0]; //{co_cd:gUserinfo.co_cd}; 
+        var invar = JSON.stringify(args);
+        gfnTx(appid+"."+pgmid,"search",{INVAR:invar},function(OUTVAR){
+            //console.log(OUTVAR);
+            if(OUTVAR.rtnCd=="OK") {
+                //표시명 보정
+                if(OUTVAR.list.length > 0) {
+                    OUTVAR.list.forEach(el=>{
+                       var div_cds = (el.div_cd||"").split(";");
+                       var div_cd = "";
+                       div_cds.forEach((ee,idx)=>{
+                           if(!isNull(ee.split(":"))&&(ee.split(":")).length==2) div_cd += (idx>0?", ":"")+ ee.split(":")[1];
+                       }); 
+                       el.div_cd = div_cd;
+                       var co_lines = (el.co_line||"").split(";");
+                       var co_line = "";
+                       co_lines.forEach((ee,idx)=>{
+                           if(!isNull(ee.split(":"))&&(ee.split(":")).length==2) co_line += (idx>0?", ":"")+ ee.split(":")[1];
+                       });
+                       el.co_line = co_line;
+                       var cc_lines = (el.cc_line||"").split(";");
+                       var cc_line = "";
+                       cc_lines.forEach((ee,idx)=>{
+                           if(!isNull(ee.split(":"))&&(ee.split(":")).length==2) cc_line += (idx>0?", ":"")+ ee.split(":")[1];
+                       });
+                       el.cc_line = cc_line;
+                    });  
+                } 
+                me.pageObj.list.importData(OUTVAR.list);
+            } else {
+                gfnAlert("저장오류",OUTVAR.rtnMsg);
+            }
+        });
+    } 
+    
+    //문서 템플릿 편집
+    me.fnEdit=function(rowData){
+        console.log(rowData);
+        console.log("fnEdit");
+        var args = rowData;
+        var invar = JSON.stringify(args);
+        gfnTx(appid+"."+pgmid,"search",{INVAR:invar},function(OUTVAR){
+            //console.log(OUTVAR);
+            if(OUTVAR.rtnCd=="OK") {
+                rowData = OUTVAR.list[0];
+                me.pageObj.mst.importData(rowData); //변형구분amt_tp에 맞춰 폼을 맞춰준 후 데이터 다시 바인딩
+                me.fnSetVariant();
+                me.page.find("#edit").show();
+                var div_cds = (rowData.div_cd||"").split(";");
+                rowData.div_cd1 = div_cds[0];
+                rowData.div_cd2 = div_cds[1];
+                rowData.div_cd3 = div_cds[2];
+                rowData.div_cd4 = div_cds[3];
+                var co_lines = (rowData.co_line||"").split(";");
+                rowData.co_line1 = co_lines[0];
+                rowData.co_line2 = co_lines[1];
+                rowData.co_line3 = co_lines[2]; 
+                rowData.co_line4 = co_lines[3];
+                var co_lines_1 = (rowData.co_line_1||"").split(";");
+                rowData.co_line1_1 = co_lines_1[0];
+                rowData.co_line2_1 = co_lines_1[1];
+                rowData.co_line3_1 = co_lines_1[2]; 
+                rowData.co_line4_1 = co_lines_1[3]; 
+                var co_lines_2 = (rowData.co_line_2||"").split(";");
+                rowData.co_line1_2 = co_lines_2[0];
+                rowData.co_line2_2 = co_lines_2[1];
+                rowData.co_line3_2 = co_lines_2[2]; 
+                rowData.co_line4_2 = co_lines_2[3]; 
+                var co_lines_3 = (rowData.co_line_3||"").split(";");
+                rowData.co_line1_3 = co_lines_3[0];
+                rowData.co_line2_3 = co_lines_3[1];
+                rowData.co_line3_3 = co_lines_3[2]; 
+                rowData.co_line4_3 = co_lines_3[3]; 
+                var fi_lines = (rowData.fi_line||"").split(";");
+                rowData.fi_line1 = fi_lines[0];
+                rowData.fi_line2 = fi_lines[1];
+                rowData.fi_line3 = fi_lines[2];
+                rowData.fi_line4 = fi_lines[3];
+                var cc_lines = (rowData.cc_line||"").split(";");
+                rowData.cc_line1 = cc_lines[0];
+                rowData.cc_line2 = cc_lines[1];
+                rowData.cc_line3 = cc_lines[2];
+                rowData.cc_line4 = cc_lines[3];
+                me.pageObj.mst.importData(rowData); 
+                tinyMCE.get(pageid+"mytextarea").setContent(rowData.content);  
+                //원천데이터 표시명 보정
+                me.fnSyncSrcDesc("convert");
+                me.fnSyncPayDesc("convert");
+                me.fnSyncPjtDesc("convert");
+                me.fnSyncDrcrAcct("convert");
+                me.bEdit = false;
+            } else {
+                gfnAlert("템플릿 편집 정보가져오기 오류",OUTVAR.rtnMsg);
+            }    
+        });
+    }
+
+    //Variant에 따라 구분과 결재선 표시변경
+    me.fnSetVariant=function() {
+        var amt_tp = me.pageObj.mst.getVal("amt_tp");
+        if(isNull(amt_tp) || amt_tp=="N") { //variant없을때는 전결, 합의선표시 
+            me.page.find("[colgrp='구분1']").hide(); me.page.find("[colgrp='합의'] button").css({"width":"14px","min-height":"19px","margin-right":"5px"}); //)show();
+            me.page.find("[colgrp='구분2']").next().hide().next().hide().next().hide(); me.page.find("[colgrp='구분2']").hide();
+            me.page.find("[colgrp='구분3']").next().hide().next().hide().next().hide(); me.page.find("[colgrp='구분3']").hide();
+            me.page.find("[colgrp='구분4']").next().hide().next().hide().next().hide(); me.page.find("[colgrp='구분4']").hide();
+            me.page.find("[colid='budget_in']").hide(); me.page.find("[colid='budget_out']").hide(); 
+            me.page.find("[colid='amt_from']").hide(); me.page.find("[colid='amt_to']").hide();
+            me.page.find("[colid='amt_from_1']").hide(); me.page.find("[colid='amt_to_1']").hide();
+            me.page.find("[colid='amt_from_2']").hide(); me.page.find("[colid='amt_to_2']").hide();   
+            me.page.find("[colid='amt_from_3']").hide(); me.page.find("[colid='amt_to_3']").hide();           
+            me.pageObj.mst.setVal("budget_in","예산범위내");
+            me.pageObj.mst.setVal("amt_from",null);
+            me.pageObj.mst.setVal("amt_to",null);
+            me.pageObj.mst.setVal("ap_line","B");
+            me.pageObj.mst.setVal("rpt_line"," ");
+            me.pageObj.mst.setVal("co_line1",null);
+            me.pageObj.mst.setVal("co_line2",null);
+            me.pageObj.mst.setVal("co_line3",null);
+            me.pageObj.mst.setVal("co_line4",null);
+            me.pageObj.mst.setVal("budget_out","예산범위초과");
+            me.pageObj.mst.setVal("amt_from_1",null);
+            me.pageObj.mst.setVal("amt_to_1",null);
+            me.pageObj.mst.setVal("ap_line_1","A");
+            me.pageObj.mst.setVal("rpt_line_1"," ");
+            me.pageObj.mst.setVal("co_line1_1",null);
+            me.pageObj.mst.setVal("co_line2_1",null);
+            me.pageObj.mst.setVal("co_line3_1",null);
+            me.pageObj.mst.setVal("co_line4_1",null);
+            me.pageObj.mst.setVal("amt_from_2",null);
+            me.pageObj.mst.setVal("amt_to_2",null);
+            me.pageObj.mst.setVal("ap_line_2","A");
+            me.pageObj.mst.setVal("rpt_line_2"," ");
+            me.pageObj.mst.setVal("co_line1_2",null);
+            me.pageObj.mst.setVal("co_line2_2",null);
+            me.pageObj.mst.setVal("co_line3_2",null);
+            me.pageObj.mst.setVal("co_line4_2",null);
+            me.pageObj.mst.setVal("amt_from_3",null);
+            me.pageObj.mst.setVal("amt_to_3",null);
+            me.pageObj.mst.setVal("ap_line_3","A");
+            me.pageObj.mst.setVal("rpt_line_3"," ");
+            me.pageObj.mst.setVal("co_line1_3",null);
+            me.pageObj.mst.setVal("co_line2_3",null);
+            me.pageObj.mst.setVal("co_line3_3",null);
+            me.pageObj.mst.setVal("co_line4_3",null);
+        } else if(amt_tp=="AMT") { //금액구간은 구분1~3개방 
+            me.page.find("[colgrp='구분1']").css("width","25em").show(); me.page.find("[colgrp='합의'] button").css({"width":"12px","min-height":"12px","margin-right":"2px"}); //.hide();        
+            me.page.find("[colgrp='구분2']").css("width","25em").next().show().next().show().next().show(); me.page.find("[colgrp='구분2']").show();
+            me.page.find("[colgrp='구분3']").css("width","25em").next().show().next().show().next().show(); me.page.find("[colgrp='구분3']").show();
+            me.page.find("[colgrp='구분4']").css("width","25em").next().show().next().show().next().show(); me.page.find("[colgrp='구분4']").show();
+            me.page.find("[colid='budget_in']").hide(); me.page.find("[colid='budget_out']").hide();
+            me.page.find("[colid='amt_from']").show(); me.page.find("[colid='amt_to']").show();
+            me.page.find("[colid='amt_from_1']").show(); me.page.find("[colid='amt_to_1']").show();
+            me.page.find("[colid='amt_from_2']").show(); me.page.find("[colid='amt_to_2']").show();
+            me.page.find("[colid='amt_from_3']").show(); me.page.find("[colid='amt_to_3']").show();
+            me.pageObj.mst.setVal("budget_in","예산범위내");
+            me.pageObj.mst.setVal("amt_from",1);
+            me.pageObj.mst.setVal("amt_to",999999);
+            me.pageObj.mst.setVal("ap_line","B");
+            me.pageObj.mst.setVal("rpt_line"," ");
+            me.pageObj.mst.setVal("co_line1",null);
+            me.pageObj.mst.setVal("co_line2",null);
+            me.pageObj.mst.setVal("co_line3",null);
+            me.pageObj.mst.setVal("co_line4",null);
+            me.pageObj.mst.setVal("budget_out","예산범위초과");
+            me.pageObj.mst.setVal("amt_from_1",1000000);
+            me.pageObj.mst.setVal("amt_to_1",4999999);
+            me.pageObj.mst.setVal("ap_line_1","E");
+            me.pageObj.mst.setVal("rpt_line_1"," ");
+            me.pageObj.mst.setVal("co_line1_1",null);
+            me.pageObj.mst.setVal("co_line2_1",null);
+            me.pageObj.mst.setVal("co_line3_1",null);
+            me.pageObj.mst.setVal("co_line4_1",null);
+            me.pageObj.mst.setVal("amt_from_2",5000000);
+            me.pageObj.mst.setVal("amt_to_2"  ,19999999);
+            me.pageObj.mst.setVal("ap_line_2","E");
+            me.pageObj.mst.setVal("rpt_line_2"," ");
+            me.pageObj.mst.setVal("co_line1_2",null);
+            me.pageObj.mst.setVal("co_line2_2",null);
+            me.pageObj.mst.setVal("co_line3_2",null);
+            me.pageObj.mst.setVal("co_line4_2",null);       
+            me.pageObj.mst.setVal("amt_from_3",20000000);
+            me.pageObj.mst.setVal("amt_to_3"  ,999999999);
+            me.pageObj.mst.setVal("ap_line_3" ,"G");
+            me.pageObj.mst.setVal("rpt_line_3"," ");
+            me.pageObj.mst.setVal("co_line1_3",null);
+            me.pageObj.mst.setVal("co_line2_3",null);
+            me.pageObj.mst.setVal("co_line3_3",null);
+            me.pageObj.mst.setVal("co_line4_3",null);            
+        } else if(amt_tp=="BUDGET") { //예산구간은 구분1~2개방 
+            me.page.find("[colgrp='구분1']").css("width","12em").show(); me.page.find("[colgrp='합의'] button").css({"width":"12px","min-height":"12px","margin-right":"2px"}); //.hide();        
+            me.page.find("[colgrp='구분2']").css("width","12em").next().show().next().show().next().show(); me.page.find("[colgrp='구분2']").show();
+            me.page.find("[colgrp='구분3']").css("width","12em").next().hide().next().hide().next().hide(); me.page.find("[colgrp='구분3']").hide();
+            me.page.find("[colgrp='구분4']").css("width","12em").next().hide().next().hide().next().hide(); me.page.find("[colgrp='구분4']").hide();
+            me.page.find("[colid='budget_in']").show(); me.page.find("[colid='budget_out']").show();
+            me.page.find("[colid='amt_from']").hide(); me.page.find("[colid='amt_to']").hide();
+            me.page.find("[colid='amt_from_1']").hide(); me.page.find("[colid='amt_to_1']").hide();
+            me.page.find("[colid='amt_from_2']").hide(); me.page.find("[colid='amt_to_2']").hide();
+            me.page.find("[colid='amt_from_3']").hide(); me.page.find("[colid='amt_to_3']").hide();
+            me.pageObj.mst.setVal("budget_in","예산범위내");
+            me.pageObj.mst.setVal("amt_from",null);
+            me.pageObj.mst.setVal("amt_to",null);
+            me.pageObj.mst.setVal("ap_line","E");
+            me.pageObj.mst.setVal("rpt_line"," ");
+            me.pageObj.mst.setVal("co_line1",null);
+            me.pageObj.mst.setVal("co_line2",null);
+            me.pageObj.mst.setVal("co_line3",null);
+            me.pageObj.mst.setVal("co_line4",null);
+            me.pageObj.mst.setVal("budget_out","예산범위초과");
+            me.pageObj.mst.setVal("amt_from_1",null);
+            me.pageObj.mst.setVal("amt_to_1",null);
+            me.pageObj.mst.setVal("ap_line_1","G");
+            me.pageObj.mst.setVal("rpt_line_1"," ");
+            me.pageObj.mst.setVal("co_line1_1",null);
+            me.pageObj.mst.setVal("co_line2_1",null);
+            me.pageObj.mst.setVal("co_line3_1",null);
+            me.pageObj.mst.setVal("co_line4_1",null);
+            me.pageObj.mst.setVal("amt_from_2",null);
+            me.pageObj.mst.setVal("amt_to_2",null);
+            me.pageObj.mst.setVal("ap_line_2","A");
+            me.pageObj.mst.setVal("rpt_line_2"," ");
+            me.pageObj.mst.setVal("co_line1_2",null);
+            me.pageObj.mst.setVal("co_line2_2",null);
+            me.pageObj.mst.setVal("co_line3_2",null);
+            me.pageObj.mst.setVal("co_line4_2",null); 
+            me.pageObj.mst.setVal("amt_from_3",null);
+            me.pageObj.mst.setVal("amt_to_3",null);
+            me.pageObj.mst.setVal("ap_line_3","A");
+            me.pageObj.mst.setVal("rpt_line_3"," ");
+            me.pageObj.mst.setVal("co_line1_3",null);
+            me.pageObj.mst.setVal("co_line2_3",null);
+            me.pageObj.mst.setVal("co_line3_3",null);
+            me.pageObj.mst.setVal("co_line4_3",null);            
+        } 
+    }
+
+    //원천DATA 항목정의 동기화
+    me.fnSyncSrcDesc=function(act) {
+        if(isNull(act)) {
+            if(me.page.find("#doc_src_def").hasClass("float")) act="import"; //바닥에서 팝업으로
+            else act="export"; //팝업에서 아래로
+        }
+        if(act=="import") { 
+            var template = [
+                {"entry_yn":"Y","sort_seq":1,"colid":"in_dt","colnm":"일자","dtype":"ymd","etype":"txt","attr":"ymd ","defval":null,"w":"8","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null},
+                {"entry_yn":"Y","sort_seq":2,"colid":"dept_cd","colnm":"부서코드","dtype":"text","etype":"txt","attr":"pop keycol","defval":null,"w":"6","h":null,"refcd":"mypop","option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null},
+                {"entry_yn":"Y","sort_seq":3,"colid":"dept_nm","colnm":"사용부서","dtype":"text","etype":"raw","attr":null,"defval":null,"w":"10","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null},
+                {"entry_yn":"Y","sort_seq":4,"colid":"pjt_cd","colnm":"PJT코드","dtype":"text","etype":"txt","attr":"pop keycol","defval":null,"w":"6","h":null,"refcd":"mypop","option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null},
+                {"entry_yn":"Y","sort_seq":5,"colid":"pjt_nm","colnm":"프로젝트","dtype":"text","etype":"raw","attr":null,"defval":null,"w":"10","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null},
+                {"entry_yn":"Y","sort_seq":6,"colid":"acct_cd","colnm":"계정코드","dtype":"text","etype":"txt","attr":"pop keycol","defval":null,"w":"6","h":null,"refcd":"mypop","option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null},
+                {"entry_yn":"Y","sort_seq":7,"colid":"acct_nm","colnm":"비용계정","dtype":"text","etype":"raw","attr":null,"defval":null,"w":"10","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null},
+                {"entry_yn":"Y","sort_seq":8,"colid":"rmk","colnm":"항목(적요)","dtype":"text","etype":"txt","attr":null,"defval":null,"w":"20","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null},
+                {"entry_yn":"Y","sort_seq":9,"colid":"tr_cd","colnm":"거래처코드","dtype":"text","etype":"txt","attr":"pop keycol","defval":null,"w":"6","h":null,"refcd":"mypop","option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null},
+                {"entry_yn":"Y","sort_seq":10,"colid":"tr_nm","colnm":"거래처","dtype":"text","etype":"raw","attr":null,"defval":null,"w":"10","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null},
+                {"entry_yn":"Y","sort_seq":11,"colid":"qty","colnm":"수량","dtype":"num","etype":"txt","attr":null,"defval":null,"w":"5","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null},
+                {"entry_yn":"Y","sort_seq":12,"colid":"price","colnm":"단가","dtype":"num","etype":"txt","attr":null,"defval":null,"w":"6","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null},
+                {"entry_yn":"Y","sort_seq":13,"colid":"amt","colnm":"금액(VAT-)","dtype":"num","etype":"txt","attr":null,"defval":null,"w":"7","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null},
+                {"entry_yn":"Y","sort_seq":14,"colid":"vat","colnm":"부가세액","dtype":"num","etype":"txt","attr":null,"defval":null,"w":"6","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null},
+                {"entry_yn":"Y","sort_seq":15,"colid":"tamt","colnm":"금액(VAT+)","dtype":"num","etype":"txt","attr":null,"defval":null,"w":"7","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null},
+                {"entry_yn":"Y","sort_seq":16,"colid":"ref_key","colnm":"정보참조키","dtype":"text","etype":"txt","attr":null,"defval":null,"w":"10","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null}
+                
+            ];
+            var src_desc_clob = me.pageObj.mst.getVal("src_desc_clob"); 
+            if(isNull(src_desc_clob)) me.pageObj.doc_src_def.importData(template);
+            else me.pageObj.doc_src_def.importData( JSON.parse(src_desc_clob) );
+        } 
+        if(act=="export") {
+            var src_desc = me.pageObj.doc_src_def.exportData();
+            me.pageObj.mst.setVal("src_desc_clob", JSON.stringify(src_desc) ); 
+            act="convert";
+        }
+        if(act=="convert") {
+            var src_desc_clob = me.pageObj.mst.getVal("src_desc_clob");
+            var src_desc = JSON.parse( nvl(src_desc_clob,"[{}]") );
+            var src_desc_txt = "";
+            src_desc = sort(src_desc, "sort_seq");
+            if(!isNull(src_desc)) {
+                src_desc.forEach(col=>{
+                    if(col.entry_yn=="Y") src_desc_txt += col.colnm + (col.tbl_yn=="Y"?"*":"") + CR;
+                })
+            }
+            me.pageObj.mst.setVal("src_desc", src_desc_txt);
+        }
+    }
+    
+    //원천DATA 지급조건 항목정의 동기화
+    me.fnSyncPayDesc=function(act) {
+        if(isNull(act)) {
+            if(me.page.find("#doc_pay_def").hasClass("float")) act="import"; //바닥에서 팝업으로
+            else act="export"; //팝업에서 아래로
+        }
+        if(act=="import") { 
+            var template = [
+                {"entry_yn":"Y","sort_seq":1,"colid":"tr_cd","colnm":"거래처코드","dtype":"text","etype":"txt","attr":"pop keycol","defval":null,"w":"6","h":null,"refcd":"mypop","option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null},
+                {"entry_yn":"Y","sort_seq":2,"colid":"tr_nm","colnm":"거래처","dtype":"text","etype":"raw","attr":null,"defval":null,"w":"10","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null},
+                {"entry_yn":"Y","sort_seq":3,"colid":"rmk","colnm":"구분(ex.선금30%)","dtype":"text","etype":"txt","attr":null,"defval":null,"w":"20","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null},
+                {"entry_yn":"Y","sort_seq":4,"colid":"in_dt","colnm":"일자","dtype":"ymd","etype":"txt","attr":"ymd ","defval":null,"w":"8","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null},
+                {"entry_yn":"Y","sort_seq":5,"colid":"rmk","colnm":"지급구분(ex.10일현금)","dtype":"text","etype":"txt","attr":null,"defval":null,"w":"20","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null},
+                {"entry_yn":"Y","sort_seq":6,"colid":"amt","colnm":"금액(VAT-)","dtype":"num","etype":"txt","attr":null,"defval":null,"w":"7","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null},
+                {"entry_yn":"Y","sort_seq":7,"colid":"vat","colnm":"부가세액","dtype":"num","etype":"txt","attr":null,"defval":null,"w":"6","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null},
+                {"entry_yn":"Y","sort_seq":8,"colid":"tamt","colnm":"금액(VAT+)","dtype":"num","etype":"txt","attr":null,"defval":null,"w":"7","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null},
+                {"entry_yn":"Y","sort_seq":9,"colid":"ref_key","colnm":"정보참조키","dtype":"text","etype":"txt","attr":null,"defval":null,"w":"10","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null} 
+            ];
+            var pay_desc_clob = me.pageObj.mst.getVal("pay_desc_clob"); 
+            if(isNull(pay_desc_clob)) me.pageObj.doc_pay_def.importData(template);
+            else me.pageObj.doc_pay_def.importData( JSON.parse(pay_desc_clob) );
+        } 
+        if(act=="export") {
+            var pay_desc = me.pageObj.doc_pay_def.exportData();
+            me.pageObj.mst.setVal("pay_desc_clob", JSON.stringify(pay_desc) ); 
+            act="convert";
+        }
+        if(act=="convert") {
+            var pay_desc_clob = me.pageObj.mst.getVal("pay_desc_clob");
+            var pay_desc = JSON.parse( nvl(pay_desc_clob,"[{}]") );
+            var pay_desc_txt = "";
+            pay_desc = sort(pay_desc, "sort_seq");
+            if(!isNull(pay_desc)) {
+                pay_desc.forEach(col=>{
+                    if(col.entry_yn=="Y") pay_desc_txt += col.colnm + (col.tbl_yn=="Y"?"*":"") + CR;
+                })
+            }
+            me.pageObj.mst.setVal("pay_desc", pay_desc_txt);
+        }
+    }  
+
+    //원천DATA 금액배부 항목정의 동기화
+    me.fnSyncPjtDesc=function(act) {
+        if(isNull(act)) {
+            if(me.page.find("#doc_pjt_def").hasClass("float")) act="import"; //바닥에서 팝업으로
+            else act="export"; //팝업에서 아래로
+        }
+        if(act=="import") { 
+            var template = [
+                {"entry_yn":"Y","sort_seq":1,"colid":"dept_cd","colnm":"부서코드","dtype":"text","etype":"txt","attr":"pop keycol","defval":null,"w":"6","h":null,"refcd":"mypop","option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null},
+                {"entry_yn":"Y","sort_seq":2,"colid":"dept_nm","colnm":"사용부서","dtype":"text","etype":"raw","attr":null,"defval":null,"w":"10","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null},
+                {"entry_yn":"Y","sort_seq":3,"colid":"pjt_cd","colnm":"PJT코드","dtype":"text","etype":"txt","attr":"pop keycol","defval":null,"w":"6","h":null,"refcd":"mypop","option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null},
+                {"entry_yn":"Y","sort_seq":4,"colid":"pjt_nm","colnm":"프로젝트","dtype":"text","etype":"raw","attr":null,"defval":null,"w":"10","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null},
+                {"entry_yn":"Y","sort_seq":5,"colid":"in_dt","colnm":"일자","dtype":"ymd","etype":"txt","attr":"ymd ","defval":null,"w":"8","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null},
+                {"entry_yn":"Y","sort_seq":6,"colid":"acct_cd","colnm":"계정코드","dtype":"text","etype":"txt","attr":"pop keycol","defval":null,"w":"6","h":null,"refcd":"mypop","option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null},
+                {"entry_yn":"Y","sort_seq":7,"colid":"acct_nm","colnm":"회계계정","dtype":"text","etype":"raw","attr":null,"defval":null,"w":"10","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null},
+                {"entry_yn":"Y","sort_seq":8,"colid":"amt","colnm":"금액(VAT-)","dtype":"num","etype":"txt","attr":null,"defval":null,"w":"7","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null},
+                {"entry_yn":"Y","sort_seq":9,"colid":"rmk","colnm":"항목(적요)","dtype":"text","etype":"txt","attr":null,"defval":null,"w":"20","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null},
+                {"entry_yn":"Y","sort_seq":10,"colid":"ref_key","colnm":"정보참조키","dtype":"text","etype":"txt","attr":null,"defval":null,"w":"10","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null}
+            ];
+            var pjt_desc_clob = me.pageObj.mst.getVal("pjt_desc_clob"); 
+            if(isNull(pjt_desc_clob)) me.pageObj.doc_pjt_def.importData(template);
+            else me.pageObj.doc_pjt_def.importData( JSON.parse(pjt_desc_clob) );
+        } 
+        if(act=="export") {
+            var pjt_desc = me.pageObj.doc_pjt_def.exportData();
+            me.pageObj.mst.setVal("pjt_desc_clob", JSON.stringify(pjt_desc) ); 
+            act="convert";
+        }
+        if(act=="convert") {
+            var pjt_desc_clob = me.pageObj.mst.getVal("pjt_desc_clob");
+            var pjt_desc = JSON.parse( nvl(pjt_desc_clob,"[{}]") );
+            var pjt_desc_txt = "";
+            pjt_desc = sort(pjt_desc, "sort_seq");
+            if(!isNull(pjt_desc)) {
+                pjt_desc.forEach(col=>{
+                    if(col.entry_yn=="Y") pjt_desc_txt += col.colnm + (col.tbl_yn=="Y"?"*":"") + CR;
+                })
+            }
+            me.pageObj.mst.setVal("pjt_desc", pjt_desc_txt);
+        }
+    }   
+    
+    //분개유형 항목정의 동기화
+    me.fnSyncDrcrAcct=function(act) {
+        if(isNull(act)) {
+            if(me.page.find("#drcr_acct_def").hasClass("float")) act="import"; //바닥에서 팝업으로
+            else act="export"; //팝업에서 아래로
+        }
+        if(act=="import") { 
+            var drcr_acct_clob = me.pageObj.mst.getVal("drcr_acct_clob"); 
+            if(isNull(drcr_acct_clob)) me.pageObj.drcr_acct_def.reset(); 
+            else me.pageObj.drcr_acct_def.importData( JSON.parse(drcr_acct_clob) );
+        } 
+        if(act=="export") {
+            var drcr_acct = me.pageObj.drcr_acct_def.exportData();
+            me.pageObj.mst.setVal("drcr_acct_clob", JSON.stringify(drcr_acct) ); 
+            act="convert";
+        }
+        if(act=="convert") {
+            var drcr_acct_clob = me.pageObj.mst.getVal("drcr_acct_clob");
+            var drcr_acct = JSON.parse( nvl(drcr_acct_clob,"[{}]") );
+            //console.log(drcr_acct);
+            var dr_acct_txt = "";
+            var cr_acct_txt = "";
+            var dr1_acct_txt = "";
+            drcr_acct = sort(drcr_acct, "sort_seq");
+            if(!isNull(drcr_acct)) {
+                drcr_acct.forEach(col=>{
+                    if(col.drcr_fg=="차변") dr_acct_txt += col.acct_cd+":"+col.acct_nm + ", ";
+                    if(col.drcr_fg=="대변") cr_acct_txt += col.acct_cd+":"+col.acct_nm + ", ";
+                    if(col.drcr_fg=="현금지출") dr1_acct_txt += col.acct_cd+":"+col.acct_nm + ", ";  
+                })
+            }
+            var drcr_acct_txt = "";
+            if( !isNull(dr_acct_txt) ) drcr_acct_txt = "차변 -  " + dr_acct_txt.substr(0,dr_acct_txt.length-2) + CR;
+            if( !isNull(cr_acct_txt) ) drcr_acct_txt += "대변 -  " + cr_acct_txt.substr(0,cr_acct_txt.length-2) + CR;
+            if( !isNull(dr1_acct_txt) ) drcr_acct_txt += "현금지출 -  " + dr1_acct_txt.substr(0,dr1_acct_txt.length-2) + CR;
+            me.pageObj.mst.setVal("drcr_acct", drcr_acct_txt);
+        }
+    }      
+    
+    //문서 템플릿 신규추가 
+    me.fnNew=function() { 
+        me.pageObj.mst.importData([{co_cd:gUserinfo.co_cd}],"C"); 
+        me.bEdit = false;
+        me.page.find("#edit").show();
+    } 
+    
+    //save:저장 
+    me.fnSave=function() {
+        if( !me.pageObj["mst"].chkValid() ) return; 
+        //var content = tinymce.activeEditor.getContent();
+        //console.log(content); 
+        //문서안에 이미지는 CLOB으로 변환한다.
+        var ed = $(pageid+"mytextarea_ifr")
+        ed.contents().find("img").each(function(idx,el){
+            el.src = getDataUrl(el);
+        });
+        me.content = tinymce.activeEditor.getContent();
+        //console.log(content); 
+        //추가 Validation : 템플릿에 맞춰 결재선/합의선/첨부파일/참조문서 Validation 
+        
+        var args = me.pageObj["mst"].exportData()[0]; 
+        
+        //화면컴포넌트에서 정의하지 않은 가상컬럼 사용으로 undefined인 컬럼을 null로 initialize해줘야 쿼리 바인딩 에러 안남
+        var keys = Object.keys(args);
+        keys.forEach(key=>{
+            if(isNull(args[key])) args[key]=null;
+        }); 
+        args.content = me.content; 
+        var invar = JSON.stringify(args);
+        gfnTx(appid+"."+pgmid,"save",{INVAR:invar},function(OUTVAR){
+            //console.log(OUTVAR);
+            if(OUTVAR.rtnCd=="OK") {
+                gfnAlert("저장성공","문서 템플릿이 저장되었습니다."); 
+                gfnGetData("DOC_TEMPLATE_ID",function() {});
+                me.fnClose(true);
+                me.fnSearch();
+            } else {
+                gfnAlert("저장오류",OUTVAR.rtnMsg);
+            }
+        });  
+    }
+
+    //close:닫기 
+    me.fnClose=function(bForce) {
+        if(!me.bEdit || bForce) {
+            me.bEdit = false;
+            me.page.find("#edit").hide();
+            return;
+        }
+        gfnConfirm("문서닫기 확인","작업중인 내용이 있습니다. 문서편집을 종료하시겠습니까?",function(OUTVAR){
+            if(OUTVAR) {
+                me.bEdit = false;
+                me.page.find("#edit").hide();
+            }     
+        });
+    }
+
+
+/*-- SCRIPT autogen ---------------------------------------------------- */        
+if(typeof(me.fnInit)=='function') me.fnInit();
+});
+
+</script>

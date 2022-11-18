@@ -1,0 +1,101 @@
+<!-- HTML autogen start ---------------------------------------------- -->            
+<div class="pageNav"></div>
+<div class="pageTop"></div>
+<div class="pageCond"></div>
+<div class="pageGuide"></div>
+<div class="pageContent">
+    <div id='list'></div>
+
+</div>
+<!-- HTML autogen end ---------------------------------------------- -->
+<script>
+/*-- SCRIPT autogen start ---------------------------------------------- */        
+$(function() {
+    var appid = "aweportal";
+    var pgmid = "changePwdTest"; 
+    var page = $("*[pgmid='"+pgmid+"'].framepage").last();
+    var pageid = page.attr("id"); 
+    var me = {}
+    var dataSet = {};
+    var dataDef = {};
+    var pageObj = {};
+    var bEdit = false;
+    me.fnInit = function() {
+        gfn[pageid] = me; 
+        me.appid    = appid;
+        me.pgmid    = pgmid;
+        me.pageid   = pageid;
+        me.page     = page; 
+        me.dataSet = dataSet;
+        me.dataDef = dataDef;
+        me.pageObj = pageObj;
+        me.bEdit = bEdit;
+        me.dataDef["_pgm"]={"pgmid":"changePwdTest","pgm_nm":"비밀번호변경","pgm_tp":"TX","proc_mst_id":"","proc_mst_nm":"","remark":"","ver":0,"pgm_stat":"Y","reg_usid":"mjw","reg_dt":null,"upd_usid":"mjw","upd_dt":null,"app_pgmid":"aweportal","pgm_grp_nm":"changePwd","shortcut":"ZZ89","rowstat":"R","app_pgm_nm":"포털"};
+        me.dataDef["_pgm_func"]=[{"func_icon":"fas fa-save","reg_dt":"2021-09-03 09:20:42","reg_usid":"","func_nm":"저장","upd_usid":"","upd_dt":"2021-09-03 09:20:42","func_tp":"DB_W","remark":null,"pgmid":"changePwdTest","sort_seq":"1","funcid":"save","content":"사용자가 비밀번호를 변경 시 저장한다."}];
+        me.dataDef["_pgm_data"] = {};
+        me.dataDef["_pgm_data"]["list"]={"component_pgmid":"aweForm","upd_dt":"2021-09-03 09:20:42","component_option":null,"pgmid":"changePwdTest","inout_tp":"IN","sort_seq":"1","content":[{"sort_seq":1,"section":null,"section_icon":null,"colgrp":null,"colid":"pwd","colnm":"현재비밀번호","dtype":"text","etype":"txt","attr":null,"len":null,"defval":null,"refcd":null,"option":null,"valid":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":2,"section":null,"section_icon":null,"colgrp":null,"colid":"changepwd","colnm":"변경비밀번호","dtype":"text","etype":"txt","attr":null,"len":null,"defval":null,"refcd":null,"option":null,"valid":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":3,"section":null,"section_icon":null,"colgrp":null,"colid":"checkpwd","colnm":"비밀번호확인","dtype":"text","etype":"txt","attr":null,"len":null,"defval":null,"refcd":null,"option":null,"valid":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"}],"data_nm":"비밀번호변경","reg_dt":"2021-09-03 09:20:42","reg_usid":"","data_id":"list","upd_usid":"","data_icon":null};
+
+        me.pageObj["_page"] = new gfnFramepage( me ); 
+        for(var component_id in me.dataDef["_pgm_data"]) { 
+            me.pageObj[component_id] = new gfnComponent( me.pageid, component_id, me.dataDef["_pgm_data"][component_id], me.fnEH, me); 
+        }  
+        setTimeout(function(){
+            $("#frameset").scrollTo(0); //스크롤 
+        },10);
+        if(typeof(me.fnInitExtra)=='function') me.fnInitExtra(); 
+    } 
+/*-- SCRIPT autogen end ---------------------------------------------- */
+
+            /* 사용자초기화 */
+    me.fnInitExtra=function() {
+        //탭 설정
+        //gfnTab(pageid, "tabs", {"multi-active":"off","toggle-switch":"on"}); 
+        //사용자 컴포넌트 
+        //me.dataDef["_pgm_data"][myCompoId] = {...};
+        //me.pageObj["myCompoId"] = new gfnComponent( me.pageid, myCompoId, me.dataDef["_pgm_data"][myCompoId], me.fnEH, me); 
+        //me.pageObj["myCompoId"].userComponent = "myCompoId";
+        //사용자 컨트롤
+        //var myColinfo = {colid:...}
+        //me.pageObj["myColId"] = new gfnControl(myColinfo, me.fnEH) 
+        //me.page.find("#myCol").append(me.pageObj["myColId"].dispObj);
+        //me.pageObj["myColId"].getVal(); / myCol.setVal(val);...    
+    }
+    /* 이벤트핸들러 */
+    me.fnEH=function(component, evt, row, col, val) { 
+        //console.log(evt+","+row+","+col+","+val);
+        //화면기능버튼이 눌리면 
+        if (component==me.pageObj["_pageFunc"]){ 
+            if(typeof(me[col])=='function') me[col](); //col=기능명 me["fnSearch"]()=me.fnSearch(); 
+        }
+        //list:비밀번호변경 이벤트처리     
+        else if(component==me.pageObj["list"]) {
+            //if(evt=="change" && col=="colid") {...}
+        }
+
+        //사용자 컴포넌트/컨트롤
+        else if(component.userComponent=="myCompoId") {
+            //if(evt=="dblclick" && col=="colid") {...}
+        }
+    }
+    //save:저장 
+    me.fnSave=function() {
+        // if( !me.pageObj["sample"].chkValid() ) return;
+        var args = me.pageObj["list"].exportData()[0];
+        //console.log(args);
+        var invar = JSON.stringify(args);
+        gfnTx("aweportal.changePwdTest","save",{INVAR:invar},function(OUTVAR){
+            //console.log(OUTVAR);
+            if(OUTVAR.rtnCd=="OK") {
+                gfnAlert("저장성공","저장되었습니다. 재로그인 해주세요");
+            } else {
+                gfnAlert("조회오류",OUTVAR.rtnMsg);
+            }
+        });
+    }
+
+
+/*-- SCRIPT autogen ---------------------------------------------------- */        
+if(typeof(me.fnInit)=='function') me.fnInit();
+});
+
+</script>

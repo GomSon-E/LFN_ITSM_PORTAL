@@ -1,0 +1,204 @@
+<style>[pgmid='processTemplate'].framepage .userClass { 
+width:100%; 
+}</style>
+
+<!-- HTML autogen start ---------------------------------------------- -->            
+<div class="pageNav"></div>
+<div class="pageTop"></div>
+<div class="pageCond"></div>
+<div class="pageGuide"></div>
+<div class="pageContent flexRow">
+    <div id='list' style="flex:1 1 auto" class="flexColumn"></div>
+    <div style="flex:1 1 60em" class="flexColumn">
+        <div id='mst'></div>
+        <div class="flexRow">
+            <div id="nxt" style="flex:1 1 50%" class="flexColumn"></div>
+            <div id="det" style="flex:1 1 calc(50% - 3em)" class="flexColumn"></div>
+        </div>
+    </div> 
+</div>
+<!-- HTML autogen end ---------------------------------------------- -->
+<script>
+/*-- SCRIPT autogen start ---------------------------------------------- */        
+$(function() {
+    var appid = "workbench";
+    var pgmid = "processTemplate"; 
+    var page = $("*[pgmid='"+pgmid+"'].framepage").last();
+    var pageid = page.attr("id"); 
+    var me = {}
+    var dataSet = {};
+    var dataDef = {};
+    var pageObj = {};
+    var bEdit = false;
+    me.fnInit = function() {
+        gfn[pageid] = me; 
+        me.appid    = appid;
+        me.pgmid    = pgmid;
+        me.pageid   = pageid;
+        me.page     = page; 
+        me.dataSet = dataSet;
+        me.dataDef = dataDef;
+        me.pageObj = pageObj;
+        me.bEdit = bEdit;
+me.dataDef["_pgm"]={"pgmid":"processTemplate","pgm_nm":"프로세스 설계","pgm_tp":"UX","proc_mst_id":"","proc_mst_nm":"","remark":"업무프로세스를 정의한다.","ver":0.1,"pgm_stat":"Y","reg_usid":"lkh","reg_dt":"2021-10-08 15:30:45","upd_usid":"lkh","upd_dt":"2021-10-08 15:30:45","app_pgmid":"workbench","pgm_grp_nm":"시스템개발","sort_seq":4,"shortcut":"","crud":"","app_pgm_nm":"개발워크벤치"};
+me.dataDef["_pgm_func"]=[{"sort_seq":1,"funcid":"search","func_nm":"조회","func_icon":"fas fa-search","func_tp":"DB_R","content":null,"remark":null,"crud":"C"},{"sort_seq":2,"funcid":"new","func_nm":"신규","func_icon":"fas fa-file","func_tp":"EH","content":null,"remark":null,"crud":"C"},{"sort_seq":3,"funcid":"save","func_nm":"저장","func_icon":"fas fa-save","func_tp":"DB_W","content":null,"remark":null,"crud":"C"},{"sort_seq":4,"funcid":"del","func_nm":"삭제","func_icon":"fas fa-trash","func_tp":"DB_W","content":null,"remark":null,"crud":"C"}];
+me.dataDef["_pgm_data"] = {};
+me.dataDef["_pgm_data"]["pageCond"]={"sort_seq":1,"data_id":"pageCond","data_nm":"조회조건","data_icon":null,"component_pgmid":"aweForm","component_option":null,"inout_tp":"IN","content":[{"sort_seq":1,"section":null,"section_icon":null,"colgrp":null,"colid":"proc_lv","colnm":"프로세스레벨","dtype":"text","etype":"sel","attr":"keycol","defval":null,"w":"10","h":null,"refcd":"PROC_LV","option":"sel:proc_lv","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":2,"section":null,"section_icon":null,"colgrp":"상위프로세스","colid":"up_proc_mst_id","colnm":"상위프로세스","dtype":"text","etype":"txt","attr":"pop","defval":null,"w":"10","h":null,"refcd":"PROC_MST","option":"all:up_proc_mst_id:up_proc_mst_nm:cdnm","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":"선택된 프로세스 레벨의 상위 프로세스 검색","crud":"C"},{"sort_seq":3,"section":null,"section_icon":null,"colgrp":"상위프로세스","colid":"up_proc_mst_nm","colnm":"상위프로세스명","dtype":"text","etype":"txt","attr":"readonly","defval":null,"w":"15","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"}]};
+me.dataDef["_pgm_data"]["list"]={"sort_seq":2,"data_id":"list","data_nm":"프로세스 목록","data_icon":null,"component_pgmid":"agGrid","component_option":null,"inout_tp":"INOUT","content":[{"sort_seq":1,"section":null,"section_icon":null,"colgrp":"상위프로세스","colid":"up_proc_sort_seq","colnm":"순번","dtype":"text","etype":null,"attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":2,"section":null,"section_icon":null,"colgrp":"상위프로세스","colid":"up_proc_mst_id","colnm":"상위프로세스","dtype":"text","etype":null,"attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":3,"section":null,"section_icon":null,"colgrp":"상위프로세스","colid":"up_proc_mst_nm","colnm":"상위프로세스명","dtype":"text","etype":null,"attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":4,"section":null,"section_icon":null,"colgrp":null,"colid":"sort_seq","colnm":"순번","dtype":"text","etype":null,"attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":5,"section":null,"section_icon":null,"colgrp":null,"colid":"proc_mst_id","colnm":"프로세스","dtype":"text","etype":null,"attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":6,"section":null,"section_icon":null,"colgrp":null,"colid":"proc_nm","colnm":"프로세스명","dtype":"text","etype":null,"attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"}]};
+me.dataDef["_pgm_data"]["mst"]={"sort_seq":3,"data_id":"mst","data_nm":"프로세스","data_icon":null,"component_pgmid":"aweForm","component_option":null,"inout_tp":"INOUT","content":[{"sort_seq":1,"section":null,"section_icon":null,"colgrp":null,"colid":"proc_mst_id","colnm":"프로세스ID","dtype":"text","etype":"txt","attr":"pk ","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":2,"section":null,"section_icon":null,"colgrp":null,"colid":"proc_nm","colnm":"프로세스명","dtype":"text","etype":"txt","attr":"keycol","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":3,"section":null,"section_icon":null,"colgrp":null,"colid":"proc_tp","colnm":"프로세스유형","dtype":"text","etype":"sel","attr":null,"defval":null,"w":null,"h":null,"refcd":"PROC_TP","option":"sel:prc_tp","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":4,"section":null,"section_icon":null,"colgrp":null,"colid":"proc_lv","colnm":"프로세스레벨","dtype":"text","etype":"sel","attr":null,"defval":null,"w":null,"h":null,"refcd":"PROC_LV","option":"sel:proc_lv","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":5,"section":null,"section_icon":null,"colgrp":null,"colid":"up_proc_mst_id","colnm":"상위프로세스","dtype":"text","etype":"txt","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":6,"section":null,"section_icon":null,"colgrp":null,"colid":"pre_proc_mst_id","colnm":"선행업무","dtype":"text","etype":"txt","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":7,"section":null,"section_icon":null,"colgrp":null,"colid":"sort_seq","colnm":"순번","dtype":"num","etype":"txt","attr":null,"defval":null,"w":"4","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":8,"section":null,"section_icon":null,"colgrp":null,"colid":"grp_tp","colnm":"그룹유형","dtype":"text","etype":"sel","attr":null,"defval":null,"w":null,"h":null,"refcd":"GRP_TP","option":"sel:GRP_TP","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":9,"section":null,"section_icon":null,"colgrp":null,"colid":"grp_rel_tp","colnm":"그룹관련유형","dtype":"text","etype":"sel","attr":null,"defval":null,"w":null,"h":null,"refcd":"GRP_REL_TP","option":"all:grp_rel_tp","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":10,"section":null,"section_icon":null,"colgrp":null,"colid":"role_tp","colnm":"직무유형","dtype":"text","etype":"sel","attr":null,"defval":null,"w":null,"h":null,"refcd":"ROLE_CD","option":"sel:role_tp","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":11,"section":null,"section_icon":null,"colgrp":null,"colid":"std_deli_days","colnm":"기준납기일수","dtype":"num","etype":"txt","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":12,"section":null,"section_icon":null,"colgrp":null,"colid":"content","colnm":"내용","dtype":"text","etype":"tarea","attr":null,"defval":null,"w":"30","h":"5","refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":13,"section":null,"section_icon":null,"colgrp":null,"colid":"remark","colnm":"비고","dtype":"text","etype":"tarea","attr":null,"defval":null,"w":"30","h":"5","refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":14,"section":null,"section_icon":null,"colgrp":null,"colid":"ref_info_tp","colnm":"참조정보유형","dtype":"text","etype":"sel","attr":null,"defval":null,"w":null,"h":null,"refcd":"REF_INFO_TP","option":"all:ref_info_tp","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":15,"section":null,"section_icon":null,"colgrp":null,"colid":"in_desc","colnm":"투입설명","dtype":"text","etype":"tarea","attr":null,"defval":null,"w":"30","h":"5","refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":16,"section":null,"section_icon":null,"colgrp":null,"colid":"out_desc","colnm":"산출물설명","dtype":"text","etype":"tarea","attr":null,"defval":null,"w":"30","h":"5","refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":17,"section":null,"section_icon":null,"colgrp":null,"colid":"proc_stat_tp","colnm":"프로세스상태유형","dtype":"text","etype":"sel","attr":null,"defval":null,"w":null,"h":null,"refcd":"PROC_STAT_TP","option":"sel:proc_stat_tp","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":18,"section":null,"section_icon":null,"colgrp":null,"colid":"reg_usid","colnm":"등록사용자ID","dtype":"text","etype":null,"attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":19,"section":null,"section_icon":null,"colgrp":null,"colid":"reg_dt","colnm":"등록일시","dtype":"text","etype":null,"attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":20,"section":null,"section_icon":null,"colgrp":null,"colid":"upd_usid","colnm":"변경사용자ID","dtype":"text","etype":null,"attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":21,"section":null,"section_icon":null,"colgrp":null,"colid":"upd_dt","colnm":"수정일시","dtype":"text","etype":null,"attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"}]};
+me.dataDef["_pgm_data"]["nxt"]={"sort_seq":4,"data_id":"nxt","data_nm":"후속프로세스","data_icon":null,"component_pgmid":"agGrid","component_option":null,"inout_tp":"OUT","content":[{"sort_seq":1,"section":null,"section_icon":null,"colgrp":null,"colid":"proc_mst_id","colnm":"프로세스ID","dtype":"text","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":2,"section":null,"section_icon":null,"colgrp":null,"colid":"proc_nm","colnm":"프로세스명","dtype":"text","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"}]};
+me.dataDef["_pgm_data"]["det"]={"sort_seq":5,"data_id":"det","data_nm":"하위프로세스","data_icon":null,"component_pgmid":"agGrid","component_option":null,"inout_tp":"OUT","content":[{"sort_seq":"1","section":null,"section_icon":null,"colgrp":null,"colid":"proc_mst_id","colnm":"프로세스ID","dtype":"text","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":"2","section":null,"section_icon":null,"colgrp":null,"colid":"proc_nm","colnm":"프로세스명","dtype":"text","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"}]};
+
+        me.pageObj["_page"] = new gfnFramepage( me ); 
+        for(var component_id in me.dataDef["_pgm_data"]) { 
+            me.pageObj[component_id] = new gfnComponent( me.pageid, component_id, me.dataDef["_pgm_data"][component_id], me.fnEH, me); 
+        }  
+        setTimeout(function(){
+            $("#frameset").scrollTo(0); //스크롤 
+        },10);
+        if(typeof(me.fnInitExtra)=='function') me.fnInitExtra(); 
+    } 
+/*-- SCRIPT autogen end ---------------------------------------------- */
+
+            /* 사용자초기화 */
+    me.fnInitExtra=function() {
+        //탭 설정
+        //gfnTab(pageid, "tabs", {"multi-active":"off","toggle-switch":"on"}); 
+        //사용자 컴포넌트 
+        //me.dataDef["_pgm_data"][myCompoId] = {...};
+        //me.pageObj["myCompoId"] = new gfnComponent( me.pageid, myCompoId, me.dataDef["_pgm_data"][myCompoId], me.fnEH, me); 
+        //me.pageObj["myCompoId"].userComponent = "myCompoId";
+        //사용자 컨트롤
+        //var myColinfo = {colid:...}
+        //me.pageObj["myColId"] = new gfnControl(myColinfo, me.fnEH) 
+        //me.page.find("#myCol").append(me.pageObj["myColId"].dispObj);
+        //me.pageObj["myColId"].getVal(); / myCol.setVal(val);...    
+    }
+    /* 이벤트핸들러 */
+    me.fnEH=function(component, evt, row, col, val) { 
+        //console.log(evt+","+row+","+col+","+val);
+        //화면기능버튼이 눌리면 
+        if (component==me.pageObj["_pageFunc"]){ 
+            if(typeof(me[col])=='function') me[col](); //col=기능명 me["fnSearch"]()=me.fnSearch(); 
+        }
+        //pageCond:조회조건 이벤트처리     
+        else if(component==me.pageObj["pageCond"]) {
+            //if(evt=="change" && col=="colid") {...}
+        }
+
+        //list:프로세스 목록 이벤트처리     
+        else if(component==me.pageObj["list"]) {
+            //if(evt=="change" && col=="colid") {...}
+            if(evt=="componentFunc") {
+                component[col]();
+            }
+            if(evt=="focus") {
+                if(row < 0) return;
+                var proc_mst_id = component.getVal(row,"proc_mst_id");
+                me.fnSearchMst(proc_mst_id);
+            }
+        }
+
+        //mst:프로세스 이벤트처리     
+        else if(component==me.pageObj["mst"]) {
+            //if(evt=="change" && col=="colid") {...}
+        }
+
+        //사용자 컴포넌트/컨트롤
+        else if(component.userComponent=="myCompoId") {
+            //if(evt=="dblclick" && col=="colid") {...}
+        }
+    }
+    //search:조회 
+    me.fnSearch=function() {
+        if( !me.pageObj["pageCond"].chkValid() ) return;
+        var args = me.pageObj["pageCond"].exportData()[0];
+        //console.log(args);
+        var invar = JSON.stringify(args);
+        gfnTx(appid+"."+pgmid,"search",{INVAR:invar},function(OUTVAR){
+            console.log(OUTVAR);
+            if(OUTVAR.rtnCd=="OK") {
+                me.pageObj["list"].importData(OUTVAR.list);
+            } else {
+                gfnAlert("조회오류",OUTVAR.rtnMsg);
+            }
+        });
+    }
+
+    //신규
+    me.fnNew=function() {
+        me.pageObj.mst.reset();
+    }
+    
+    //search:조회 
+    me.fnSearchMst=function(proc_mst_id) {
+        if( !me.pageObj["pageCond"].chkValid() ) return;
+        if( isNull(proc_mst_id)) return;
+        
+        var args = me.pageObj["pageCond"].exportData()[0];
+        args["proc_mst_id"] = proc_mst_id;
+        //console.log(args);
+        var invar = JSON.stringify(args);
+        gfnTx(appid+"."+pgmid,"searchMst",{INVAR:invar},function(OUTVAR){
+            console.log(OUTVAR);
+            if(OUTVAR.rtnCd=="OK") {
+                me.pageObj["mst"].importData(OUTVAR.mst);
+                me.pageObj["nxt"].importData(OUTVAR.nxt);
+                me.pageObj["det"].importData(OUTVAR.det);
+            } else {
+                gfnAlert("조회오류",OUTVAR.rtnMsg);
+            }
+        });
+    }
+
+    //save:저장
+    me.fnSave=function() {
+        if( !me.pageObj["pageCond"].chkValid() ) return;
+        if( !me.pageObj["mst"].chkValid() ) return;
+        var args = me.pageObj["pageCond"].exportData()[0];
+        args.mst = me.pageObj["mst"].exportData();
+        //console.log(args);
+        var invar = JSON.stringify(args);
+        gfnTx(appid+"."+pgmid,"save",{INVAR:invar},function(OUTVAR){
+            console.log(OUTVAR);
+            if(OUTVAR.rtnCd=="OK") {
+                me.fnSearch();
+                me.fnSearchMst(args.mst.proc_mst_id);
+            } else {
+                gfnAlert("저장오류",OUTVAR.rtnMsg);
+            }
+        });
+    } 
+    
+    //del 삭제 
+    me.fnDel=function() {
+        if( !me.pageObj["pageCond"].chkValid() ) return;
+        if( isNull(me.pageObj["mst"].getVal("proc_mst_id")) ) return;
+        function fnDelRun() { 
+            var args = me.pageObj["pageCond"].exportData()[0];
+            args.mst = me.pageObj["mst"].exportData();
+            //console.log(args);
+            var invar = JSON.stringify(args);
+            gfnTx(appid+"."+pgmid,"delete",{INVAR:invar},function(OUTVAR){
+                //console.log(OUTVAR);
+                if(OUTVAR.rtnCd=="OK") {
+                    me.fnSearch();
+                    me.fnSearchMst(args.mst.proc_mst_id);
+                } else {
+                    gfnAlert("저장오류",OUTVAR.rtnMsg);
+                }
+            });
+        }
+        gfnConfirm("삭제확인","선택된 프로세스를 삭제하시겠습니까? 하위 프로세스도 같이 삭제됩니다.",
+            function(rtn){
+               if(rtn) fnDelRun(); 
+            });
+            
+    } 
+
+
+/*-- SCRIPT autogen ---------------------------------------------------- */        
+if(typeof(me.fnInit)=='function') me.fnInit();
+});
+
+</script>

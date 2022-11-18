@@ -1,0 +1,448 @@
+<style>[pgmid="meisRetailShop"] .aweSalesCalendar .calendar tr > * {
+    border-bottom: 1px solid #eaeaea;
+}
+
+[pgmid="meisRetailShop"] .aweSalesCalendar li.am_sale {
+    background-color: #f5f5dca6;
+}
+
+[pgmid="meisRetailShop"] th ul.cal {
+    line-height: 1.8;
+}
+[pgmid="meisRetailShop"] th ul.cal li {
+    position:relative;
+}
+[pgmid="meisRetailShop"] th ul.cal li::before {
+    font-size: 8px;
+    color: #6a5acda6;
+    position: absolute;
+    top: -6px;
+    left: -6px;
+    font-family: sans-serif;
+}
+[pgmid="meisRetailShop"] th ul.cal li.am_sale::before {
+    content: "전체";
+}
+[pgmid="meisRetailShop"] th ul.cal li.am_sale_06::before {
+    content: "광양";
+}
+[pgmid="meisRetailShop"] th ul.cal li.am_sale_04::before {
+    content: "양주";
+}
+[pgmid="meisRetailShop"] th ul.cal li.am_sale_03::before {
+    content: "인천";
+} 
+
+[pgmid="meisRetailShop"] .badge {
+    line-height: 1.25;
+}</style>
+<div class="container-xxl">
+    <div class="pageNav"></div>
+    <div class="pageTop"></div>
+    <div class="pageCond"></div>
+    <div class="pageGuide"></div>
+    
+<div class="pageContent hk-pg-body">
+	<div class="row">
+		<div class="col-xxl col-lg col-md mb-md-4 mb-3">
+			<div class="card card-border mb-0 h-100">
+				<div class="card-header card-header-action" style="flex-wrap:wrap">
+					<h6><i class="fas fa-square"></i> <span id="title1">당월 거래액 현황</span></h6> 
+					<i class="quickGuide">(달성/신장율: 전년 동기 대비, 거래액: 백만원, VAT제외)</i>
+				</div>
+				<div class="card-body">
+					<div class="row" id="list1">
+						<div class="separator-full"></div> 
+			    	</div> 
+			    </div>
+			    <!-- /card-body --> 	
+			</div>
+			<!-- /card --> 	
+		</div>
+		<!-- /col --> 	
+	</div>
+	<!-- /row --> 	
+	<div class="row">
+		<div id="chart" style="border:1px solid #aeaeae;"></div>
+	</div>
+	<!-- /row --> 	
+	<div class="row">
+	    <div id="list2"></div>
+	</div>   
+	<!-- /row --> 	 
+</div>
+<!-- /hk-pg-body --> 	
+</div>
+<!-- /container-xxl --> 	
+
+<script>
+/*-- SCRIPT autogen start ---------------------------------------------- */        
+$(function() {
+    var appid = "meis";
+    var pgmid = "meisRetailShop"; 
+    var page = $("*[pgmid='"+pgmid+"'].framepage").last();
+    var pageid = page.attr("id"); 
+    var me = {}
+    var dataSet = {};
+    var dataDef = {};
+    var pageObj = {};
+    var bEdit = false;
+    me.fnInit = function() {
+        gfn[pageid] = me; 
+        me.appid    = appid;
+        me.pgmid    = pgmid;
+        me.pageid   = pageid;
+        me.page     = page; 
+        me.dataSet = dataSet;
+        me.dataDef = dataDef;
+        me.pageObj = pageObj;
+        me.bEdit = bEdit;
+me.dataDef["_pgm"]={"ver":0.6,"upd_dt":"2022-10-24 08:50:58","remark":"","pgmid":"meisRetailShop","proc_mst_id":"","pgm_stat":"Y","sort_seq":220,"app_pgmid":"meis","shortcut":"","reg_dt":"2022-10-21 15:45:52","reg_usid":"kihyunlee","pgm_nm":"당월 매출현황","upd_usid":"kihyunlee","pgm_tp":"UX","pgm_grp_nm":"스퀘어몰","proc_mst_nm":"","app_pgm_nm":"모바일EIS","":"트랜젝션(메뉴)","crud":""};
+me.dataDef["_pgm_func"]=[{"func_icon":"fas fa-search","reg_dt":"2022-10-21 15:45:52","reg_usid":"","func_nm":"조회","upd_usid":"","upd_dt":"2022-10-21 15:45:52","func_tp":"DB_R","remark":null,"pgmid":"meisRetailShop","sort_seq":"1","funcid":"search","content":null,"crud":"R","id":"0"}];
+me.dataDef["_pgm_data"] = {};
+me.dataDef["_pgm_data"]["pageCond"]={"sort_seq":"1","data_id":"pageCond","data_nm":"조회조건","data_icon":null,"component_pgmid":"aweForm","component_option":null,"inout_tp":null,"content":[{"sort_seq":1,"section":null,"section_icon":null,"colgrp":"조회기간","colid":"from_dt","colnm":"시작일","dtype":"ymd","etype":"txt","attr":"ymd","defval":"date(\"1st\")","w":"10","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"0"},{"sort_seq":2,"section":null,"section_icon":null,"colgrp":"조회기간","colid":"to_dt","colnm":"종료일","dtype":"ymd","etype":"txt","attr":"ymd","defval":"date(\"today\")","w":"10","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"1"}]};
+me.dataDef["_pgm_data"]["chart"]={"sort_seq":"2","data_id":"chart","data_nm":"월간 거래액 추이","data_icon":null,"component_pgmid":"FreeForm","component_option":{"remark":"(거래액: 백만원, VAT제외)"},"inout_tp":null,"content":null};
+me.dataDef["_pgm_data"]["list2"]={"sort_seq":"3","data_id":"list2","data_nm":"일일 거래액 현황","data_icon":null,"component_pgmid":"aweSalesCalendar","component_option":{"fnTemplate":"gfn.fnCalTemplate","remark":"(거래액: 백만원, VAT제외)","func":[{"funcid":"goPrev","func_nm":"","func_icon":"fas fa-caret-square-left"},{"funcid":"goNext","func_nm":"","func_icon":"fas fa-caret-square-right"}]},"inout_tp":null,"content":[]};
+
+        me.pageObj["_page"] = new gfnFramepage( me ); 
+        for(var component_id in me.dataDef["_pgm_data"]) { 
+            me.pageObj[component_id] = new gfnComponent( me.pageid, component_id, me.dataDef["_pgm_data"][component_id], me.fnEH, me); 
+        }  
+        setTimeout(function(){
+            $("#frameset").scrollTo(0); //스크롤 
+        },10);
+        if(typeof(me.fnInitExtra)=='function') me.fnInitExtra(); 
+    } 
+/*-- SCRIPT autogen end ---------------------------------------------- */
+
+    /* 사용자초기화 */
+    me.fnInitExtra=function() {
+        //탭 설정
+        //gfnTab(pageid, "tabs", {"multi-active":"off","toggle-switch":"on"}); 
+        //사용자 컴포넌트 
+        //me.dataDef["_pgm_data"][myCompoId] = {...};
+        //me.pageObj["myCompoId"] = new gfnComponent( me.pageid, myCompoId, me.dataDef["_pgm_data"][myCompoId], me.fnEH, me); 
+        //me.pageObj["myCompoId"].userComponent = "myCompoId";
+        //사용자 컨트롤
+        //var myColinfo = {colid:...}
+        //me.pageObj["myColId"] = new gfnControl(myColinfo, me.fnEH) 
+        //me.page.find("#myCol").append(me.pageObj["myColId"].dispObj);
+        //me.pageObj["myColId"].getVal(); / myCol.setVal(val);...    
+        
+        
+        //달력 템플릿
+        gfn.fnCalTemplate=function(data) {
+            return `<ul class='cal'>
+    <li class='am_sale'>${format(data.am_sale/1000000,0)}</li> 
+    <li class='am_sale_06'>${format(data.am_sale_06/1000000,0)}</li> 
+    <li class='am_sale_04'>${format(data.am_sale_04/1000000,0)}</li> 
+    <li class='am_sale_03'>${format(data.am_sale_03/1000000,0)}</li> 
+    </ul>`;
+        }
+        me.pageObj.list2.fnTemplate=gfn.fnCalTemplate;
+        
+        //화면호출시 조회
+        setTimeout(me.fnSearch, 10);       
+        
+    }
+    /* 이벤트핸들러 */
+    me.fnEH=function(component, evt, row, col, val) { 
+        //console.log(evt+","+row+","+col+","+val);
+        //화면기능버튼이 눌리면 
+        if (component==me.pageObj["_pageFunc"]){ 
+            if(typeof(me[col])=='function') me[col](); //col=기능명 me["fnSearch"]()=me.fnSearch(); 
+        }
+        //사용자 컴포넌트/컨트롤
+        else if(component==me.pageObj["list2"]){ 
+            if(evt=="componentFunc") {
+                if(row=="goPrev") {
+                    //한달전 
+                    var st_dt   = date(me.pageObj.list2.start_dt.substr(0,6)+"01","yyyymmdd"); //기준일의 1일
+                    var from_dt = date(dateAdd(st_dt,-1),"yyyy-mm-dd","yyyymm")+"01";          //하루전은 전달말일 -> 전달1일
+                    var to_dt   = dateAdd( date(from_dt,"yyyymmdd"), "last");
+                    if(to_dt > date("today")) to_dt = date("today"); //to_dt는 오늘이전까지
+                    me.pageObj.pageCond.setVal("from_dt",from_dt);
+                    me.pageObj.pageCond.setVal("to_dt",to_dt); 
+                    me.fnSearch();
+                }
+                if(row=="goNext") { 
+                    //한달후
+                    var st_dt   = dateAdd(date(me.pageObj.list2.start_dt,"yyyymmdd"),"last"); //기준일의 말일
+                    var from_dt = dateAdd(st_dt,1);                                           //하루되는 익월1일
+                    if(from_dt > date("today")) {
+                        gfnAlert("다음달 조회 확인","오늘 이후는 조회할 수 없습니다.");
+                        return;
+                    }
+                    var to_dt = dateAdd(from_dt, "last");
+                    if(to_dt > date("today")) to_dt = date("today"); //to_dt는 오늘이전까지
+                    me.pageObj.pageCond.setVal("from_dt",from_dt);
+                    me.pageObj.pageCond.setVal("to_dt",to_dt); 
+                    me.fnSearch(); 
+                }
+            }
+        }
+    }
+    /* 조회 */
+    me.fnSearch=function() {
+        if( !me.pageObj["pageCond"].chkValid() ) return;
+        var args = me.pageObj["pageCond"].exportData()[0];
+        var invar = JSON.stringify(args);   
+        $(window).scrollTo(0);
+        gfnTx(appid+"."+pgmid,"search",{INVAR:invar}, function(OUTVAR){ 
+            //console.log(OUTVAR);
+            if(OUTVAR.rtnCd=="OK") { 
+                //조회조건 숨기기
+                //if(!me.page.find(".btnCond").hasClass("closed")) {
+                //    me.page.find(".btnCond").trigger("click");
+                //}
+                //컴포넌트 타이틀 
+                me.page.find("#title1").text("월 거래액 현황("+date(args.from_dt,"yyyymmdd")+"~"+date(args.to_dt,"yyyymmdd")+")");
+                var list1 = me.page.find("#list1");
+                list1.children("*").remove();
+                //me.pageObj.list1.importData(OUTVAR.list1); 
+                var data = {am_sale:0,am_plan:0,am_sale_by:0,rt_achv:0,rt_expand:0};
+                OUTVAR.list1.forEach(row=>{
+                    data.am_sale += toNum(row.am_sale);
+                    data.am_plan += toNum(row.am_plan);
+                    data.am_sale_by += toNum(row.am_sale_by);
+                });
+                data.rt_achv   = toNum(100*data.am_sale/data.am_plan,1);
+                data.rt_achv_sd = data.rt_achv>=100?"success":"danger";
+                data.rt_achv_ud = data.rt_achv>=100?"up":"down";
+                data.rt_expand = toNum(100*(data.am_sale-data.am_sale_by)/data.am_sale_by,1); 
+                data.rt_expand_sd = data.rt_expand>=0?"success":"danger";
+                data.rt_expand_ud = data.rt_expand>=0?"up":"down";
+
+                var sum = $(`<div class="col-xxl-4 col-sm-6 mb-xxl-0 mb-3">
+    <span class="d-block fw-medium fs-7" col-id="nm_stor">전체</span>
+    <div class="d-flex align-items-center">
+	    <span class="d-block fs-4 fw-medium text-dark mb-0">${gfnNumToStr(data.am_sale,-6)}</span>
+        <span class="badge badge-sm badge-soft-${data.rt_achv_sd} ms-1">
+            달성<i class="bi bi-arrow-${data.rt_achv_ud}"></i> ${data.rt_achv}%
+        </span>
+        <span class="badge badge-sm badge-soft-${data.rt_expand_sd} ms-1">
+            신장 ${data.rt_expand}%<i class="bi bi-arrow-${data.rt_expand_ud}"></i><br>
+            (${gfnNumToStr(data.am_sale-data.am_sale_by,-6)})
+        </span>        
+    </div>
+</div>`);
+                list1.prepend(sum); 
+                list1.append(`<div class="separator-full"></div>`);  
+                OUTVAR.list1.forEach(data=>{
+                    data.rt_achv = toNum(data.rt_achv,1);
+                    data.rt_achv_sd = data.rt_achv>=100?"success":"danger";
+                    data.rt_achv_ud = data.rt_achv>=100?"up":"down";
+                    data.rt_expand = toNum(data.rt_expand,1);
+                    data.rt_expand_sd = data.rt_expand>=0?"success":"danger";
+                    data.rt_expand_ud = data.rt_expand>=0?"up":"down";
+                    
+                    var row = $(`<div class="col-xxl-4 col-sm-6 mb-xxl-0 mb-3">
+    <span class="d-block fw-medium fs-7" col-id="nm_stor">${data.nm_stor}</span>
+    <div class="d-flex align-items-center">
+	    <span class="d-block fs-4 fw-medium text-dark mb-0">${gfnNumToStr(data.am_sale,-6)}</span>
+        <span class="badge badge-sm badge-soft-${data.rt_achv_sd} ms-1">
+            달성<i class="bi bi-arrow-${data.rt_achv_ud}"></i> ${data.rt_achv}%
+        </span>
+        <span class="badge badge-sm badge-soft-${data.rt_expand_sd} ms-1">
+            신장 ${data.rt_expand}%<i class="bi bi-arrow-${data.rt_expand_ud}"></i><br>
+            (${gfnNumToStr(data.am_sale-data.am_sale_by,-6)})
+        </span>        
+    </div>
+</div>`);    
+                    list1.append(row);
+                })   
+                feather.replace();    //뱃지에 사용된 feather아이콘 적용
+                
+                //하단 조회
+                me.fnSearch2(); 
+                
+            } else {
+                gfnAlert("오류",OUTVAR.rtnMsg);
+                console.log(OUTVAR);
+            }
+        });
+    }
+    
+    /* 조회2 */
+    me.bFirst = true;
+    me.fnSearch2=function() {
+        if( !me.pageObj["pageCond"].chkValid() ) return;
+        var args = me.pageObj["pageCond"].exportData()[0];
+        var invar = JSON.stringify(args);        
+        gfnTx(appid+"."+pgmid,"search2",{INVAR:invar}, function(OUTVAR){ 
+            console.log(OUTVAR);
+            if(OUTVAR.rtnCd=="OK") { 
+
+                /** 차트그리기 **/ 
+                if(me.bFirst) {
+                    me.bFirst = false;
+                    gfnStatus("그래프를 다시 그리고 있습니다.", "잠시만 기다려주세요...");
+                }
+                var data_06 = [];
+                var data_04 = [];
+                var data_03 = [];
+                var data_w = [];
+                var cat = extract(OUTVAR.list2,"ymd","distinct");  
+                
+                OUTVAR.list2.forEach(el=>{ 
+                    if(el.cd_stor=="06") data_06.push(toNum(el.am_sale/1000000,0));
+                    if(el.cd_stor=="04") data_04.push(toNum(el.am_sale/1000000,0));
+                    if(el.cd_stor=="03") data_03.push(toNum(el.am_sale/1000000,0));
+                });
+                
+                if(!isNull(me.chart)) {
+                    me.chartOptions.xaxis =  {
+                            type: 'datetime', 
+                            categories: cat 
+                        }    
+                    me.chartOptions.series =  [{
+                            name: '광양',
+                            data: data_06
+                        }, {
+                            name: '양주',
+                            data: data_04
+                        }, {
+                            name: '인천',
+                            data: data_03
+                        }];
+                    me.chart.updateOptions(me.chartOptions);  
+                } else {
+                    me.chartOptions = { 
+                        chart: {
+                            type: 'bar',
+                            height: 350,
+                            stacked: true,
+                            toolbar: {
+                                show: true
+                            },
+                            zoom: {
+                                enabled: true
+                            }
+                        },
+                        series: [{
+                            name: '광양',
+                            data: data_06
+                        }, {
+                            name: '양주',
+                            data: data_04
+                        }, {
+                            name: '인천',
+                            data: data_03
+                        }],
+                        xaxis: {
+                            type: 'datetime',
+                            categories: cat,
+                            tickPlacement: 'on'
+                        },
+                        plotOptions: {
+                            bar: {
+                                horizontal: false,
+                                dataLabels: {
+                                    total: {enabled: true},
+                                }
+                            },
+                        }, 
+                        dataLabels: {
+                            enabled: !$("body").hasClass("mobile"),  
+                        },
+                        colors:['#00357c', '#15715a', '#ff9100'],
+                        toolbar: {
+                            show: true,
+                            tools: {
+                                download: true,
+                                selection: true,
+                                zoom: true,
+                                zoomin: true,
+                                zoomout: true,
+                                pan: true,
+                                reset: true | '<img src="/static/icons/reset.png" width="20">',
+                                customIcons: []
+                            }
+                        }, 
+                    }
+                    
+                    me.chart = new ApexCharts(me.pageObj.chart.componentBody[0], me.chartOptions); 
+                    me.chart.render(); 
+                }
+
+                gfnStatus("달력을 다시 그리고 있습니다.", "잠시만 기다려주세요...");
+                var week_cnt = Math.ceil(dateDiff(date(args.from_dt,"yyyymmdd"),date(args.to_dt,"yyyymmdd"))/7) + 1;
+                if(week_cnt < 5) week_cnt = 5;
+                
+                me.list2data = [];
+                OUTVAR.list2.forEach(el=>{
+                    var row; //점별로 있으면 찾고 없으면 만들어준다.
+                    if(me.list2data.some(e=>e.ymd==el.dt_sale)) {
+                        row = me.list2data.find(e=>e.ymd==el.dt_sale);
+                    } else {
+                        row = {ymd:el.dt_sale}
+                        me.list2data.push(row);
+                    } 
+                    row["am_sale"] = nvl(row["am_sale"],0) + toNum(el.am_sale); 
+                    row["am_sale_"+el.cd_stor] = toNum(el.am_sale); 
+                });
+                /*
+                me.list2data.forEach(row=>{ 
+                    row["am_sale"]    = toNum(row["am_sale"]/1000000,0);
+                    row["am_sale_06"] = toNum(row["am_sale_06"]/1000000,0); 
+                    row["am_sale_04"] = toNum(row["am_sale_04"]/1000000,0); 
+                    row["am_sale_03"] = toNum(row["am_sale_03"]/1000000,0); 
+                })
+                */
+                
+                console.log(me.list2data);
+                
+                me.pageObj.list2.initCalendar(
+                    {
+                        start_dt:args.from_dt,
+                        week_cnt:week_cnt,
+                        fnTemplate:gfn.fnCalTemplate     
+                    },
+                    /* 재조회시 달력초기화 후 데이터 바인딩 */
+                    function(OUTVAR2,cal) { 
+                        
+                        console.log(OUTVAR2);
+                        console.log(cal);
+                        
+                        cal.importData(me.list2data); 
+                        
+                        cal.componentBody.find("tbody tr").each(function(idx,el){
+                            var am_sale = 0;
+                            var am_sale_06 = 0;
+                            var am_sale_04 = 0;
+                            var am_sale_03 = 0;
+                            $(el).children("td").each(function(jdx,ee){
+                                if( !isNull($(ee).children("#cont")) && !isNull($(ee).children("#cont").data("data")) ){
+                                    am_sale += nvl( toNum($(ee).children("#cont").data("data").am_sale) , 0); 
+                                    am_sale_06 += nvl( toNum($(ee).children("#cont").data("data").am_sale_06) , 0); 
+                                    am_sale_04 += nvl( toNum($(ee).children("#cont").data("data").am_sale_04) , 0); 
+                                    am_sale_03 += nvl( toNum($(ee).children("#cont").data("data").am_sale_03) , 0); 
+                                }
+                            });
+                            $(el).children("th").append(`<div id="cont">
+    <ul class='cal'>
+        <li class='am_sale'>${format(am_sale/1000000,0)}</li> 
+        <li class='am_sale_06'>${format(am_sale_06/1000000,0)}</li> 
+        <li class='am_sale_04'>${format(am_sale_04/1000000,0)}</li> 
+        <li class='am_sale_03'>${format(am_sale_03/1000000,0)}</li> 
+    </ul>
+</div>`);        
+                        }) 
+                    }
+                ); 
+            } else {
+                gfnAlert("오류",OUTVAR.rtnMsg);
+                console.log(OUTVAR);
+            }
+        });
+    }    
+    
+    
+    
+    
+
+/*-- SCRIPT autogen ---------------------------------------------------- */        
+if(typeof(me.fnInit)=='function') me.fnInit();
+});
+
+</script>

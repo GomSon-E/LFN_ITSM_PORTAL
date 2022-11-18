@@ -1,0 +1,1099 @@
+<style>[pgmid='GIorder'].framepage .contentClosed { 
+    flex: none !important;
+}</style>
+
+<!-- HTML autogen start ---------------------------------------------- -->            
+<div class="pageNav"></div>
+<div class="pageTop"></div>
+<div class="pageCond"></div>
+<div class="pageGuide"></div>
+<div class="pageContent flexColumn">
+    <div id='list' style="flex:1 1 50%"></div> 
+        <div class="flexRow">
+            <div id='listMst' style="flex:1 1 calc(50% - 3em)" class="flexColumn"></div>         
+            <div style="flex:1 1 50%" class="flexColumn">
+                <div id='mst'></div>
+                <div id='det'></div> 
+            </div>
+        </div> 
+</div>
+<div class = "barcode" style="display:none">
+<!-- HTML autogen end ---------------------------------------------- -->
+<script>
+/*-- SCRIPT autogen start ---------------------------------------------- */        
+$(function() {
+    var appid = "fo_lg";
+    var pgmid = "GIorder"; 
+    var page = $("*[pgmid='"+pgmid+"'].framepage").last();
+    var pageid = page.attr("id"); 
+    var me = {}
+    var dataSet = {};
+    var dataDef = {};
+    var pageObj = {};
+    var bEdit = false;
+    me.fnInit = function() {
+        gfn[pageid] = me; 
+        me.appid    = appid;
+        me.pgmid    = pgmid;
+        me.pageid   = pageid;
+        me.page     = page; 
+        me.dataSet = dataSet;
+        me.dataDef = dataDef;
+        me.pageObj = pageObj;
+        me.bEdit = bEdit;
+me.dataDef["_pgm"]={"ver":4.3,"upd_dt":"2022-06-13 15:43:38","remark":"출하배분요청내역을 조회하여 확정함","pgmid":"GIorder","proc_mst_id":"","pgm_stat":"Y","sort_seq":20,"app_pgmid":"fo_lg","shortcut":"","reg_dt":"2022-06-13 15:43:38","reg_usid":"jjr","pgm_nm":"●출고주문마감","upd_usid":"jjr","pgm_tp":"UX","pgm_grp_nm":"출고","proc_mst_nm":"","app_pgm_nm":"물류","":"트랜젝션(메뉴)","crud":""};
+me.dataDef["_pgm_func"]=[{"func_icon":"fas fa-search","reg_dt":"2022-06-13 15:43:38","reg_usid":"","func_nm":"조회","upd_usid":"","upd_dt":"2022-06-13 15:43:38","func_tp":"DB_R","remark":null,"pgmid":"GIorder","sort_seq":"1","funcid":"search","content":"요청내역 및 마감목록 조회","crud":"R","id":"0"},{"func_icon":"fas fa-save","reg_dt":"2022-06-13 15:43:38","reg_usid":"","func_nm":"접수(마감)","upd_usid":"","upd_dt":"2022-06-13 15:43:38","func_tp":"DB_W","remark":null,"pgmid":"GIorder","sort_seq":"2","funcid":"save","content":"선택된 요청건을 접수합니다. 출고전표가 생성됩니다.(임시저장상태)","crud":"R","id":"1"},{"func_icon":"fas fa-trash","reg_dt":"2022-06-13 15:43:38","reg_usid":"","func_nm":"접수취소","upd_usid":"","upd_dt":"2022-06-13 15:43:38","func_tp":"DB_W","remark":null,"pgmid":"GIorder","sort_seq":"3","funcid":"cancel","content":"접수된 출고건을 취소합니다.(출고전표 삭제)","crud":"R","id":"2"},{"func_icon":"fas fa-print","reg_dt":"2022-06-13 15:43:38","reg_usid":"","func_nm":"패킹라벨","upd_usid":"","upd_dt":"2022-06-13 15:43:38","func_tp":"EH","remark":null,"pgmid":"GIorder","sort_seq":"4","funcid":"print2","content":"박스배분건 패킹라벨을 발행합니다.","crud":"R","id":"3"},{"func_icon":"fas fa-print","reg_dt":"2022-06-13 15:43:38","reg_usid":"","func_nm":"피킹지시서","upd_usid":"","upd_dt":"2022-06-13 15:43:38","func_tp":"EH","remark":null,"pgmid":"GIorder","sort_seq":"5","funcid":"print","content":"출고접수건의 피킹목록을 발행합니다.","crud":"R","id":"4"}];
+me.dataDef["_pgm_data"] = {};
+me.dataDef["_pgm_data"]["pageCond"]={"sort_seq":"1","data_id":"pageCond","data_nm":"조회조건","data_icon":null,"component_pgmid":"aweForm","component_option":null,"inout_tp":null,"content":[{"sort_seq":1,"section":null,"section_icon":null,"colgrp":null,"colid":"whcd","colnm":"물류센터","dtype":"text","etype":"sel","attr":"pk","defval":"C0001","w":null,"h":null,"refcd":"whcd","option":"sel:whcd::cdnm","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"0"},{"sort_seq":2,"section":null,"section_icon":null,"colgrp":null,"colid":"dist_nm","colnm":"요청명","dtype":"text","etype":"txt","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"1"},{"sort_seq":3,"section":null,"section_icon":null,"colgrp":null,"colid":"dist_tp","colnm":"요청구분","dtype":"text","etype":"sel","attr":null,"defval":null,"w":null,"h":null,"refcd":"LG_TP_I","option":"all:dist_tp::cdnm","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"2"},{"sort_seq":4,"section":null,"section_icon":null,"colgrp":"요청일","colid":"dist_dt_from","colnm":"요청일From","dtype":"ymd","etype":"txt","attr":"ymd","defval":"date(\"1st\")","w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"3"},{"sort_seq":5,"section":null,"section_icon":null,"colgrp":"요청일","colid":"dist_dt_to","colnm":"요청일To","dtype":"ymd","etype":"txt","attr":"ymd","defval":"date(\"today\")","w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"4"},{"sort_seq":6,"section":null,"section_icon":null,"colgrp":"출고일","colid":"gi_dt_from","colnm":"출고일From","dtype":"ymd","etype":"txt","attr":"ymd","defval":"date(\"today\")","w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"5"},{"sort_seq":7,"section":null,"section_icon":null,"colgrp":"출고일","colid":"gi_dt_to","colnm":"출고일To","dtype":"ymd","etype":"txt","attr":"ymd","defval":"date(\"last\")","w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"6"},{"sort_seq":8,"section":null,"section_icon":null,"colgrp":null,"colid":"accept_cfm_yn","colnm":"마감여부","dtype":"text","etype":"sel","attr":null,"defval":null,"w":null,"h":null,"refcd":"ACCEPT_CFM_YN","option":"all:accept_cfm_yn","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"7"}]};
+me.dataDef["_pgm_data"]["list"]={"sort_seq":"2","data_id":"list","data_nm":"출고요청내역","data_icon":null,"component_pgmid":"agGrid","component_option":{"gridOpt":"chk"},"inout_tp":null,"content":[{"sort_seq":1,"section":null,"section_icon":null,"colgrp":"요청정보","colid":"dist_no","colnm":"주문번호","dtype":"text","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"0"},{"sort_seq":2,"section":null,"section_icon":null,"colgrp":"요청정보","colid":"dist_nm","colnm":"주문명","dtype":"text","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"1"},{"sort_seq":3,"section":null,"section_icon":null,"colgrp":"요청정보","colid":"dist_tp","colnm":"출고구분","dtype":"text","etype":"sel","attr":"readonly","defval":null,"w":null,"h":null,"refcd":"LG_TP_I","option":"sel:dist_tp::cdnm","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"2"},{"sort_seq":4,"section":null,"section_icon":null,"colgrp":"요청정보","colid":"stat_cd","colnm":"출고차수","dtype":"text","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"3"},{"sort_seq":5,"section":null,"section_icon":null,"colgrp":"요청정보","colid":"dist_dt","colnm":"등록일","dtype":"ymd","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"4"},{"sort_seq":6,"section":null,"section_icon":null,"colgrp":"요청정보","colid":"dist_usid","colnm":"요청자","dtype":"text","etype":"sel","attr":"readonly","defval":null,"w":null,"h":null,"refcd":"USID","option":"sel:dist_usid::cdnm","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"5"},{"sort_seq":7,"section":null,"section_icon":null,"colgrp":"요청정보","colid":"gi_dt","colnm":"출고(희망)일","dtype":"ymd","etype":"raw","attr":"keycol","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"6"},{"sort_seq":8,"section":null,"section_icon":null,"colgrp":"요청정보","colid":"st_cnt","colnm":"스타일수","dtype":"num","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"7"},{"sort_seq":9,"section":null,"section_icon":null,"colgrp":"요청정보","colid":"box_cnt","colnm":"패킹수","dtype":"num","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"8"},{"sort_seq":10,"section":null,"section_icon":null,"colgrp":"요청정보","colid":"qty","colnm":"요청량","dtype":"num","etype":"raw","attr":"keycol","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"9"},{"sort_seq":11,"section":null,"section_icon":null,"colgrp":"매장별 출고요청량","colid":"lf001","colnm":"가산","dtype":"num","etype":"raw","attr":null,"defval":null,"w":"3","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"10"},{"sort_seq":12,"section":null,"section_icon":null,"colgrp":"매장별 출고요청량","colid":"lf002","colnm":"대전","dtype":"num","etype":"raw","attr":null,"defval":null,"w":"3","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"11"},{"sort_seq":13,"section":null,"section_icon":null,"colgrp":"매장별 출고요청량","colid":"lf003","colnm":"봉담","dtype":"num","etype":"raw","attr":null,"defval":null,"w":"3","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"12"},{"sort_seq":14,"section":null,"section_icon":null,"colgrp":"매장별 출고요청량","colid":"lf004","colnm":"시흥","dtype":"num","etype":"raw","attr":null,"defval":null,"w":"3","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"13"},{"sort_seq":15,"section":null,"section_icon":null,"colgrp":"매장별 출고요청량","colid":"lf005","colnm":"안산","dtype":"num","etype":"raw","attr":null,"defval":null,"w":"3","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"14"},{"sort_seq":16,"section":null,"section_icon":null,"colgrp":"매장별 출고요청량","colid":"lf006","colnm":"역삼","dtype":"num","etype":"raw","attr":null,"defval":null,"w":"3","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"15"},{"sort_seq":17,"section":null,"section_icon":null,"colgrp":"매장별 출고요청량","colid":"lf007","colnm":"용인","dtype":"num","etype":"raw","attr":null,"defval":null,"w":"3","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"16"},{"sort_seq":18,"section":null,"section_icon":null,"colgrp":"매장별 출고요청량","colid":"lf008","colnm":"인천","dtype":"num","etype":"raw","attr":null,"defval":null,"w":"3","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"17"},{"sort_seq":19,"section":null,"section_icon":null,"colgrp":"매장별 출고요청량","colid":"lf009","colnm":"일산","dtype":"num","etype":"raw","attr":null,"defval":null,"w":"3","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"18"},{"sort_seq":20,"section":null,"section_icon":null,"colgrp":"매장별 출고요청량","colid":"lf010","colnm":"천안","dtype":"num","etype":"raw","attr":null,"defval":null,"w":"3","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"19"},{"sort_seq":21,"section":null,"section_icon":null,"colgrp":"매장별 출고요청량","colid":"lf011","colnm":"청주","dtype":"num","etype":"raw","attr":null,"defval":null,"w":"3","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"20"},{"sort_seq":22,"section":null,"section_icon":null,"colgrp":"매장별 출고요청량","colid":"lf012","colnm":"하남","dtype":"num","etype":"raw","attr":null,"defval":null,"w":"3","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"21"},{"sort_seq":23,"section":null,"section_icon":null,"colgrp":"매장별 출고요청량","colid":"lf013","colnm":"양주","dtype":"num","etype":"raw","attr":null,"defval":null,"w":"3","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"48"},{"sort_seq":24,"section":null,"section_icon":null,"colgrp":"매장별 출고요청량","colid":"lf014","colnm":"남양주","dtype":"num","etype":"raw","attr":null,"defval":null,"w":"3","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"47"},{"sort_seq":25,"section":null,"section_icon":null,"colgrp":"매장별 출고요청량","colid":"lf501","colnm":"신규1","dtype":"num","etype":"raw","attr":null,"defval":null,"w":"3","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"22"},{"sort_seq":26,"section":null,"section_icon":null,"colgrp":"매장별 출고요청량","colid":"lf502","colnm":"신규2","dtype":"num","etype":"raw","attr":null,"defval":null,"w":"3","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"23"},{"sort_seq":27,"section":null,"section_icon":null,"colgrp":"매장별 출고요청량","colid":"lf503","colnm":"신규3","dtype":"num","etype":"raw","attr":null,"defval":null,"w":"3","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"24"},{"sort_seq":28,"section":null,"section_icon":null,"colgrp":"온라인","colid":"lf101","colnm":"온라인","dtype":"num","etype":"raw","attr":null,"defval":null,"w":"3","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"25"},{"sort_seq":29,"section":null,"section_icon":null,"colgrp":"특판","colid":"lf201","colnm":"특판직영","dtype":"num","etype":"raw","attr":null,"defval":null,"w":"3","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"26"},{"sort_seq":30,"section":null,"section_icon":null,"colgrp":"특판","colid":"lf202","colnm":"특판직영2","dtype":"num","etype":"raw","attr":null,"defval":null,"w":"3","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"27"},{"sort_seq":31,"section":null,"section_icon":null,"colgrp":"특판","colid":"lf203","colnm":"특판직영3","dtype":"num","etype":"raw","attr":null,"defval":null,"w":"3","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"28"},{"sort_seq":32,"section":null,"section_icon":null,"colgrp":"매장행사","colid":"lf301","colnm":"가산행사","dtype":"num","etype":"raw","attr":null,"defval":null,"w":"3","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"29"},{"sort_seq":33,"section":null,"section_icon":null,"colgrp":"매장행사","colid":"lf302","colnm":"대전행사","dtype":"num","etype":"raw","attr":null,"defval":null,"w":"3","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"30"},{"sort_seq":34,"section":null,"section_icon":null,"colgrp":"매장행사","colid":"lf303","colnm":"봉담행사","dtype":"num","etype":"raw","attr":null,"defval":null,"w":"3","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"31"},{"sort_seq":35,"section":null,"section_icon":null,"colgrp":"매장행사","colid":"lf304","colnm":"시흥행사","dtype":"num","etype":"raw","attr":null,"defval":null,"w":"3","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"32"},{"sort_seq":36,"section":null,"section_icon":null,"colgrp":"매장행사","colid":"lf305","colnm":"안산행사","dtype":"num","etype":"raw","attr":null,"defval":null,"w":"3","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"33"},{"sort_seq":37,"section":null,"section_icon":null,"colgrp":"매장행사","colid":"lf311","colnm":"청주행사","dtype":"num","etype":"raw","attr":null,"defval":null,"w":"3","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"34"},{"sort_seq":38,"section":null,"section_icon":null,"colgrp":"매장행사","colid":"lf312","colnm":"하남행사","dtype":"num","etype":"raw","attr":null,"defval":null,"w":"3","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"35"},{"sort_seq":39,"section":null,"section_icon":null,"colgrp":"매장행사","colid":"lf306","colnm":"역삼행사","dtype":"num","etype":"raw","attr":null,"defval":null,"w":"3","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"36"},{"sort_seq":40,"section":null,"section_icon":null,"colgrp":"매장행사","colid":"lf307","colnm":"용인행사","dtype":"num","etype":"raw","attr":null,"defval":null,"w":"3","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"37"},{"sort_seq":41,"section":null,"section_icon":null,"colgrp":"매장행사","colid":"lf308","colnm":"인천행사","dtype":"num","etype":"raw","attr":null,"defval":null,"w":"3","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"38"},{"sort_seq":42,"section":null,"section_icon":null,"colgrp":"매장행사","colid":"lf309","colnm":"일산행사","dtype":"num","etype":"raw","attr":null,"defval":null,"w":"3","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"39"},{"sort_seq":43,"section":null,"section_icon":null,"colgrp":"매장행사","colid":"lf310","colnm":"천안행사","dtype":"num","etype":"raw","attr":null,"defval":null,"w":"3","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"40"},{"sort_seq":44,"section":null,"section_icon":null,"colgrp":"매장행사","colid":"lf311","colnm":"청주행사","dtype":"num","etype":"raw","attr":null,"defval":null,"w":"3","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"41"},{"sort_seq":45,"section":null,"section_icon":null,"colgrp":"매장행사","colid":"lf312","colnm":"하남행사","dtype":"num","etype":"raw","attr":null,"defval":null,"w":"3","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"42"},{"sort_seq":46,"section":null,"section_icon":null,"colgrp":"본사","colid":"lf400","colnm":"본사","dtype":"num","etype":"raw","attr":null,"defval":null,"w":"3","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"43"},{"sort_seq":47,"section":null,"section_icon":null,"colgrp":"물류센터","colid":"c0000","colnm":"창고","dtype":"num","etype":"raw","attr":null,"defval":null,"w":"3","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"44"},{"sort_seq":48,"section":null,"section_icon":null,"colgrp":"물류센터","colid":"e0000","colnm":"반품물류","dtype":"num","etype":"raw","attr":null,"defval":null,"w":"3","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"45"},{"sort_seq":49,"section":null,"section_icon":null,"colgrp":"폐점","colid":"z0000","colnm":"폐점매장","dtype":"num","etype":"raw","attr":null,"defval":null,"w":"3","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"46"}]};
+me.dataDef["_pgm_data"]["listMst"]={"sort_seq":"3","data_id":"listMst","data_nm":"출고마감/피킹지시 이력","data_icon":null,"component_pgmid":"agGrid","component_option":null,"inout_tp":null,"content":[{"sort_seq":1,"section":null,"section_icon":null,"colgrp":"요청정보","colid":"dist_no","colnm":"주문번호","dtype":"text","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"0"},{"sort_seq":2,"section":null,"section_icon":null,"colgrp":"요청정보","colid":"dist_nm","colnm":"주문명","dtype":"text","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"1"},{"sort_seq":3,"section":null,"section_icon":null,"colgrp":"요청정보","colid":"dist_tp","colnm":"출고구분","dtype":"text","etype":"sel","attr":"readonly","defval":null,"w":null,"h":null,"refcd":"LG_TP_I","option":"sel:dist_tp::cdnm","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"2"},{"sort_seq":4,"section":null,"section_icon":null,"colgrp":"요청정보","colid":"stat_cd","colnm":"출고차수","dtype":"text","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"3"},{"sort_seq":5,"section":null,"section_icon":null,"colgrp":"요청정보","colid":"dist_dt","colnm":"등록일","dtype":"ymd","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"4"},{"sort_seq":6,"section":null,"section_icon":null,"colgrp":"요청정보","colid":"dist_usid","colnm":"요청자","dtype":"text","etype":"sel","attr":"readonly","defval":null,"w":null,"h":null,"refcd":"USID","option":"sel:dist_usid::cdnm","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"5"},{"sort_seq":7,"section":null,"section_icon":null,"colgrp":"요청정보","colid":"gi_dt","colnm":"출고(희망)일","dtype":"ymd","etype":"raw","attr":"keycol","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"6"},{"sort_seq":8,"section":null,"section_icon":null,"colgrp":"접수정보","colid":"rcv_dt","colnm":"접수일","dtype":"ymd","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"7"},{"sort_seq":9,"section":null,"section_icon":null,"colgrp":"접수정보","colid":"rcv_usid","colnm":"담당자","dtype":"text","etype":"sel","attr":"readonly","defval":null,"w":null,"h":null,"refcd":"USID","option":"sel:rcv_usid::cdnm","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"8"},{"sort_seq":10,"section":null,"section_icon":null,"colgrp":"접수정보","colid":"accept_cfm_yn","colnm":"접수마감여부","dtype":"text","etype":"sel","attr":"readonly","defval":null,"w":null,"h":null,"refcd":"ACCEPT_CFM_YN","option":"sel:accept_cfm_yn","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"9"},{"sort_seq":11,"section":null,"section_icon":null,"colgrp":"접수정보","colid":"st_cnt","colnm":"스타일수","dtype":"num","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"10"},{"sort_seq":12,"section":null,"section_icon":null,"colgrp":"접수정보","colid":"box_cnt","colnm":"패킹수","dtype":"num","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"11"},{"sort_seq":13,"section":null,"section_icon":null,"colgrp":"접수정보","colid":"qty","colnm":"요청량","dtype":"num","etype":"raw","attr":"keycol","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"12"},{"sort_seq":14,"section":null,"section_icon":null,"colgrp":"매장별 출고요청량","colid":"lf001","colnm":"가산","dtype":"num","etype":"raw","attr":null,"defval":null,"w":"3","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"13"},{"sort_seq":15,"section":null,"section_icon":null,"colgrp":"매장별 출고요청량","colid":"lf002","colnm":"대전","dtype":"num","etype":"raw","attr":null,"defval":null,"w":"3","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"14"},{"sort_seq":16,"section":null,"section_icon":null,"colgrp":"매장별 출고요청량","colid":"lf003","colnm":"봉담","dtype":"num","etype":"raw","attr":null,"defval":null,"w":"3","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"15"},{"sort_seq":17,"section":null,"section_icon":null,"colgrp":"매장별 출고요청량","colid":"lf004","colnm":"시흥","dtype":"num","etype":"raw","attr":null,"defval":null,"w":"3","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"16"},{"sort_seq":18,"section":null,"section_icon":null,"colgrp":"매장별 출고요청량","colid":"lf005","colnm":"안산","dtype":"num","etype":"raw","attr":null,"defval":null,"w":"3","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"17"},{"sort_seq":19,"section":null,"section_icon":null,"colgrp":"매장별 출고요청량","colid":"lf006","colnm":"역삼","dtype":"num","etype":"raw","attr":null,"defval":null,"w":"3","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"18"},{"sort_seq":20,"section":null,"section_icon":null,"colgrp":"매장별 출고요청량","colid":"lf007","colnm":"용인","dtype":"num","etype":"raw","attr":null,"defval":null,"w":"3","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"19"},{"sort_seq":21,"section":null,"section_icon":null,"colgrp":"매장별 출고요청량","colid":"lf008","colnm":"인천","dtype":"num","etype":"raw","attr":null,"defval":null,"w":"3","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"20"},{"sort_seq":22,"section":null,"section_icon":null,"colgrp":"매장별 출고요청량","colid":"lf009","colnm":"일산","dtype":"num","etype":"raw","attr":null,"defval":null,"w":"3","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"21"},{"sort_seq":23,"section":null,"section_icon":null,"colgrp":"매장별 출고요청량","colid":"lf010","colnm":"천안","dtype":"num","etype":"raw","attr":null,"defval":null,"w":"3","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"22"},{"sort_seq":24,"section":null,"section_icon":null,"colgrp":"매장별 출고요청량","colid":"lf011","colnm":"청주","dtype":"num","etype":"raw","attr":null,"defval":null,"w":"3","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"23"},{"sort_seq":25,"section":null,"section_icon":null,"colgrp":"매장별 출고요청량","colid":"lf012","colnm":"하남","dtype":"num","etype":"raw","attr":null,"defval":null,"w":"3","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"24"},{"sort_seq":26,"section":null,"section_icon":null,"colgrp":"매장별 출고요청량","colid":"lf013","colnm":"양주","dtype":"num","etype":"raw","attr":null,"defval":null,"w":"3","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"51"},{"sort_seq":27,"section":null,"section_icon":null,"colgrp":"매장별 출고요청량","colid":"lf014","colnm":"남양주","dtype":"num","etype":"raw","attr":null,"defval":null,"w":"3","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"50"},{"sort_seq":28,"section":null,"section_icon":null,"colgrp":"매장별 출고요청량","colid":"lf501","colnm":"신규1","dtype":"num","etype":"raw","attr":null,"defval":null,"w":"3","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"25"},{"sort_seq":29,"section":null,"section_icon":null,"colgrp":"매장별 출고요청량","colid":"lf502","colnm":"신규2","dtype":"num","etype":"raw","attr":null,"defval":null,"w":"3","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"26"},{"sort_seq":30,"section":null,"section_icon":null,"colgrp":"매장별 출고요청량","colid":"lf503","colnm":"신규3","dtype":"num","etype":"raw","attr":null,"defval":null,"w":"3","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"27"},{"sort_seq":31,"section":null,"section_icon":null,"colgrp":"온라인","colid":"lf101","colnm":"온라인","dtype":"num","etype":"raw","attr":null,"defval":null,"w":"3","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"28"},{"sort_seq":32,"section":null,"section_icon":null,"colgrp":"특판","colid":"lf201","colnm":"특판직영","dtype":"num","etype":"raw","attr":null,"defval":null,"w":"3","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"29"},{"sort_seq":33,"section":null,"section_icon":null,"colgrp":"특판","colid":"lf202","colnm":"특판직영2","dtype":"num","etype":"raw","attr":null,"defval":null,"w":"3","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"30"},{"sort_seq":34,"section":null,"section_icon":null,"colgrp":"특판","colid":"lf203","colnm":"특판직영3","dtype":"num","etype":"raw","attr":null,"defval":null,"w":"3","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"31"},{"sort_seq":35,"section":null,"section_icon":null,"colgrp":"매장행사","colid":"lf301","colnm":"가산행사","dtype":"num","etype":"raw","attr":null,"defval":null,"w":"3","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"32"},{"sort_seq":36,"section":null,"section_icon":null,"colgrp":"매장행사","colid":"lf302","colnm":"대전행사","dtype":"num","etype":"raw","attr":null,"defval":null,"w":"3","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"33"},{"sort_seq":37,"section":null,"section_icon":null,"colgrp":"매장행사","colid":"lf303","colnm":"봉담행사","dtype":"num","etype":"raw","attr":null,"defval":null,"w":"3","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"34"},{"sort_seq":38,"section":null,"section_icon":null,"colgrp":"매장행사","colid":"lf304","colnm":"시흥행사","dtype":"num","etype":"raw","attr":null,"defval":null,"w":"3","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"35"},{"sort_seq":39,"section":null,"section_icon":null,"colgrp":"매장행사","colid":"lf305","colnm":"안산행사","dtype":"num","etype":"raw","attr":null,"defval":null,"w":"3","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"36"},{"sort_seq":40,"section":null,"section_icon":null,"colgrp":"매장행사","colid":"lf311","colnm":"청주행사","dtype":"num","etype":"raw","attr":null,"defval":null,"w":"3","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"37"},{"sort_seq":41,"section":null,"section_icon":null,"colgrp":"매장행사","colid":"lf312","colnm":"하남행사","dtype":"num","etype":"raw","attr":null,"defval":null,"w":"3","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"38"},{"sort_seq":42,"section":null,"section_icon":null,"colgrp":"매장행사","colid":"lf306","colnm":"역삼행사","dtype":"num","etype":"raw","attr":null,"defval":null,"w":"3","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"39"},{"sort_seq":43,"section":null,"section_icon":null,"colgrp":"매장행사","colid":"lf307","colnm":"용인행사","dtype":"num","etype":"raw","attr":null,"defval":null,"w":"3","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"40"},{"sort_seq":44,"section":null,"section_icon":null,"colgrp":"매장행사","colid":"lf308","colnm":"인천행사","dtype":"num","etype":"raw","attr":null,"defval":null,"w":"3","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"41"},{"sort_seq":45,"section":null,"section_icon":null,"colgrp":"매장행사","colid":"lf309","colnm":"일산행사","dtype":"num","etype":"raw","attr":null,"defval":null,"w":"3","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"42"},{"sort_seq":46,"section":null,"section_icon":null,"colgrp":"매장행사","colid":"lf310","colnm":"천안행사","dtype":"num","etype":"raw","attr":null,"defval":null,"w":"3","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"43"},{"sort_seq":47,"section":null,"section_icon":null,"colgrp":"매장행사","colid":"lf311","colnm":"청주행사","dtype":"num","etype":"raw","attr":null,"defval":null,"w":"3","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"44"},{"sort_seq":48,"section":null,"section_icon":null,"colgrp":"매장행사","colid":"lf312","colnm":"하남행사","dtype":"num","etype":"raw","attr":null,"defval":null,"w":"3","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"45"},{"sort_seq":49,"section":null,"section_icon":null,"colgrp":"본사","colid":"lf400","colnm":"본사","dtype":"num","etype":"raw","attr":null,"defval":null,"w":"3","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"46"},{"sort_seq":50,"section":null,"section_icon":null,"colgrp":"물류센터","colid":"c0000","colnm":"창고","dtype":"num","etype":"raw","attr":null,"defval":null,"w":"3","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"47"},{"sort_seq":51,"section":null,"section_icon":null,"colgrp":"물류센터","colid":"e0000","colnm":"반품물류","dtype":"num","etype":"raw","attr":null,"defval":null,"w":"3","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"48"},{"sort_seq":52,"section":null,"section_icon":null,"colgrp":"폐점","colid":"z0000","colnm":"폐점매장","dtype":"num","etype":"raw","attr":null,"defval":null,"w":"3","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"49"}]};
+me.dataDef["_pgm_data"]["mst"]={"sort_seq":"4","data_id":"mst","data_nm":"출고마감/피킹지시","data_icon":null,"component_pgmid":"aweForm","component_option":null,"inout_tp":null,"content":[{"sort_seq":1,"section":null,"section_icon":null,"colgrp":null,"colid":"dist_no","colnm":"배분번호","dtype":"text","etype":"raw","attr":"keycol","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"0"},{"sort_seq":2,"section":null,"section_icon":null,"colgrp":null,"colid":"dist_nm","colnm":"배분명","dtype":"text","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"1"},{"sort_seq":3,"section":null,"section_icon":null,"colgrp":null,"colid":"dist_tp","colnm":"구분","dtype":"text","etype":"sel","attr":"readonly","defval":null,"w":null,"h":null,"refcd":"LG_TP_I","option":"sel:lg_tp_i::cdnm","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"2"},{"sort_seq":4,"section":null,"section_icon":null,"colgrp":null,"colid":"stat_cd","colnm":"출고차수","dtype":"text","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"3"},{"sort_seq":5,"section":null,"section_icon":null,"colgrp":null,"colid":"dist_dt","colnm":"요청일","dtype":"ymd","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"4"},{"sort_seq":6,"section":null,"section_icon":null,"colgrp":null,"colid":"dist_usid","colnm":"요청자","dtype":"text","etype":"sel","attr":"readonly","defval":null,"w":null,"h":null,"refcd":"USID","option":"sel:dist_usid::cdnm","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"5"},{"sort_seq":7,"section":null,"section_icon":null,"colgrp":null,"colid":"gi_dt","colnm":"출고(희망)일","dtype":"ymd","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"6"},{"sort_seq":8,"section":null,"section_icon":null,"colgrp":null,"colid":"gi_whcd","colnm":"출고창고","dtype":"text","etype":"sel","attr":"readonly","defval":null,"w":null,"h":null,"refcd":"whcd","option":"sel:gi_whcd::cdnm","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"7"},{"sort_seq":9,"section":null,"section_icon":null,"colgrp":null,"colid":"rcv_dt","colnm":"접수일","dtype":"ymd","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"8"},{"sort_seq":10,"section":null,"section_icon":null,"colgrp":null,"colid":"rcv_usid","colnm":"담당자","dtype":"text","etype":"sel","attr":"readonly","defval":null,"w":null,"h":null,"refcd":"USID","option":"sel:rcv_usid::cdnm","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"9"},{"sort_seq":11,"section":null,"section_icon":null,"colgrp":null,"colid":"cd_stat","colnm":"영업확정","dtype":"text","etype":"sel","attr":"readonly ","defval":null,"w":null,"h":null,"refcd":"SD_ORD_STAT","option":"sel:cd_stat::cdnm","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"10"},{"sort_seq":12,"section":null,"section_icon":null,"colgrp":null,"colid":"accept_cfm_yn","colnm":"접수마감","dtype":"text","etype":"sel","attr":"readonly","defval":null,"w":null,"h":null,"refcd":"ACCEPT_CFM_YN","option":"sel:accept_cfm_yn","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"11"},{"sort_seq":13,"section":null,"section_icon":null,"colgrp":null,"colid":"remark","colnm":"비고","dtype":"text","etype":"txt","attr":null,"defval":null,"w":"20","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"12"}]};
+me.dataDef["_pgm_data"]["det"]={"sort_seq":"5","data_id":"det","data_nm":"매장별 출고요청내역","data_icon":null,"component_pgmid":"agGrid","component_option":null,"inout_tp":null,"content":[{"sort_seq":1,"section":null,"section_icon":null,"colgrp":null,"colid":"lg_ord_no","colnm":"출고번호","dtype":"text","etype":"raw","attr":null,"defval":null,"w":"12","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"0"},{"sort_seq":2,"section":null,"section_icon":null,"colgrp":null,"colid":"cd_stat","colnm":"상태","dtype":"text","etype":"sel","attr":"readonly","defval":null,"w":null,"h":null,"refcd":"LG_ORD_STAT","option":"sel:cd_stat::cdnm","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"1"},{"sort_seq":3,"section":null,"section_icon":null,"colgrp":null,"colid":"to_whcd","colnm":"매장","dtype":"text","etype":"sel","attr":"readonly","defval":null,"w":null,"h":null,"refcd":"whcd","option":"sel:to_whcd::cdnm","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"2"},{"sort_seq":4,"section":null,"section_icon":null,"colgrp":null,"colid":"box_cnt","colnm":"패킹수","dtype":"num","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"3"},{"sort_seq":5,"section":null,"section_icon":null,"colgrp":null,"colid":"goods_cnt","colnm":"상품수","dtype":"num","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"4"},{"sort_seq":6,"section":null,"section_icon":null,"colgrp":null,"colid":"qty","colnm":"수량","dtype":"num","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"5"},{"sort_seq":7,"section":null,"section_icon":null,"colgrp":null,"colid":"remark","colnm":"비고","dtype":"text","etype":"txt","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"6"}]};
+
+        me.pageObj["_page"] = new gfnFramepage( me ); 
+        for(var component_id in me.dataDef["_pgm_data"]) { 
+            me.pageObj[component_id] = new gfnComponent( me.pageid, component_id, me.dataDef["_pgm_data"][component_id], me.fnEH, me); 
+        }  
+        setTimeout(function(){
+            $("#frameset").scrollTo(0); //스크롤 
+        },10);
+        if(typeof(me.fnInitExtra)=='function') me.fnInitExtra(); 
+    } 
+/*-- SCRIPT autogen end ---------------------------------------------- */
+
+    /* 사용자초기화 */
+    me.fnInitExtra=function() {
+        //탭 설정
+        gfnTab(pageid, "tabs"); 
+        //사용자 컴포넌트 
+        //me.dataDef["_pgm_data"][myCompoId] = {...};
+        //me.pageObj["myCompoId"] = new gfnComponent( me.pageid, myCompoId, me.dataDef["_pgm_data"][myCompoId], me.fnEH, me); 
+        //me.pageObj["myCompoId"].userComponent = "myCompoId";
+        //사용자 컨트롤
+        //var myColinfo = {colid:...}
+        //me.pageObj["myColId"] = new gfnControl(myColinfo, me.fnEH) 
+        //me.page.find("#myCol").append(me.pageObj["myColId"].dispObj);
+        //me.pageObj["myColId"].getVal(); / myCol.setVal(val);...    
+    }
+    /* 이벤트핸들러 */
+    me.fnEH=function(component, evt, row, col, val) { 
+        //console.log(evt+","+row+","+col+","+val);
+        //화면기능버튼이 눌리면 
+        if (component==me.pageObj["_pageFunc"]){ 
+            if(typeof(me[col])=='function') me[col](); //col=기능명 me["fnSearch"]()=me.fnSearch(); 
+        }
+        //pageCond:조회조건 이벤트처리     
+        else if(component==me.pageObj["list"]) {
+            if(evt=="focus") {
+                component.total("top");
+            } 
+        }
+
+        //listMst:마감목록 이벤트처리     
+        else if(component==me.pageObj["listMst"]) {
+            if(evt=="focus") {
+                if(row >= 0) {
+                    var dist_no = component.getVal(row,"dist_no"); 
+                    me.fnSearchMst(dist_no);
+                }
+            }
+            //if(evt=="change" && col=="colid") {...}
+        }
+
+        //mst:출고주문내역 이벤트처리     
+        else if(component==me.pageObj["mst"]) { 
+        }
+
+        //det:상세내역 이벤트처리     
+        else if(component==me.pageObj["det"]) {
+            if(evt=="componentFunc") {
+                if(row=="addRow") {
+                    component.addRow();
+                } else if(row=="delRow") {
+                    component.delRow();
+                }
+            }
+            //if(evt=="change" && col=="colid") {...}
+        } 
+    } 
+    
+    //search:조회 
+    me.fnSearch=function() {
+        if( !me.pageObj["pageCond"].chkValid() ) return;
+        var args = me.pageObj["pageCond"].exportData()[0];
+        //console.log(args);
+        var invar = JSON.stringify(args);
+        gfnTx(appid+"."+pgmid,"search",{INVAR:invar},function(OUTVAR){
+            //console.log(OUTVAR);
+            if(OUTVAR.rtnCd=="OK") {
+                me.pageObj["list"].importData(OUTVAR.list);
+                me.pageObj.list.total("top");
+                me.pageObj["listMst"].importData(OUTVAR.listMst);
+                me.pageObj.listMst.total("top");
+            } else {
+                gfnAlert("조회오류",OUTVAR.rtnMsg);
+            }
+        });
+    }
+
+    //save:접수마감 
+    me.fnSave=function() {
+        //Validation
+        var list = me.pageObj.list.exportData("selected");
+        if(list.length == 0) {
+            gfnAlert("접수마감저장 확인","접수요청목록에서 선택된 건이 없습니다.");
+            return;
+        }
+        for(var i=0; i < list.length; i++) {
+            if(list[i].accept_cfm_yn == "Y") {
+                gfnAlert("마감확인", list[i].dist_no+"는 이미 마감확정된 건입니다.");
+                return false;
+            }
+            /*
+            if(list[i].qty > list[i].avail_qty) {
+                gfnStatus(list[i].dist_no+" - "+ list[i].stcd+"는 가용재고가 부족하여 출고지시를 이행할 수 없는 건입니다.<br/> (진행가능 재고실사이후 데이터 정확해지면 점검기능 추가예정입니다)");
+            }
+            */ 
+        } 
+        //REQUEST OBJ  
+        var args = me.pageObj.pageCond.exportData()[0];
+        args.list = list;
+        //SERVICE CALL: 
+        var invar = JSON.stringify(args);
+        gfnTx(appid+"."+pgmid,"save",{INVAR:invar},function(OUTVAR){
+            //console.log(OUTVAR);
+            if(OUTVAR.rtnCd=="OK") {
+                //서비스 후처리 : 
+                gfnAlert("성공","선택한 요청을 접수(마감)하였습니다."); 
+                me.fnSearch();
+                me.fnSearchMst(OUTVAR.dist_no, '');
+            } else {
+                gfnAlert("오류",OUTVAR.rtnMsg);
+            }
+        });
+    }
+    
+    
+    //searchMst:조회 
+    me.fnSearchMst=function(dist_no) {
+        if( isNull(dist_no) ) return;
+        var args = {dist_no:dist_no};
+        //console.log(args);
+        var invar = JSON.stringify(args);
+        gfnTx(appid+"."+pgmid,"searchMst",{INVAR:invar},function(OUTVAR){
+            //console.log(OUTVAR);
+            if(OUTVAR.rtnCd=="OK") {
+                me.pageObj["mst"].importData(OUTVAR.mst);
+                me.pageObj["det"].importData(OUTVAR.det);
+                me.pageObj.det.total("top");
+            } else {
+                gfnAlert("조회오류",OUTVAR.rtnMsg);
+            }
+        });
+    }
+    
+    //cancel:접수취소 
+    me.fnCancel=function() {
+        //Validation
+        if( !me.pageObj["mst"].chkValid() ) return;
+        var det = me.pageObj.det.exportData();
+        var chk = subset(det,"cd_stat","Y");
+        if( chk.length > 0 ) {
+            gfnAlert("접수취소 확인","이미 출고된 출고전표가 존재하여 접수취소할 수 없습니다.");
+            return;
+        } 
+        //REQUEST OBJ  
+        var args = me.pageObj["mst"].exportData()[0];
+        //SERVICE CALL: 
+        var invar = JSON.stringify(args);
+        gfnTx(appid+"."+pgmid,"cancel",{INVAR:invar},function(OUTVAR){
+            //console.log(OUTVAR);
+            if(OUTVAR.rtnCd=="OK") {
+                //서비스 후처리 : 
+                gfnAlert("저장성공","선택한 마감건을 접수취소 하였습니다."); 
+                me.fnSearch();
+                me.pageObj.mst.reset();
+                me.pageObj.det.reset();
+            } else {
+                gfnAlert("오류",OUTVAR.rtnMsg);
+            }
+        });
+    }
+    
+    
+    //print : 피킹지시서 발행
+    me.fnPrint = function() {
+        var rtn = me.pageObj["mst"].exportData()[0];
+        var args = rtn;
+        if(isNull(args.dist_no)) {
+            gfnAlert("발행확인","발행대상 배분번호가 선택되지 않았습니다.");
+            $("#onloading1").remove();
+            return false;
+        }   
+        
+        //var args = {};
+        var invar = JSON.stringify(args);
+        console.log(args);
+        
+        var html = "<html>";
+        //사이즈 조절, css
+        html += "<head><style type='text/css'> .pick {border-collapse:collapse; border-spacing:0; text-align:center; vertical-align:middle; font-weight: bold;} .pick .tag2{ padding-right:5px; text-align:right;/*background-color: rgb(237, 237, 237);*/} .pick .tag{ font-size : 13px; background-color: rgb(220, 220, 220); border-top: 1px black solid;} .pick .data{font-size:13px; /*padding-left:4px; padding-right:4px;*/ /*padding:5px 5px;*/} .pick tr{ border-color:black; border-style:solid; border-width:1px; overflow:hidden; word-break:normal; }.pick td{/* padding : 2px 4px 2px 4px;*/ border-color:black; border-style:solid; border-width:1px; overflow:hidden; word-break:normal; } .pick th{ border-color:black; border-style:solid; border-width:1px; font-weight:bold;overflow:hidden; word-break:normal;}  .pick{border: 1px black solid; width:100% height:100%;} .page {width: 260mm; min-height: 297mm;} @media print { @page { width: initial; min-height: initial; margin:0;  /*size: 210mm 297mm;*/ /*A4*/page-break-after: always;} /*html, body{border:0; margin:0;}*/ }</style></head>";
+        html += "<body>";
+        html += "<div class='page'>";
+        html += "<table class='pick' id='pick' style='table-layout:fixed'>";
+        
+        html += "<thead>";
+        function dateSub(x){
+            if(isNull(x)) return "";
+            return x.substring(2, 4)+"-"+ x.substring(4, 6)+"-"+ x.substring(6, 8);
+        }
+        html += "<tr style='border-bottom:1px black solid;' class='tag'>";
+        html += "<th colspan = '2'>배분번호</th>";
+        html += "<th colspan = '3'>배분명</th>";
+        html += "<th>출고구분</th>";
+        html += "<th colspan = '3'>출고차수</th>"; 
+        html += "<th colspan = '3'>요청일</th>";
+        html += "<th colspan = '2'>요청자</th>";
+        html += "<th colspan = '3'>출고(희망)일</th>";
+        html += "<th colspan = '2'>출고창고</th>";
+        html += "<th colspan = '3'>접수일</th>";
+        html += "<th colspan = '2'>담당자</th></tr>";
+        
+        html += "<tr style='border-bottom:1px black solid;'>";
+        html += "<th colspan = '2'>"+ rtn.dist_no +"</th>";
+        html += "<th colspan = '3'>"+ rtn.dist_nm +"</th>";
+        html += "<th>"+ gfnCdNm("LG_TP_I", rtn.dist_tp, "nm") +"</th>";
+        html += "<th colspan = '3'>"+ rtn.stat_cd +"</th>";
+        html += "<th colspan = '3'>"+ dateSub(rtn.dist_dt) +"</th>"; 
+        html += "<th colspan = '2'>"+ gfnCdNm("USID", rtn.dist_usid, "nm") +"</th>";
+        html += "<th colspan = '3'>"+ dateSub(rtn.gi_dt) +"</th>";
+        html += "<th colspan = '2'>"+ gfnCdNm("whcd", rtn.gi_whcd, "nm") +"</th>";
+        html += "<th colspan = '3'>"+ dateSub(rtn.rcv_dt) +"</th>";
+        html += "<th colspan = '2'>"+ gfnCdNm("USID", rtn.rcv_usid, "nm") +"</th></tr>";
+       
+        html += "<tr><td colspan='6' style='border-left:hidden; border-right:hidden;'>"+"<br>"+"</td></tr>"; 
+        
+        gfnTx(appid+"."+pgmid,"print",{INVAR:invar},function(OUTVAR){
+        
+            if(OUTVAR.rtnCd=="OK") {
+                console.log(OUTVAR);
+                if(isNull(OUTVAR.prnt[0])){
+                    gfnAlert("발행확인","매장별 출고요청내용이 존재하지 않습니다.");
+                    return;
+                } 
+                var rtn_keys = Object.keys(OUTVAR.prnt[0]);
+                var nn_keys = [];
+                for(var j = 0; j<rtn_keys.length; j++){
+                    var sum = 0;
+                    for(var i = 0; i<OUTVAR.prnt.length; i++){
+                        sum += Number(OUTVAR.prnt[i][rtn_keys[j]]);
+                    }
+                    if(sum != 0 || OUTVAR.prnt[0][rtn_keys[j]]==""){ 
+                        nn_keys.push(rtn_keys[j]);
+                    }
+                }
+                nn_keys.sort();
+                /*
+                for (const key in OUTVAR.prnt[0]){ 
+                    console.log(`${key}`); 
+                }*/
+                console.log(nn_keys);
+                // 콤마 추가
+                function numComma(x) {
+                    if(isNull(x)) return "";
+                    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+                }
+                
+                //1 **********************************************************
+                html += "<tr class='tag'><th>NO</th>";
+                html += "<th class='data'>스타일</th>"; 
+                html += "<th class='data'>색상</th>";
+                html += "<th class='data'>사이즈</th>";
+                html += "<th class='data'>창고재고</th>";
+                html += "<th class='data'>출고수량</th>";
+                
+                for(var i = 5; i<nn_keys.length; i++){
+                    if(nn_keys[i]=="c0000") html += "<th class='data'>"+ "창고" +"</th>";
+                    //else if(nn_keys[i]=="lfnew") html += "<th class='data'>"+ "신규" +"</th>";
+                    else if(nn_keys[i]=="lf501") html += "<th class='data'>"+ "신규1" +"</th>";
+                    else if(nn_keys[i]=="lf502") html += "<th class='data'>"+ "신규2" +"</th>";
+                    else if(nn_keys[i]=="lf503") html += "<th class='data'>"+ "신규3" +"</th>";
+                    else if(nn_keys[i]=="lf400") html += "<th class='data'>"+ "본사" +"</th>";
+                    else if(nn_keys[i]=="e0000") html += "<th class='data'>"+ "반품물류" +"</th>";
+                    else if(nn_keys[i]=="z0000") html += "<th class='data'>"+ "폐점매장" +"</th>";
+                    else html += "<th class='data'>"+ gfnCdNm("whcd",nn_keys[i].toUpperCase(),"nm") +"</th>";
+                }
+                html+="</tr>";
+                html += "</thead>";
+                
+                //2 **********************************************************
+                html += "<tbody>";
+                
+                //총 출고수량(주문,피킹수량)
+                var total_qty = 0;
+                for(var i = 0; i<OUTVAR.prnt.length; i++){
+                    total_qty += Number(OUTVAR.prnt[i][nn_keys[0]]);
+                }
+                //총 창고재고량
+                var total_stkqty = 0;
+                for(var i = 0; i<OUTVAR.prnt.length; i++){
+                    total_stkqty += Number(OUTVAR.prnt[i][nn_keys[4]]);
+                }
+                if(isNaN(total_stkqty)) total_stkqty = 0;
+                //console.log(typeof total_stkqty);
+                html += "<tr style='text-align:right;'><td colspan='4'>"+ "<br>" +"</td>";
+                html += "<td class = 'tag2'>"+ nzl(numComma(total_stkqty),"") +"</td>"; //총 창고재고
+                html += "<td class = 'tag2'>"+ nzl(numComma(total_qty),"") +"</td>"; //총 출고수량
+                
+                //매장별 총 출고수량
+                var qty_list = [];
+                for(var j = 5; j<nn_keys.length; j++){
+                    var shop_qty = 0;
+                    for(var i = 0; i<OUTVAR.prnt.length; i++){
+                        shop_qty += Number(OUTVAR.prnt[i][nn_keys[j]]);
+                    }
+                    qty_list.push(shop_qty);
+                }
+                for(var i = 0; i<qty_list.length; i++){
+                    html += "<td class='tag2'>"+ numComma(qty_list[i]) +"</td>"; 
+                }
+                html+="</tr>";
+                
+                //3 ~ **********************************************************
+                var cnt = 0;
+                for(var i = 0; i<OUTVAR.prnt.length; i++){
+                    cnt++;
+                    html += "<tr><td>"+ (i+1) +"</td>";
+                    html += "<td style='padding-left:5px; padding-right:5px;'>"+ OUTVAR.prnt[i].ag_stcd +"</td>"; //스타일
+                    html += "<td>"+ OUTVAR.prnt[i].agcd_color +"</td>"; //컬러
+                    html += "<td>"+ OUTVAR.prnt[i].agcd_size +"</td>"; //사이즈
+                    html += "<td style='text-align:right; padding-right:5px;'>"+ nzl(numComma(OUTVAR.prnt[i].agstk_qty),"") +"</td>"; //창고재고
+                    html += "<td style='text-align:right; padding-right:5px;'>"+ nzl(numComma(OUTVAR.prnt[i].ag_qty),"") +"</td>"; //출고수량
+    
+                    for(var j = 5; j<nn_keys.length; j++){ //매장별 출고수량
+                        html += "<td style='text-align:right; padding-right:5px;'>"+ nzl(numComma(OUTVAR.prnt[i][nn_keys[j]]),"") +"</td>"; //OUTVAR.prnt[i]["lf001"]
+                    }
+                    html+="</tr>";
+                }
+                html += "</tbody>";
+                html += "</table>";
+                html += "</div>";
+                html += "</body>";
+                html += "</html>";
+            
+                //새로운 페이지로 열어서 인쇄
+                var newPage = window.open('','_blank','directories=no,titlebar=no,toolbar=no, location=no, status=no, menubar=no, scrollbars=no,resizable=no, width=1024, height=1024');
+                
+                newPage.document.write(html);
+                newPage.focus();
+                newPage.print();
+                
+            } else {
+                gfnAlert("조회오류",OUTVAR.rtnMsg);
+            }
+        });
+         
+    }
+    
+    
+    //print2 : 초도출하 패킹라벨 발행
+    me.fnPrint2=function() {
+        var det = me.pageObj.det.exportData();
+        var cnt = arrFormula(det,'sum("row.box_cnt")');
+        //console.log(cnt);
+        if(nzl(cnt,0)==0) {
+            gfnAlert("패킹라벨 발행확인", "선택된 배분 건은 스타일(솔리드) 배분입니다. 패킹등록하여 출고정보와 연결한 후 출고등록 화면에서 발행하세요.");
+            return;
+        } else {
+            gfnAlert(1,"패킹라벨 발행 준비중입니다...");
+            setTimeout( me.fnPrint2Run, 1);
+        }
+    }
+    
+    me.fnPrint2Run=function() {
+
+        var args = me.pageObj["mst"].exportData()[0];
+        if(isNull(args.dist_no)) {
+            gfnAlert("발행확인","발행대상 배분번호가 선택되지 않았습니다.");
+            $("#onloading1").remove();
+            return false;
+        }
+        var invar = JSON.stringify(args);
+        //console.log(args);
+        
+        gfnTx(appid+"."+pgmid,"print2",{INVAR:invar},function(OUTVAR){
+            $("#onloading1").remove(); 
+            if(OUTVAR.rtnCd=="OK") {
+                console.log(OUTVAR);
+                
+                var prtData = [];
+                for(var i = 0; i<OUTVAR.list.length; i++){
+                    prtData.push(eval("OUTVAR.arlist.goodslist"+i));
+                    //console.log(eval("OUTVAR.arlist.goodslist"+i));
+                }
+                //console.log(prtData);
+                var total = prtData.length;
+
+                function _fnPrint100(print) {
+                    
+                    var html_lst = [];
+                    for(var i = 0; i<print.length; i++){
+                        html_lst.push("html"+i);
+                    }
+                    
+                    for(var k = 0; k<print.length; k++){ 
+                        
+                        html_lst[k] = "<html>";
+                        //사이즈 조절, css
+                        html_lst[k] += "<head><style type='text/css'> .boxLabel {border-collapse:collapse; border-spacing:0; text-align:center; vertical-align:middle; font-weight: bold;} .boxLabel .change{font-size : 30px; font-weight: bold; border-bottom:hidden;} .boxLabel .data{font-size:20px; padding:5px 2px;} .boxLabel .date{font-size: 15px;}.boxLabel .from{ font-size: 15px;} .boxLabel .to{font-size: 15px;}.boxLabel .code{font-size: 15px;} .boxLabel tr{border-color:black; border-style:solid; border-width:1px; overflow:hidden; word-break:normal; font-size: 1;}.boxLabel td{border-color:black; border-style:solid; border-width:1px; overflow:hidden; word-break:normal; font-size: 15px;}.boxLabel th{border-color:black; border-style:solid; border-width:1px; font-weight:bold;overflow:hidden; word-break:normal;} .boxLabel .goods{border-right: 4px black solid;} .boxLabel .boxNum_data{font-weight: bold; text-align:center; vertical-align:middle; font-size: 30px;} .barcode_img>object {width: 80%; height: 50px;} .boxLabel .boxNum{font-weight: bold; text-align:center; vertical-align:middle;}.boxLabel .allcnt_data{font-weight: bold; text-align:center; vertical-align:middle; font-size:30px;} /*Web Print*/ body {margin: 0; padding-left: 28; padding-top:18; padding-bottom:10;} .boxLabel{border: 3px black solid; width: 200mm/*112mm*/; /*225*/height: 140mm/*84mm*/; /*175*/}@page {size: 140mm 110mm; /*7.62cm 5.08cm 94 64 96 62*/ /*인쇄기본설정 => w:66mm, h:88mm*/margin: 0;}@media print {.page { margin: 0;border: initial; border-radius: initial; width: initial; min-height: initial; box-shadow: initial; background: initial; page-break-after: always; padding-top:38;}}</style></head>";
+                        html_lst[k] += "<body>";
+                        html_lst[k] += "<div class='page'>";
+                        html_lst[k] += "<table class='boxLabel' style='table-layout:fixed'>";
+                        html_lst[k] += "<thead>";
+                        
+                        //html_lst[k] += "<tr><th class='date' style='width:25mm'>일자</th><th class='from'>보내는곳</th><th class='code' style='width:30mm;'>코드</th><th class='code' style='width:25mm;'>패킹번호</th><th class='to'>받는곳</th><th class='code' style='width:30mm;'>코드</th></tr>";
+                        html_lst[k] += "<tr><th class='date' style='width:25mm'>일자</th><th class='from'>보내는곳</th><th class='code' style='width:25mm;'>코드</th><th class='code' style='width:25mm;'>패킹번호</th><th class='to'>받는곳</th><th class='code' style='width:25mm;'>코드</th></tr>";
+
+                        //일자 형식 변환  ex) 2021-04-27
+                        var date = (print[k][0].lg_dt).substring(0, 4)+"-"+(print[k][0].lg_dt).substring(4, 6)+"-"+(print[k][0].lg_dt).substring(6, 8);
+                        /*
+                        eval("OUTVAR.goodslist"+k).forEach((row) => {
+                        console.log(row);
+                        })*/
+                        //매장 박스번호 - 박스번호에서 뒤에 4자리 가져오기 -> ex. ITS-20211213-0001
+                        var box_no_sub = (print[k][0].goods_cd).substr(0,4);//(print[k][0].box_no).slice(-4); // ex.0001
+                        if(inStr(args.stat_cd,"20SS")>=0) box_no_sub = (print[k][0].goods_cd).substr(2,7);
+                        
+                        //물류,매장 이름
+                        var whcd_nm = gfnCdNm("whcd", print[k][0].from_whcd, "nm");
+                        var to_whcd_nm = gfnCdNm("whcd", print[k][0].to_whcd, "nm");
+                        
+                        //일자, 보내는곳, 보내는곳코드, 받는곳, 받는곳코드
+                        html_lst[k] += "<tr><td style='font-size:17px;'>"+date+"</td>";
+                        html_lst[k] += "<td class = 'data'>" + whcd_nm + "</td>";
+                        html_lst[k] += "<td class = 'data'>" + print[k][0].from_whcd + "</td>";
+                        html_lst[k] += "<td class = 'data'>" + box_no_sub + "</td>"; //박스번호 0001
+                        html_lst[k] += "<td class = 'data' style='font-size: 27px;'>" + to_whcd_nm+ "</td>";
+                        html_lst[k] += "<td  class = 'data' style='font-size: 27px;'>" + print[k][0].to_whcd+ "</td></tr>";
+                        html_lst[k] += "</thead>";
+                        html_lst[k] += "<tbody>";
+                    
+                        //박스바코드 - 데이터
+                        var data   = print[k][0].box_barcd; 
+                        var format = "code128"; 
+                        //console.log(data+":"+format);
+                        $(".barcode").barcode(data, format, {
+                            "barWidth"   : 1,
+                		    "barHeight"  : 50,
+                		    "moduleSize" : 5,
+                		    "bgColor"    : 'hsl(0 0% 100%)',
+                		    "color"      : 'hsl(0 0% 0%)',
+                		    "fontSize"   : 10,
+                		    "showHRI"    : true, // false시에 숫자 안보임
+                		    "output"     : 'bmp', // 그려주는 방식을 css, svg, bmp, canvas 중에서 선택
+                        }).css("width","100%");
+                
+                        src = $(".barcode object").attr("data");
+            
+                        //물류유형 - 초도출하
+                        html_lst[k] += "<tr><td class='change'>"+ print[k][0].lg_tp+"</td>";
+                        
+                        //박스바코드
+                        html_lst[k] += "<td class='barcode' colspan='5'><div class='barcode_img'><object type='image/bmp' data="+src+"></object></div></td></tr>";
+                    
+                        var lg_tp_nm = gfnCdNm("LG_TP_I", print[k][0].lg_tp, "nm");
+                        html_lst[k] += "<tr><td>"+ lg_tp_nm +"</td>";
+                        
+                        //박스바코드번호
+                        //박스바코드번호 형식 변환 (공백추가)
+                        var boxnum_sp = data.substr(0,4)+" "+data.substr(4,6)+" "+data.substring(10, );//data.substr(0,5)+" "+data.substr(5,5)+" "+data.substring(10, );
+                        if(inStr(args.stat_cd,"20SS")>=0) boxnum_sp = data.substr(0,5)+" "+data.substr(5,6)+" "+data.substring(11, );
+                        
+                        html_lst[k] += "<td class='boxNum_data' colspan='4'>"+ boxnum_sp +"</td>";
+            
+                        //상품순번, 상품코드, 수량
+                        var goodscd = [];
+                        var goodsqty = [];
+                        //goodscd.push(OUTVAR.prnt2[k].goods_cd);
+                        print[k].forEach((row) => {
+                            goodscd.push(row.goods_cd);
+                            goodsqty.push(row.qty);
+                        })
+                        
+                        //박스별 총수량
+                        var total_qty = 0;
+                        for(var j = 0; j<goodsqty.length; j++){
+                            total_qty += Number(goodsqty[j]);
+                        }
+                        html_lst[k] += "<td class='allcnt_data' >"+ total_qty +"ea</td></tr>"; 
+                        
+                        if(goodscd.length <= 10){ //상품 갯수가 10개 이하일때
+                            var cnt = 0;
+                            var cnt_right = 0;
+                            for(var i = 0; i<goodscd.length; i++){ 
+                                cnt++;
+                                html_lst[k] += "<tr>";
+                                html_lst[k] += "<td>"+(i+1)+"</td>";
+                                html_lst[k] += "<td style='font-size: 18px;' >"+ goodscd[i]+"</td>";
+                                html_lst[k] += "<td class='goods' style='font-size: 18px;'>"+goodsqty[i]+"</td>";
+                                html_lst[k] += "<td>"+"<br>"+"</td>";
+                                html_lst[k] += "<td>"+"<br>"+"</td>";
+                                html_lst[k] += "<td>"+"<br>"+"</td>";
+                                html_lst[k] += "</tr>";
+                            }
+                            for(var i = 0; i<10-cnt; i++){
+                                html_lst[k] += "<tr>";
+                                html_lst[k] += "<td>"+"<br>"+"</td>";
+                                html_lst[k] += "<td>"+"<br>"+"</td>";
+                                html_lst[k] += "<td class='goods'>"+"<br>"+"</td>";
+                                html_lst[k] += "<td>"+"<br>"+"</td>";
+                                html_lst[k] += "<td>"+"<br>"+"</td>";
+                                html_lst[k] += "<td>"+"<br>"+"</td>";
+                                html_lst[k] += "</tr>";
+                            }
+                        }else { //상품 갯수가 10개 이상일 때
+                            var cnt_right = 0;
+            
+                            if(goodscd.length <= 20){ //상품 갯수가 20개이하
+                                
+                                for(var i = 0; i<goodscd.length-10; i++){
+                                    cnt_right++;
+                                    html_lst[k] += "<tr>";
+                                    html_lst[k] += "<td>"+(i+1)+"</td>";
+                                    html_lst[k] += "<td style='font-size: 18px;'>"+goodscd[i]+"</td>";
+                                    html_lst[k] += "<td class='goods' style='font-size: 18px;'>"+goodsqty[i]+"</td>";
+                                    html_lst[k] += "<td>"+(i+11)+"</td>";
+                                    html_lst[k] += "<td style='font-size: 18px;'>"+goodscd[i+10]+"</td>";
+                                    html_lst[k] += "<td style='font-size: 18px;'>"+goodsqty[i+10]+"</td>";
+                                    html_lst[k] += "</tr>";
+                                }
+                                //console.log(cnt_right);
+                                for(var i = cnt_right; i<10; i++){
+                                    html_lst[k] += "<tr>";
+                                    html_lst[k] += "<td>"+(i+1)+"</td>";
+                                    html_lst[k] += "<td style='font-size: 18px;'>"+goodscd[i]+"</td>";
+                                    html_lst[k] += "<td class='goods' style='font-size: 18px;'>"+goodsqty[i]+"</td>";
+                                    html_lst[k] += "<td>"+"<br>"+"</td>";
+                                    html_lst[k] += "<td>"+"<br>"+"</td>";
+                                    html_lst[k] += "<td>"+"<br>"+"</td>";
+                                    html_lst[k] += "</tr>";
+                                }
+                            }else{ //상품 갯수가 20개 이상일때
+                                for(var i = 0; i<9; i++){
+                                    html_lst[k] += "<tr>";
+                                    html_lst[k] += "<td>"+(i+1)+"</td>";
+                                    html_lst[k] += "<td style='font-size: 18px;'>"+goodscd[i]+"</td>";
+                                    html_lst[k] += "<td class='goods' style='font-size: 18px;'>"+goodsqty[i]+"</td>";
+                                    html_lst[k] += "<td>"+(i+11)+"</td>";
+                                    html_lst[k] += "<td style='font-size: 18px;'>"+goodscd[i+11]+"</td>";
+                                    html_lst[k] += "<td style='font-size: 18px;'>"+goodsqty[i+11]+"</td>";
+                                    html_lst[k] += "</tr>";
+                                } 
+                                html_lst[k] += "<tr>";
+                                html_lst[k] += "<td>"+10+"</td>";
+                                html_lst[k] += "<td style='font-size: 18px;'>"+goodscd[9]+"</td>";
+                                html_lst[k] += "<td class='goods' style='font-size: 18px;'>"+goodsqty[9]+"</td>";
+                                html_lst[k] += "<td>...</td>";
+                                html_lst[k] += "<td>... 외 "+ Number(goodscd.length-19) +"</td>";
+                                html_lst[k] += "<td>...</td>";
+                                html_lst[k] += "</tr>";
+                            }
+                        }
+                        html_lst[k] += "</tbody>";
+                        html_lst[k] += "</table>";
+                        html_lst[k] += "</div>";
+                        html_lst[k] += "</body>";
+                        html_lst[k] += "</html>";
+                    }
+                    //새로운 페이지로 열어서 인쇄
+                    var prtPage = window.open('','_blank','directories=no,titlebar=no,toolbar=no, location=no, status=no, menubar=no, scrollbars=no,resizable=no, width=1024, height=1024, modal=yes');
+                    
+                    //패킹수를 담은 변수갯수만큼(박스수만큼) newpage에 붙여준다
+                    for(var i = 0; i<html_lst.length; i++){
+                        prtPage.document.write(html_lst[i]);
+                    }
+                    prtPage.focus();
+                    prtPage.print(); 
+                    console.log("print done");
+                    
+                    //인쇄페이지에서 벗어났을 때
+                    prtPage.onbeforeunload = function(){
+                        console.log("win unload");
+                    
+                        if(prtData.length > 100) {
+                            gfnConfirm("연속출력 확인","발행대상(대상: "+prtData.length+" / 총 : "+total+")을 100건씩 나누어 발행합니다.",function(rtn){
+                                if(rtn) {
+                                    var data = prtData.splice(0,100); //100개씩 데이터 교체
+                                    _fnPrint100(data);
+                                }
+                            });    
+                        }else{
+                            if(prtData.length == 0){ //모든 데이터 출력이 끝나면,
+                                gfnAlert("연속출력 확인","패킹라벨 발행, 총: "+total+"건이 완료되었습니다.");
+                                return;
+                            }
+                            gfnConfirm("연속출력 확인","발행대상(대상: "+prtData.length+" / 총 : "+total+")을 100건씩 나누어 발행합니다.",function(rtn){
+                                if(rtn) {
+                                    var data = prtData.splice(0,100);
+                                    _fnPrint100(data);
+                                }
+                            }); 
+                        }
+                    }
+                }
+                
+                //총 패킹수 100개 이상일 경우 100건씩 나누어 발행
+                if(total > 100) {
+                    gfnConfirm("연속출력 확인","발행대상(건수 : "+total+")을 100건씩 나누어 발행합니다.",function(rtn){
+                        if(rtn) {
+                            var data = prtData.splice(0,100); //100건씩 데이터 교체
+                            _fnPrint100(data); //라벨찍어내는 함수
+                        }
+                    });
+                } else {
+                    var data = prtData.splice(0,100);
+                    _fnPrint100(data);
+                }
+            } else {
+                gfnAlert("조회오류",OUTVAR.rtnMsg);
+            }
+        });
+            
+    }
+    
+    //printHanger : 행거배분표 발행 (X)
+    me.fnPrintHanger = function() {
+        var rtn = me.pageObj["mst"].exportData()[0];
+        var args = rtn;
+        if(isNull(args.dist_no)) {
+            gfnAlert("발행확인","발행대상 배분번호가 선택되지 않았습니다.");
+            $("#onloading1").remove();
+            return false;
+        }   
+        
+        //var args = {};
+        var invar = JSON.stringify(args);
+        console.log(args);
+        
+        var html = "<html>";
+        //사이즈 조절, css
+        html += "<head><style type='text/css'> .pick {border-collapse:collapse; border-spacing:0; text-align:center; vertical-align:middle; font-weight: bold;} .pick .tag2{ padding-right:5px; text-align:right;/*background-color: rgb(237, 237, 237);*/} .pick .tag{ font-size : 13px; background-color: rgb(220, 220, 220); border-top: 1px black solid;} .pick .data{font-size:13px; /*padding-left:4px; padding-right:4px;*/ /*padding:5px 5px;*/} .pick tr{ border-color:black; border-style:solid; border-width:1px; overflow:hidden; word-break:normal; }.pick td{/* padding : 2px 4px 2px 4px;*/ border-color:black; border-style:solid; border-width:1px; overflow:hidden; word-break:normal; } .pick th{ border-color:black; border-style:solid; border-width:1px; font-weight:bold;overflow:hidden; word-break:normal;}  .pick{border: 1px black solid; width:100% height:100%;} .page {width: 260mm; min-height: 297mm;} @media print { @page { width: initial; min-height: initial; margin:0;  /*size: 210mm 297mm;*/ /*A4*/page-break-after: always;} /*html, body{border:0; margin:0;}*/ }</style></head>";
+        html += "<body>";
+        html += "<div class='page'>";
+        html += "<table class='pick' id='pick' style='table-layout:fixed'>";
+        
+        html += "<thead>";
+        function dateSub(x){
+            if(isNull(x)) return "";
+            return x.substring(2, 4)+"-"+ x.substring(4, 6)+"-"+ x.substring(6, 8);
+        }
+        html += "<tr style='border-bottom:1px black solid;' class='tag'>";
+        html += "<th colspan = '2'>배분번호</th>";
+        html += "<th colspan = '3'>배분명</th>";
+        html += "<th>출고구분</th>";
+        html += "<th colspan = '3'>출고차수</th>"; 
+        html += "<th colspan = '3'>요청일</th>";
+        html += "<th colspan = '2'>요청자</th>";
+        html += "<th colspan = '3'>출고(희망)일</th>";
+        html += "<th colspan = '2'>출고창고</th>";
+        html += "<th colspan = '3'>접수일</th>";
+        html += "<th colspan = '2'>담당자</th></tr>";
+        
+        html += "<tr style='border-bottom:1px black solid;'>";
+        html += "<th colspan = '2'>"+ rtn.dist_no +"</th>";
+        html += "<th colspan = '3'>"+ rtn.dist_nm +"</th>";
+        html += "<th>"+ gfnCdNm("LG_TP_I", rtn.dist_tp, "nm") +"</th>";
+        html += "<th colspan = '3'>"+ rtn.stat_cd +"</th>";
+        html += "<th colspan = '3'>"+ dateSub(rtn.dist_dt) +"</th>"; 
+        html += "<th colspan = '2'>"+ gfnCdNm("USID", rtn.dist_usid, "nm") +"</th>";
+        html += "<th colspan = '3'>"+ dateSub(rtn.gi_dt) +"</th>";
+        html += "<th colspan = '2'>"+ gfnCdNm("whcd", rtn.gi_whcd, "nm") +"</th>";
+        html += "<th colspan = '3'>"+ dateSub(rtn.rcv_dt) +"</th>";
+        html += "<th colspan = '2'>"+ gfnCdNm("USID", rtn.rcv_usid, "nm") +"</th></tr>";
+       
+        html += "<tr><td colspan='6' style='border-left:hidden; border-right:hidden;'>"+"<br>"+"</td></tr>"; 
+        
+        gfnTx(appid+"."+pgmid,"printHanger",{INVAR:invar},function(OUTVAR){
+        
+            if(OUTVAR.rtnCd=="OK") {
+                console.log(OUTVAR);
+                if(isNull(OUTVAR.prnt[0])){
+                    gfnAlert("발행확인","매장별 출고요청내용이 존재하지 않습니다.");
+                    return;
+                } 
+                var rtn_keys = Object.keys(OUTVAR.prnt[0]);
+                
+                var nn_keys = [];
+                
+                for(var j = 0; j<rtn_keys.length; j++){
+                    var sum = 0;
+                    for(var i = 0; i<OUTVAR.prnt.length; i++){
+                        sum += Number(OUTVAR.prnt[i][rtn_keys[j]]);
+                    }
+                    if(sum != 0 || OUTVAR.prnt[0][rtn_keys[j]]==""){ 
+                        nn_keys.push(rtn_keys[j]);
+                    }
+                }
+                nn_keys.sort();
+                /*
+                for (const key in OUTVAR.prnt[0]){ 
+                    console.log(`${key}`); 
+                }*/
+                console.log(nn_keys);
+                // 콤마 추가
+                function numComma(x) {
+                    if(isNull(x)) return "";
+                    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+                }
+                
+                //1 **********************************************************
+                html += "<tr class='tag'><th>NO</th>";
+                html += "<th class='data'>스타일</th>"; 
+                html += "<th class='data'>색상</th>";
+                html += "<th class='data'>사이즈</th>";
+                html += "<th class='data'>창고재고</th>";
+                html += "<th class='data'>출고수량</th>";
+                
+                for(var i = 5; i<nn_keys.length; i++){
+                    if(nn_keys[i]=="c0000") html += "<th class='data'>"+ "창고" +"</th>";
+                    //else if(nn_keys[i]=="lfnew") html += "<th class='data'>"+ "신규" +"</th>";
+                    else if(nn_keys[i]=="lf501") html += "<th class='data'>"+ "신규1" +"</th>";
+                    else if(nn_keys[i]=="lf502") html += "<th class='data'>"+ "신규2" +"</th>";
+                    else if(nn_keys[i]=="lf503") html += "<th class='data'>"+ "신규3" +"</th>";
+                    else if(nn_keys[i]=="lf400") html += "<th class='data'>"+ "본사" +"</th>";
+                    else if(nn_keys[i]=="e0000") html += "<th class='data'>"+ "반품물류" +"</th>";
+                    else if(nn_keys[i]=="z0000") html += "<th class='data'>"+ "폐점매장" +"</th>";
+                    else html += "<th class='data'>"+ gfnCdNm("whcd",nn_keys[i].toUpperCase(),"nm") +"</th>";
+                }
+                html+="</tr>";
+                html += "</thead>";
+                
+                //2 **********************************************************
+                html += "<tbody>";
+                
+                //총 출고수량(주문,피킹수량)
+                var total_qty = 0;
+                for(var i = 0; i<OUTVAR.prnt.length; i++){
+                    total_qty += Number(OUTVAR.prnt[i][nn_keys[0]]);
+                }
+                //총 창고재고량
+                var total_stkqty = 0;
+                for(var i = 0; i<OUTVAR.prnt.length; i++){
+                    total_stkqty += Number(OUTVAR.prnt[i][nn_keys[4]]);
+                }
+                
+                html += "<tr style='text-align:right;'><td colspan='4'>"+ "<br>" +"</td>";
+                html += "<td class = 'tag2'>"+ numComma(total_stkqty) +"</td>"; //총 창고재고
+                html += "<td class = 'tag2'>"+ numComma(total_qty) +"</td>"; //총 출고수량
+                
+                //매장별 총 출고수량
+                var qty_list = [];
+                for(var j = 5; j<nn_keys.length; j++){
+                    var shop_qty = 0;
+                    for(var i = 0; i<OUTVAR.prnt.length; i++){
+                        shop_qty += Number(OUTVAR.prnt[i][nn_keys[j]]);
+                    }
+                    qty_list.push(shop_qty);
+                }
+                for(var i = 0; i<qty_list.length; i++){
+                    html += "<td class='tag2'>"+ numComma(qty_list[i]) +"</td>"; 
+                }
+                html+="</tr>";
+                
+                //3 ~ **********************************************************
+                var cnt = 0;
+                for(var i = 0; i<OUTVAR.prnt.length; i++){
+                    cnt++;
+                    html += "<tr><td>"+ (i+1) +"</td>";
+                    html += "<td style='padding-left:5px; padding-right:5px;'>"+ OUTVAR.prnt[i].ag_stcd +"</td>"; //스타일
+                    html += "<td>"+ OUTVAR.prnt[i].agcd_color +"</td>"; //컬러
+                    html += "<td>"+ OUTVAR.prnt[i].agcd_size +"</td>"; //사이즈
+                    html += "<td style='text-align:right; padding-right:5px;'>"+ nzl(numComma(OUTVAR.prnt[i].agstk_qty),"") +"</td>"; //창고재고
+                    html += "<td style='text-align:right; padding-right:5px;'>"+ nzl(numComma(OUTVAR.prnt[i].ag_qty),"") +"</td>"; //출고수량
+    
+                    for(var j = 5; j<nn_keys.length; j++){ //매장별 출고수량
+                        html += "<td style='text-align:right; padding-right:5px;'>"+ nzl(numComma(OUTVAR.prnt[i][nn_keys[j]]),"") +"</td>"; //OUTVAR.prnt[i]["lf001"]
+                    }
+                    html+="</tr>";
+                }
+                html += "</tbody>";
+                html += "</table>";
+                html += "</div>";
+                html += "</body>";
+                html += "</html>";
+            
+                //새로운 페이지로 열어서 인쇄
+                var newPage = window.open('','_blank','directories=no,titlebar=no,toolbar=no, location=no, status=no, menubar=no, scrollbars=no,resizable=no, width=1024, height=1024');
+                
+                newPage.document.write(html);
+                newPage.focus();
+                newPage.print();
+                
+            } else {
+                gfnAlert("조회오류",OUTVAR.rtnMsg);
+            }
+        });
+         
+    }
+    
+    
+    //print3 : 초도출하 패킹라벨 발행 (수정 전) (X)
+    me.fnPrint3=function() {
+        var det = me.pageObj.det.exportData();
+        var cnt = arrFormula(det,'sum("row.box_cnt")');
+        if(nzl(cnt,0)==0) {
+            gfnAlert("패킹라벨 발행확인", "선택된 배분 건은 스타일(솔리드) 배분입니다. 패킹등록하여 출고정보와 연결한 후 출고등록 화면에서 발행하세요.");
+            return;
+        } else {
+            gfnAlert(1,"패킹라벨 발행 준비중입니다...");
+            setTimeout( me.fnPrint3Run, 1);
+        }
+    }
+    
+    //패킹라벨 수정 전 (X)
+    me.fnPrint3Run=function() {
+
+        var args = me.pageObj["mst"].exportData()[0];
+        if(isNull(args.dist_no)) {
+            gfnAlert("발행확인","발행대상 배분번호가 선택되지 않았습니다.");
+            $("#onloading1").remove();
+            return false;
+        }
+        var invar = JSON.stringify(args);
+        //console.log(args);
+        
+        gfnTx(appid+"."+pgmid,"print3",{INVAR:invar},function(OUTVAR){
+            $("#onloading1").remove(); 
+            if(OUTVAR.rtnCd=="OK") {
+                
+                var prtData = OUTVAR.prnt2;
+                console.log(prtData);
+                var total = prtData.length; 
+                var newPage = [];
+                var curPage = 1;
+                
+                function _fnPrint100(OUTVAR) {
+                    var html_lst = [];
+                    for(var i = 0; i<OUTVAR.prnt2.length; i++){
+                        html_lst.push("html"+i);
+                    }
+                    //쿼리돌려서 나오는 건만큼 찍어낸다
+                    for(var k = 0; k<OUTVAR.prnt2.length; k++){ 
+            
+                        html_lst[k] = "<html>";
+                        //사이즈 조절, css
+                        html_lst[k] += "<head><style type='text/css'> .boxLabel {border-collapse:collapse;border-spacing:0;text-align:center; vertical-align:middle; font-weight: bold;}.boxLabel .change{font-size:30px; font-weight: bold; border-bottom:hidden} .boxLabel .data{font-size:20px; padding:5px 2px;} .boxLabel .date{font-size: 15px;}.boxLabel .from{ font-size: 15px;} .boxLabel .to{font-size: 15px;}.boxLabel .code{font-size: 15px;} .boxLabel tr{border-color:black; border-style:solid; border-width:1px; overflow:hidden; word-break:normal; font-size: 1;}.boxLabel td{border-color:black; border-style:solid; border-width:1px; overflow:hidden; word-break:normal; font-size: 15px;}.boxLabel th{border-color:black; border-style:solid; border-width:1px; font-weight:bold;overflow:hidden; word-break:normal;} .boxLabel .goods{border-right: 4px black solid;} .boxLabel .boxNum_data{font-weight: bold; text-align:center; vertical-align:middle; font-size: 30px;} .barcode_img>object {width: 80%; height: 50px;} .boxLabel .boxNum{font-weight: bold; text-align:center; vertical-align:middle;}.boxLabel .allcnt_data{font-weight: bold; text-align:center; vertical-align:middle; font-size:30px;} /*Web Print*/ body {margin: 0; padding-left: 28; padding-top:18; padding-bottom:10;} .boxLabel{border: 3px black solid; width: 200mm/*112mm*/; /*225*/height: 140mm/*84mm*/; /*175*/}@page {size: 140mm 110mm; /*7.62cm 5.08cm 94 64 96 62*/ /*인쇄기본설정 => w:66mm, h:88mm*/margin: 0;}@media print {.page { margin: 0;border: initial; border-radius: initial; width: initial; min-height: initial; box-shadow: initial; background: initial; page-break-after: always; padding-top:38;}}</style></head>";
+                        html_lst[k] += "<body>";
+                        html_lst[k] += "<div class='page'>";
+                        html_lst[k] += "<table class='boxLabel' style='table-layout:fixed'>";
+                        html_lst[k] += "<thead>";
+                        
+                        html_lst[k] += "<tr><th class='date' style='width:25mm'>일자</th><th class='from'>보내는곳</th><th class='code' style='width:30mm;'>코드</th><th class='code' style='width:25mm;'>패킹번호</th><th class='to'>받는곳</th><th class='code' style='width:30mm;'>코드</th></tr>";
+                        
+                        //일자 형식 변환  ex) 2021-04-27
+                        var date = (OUTVAR.prnt2[k].lg_dt).substring(0, 4)+"-"+(OUTVAR.prnt2[k].lg_dt).substring(4, 6)+"-"+(OUTVAR.prnt2[k].lg_dt).substring(6, 8);
+            
+                        //매장 박스번호 - 박스번호에서 뒤에 4자리 가져오기 -> ex. ITS-20211213-0001
+                        var box_no_sub = (OUTVAR.prnt2[k].box_no).slice(-4); // ex.0001
+                        if(inStr(args.stat_cd,"20SS")>=0) box_no_sub = (OUTVAR.prnt2[k].goods_cd).substr(2,7);
+                        
+                        //물류,매장 이름
+                        var whcd_nm = gfnCdNm("whcd", OUTVAR.prnt2[k].whcd, "nm");
+                        var to_whcd_nm = gfnCdNm("whcd", OUTVAR.prnt2[k].to_whcd, "nm");
+                        
+                        //일자, 보내는곳, 보내는곳코드, 받는곳, 받는곳코드
+                        html_lst[k] += "<tr><td style='font-size:17px;'>"+date+"</td>";
+                        html_lst[k] += "<td class = 'data'>" + whcd_nm + "</td>";
+                        html_lst[k] += "<td class = 'data'>" + OUTVAR.prnt2[k].whcd + "</td>";
+                        html_lst[k] += "<td class = 'data'>" + box_no_sub + "</td>"; //박스번호 0001
+                        html_lst[k] += "<td class = 'data'>" + to_whcd_nm+ "</td>";
+                        html_lst[k] += "<td  class = 'data'>" + OUTVAR.prnt2[k].to_whcd+ "</td></tr>";
+                        html_lst[k] += "</thead>";
+                        html_lst[k] += "<tbody>";
+                    
+                        //박스바코드 - 데이터
+                        var data   = OUTVAR.prnt2[k].box_barcd; 
+                        var format = "code128"; 
+                        //console.log(data+":"+format);
+                        $(".barcode").barcode(data, format, {
+                            "barWidth"   : 1,
+                		    "barHeight"  : 50,
+                		    "moduleSize" : 5,
+                		    "bgColor"    : 'hsl(0 0% 100%)',
+                		    "color"      : 'hsl(0 0% 0%)',
+                		    "fontSize"   : 10,
+                		    "showHRI"    : true, // false시에 숫자 안보임
+                		    "output"     : 'bmp', // 그려주는 방식을 css, svg, bmp, canvas 중에서 선택
+                        }).css("width","100%");
+                
+                        src = $(".barcode object").attr("data");
+            
+                        //물류유형 - 초도출하
+                        html_lst[k] += "<tr><td class='change'>"+ OUTVAR.prnt2[k].lg_tp+"</td>";
+                        
+                        //박스바코드
+                        html_lst[k] += "<td class='barcode' colspan='5'><div class='barcode_img'><object type='image/bmp' data="+src+"></object></div></td></tr>";
+                    
+                        
+                        var lg_tp_nm = gfnCdNm("LG_TP_I", OUTVAR.prnt2[k].lg_tp, "nm");
+                        html_lst[k] += "<tr><td>"+ lg_tp_nm +"</td>";
+                        
+                        //박스바코드번호
+                        //박스바코드번호 형식 변환 (공백추가)
+                        var boxnum_sp = data.substr(0,5)+" "+data.substr(5,6)+" "+data.substring(11, );
+                        //html_lst[k] += "<td class='boxNum_data' colspan='4'>"+boxnum_sp+"</td>";
+                        html_lst[k] += "<td class='boxNum_data' colspan='4'>"+ boxnum_sp +"</td>";
+            
+                        //박스별 총수량
+                        html_lst[k] += "<td class='allcnt_data' >"+ OUTVAR.prnt2[k].qty +"ea</td></tr>";
+                    
+                        //상품순번, 상품코드, 수량
+                        var goodscd = [];
+                        goodscd.push(OUTVAR.prnt2[k].goods_cd);
+                        
+                        if(goodscd.length <= 10){ //상품 갯수가 10개 이하일때
+            
+                            var cnt = 0;
+                            var cnt_right = 0;
+                            
+                            for(var i = 0; i<goodscd.length; i++){ 
+                                cnt++;
+                                html_lst[k] += "<tr>";
+                                html_lst[k] += "<td>"+(i+1)+"</td>";
+                                html_lst[k] += "<td>"+ OUTVAR.prnt2[k].goods_cd+"</td>";
+                                html_lst[k] += "<td class='goods'>"+OUTVAR.prnt2[k].qty+"</td>";
+                                html_lst[k] += "<td>"+"<br>"+"</td>";
+                                html_lst[k] += "<td>"+"<br>"+"</td>";
+                                html_lst[k] += "<td>"+"<br>"+"</td>";
+                                html_lst[k] += "</tr>";
+                            }
+                            for(var i = 0; i<10-cnt; i++){
+                                html_lst[k] += "<tr>";
+                                html_lst[k] += "<td>"+"<br>"+"</td>";
+                                html_lst[k] += "<td>"+"<br>"+"</td>";
+                                html_lst[k] += "<td class='goods'>"+"<br>"+"</td>";
+                                html_lst[k] += "<td>"+"<br>"+"</td>";
+                                html_lst[k] += "<td>"+"<br>"+"</td>";
+                                html_lst[k] += "<td>"+"<br>"+"</td>";
+                                html_lst[k] += "</tr>";
+                            }
+                        }/*else { //상품 갯수가 10개 이상일 때
+                        
+                            var cnt_right = 0;
+            
+                            if(goodscd.length <= 20){ //상품 갯수가 20개이하
+                                
+                                for(var i = 0; i<goodscd.length-10; i++){
+                                    cnt_right++;
+                                    html_lst[k] += "<tr>";
+                                    html_lst[k] += "<td>"+(i+1)+"</td>";
+                                    html_lst[k] += "<td>"+goodscd[i]+"</td>";
+                                    html_lst[k] += "<td class='goods'>"+goodsqty[i]+"</td>";
+                                    html_lst[k] += "<td>"+(i+11)+"</td>";
+                                    html_lst[k] += "<td>"+goodscd[i+10]+"</td>";
+                                    html_lst[k] += "<td>"+goodsqty[i+10]+"</td>";
+                                    html_lst[k] += "</tr>";
+                                }
+                                //console.log(cnt_right);
+                                for(var i = cnt_right; i<10; i++){
+                                    html_lst[k] += "<tr>";
+                                    html_lst[k] += "<td>"+(i+1)+"</td>";
+                                    html_lst[k] += "<td>"+goodscd[i]+"</td>";
+                                    html_lst[k] += "<td class='goods'>"+goodsqty[i]+"</td>";
+                                    html_lst[k] += "<td>"+"<br>"+"</td>";
+                                    html_lst[k] += "<td>"+"<br>"+"</td>";
+                                    html_lst[k] += "<td>"+"<br>"+"</td>";
+                                    html_lst[k] += "</tr>";
+                                }
+                            }else{ //상품 갯수가 20개 이상일때
+                            
+                                for(var i = 0; i<9; i++){
+                                    html_lst[k] += "<tr>";
+                                    html_lst[k] += "<td>"+(i+1)+"</td>";
+                                    html_lst[k] += "<td>"+goodscd[i]+"</td>";
+                                    html_lst[k] += "<td class='goods'>"+goodsqty[i]+"</td>";
+                                    html_lst[k] += "<td>"+(i+11)+"</td>";
+                                    html_lst[k] += "<td>"+goodscd[i+11]+"</td>";
+                                    html_lst[k] += "<td>"+goodsqty[i+11]+"</td>";
+                                    html_lst[k] += "</tr>";
+                                } 
+                                html_lst[k] += "<tr>";
+                                html_lst[k] += "<td>"+10+"</td>";
+                                html_lst[k] += "<td>"+goodscd[9]+"</td>";
+                                html_lst[k] += "<td class='goods'>"+goodsqty[9]+"</td>";
+                                html_lst[k] += "<td>...</td>";
+                                html_lst[k] += "<td>... 외"+ Number(goodscd.length-19) +"</td>";
+                                html_lst[k] += "<td>...</td>";
+                                html_lst[k] += "</tr>";
+                                
+                            }
+                        }*/
+                        html_lst[k] += "</tbody>";
+                        html_lst[k] += "</table>";
+                        html_lst[k] += "</div>";
+                        html_lst[k] += "</body>";
+                        html_lst[k] += "</html>";
+                    }
+                    
+                    //새로운 페이지로 열어서 인쇄
+                    var prtPage = window.open('','_blank','directories=no,titlebar=no,toolbar=no, location=no, status=no, menubar=no, scrollbars=no,resizable=no, width=1024, height=1024, modal=yes');
+                    
+                    //패킹수를 담은 변수갯수만큼(박스수만큼) newpage에 붙여준다
+                    for(var i = 0; i<html_lst.length; i++){
+                        prtPage.document.write(html_lst[i]);
+                    }
+                    prtPage.focus();
+                    prtPage.print(); 
+                    console.log("print done");
+                    
+                    //인쇄페이지에서 벗어났을 때
+                    prtPage.onbeforeunload = function(){
+                        console.log("win unload");
+                    
+                        if(prtData.length > 100) {
+                            gfnConfirm("연속출력 확인","발행대상(대상: "+prtData.length+" / 총 : "+total+")을 100건씩 나누어 발행합니다.",function(rtn){
+                                if(rtn) {
+                                    var data = {prnt2:prtData.splice(0,100)};
+                                    _fnPrint100(data);
+                                }
+                            });    
+                        }else{
+                            console.log(prtData);
+                            if(prtData.length == 0){
+                                gfnAlert("연속출력 확인","패킹라벨 발행, 총: "+total+"건이 완료되었습니다.");
+                                return;
+                            }
+                            gfnConfirm("연속출력 확인","발행대상(대상: "+prtData.length+" / 총 : "+total+")을 100건씩 나누어 발행합니다.",function(rtn){
+                                if(rtn) {
+                                    var data = {prnt2:prtData.splice(0,100)};
+                                    _fnPrint100(data);
+                                }
+                            }); 
+                        }
+                    }
+                }
+                //패킹수 100개 이상일 경우 100건씩 나누어 발행
+                if(total > 100) {
+                    gfnConfirm("연속출력 확인","발행대상(건수 : "+total+")을 100건씩 나누어 발행합니다.",function(rtn){
+                        if(rtn) {
+                            var data = {prnt2:prtData.splice(0,100)};
+                            _fnPrint100(data);
+                        }
+                    });
+                } else {
+                    var data = {prnt2:prtData.splice(0,100)};
+                    _fnPrint100(data);
+                }
+            } else {
+                gfnAlert("조회오류",OUTVAR.rtnMsg);
+            }
+        });
+            
+    }
+
+
+/*-- SCRIPT autogen ---------------------------------------------------- */        
+if(typeof(me.fnInit)=='function') me.fnInit();
+});
+
+</script>

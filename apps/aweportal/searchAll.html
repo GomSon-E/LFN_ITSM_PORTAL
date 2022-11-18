@@ -1,0 +1,299 @@
+<style>    .category{
+        width: 130px;
+        height : 51px;
+        text-align-last: center;
+        /*text-align: center;*//*option text center*/
+        -ms-text-align-last: center;
+        -moz-text-align-last: center;
+        background: rgb(216, 232, 250);
+        font-size: 14px;
+        font-weight: bold;
+    }
+    #category option {
+        margin: 40px;
+        background: rgb(216, 232, 250);
+        color: black;
+        text-shadow: 0 1px 0 rgba(0, 0, 0, 0.4);
+    }
+    #category:focus {
+      border-color: #aaa;
+      box-shadow: 0 0 1px 3px rgba(59, 153, 252, .7);
+      box-shadow: 0 0 0 3px -moz-mac-focusring;
+      color: #222;
+      outline: none;
+    }
+
+    .autocom{
+        width : 100%;
+        height : 45px;
+        padding-left: 20px;
+        /*background: rgb(209, 208, 208);*/
+        border:none;
+        font-size: 15px;
+    }
+    
+    #autocom:focus{
+        border-color: #aaa;
+        box-shadow: 0 0 1px 4px rgba(59, 153, 252, .7);
+        box-shadow: 0 0 0 4px -moz-mac-focusring;
+        color: #222;
+        outline: none;
+    }
+    
+    label {
+      display: block;
+      margin: 30px 0 0 0;
+    }
+    .overflow {
+      height: 200px;
+    }</style>
+    <select id="category" class = "category" name="category">
+        <option value = "user" selected>사용자</option>
+        <option value = "cafe" >카페</option>
+        <option value = "pgmnm" >프로그램</option>
+    </select>
+    
+    <input id="autocom" class="autocom" type = "text" placeholder="LF Networks EP 통합검색"/>
+<script>
+/*-- SCRIPT autogen start ---------------------------------------------- */        
+$(function() {
+    var appid = "aweportal";
+    var pgmid = "searchAll"; 
+    var page = $("*[pgmid='"+pgmid+"'].framepage").last();
+    var pageid = page.attr("id"); 
+    var me = {}
+    var dataSet = {};
+    var dataDef = {};
+    var pageObj = {};
+    var bEdit = false;
+    me.fnInit = function() {
+        gfn[pageid] = me; 
+        me.appid    = appid;
+        me.pgmid    = pgmid;
+        me.pageid   = pageid;
+        me.page     = page; 
+        me.dataSet = dataSet;
+        me.dataDef = dataDef;
+        me.pageObj = pageObj;
+        me.bEdit = bEdit;
+me.dataDef["_pgm"]={"pgmid":"searchAll","pgm_nm":"통합검색","pgm_tp":"TX","proc_mst_id":"","proc_mst_nm":"","remark":"","ver":0.6,"pgm_stat":"Y","reg_usid":"admin","reg_dt":"2021-11-04 16:39:43","upd_usid":"admin","upd_dt":"2021-11-17 12:05:20","app_pgmid":"aweportal","pgm_grp_nm":"공통","sort_seq":80,"shortcut":"","crud":"","app_pgm_nm":"포털"};
+me.dataDef["_pgm_func"]=[];
+me.dataDef["_pgm_data"] = {};
+me.dataDef["_pgm_data"]["pageCond"]={"sort_seq":"1","data_id":"pageCond","data_nm":"카테고리조회","data_icon":null,"component_pgmid":"aweForm","component_option":null,"inout_tp":"OUT","content":[{"sort_seq":"1","section":null,"section_icon":null,"colgrp":null,"colid":"category","colnm":null,"dtype":"text","etype":"sel","attr":"readonly","defval":"검색","w":"10","h":null,"refcd":"COMCD","option":"sel:comcd::nm","len":"10","valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"}]};
+
+        me.pageObj["_page"] = new gfnFramepage( me ); 
+        for(var component_id in me.dataDef["_pgm_data"]) { 
+            me.pageObj[component_id] = new gfnComponent( me.pageid, component_id, me.dataDef["_pgm_data"][component_id], me.fnEH, me); 
+        }  
+        setTimeout(function(){
+            $("#frameset").scrollTo(0); //스크롤 
+        },10);
+        if(typeof(me.fnInitExtra)=='function') me.fnInitExtra(); 
+    } 
+/*-- SCRIPT autogen end ---------------------------------------------- */
+/* 사용자초기화 */
+    me.fnInitExtra=function() {
+        
+    }
+
+    /* 이벤트핸들러 */
+    me.fnEH=function(component, evt, row, col, val) { 
+        //console.log(evt+","+row+","+col+","+val);
+        //화면기능버튼이 눌리면 
+        if (component==me.pageObj["_pageFunc"]){ 
+            if(typeof(me[col])=='function') me[col](); //col=기능명 me["fnSearch"]()=me.fnSearch(); 
+        }
+        //사용자 컴포넌트/컨트롤
+        else if(component.userComponent=="myCompoId") {
+            //if(evt=="dblclick" && col=="colid") {...}
+        }
+    }
+
+    //화면(window)크기에 따라 검색바 가변적으로 크기 조절
+    var frameGNBWidth = parseInt(window.getComputedStyle(document.querySelector("nav")).width);
+    document.querySelector("#autocom").style.width = (frameGNBWidth - 168) + "px";
+
+
+    $(document).ready(function() {
+
+        me.dataSet["pgm_list"] = [];
+        me.dataSet["pgmnm"] = [];
+        me.dataSet["cafe_list"] = [];
+        me.dataSet["cafe"] = [];
+        me.dataSet["user"] = [];
+
+        //프로그램 이름, 아이디
+        var pgmnm_list = gds.menu;
+        //console.log(pgmnm_list);
+
+        for(let i=0;i<pgmnm_list.length;i++){
+            me.dataSet["pgmnm"].push(pgmnm_list[i].pgm_nm);
+        }
+
+        for(var i = 0; i <pgmnm_list.length; i++){
+            var row = pgmnm_list[i];
+            var list = { pgmid: row.pgmid , pgm_nm:row.pgm_nm};
+            me.dataSet["pgm_list"].push(list);                                        
+        }
+        //console.log(me.dataSet["pgm_list"]);
+
+        //카페 그룹 이름, 그룹 아이디
+        gfnTx(appid+"."+pgmid,"cafeList",{},function(OUTVAR){
+            if(OUTVAR.rtnCd == "OK") {
+                //console.log(OUTVAR.list[0].content);
+                var cafeList = OUTVAR.list;
+                for(let i = 0; i<cafeList.length; i++){
+                    me.dataSet["cafe"].push(cafeList[i].grp_nm);
+                }
+                me.dataSet["cafe_list"].push(cafeList);
+            }
+
+        })
+
+        //사용자 이름
+        gfnTx(appid+"."+pgmid,"search",{},function(OUTVAR){
+            if(OUTVAR.rtnCd == "OK") {
+                //console.log(OUTVAR.list[0].content);
+                var userList = OUTVAR.list;
+                for(let i = 0; i<userList.length; i++){
+                    me.dataSet["user"].push(userList[i].nm);
+                }
+            }
+        })
+
+    });
+
+    
+    $(document).ready(function() {
+        
+        var selvalue = $('#category option:selected').val(); 
+
+        $('#autocom').on("keypress",function(key){ //입력 후 바로 엔터
+        
+            var input = $('#autocom').val(); //텍스트 입력값
+            var selvalue = $('#category option:selected').val();
+
+            if(key.keyCode==13 && selvalue == 'user') { //입력한 사용자와의 채팅화면으로 이동
+                gfnManageChat();
+            }else if(key.keyCode==13 && selvalue == 'cafe') { //카페명 검색 -> 해당 카페창 이동
+
+                var cnt_cf = 0;
+                
+                for(let i = 0; i<me.dataSet["cafe_list"][0].length; i++){
+                    if(me.dataSet["cafe_list"][0][i].grp_nm == input){
+                        cnt_cf++;
+                        var grpid = me.dataSet["cafe_list"][0][i].grpid;
+                    }
+                }
+                
+                if(cnt_cf > 0){//입력값이 카페이름에 해당되는 경우 해당페이지로 이동
+                    
+                    var pgmid = "retrieveCafeHome";
+                    var pgmnm = "카페홈"
+                    gMDI.openPageOne(pgmid,pgmnm,grpid);
+    
+                    //gParam에 해당 카페 id,name 추가
+                    gParam["cafe_grpid"] = grpid;
+                    gParam["cafe_grpnm"] = input;
+                    
+                }else{ //입력값이 카페이름에 해당되지 않은 경우
+                
+                     if(input == ""){ //입력값이 존재하지 않을때 
+                        gfnStatus("카페명을 입력해 주세요.");
+                    }else{
+                        gfnStatus("요청된 페이지가 존재하지 않습니다.");
+                    }
+                }
+                
+            }else if(key.keyCode==13 && selvalue == 'pgmnm'){ //프로그램 이름 검색 -> 프로그램 해당 페이지로 이동
+
+                var cnt_pg = 0;
+
+                //프로그램 id -> pgmid
+                for(let i = 0; i<me.dataSet["pgm_list"].length; i++){
+                    if(me.dataSet["pgm_list"][i].pgm_nm == input){
+                        cnt_pg++;
+                        var pgmid = me.dataSet["pgm_list"][i].pgmid;
+                    }
+                }
+                if(cnt_pg > 0){ //입력값이 프로그램 이름에 해당되는 경우 해당페이지로 이동
+                    
+                    var pgmnm_pg = input;
+                    gMDI.openPage(pgmid, pgmnm_pg);
+                    
+                }else{ //입력값이 프로그램 이름에 해당되지 않은 경우
+                
+                    if(input == ""){ //입력값이 존재하지 않을때 
+                        gfnStatus("프로그램명을 입력해 주세요.");
+                    }else{
+                        gfnStatus("요청된 페이지가 존재하지 않습니다.");
+                    }
+                    
+                }
+                
+            }
+        })
+        
+        $("#autocom").autocomplete({ //자동완성검색으로 엔터
+            source: me.dataSet[selvalue],
+            select: function(event, ui) {
+                gfnManageChat();
+            }
+        })
+    });
+
+    
+    //카테고리(select박스) 선택 시 사용자, 카페, 프로그램별 조회
+    $("#category").on("change",function(){
+        
+        var value = $("#category").val();
+        $('#autocom').val(''); // 카테고리 선택할때마다 입력바 값 초기화
+        
+        
+        //카테고리별 자동 완성 검색
+        $("#autocom").autocomplete({
+            source: me.dataSet[value],
+            select: function(event, ui) { //값 선택 시(enter), 해당 페이지로 이동
+                //console.log(value, ui.item.value); 
+                if(value =='user'){ //사용자 -> 채팅화면 이동
+                    gfnManageChat();
+                }else if(value =='cafe'){ //카페 -> 해당 카페창 이동
+    
+                    //카페 그룹 id -> grpid
+                    for(let i = 0; i<me.dataSet["cafe_list"][0].length; i++){
+                        if(me.dataSet["cafe_list"][0][i].grp_nm == ui.item.value){
+                            var grpid = me.dataSet["cafe_list"][0][i].grpid;
+                        }
+                    }
+                    var pgmid = "retrieveCafeHome";
+                    var pgmnm = "카페홈"
+                    gMDI.openPageOne(pgmid,pgmnm,grpid);
+    
+                    //gParam에 해당 카페 id,name 추가
+                    gParam["cafe_grpid"] = grpid;
+                    gParam["cafe_grpnm"] = ui.item.value;
+    
+                }else if(value == 'pgmnm'){ //프로그램 이름 검색 -> 프로그램 해당 페이지로 이동
+                    //프로그램 id -> pgmid
+                    for(let i = 0; i<me.dataSet["pgm_list"].length; i++){
+                        if(me.dataSet["pgm_list"][i].pgm_nm == ui.item.value){
+                            var pgmid = me.dataSet["pgm_list"][i].pgmid;
+                        }
+                    }
+                    var pgmnm = ui.item.value;
+                    gMDI.openPage(pgmid, pgmnm);
+                }
+            },
+            focus: function(event, ui) {
+                return false;
+                //event.preventDefault();
+            }
+        });
+        
+    })
+
+/*-- SCRIPT autogen ---------------------------------------------------- */        
+if(typeof(me.fnInit)=='function') me.fnInit();
+});
+
+</script>

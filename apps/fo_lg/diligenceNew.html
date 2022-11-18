@@ -1,0 +1,160 @@
+<style>[pgmid='diligenceNew'].framepage .userClass { 
+width:100%; 
+}</style>
+
+<!-- HTML autogen start ---------------------------------------------- -->            
+<div class="pageNav"></div>
+<div class="pageTop"></div>
+<div class="pageCond"></div>
+<div class="pageGuide"></div>
+<div class="pageContent flexColumn">
+    <div id='mst'></div>
+    <div class="flexColumn">
+        <div id='list' style="height:17em"></div>
+        <div id='det' class="flexColumn"></div>
+    </div>
+</div>
+<!-- HTML autogen end ---------------------------------------------- -->
+<script>
+/*-- SCRIPT autogen start ---------------------------------------------- */        
+$(function() {
+    var appid = "fo_lg";
+    var pgmid = "diligenceNew"; 
+    var page = $("*[pgmid='"+pgmid+"'].framepage").last();
+    var pageid = page.attr("id"); 
+    var me = {}
+    var dataSet = {};
+    var dataDef = {};
+    var pageObj = {};
+    var bEdit = false;
+    me.fnInit = function() {
+        gfn[pageid] = me; 
+        me.appid    = appid;
+        me.pgmid    = pgmid;
+        me.pageid   = pageid;
+        me.page     = page; 
+        me.dataSet = dataSet;
+        me.dataDef = dataDef;
+        me.pageObj = pageObj;
+        me.bEdit = bEdit;
+me.dataDef["_pgm"]={"ver":0.1,"upd_dt":"2022-05-19 14:30:08","remark":"","pgmid":"diligenceNew","proc_mst_id":"","pgm_stat":"Y","sort_seq":58,"app_pgmid":"fo_lg","shortcut":"","reg_dt":"2022-05-19 14:30:08","reg_usid":"kihyunlee","pgm_nm":"2-1. 창고 재고실사 신규등록","upd_usid":"kihyunlee","pgm_tp":"TX","pgm_grp_nm":"재고실사","proc_mst_nm":"","app_pgm_nm":"물류","":"트랜젝션(화면)","crud":""};
+me.dataDef["_pgm_func"]=[{"func_icon":"fas fa-arrow-circle-right","reg_dt":"2022-05-19 14:30:08","reg_usid":"","func_nm":"리스팅","upd_usid":"","upd_dt":"2022-05-19 14:30:08","func_tp":"DB_R","remark":"재고실사 대상 창고를 선택하고 상품시즌별 재고현황을 리스팅합니다.","pgmid":"diligenceNew","sort_seq":"1","funcid":"next1","content":"상품시즌별 재고현황을 리스팅합니다.","crud":"U","id":"0"},{"func_icon":"fas fa-check","reg_dt":"2022-05-19 14:30:08","reg_usid":"","func_nm":"확정","upd_usid":"","upd_dt":"2022-05-19 14:30:08","func_tp":"DB_W","remark":"재고실사 전표를 생성하여 실사등록을 시작합니다.","pgmid":"diligenceNew","sort_seq":"2","funcid":"next2","content":"실사대상을 확인하고 실사를 시작합니다.","crud":"R","id":"1"}];
+me.dataDef["_pgm_data"] = {};
+me.dataDef["_pgm_data"]["mst"]={"sort_seq":"1","data_id":"mst","data_nm":"재고실사 기본정보 입력","data_icon":null,"component_pgmid":"aweForm","component_option":null,"inout_tp":null,"content":[{"sort_seq":1,"section":null,"section_icon":null,"colgrp":null,"colid":"lg_dt","colnm":"실사일자","dtype":"ymd","etype":"txt","attr":"ymd keycol","defval":"date(\"today\")","w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"0"},{"sort_seq":2,"section":null,"section_icon":null,"colgrp":null,"colid":"whcd","colnm":"매장/창고","dtype":"text","etype":"sel","attr":"pk","defval":null,"w":null,"h":null,"refcd":"whcd","option":"sel:whcd::cdnm","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"1"},{"sort_seq":3,"section":null,"section_icon":null,"colgrp":null,"colid":"remark","colnm":"내용/비고","dtype":"text","etype":"txt","attr":"keycol","defval":null,"w":"50","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"2"}]};
+me.dataDef["_pgm_data"]["list"]={"sort_seq":"2","data_id":"list","data_nm":"상품시즌별 재고현황 리스팅","data_icon":null,"component_pgmid":"agGrid","component_option":{"remark":"* 이동중 재고는 최종 실사전까지 정리하여야 합니다."},"inout_tp":null,"content":[{"sort_seq":1,"section":null,"section_icon":null,"colgrp":null,"colid":"yyyy","colnm":"상품연도","dtype":"text","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"0"},{"sort_seq":2,"section":null,"section_icon":null,"colgrp":null,"colid":"sssn_cd","colnm":"대표시즌","dtype":"text","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"1"},{"sort_seq":3,"section":null,"section_icon":null,"colgrp":null,"colid":"brcd","colnm":"브랜드","dtype":"text","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"2"},{"sort_seq":4,"section":null,"section_icon":null,"colgrp":null,"colid":"st_cnt","colnm":"스타일수","dtype":"num","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"3"},{"sort_seq":5,"section":null,"section_icon":null,"colgrp":null,"colid":"goods_cnt","colnm":"상품수","dtype":"num","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"4"},{"sort_seq":6,"section":null,"section_icon":null,"colgrp":null,"colid":"gr_qty","colnm":"입고수량","dtype":"num","etype":"raw","attr":"disabled","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"5"},{"sort_seq":7,"section":null,"section_icon":null,"colgrp":null,"colid":"gi_qty","colnm":"출고수량","dtype":"num","etype":"raw","attr":"disabled","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":"raw","colFormula":"disabled","grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"6"},{"sort_seq":8,"section":null,"section_icon":null,"colgrp":null,"colid":"stk_qty","colnm":"재고수량","dtype":"num","etype":"raw","attr":"keycol","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"7"},{"sort_seq":9,"section":null,"section_icon":null,"colgrp":null,"colid":"mov_qty","colnm":"이동중재고","dtype":"num","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"8"}]};
+me.dataDef["_pgm_data"]["det"]={"sort_seq":"3","data_id":"det","data_nm":"상품코드별 전산재고현황(실사대상)","data_icon":null,"component_pgmid":"agGrid","component_option":null,"inout_tp":null,"content":[{"sort_seq":1,"section":null,"section_icon":null,"colgrp":null,"colid":"goods_cd","colnm":"구분","dtype":"text","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"0"},{"sort_seq":2,"section":null,"section_icon":null,"colgrp":null,"colid":"gr_qty","colnm":"입고수량","dtype":"num","etype":"raw","attr":"disabled","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"1"},{"sort_seq":3,"section":null,"section_icon":null,"colgrp":null,"colid":"gi_qty","colnm":"출고수량","dtype":"num","etype":"raw","attr":"disabled","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"2"},{"sort_seq":4,"section":null,"section_icon":null,"colgrp":null,"colid":"stk_qty","colnm":"재고수량","dtype":"num","etype":"raw","attr":"keycol","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"3"},{"sort_seq":5,"section":null,"section_icon":null,"colgrp":null,"colid":"mov_qty","colnm":"이동중재고","dtype":"num","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"4"}]};
+
+        me.pageObj["_page"] = new gfnFramepage( me ); 
+        for(var component_id in me.dataDef["_pgm_data"]) { 
+            me.pageObj[component_id] = new gfnComponent( me.pageid, component_id, me.dataDef["_pgm_data"][component_id], me.fnEH, me); 
+        }  
+        setTimeout(function(){
+            $("#frameset").scrollTo(0); //스크롤 
+        },10);
+        if(typeof(me.fnInitExtra)=='function') me.fnInitExtra(); 
+    } 
+/*-- SCRIPT autogen end ---------------------------------------------- */
+
+    /* 사용자초기화 */
+    me.fnInitExtra=function() {
+        me.pageObj.mst.col["whcd"].obj.select2({dropdownAutoWidth : true});
+        //탭 설정
+        //gfnTab(pageid, "tabs", {"multi-active":"off","toggle-switch":"on"}); 
+        //사용자 컴포넌트 
+        //me.dataDef["_pgm_data"][myCompoId] = {...};
+        //me.pageObj["myCompoId"] = new gfnComponent( me.pageid, myCompoId, me.dataDef["_pgm_data"][myCompoId], me.fnEH, me); 
+        //me.pageObj["myCompoId"].userComponent = "myCompoId";
+        //사용자 컨트롤
+        //var myColinfo = {colid:...}
+        //me.pageObj["myColId"] = new gfnControl(myColinfo, me.fnEH) 
+        //me.page.find("#myCol").append(me.pageObj["myColId"].dispObj);
+        //me.pageObj["myColId"].getVal(); / myCol.setVal(val);...    
+    }
+    /* 이벤트핸들러 */
+    me.fnEH=function(component, evt, row, col, val) { 
+        //console.log(evt+","+row+","+col+","+val);
+        //화면기능버튼이 눌리면 
+        if (component==me.pageObj["_pageFunc"]){ 
+            if(typeof(me[col])=='function') me[col](); //col=기능명 me["fnSearch"]()=me.fnSearch(); 
+        }
+
+        //list:상품시즌별 재고현황 리스팅 이벤트처리     
+        else if(component==me.pageObj["list"]) {
+            if(evt=="focus") {
+                if(row >= 0) {
+                   me.fnSearchDet();
+                }
+            }
+            //if(evt=="change" && col=="colid") {...}
+        } 
+    }
+    //next1:상품시즌별 재고 리스팅
+    me.fnNext1=function() {
+        //VALIDATION  : 
+        if( !me.pageObj["mst"].chkValid() ) return;
+        //REQUEST OBJ : 
+        var args = me.pageObj["mst"].exportData()[0];
+        //SERVICE CALL: 
+        var invar = JSON.stringify(args);
+        gfnTx(appid+"."+pgmid,"search",{INVAR:invar},function(OUTVAR){
+            //console.log(OUTVAR);
+            if(OUTVAR.rtnCd=="OK") {
+                //서비스 후처리 : 
+                me.pageObj.list.importData(OUTVAR.list); 
+                me.pageObj.list.total("top");
+                gfnAlert("창고 재고리스팅","재고를 조회하였습니다."); 
+            } else {
+                gfnAlert("오류",OUTVAR.rtnMsg);
+            }
+        });
+    }
+    //선택된 연도시즌 재고조회
+    me.fnSearchDet=function() {
+        var rowseq = me.pageObj.list.focusedRow();
+        var row = me.pageObj.list.getNodeId(rowseq);
+        if(row < 0) return;
+        var args = me.pageObj["mst"].exportData()[0];
+        $.extend(args, me.pageObj.list.getRowData(row));
+        //SERVICE CALL: 
+        var invar = JSON.stringify(args);
+        gfnTx(appid+"."+pgmid,"searchDet",{INVAR:invar},function(OUTVAR){
+            //console.log(OUTVAR);
+            if(OUTVAR.rtnCd=="OK") {
+                //서비스 후처리 : 
+                //gfnAlert("상품코드별 재고현황","재고를 조회하였습니다."); 
+                me.pageObj.det.importData(OUTVAR.det); 
+                me.pageObj.det.total("top");
+            } else {
+                gfnAlert("오류",OUTVAR.rtnMsg);
+            }
+        });
+        
+    };
+    //next2:확정 
+    me.fnNext2=function() {
+        //VALIDATION  : 
+        if( !me.pageObj["mst"].chkValid() ) return;
+        //REQUEST OBJ : 
+        var args = me.pageObj["mst"].exportData()[0];
+        //SERVICE CALL: 
+        var invar = JSON.stringify(args);
+        gfnTx(appid+"."+pgmid,"next2",{INVAR:invar},function(OUTVAR){
+            console.log(OUTVAR);
+            if(OUTVAR.rtnCd=="OK") {
+                //서비스 후처리 : 
+                var lg_ord_no = OUTVAR.lg_ord_no;
+                gfnAlert("성공","창고 현재고를 리스팅하고 실사전표("+lg_ord_no+")를 생성하였습니다."); 
+                gParam.fnCallback(lg_ord_no);
+                gMDI.close(me.pageid);
+            } else {
+                gfnAlert("오류",OUTVAR.rtnMsg);
+            }
+        });
+    }
+
+
+/*-- SCRIPT autogen ---------------------------------------------------- */        
+if(typeof(me.fnInit)=='function') me.fnInit();
+});
+
+</script>

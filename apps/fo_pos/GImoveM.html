@@ -1,0 +1,418 @@
+<style>[pgmid='GImoveM'].framepage .scan1 { 
+    width: 100%;
+    display: flex;
+}
+[pgmid="GImoveM"].framepage .scan0 input {
+    font-size: 1.5em;
+    width: 80%;
+    text-align: center;
+    background-color: beige;
+    border: 2px solid coral;
+    font-weight: bolder;
+    margin-left: 1em;
+    padding: 4px;
+}
+[pgmid="GImoveM"].framepage .scan1 input { 
+    width: 100%;
+    min-height: 2em;
+    height: 2em;
+    font-size: 1.5em;
+    font-weight: bolder;
+    border: 2px solid coral;
+    background-color: beige;
+    text-align: center;
+}
+
+[pgmid="GImoveM"].framepage #scan0:focus, [pgmid='GImoveM'].framepage #scan2:focus { 
+    background-color: hsl(197, 71%, 83%);
+}
+
+[pgmid="GImoveM"].framepage .pageContent.flexColumn > *:last-child {
+    flex: 1 1 100% !important;
+}
+
+/*거부한 경우 색상 변경 되도록*/
+/*[pgmid='GImoveM'] button[colid='denied'] {*/
+/*    background-color: hsl(3 100% 61.4%) !important;*/
+/*}*/
+
+.popup {
+    position: fixed;
+    background-color: hsl(0 0% 100%);
+    padding: 15px;
+    padding-left: 50px;
+    padding-right: 50px;
+    font-size: 18px;
+    font-weight: 500;
+    margin: 10px;
+    border-radius: 5px;
+    box-shadow: 0 14px 28px rgb(0 0 0 / 25%), 0 10px 10px rgb(0 0 0 / 42%);
+    top: 0px;
+    text-align: center;
+    left: 50%;
+    width: 250px;
+    transform: translate(-53%);
+}
+
+.popupRemark {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: hsl(0 0% 100%);
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 0 14px 28px rgb(0 0 0 / 25%), 0 10px 10px rgb(0 0 0 / 42%);
+    z-index: 2;
+}
+
+.remarkList {
+    font-size: 25px;
+    font-weight: bold;
+    padding: 20px;
+    padding-top: 10px;
+    padding-bottom: 25px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.remarkList:hover {
+    background-color: hsl(0 0% 90%);
+    border-radius: 20px;
+}</style>
+
+<!-- HTML autogen start ---------------------------------------------- -->            
+<div class="pageTop"></div> 
+<div class="pageContent flexColumn">
+    <!--<div id="mst"></div>-->
+    <div class="scan1">
+        <input id="scan2" name="scanbox2" type="text" inputmode="none" placeholder="박스 바코드 스캔" autocomplete='off'>
+    </div>
+    <div id="list" style="height:20%;"></div>
+    <div id="det" class="flexColumn"></div>
+</div>
+<!-- HTML autogen end ---------------------------------------------- -->
+<script>
+/*-- SCRIPT autogen start ---------------------------------------------- */        
+$(function() {
+    var appid = "fo_pos";
+    var pgmid = "GImoveM"; 
+    var page = $("*[pgmid='"+pgmid+"'].framepage").last();
+    var pageid = page.attr("id"); 
+    var me = {}
+    var dataSet = {};
+    var dataDef = {};
+    var pageObj = {};
+    var bEdit = false;
+    me.fnInit = function() {
+        gfn[pageid] = me; 
+        me.appid    = appid;
+        me.pgmid    = pgmid;
+        me.pageid   = pageid;
+        me.page     = page; 
+        me.dataSet = dataSet;
+        me.dataDef = dataDef;
+        me.pageObj = pageObj;
+        me.bEdit = bEdit;
+me.dataDef["_pgm"]={"pgmid":"GImoveM","pgm_nm":"행낭 인수 등록(M)","pgm_tp":"UX","proc_mst_id":"","proc_mst_nm":"","remark":"창고에서 매장으로 행낭 입고된 박스 바코드나 송장 바코드를 스캔하여 인수 등록합니다.","ver":0.7,"pgm_stat":"Y","reg_usid":"jyk","reg_dt":"2021-12-07 18:13:55","upd_usid":"bjh","upd_dt":"2021-12-22 16:34:00","app_pgmid":"fo_pos","pgm_grp_nm":"행낭/반송","sort_seq":102,"shortcut":"","crud":"","app_pgm_nm":"매장"};
+me.dataDef["_pgm_func"]=[{"func_icon":"fas fa-file","reg_dt":"2021-12-07 18:13:55","reg_usid":"","func_nm":"신규","upd_usid":"","upd_dt":"2021-12-07 18:13:55","func_tp":"EH","remark":null,"pgmid":"GImoveM","sort_seq":"1","funcid":"new","content":"신규 정보를 입력할 수 있도록 입력 필드를 초기화함","crud":"R","id":"0"},{"func_icon":"fas fa-save","reg_dt":"2021-12-07 18:13:55","reg_usid":"","func_nm":"인수 등록","upd_usid":"","upd_dt":"2021-12-07 18:13:55","func_tp":"DB_W","remark":null,"pgmid":"GImoveM","sort_seq":"2","funcid":"save","content":"조회된 행낭을 인수 등록 처리","crud":"R","id":"1"}];
+me.dataDef["_pgm_data"] = {};
+me.dataDef["_pgm_data"]["mst"]={"sort_seq":"1","data_id":"mst","data_nm":"송장정보","data_icon":null,"component_pgmid":"aweForm","component_option":null,"inout_tp":"INOUT","content":[{"sort_seq":1,"section":null,"section_icon":null,"colgrp":null,"colid":"lg_ord_no","colnm":"물류지시번호","dtype":"text","etype":null,"attr":"hidden","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"0"},{"sort_seq":2,"section":null,"section_icon":null,"colgrp":null,"colid":"lg_tp","colnm":"물류유형","dtype":"text","etype":"sel","attr":"hidden keycol","defval":null,"w":null,"h":null,"refcd":"LG_TP","option":"sel:lg_tp::cdnm","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"1"},{"sort_seq":3,"section":null,"section_icon":null,"colgrp":null,"colid":"lg_dt","colnm":"물류일자","dtype":"ymd","etype":"txt","attr":"ymd","defval":"date(\"today\")","w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"2"},{"sort_seq":4,"section":null,"section_icon":null,"colgrp":"보낸 창고","colid":"from_whcd","colnm":"코드","dtype":"text","etype":"txt","attr":"keycol pop","defval":null,"w":null,"h":null,"refcd":"whcd","option":"sel:to_whcd:to_wh_nm:cdnm","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"3"},{"sort_seq":5,"section":null,"section_icon":null,"colgrp":"보낸 창고","colid":"from_wh_nm","colnm":"명","dtype":"text","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"4"},{"sort_seq":6,"section":null,"section_icon":null,"colgrp":null,"colid":"remark","colnm":"비고","dtype":"text","etype":"txt","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"5"},{"sort_seq":7,"section":null,"section_icon":null,"colgrp":null,"colid":"cd_stat","colnm":"상태코드","dtype":"text","etype":"sel","attr":"hidden disabled","defval":"D","w":null,"h":null,"refcd":"LG_ORD_STAT","option":"sel:cd_stat::cdnm","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"6"},{"sort_seq":8,"section":null,"section_icon":null,"colgrp":null,"colid":"ord_end_yn","colnm":"완결","dtype":"text","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"7"}]};
+me.dataDef["_pgm_data"]["list"]={"sort_seq":"2","data_id":"list","data_nm":"입고예정 목록","data_icon":null,"component_pgmid":"agGrid","component_option":null,"inout_tp":"OUT","content":[{"sort_seq":1,"section":null,"section_icon":null,"colgrp":null,"colid":"lg_ord_no","colnm":"물류지시번호","dtype":"text","etype":null,"attr":"hidden","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"0"},{"sort_seq":2,"section":null,"section_icon":null,"colgrp":null,"colid":"lg_dt","colnm":"물류일자","dtype":"text","etype":null,"attr":"readonly center","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"1"},{"sort_seq":3,"section":null,"section_icon":null,"colgrp":null,"colid":"lg_tp","colnm":"물류유형","dtype":"text","etype":"sel","attr":"hidden","defval":null,"w":"5","h":null,"refcd":"LG_TP","option":"sel:lg_tp::cdnm","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"2"},{"sort_seq":4,"section":null,"section_icon":null,"colgrp":null,"colid":"from_whcd","colnm":"창고코드","dtype":"text","etype":null,"attr":"readonly center ","defval":null,"w":"5","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"3"},{"sort_seq":5,"section":null,"section_icon":null,"colgrp":null,"colid":"from_wh_nm","colnm":"보낸창고","dtype":"text","etype":null,"attr":"readonly center","defval":null,"w":"7","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"4"},{"sort_seq":6,"section":null,"section_icon":null,"colgrp":null,"colid":"ord_dt","colnm":"등록일자","dtype":"ymd","etype":null,"attr":"hidden","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"5"},{"sort_seq":7,"section":null,"section_icon":null,"colgrp":null,"colid":"ord_usid","colnm":"등록자","dtype":"text","etype":"raw","attr":"hidden","defval":null,"w":null,"h":null,"refcd":"USID","option":"sel:ord_usid::cdnm","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"6"},{"sort_seq":8,"section":null,"section_icon":null,"colgrp":null,"colid":"box_cnt","colnm":"박스수","dtype":"num","etype":null,"attr":"readonly center","defval":null,"w":"4","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"7"},{"sort_seq":9,"section":null,"section_icon":null,"colgrp":null,"colid":"goods_qty","colnm":"수량","dtype":"num","etype":null,"attr":"readonly center","defval":null,"w":"4","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"8"},{"sort_seq":10,"section":null,"section_icon":null,"colgrp":null,"colid":"rcv_box_cnt","colnm":"박스수","dtype":"num","etype":null,"attr":"hidden","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"9"},{"sort_seq":11,"section":null,"section_icon":null,"colgrp":null,"colid":"rcv_goods_qty","colnm":"수량","dtype":"num","etype":null,"attr":"hidden","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"10"},{"sort_seq":12,"section":null,"section_icon":null,"colgrp":null,"colid":"cd_stat","colnm":"문서상태","dtype":"text","etype":"sel","attr":"hidden","defval":null,"w":null,"h":null,"refcd":"LG_ORD_STAT","option":"sel:cd_stat::cdnm","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"11"},{"sort_seq":13,"section":null,"section_icon":null,"colgrp":null,"colid":"ord_end_yn","colnm":"처리상태","dtype":"text","etype":null,"attr":"readonly center","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"12"},{"sort_seq":14,"section":null,"section_icon":null,"colgrp":null,"colid":"accept","colnm":"인수등록","dtype":"text","etype":"btn","attr":"hidden","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"13"},{"sort_seq":15,"section":null,"section_icon":null,"colgrp":null,"colid":"remark","colnm":"비고","dtype":"text","etype":null,"attr":"readonly center","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"14"}]};
+me.dataDef["_pgm_data"]["det"]={"sort_seq":"3","data_id":"det","data_nm":"상품내역","data_icon":null,"component_pgmid":"agGrid","component_option":null,"inout_tp":"OUT","content":[{"sort_seq":1,"section":null,"section_icon":null,"colgrp":null,"colid":"box_barcd","colnm":"박스 바코드","dtype":"text","etype":"raw","attr":null,"defval":null,"w":"14","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"0"},{"sort_seq":2,"section":null,"section_icon":null,"colgrp":null,"colid":"goods_seq","colnm":"순번","dtype":"text","etype":"raw","attr":"hidden","defval":null,"w":"3","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"1"},{"sort_seq":3,"section":null,"section_icon":null,"colgrp":null,"colid":"goods_cd","colnm":"상품코드","dtype":"text","etype":"raw","attr":null,"defval":null,"w":"12","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"2"},{"sort_seq":4,"section":null,"section_icon":null,"colgrp":null,"colid":"qty","colnm":"수량","dtype":"num","etype":"raw","attr":null,"defval":null,"w":"5","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"3"},{"sort_seq":5,"section":null,"section_icon":null,"colgrp":null,"colid":"remark","colnm":"비고","dtype":"text","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"4"}]};
+
+        me.pageObj["_page"] = new gfnFramepage( me ); 
+        for(var component_id in me.dataDef["_pgm_data"]) { 
+            me.pageObj[component_id] = new gfnComponent( me.pageid, component_id, me.dataDef["_pgm_data"][component_id], me.fnEH, me); 
+        }  
+        setTimeout(function(){
+            $("#frameset").scrollTo(0); //스크롤 
+        },10);
+        if(typeof(me.fnInitExtra)=='function') me.fnInitExtra(); 
+    } 
+/*-- SCRIPT autogen end ---------------------------------------------- */
+/* 사용자초기화 */
+me.fnInitExtra=function() {
+    //박스 스캔 영역 focus
+    me.page.find("#scan2").focus();
+    
+    //물류지시번호 스캔 컴포넌트 생성
+    var scan0 = document.createElement("div");
+    scan0.classList.add("scan0");
+    var input = document.createElement("input");
+    input.id = "scan0";
+    input.name = "scanbox0";
+    input.type = "text";
+    input.autocomplete = "off";
+    input.setAttribute("inputmode", "none");
+    input.placeholder = "송장 번호 스캔";
+    scan0.append(input);
+    document.querySelector(".framepage[id=" + me.pageid + "] .pageTop .pageFunc").prepend(scan0);
+    
+    //물류지시번호 스캔 시, list 리턴
+    me.page.find("#scan0").keydown(function(key) {
+        if(key.keyCode == 13) {
+            const rowData = { lg_ord_no : upper(me.page.find("input[name=scanbox0]").val()) };
+            me.fnSearchOrd(rowData);
+        }
+    })
+    
+    // 박스 번호 스캔
+    me.page.find("#scan2").keydown(function(key) {
+        if(key.keyCode == 13) {
+            const rowData = { barcd : upper(me.page.find("input[name=scanbox2]").val()) };
+            me.fnSearchOrdNum(rowData);
+            
+            me.page.find("input[name=scanbox2]").val("");
+        }
+    })
+    
+    //팝업 활성화시, 클릭 이벤트 체크로 팝업 제거
+    me.page.click(function() {
+        me.fnPopup(false, "alert", undefined);
+    })
+}
+/* 이벤트핸들러 */
+me.fnEH=function(component, evt, row, col, val) { 
+    //console.log(evt+","+row+","+col+","+val);
+    //화면기능버튼이 눌리면 
+    if(component==me.pageObj["_pageFunc"]) { 
+        if(typeof(me[col])=='function') me[col](); //col=기능명 me["fnSearch"]()=me.fnSearch(); 
+    }
+    
+    //list:박스목록 이벤트처리     
+    else if(component == me.pageObj["list"]) {
+        if(evt == "focus") {
+            if(row < 0) return;
+            const rowData = me.pageObj.list.getRowData(row);
+            me.fnSearchDet(rowData);
+            
+        } else if(evt=="click" && col=="accept") {
+            if(row < 0) return;
+            const rowData = me.pageObj.list.getRowData(row);
+            me.fnAcceptOrd(rowData);
+        }
+    }
+}
+
+//알림 타입 bCheck: 알림생성,제거 / type: 알림 타입 / value: 박스 개수 / bComplete: 인수 여부
+me.fnPopup = function(bCheck, type, value, bComplete) {
+    if(bCheck) {
+        //알림 타입
+        if(type == "alert") {
+            //알림 창이 있는지 확인 후 생성
+            if(document.querySelector(".framepage[id=" + me.pageid + "]")) {
+                me.fnPopup(false, "alert", undefined);
+            }
+            //알림 팝업 생성
+            let popup = document.createElement("div");
+            popup.classList.add("popup");
+            
+            //완료된 건인지 확인
+            if(bComplete) {
+                popup.innerHTML = "선택된 행낭 (박스 : " + value + "건)<br> 인수 등록이 완료되었습니다.";
+                popup.style.backgroundColor = "hsl(3 100% 61.4%)";
+            
+            } else {
+                popup.innerHTML = "선택된 행낭 (박스 : " + value + "건)<br> 인수 등록을 진행합니다.";
+            }
+            popup.style.display = "none";
+            document.querySelector(".framepage[id=" + me.pageid + "]").append(popup);
+            $(popup).slideDown();
+            
+            //알림창 클릭 이벤트
+            function clickAlert() {
+                me.fnPopup(false, "alert", undefined);
+                popup.removeEventListener("click", clickAlert);
+            }
+            popup.addEventListener("click", clickAlert);
+        }
+        
+    } else if(!bCheck) {
+        //알림 창 제거
+        if(type == "alert") {
+            if(document.querySelector(".framepage[id=" + me.pageid + "] .popup")) {
+                $(".framepage[id=" + me.pageid + "] .popup").slideUp(100, 'swing', function() {
+                    $(".framepage[id=" + me.pageid + "] .popup").remove();
+                });
+            }
+        }
+    }
+}
+
+//송장 바코드로 행낭 검색
+me.fnSearchOrd = function(rowData) {
+    //알림 팝업이 있는 경우, 팝업 제거
+    me.fnPopup(false, "alert", undefined);
+
+    if(isNull(rowData)) return;
+     
+    var args  = { lg_ord_no : rowData.lg_ord_no };
+    var invar = JSON.stringify(args);
+    gfnTx(appid + "." + pgmid, "searchOrd", { INVAR : invar }, function(OUTVAR) {
+        if(OUTVAR.rtnCd == "OK") {
+            if(OUTVAR.lg_ord_no != "NULL") {
+                me.pageObj["list"].importData(OUTVAR.list);
+                
+                //공간 부족으로 mst header를 사용하지 않고 list를 사용, 1개의 row만 존재하므로 0으로 값을 리턴
+                const list    = me.pageObj["list"].getRowData(0);
+                const length  = list.rcv_box_cnt;
+                let bComplete = false;
+                
+                //이미 인수 등록한 경우, 버튼 비활성화
+                if(list.ord_end_yn == "Y") {
+                    document.querySelector(".framepage[id= " + me.pageid + "] .pageTop .pageFunc .gButton[funcid=save]").setAttribute("disabled", true);
+                    bComplete = true;
+                    
+                } else {
+                    document.querySelector(".framepage[id= " + me.pageid + "] .pageTop .pageFunc .gButton[funcid=save]").removeAttribute("disabled");
+                }
+                
+                //완료 여부에 따라 팝업 호출
+                me.fnPopup(true, "alert", length, bComplete);
+                
+                //송장 정보로 박스 번호와 상품 조회
+                me.fnSearchDet(list);
+                
+            } else {
+                 gfnAlert("행낭 조회 오류", "[" + rowData.lg_ord_no + "] 는 유효하지 않은 행낭 송장 번호 입니다.");
+                 me.fnNew();
+            }
+        }
+    })
+}
+
+//박스 바코드 검색
+me.fnSearchOrdNum = function(rowData) {
+    //알림 팝업 제거
+    me.fnPopup(false); 
+    
+    //박스 바코드 null 인 경우,
+    if(isNull(rowData.barcd)) return;
+    
+    var args = { barcd : rowData.barcd };
+    var invar = JSON.stringify(args);
+    gfnTx(appid + "." + pgmid, "searchOrdNum", { INVAR : invar }, function(OUTVAR) {
+        if(OUTVAR.rtnCd == "OK") {
+            //현재 송장 번호 수집
+            var lg_ord_no = upper(me.page.find("input[name=scanbox0]").val());
+            
+            //송장 번호가 null인 경우, (첫 스캔 시, 송장 번호는 null)
+            if(isNull(lg_ord_no)) {
+                 //DB에 박스 바코드의 송장 번호가 존재하지 않는 경우,
+                if(OUTVAR.lg_ord_no == "NULL") {
+                    gfnAlert("행낭 조회 오류", "[" + rowData.barcd + "] 는 유효하지 않은 박스 바코드 입니다.");
+                    me.page.find("input[name=scanbox2]").val("");
+                    
+                //DB에 박스 바코드의 송장 번호가 존재하는 경우,
+                } else {
+                    //송장 번호 필드 삽입
+                    me.page.find("input[name=scanbox0]").val(OUTVAR.lg_ord_no);
+                    
+                    //입력한 박스 바코드 초기화
+                    me.page.find("input[name=scanbox2]").val("");
+
+                    //행낭 정보 출력
+                    me.pageObj["list"].importData(OUTVAR.list);
+
+                    //팝업 데이터 전달 및 팝업 처리
+                    const list = me.pageObj["list"].getRowData(0);
+                    const length = list.rcv_box_cnt;
+                    let bComplete = false;
+                    
+                    if(list.ord_end_yn == "Y") {
+                        document.querySelector(".framepage[id= " + me.pageid + "] .pageTop .pageFunc .gButton[funcid=save]").setAttribute("disabled", true);
+                        bComplete = true;
+                        
+                    } else {
+                        document.querySelector(".framepage[id= " + me.pageid + "] .pageTop .pageFunc .gButton[funcid=save]").removeAttribute("disabled");
+                    }
+                    me.fnSearchDet(list);
+                    
+                    me.fnPopup(true, "alert", length, bComplete);
+                }
+                
+            //송장 번호가 존재하는 경우, (첫 스캔 후, 송장 번호가 존재할 때)
+            } else {
+                //박스 바코드가 현재 송장 번호에 속하지 않는 경우,
+                if(lg_ord_no != OUTVAR.lg_ord_no) {
+                    //현재 필드 초기화 후, 재조회
+                    me.fnNew();
+                    me.fnSearchOrdNum(rowData.barcd);
+                    
+                //현재 송장 번호인 경우
+                } else {
+                    //송장 정보
+                    var list = me.pageObj["list"].getRowData(0);
+                    if(list.ord_end_yn == "Y") {
+                        gfnStatus("이미 인수 등록 처리 되었습니다.");
+                        
+                    } else {
+                        me.fnSave(list);
+                    }
+                }
+            }
+        }
+    });
+}
+
+//송장 바코드로 상품 정보 조회
+me.fnSearchDet = function(rowData) {
+    if(isNull(rowData)) return;
+    
+    var args = { lg_ord_no : rowData.lg_ord_no };
+    var invar = JSON.stringify(args);
+    gfnTx(appid + "." + pgmid, "searchDet", { INVAR : invar }, function(OUTVAR) {
+        if(OUTVAR.rtnCd == "OK") {
+            me.pageObj["det"].importData(OUTVAR.det);
+        }
+    })
+}
+
+//new:신규 필드 초기화
+me.fnNew = function() {
+    //알림 팝업 제거
+    me.fnPopup(false);
+
+    //필드값 초기화
+    me.page.find("input[name=scanbox0]").val("");
+    me.page.find("input[name=scanbox2]").val("");
+    me.pageObj.list.reset();
+    me.pageObj.det.reset();
+
+    //박스 스캔 영역 focus
+    me.page.find("#scan2").focus();
+}
+
+//인수 등록 및 입고 등록
+me.fnSave = function() {
+    function save(list) {
+        const invar = JSON.stringify(list);
+        gfnTx(appid + "." + pgmid, "acceptOrd" , { INVAR : invar }, function(OUTVAR) {
+            if(OUTVAR.rtnCd == "OK") {
+                document.querySelector(".framepage[id= " + me.pageid + "] .pageTop .pageFunc .gButton[funcid=save]").setAttribute("disabled", true);
+                gfnAlert("행낭 인수 등록", "행낭 인수 등록되었습니다.");
+                me.fnSearchOrd({ lg_ord_no : list.lg_ord_no });
+            } else {
+                gfnAlert("행낭 인수 등록", "저장 오류 [ " + OUTVAR.rtnMsg +" ]");
+            }
+        })
+    }
+    
+    if( !me.pageObj["list"].chkValid() ) return;
+    const list = me.pageObj["list"].getRowData(0);
+    if(list.ord_end_yn == "Y") {
+        gfnAlert("행낭 입고 등록", "이미 인수 등록된 행낭입니다.");
+    } else {
+        gfnConfirm("행낭 입고 등록", "송장 번호 [" + list.lg_ord_no + "]의 행낭을 인수 등록 하시겠습니까?", function(bConfirm) {
+            if(bConfirm) save(list);
+        })
+    }
+}
+
+
+/*-- SCRIPT autogen ---------------------------------------------------- */        
+if(typeof(me.fnInit)=='function') me.fnInit();
+});
+
+</script>

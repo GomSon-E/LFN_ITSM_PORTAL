@@ -1,0 +1,202 @@
+<style>[pgmid='GIpda(M)'].framepage .scan1 { 
+    width: 100%;
+    display: flex;
+}
+[pgmid='GIpda(M)'].framepage .scan1 input { 
+    width: 80%;
+    min-height: 2em;
+    font-size: 1.5em;
+    font-weight: bolder;
+    border: 2px solid coral;
+    background-color: beige;
+    text-align: center;
+    width: 100%;
+}
+</style>
+
+<!-- HTML autogen start ---------------------------------------------- -->            
+<div class="pageNav"></div>
+<div class="pageTop"></div>
+<div class="pageGuide"></div>
+<div class="pageContent flexColumn">
+    <div class="scan1">
+        <input id="scan2" name="scanbox2" type="text" inputmode="none" placeholder="박스 바코드 스캔" autocomplete='off'>
+    </div>
+    <div id="boxlist" class="flexColumn"></div> 
+</div>
+<!-- HTML autogen end ---------------------------------------------- -->
+<script>
+/*-- SCRIPT autogen start ---------------------------------------------- */        
+$(function() {
+    var appid = "fo_lg";
+    var pgmid = "GIpda(M)"; 
+    var page = $("*[pgmid='"+pgmid+"'].framepage").last();
+    var pageid = page.attr("id"); 
+    var me = {}
+    var dataSet = {};
+    var dataDef = {};
+    var pageObj = {};
+    var bEdit = false;
+    me.fnInit = function() {
+        gfn[pageid] = me; 
+        me.appid    = appid;
+        me.pgmid    = pgmid;
+        me.pageid   = pageid;
+        me.page     = page; 
+        me.dataSet = dataSet;
+        me.dataDef = dataDef;
+        me.pageObj = pageObj;
+        me.bEdit = bEdit;
+me.dataDef["_pgm"]={"ver":0.8,"upd_dt":"2022-07-13 18:10:34","remark":"","pgmid":"GIpda(M)","proc_mst_id":"","pgm_stat":"Y","sort_seq":23,"app_pgmid":"fo_lg","shortcut":"","reg_dt":"2022-07-13 18:10:34","reg_usid":"lyj","pgm_nm":"출고등록 박스스캔","upd_usid":"lyj","pgm_tp":"UX","pgm_grp_nm":"출고","proc_mst_nm":"","app_pgm_nm":"물류","":"트랜젝션(메뉴)","crud":""};
+me.dataDef["_pgm_func"]=[{"func_icon":"fas fa-recycle","reg_dt":"2022-07-13 18:10:34","reg_usid":"","func_nm":"초기화","upd_usid":"","upd_dt":"2022-07-13 18:10:34","func_tp":"DB_R","remark":"스캔한 박스를 초기화합니다.","pgmid":"GIpda(M)","sort_seq":"1","funcid":"reset","content":null,"crud":"R","id":"0"},{"func_icon":"fas fa-check","reg_dt":"2022-07-13 18:10:34","reg_usid":"","func_nm":"분할","upd_usid":"","upd_dt":"2022-07-13 18:10:34","func_tp":"DB_W","remark":"박스를 스캔하여 새로운 전표로 분할합니다.","pgmid":"GIpda(M)","sort_seq":"2","funcid":"check","content":null,"crud":"R","id":"1"}];
+me.dataDef["_pgm_data"] = {};
+me.dataDef["_pgm_data"]["boxlist"]={"sort_seq":"1","data_id":"boxlist","data_nm":"박스목록","data_icon":null,"component_pgmid":"agGrid","component_option":{"gridOpt":"rn"},"inout_tp":null,"content":[{"sort_seq":1,"section":null,"section_icon":null,"colgrp":null,"colid":"box_no","colnm":"패킹번호","dtype":"text","etype":"txt","attr":"readonly keycol","defval":null,"w":"12","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"0"},{"sort_seq":2,"section":null,"section_icon":null,"colgrp":null,"colid":"box_barcd","colnm":"패킹바코드","dtype":"text","etype":"txt","attr":"readonly ","defval":null,"w":"12","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"1"},{"sort_seq":3,"section":null,"section_icon":null,"colgrp":null,"colid":"delete","colnm":"줄삭제","dtype":"text","etype":"btn","attr":null,"defval":null,"w":"6","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"2"}]};
+
+        me.pageObj["_page"] = new gfnFramepage( me ); 
+        for(var component_id in me.dataDef["_pgm_data"]) { 
+            me.pageObj[component_id] = new gfnComponent( me.pageid, component_id, me.dataDef["_pgm_data"][component_id], me.fnEH, me); 
+        }  
+        setTimeout(function(){
+            $("#frameset").scrollTo(0); //스크롤 
+        },10);
+        if(typeof(me.fnInitExtra)=='function') me.fnInitExtra(); 
+    } 
+/*-- SCRIPT autogen end ---------------------------------------------- */
+   /* 사용자초기화 */
+    me.fnInitExtra=function() {
+        
+        // 박스 번호 스캔
+        me.page.find("#scan2").keydown(function(key) {
+            if(key.keyCode == 13) {
+                var barcd = upper(me.page.find("input[name=scanbox2]").val());
+                me.fnSearchBox();
+                me.page.find("input[name=scanbox2]").val("");
+            }
+        })
+    }
+    /* 이벤트핸들러 */
+    me.fnEH=function(component, evt, row, col, val) { 
+        //console.log(evt+","+row+","+col+","+val);
+        //화면기능버튼이 눌리면 
+        if (component==me.pageObj["_pageFunc"]){ 
+            if(typeof(me[col])=='function') me[col](); //col=기능명 me["fnSearch"]()=me.fnSearch(); 
+        }
+        
+        //goodslist:상품목록 이벤트처리     
+        else if(component==me.pageObj["boxlist"]) {
+            if(evt=="click" ) {
+                //선택된 상품Row 삭제
+                if ( col=="delete") { 
+                   console.log(row);
+                   me.fndeleteBox(row); 
+                }
+            }
+        } 
+        
+        
+        //사용자 컴포넌트/컨트롤
+        else if(component.userComponent=="myCompoId") {
+            //if(evt=="dblclick" && col=="colid") {...}
+        }
+    }
+    
+    me.fnReset=function() {
+        me.pageObj.boxlist.reset();
+        me.page.find('#boxlist .componentTitle span').text('박스목록');
+        gObj.lg_ord_no = '';
+    }
+    
+    //줄삭제
+    me.fndeleteBox=function(row) {
+        me.pageObj.boxlist.delRow(row);
+    }
+    
+    //박스내 상품조회 
+    me.fnSearchBox = function() {
+        var box_no = upper(me.page.find("input[name=scanbox2]").val());
+        if(isNull(box_no)) return;
+        // var args = { box_no : box_no, whcd : gUserinfo.deptcd };
+        var args = { box_no : box_no, whcd : gObj.from_whcd };
+        var invar = JSON.stringify(args);
+        console.log(args);
+        gfnTx(appid +"."+ pgmid, "searchPack", { INVAR : invar }, function(OUTVAR){
+            console.log(OUTVAR);
+            if(OUTVAR.list.length === 0){
+                gfnAlert("박스오류","패킹등록된 박스가 아니거나 발송완료 또는 인수된 박스입니다.");
+                return;
+            }
+            
+            // if(!gObj.box_barcds.includes(OUTVAR.list[0].box_barcd)) {
+            //     gfnAlert("박스오류","해당 물류전표에 들어있는 박스가 아닙니다.");
+            //     return;
+            // }
+            
+            // 첫번째
+            if(me.pageObj.boxlist.exportData().length == 0){
+                // lg_ord_no저장
+                gObj.lg_ord_no = OUTVAR.list[0].lg_ord_no;
+                me.page.find('#boxlist .componentTitle span').text(`박스목록 (기존 물류지시번호 : ${gObj.lg_ord_no})`);
+            }
+            
+            // 1개 들어갔을때 lg_ord_no 확인하여 패킹조회
+            if(me.pageObj.boxlist.exportData().length > 0){ 
+                console.log('no',gObj.lg_ord_no);
+                if(gObj.lg_ord_no !== OUTVAR.list[0].lg_ord_no) {
+                    gfnAlert("박스오류","해당 물류전표에 들어있는 박스가 아닙니다.");
+                    return;
+                }
+            }
+            
+            var include_box = extract(me.pageObj.boxlist.exportData(),"box_barcd","distinct");
+            if(include_box.includes(OUTVAR.list[0].box_barcd)){
+                gfnAlert("박스오류","이미 해당 패킹이 추가되었습니다.");
+                return;
+            }
+            
+            me.pageObj.boxlist.addRow(OUTVAR.list[0],-1);
+            
+        });
+        
+    };
+    
+    
+    me.fnCheck = function() {
+        
+        
+        function _fnBoxOrd(){
+            var args = {};
+            var arr = [];
+            var box_nos = extract(me.pageObj.boxlist.exportData(),"box_no","distinct");
+            for(let i=0;i<box_nos.length;i++){
+                arr.push({'box_no': box_nos[i], 'lg_ord_no': gObj.lg_ord_no});
+            }
+            args.det = arr;
+            args.to_whcd = gObj.to_whcd;
+            args.lg_ord_no = gObj.lg_ord_no;
+            
+            console.log(args);
+            var invar = JSON.stringify(args);
+            gfnTx(appid+"."+pgmid,"boxOrd",{INVAR:invar},function(OUTVAR){
+                console.log(OUTVAR);
+                if(OUTVAR.rtnCd=="OK") {
+                    // me.fnSearch();
+                    gObj.fnOpenPage();
+                } else {
+                    gfnAlert("조회오류",OUTVAR.rtnMsg);
+                }
+            });
+        }
+        
+        
+        gfnConfirm("박스별로 분할","박스 분할을 진행하시겠습니까?",function(rtn){
+           if(rtn) _fnBoxOrd(); 
+        });
+    }
+    
+    
+
+/*-- SCRIPT autogen ---------------------------------------------------- */        
+if(typeof(me.fnInit)=='function') me.fnInit();
+});
+
+</script>

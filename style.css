@@ -1,0 +1,82 @@
+html, body {
+    width: 100%; height: 100%;
+}
+
+#frameset {
+    z-index: 10;
+    width: 100%; height: 100%;
+    background-color: green;
+}
+
+#status .alert {
+    display: inline-block;
+    width: auto;
+    margin: 0;
+    padding: 8px 20px;
+    font-size: 12px;
+    position: fixed;
+    right: 25px; top: 10px;
+    z-index: 20;
+}
+
+#status .alert > span {
+    padding-left: 10px;
+    color: #a7b1de;
+}
+
+.modal-content {
+    width: 500px;
+    position: absolute;
+}
+
+.modal-header {
+    background-color: #d6defa;
+    padding: 7px 20px;
+}
+
+.modal-header > h5 {
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.modal-body {
+    padding: 15px 20px;
+    font-size: 15px;
+}
+
+.modal-footer {
+    padding: 3px 10px;
+}
+
+#alert .modal-header {
+    cursor: move;
+}
+
+#alert .modal-content {
+    top: calc(50% - 103px);
+    left: calc(50% - 250px);
+}
+
+#progress .modal-content {
+    top: calc(50% - 75px);
+    left: calc(50% - 250px);
+}
+
+#popup .modal-header {
+    cursor: move;
+}
+
+#popup .modal-content {
+    top: calc(50% - 300px);
+}
+
+#alert, #progress, #popup {
+    z-index: -1;
+}
+
+@media (max-width: 500px) {
+    #alert .modal-content, #progress .modal-content {
+        width: 90%;
+        left: 5%
+    }
+}

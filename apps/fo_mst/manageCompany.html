@@ -1,0 +1,196 @@
+<style>#pdf input{
+    height:2.5em;
+}</style>
+
+<!-- HTML autogen start ---------------------------------------------- -->            
+<div class="pageNav"></div>
+<div class="pageTop"></div>
+<div class="pageCond"></div>
+<div class="pageGuide"></div>
+<div class="pageContent flexRow">
+    <div id="list" style="flex:1 1 50%" class="flexColumn"></div>
+    <div id="mst" style="flex:1 1 calc(50% - 3em)" ></div>
+
+</div>
+<!-- HTML autogen end ---------------------------------------------- -->
+<script>
+/*-- SCRIPT autogen start ---------------------------------------------- */        
+$(function() {
+    var appid = "fo_mst";
+    var pgmid = "manageCompany"; 
+    var page = $("*[pgmid='"+pgmid+"'].framepage").last();
+    var pageid = page.attr("id"); 
+    var me = {}
+    var dataSet = {};
+    var dataDef = {};
+    var pageObj = {};
+    var bEdit = false;
+    me.fnInit = function() {
+        gfn[pageid] = me; 
+        me.appid    = appid;
+        me.pgmid    = pgmid;
+        me.pageid   = pageid;
+        me.page     = page; 
+        me.dataSet = dataSet;
+        me.dataDef = dataDef;
+        me.pageObj = pageObj;
+        me.bEdit = bEdit;
+me.dataDef["_pgm"]={"pgmid":"manageCompany","pgm_nm":"■ 회사 정보관리","pgm_tp":"UX","proc_mst_id":"","proc_mst_nm":"","remark":"더존 회사코드, 회사 명판정보\n","ver":2,"pgm_stat":"Y","reg_usid":"admin","reg_dt":"2021-11-12 09:12:10","upd_usid":"admin","upd_dt":"2021-11-12 09:12:10","app_pgmid":"fo_mst","pgm_grp_nm":"기준정보","sort_seq":1,"shortcut":"V0","crud":"","app_pgm_nm":"마스터정보"};
+me.dataDef["_pgm_func"]=[{"func_icon":"fas fa-search","reg_dt":"2021-11-12 09:12:10","reg_usid":"","func_nm":"조회","upd_usid":"","upd_dt":"2021-11-12 09:12:10","func_tp":"DB_R","remark":"회사명으로 목록을 조회합니다. 검색어 없이 조회시 최대 1000건만 조회됩니다.","pgmid":"manageCompany","sort_seq":"1","funcid":"search","content":"회사를 조회한다.","crud":"R","id":"0"},{"func_icon":"fas fa-save","reg_dt":"2021-11-12 09:12:10","reg_usid":"","func_nm":"저장","upd_usid":"","upd_dt":"2021-11-12 09:12:10","func_tp":"DB_W","remark":"한번 등록된 코드는 변경할 수 없습니다.","pgmid":"manageCompany","sort_seq":"2","funcid":"save","content":"추가/수정된 회사정보를 저장한다.","crud":"R","id":"1"}];
+me.dataDef["_pgm_data"] = {};
+me.dataDef["_pgm_data"]["pageCond"]={"sort_seq":"1","data_id":"pageCond","data_nm":"조회조건","data_icon":null,"component_pgmid":"aweForm","component_option":null,"inout_tp":"IN","content":[{"sort_seq":1,"section":null,"section_icon":null,"colgrp":null,"colid":"com_nm","colnm":"회사명(like)","dtype":"text","etype":"txt","attr":null,"defval":null,"w":"8","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"}]};
+me.dataDef["_pgm_data"]["list"]={"sort_seq":"2","data_id":"list","data_nm":"회사정보 목록","data_icon":null,"component_pgmid":"agGrid","component_option":{"height":"40em","gridOpt":"rn chk","remark":"한번 저장된 코드는 삭제할 수 없습니다. 사용중지 처리하세요.","content":[{"colid":"rowCnt","colnm":"줄수","dtype":"text","etype":"sel","refcd":"[1,10,20,30]","option":"sel:rowCnt::cd"}],"func":[{"funcid":"addRow","func_nm":"줄추가","func_icon":"fas fa-plus"},{"funcid":"delRow","func_nm":"줄삭제","func_icon":"fas fa-minus"}]},"inout_tp":"INOUT","content":[{"sort_seq":1,"section":null,"section_icon":null,"colgrp":null,"colid":"comcd","colnm":"회사코드","dtype":"text","etype":"txt","attr":"pk ","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":10,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":2,"section":null,"section_icon":null,"colgrp":null,"colid":"com_nm","colnm":"회사명","dtype":"text","etype":"txt","attr":"keycol ","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":10,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":3,"section":null,"section_icon":null,"colgrp":null,"colid":"dz_co_cd","colnm":"더존회사코드","dtype":"text","etype":"txt","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":10,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":4,"section":null,"section_icon":null,"colgrp":null,"colid":"ceo_nm","colnm":"대표자명","dtype":"text","etype":"txt","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":10,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":5,"section":null,"section_icon":null,"colgrp":null,"colid":"biz_no","colnm":"사업자번호","dtype":"text","etype":"txt","attr":"biz_no ","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":10,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":6,"section":null,"section_icon":null,"colgrp":null,"colid":"biz_ssn","colnm":"법인번호","dtype":"text","etype":"txt","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":13,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":7,"section":null,"section_icon":null,"colgrp":null,"colid":"remark","colnm":"비고","dtype":"text","etype":"txt","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":20,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":8,"section":null,"section_icon":null,"colgrp":null,"colid":"biz_tps","colnm":"업종","dtype":"text","etype":"txt","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":10,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":9,"section":null,"section_icon":null,"colgrp":null,"colid":"biz_cls","colnm":"업태","dtype":"text","etype":"txt","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":10,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":10,"section":null,"section_icon":null,"colgrp":null,"colid":"addr_1","colnm":"주소1","dtype":"text","etype":"tarea","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":20,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":11,"section":null,"section_icon":null,"colgrp":null,"colid":"addr_2","colnm":"주소2","dtype":"text","etype":"tarea","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":20,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":12,"section":null,"section_icon":null,"colgrp":null,"colid":"zipcd","colnm":"우편번호","dtype":"text","etype":"txt","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":10,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":13,"section":null,"section_icon":null,"colgrp":null,"colid":"telno","colnm":"전화번호","dtype":"text","etype":"txt","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":10,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":14,"section":null,"section_icon":null,"colgrp":null,"colid":"email","colnm":"이메일","dtype":"text","etype":"txt","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":10,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":15,"section":null,"section_icon":null,"colgrp":null,"colid":"cd_stat","colnm":"코드상태","dtype":"text","etype":"cbx","attr":null,"defval":"Y","w":null,"h":null,"refcd":null,"option":null,"len":5,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":16,"section":null,"section_icon":null,"colgrp":null,"colid":"sort_seq","colnm":"정렬순서","dtype":"num","etype":null,"attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":5,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"}]};
+me.dataDef["_pgm_data"]["mst"]={"sort_seq":"3","data_id":"mst","data_nm":"회사정보","data_icon":null,"component_pgmid":"aweForm","component_option":null,"inout_tp":"INOUT","content":[{"sort_seq":1,"section":null,"section_icon":null,"colgrp":"회사코드/명","colid":"comcd","colnm":"회사코드","dtype":"text","etype":"txt","attr":"pk ","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":10,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":2,"section":null,"section_icon":null,"colgrp":"회사코드/명","colid":"com_nm","colnm":"회사명","dtype":"text","etype":"txt","attr":"keycol ","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":10,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":3,"section":null,"section_icon":null,"colgrp":null,"colid":"dz_co_cd","colnm":"더존회사코드","dtype":"text","etype":"txt","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":10,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":4,"section":null,"section_icon":null,"colgrp":null,"colid":"ceo_nm","colnm":"대표자명","dtype":"text","etype":"txt","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":5,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":5,"section":null,"section_icon":null,"colgrp":null,"colid":"biz_no","colnm":"사업자번호","dtype":"text","etype":"txt","attr":"biz_no ","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":10,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":6,"section":null,"section_icon":null,"colgrp":null,"colid":"bizssn","colnm":"법인번호","dtype":"text","etype":"txt","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":13,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":7,"section":null,"section_icon":null,"colgrp":null,"colid":"remark","colnm":"비고","dtype":"text","etype":"txt","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":30,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":8,"section":"추가정보","section_icon":null,"colgrp":null,"colid":"biz_tps","colnm":"업종","dtype":"text","etype":"txt","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":10,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":9,"section":"추가정보","section_icon":null,"colgrp":null,"colid":"biz_cls","colnm":"업태","dtype":"text","etype":"txt","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":10,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":10,"section":"추가정보","section_icon":null,"colgrp":null,"colid":"addr_1","colnm":"주소1","dtype":"text","etype":"tarea","attr":null,"defval":null,"w":null,"h":"5","refcd":null,"option":null,"len":50,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":11,"section":"추가정보","section_icon":null,"colgrp":null,"colid":"addr_2","colnm":"주소2","dtype":"text","etype":"tarea","attr":null,"defval":null,"w":null,"h":"5","refcd":null,"option":null,"len":50,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":12,"section":"추가정보","section_icon":null,"colgrp":null,"colid":"zipcd","colnm":"우편번호","dtype":"text","etype":"txt","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":10,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":13,"section":"추가정보","section_icon":null,"colgrp":null,"colid":"telno","colnm":"전화번호","dtype":"text","etype":"txt","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":10,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":14,"section":"추가정보","section_icon":null,"colgrp":null,"colid":"email","colnm":"이메일","dtype":"text","etype":"txt","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":10,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":15,"section":null,"section_icon":null,"colgrp":null,"colid":"cd_stat","colnm":"코드상태","dtype":"text","etype":"cbx","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":"10","valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":16,"section":null,"section_icon":null,"colgrp":null,"colid":"sort_seq","colnm":"정렬순서","dtype":"text","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":"10","valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"}]};
+
+        me.pageObj["_page"] = new gfnFramepage( me ); 
+        for(var component_id in me.dataDef["_pgm_data"]) { 
+            me.pageObj[component_id] = new gfnComponent( me.pageid, component_id, me.dataDef["_pgm_data"][component_id], me.fnEH, me); 
+        }  
+        setTimeout(function(){
+            $("#frameset").scrollTo(0); //스크롤 
+        },10);
+        if(typeof(me.fnInitExtra)=='function') me.fnInitExtra(); 
+    } 
+/*-- SCRIPT autogen end ---------------------------------------------- */
+
+            /* 사용자초기화 */
+    me.fnInitExtra=function() {
+        //권한제어
+        function _auth(auth) {
+            if(isNull(auth)) { 
+                gfnAlert("시스템 사용권한 점검","화면에 대한 권한이 없습니다!");
+                $("*[pageidx='"+me.pageid+"']").remove();
+                delete gfn[me.pageid]; 
+                me.page.remove(); 
+            } else {
+                if(isNull(auth.save_yn) || auth.save_yn != "Y") {
+                    me.pageObj._pageFunc.setDisp("save",false);
+                    me.pageObj.list.componentFunc.remove();
+                }
+                
+            } 
+        }
+        if(subset(gds.comcd,"grpcd","pgm_auth").length==0) {
+            gfnGetData("pgm_auth",function(rtn){
+                _auth(subset(rtn,"pgmid",pgmid)[0]);
+            }); 
+        } else {
+            _auth(subset(subset(gds.comcd,"grpcd","pgm_auth"),"pgmid",pgmid)[0]) ;
+        }
+    }
+    /* 이벤트핸들러 */
+    me.fnEH=function(component, evt, row, col, val) { 
+        //console.log(evt+","+row+","+col+","+val);
+        //화면기능버튼이 눌리면 
+        if (component==me.pageObj["_pageFunc"]){ 
+            if(typeof(me[col])=='function') me[col](); //col=기능명 me["fnSearch"]()=me.fnSearch(); 
+        }
+        //코드 목록
+        else if(component==me.pageObj["list"]) {
+            //목록이 눌렀을때 mst 폼으로 보내줌
+            if(evt=="focus"){
+                if(row>=0){
+                    var rowData = me.pageObj.list.getRowData(row);//rowdata추출
+                    rowData.currow = row; //선택된 rowid를 넘겨줌
+                    me.pageObj.mst.importData(rowData);
+                }
+            }
+            //줄추가
+            else if(evt=="componentFunc"){
+                if(row=="addRow"){
+                    var cnt = nvl(me.pageObj["list"]._componentCond["rowCnt"].getVal(),1); //_componentCond["rowCnt"].getVal() : 선택한 줄추가수 가져오기
+                    if(cnt > 100) {
+                        var data = component.exportData();
+                        for(var i=0; i < cnt; i++) { 
+                            data.push({cd_stat:"Y"});
+                        }
+                        component.importData(data);
+                    } else {
+                        for(var i=0; i < cnt; i++) { 
+                            component.addRow();  
+                        }
+                    }
+                } else if(row=="delRow"){
+                    var rows = component.selectedRows();//선택된 줄을 받아라
+                    if(rows.length<0){
+                        gfnAlert("줄 삭제확인","선택된 줄이 없습니다.");
+                    }else{
+                        component.delRow(rows);
+                    }
+                }
+            }
+        }
+        //코드 폼
+        else if(component==me.pageObj["mst"]) {
+            if(evt=="change"){
+                var rowData = me.pageObj.mst.exportData()[0];//폼에서 데이터추출
+                var rowid = me.pageObj.mst.getVal("currow");//currow의 값을 가져옴
+                
+                if(!isNull(rowid)){
+                    me.pageObj.list.setRowData(rowid,rowData);
+                }
+            }
+        }
+    }
+    //search:조회 
+    me.fnSearch=function() {
+        if( !me.pageObj["pageCond"].chkValid() ) return;
+        var args = me.pageObj["pageCond"].exportData()[0];
+        //console.log(args);
+        var invar = JSON.stringify(args);
+        gfnTx(appid+"."+pgmid,"search",{INVAR:invar},function(OUTVAR){
+            //console.log(OUTVAR);
+            if(OUTVAR.rtnCd=="OK") {
+                me.pageObj["list"].importData(OUTVAR.list);
+            } else {
+                gfnAlert("조회오류",OUTVAR.rtnMsg);
+            }
+        });
+    }
+
+    //save:저장 
+    me.fnSave=function() {
+        if( !me.pageObj["pageCond"].chkValid() ) {
+            gfnAlert("저장확인","저장하려는 공통코드구분과 조직ID를 확인하세요");
+        }
+        var args = me.pageObj["pageCond"].exportData()[0]; //{comcd}
+        var list = me.pageObj.list.exportData("CRU");
+        var total = list.length;
+        
+        function fnSave1000() {
+            args.list = list.splice(0,1000);
+            var invar = JSON.stringify(args);
+            gfnTx(appid+"."+pgmid,"save",{INVAR:invar},function(OUTVAR){
+                console.log(OUTVAR);
+                if(OUTVAR.rtnCd=="OK") {
+                    if(list.length >= 0) {
+                        gfnStatus(list.length+"/"+total+" 건 저장중...");
+                        fnSave1000();
+                    } else {
+                        gfnAlert("저장성공","입력하신 코드가 저장되었습니다.");
+                        me.fnSearch();
+                    }
+                } else {
+                    gfnAlert("조회오류",OUTVAR.rtnMsg);
+                }
+            });            
+        }
+        
+        fnSave1000();  
+    }
+    
+    //엑셀파일 내려받기
+    me.fnExcel=function() { 
+        gfnExcelDown(me, "list"); //, pgm_nm, condition, userinfo, headers, data);
+    }
+    
+    //pdf
+    me.fnPdf=function() {
+        gfnPdf(me,"mst"); 
+    }
+
+/*-- SCRIPT autogen ---------------------------------------------------- */        
+if(typeof(me.fnInit)=='function') me.fnInit();
+});
+
+</script>

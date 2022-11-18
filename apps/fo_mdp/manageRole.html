@@ -1,0 +1,213 @@
+<style>[pgmid='manageRole'].framepage .userClass { 
+width:100%; 
+}</style>
+
+<!-- HTML autogen start ---------------------------------------------- -->            
+<div class="pageNav"></div>
+<div class="pageTop"></div>
+<div class="pageCond"></div>
+<div class="pageGuide"></div>
+<div class="pageContent flexRow">
+    <div id='list' style="flex:1 1 70%" class="flexColumn"></div>
+    <div id='list2' style="flex:1 1 calc(30% - 3em)" class="flexColumn"></div> 
+</div>
+<!-- HTML autogen end ---------------------------------------------- -->
+<script>
+/*-- SCRIPT autogen start ---------------------------------------------- */        
+$(function() {
+    var appid = "fo_mdp";
+    var pgmid = "manageRole"; 
+    var page = $("*[pgmid='"+pgmid+"'].framepage").last();
+    var pageid = page.attr("id"); 
+    var me = {}
+    var dataSet = {};
+    var dataDef = {};
+    var pageObj = {};
+    var bEdit = false;
+    me.fnInit = function() {
+        gfn[pageid] = me; 
+        me.appid    = appid;
+        me.pgmid    = pgmid;
+        me.pageid   = pageid;
+        me.page     = page; 
+        me.dataSet = dataSet;
+        me.dataDef = dataDef;
+        me.pageObj = pageObj;
+        me.bEdit = bEdit;
+me.dataDef["_pgm"]={"pgmid":"manageRole","pgm_nm":"업무담당자 지정","pgm_tp":"UX","proc_mst_id":"","proc_mst_nm":"","remark":"브랜드별 직무별 담당자 지정, 채널별 매장별 담당자 지정","ver":0.23,"pgm_stat":"Y","reg_usid":"lkh","reg_dt":"2021-10-06 17:18:15","upd_usid":"lkh","upd_dt":"2021-10-06 17:18:15","app_pgmid":"fo_mdp","pgm_grp_nm":"MD계획수립","sort_seq":10,"shortcut":"","crud":"","app_pgm_nm":"상품기획"};
+me.dataDef["_pgm_func"]=[{"func_icon":"fas fa-search","reg_dt":"2021-10-06 17:18:15","reg_usid":"","func_nm":"조회","upd_usid":"","upd_dt":"2021-10-06 17:18:15","func_tp":"DB_R","remark":null,"pgmid":"manageRole","sort_seq":"1","funcid":"search","content":null,"crud":"R"},{"func_icon":"fas fa-save","reg_dt":"2021-10-06 17:18:15","reg_usid":"","func_nm":"저장","upd_usid":"","upd_dt":"2021-10-06 17:18:15","func_tp":"DB_W","remark":null,"pgmid":"manageRole","sort_seq":"3","funcid":"save","content":null,"crud":"R"}];
+me.dataDef["_pgm_data"] = {};
+me.dataDef["_pgm_data"]["pageCond"]={"sort_seq":"1","data_id":"pageCond","data_nm":"조회조건","data_icon":null,"component_pgmid":"aweForm","component_option":null,"inout_tp":"IN","content":[{"sort_seq":"1","section":null,"section_icon":null,"colgrp":null,"colid":"comcd","colnm":"소속회사","dtype":"text","etype":"sel","attr":"readonly","defval":"gUserinfo.orgcd","w":"20","h":null,"refcd":"COMCD","option":"sel:comcd::nm","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"}]};
+me.dataDef["_pgm_data"]["list"]={"sort_seq":"2","data_id":"list","data_nm":"브랜드/직무별 담당자","data_icon":null,"component_pgmid":"agGrid","component_option":{"func":[{"funcid":"addRow","func_nm":"줄추가","func_icon":"fas fa-plus"},{"funcid":"delRow","func_nm":"줄삭제","func_icon":"fas fa-minus"}]},"inout_tp":"INOUT","content":[{"sort_seq":1,"section":null,"section_icon":null,"colgrp":null,"colid":"role_cd","colnm":"직무","dtype":"text","etype":"txt","attr":"pk auto upper","defval":null,"w":"5","h":null,"refcd":"ROLE_CD","option":"sel:role_cd:role_nm:cdnm","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":2,"section":null,"section_icon":null,"colgrp":null,"colid":"role_nm","colnm":"직무명","dtype":"text","etype":"raw","attr":null,"defval":null,"w":"7","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":3,"section":null,"section_icon":null,"colgrp":null,"colid":"usid","colnm":"담당자","dtype":"text","etype":"txt","attr":"keycol auto","defval":null,"w":"5","h":null,"refcd":"USID","option":"sel:usid:us_nm:cdnm","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":4,"section":null,"section_icon":null,"colgrp":null,"colid":"us_nm","colnm":"담당자명","dtype":"text","etype":"raw","attr":null,"defval":null,"w":"7","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":5,"section":null,"section_icon":null,"colgrp":null,"colid":"br_XX","colnm":"브랜드","dtype":"text","etype":"cbx","attr":null,"defval":null,"w":"4","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"}]};
+me.dataDef["_pgm_data"]["list2"]={"sort_seq":"3","data_id":"list2","data_nm":"채널/매장별 담당자","data_icon":null,"component_pgmid":"agGrid","component_option":{"func":[{"funcid":"addRow","func_nm":"줄추가","func_icon":"fas fa-plus"},{"funcid":"delRow","func_nm":"줄삭제","func_icon":"fas fa-minus"}]},"inout_tp":"INOUT","content":[{"sort_seq":1,"section":null,"section_icon":null,"colgrp":null,"colid":"shopcd","colnm":"매장코드","dtype":"text","etype":"txt","attr":"pk auto upper","defval":null,"w":"8","h":null,"refcd":"SHOPCD","option":"sel:shopcd:shop_nm:cdnm","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":2,"section":null,"section_icon":null,"colgrp":null,"colid":"shop_nm","colnm":"매장명","dtype":"text","etype":"raw","attr":null,"defval":null,"w":"10","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":3,"section":null,"section_icon":null,"colgrp":null,"colid":"usid","colnm":"담당자","dtype":"text","etype":"txt","attr":"keycol auto","defval":null,"w":"8","h":null,"refcd":"USID","option":"sel:usid:us_nm:cdnm","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":4,"section":null,"section_icon":null,"colgrp":null,"colid":"us_nm","colnm":"담당자명","dtype":"text","etype":"raw","attr":null,"defval":null,"w":"10","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"}]};
+
+        me.pageObj["_page"] = new gfnFramepage( me ); 
+        for(var component_id in me.dataDef["_pgm_data"]) { 
+            me.pageObj[component_id] = new gfnComponent( me.pageid, component_id, me.dataDef["_pgm_data"][component_id], me.fnEH, me); 
+        }  
+        setTimeout(function(){
+            $("#frameset").scrollTo(0); //스크롤 
+        },10);
+        if(typeof(me.fnInitExtra)=='function') me.fnInitExtra(); 
+    } 
+/*-- SCRIPT autogen end ---------------------------------------------- */
+
+    /* 사용자초기화 */
+    me.fnInitExtra=function() {
+        //로그인사용자의 조직코드로 회사코드 기본값 세팅 
+        me.pageObj["pageCond"].setVal("comcd",gUserinfo.orgcd);
+        
+        //브랜드목록을 가져와서 list를 재구성함
+        me.fnInitCodelist(function(){
+            var brlist = subset(gds.comcd,"grpcd","brcd");
+            var brColDef = me.dataDef["_pgm_data"]["list"].content.pop();
+            for(var i=0; i < brlist.length; i++) {
+                var row = $.extend({},brColDef);
+                row.colid = "br_"+brlist[i].cd;
+                row.colnm = brlist[i].cd+" "+brlist[i].nm;
+                me.dataDef["_pgm_data"]["list"].content.push(row); 
+            }
+            me.pageObj["list"].init();
+        });
+        
+    }
+    
+    me.fnInitCodelist=function(afnCallback) {
+        function fnInitCodelist(refcd, refnm, afnCallback) {
+            gfnGetData(refcd,function(data) {
+                if(!isNull(data)) {
+                    gds.comcd["brcd"] = data;
+                } else {
+                    gfnStatus(refnm+" - 코드목록이 존재하지 않습니다.");
+                }
+                if(!isNull(afnCallback)) afnCallback();
+            });
+        }
+        gfnStatus("코드마스터를 다시 읽어들이고 있습니다. 잠시만 기다려주세요...");
+        fnInitCodelist("brcd","브랜드",afnCallback);
+    }
+    
+    /* 이벤트핸들러 */
+    me.fnEH=function(component, evt, row, col, val) { 
+        //console.log(evt+","+row+","+col+","+val);
+        //화면기능버튼이 눌리면 
+        if (component==me.pageObj["_pageFunc"]){ 
+            if(typeof(me[col])=='function') me[col](); //col=기능명 me["fnSearch"]()=me.fnSearch(); 
+        }
+        //pageCond:조회조건 이벤트처리     
+        else if(component==me.pageObj["pageCond"]) {
+            //if(evt=="change" && col=="colid") {...}
+        }
+
+        //list:브랜드/직무별 담당자 이벤트처리     
+        else if(component==me.pageObj["list"]) {
+            if(evt =="componentFunc") {
+                if(row=="addRow") {
+                    component.addRow();   
+                } else if (row=="delRow") {
+                    component.delRow();  
+                }
+            }
+        }
+
+        //list2:채널/매장별 담당자 이벤트처리     
+        else if(component==me.pageObj["list2"]) {
+            if(evt =="componentFunc") {
+                if(row=="addRow") {
+                    component.addRow();   
+                } else if (row=="delRow") {
+                    component.delRow();  
+                }
+            }
+        } 
+    }
+    //search:조회 
+    me.fnSearch=function() {
+        if( !me.pageObj["pageCond"].chkValid() ) return;
+        var args = me.pageObj["pageCond"].exportData()[0];
+        //console.log(args);
+        var invar = JSON.stringify(args);
+        gfnTx(appid+"."+pgmid,"search",{INVAR:invar},function(OUTVAR){
+            //console.log(OUTVAR);
+            if(OUTVAR.rtnCd=="OK") {
+                //브랜드별 정보를 크로스탭으로 합체
+                /*          role_cd usid    br_DM  
+                   grpcd    grpid   keycd   cd     NM 
+                   ROLE_CD  MD      110029  DM
+                            SHOP    110029  NC1591 */
+                var brlist = subset(gds.comcd,"grpcd","brcd");
+                var list = [];
+                var role_cd = "";
+                var usid = "";
+                var row = null;
+                for(var i=0; i < OUTVAR.list.length; i++) {
+                    var rawrow = OUTVAR.list[i];
+                    var rawrole_cd = ""+rawrow.role_cd;
+                    var rawusid = ""+rawrow.usid;
+                    if(role_cd==rawrole_cd && usid==rawusid) {
+                        row["br_"+rawrow.cd] = "Y";
+                    } else {
+                        if(!isNull(row)) list.push($.extend({},row));
+                        row = $.extend({},rawrow); 
+                        role_cd = ""+rawrow.role_cd;
+                        usid = ""+rawrow.usid;
+                        row["br_"+rawrow.cd] = "Y";
+                    } 
+                }
+                if(!isNull(row)) list.push(row);
+                me.pageObj["list"].importData(list);
+                me.pageObj["list2"].importData(OUTVAR.list2);
+            } else {
+                gfnAlert("조회오류",OUTVAR.rtnMsg);
+            }
+        });
+    }
+
+    //save:저장 
+    me.fnSave=function() {
+        if( !me.pageObj["pageCond"].chkValid() ) return;
+        if( !me.pageObj["list"].chkValid() ) return;
+        if( !me.pageObj["list2"].chkValid() ) return;
+        var args = me.pageObj["pageCond"].exportData()[0];
+        
+        //크로스탭을 브랜드별 정보로 해체 
+        var rawlist = me.pageObj["list"].exportData("CRU");
+        var brlist = subset(gds.comcd,"grpcd","brcd");
+        var list = []; 
+                /*          role_cd usid    br_DM  
+                   grpcd    grpid   keycd   cd     NM 
+                   ROLE_CD  MD      110029  DM
+                            SHOP    110029  NC1591 */
+        for(var j=0; j < rawlist.length; j++) { 
+            //console.log(rawlist[j]);
+            //console.log(brlist);
+            for(var i=0; i < brlist.length; i++ ) {
+                var row = $.extend({},rawlist[j]);
+                if(rawlist[j]["br_"+brlist[i].cd]=="Y") {
+                    row["cd"] = brlist[i].cd; 
+                    list.push(row);
+                }
+            }
+        }
+        args.list = list;
+        
+        args.list2 = me.pageObj["list2"].exportData("CRU");
+        //console.log(args); 
+        var invar = JSON.stringify(args);
+        gfnTx(appid+"."+pgmid,"save",{INVAR:invar},function(OUTVAR){
+            //console.log(OUTVAR);
+            if(OUTVAR.rtnCd=="OK") {
+                gfnAlert("저장성공","담당자 정보가 저장되었습니다.");
+                me.fnSearch();
+            } else {
+                gfnAlert("저장오류",OUTVAR.rtnMsg);
+            }
+        });
+    }
+
+
+/*-- SCRIPT autogen ---------------------------------------------------- */        
+if(typeof(me.fnInit)=='function') me.fnInit();
+});
+
+</script>

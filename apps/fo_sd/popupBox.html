@@ -1,0 +1,153 @@
+<style>[pgmid='popupBox'].framepage .userClass { 
+width:100%; 
+}</style>
+
+<!-- HTML autogen start ---------------------------------------------- -->            
+<div class="pageNav"></div>
+<div class="pageTop"></div>
+<div class="pageCond"></div>
+<div class="pageGuide"></div>
+<div class="pageContent">
+    <div id="list" class="flexColumn">
+        
+    </div>
+</div>
+<!-- HTML autogen end ---------------------------------------------- -->
+<script>
+/*-- SCRIPT autogen start ---------------------------------------------- */        
+$(function() {
+    var appid = "fo_sd";
+    var pgmid = "popupBox"; 
+    var page = $("*[pgmid='"+pgmid+"'].framepage").last();
+    var pageid = page.attr("id"); 
+    var me = {}
+    var dataSet = {};
+    var dataDef = {};
+    var pageObj = {};
+    var bEdit = false;
+    me.fnInit = function() {
+        gfn[pageid] = me; 
+        me.appid    = appid;
+        me.pgmid    = pgmid;
+        me.pageid   = pageid;
+        me.page     = page; 
+        me.dataSet = dataSet;
+        me.dataDef = dataDef;
+        me.pageObj = pageObj;
+        me.bEdit = bEdit;
+me.dataDef["_pgm"]={"pgmid":"popupBox","pgm_nm":"박스배분표","pgm_tp":"TX","proc_mst_id":"","proc_mst_nm":"","remark":"","ver":0.2,"pgm_stat":"N","reg_usid":"lyj","reg_dt":"2022-01-10 14:52:10","upd_usid":"lyj","upd_dt":"2022-01-10 14:52:10","app_pgmid":"fo_sd","pgm_grp_nm":"출하배분","sort_seq":36,"shortcut":"","crud":"","app_pgm_nm":"영업/물동"};
+me.dataDef["_pgm_func"]=[{"func_icon":"fas fa-save","reg_dt":"2022-01-10 14:52:10","reg_usid":"","func_nm":"저장","upd_usid":"","upd_dt":"2022-01-10 14:52:10","func_tp":"DB_W","remark":"패킹리스트를 불러온 후 매장을 선택하여 저장해주세요.","pgmid":"popupBox","sort_seq":"1","funcid":"save","content":"저장","crud":"R","id":"0"},{"func_icon":"fas fa-print","reg_dt":"2022-01-10 14:52:10","reg_usid":"","func_nm":"출력","upd_usid":"","upd_dt":"2022-01-10 14:52:10","func_tp":"EH","remark":null,"pgmid":"popupBox","sort_seq":"2","funcid":"print","content":"출력","crud":"R","id":"1"}];
+me.dataDef["_pgm_data"] = {};
+me.dataDef["_pgm_data"]["list"]={"sort_seq":"1","data_id":"list","data_nm":"박스배분표","data_icon":null,"component_pgmid":"agGrid","component_option":{"gridOpt":"rn chk","gridOptions":{"singleClickEdit":"false"},"func":[{"funcid":"loadPack","func_nm":"패킹리스트 불러오기","func_icon":"fas fa-search"},{"funcid":"addRow","func_nm":"줄추가","func_icon":"fas fa-plus"},{"funcid":"delRow","func_nm":"줄삭제","func_icon":"fas fa-minus"}]},"inout_tp":"INOUT","content":[{"sort_seq":1,"section":null,"section_icon":null,"colgrp":null,"colid":"box","colnm":"박스","dtype":"text","etype":"txt","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"0"},{"sort_seq":2,"section":null,"section_icon":null,"colgrp":null,"colid":"goods_cd","colnm":"상품코드","dtype":"text","etype":"txt","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"1"},{"sort_seq":3,"section":null,"section_icon":null,"colgrp":null,"colid":"brcd","colnm":"브랜드","dtype":"text","etype":"raw","attr":"hidden ","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"2"},{"sort_seq":4,"section":null,"section_icon":null,"colgrp":null,"colid":"yyyy","colnm":"연도","dtype":"text","etype":"raw","attr":"hidden","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"3"},{"sort_seq":5,"section":null,"section_icon":null,"colgrp":null,"colid":"sson_cd","colnm":"시즌","dtype":"text","etype":"raw","attr":"hidden","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"4"},{"sort_seq":6,"section":null,"section_icon":null,"colgrp":null,"colid":"itemcd","colnm":"품목","dtype":"text","etype":"raw","attr":"hidden","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"5"},{"sort_seq":7,"section":null,"section_icon":null,"colgrp":null,"colid":"st_qty","colnm":"ST수","dtype":"text","etype":"raw","attr":"hidden","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"6"},{"sort_seq":8,"section":null,"section_icon":null,"colgrp":null,"colid":"qty","colnm":"수량","dtype":"num","etype":"txt","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"7"}]};
+
+        me.pageObj["_page"] = new gfnFramepage( me ); 
+        for(var component_id in me.dataDef["_pgm_data"]) { 
+            me.pageObj[component_id] = new gfnComponent( me.pageid, component_id, me.dataDef["_pgm_data"][component_id], me.fnEH, me); 
+        }  
+        setTimeout(function(){
+            $("#frameset").scrollTo(0); //스크롤 
+        },10);
+        if(typeof(me.fnInitExtra)=='function') me.fnInitExtra(); 
+    } 
+/*-- SCRIPT autogen end ---------------------------------------------- */
+
+    /* 사용자초기화 */
+    me.fnInitExtra=function() {
+        me.fncallback = gParam.fncallback;
+        
+        var content = me.dataDef["_pgm_data"]["list"].content;
+        var exist_col = content.length; //grid 기존 컬럼개수
+        
+        var det = gParam.det;
+        for(var i=0;i<det.length;i++){
+            var data = {};
+            data.sort_seq = i+exist_col+1;
+            data.attr = null;
+            data.colFormula = null;
+            data.colgrp = null;
+            data.colid = det[i].whcd;
+            data.colnm = det[i].whcdnm;
+            data.crud = "C";
+            data.defval = null;
+            data.dtype = "text";
+            data.etype = "cbx";
+            data.grpFormula = null;
+            data.h = null;
+            data.id = i+exist_col;
+            data.len = null;
+            data.option = null;
+            data.refcd = null;
+            data.remark = null;
+            data.section = null;
+            data.section_icon = null;
+            data.totFormula = null;
+            data.valid = null;
+            data.w = null;
+            content.push(data);
+        }
+        //console.log(content);
+        me.pageObj["list"] = new gfnComponent( me.pageid, "list", me.dataDef["_pgm_data"]["list"], me.fnEH, me); 
+    }
+    /* 이벤트핸들러 */
+    me.fnEH=function(component, evt, row, col, val) { 
+        //console.log(evt+","+row+","+col+","+val);
+        //화면기능버튼이 눌리면 
+        if (component==me.pageObj["_pageFunc"]){ 
+            if(typeof(me[col])=='function') me[col](); //col=기능명 me["fnSearch"]()=me.fnSearch(); 
+        }
+        else if(component==me.pageObj["list"]) {
+            if(evt=="componentFunc") {
+                if(row=="addRow") {
+                    component.addRow();
+                } else if(row=="delRow") {
+                    component.delRow();
+                }
+            }
+            //if(evt=="change" && col=="colid") {...}
+        }
+        
+        //사용자 컴포넌트/컨트롤
+        else if(component.userComponent=="myCompoId") {
+            //if(evt=="dblclick" && col=="colid") {...}
+        }
+    }
+    
+    me.fnSave=function(){
+        //저장클릭시 입고예정정보 det에 뿌려줘야함
+        //chk Y/N
+        /*
+        whcd
+        whcdnm
+        box_barcd
+        goods_cd
+        qty
+        */
+        var list = me.pageObj.list.exportData();
+        console.log(list);
+        var shops = subset(gds.comcd,"wh_mng_tp","SHOP").slice(0,12);
+        var shops_cd = extract(shops, "whcd", "distinct");
+        var arr = [];
+        for(var i=0;i<list.length;i++){
+            for(var j=0;j<shops_cd.length;j++){
+                if(list[i][shops_cd[j]] == "Y"){
+                    var args = {};
+                    args.whcd = shops_cd[j];
+                    args.box_barcd = list[i].box;
+                    args.goods_cd = list[i].goods_cd;
+                    args.qty = list[i].qty; //매장 중복으로 선택했을 경우에는..? 매장 수량이 각각 똑같은지/ 나누는 건지 확인
+                    arr.push(args);
+                } 
+            }
+        }
+        console.log(arr);
+        me.fncallback(arr);
+    }
+    
+    
+    
+
+/*-- SCRIPT autogen ---------------------------------------------------- */        
+if(typeof(me.fnInit)=='function') me.fnInit();
+});
+
+</script>

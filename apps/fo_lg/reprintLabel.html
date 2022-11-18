@@ -1,0 +1,433 @@
+<style>[pgmid='reprintLabel'].framepage .userClass { 
+width:100%; 
+}</style>
+<!-- HTML autogen start ---------------------------------------------- -->            
+<div class="pageNav"></div>
+<div class="pageTop"></div>
+<div class="pageGuide"></div>
+<div class="pageContent flex flexRow" >
+    <div id="packlist" style="flex:1 1 50%" class="flexColumn"></div>
+    <div id="t3" style="flex:1 1 calc(50% - 3em)" class="flexColumn">
+        <div id='mst'></div>      
+        <div id='goodslist' class="flexColumn"></div>        
+    </div>
+</div>
+<div class = "barcode" style="display:none"></div>
+<!-- HTML autogen end ---------------------------------------------- -->
+<script>
+/*-- SCRIPT autogen start ---------------------------------------------- */        
+$(function() {
+    var appid = "fo_lg";
+    var pgmid = "reprintLabel"; 
+    var page = $("*[pgmid='"+pgmid+"'].framepage").last();
+    var pageid = page.attr("id"); 
+    var me = {}
+    var dataSet = {};
+    var dataDef = {};
+    var pageObj = {};
+    var bEdit = false;
+    me.fnInit = function() {
+        gfn[pageid] = me; 
+        me.appid    = appid;
+        me.pgmid    = pgmid;
+        me.pageid   = pageid;
+        me.page     = page; 
+        me.dataSet = dataSet;
+        me.dataDef = dataDef;
+        me.pageObj = pageObj;
+        me.bEdit = bEdit;
+me.dataDef["_pgm"]={"pgmid":"reprintLabel","pgm_nm":"패킹라벨 재발행","pgm_tp":"UX","proc_mst_id":"","proc_mst_nm":"","remark":"","ver":0.4,"pgm_stat":"Y","reg_usid":"jjr","reg_dt":"2022-02-24 09:31:56","upd_usid":"jjr","upd_dt":"2022-02-24 09:31:56","app_pgmid":"fo_lg","pgm_grp_nm":"출고","sort_seq":24,"shortcut":"","crud":"","app_pgm_nm":"물류"};
+me.dataDef["_pgm_func"]=[{"func_icon":"fas fa-print","reg_dt":"2022-02-24 09:31:56","reg_usid":"","func_nm":"발행","upd_usid":"","upd_dt":"2022-02-24 09:31:56","func_tp":"EH","remark":"패킹목록에 [줄추가]하여 패킹번호를 입력 또는 붙여넣기한 후, 해당 패킹라벨을 발행합니다. ","pgmid":"reprintLabel","sort_seq":"1","funcid":"print","content":"목록에 붙여넣은 패킹번호에 대해 라벨 발행","crud":"R","id":"0"}];
+me.dataDef["_pgm_data"] = {};
+me.dataDef["_pgm_data"]["packlist"]={"sort_seq":"1","data_id":"packlist","data_nm":"패킹목록","data_icon":null,"component_pgmid":"agGrid","component_option":{"gridOpt":"rn chk","gridOptions":{"singleClickEdit":"false"},"remark":"※[패킹정보]를 클릭하면 해당 패킹번호의 정보가 보입니다.","content":[{"colid":"rowCnt","colnm":"줄수","dtype":"text","etype":"txt","defval":"10"}],"func":[{"funcid":"addRow","func_nm":"줄추가","func_icon":"fas fa-plus"},{"funcid":"delRow","func_nm":"줄삭제","func_icon":"fas fa-minus"}]},"inout_tp":"INOUT","content":[{"sort_seq":1,"section":null,"section_icon":null,"colgrp":null,"colid":"box_no","colnm":"패킹번호","dtype":"text","etype":"txt","attr":null,"defval":null,"w":"30","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"0"},{"sort_seq":2,"section":null,"section_icon":null,"colgrp":null,"colid":"box_info","colnm":"패킹정보","dtype":"text","etype":"btn","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"1"}]};
+me.dataDef["_pgm_data"]["mst"]={"sort_seq":"2","data_id":"mst","data_nm":"패킹정보","data_icon":null,"component_pgmid":"aweForm","component_option":null,"inout_tp":"OUT","content":[{"sort_seq":1,"section":null,"section_icon":null,"colgrp":null,"colid":"from_whcd","colnm":"보내는곳","dtype":"text","etype":"sel","attr":"keycol readonly ","defval":null,"w":"13","h":"2","refcd":"whcd","option":"sel:from_whcd::cdnm","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"0"},{"sort_seq":2,"section":null,"section_icon":null,"colgrp":null,"colid":"to_whcd","colnm":"받는곳","dtype":"text","etype":"sel","attr":"keycol readonly ","defval":null,"w":"13","h":"2","refcd":"whcd","option":"sel:to_whcd::cdnm","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"1"},{"sort_seq":3,"section":null,"section_icon":null,"colgrp":null,"colid":"box_no","colnm":"패킹번호","dtype":"text","etype":"raw","attr":"hidden","defval":null,"w":"13","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"2"},{"sort_seq":4,"section":null,"section_icon":null,"colgrp":null,"colid":"box_barcd","colnm":"패킹바코드","dtype":"text","etype":"raw","attr":null,"defval":null,"w":"13","h":"2","refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"3"},{"sort_seq":5,"section":null,"section_icon":null,"colgrp":null,"colid":"pack_tp","colnm":"패킹유형","dtype":"text","etype":"sel","attr":" readonly ","defval":"BOX","w":null,"h":"2","refcd":"PACK_TP","option":"sel:pack_tp::cdnm","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"4"},{"sort_seq":6,"section":null,"section_icon":null,"colgrp":null,"colid":"lg_tp","colnm":"물류유형","dtype":"text","etype":"sel","attr":"keycol readonly","defval":null,"w":null,"h":"2","refcd":"LG_TP","option":"sel:lg_tp::cdnm","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"5"},{"sort_seq":7,"section":null,"section_icon":null,"colgrp":null,"colid":"lg_dt","colnm":"물류일자","dtype":"ymd","etype":"raw","attr":null,"defval":null,"w":null,"h":"2","refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"6"},{"sort_seq":8,"section":null,"section_icon":null,"colgrp":null,"colid":"reg_usid","colnm":"등록자","dtype":"text","etype":"sel","attr":"hidden","defval":null,"w":null,"h":null,"refcd":"USID","option":"sel:reg_usid::cdnm","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"7"},{"sort_seq":9,"section":null,"section_icon":null,"colgrp":null,"colid":"reg_dt","colnm":"등록일시","dtype":"text","etype":"raw","attr":"hidden","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"8"},{"sort_seq":10,"section":null,"section_icon":null,"colgrp":null,"colid":"remark","colnm":"비고","dtype":"text","etype":"txt","attr":"hidden readonly","defval":null,"w":"20","h":"3","refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"9"}]};
+me.dataDef["_pgm_data"]["goodslist"]={"sort_seq":"3","data_id":"goodslist","data_nm":"상품목록","data_icon":null,"component_pgmid":"agGrid","component_option":null,"inout_tp":"OUT","content":[{"sort_seq":1,"section":null,"section_icon":null,"colgrp":null,"colid":"goods_seq","colnm":"순번","dtype":"num","etype":"raw","attr":"hidden","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"0"},{"sort_seq":2,"section":null,"section_icon":null,"colgrp":null,"colid":"goods_cd","colnm":"상품코드","dtype":"text","etype":"raw","attr":"keycol","defval":null,"w":"20","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":"count(\"goods_cd\")+\"개\"","remark":null,"crud":"C","id":"1"},{"sort_seq":3,"section":null,"section_icon":null,"colgrp":null,"colid":"qty","colnm":"확정수량","dtype":"num","etype":"raw","attr":"keycol","defval":null,"w":"8","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":"sum(\"row.qty\")","remark":null,"crud":"C","id":"2"}]};
+
+        me.pageObj["_page"] = new gfnFramepage( me ); 
+        for(var component_id in me.dataDef["_pgm_data"]) { 
+            me.pageObj[component_id] = new gfnComponent( me.pageid, component_id, me.dataDef["_pgm_data"][component_id], me.fnEH, me); 
+        }  
+        setTimeout(function(){
+            $("#frameset").scrollTo(0); //스크롤 
+        },10);
+        if(typeof(me.fnInitExtra)=='function') me.fnInitExtra(); 
+    } 
+/*-- SCRIPT autogen end ---------------------------------------------- */
+
+    /* 사용자초기화 */
+    me.fnInitExtra=function() {
+        //탭 설정
+        //gfnTab(pageid, "tabs", {"multi-active":"off","toggle-switch":"on"}); 
+        //사용자 컴포넌트 
+        //me.dataDef["_pgm_data"][myCompoId] = {...};
+        //me.pageObj["myCompoId"] = new gfnComponent( me.pageid, myCompoId, me.dataDef["_pgm_data"][myCompoId], me.fnEH, me); 
+        //me.pageObj["myCompoId"].userComponent = "myCompoId";
+        //사용자 컨트롤
+        //var myColinfo = {colid:...}
+        //me.pageObj["myColId"] = new gfnControl(myColinfo, me.fnEH) 
+        //me.page.find("#myCol").append(me.pageObj["myColId"].dispObj);
+        //me.pageObj["myColId"].getVal(); / myCol.setVal(val);...    
+    }
+    /* 이벤트핸들러 */
+    me.fnEH=function(component, evt, row, col, val) { 
+        //console.log(evt+","+row+","+col+","+val);
+        //화면기능버튼이 눌리면 
+        if (component==me.pageObj["_pageFunc"]){ 
+            if(typeof(me[col])=='function') me[col](); //col=기능명 me["fnSearch"]()=me.fnSearch(); 
+        }
+        //packlist:패킹목록 이벤트처리     
+        else if(component==me.pageObj["packlist"]) {
+            if(evt=="componentFunc") {
+                if(row=="addRow") {
+                    var copyrow = {}; 
+                        copyrow["crud"] = "C"; 
+                    var rowCnt = component._componentCond["rowCnt"].getVal();
+                    var curData = component.exportData();
+                    for(var i=0; i < rowCnt; i++) {
+                        curData.push($.extend({},copyrow));
+                    }
+                    component.importData(curData);
+                    //me.bEdit = true;
+                    // var cnt = me.pageObj["packlist"]._componentCond["rowCnt"].getVal(); //_componentCond["rowCnt"].getVal() : 선택한 줄추가수 가져오기
+                    // for(var i=0; i < cnt; i++) {
+                    //     me.pageObj["packlist"].addRow();  
+                    // } 
+                } else if(row=="delRow") {
+                    me.bEdit = true;
+                    component.delRow();
+                }
+            }
+            //if(evt=="change" && col=="colid") {...}
+            // if(evt=="paste"){
+                 
+                 
+            // }
+            if(evt == "click"){
+                if ( col=="box_info") { 
+                    if(row >= 0 ) {
+                        var rowData = me.pageObj.packlist.getRowData(row);
+                        if(isNull(rowData.box_no)){
+                            gfnAlert("확인","패킹번호를 입력하세요.");
+                        }else{
+                            me.fnSearchMst(rowData);   
+                        }
+                    }
+                }   
+            }
+        }
+
+        //mst:패킹정보 이벤트처리     
+        else if(component==me.pageObj["mst"]) {
+            if(evt=="componentFunc") {
+                if(row=="addRow") {
+                    component.addRow();
+                } else if(row=="delRow") {
+                    component.delRow();
+                }
+            }
+            //if(evt=="change" && col=="colid") {...}
+        }
+
+        //goodslist:상품목록 이벤트처리     
+        else if(component==me.pageObj["goodslist"]) {
+            if(evt=="componentFunc") {
+                if(row=="addRow") {
+                    component.addRow();
+                } else if(row=="delRow") {
+                    component.delRow();
+                }
+            }
+            //if(evt=="change" && col=="colid") {...}
+        }
+
+        //사용자 컴포넌트/컨트롤
+        else if(component.userComponent=="myCompoId") {
+            //if(evt=="dblclick" && col=="colid") {...}
+        }
+    }
+    
+    //mst:패킹정보 조회
+    me.fnSearchMst = function(box_no){
+        var args = box_no;
+        console.log(args);
+        
+        var invar = JSON.stringify(args);
+        gfnTx(appid+"."+pgmid,"searchBoxGoods",{INVAR:invar},function(OUTVAR){
+            console.log(OUTVAR);
+            if(OUTVAR.rtnCd=="OK") { 
+                me.pageObj.mst.importData(OUTVAR.list);
+                me.pageObj["goodslist"].importData(OUTVAR.list);
+                me.pageObj.goodslist.total("top");
+                //me.pageObj.goodslist.sizeColumnsToFit(); 
+            } else {
+                gfnAlert("조회오류",OUTVAR.rtnMsg);
+            }
+        });
+    }
+    
+    
+    
+    //print:발행 
+    me.fnPrint=function() {
+        var args = {}; 
+        var packlist = extract(me.pageObj["packlist"].exportData(),"box_no","distinct");
+        
+        if(packlist.length<1){
+            gfnAlert("패킹확인","발행할 패킹번호가 존재하지 않습니다.");
+            return;
+        }
+        
+        var arr = [];
+        for(var i = 0; i<packlist.length; i++){
+            arr.push({box_no : packlist[i]})
+        }
+        args.list = arr;
+        //SERVICE CALL: 
+        var invar = JSON.stringify(args);
+        console.log(args);
+        gfnTx(appid+"."+pgmid,"print",{INVAR:invar},function(OUTVAR){
+            $("#onloading1").remove(); 
+            if(OUTVAR.rtnCd=="OK") {
+                console.log(OUTVAR);
+                var prtData = [];
+                for(var i = 0; i<OUTVAR.INVAR.list.length; i++){
+                    prtData.push(eval("OUTVAR.arlist.goodslist"+i));
+                }
+                console.log(prtData);
+                var total = prtData.length;
+
+                function _fnPrint100(print) {
+                    var html_lst = [];
+                    for(var i = 0; i<print.length; i++){
+                        html_lst.push("html"+i);
+                    }
+                    
+                    for(var k = 0; k<print.length; k++){ 
+                        
+                        html_lst[k] = "<html>";
+                        //사이즈 조절, css
+                        html_lst[k] += "<head><style type='text/css'> .boxLabel {border-collapse:collapse;border-spacing:0;text-align:center; vertical-align:middle; font-weight: bold;}.boxLabel .change{font-size:30px; font-weight: bold; border-bottom:hidden} .boxLabel .data{font-size:20px; padding:5px 2px;} .boxLabel .date{font-size: 15px;}.boxLabel .from{ font-size: 15px;} .boxLabel .to{font-size: 15px;}.boxLabel .code{font-size: 15px;} .boxLabel tr{border-color:black; border-style:solid; border-width:1px; overflow:hidden; word-break:normal; font-size: 1;}.boxLabel td{border-color:black; border-style:solid; border-width:1px; overflow:hidden; word-break:normal; font-size: 15px;}.boxLabel th{border-color:black; border-style:solid; border-width:1px; font-weight:bold;overflow:hidden; word-break:normal;} .boxLabel .goods{border-right: 4px black solid;} .boxLabel .boxNum_data{font-weight: bold; text-align:center; vertical-align:middle; font-size: 30px;} .barcode_img>object {width: 80%; height: 50px;} .boxLabel .boxNum{font-weight: bold; text-align:center; vertical-align:middle;}.boxLabel .allcnt_data{font-weight: bold; text-align:center; vertical-align:middle; font-size:30px;} /*Web Print*/ body {margin: 0; padding-left: 28; padding-top:18; padding-bottom:10;} .boxLabel{border: 3px black solid; width: 200mm/*112mm*/; /*225*/height: 140mm/*84mm*/; /*175*/}@page {size: 140mm 110mm; /*7.62cm 5.08cm 94 64 96 62*/ /*인쇄기본설정 => w:66mm, h:88mm*/margin: 0;}@media print {.page { margin: 0;border: initial; border-radius: initial; width: initial; min-height: initial; box-shadow: initial; background: initial; page-break-after: always; padding-top:38;}}</style></head>";
+                        html_lst[k] += "<body>";
+                        html_lst[k] += "<div class='page'>";
+                        html_lst[k] += "<table class='boxLabel' style='table-layout:fixed'>";
+                        html_lst[k] += "<thead>";
+                        
+                        html_lst[k] += "<tr><th class='date' style='width:25mm'>일자</th><th class='from'>보내는곳</th><th class='code' style='width:25mm;'>코드</th><th class='code' style='width:25mm;'>패킹번호</th><th class='to'>받는곳</th><th class='code' style='width:25mm;'>코드</th></tr>";
+                        
+                        //일자 형식 변환  ex) 2021-04-27
+                        var date = (print[k][0].lg_dt).substring(0, 4)+"-"+(print[k][0].lg_dt).substring(4, 6)+"-"+(print[k][0].lg_dt).substring(6, 8);
+                        
+                        //매장 박스번호 - 박스번호에서 뒤에 4자리 가져오기 -> ex. ITS-20211213-0001
+                        var box_no_sub = (print[k][0].box_no).substr(-4); // ex.0001
+                        //if(inStr((args_list.dist_nm).substr(0,4),"20SS")>=0) box_no_sub = (print[k][0].goods_cd).substr(2,7);
+                        //if(inStr(args.stat_cd,"20SS")>=0) box_no_sub = (print[k][0].goods_cd).substr(2,7);
+                        
+                        //물류,매장 이름
+                        var whcd_nm = gfnCdNm("whcd", print[k][0].from_whcd, "nm");
+                        var to_whcd_nm = gfnCdNm("whcd", print[k][0].to_whcd, "nm");
+                        
+                        //일자, 보내는곳, 보내는곳코드, 받는곳, 받는곳코드
+                        html_lst[k] += "<tr><td style='font-size:17px;'>"+date+"</td>";
+                        html_lst[k] += "<td class = 'data'>" + whcd_nm + "</td>";
+                        html_lst[k] += "<td class = 'data'>" + print[k][0].from_whcd + "</td>";
+                        html_lst[k] += "<td class = 'data'>" + box_no_sub + "</td>"; //박스번호 0001
+                        html_lst[k] += "<td class = 'data' style='font-size: 27px;'>" + to_whcd_nm+ "</td>";
+                        html_lst[k] += "<td  class = 'data' style='font-size: 27px;'>" + print[k][0].to_whcd+ "</td></tr>";
+                        html_lst[k] += "</thead>";
+                        html_lst[k] += "<tbody>";
+                    
+                        //박스바코드 - 데이터
+                        var data   = print[k][0].box_barcd; 
+                        var format = "code128"; 
+                        //console.log(data+":"+format);
+                        $(".barcode").barcode(data, format, {
+                            "barWidth"   : 1,
+                		    "barHeight"  : 50,
+                		    "moduleSize" : 5,
+                		    "bgColor"    : 'hsl(0 0% 100%)',
+                		    "color"      : 'hsl(0 0% 0%)',
+                		    "fontSize"   : 10,
+                		    "showHRI"    : true, // false시에 숫자 안보임
+                		    "output"     : 'bmp', // 그려주는 방식을 css, svg, bmp, canvas 중에서 선택
+                        }).css("width","100%");
+                
+                        src = $(".barcode object").attr("data");
+            
+                        //물류유형 - 초도출하
+                        html_lst[k] += "<tr><td class='change'>"+ print[k][0].lg_tp+"</td>";
+                        
+                        //박스바코드
+                        html_lst[k] += "<td class='barcode' colspan='5'><div class='barcode_img'><object type='image/bmp' data="+src+"></object></div></td></tr>";
+                    
+                        var lg_tp_nm = gfnCdNm("LG_TP", print[k][0].lg_tp, "nm");
+                        html_lst[k] += "<tr><td>"+ lg_tp_nm +"</td>";
+                        
+                        //박스바코드번호 형식 변환 (공백추가)
+                        //var boxnum_sp = data.substr(0,5)+" "+data.substr(5,6)+" "+data.substring(11, );
+                        //if(inStr((args_list.dist_nm).substr(0,4),"20SS")>=0) boxnum_sp = data.substr(0,5)+" "+data.substr(5,6)+" "+data.substring(11, );
+                        //if(inStr(args.stat_cd,"20SS")>=0) boxnum_sp = data.substr(0,5)+" "+data.substr(5,6)+" "+data.substring(11, );
+                        
+                        //html_lst[k] += "<td class='boxNum_data' colspan='4'>"+ boxnum_sp +"</td>";
+                        
+                        html_lst[k] += "<td class='boxNum_data' colspan='4'>"+ data +"</td>";
+            
+                        //상품순번, 상품코드, 수량
+                        var goodscd = [];
+                        var goodsqty = [];
+                        //goodscd.push(OUTVAR.prnt2[k].goods_cd);
+                        print[k].forEach((row) => {
+                            //goodscd.push(row.goods_cd);
+                            goodscd.push((row.goods_cd).substr(0,4)+" "+(row.goods_cd).substr(4,5)+" "+(row.goods_cd).substr(9,2)+" "+(row.goods_cd).substr(11,3));
+                            goodsqty.push(row.qty);
+                        })
+                        
+                        //박스별 총수량
+                        var total_qty = 0;
+                        for(var j = 0; j<goodsqty.length; j++){
+                            total_qty += Number(goodsqty[j]);
+                        }
+                        html_lst[k] += "<td class='allcnt_data' >"+ total_qty +"ea</td></tr>"; ///////////////////
+                        
+                        if(goodscd.length <= 10){ //상품 갯수가 10개 이하일때
+                            var cnt = 0;
+                            var cnt_right = 0;
+                            for(var i = 0; i<goodscd.length; i++){ 
+                                cnt++;
+                                html_lst[k] += "<tr>";
+                                html_lst[k] += "<td>"+(i+1)+"</td>";
+                                html_lst[k] += "<td>"+ goodscd[i]+"</td>";
+                                html_lst[k] += "<td class='goods'>"+goodsqty[i]+"</td>";
+                                html_lst[k] += "<td>"+"<br>"+"</td>";
+                                html_lst[k] += "<td>"+"<br>"+"</td>";
+                                html_lst[k] += "<td>"+"<br>"+"</td>";
+                                html_lst[k] += "</tr>";
+                            }
+                            for(var i = 0; i<10-cnt; i++){
+                                html_lst[k] += "<tr>";
+                                html_lst[k] += "<td>"+"<br>"+"</td>";
+                                html_lst[k] += "<td>"+"<br>"+"</td>";
+                                html_lst[k] += "<td class='goods'>"+"<br>"+"</td>";
+                                html_lst[k] += "<td>"+"<br>"+"</td>";
+                                html_lst[k] += "<td>"+"<br>"+"</td>";
+                                html_lst[k] += "<td>"+"<br>"+"</td>";
+                                html_lst[k] += "</tr>";
+                            }
+                        }else { //상품 갯수가 10개 이상일 때
+                        
+                            var cnt_right = 0;
+            
+                            if(goodscd.length <= 20){ //상품 갯수가 20개이하
+                                
+                                for(var i = 0; i<goodscd.length-10; i++){
+                                    cnt_right++;
+                                    html_lst[k] += "<tr>";
+                                    html_lst[k] += "<td>"+(i+1)+"</td>";
+                                    html_lst[k] += "<td>"+goodscd[i]+"</td>";
+                                    html_lst[k] += "<td class='goods'>"+goodsqty[i]+"</td>";
+                                    html_lst[k] += "<td>"+(i+11)+"</td>";
+                                    html_lst[k] += "<td>"+goodscd[i+10]+"</td>";
+                                    html_lst[k] += "<td>"+goodsqty[i+10]+"</td>";
+                                    html_lst[k] += "</tr>";
+                                }
+                                //console.log(cnt_right);
+                                for(var i = cnt_right; i<10; i++){
+                                    html_lst[k] += "<tr>";
+                                    html_lst[k] += "<td>"+(i+1)+"</td>";
+                                    html_lst[k] += "<td>"+goodscd[i]+"</td>";
+                                    html_lst[k] += "<td class='goods'>"+goodsqty[i]+"</td>";
+                                    html_lst[k] += "<td>"+"<br>"+"</td>";
+                                    html_lst[k] += "<td>"+"<br>"+"</td>";
+                                    html_lst[k] += "<td>"+"<br>"+"</td>";
+                                    html_lst[k] += "</tr>";
+                                }
+                            }else{ //상품 갯수가 20개 이상일때
+                                for(var i = 0; i<9; i++){
+                                    html_lst[k] += "<tr>";
+                                    html_lst[k] += "<td>"+(i+1)+"</td>";
+                                    html_lst[k] += "<td>"+goodscd[i]+"</td>";
+                                    html_lst[k] += "<td class='goods'>"+goodsqty[i]+"</td>";
+                                    html_lst[k] += "<td>"+(i+11)+"</td>";
+                                    html_lst[k] += "<td>"+goodscd[i+11]+"</td>";
+                                    html_lst[k] += "<td>"+goodsqty[i+11]+"</td>";
+                                    html_lst[k] += "</tr>";
+                                } 
+                                html_lst[k] += "<tr>";
+                                html_lst[k] += "<td>"+10+"</td>";
+                                html_lst[k] += "<td>"+goodscd[9]+"</td>";
+                                html_lst[k] += "<td class='goods'>"+goodsqty[9]+"</td>";
+                                html_lst[k] += "<td>...</td>";
+                                html_lst[k] += "<td>... 외 "+ Number(goodscd.length-19) +"</td>";
+                                html_lst[k] += "<td>...</td>";
+                                html_lst[k] += "</tr>";
+                            }
+                        }
+                        html_lst[k] += "</tbody>";
+                        html_lst[k] += "</table>";
+                        html_lst[k] += "</div>";
+                        html_lst[k] += "</body>";
+                        html_lst[k] += "</html>";
+                    }
+                    //새로운 페이지로 열어서 인쇄
+                    var prtPage = window.open('','_blank','directories=no,titlebar=no,toolbar=no, location=no, status=no, menubar=no, scrollbars=no,resizable=no, width=1024, height=1024, modal=yes');
+                    
+                    //패킹수를 담은 변수갯수만큼(패킹수만큼) newpage에 붙여준다
+                    for(var i = 0; i<html_lst.length; i++){
+                        prtPage.document.write(html_lst[i]);
+                    }
+                    prtPage.focus();
+                    prtPage.print(); 
+                    console.log("print done");
+                    
+                    //인쇄페이지에서 벗어났을 때
+                    prtPage.onbeforeunload = function(){
+                        console.log("win unload");
+                    
+                        if(prtData.length > 100) {
+                            gfnConfirm("연속출력 확인","발행대상(대상: "+prtData.length+" / 총 : "+total+")을 100건씩 나누어 발행합니다.",function(rtn){
+                                if(rtn) {
+                                    var data = prtData.splice(0,100);
+                                    //console.log(data);
+                                    _fnPrint100(data);
+                                }
+                            });    
+                        }else{
+                            //console.log(data);
+                            if(prtData.length == 0){
+                                gfnAlert("연속출력 확인","패킹라벨 발행, 총: "+total+"건이 완료되었습니다.");
+                                return;
+                            }
+                            gfnConfirm("연속출력 확인","발행대상(대상: "+prtData.length+" / 총 : "+total+")을 100건씩 나누어 발행합니다.",function(rtn){
+                                if(rtn) {
+                                    var data = prtData.splice(0,100);
+                                    _fnPrint100(data);
+                                }
+                            }); 
+                        }
+                    }
+                }
+                //패킹수 100개 이상일 경우 100건씩 나누어 발행
+                if(total > 100) {
+                    gfnConfirm("연속출력 확인","발행대상(건수 : "+total+")을 100건씩 나누어 발행합니다.",function(rtn){
+                        if(rtn) {
+                            var data = prtData.splice(0,100);
+                            //console.log(data);
+                            
+                            _fnPrint100(data);
+                        }
+                    });
+                } else {
+                    var data = prtData.splice(0,100);
+                    _fnPrint100(data);
+                }
+            } else {
+                gfnAlert("조회오류",OUTVAR.rtnMsg);
+            }
+        });
+    }
+
+
+/*-- SCRIPT autogen ---------------------------------------------------- */        
+if(typeof(me.fnInit)=='function') me.fnInit();
+});
+
+</script>
