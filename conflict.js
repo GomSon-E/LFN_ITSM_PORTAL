@@ -600,9 +600,12 @@ function gfnFramepage( page ) {
         if(me.pageTop.length <= 0) return;  
         me.pageTitle = $(`<div class="pageTitle">${page.dataDef._pgm.pgm_nm}</div>`);
 
+<<<<<<< khj
 		me.pageTop.children("*").remove();
-		me.pageTop.html(me.pageTitle); //pageTop초기화	
-
+		me.pageTop.html(me.pageTitle); //pageTop초기화
+		
+=======
+>>>>>>> master
         var viewBtn = $(`<button class="icon moreBtn"><i class="fas fa-caret-down"></i></button>`);
         me.pageTitle.append(viewBtn);
 
@@ -4268,7 +4271,14 @@ class gfnAgDetailCellRenderer {
 function gfnButtonSet(btnContainer, btnInfo, afnEH) {
     var me = this;
     me.container = $(btnContainer);
+<<<<<<< khj
+    me.opt = {
+		btnExtras: [],
+		containerClass: "gbuttonSet"
+	};
+=======
     me.opt = {};
+>>>>>>> master
     me.btns = {};
     me.extraPanel = {};
 
@@ -4316,6 +4326,16 @@ function gfnButtonSet(btnContainer, btnInfo, afnEH) {
 		$.extend(me.opt,btnOpt); 
 		me.container.addClass(me.opt.containerClass); 
         //기본버튼(!=extra) 완전히 Clear하고 그려줌.
+<<<<<<< khj
+    	me.container.children(".gButton").remove();
+		if(me.opt.btnNames != undefined){
+			for(var i = 0; i < me.opt.btnNames.length; i++){
+				me.btns[me.opt.btnNames[i]] = me.setButton(me.opt[`btn${me.opt.btnNames[i]}`]); // 버튼 초기화
+				me.setDisp(me.opt.btnNames[i],me.opt["btn"+me.opt.btnNames[i]]["disp"]); 
+			}
+		}
+        
+=======
     	me.container.children(".gButton").remove(); 
 
         for(var i = 0; i < me.opt.btnNames.length; i++){
@@ -4324,6 +4344,7 @@ function gfnButtonSet(btnContainer, btnInfo, afnEH) {
         }
         console.log(me.opt);
 
+>>>>>>> master
         // Extra 추가 기능 버튼과 패널 (Functions▼)
         if(me.opt.btnExtras.length > 0) {
             me.btns["Extras"] = me.setButton({icon:"fas fa-bars",text:"",func:"fnExtra",funcid:"extra",disp:true});
@@ -4349,7 +4370,13 @@ function gfnButtonSet(btnContainer, btnInfo, afnEH) {
             // Functions▼ 버튼에 갖다붙이기
             me.container.append(oPanel);
             me.extraPanel = oPanel;
+<<<<<<< khj
+        } else {
+			if(me.btns["extra"]) me.setDisp("Extra",false); 
+		}
+=======
         }
+>>>>>>> master
 
         // 다른 곳 클릭시 none, gButtonsetpanelBtn이 아니면 닫아.
         // $(document).click(function(e) {
@@ -4387,7 +4414,7 @@ function gfnButtonSet(btnContainer, btnInfo, afnEH) {
 		});
         me.container.append(oBtn);
 		return oBtn;
-
+<<<<<<< khj
     }
 
     // 클릭이벤트
@@ -4419,7 +4446,24 @@ function gfnButtonSet(btnContainer, btnInfo, afnEH) {
     	} 
     }
 
+=======
+    }
 
+    // 클릭이벤트
+    me.fnEH = function(jBtn) {
+        afnEH(me, "click", jBtn.attr("funcid", jBtn.attr("func")));
+    }
+    
+    // 패널 dispaly 여부 (처음엔 none 클릭하면 나타나게, 다른 곳 클릭하면 none되게)
+    me.showPanel = function() {
+        if(me.extraPanel.css("display") == "none") {
+            me.extraPanel.css("display", "block");
+        } else {
+            me.extraPanel.css("display", "none");
+        }
+    }
+
+>>>>>>> master
 	me.init();
 
     return me; //선언시 버튼셋 오브젝트 초기화 실행
