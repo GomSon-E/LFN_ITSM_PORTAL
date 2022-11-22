@@ -251,7 +251,7 @@ $(function() {
 			} else {
 				//세션이 없으면 login폼을 로드한다. 
 				var oLogin = $("<div></div>");
-				gfnLoad("aweportal","framepageTest",oLogin,function(OUTVAR){ 
+				gfnLoad("aweportal","login",oLogin,function(OUTVAR){ 
 					var ww = $(window).outerWidth();
 					if(ww <= 400) {
 						$("#splash svg").css("display","none");
