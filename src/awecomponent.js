@@ -37,6 +37,12 @@ function gfnMDI(pageContainer,tabContainer) {
 		me.idx++;
 		return me.idx;
 	} 
+  
+  //page# 현재 페이지 번호
+	me.getNum = function() {
+		me.idx;
+		return me.idx;
+	}
 	//frameHome 로드 - (삭제 시  apps 버튼 안눌림)
 	me.loadHome = function(afnCallback) { 
 		var oPage = $("<div></div>");
@@ -137,6 +143,10 @@ function gfnMDI(pageContainer,tabContainer) {
 			//요청으로 생성되는 탭을 포함해서 카운트하도록 탭을 먼저 생성
 			me.tabContainer.append(oTab);
 
+//현재 활성화된 탭과 페이지의 넘버는 탭의 개수와 무관하므로(중간 탭을 닫아 중간 번호가 삭제되었을 수 있다)
+			//getNext로 생성된 페이지 넘버만큼 카운트하는 것이 탭의 개수를 구함
+			var countTab = me.getNum();
+
 			//중복 카운트
 			var count = 0;
 
@@ -146,7 +156,7 @@ function gfnMDI(pageContainer,tabContainer) {
 				if(me.tabContainer.children("a.tab[pageidx=page"+(i+1)+"]").attr("grpid") == grpid) {
 					count++;
 				}
-			}	
+			}
 			
 			//1개 이상은 중복이므로,
 			if(count > 1) {
