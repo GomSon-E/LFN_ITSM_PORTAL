@@ -4268,10 +4268,7 @@ class gfnAgDetailCellRenderer {
 function gfnButtonSet(btnContainer, btnInfo, afnEH) {
     var me = this;
     me.container = $(btnContainer);
-    me.opt = {
-		btnExtras: [],
-		containerClass: "gbuttonSet"
-	};
+    me.opt = {};
     me.btns = {};
     me.extraPanel = {};
 
@@ -4319,14 +4316,14 @@ function gfnButtonSet(btnContainer, btnInfo, afnEH) {
 		$.extend(me.opt,btnOpt); 
 		me.container.addClass(me.opt.containerClass); 
         //기본버튼(!=extra) 완전히 Clear하고 그려줌.
-    	me.container.children(".gButton").remove();
-		if(me.opt.btnNames != undefined){
-			for(var i = 0; i < me.opt.btnNames.length; i++){
-				me.btns[me.opt.btnNames[i]] = me.setButton(me.opt[`btn${me.opt.btnNames[i]}`]); // 버튼 초기화
-				me.setDisp(me.opt.btnNames[i],me.opt["btn"+me.opt.btnNames[i]]["disp"]); 
-			}
-		}
-        
+    	me.container.children(".gButton").remove(); 
+
+        for(var i = 0; i < me.opt.btnNames.length; i++){
+            me.btns[me.opt.btnNames[i]] = me.setButton(me.opt[`btn${me.opt.btnNames[i]}`]); // 버튼 초기화
+
+        }
+        console.log(me.opt);
+
         // Extra 추가 기능 버튼과 패널 (Functions▼)
         if(me.opt.btnExtras.length > 0) {
             me.btns["Extras"] = me.setButton({icon:"fas fa-bars",text:"",func:"fnExtra",funcid:"extra",disp:true});
@@ -4352,9 +4349,7 @@ function gfnButtonSet(btnContainer, btnInfo, afnEH) {
             // Functions▼ 버튼에 갖다붙이기
             me.container.append(oPanel);
             me.extraPanel = oPanel;
-        } else {
-			if(me.btns["extra"]) me.setDisp("Extra",false); 
-		}
+        }
 
         // 다른 곳 클릭시 none, gButtonsetpanelBtn이 아니면 닫아.
         // $(document).click(function(e) {
@@ -4392,6 +4387,7 @@ function gfnButtonSet(btnContainer, btnInfo, afnEH) {
 		});
         me.container.append(oBtn);
 		return oBtn;
+
     }
 
     // 클릭이벤트
