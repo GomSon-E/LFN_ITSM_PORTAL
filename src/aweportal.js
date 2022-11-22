@@ -265,7 +265,7 @@ function gfnStatus(msg, state) {
 	//status layer 사라지기
 	setTimeout(function(){
 		$("#status>ul>li").first().remove();
-	}, 10000); 
+	}, 3000); 
 }
  
 function gfnAlert(title, content, afnCallback) {

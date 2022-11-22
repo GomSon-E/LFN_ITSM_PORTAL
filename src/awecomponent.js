@@ -4384,6 +4384,7 @@ function gfnButtonSet(btnContainer, btnInfo, afnEH) {
 		});
         me.container.append(oBtn);
 		return oBtn;
+
     }
 
     // 클릭이벤트
@@ -4404,8 +4405,8 @@ function gfnButtonSet(btnContainer, btnInfo, afnEH) {
 
     return me; //선언시 버튼셋 오브젝트 초기화 실행
 }
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 function gfnExcelDown(framepage, componentId, pgm_nm, condition, userinfo, headers, data){
 	if(isNull(framepage) || isNull(componentId)) {
 		gfnStatus("잘못된 엑셀 요청입니다.");
