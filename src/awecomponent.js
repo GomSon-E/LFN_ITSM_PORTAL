@@ -653,223 +653,191 @@ function gfnReplaceCss(rule) {
 
 /** framepage 초기화 및 공통이벤트 적용 */
 function gfnFramepage( page ) {
-	var me = this;
-	me.page = $("#"+page.pageid); 
-	me.init = function() {
-		//pageNav세팅
-		me.initPageNav();
-		//pageTop : 조회조건Text와 기능버튼
+    var me = this;
+    me.page = $("#"+page.pageid);
+
+    me.init = function() {
+        me.initPageNav();
 		me.initPageTop(); 
-		//pageGuide : pgm_func 의 Remark에 등록된 내용을 페이지 가이드로 
-		me.initPageGuide(); 
-		//화면의 최소높이를 frameset의 크기에 맞게 지정 
-		//내용(pageContent의 Grid의 높이를 조정해 준다.)
-		//if(me.page.hasClass("framepage") && !me.page.hasClass("popupSearch")) me.page.css("min-height",`calc( ${fH}px - 2.25em )`);
 		window.setTimeout( gfnFramepageLayout, 50); 
-		return me;
-	} 
-	me.initPageNav = function() {
-		var pageNav = me.page.find(".pageNav"); 
+        return me;
+    }
+
+    me.initPageNav = function() {
+        var pageNav = $(".pageNav"); 
         if(pageNav.length <= 0) return; 
-		//console.dir( dataSet._pgm.pgmid );
+
+        // 북마크기능 고쳐야함
 		var userMenuInfo = subset(gds.menu,"pgmid",page.dataDef._pgm.pgmid)[0];
-		var fav = "";
-		if( userMenuInfo!=undefined && userMenuInfo.fav_yn =="Y" ) fav ="fav";
-		pageNav.html(`<div class="navTree">
-			<span colid="app_pgmid">${page.dataDef._pgm.app_pgm_nm}</span> > 
-			<span colid="pgm_grp_nm">${page.dataDef._pgm.pgm_grp_nm}</span> > 
-			<span colid="pgm_nm">${page.dataDef._pgm.pgm_nm}</span> 
-			</div>`);
-		if(!isNull(page.dataDef._pgm.shorcut)) {
-			pageNav.children(".navTree").append(`[<span colid="shortcut">${page.dataDef._pgm.shorcut}</span>]`);
-		}
-		pageNav.children(".navTree").append(`<i class="${fav} fas fa-star"></i>`); 		
-		pageNav.append(`<div class="commonFunc">
-			<button>Help</button>
-			<button>CSR</button>
-			<!-- button>Personalize</button -->
-			<button class="btnScreen">Screen</button>
-			<button class="btnClose">Close</button>
-			</div>`); 
-		//pageNav : Event-Handling
-		pageNav.off("click");
-		pageNav.on("click", function(e) {
-			var oE = $(e.target);
-			if(oE.isON(".commonFunc button")) {
-				/* MDI framepage의 공통버튼 클릭시 이벤트 처리 */			
-				var oEvt = $(e.target); 
-				var func = oEvt.text();
-				if(func=="Help") {
-					var popid =  "help"+gMDI.getNext();
-					var container = $("<div id='"+popid+"' class='framepage active'></div>");
-					me.page.append(container);	 
-					gParam = $.extend(true, gParam, {appid:page.appid, pgmid:page.pgmid, dataDef:page.dataDef});
-					gfnLoad("aweportal","manageHelp",container,function(){ 
-						gfnPopup("프로그램 이용 가이드", container, {width: 1000, height:700});
-					});
-				}
-				else if (func=="CSR") {
-					var popid =  "csr"+gMDI.getNext();
-					var container = $("<div id='"+popid+"' class='framepage active'></div>");
-					me.page.append(container);	 
-					gParam = $.extend(true, gParam, {appid:page.appid, pgmid:page.pgmid, dataDef:page.dataDef});  
-					gfnLoad("aweportal","registerCSR",container,function(){ 
-						gfnPopup("시스템요청", container, {width: 600, height:700});
-					});
-				}
-				else if (func=="Personalize") {
-					gfnAlert("개인화",`${page.appid}.${page.pgmid}/${page.pageid} ${gUserinfo.usernm} 개인화 설정 준비중입니다.`);
-				}
-				else if (func=="Screen") { 
-					gMDI.screen();
-				}
-				else if (func=="Close") { 
-					gMDI.close();
-				}
-			} else if (oE.isON("i.fa-star")) {
-				/* 화면 즐겨찾기 Toggle */
-				oE.toggleClass("fav");
-				var pgmid  = page.dataDef._pgm.pgmid;
-				var fav_yn = oE.hasClass("fav")==true?"Y":"N"; 
-				var args = {pgmid:pgmid,fav_yn:fav_yn};
-				var invar = JSON.stringify(args);
-				//console.dir(invar);
-				gfnTx("aweportal.frameset","updateMenuFav",{INVAR:invar},function(OUTVAR){ 
-					console.log(OUTVAR);
-					if(OUTVAR.rtnCd == "OK") {
-						for(var idx in gds.menu) {
-							if(gds.menu[idx].pgmid==pgmid) gds.menu[idx].fav_yn = fav_yn;
-						}
-					}
-				});
-			}
-		});	 
-	} 
-	me.initPageTop = function() {
-		//화면타이틀
-		me.pageTop = me.page.find(".pageTop");  
+        var fav = "";
+        if( userMenuInfo!=undefined && userMenuInfo.fav_yn =="Y" ) fav ="fav";
+
+        pageNav.html(`<div class="navTree">
+            <span colid="app_pgmid">${page.dataDef._pgm.app_pgm_nm}</span> > 
+            <span colid="pgm_grp_nm">${page.dataDef._pgm.pgm_grp_nm}</span> > 
+            <span colid="pgm_nm">${page.dataDef._pgm.pgm_nm}</span> 
+            </div>`);
+
+        pageNav.append(`<div class="commonFunc">
+            <button class="icon" id="bookmark"><i class="far fa-bookmark"></i></button>
+            <button class="icon" id="help"><i class="fas fa-question"></i></button>
+            <button class="icon" id="csr"><i class="fas fa-desktop"></i></button>
+            <button class="icon" id="close"><i class="fas fa-times"></i></button>
+            </div>`); 
+
+
+        //pageNav : Event-Handling
+        // 여기 고쳐야함 기능들 >>> 북마크/도움말/CSR/창닫기
+        pageNav.off("click");
+        pageNav.on("click", function(e) {
+            var oE = $(e.target);
+                if(oE.isON(".commonFunc button")) {
+                    // MDI framepage의 공통버튼 클릭시 이벤트 처리 
+                    var btnMe = oE.exactObj("button.icon");
+                    if(btnMe.attr("id") == "bookmark") {
+                        console.log('bookmark 기능');
+                    }
+                    else if(btnMe.attr("id") == "help") {
+                        console.log('help 기능');
+                        // var popid = "help" + gMDI.getNext(); // gMDI..가 뭐죠
+                        // var container = $("<div id='"+popid+"' class='framepage active'></div>");
+                        var container = $("<div id='popid' class='framepage active'></div>");
+                        me.page.append(container);
+                        gParam = $.extend(true, gParam, { appid:page.appid, pgmid:page.pgmid, dataDef:page.dataDef });
+                        gfnLoad("aweportal","manageHelp",container,function(){ 
+                            gfnPopup("프로그램 이용 가이드", container, {width: 1000, height:700});
+                        });
+                    }
+                    else if (btnMe.attr("id") == "csr") { 
+                        console.log('csr 기능');
+                    }
+                    else if (btnMe.attr("id") == "close") {
+                        console.log('close 기능');
+                        // gMDI.close();
+                    }
+                } else if (oE.isON("i.fa-star")) {
+                    /* 화면 즐겨찾기 Toggle */
+                    oE.toggleClass("fav");
+                    var pgmid  = page.dataDef._pgm.pgmid;
+                    var fav_yn = oE.hasClass("fav")==true?"Y":"N"; 
+                    var args = {pgmid:pgmid,fav_yn:fav_yn};
+                    var invar = JSON.stringify(args);
+                    //console.dir(invar);
+                    gfnTx("aweportal.frameset","updateMenuFav",{INVAR:invar},function(OUTVAR){ 
+                        console.log(OUTVAR);
+                        if(OUTVAR.rtnCd == "OK") {
+                            for(var idx in gds.menu) {
+                                if(gds.menu[idx].pgmid==pgmid) gds.menu[idx].fav_yn = fav_yn;
+                            }
+                        }
+                    });
+                }
+        });
+    }
+
+    me.initPageTop = function() {
+        //화면타이틀
+        me.pageTop = $(".pageTop");
         if(me.pageTop.length <= 0) return;  
-		me.pageTitle = $(`<div class="pageTitle"></div>`);
-		var initText = $(`<h2>${page.dataDef._pgm.pgm_nm}</h2>`);
-		me.pageTitle.append(initText);
+        me.pageTitle = $(`<div class="pageTitle">${page.dataDef._pgm.pgm_nm}</div>`);
+
 		me.pageTop.children("*").remove();
 		me.pageTop.html(me.pageTitle); //pageTop초기화
+		
+        var viewBtn = $(`<button class="icon moreBtn"><i class="fas fa-caret-down"></i></button>`);
+        me.pageTitle.append(viewBtn);
+
+        // pageCond 숨기는 기능
+        viewBtn.on("click", function(e){
+            if(viewBtn.hasClass("clicked")){
+                viewBtn.removeClass("clicked");
+                $(".pageCond").css("display", "block");
+            }else{
+                viewBtn.addClass("clicked");
+                $(".pageCond").css("display", "none");
+            }
+        })
+
+        me.pageTop.children("*").remove();
+        me.pageTop.html(me.pageTitle); //pageTop초기화
+
         //기능버튼
-		me.pageFunc = $(`<div class="pageFunc"></div>`); 
-		me.pageTop.append(me.pageFunc);
-		page.pageObj["_pageFunc"]  = new gfnButtonSet( "#"+page.pageid+" .pageFunc", page.dataDef["_pgm_func"], page.fnEH );
-	}
-	me.initPageGuide = function() {
-		me.pageGuide = me.page.find(".pageGuide"); 
-        if(me.pageGuide.length <= 0) return;  
-		var guides = subset(page.dataDef["_pgm_func"],"remark"," ",true);
-		if(guides.length <= 0) return;
-		//가이드버튼을 넣어주고, 누를때마다 보이기/숨기기한다.
-		var guideBtn = $(`<div class="guideBtn"><i class="fas fa-caret-right"></i> Guide</div>`);
-		me.pageGuide.children("*").remove();
-		me.pageGuide.html(guideBtn); //pageGuide영역 초기화
-		guideBtn.on("click",function(e){
-			var pageGuide = $(e.target).parents(".pageGuide");
-			if( pageGuide.children(".guideText").css("display") == "none") {
-				pageGuide.children(".guideBtn").removeClass("close");
-				pageGuide.children(".guideText").show();
-			} else {
-				pageGuide.children(".guideBtn").addClass("close");
-				pageGuide.children(".guideText").hide("blind","swing",200);
-			}
-		});
-        //가이드본문을 세팅한다.
-		var guideText = $(`<div class="guideText"></div>`);
-		$.each(guides,function(idx,el){
-			guideText.append(`<li><b><i class="fas fa-circle"></i></b> <span>${el.remark}</span></li>`); 		
-		}); 
-		me.pageGuide.append(guideText);
-	}
-	me.init();
-} 
+        me.pageFunc = $(`<div class="pageFunc"></div>`); 
+        me.pageTop.append(me.pageFunc);
+        page.pageObj["_pageFunc"]  = new gfnButtonSet( "#"+page.pageid+",.pageFunc", page.dataDef["_pgm_func"], page.fnEH );
+    }
+
+    me.init();
+}
 
 function gfnComponent( pageId, containerId, componentDef, afnEH, page ) {
 	var me = this; 
 	me.componentId = containerId;
-	me.containerId = "#"+pageId+" "+((containerId=="pageCond")?".":"#")+containerId;
+	me.containerId = "#"+pageId+", "+((containerId=="pageCond")?".":"#")+containerId;
     me.container = $(me.containerId); 
 	me.componentDef = $.extend({},componentDef);
+
+	// console.log(me.componentId);	// pageCond
+	// console.log(me.containerId);	// #page1, .pageCond
+	// console.log(me.container);		//
+	// console.log(me.componentDef);	// Container에 대한 정보(+Control 정보)
+
 	me.init = function() {
 		me.container.addClass("componentContainer");
-		if(containerId=="pageCond") me.initPageCond();
+		if(containerId=="pageCond")
+		{
+			me.initPageCond();
+		}
 		else me.initComponentTitle();
 		me.initComponentBody();
 		return me;
 	}
 	me.initPageCond = function() {
-		//reset버튼 추가
-		me.container.children(".btnClear").remove();
-		var btnClear = $(`<button class="btnClear">Reset</button>`);
-		btnClear.on("click", me.initComponentBody );
-		me.container.append(btnClear);
-		//pageTitle 옆에 pageCond 숨기기버튼 추가
-		if(isNull(page)) return;
-		if(isNull(page.pageObj["_page"].pageTitle)) return;
-		page.pageObj["_page"].pageTitle.find(".btnCond").remove(); //없애고 추가 
-		var btnCond = $(`<button class="btnCond"><i class="fas fa-chevron-up"></i></button>`);
-		btnCond.on("click",function(e){ // pageCond를 보이거나 숨긴다.
-			if(btnCond.hasClass("closed")) {
-				btnCond.removeClass("closed");
-				btnCond.children("i")
-					.removeClass("fa-chevron-up")
-					.addClass("fa-chevron-down");
-				page.page.find(".pageCond").show();
-			} else {
-				btnCond.addClass("closed");
-				btnCond.children("i")
-					.removeClass("fa-chevron-down")
-				    .addClass("fa-chevron-up");
-				page.page.find(".pageCond").hide();
-			}
-		});
-		page.pageObj["_page"].pageTitle.append(btnCond);
+
 	},
 	me.initComponentTitle = function() {
 		me.container.children("*").remove(); //일단 지우고 시작
 		me.container.html("");
 		me.componentTop = $(`<div class="componentTop"></div>`);
+
 		//ComponentTitle
-		me.componentTitle = $(`<h3 class="componentTitle"></h3>`);
-		if(!isNull(me.componentDef.data_icon)) {
-			me.componentTitle.append(`<i class="${me.componentDef.data_icon}"></i>`);
-		} else {
-			me.componentTitle.append(`<i class="fas fa-square"></i>`);
-		}
-		if(!isNull(me.componentDef.data_nm)) me.componentTitle.append(`<span>${me.componentDef.data_nm}</span>`); 
-		me.componentTitle.on("click",function(e) { //클릭하면 func와 body를 보이거나 숨긴다. 
-			if( me.componentTitle.hasClass("closed")) {
-				me.componentTitle.removeClass("closed"); 
-				me.componentTop.children(".componentFunc").show();
-				me.container.children(".componentBody").show();
-				me.container.removeClass("contentClosed"); 
-			} else {
-				me.componentTitle.addClass("closed");
-				me.componentTop.children(".componentFunc").hide();
-				me.container.children(".componentBody").hide(); 
-				me.container.addClass("contentClosed"); 
-				/*me.container.css("flex","unset !important")
-				if(me.container.siblings(".componentContainer").find(".componentBody.agGrid").length > 0) {
-					me.container.siblings(".componentContainer").css("flex","1 1 auto"); 
-				} 
-				*/ 
-			}
-		});
+		me.componentTitle = $(`<div class="componentTitle">${me.componentDef.data_nm}</div>`);
+		// if(!isNull(me.componentDef.data_icon)) {
+		// 	me.componentTitle.append(`<i class="${me.componentDef.data_icon}"></i>`);
+		// } else {
+		// 	me.componentTitle.append(`<i class="fas fa-square"></i>`);
+		// }
+		// if(!isNull(me.componentDef.data_nm)) me.componentTitle.append(`<span>${me.componentDef.data_nm}</span>`); 
+		// me.componentTitle.on("click",function(e) { //클릭하면 func와 body를 보이거나 숨긴다. 
+		// 	if( me.componentTitle.hasClass("closed")) {
+		// 		me.componentTitle.removeClass("closed"); 
+		// 		me.componentTop.children(".componentFunc").show();
+		// 		me.container.children(".componentBody").show();
+		// 		me.container.removeClass("contentClosed"); 
+		// 	} else {
+		// 		me.componentTitle.addClass("closed");
+		// 		me.componentTop.children(".componentFunc").hide();
+		// 		me.container.children(".componentBody").hide(); 
+		// 		me.container.addClass("contentClosed"); 
+		// 		/*me.container.css("flex","unset !important")
+		// 		if(me.container.siblings(".componentContainer").find(".componentBody.agGrid").length > 0) {
+		// 			me.container.siblings(".componentContainer").css("flex","1 1 auto"); 
+		// 		} 
+		// 		*/ 
+		// 	}
+		// });
 		me.componentTop.append(me.componentTitle);
+		
 		//ComponentFunc  
-		//if(!isNull(me.componentDef.component_option)) { 
+		if(!isNull(me.componentDef.component_option)) { 
 			me.componentTop.children(".componentFunc").remove();
 			me.componentFunc = $(`<div class="componentFunc"></div>`);
 			//component_option .remark, .content, .func
-			if(!isNull(me.componentDef.component_option) &&
-			   !isNull(me.componentDef.component_option.remark)) me.componentFunc.append(`<h5 class="quickGuide">${componentDef.component_option.remark}</h5>`);
+			if(!isNull(me.componentDef.component_option) && !isNull(me.componentDef.component_option.remark)) {
+				me.componentFunc.append(`<h5 class="quickGuide">${componentDef.component_option.remark}</h5>`);
+			}
 			//[SEL:30줄씩][BTN:추가] 등을 구현할때 아래와 같이 사용한다.
-			if(!isNull(me.componentDef.component_option) &&
-			   !isNull(me.componentDef.component_option.content)) { 
+			if(!isNull(me.componentDef.component_option) && !isNull(me.componentDef.component_option.content)) { 
 				me._componentCond = {};
 				for(var i=0; i < me.componentDef.component_option.content.length; i++) {
 					var colinfo = me.componentDef.component_option.content[i]; 
@@ -880,32 +848,36 @@ function gfnComponent( pageId, containerId, componentDef, afnEH, page ) {
 					me.componentFunc.append( me._componentCond[colinfo.colid].dispObj );
 				}
 			} 			
-			if(!isNull(me.componentDef.component_option) &&
-			   !isNull(me.componentDef.component_option.func)) { 
+			if(!isNull(me.componentDef.component_option) && !isNull(me.componentDef.component_option.func)) { 
 				//기능버튼이 있으면 추가해주고
+				console.log("기능버튼이 있어 버튼을 생성합니다.");
 				me._componentFunc = new gfnButtonSet(me.componentFunc, me.componentDef.component_option.func, function(btnSet, evt, funcid, func) { 
 					//이벤트를 바인딩해준다. 이때 이벤트유형은 componentFunc이다.
 					afnEH(me, "componentFunc", funcid, func);
 				}); 
-			} else {
+			} 
+			else {
 				me._componentFunc = new gfnButtonSet(me.componentFunc); 
 			}
 			me.componentTop.append(me.componentFunc);
-		//}
+		}
 		me.container.append(me.componentTop);
+		$(`.${me.componentDef.data_id}`).append(me.componentTop);
 	} 
 	me.initComponentBody = function() {
 		me.componentBody = $(`<div class="componentBody"></div>`); 
 		me.componentBody.addClass(me.componentDef.component_pgmid);
 		me.component_option = me.componentDef.component_option;
+
 		//컴포넌트Body그리드 높이지정: 미지정시 컨텐츠에 맞게 늘어남 
 		if(!isNull(me.component_option)) {
 			if(!isNull(me.component_option.height)) me.componentBody.css("height",me.component_option.height );
 			if(!isNull(me.component_option.width)) me.componentBody.css("width",me.component_option.width );
 			if(!isNull(me.component_option.class)) me.componentBody.addClass( me.component_option.class );
-		}    
+		} 
+		   
         //aweForm의 Body
-		if( me.componentDef.component_pgmid =="aweForm" ) {  
+		if( me.componentDef.component_pgmid =="aweForm" ) {
 			me.colinfo = me.componentDef.content;
 			me.col = {}; //aweForm은 me.col[colid] 로 해당 컬럼에 접근할 수 있다. 
 			me.data = {}; //정의되지 않은 컬럼의 값도 get/set하고 import/export할 수 있다.
@@ -916,26 +888,36 @@ function gfnComponent( pageId, containerId, componentDef, afnEH, page ) {
 			var curColgrp = "_init";
 			for(var i =0; i < me.colinfo.length; i++) {
 				var colinfo = me.colinfo[i];
-				//section이 없거나 바뀌었으면...
-				if(isNull(nvl(colinfo.section,""))) container = me.componentBody;
-				else if (colinfo.section!=curSection) {
-                    curSection = colinfo.section;
-					container = $(`<fieldset section="${curSection}"></fieldset>`).appendTo(me.componentBody);
-					var sLegend = $(`<legend></legend>`);
-					if(!isNull(colinfo.section_icon)) sLegend.append(`<i class="${colinfo.section_icon}"></i>`);
-					sLegend.append( " "+curSection );
-					container.append( sLegend );
-				} 
-				//colgrp이 바뀌었으면...라벨을 달아줘야함
+
 				if(isNull(nvl(colinfo.colgrp,""))) {
-					grpcontainer = $(`<div colgrp="${colinfo.colnm}"></div>`).appendTo(container);
-					grpcontainer.append(`<label>${colinfo.colnm}</label>`);
-				} else if (colinfo.colgrp!=curColgrp) {
-                    curColgrp = colinfo.colgrp;
-					grpcontainer = $(`<div colgrp="${curColgrp}"></div>`).appendTo(container);
-					grpcontainer.append(`<label>${curColgrp}</label>`);
+					// container.append(`<div class="inputWrap ${colinfo.etype}" colgrp="${colinfo.colnm}" style="width: ${colinfo.w}em"></div>`);
+					grpcontainer = $(`<div class="inputWrap ${colinfo.etype}" colgrp="${colinfo.colnm}" style="width: ${colinfo.w}em"></div>`).appendTo(container);
+					$(`<i class="${colinfo.section_icon}"></i>`).appendTo(grpcontainer);
 				} 
-                grpcontainer.addClass(colinfo.attr);
+
+				//section이 없거나 바뀌었으면...
+				// if(isNull(nvl(colinfo.section,""))) {
+				// 	container = me.componentBody;
+				// }
+				// else if (colinfo.section!=curSection) {
+                //     curSection = colinfo.section;
+				// 	container = $(`<fieldset section="${curSection}"></fieldset>`).appendTo(me.componentBody);
+				// 	var sLegend = $(`<legend></legend>`);
+				// 	if(!isNull(colinfo.section_icon)) sLegend.append(`<i class="${colinfo.section_icon}"></i>`);
+				// 	sLegend.append( " "+curSection );
+				// 	container.append( sLegend );
+				// } 
+
+				//colgrp이 바뀌었으면...라벨을 달아줘야함
+				// container = <div class="componentBody aweForm">
+				// else if (colinfo.colgrp!=curColgrp) {
+                //     curColgrp = colinfo.colgrp;
+				// 	grpcontainer = $(`<div colgrp="${curColgrp}"></div>`).appendTo(container);
+				// 	// grpcontainer.append(`<label>${curColgrp}</label>`);
+				// 	grpcontainer.append(`<div>${curColgrp}</div>`);
+				// } 
+                container.addClass(colinfo.attr);
+
 				/*************************************************************************/
 				/* 컬럼: 컨트롤&eventHandler Callback *************************************/
 				/*************************************************************************/
@@ -2964,6 +2946,7 @@ function gfnChkValid(colinfo,val,bWarn,rowid) {
 	
 	return true; 
 }
+
 /** colInfo를 받아서 html control을 return함  
 dtype	etype		attr
 ======	==========	===============	
@@ -2982,7 +2965,7 @@ text	txt			readonly
 */
 function gfnControl(colinfo, afnEH, oComponent, rowid, val, rowPinned, agHack) {
 	var me = this;
-        me.oComponent = oComponent;
+	me.oComponent = oComponent;
 	me.colinfo = $.extend({},colinfo); //colinfo가 null일때 exception처리때문에 {}로 치환 
 	me.afnEH = afnEH;
 	me.obj = $("<span class='aweCol'></span>"); 
@@ -2995,7 +2978,8 @@ function gfnControl(colinfo, afnEH, oComponent, rowid, val, rowPinned, agHack) {
 			me.colinfo.attr = me.colinfo.attr.replace("ymd","").replace("auto","").replace("pop","");
 		}  
 	} 	
-	me.init = function() { 
+	me.init = function() {
+		
 		me.colid = nvl(me.colinfo.colid,"");
 		me.dtype = nvl(me.colinfo.dtype,"text");
 		me.etype = nvl(me.colinfo.etype,"txt");
@@ -3055,28 +3039,28 @@ function gfnControl(colinfo, afnEH, oComponent, rowid, val, rowPinned, agHack) {
 		if( me.etype=="pre") {
 			obj =  $(`<${me.etype}></${me.etype}>`); 
 		} else if(me.etype=="txt") {
-			obj =  $(`<input type="text"/>`); 
+			obj =  $(`<input type="text" placeholder="${me.remark}"/>`); 
 		} else if(me.etype=="pwd") {
-			obj =  $(`<input type="password"/>`); 
-		} else if(me.etype=="cbx") {
-			obj =  $(`<input type="checkbox"/>`);
+			obj =  $(`<input type="password" placeholder="${me.remark}"/>`); 
 		} else if(me.etype=="sel") {
 			if(me.agHack=="selRenderer") {
 				obj = $(`<span></span>`); 
 			} else {
 				obj =  $(`<select></select>`);
 			} 
+		} else if(me.etype=="cbx") {
+			// obj =  $(`<input type="checkbox"/>`);
 		} else if(me.etype=="tarea") {
-			obj =  $(`<textarea></textarea>`); 
+			// obj =  $(`<textarea></textarea>`); 
 		} else if(me.etype=="img") {
-			obj =  $(`<img></img>`); 
+			// obj =  $(`<img></img>`); 
 		} else if(me.etype=="link") {
-			obj =  $(`<a target="_blank"></a>`); 
+			// obj =  $(`<a target="_blank"></a>`); 
 		} else if(me.etype=="btn") { 
-			obj =  $(`<button></button>`); 
-			obj.addClass("ui-button");
+			// obj =  $(`<button></button>`); 
+			// obj.addClass("ui-button");
 		} else if(me.etype=="none") {
-			obj.addClass("hidden");
+			// obj.addClass("hidden");
 		}
 		if(!isNull(me.oOption)) {
 			Object.keys(me.oOption).forEach(key=>{
@@ -3235,6 +3219,7 @@ function gfnControl(colinfo, afnEH, oComponent, rowid, val, rowPinned, agHack) {
 
 		/* select2 적용  */
 		if(me.etype=="sel") {
+			
 			if(me.agHack!="selRenderer") {
 				if(!isNull(me.oComponent) && !isNull(me.oComponent.componentId) && me.oComponent.componentId=="pageCond") {
 					if(!isNull(me.oComponent) && !isNull(me.oComponent.componentId) && me.oComponent.componentId=="pageCond") {
@@ -3261,6 +3246,7 @@ function gfnControl(colinfo, afnEH, oComponent, rowid, val, rowPinned, agHack) {
 	}  
 	//값 변경시 데이터형식에 맞게 값 정제
 	me.setter = function(val) {  
+		// console.log("me.setter") ;
 		if(me.dtype=="num") {
 			if(inStr(me.attr,"dec1")>=0) return format(toNum(val),1);
 			else if(inStr(me.attr,"dec2")>=0) return format(toNum(val),2);
@@ -3294,6 +3280,7 @@ function gfnControl(colinfo, afnEH, oComponent, rowid, val, rowPinned, agHack) {
 	}
 	//값 세팅
     me.setVal = function(val,bIinitialSkip) {
+		// console.log("me.setVal") ;
 		if( me.etype=="raw") {
 			me.obj.includeObj(".aweCol").html(me.setter(val));
 		} else if( me.etype=="pre") {
@@ -3367,6 +3354,7 @@ function gfnControl(colinfo, afnEH, oComponent, rowid, val, rowPinned, agHack) {
 	}
 	//표시값 가져오기 
 	me.dispVal = function() {
+		// console.log("me.disVal") ;
 		var rtn = null;		
 		if( me.etype=="raw") {
 			rtn = me.obj.includeObj(".aweCol").html();
@@ -3399,6 +3387,7 @@ function gfnControl(colinfo, afnEH, oComponent, rowid, val, rowPinned, agHack) {
 	}
 	//데이터형식에 맞는 값 가져오기 
 	me.getVal = function() {
+		// console.log("me.getVal") ;
 		var rtn = me.dispVal();
 		if(me.dtype=="num") return toNum(rtn); 
 		else if (me.dtype=="ymd") return date(rtn,"yyyy-mm-dd","yyyymmdd"); 
@@ -3406,6 +3395,7 @@ function gfnControl(colinfo, afnEH, oComponent, rowid, val, rowPinned, agHack) {
 	}  
 	//ATTR에 따른 상태처리 
 	me.setDisable = function(bLock) {
+		// console.log("me.setDisable") ;
 		if(bLock==true) {
 			me.obj.includeObj(".aweCol").addClass("disabled");
 			me.obj.includeObj(".aweCol").attr("disabled","disabled"); 
@@ -3417,6 +3407,7 @@ function gfnControl(colinfo, afnEH, oComponent, rowid, val, rowPinned, agHack) {
 		}
 	} 
 	me.setReadonly = function(bLock) {
+		// console.log("me.setReadonly") ;
 		if(bLock==true) {
 			me.obj.includeObj(".aweCol").addClass("readonly");
 			me.obj.includeObj(".aweCol").attr("readonly","readonly");
@@ -3431,6 +3422,7 @@ function gfnControl(colinfo, afnEH, oComponent, rowid, val, rowPinned, agHack) {
 		}
 	}		
 	me.setHidden = function(bHide) {
+		// console.log("me.setHidden") ;
 		if(bHide==true) {
 			me.obj.hide();
 			if(!isNull(me.dispObj)) me.dispObj.hide();
@@ -3443,6 +3435,7 @@ function gfnControl(colinfo, afnEH, oComponent, rowid, val, rowPinned, agHack) {
 	}	
 	//컨트롤에 포커스 주기 
 	me.focus = function() {
+		// console.log("me.focus") ;
 		if(!me.obj.includeObj(".aweCol").is(":focus")) { 
 			setTimeout(function() {
 				//console.log("focus on me.obj:"+me.colinfo.colid);
@@ -3454,13 +3447,16 @@ function gfnControl(colinfo, afnEH, oComponent, rowid, val, rowPinned, agHack) {
 	}
 	//option을 변경해 줌
 	me.refreshOptions  = function(arr) {
+		// console.log("me.refreshOption") ;
 		var obj = me.obj.includeObj(".aweCol"); 
 		gfnSetOpts(obj, arr, me.option, me.getVal() );
 	}
 	//값이 Valid한지 Return
 	me.chkValid = function(bWarn) { 
+		// console.log("me.chkValid") ;
 		return gfnChkValid(me.colinfo, me.getVal(), bWarn);
 	}
+
 	me.init(); //초기화호출
 }
 
@@ -4412,149 +4408,148 @@ class gfnAgDetailCellRenderer {
 /** Global Function에 버튼셋 초기화 **********************************************************************************************************************/
 function gfnButtonSet(btnContainer, btnInfo, afnEH) {
     var me = this;
-    me.container = $(btnContainer); 
-	me.opt = { 
-		btnNames: ["search","new","save","delete","key1","key2"]	 
-	   ,btnsearch:{icon:"fas fa-search", text:"Search", funcid:"search", func:"fnSearch",  disp:false}		
-  	   ,btnnew:   {icon:"fas fa-file",   text:"New",    funcid:"new",    func:"fnNew",     disp:false}		
-  	   ,btnsave:  {icon:"fas fa-save",   text:"Save",   funcid:"save",   func:"fnSave",    disp:false}		
-  	   ,btndelete:{icon:"fas fa-trash",  text:"Delete", funcid:"delete", func:"fnDelete",  disp:false}	 
-       ,btnkey1:  {icon:"fas fa-key",    text:"Key1",   funcid:"key1",   func:"fnKey1",    disp:false} 
-       ,btnkey2:  {icon:"fas fa-check",  text:"Key2",   funcid:"key2",   func:"fnKey2",    disp:false} 
-       ,btnExtras:[] 
-	   ,containerClass:"gbuttonSet"
-    } 
-	me.btns = {} //jquery obj버튼을 담아놓을 것임.
-	me.extraPanel; //여기에 추가기능 패널을 담아놓을 것임.
+    me.container = $(btnContainer);
+    me.opt = {
+		btnExtras: [],
+		containerClass: "gbuttonSet"
+	};
+    me.btns = {};
+    me.extraPanel = {};
 
-	/* [{funcid, func_nm, func_icon, disp, remark},..] : 버튼정보 */
-	me.btnInfoCovert = function(aBtnInfo) { 
-		var FuncOPt = {};
-		if(aBtnInfo != null && aBtnInfo != undefined) {
-	    	var FuncOpt = {};
-	    	var FuncBtnNames = [];
-	        var FuncExtra = [];   
-			for(var i =0; i < aBtnInfo.length; i++ ) { //pageFunc정보를 gButtonset에 맞게 치환한다.
-				var bInfo = aBtnInfo[i]; 
-				var bName = (bInfo.funcid.charAt(0).toUpperCase()) + (bInfo.funcid.slice(1));
-				var bFunc = "fn"+ bName;
-				var bDisp  = bInfo.disp==undefined? true:bInfo.disp;
-				if(isNull(bInfo.func_icon) || inStr(bInfo.func_icon,"extra") < 0) {  //icon에 extra가 없으면 기본버튼 
-					if(inStr(FuncBtnNames,bInfo.funcid) < 0) FuncBtnNames.push(bInfo.funcid);
-					FuncOpt["btn"+bInfo.funcid] = {
-						icon:bInfo.func_icon,
-						text:bInfo.func_nm,
-						funcid:bInfo.funcid,
-						func:bFunc,
-						disp:bDisp
-					}; 
-				} else { //extra가 있으면 추가패널 
-					var btnEx = {
-						icon:bInfo.func_icon,
-						text:bInfo.func_nm,
-						funcid:bInfo.funcid,
-						func:bFunc,
-						disp:bDisp
-					};
-					FuncExtra.push(btnEx);
-				} 	
-			}
-			FuncOpt.btnNames = FuncBtnNames;
-			FuncOpt.btnExtras = FuncExtra; 
+    // [{funcid, func_nm, func_icon, disp, remark},..] : 버튼정보
+    me.btnInfoCovert = function(aBtnInfo) { 
+        var FuncOPt = {};
+        if(aBtnInfo != null && aBtnInfo != undefined) {
+            var FuncOpt = {};
+            var FuncBtnNames = [];
+            var FuncExtra = [];   
+            for(var i =0; i < aBtnInfo.length; i++ ) { //pageFunc정보를 gButtonset에 맞게 치환한다.
+                var bInfo = aBtnInfo[i]; 
+                var bName = (bInfo.funcid.charAt(0).toUpperCase()) + (bInfo.funcid.slice(1));
+                var bFunc = "fn"+ bName;
+                var bDisp  = bInfo.disp==undefined? true:bInfo.disp;
+                if(isNull(bInfo.func_icon) || inStr(bInfo.func_icon,"extra") < 0) {  //icon에 extra가 없으면 기본버튼 
+                    if(inStr(FuncBtnNames,bInfo.funcid) < 0) FuncBtnNames.push(bInfo.funcid);
+                    FuncOpt["btn"+bInfo.funcid] = {
+                        icon:bInfo.func_icon,
+                        text:bInfo.func_nm,
+                        funcid:bInfo.funcid,
+                        func:bFunc,
+                        disp:bDisp
+                    }; 
+                } else { //extra가 있으면 추가패널 
+                    var btnEx = {
+                        icon:bInfo.func_icon,
+                        text:bInfo.func_nm,
+                        funcid:bInfo.funcid,
+                        func:bFunc,
+                        disp:bDisp
+                    };
+                    FuncExtra.push(btnEx);
+                } 	
+            }
+            FuncOpt.btnNames = FuncBtnNames;
+            FuncOpt.btnExtras = FuncExtra; 
         }
-		return FuncOpt;
-	} 
-	/* 버튼 초기화 */
+        return FuncOpt;
+    } 
+
     me.init = function() {
-		//버튼정보 변환 
-    	var btnOpt = me.btnInfoCovert(btnInfo); 
+        // 버튼정보 변환 
+        var btnOpt = me.btnInfoCovert(btnInfo); 
 		$.extend(me.opt,btnOpt); 
 		me.container.addClass(me.opt.containerClass); 
         //기본버튼(!=extra) 완전히 Clear하고 그려줌.
-    	me.container.children(".gButton").remove(); 
-    	for(var i=0; i < me.opt.btnNames.length; i++ ) {
-    		me.btns[me.opt.btnNames[i]] = me.setButton(me.opt["btn"+me.opt.btnNames[i]]); //버튼초기화setButton
-    		me.setDisp(me.opt.btnNames[i],me.opt["btn"+me.opt.btnNames[i]]["disp"]); 
-    	} 
-		//추가기능있으면 버튼과 패널을 추가함
-    	if(me.opt.btnExtras.length > 0) { 
-    		me.btns["Extra"] = me.setButton({text:"Functions▼",func:"fnExtra",funcid:"extra",disp:true});
-    	    me.btns["Extra"].addClass("gButtonpanelBtn"); //맨땅 찍을떄 패널 닫히기 보완용
-    	    var oPanel;
-    	    oPanel = $("<ul></ul>");
-    	    oPanel.addClass("gButtonsetpanel");
-    	    for(var i=0; i<me.opt.btnExtras.length; i++) {
-    	    	var oBtn;
-    	    	var sBtn = me.opt.btnExtras[i].text;
-    	    	if(me.opt.btnExtras[i].icon != undefined && me.opt.btnExtras[i].icon != null) {
-    	    		sBtn = "<i class='"+me.opt.btnExtras[i].icon+"'></i> " + sBtn;  
-    	    	} 
-    	    	oBtn = $("<li>"+sBtn+"</li>");
-    	    	if(me.opt.btnExtras[i].disp!="seperator") { 
-    	    		oBtn.addClass("gButtonsetpanelBtn"); 
-    	    		oBtn.attr("funcid",me.opt.btnExtras[i].funcid);
-    	    		oBtn.attr("func",me.opt.btnExtras[i].func);
-    	    		oBtn.on("click",function(e){
-    	    			var btnMe = $(this).exactObj("li.gButtonsetpanelBtn");
-    	    			if(btnMe.attr("func")!=undefined&&btnMe.attr("func")!="") { 
-    	    			    me.fnEH( btnMe );
-							oPanel.hide();
-    	    			}
-    	    		});
-    	    	} else {
-    	    		oBtn.addClass("gButtonsetpanelSeperator"); 
-					oBtn.text("");
-    	    	}
-    	    	oPanel.append(oBtn);
-    	    }
-    	    me.container.append(oPanel);
-    	    me.extraPanel = oPanel;
-    	} else {
-    		if(me.btns["extra"]) me.setDisp("Extra",false); 
-    	}  
+    	me.container.children(".gButton").remove();
+		if(me.opt.btnNames != undefined){
+			for(var i = 0; i < me.opt.btnNames.length; i++){
+				me.btns[me.opt.btnNames[i]] = me.setButton(me.opt[`btn${me.opt.btnNames[i]}`]); // 버튼 초기화
+				me.setDisp(me.opt.btnNames[i],me.opt["btn"+me.opt.btnNames[i]]["disp"]); 
+			}
+		}
+        
+        // Extra 추가 기능 버튼과 패널 (Functions▼)
+        if(me.opt.btnExtras.length > 0) {
+            me.btns["Extras"] = me.setButton({icon:"fas fa-bars",text:"",func:"fnExtra",funcid:"extra",disp:true});
+            
+            var oPanel = $("<ul></ul>");
+    	    oPanel.addClass("gButtonsetpanel"); 
+
+            for(var i = 0; i < me.opt.btnExtras.length; i++) {
+                var extraBtnItem;
+                extraBtnItem = $(`<li>${me.opt.btnExtras[i].text}</li>`);
+                extraBtnItem.addClass("gButtonsetpanelBtn");
+                extraBtnItem.attr("funcid",me.opt.btnExtras[i].funcid);
+                extraBtnItem.attr("func",me.opt.btnExtras[i].func);
+                // 클릭 이벤트 추가 필요
+                extraBtnItem.on("click", function(e) {
+                    var btnMe = $(this).exactObj("li.gButtonsetpanelBtn");
+                    console.log(`Extra 클릭 이벤트 발생`);
+                    // me.fnEH(btnMe);
+                    oPanel.hide();
+                });
+                oPanel.append(extraBtnItem);
+            }
+            // Functions▼ 버튼에 갖다붙이기
+            me.container.append(oPanel);
+            me.extraPanel = oPanel;
+        } else {
+			if(me.btns["extra"]) me.setDisp("Extra",false); 
+		}
+
+        // 다른 곳 클릭시 none, gButtonsetpanelBtn이 아니면 닫아.
+        // $(document).click(function(e) {
+        //     console.log($(e.target));
+        //     // console.log($(e.target).parent().hasClass("gButtonsetpanel"));
+        //     // console.log($(e.target).attr("func"));
+        //     if(!$(e.target).parent().hasClass("gButtonsetpanel") && $(e.target).attr("func") != "fnExtra"){
+        //         // oPanel.hide();
+        //         console.log("사라져");
+        //     }
+        // });
+
+
 		//자기 자신을 Return
     	return me;
-    } 
-	//기본버튼 + functions▼ 그리기
-	me.setButton = function(btnInfo) { //템플릿을 읽어서 버튼텍스트 입혀줌
-		var oBtn;
+    }
+
+    // 버튼 그리기
+    me.setButton = function(btnInfo) {
+        var oBtn;
 		var sBtn = btnInfo.text;
-    	if(btnInfo.icon != undefined && btnInfo.icon != "") sBtn = "<i class='"+btnInfo.icon+"'></i> " + sBtn; 
-		oBtn = $(`<button>${sBtn}</button>`); 
-		oBtn.addClass("gButton").addClass("ui-button");
-		oBtn.attr("funcid",btnInfo.funcid );      //ex) search
-		oBtn.attr("func",  btnInfo.func   );      //ex) fnSearch 
-		oBtn.click(function(e){
+    	if(btnInfo.icon != undefined && btnInfo.icon != "") sBtn = "<i class='"+btnInfo.icon+"'></i> " + sBtn;
+        oBtn = $(`<button>${sBtn}</button>`); 
+		oBtn.addClass("gButton");
+		oBtn.attr("funcid",btnInfo.funcid);      //ex) search
+		oBtn.attr("func", btnInfo.func);      //ex) fnSearch  
+        oBtn.click(function(e){
 			var btnMe = $(this).exactObj("button.gButton");
-			if (btnMe.attr("func")=="fnExtra") {
+			if (btnMe.attr("func") == "fnExtra") {
 				me.showPanel();
-			} else if (btnMe.attr("func")!=undefined && btnMe.attr("func")!="") {  
+			} else if (btnMe.attr("func") != undefined && btnMe.attr("func")!="") {  
+                // 각 함수들 실행
 				me.fnEH( btnMe );
 			} 
 		});
-		me.container.append(oBtn); //여기서 생성된 버튼을 컨테이너에 Append해줌 
+        me.container.append(oBtn);
 		return oBtn;
-	}  
-	me.fnEH = function(jBtn) { //클릭이벤트를 받은 후에 버튼셋과 함께 1차콜백
-	    //버튼이 눌리면 Guideline을 숨겨준다.
-		me.container.parents(".pageTop").siblings(".pageGuide").children(".guideBtn").addClass("close");
-	    me.container.parents(".pageTop").siblings(".pageGuide").children(".guideText").hide("blind","swing",200);
-        //눌린 버튼을 이벤트핸들러로 던져준다. 
-		afnEH(me, "click", jBtn.attr("funcid"), jBtn.attr("func"));
-	}
-	me.showPanel = function() { //패널이 나타날때는 Extra버튼의 오른쪽 아래로 절대위치
-		if(me.extraPanel.css("display")=="none") {
-			var posTop = me.btns["Extra"].outerHeight() + 1; //me.btns["Extra"].position().top + me.btns["Extra"].outerHeight() + 1;
-			var posRight = 0; //$(window).width() - (me.btns["Extra"].offset().left + me.btns["Extra"].outerWidth());
-			//console.dir(me.btns["Extra"]);
-			//console.log(posTop+","+posRight);
-			me.extraPanel.css({top:posTop,right:posRight,"z-index":10000});
-			me.extraPanel.css("display","block");
-		} else {
-			me.extraPanel.css("display","none");
-		} 
-	}
-    me.setDisp = function(btnName,disp) {  //옵션값에 따른 버튼표시
+    }
+
+    // 클릭이벤트
+    me.fnEH = function(jBtn) {
+        afnEH(me, "click", jBtn.attr("funcid", jBtn.attr("func")));
+    }
+    
+    // 패널 dispaly 여부 (처음엔 none 클릭하면 나타나게, 다른 곳 클릭하면 none되게)
+    me.showPanel = function() {
+        if(me.extraPanel.css("display") == "none") {
+            me.extraPanel.css("display", "block");
+        } else {
+            me.extraPanel.css("display", "none");
+        }
+    }
+
+	me.setDisp = function(btnName,disp) {  //옵션값에 따른 버튼표시
     	//disp: true, false, disabled, seperator
 		if(isNull(me.btns[btnName])) return;
     	me.opt["btn"+btnName]["disp"] = disp; //옵션값 변경 
@@ -4568,35 +4563,13 @@ function gfnButtonSet(btnContainer, btnInfo, afnEH) {
     		me.btns[btnName].attr("disabled","disabled");
     	} 
     }
+
 	me.init();
-	//그리드/폼의 엑셀받기,PDF받기버튼을 추가해줌
-	setTimeout(function(me) {	
-		if(!isNull(me.container.parents(".framepage")) && me.container.hasClass("componentFunc")) {
-			var pageId = me.container.parents(".framepage").attr("id");
-			var componentId = me.container.parents(".componentContainer").attr("id"); 
-			if(!isNull(gfn[pageId]) && !isNull(gfn[pageId].pageObj[componentId]) &&
-			   !isNull(gfn[pageId].pageObj[componentId].componentDef)) {
-				if(gfn[pageId].pageObj[componentId].componentDef.component_pgmid=="agGrid") {
-					var btnXls = $(`<button class="gButton ui-button btnXls"><i class='fas fa-file-excel'></i></button>`);
-					btnXls.click(function(e){
-						gfnExcelDown(gfn[pageId], componentId);
-					});
-					me.container.append(btnXls);
-				}
-				if(gfn[pageId].pageObj[componentId].componentDef.component_pgmid=="aweForm") { 
-					var btnPdf = $(`<button class="gButton ui-button btnPdf"><i class='fas fa-file-pdf'></i></button>`); 
-					btnPdf.click(function(e){
-						gfnPdf(gfn[pageId], componentId);
-					}); 
-					me.container.append(btnPdf);  
-				}
-			}
-		}
-	},10, me); 
+
     return me; //선언시 버튼셋 오브젝트 초기화 실행
 }
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 function gfnExcelDown(framepage, componentId, pgm_nm, condition, userinfo, headers, data){
 	if(isNull(framepage) || isNull(componentId)) {
 		gfnStatus("잘못된 엑셀 요청입니다.");
