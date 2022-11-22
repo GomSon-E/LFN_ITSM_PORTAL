@@ -442,16 +442,17 @@ button {
 
 #frameTab::-webkit-scrollbar {
     width: 0.5vw;
+	height: 7px;
 }
 
 #frameTab::-webkit-scrollbar-thumb {
-    background-color: hsla(0, 0%, 90%, 0.49);
+    background-color: hsla(219, 97%, 15%, 0.679);
     border-radius: 100px;
 }
 
 #frameTab a {
     height: 30px;
-    background-color: hsl(0 0% 90%);
+    background-color: rgb(255, 255, 255);
     color: hsl(0 0% 0%);
     box-shadow: rgb(0 0 0 / 10%) 0 0 0.5rem 0.25rem;
     line-height: 30px;
@@ -464,7 +465,7 @@ button {
 
 
 #frameTab a.active {
-	background-color: hsl(0 0% 100%);
+	background-color: #1e7ae1;
 }
 
 #frameTab a div {
