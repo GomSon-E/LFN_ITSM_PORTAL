@@ -124,8 +124,8 @@
             .textSearch {
                 float: left;
                 margin-top: 22px;
-                height: 30px;
-                width: 200px;
+                height: 3em;
+                width: 20em;
                 border: 2px solid #cccccc;
                 border-radius: 8px;
                 padding: 5px;
@@ -168,8 +168,11 @@
                 align-items: center;
                 justify-content: center;
 
-
+                
+            
             }
+
+           
 
             #mySidenav a {
                 padding: 8px 8px 8px 32px;
@@ -179,6 +182,8 @@
                 display: block;
                 transition: 0.3s;
                 border-bottom: 1px solid white;
+                text-align: left;
+               
             }
 
             #mySidenav a:hover {
@@ -454,6 +459,7 @@
                 display: block;
                 transition: 0.3s;
                 border-bottom: 1px solid white;
+                text-align: left;
             }
 
             #mySidenav a:hover {
@@ -626,6 +632,9 @@
 
     </header>
 
+
+
+
     <div id="frameset">
 
         <!---사이드 네비바----->
@@ -634,16 +643,28 @@
 
             <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
 
-            <div class="logoside">
+            <!-- <div class="logoside">
 
                 <i class="fab fa-reddit-square" style="font-size:30px; color: #a0d2e9; ">Logoside</i>
 
-            </div>
+            </div> -->
+
+        <!------앱버튼------->
+            <nav id="frameApp" >
+                <div class="appMenu">
+                    <ul class="APP" style="background-color:red"></ul><!---foPortal이랑 매장 맨위탭--->
+                    <!--하위메뉴 사용자랑 포털들-->
+                    <div class="PGM" style="background-color:yellow"></div>
+                </div>
+               
+            </nav>
 
             <a href="#">About</a>
             <a href="#">Services</a>
 
             <button class="dropdown-btn">Clients▼</button>
+
+            
 
             <div class="dropdown-container">
                 <a href="#">Link 1</a>
@@ -656,6 +677,10 @@
             </div>
 
             <a href="#" style="margin-bottom:60px">Contact</a>
+
+
+
+        
 
         </div>
 
@@ -674,6 +699,9 @@
         <p>copyright &copy; 2022 LF networks. All Right Reserved</p>
 
     </div>
+
+        
+ 
 
     <!-- status -->
 <div id="status">
@@ -727,17 +755,6 @@
     </div>
 </div>
 
-
-    <!------앱버튼 지움------->
-
-    <nav id="frameApp" class="aweApp hidden">
-        <div class="appMenu">
-            <ul class="APP"></ul>
-            <div class="PGM"></div>
-        </div>
-        <div class="pgmMenu">
-        </div>
-    </nav>
 
 
 </body>
@@ -875,8 +892,8 @@
                 console.error(`${pgmid} window.load : ${e}`);
             }
 
-            //CI 로고 클릭시 리로드
-            $("img.CI").on("click", function () {
+            //mainLogo 로고 클릭시 리로드
+            $(".mainLogo").on("click", function () {
                 alert("시스템 리소스 파일을 초기화합니다.")
                 location.href = "/index.html?" + date("today", "yyyymmddhh24miss");
             });
@@ -1124,34 +1141,54 @@
                     if (idx == 0) {
                         page.find("#frameApp .appMenu .PGM .app").remove();
                         var app = $("<div></div>");
+
                         app.addClass("app");
+
                         app.attr("app", app_pgm_nm);
+
+
+
+                        /*KES 11.23 추가*/
+                       $("#frameApp>.appMenu>.APP>.app.selected").append($(".PGM"))
+
+
+
                         page.find("#frameApp .appMenu .PGM").append(app);
+
+
+
                     }
 
-                    //Apps 메뉴 버튼들
-                    //hasClass() boolean - 이미 생성된 중분류가 있는지 확인 후 대분류에 append()
-                    if (page.find("#frameApp .appMenu .PGM .app div").hasClass(row.pgm_grp_nm) == false) {
-                        var grp = $("<div></div>");
-                        grp.addClass(row.pgm_grp_nm);
-                        //grp.attr("pgmgrp", row.pgm_grp_nm);
-                        grp.append("<div class='pgmgrp'>" + row.pgm_grp_nm + "</div>")
-                        grp.append("<ul class='box'></ul>")
-                        //grp.text(row.pgm_grp_nm);
-                        page.find("#frameApp .appMenu .PGM .app").append(grp);
-                    }
 
-                    //Apps 메뉴 버튼들
-                    //subset()으로 분류된 요소를 each() 반복 - row를 통해 program 정보를 해당 중분류에 append()
-                    var pgm = $("<li></li>");
-                    pgm.addClass("pgm");
-                    pgm.text(row.pgm_nm);
-                    pgm.attr("pgmid", row.pgmid);
-                    pgm.attr("pgmgrp", row.pgm_grp_nm);
-                    if (row.fav_yn == "Y") pgm.addClass("fav");
-                    page.find("#frameApp .appMenu .PGM div[class='" + row.pgm_grp_nm + "'] .box").append(pgm);
-                });
-            }
+
+    //////Apps 메뉴 구조임      
+
+        //Apps 메뉴 버튼들
+        //hasClass() boolean - 이미 생성된 중분류가 있는지 확인 후 대분류에 append()
+if (page.find("#frameApp .appMenu .PGM .app div").hasClass(row.pgm_grp_nm) == false) {
+            
+        
+        var grp = $("<div></div>");
+
+        grp.addClass(row.pgm_grp_nm);
+        //grp.attr("pgmgrp", row.pgm_grp_nm);
+        grp.append("<div class='pgmgrp'>" + row.pgm_grp_nm + "</div>") //부제목 하위메뉴
+        grp.append("<ul class='box'></ul>") //하위메뉴의 하위메뉴
+        //grp.text(row.pgm_grp_nm);
+        page.find("#frameApp .appMenu .PGM .app").append(grp);
+    }
+
+        //Apps 메뉴 버튼들
+        //subset()으로 분류된 요소를 each() 반복 - row를 통해 program 정보를 해당 중분류에 append()
+        var pgm = $("<li></li>");
+        pgm.addClass("pgm");
+        pgm.text(row.pgm_nm);
+        pgm.attr("pgmid", row.pgmid);
+        pgm.attr("pgmgrp", row.pgm_grp_nm);
+        if (row.fav_yn == "Y") pgm.addClass("fav");
+        page.find("#frameApp .appMenu .PGM div[class='" + row.pgm_grp_nm + "'] .box").append(pgm);
+    });
+}
 
             //menu에 app 추가
             var applistDistinct = extract(gds.menu, ["app_pgm_nm", "app_seq"], "distinct");
@@ -1310,21 +1347,21 @@
             })
         }
 
-        me.fnEHFrameApp = function () {
+        // me.fnEHFrameApp = function () {
 
-            $("#frameGNB .gnb nav .apps").on({
-                click: function () {
-                    $("#frameApp").toggleClass("hidden");
-                }
-            })
-            $(window).on({  //메뉴표시 바깥 클릭시 메뉴 숨기기 
-                click: function (e) {
-                    if (!$("#frameGNB .gnb nav .apps").has(e.target).length && !$("#frameApp").has(e.target).length) {
-                        $("#frameApp").addClass("hidden");
-                    }
-                }
-            });
-        }
+        //     $("#frameGNB .gnb nav .apps").on({
+        //         click: function () {
+        //             $("#frameApp").toggleClass("hidden");
+        //         }
+        //     })
+        //     $(window).on({  //메뉴표시 바깥 클릭시 메뉴 숨기기 
+        //         click: function (e) {
+        //             if (!$("#frameGNB .gnb nav .apps").has(e.target).length && !$("#frameApp").has(e.target).length) {
+        //                 $("#frameApp").addClass("hidden");
+        //             }
+        //         }
+        //     });
+        // }
 
         me.fnEHFrameSearch = function () {
             $("#frameGNB .gnb .frameBtnSet .search").on({

@@ -531,6 +531,9 @@ button {
 }
 .leftMini {
 	min-width: 1px !important;
+
+
+	
 	height: 0 !important;
 }
 .rightMini {
@@ -913,10 +916,10 @@ button {
 	max-height: 200px !important;
 }
 /* frameApp ***************************************************************************/
-
+/* 
 #frameApp {
-	background-color: hsla(212deg 10% 75% / .75);
-	box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+
+	background-color: orange;
 	transition: all 0.3s cubic-bezier(.25,.8,.25,1);
 	position: fixed;
 	top: 5em;
@@ -933,38 +936,33 @@ button {
 #frameApp .appMenu {
 	background-color: hsla(0 0% 0% / 0.8);
 }
+*/
 
 #frameApp .appMenu .APP {
-	display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-content: flex-start;
-    justify-content: flex-start;
-    align-items: flex-start;
-    column-gap: 1px;
-    row-gap: 1px;
-	width: 100%;
-    margin: 0 auto;
+
     padding-left: 0;
+
 } 
-	.mobile #frameApp .appMenu .APP {
+
+
+.mobile #frameApp .appMenu .APP {
 		flex-wrap: wrap;
 	}
 
+	
+
 #frameApp .appMenu .APP .app {
-    background-color: hsl(58 0% 90%);
-	min-width: 5em;
-    width: auto;
-    padding-left: 20px;
-    padding-right: 20px;
-	border-top-right-radius: 1.5em;
-    float: left;
-    font-size: 14px;
-    font-weight: bolder;
-    line-height: 40px;
-    cursor: pointer;    
-	white-space: nowrap;
-    text-overflow: ellipsis;
+    background-color:skyblue;
+	
+	width: 100%;
+	text-align: left;
+	padding-left: 10px;
+	font-size: 20px;
+	line-height: 30px;
+	border-bottom: 2PX solid pink;
+	height: auto;
+	line-height: 50px;
+	
 }
 	.mobile #frameApp .appMenu .APP .app {
 		width: 100%;
@@ -975,14 +973,26 @@ button {
 }
 
 #frameApp .appMenu .APP .app.selected {
-	background-color: hsl(58 100% 80%);
+	background-color:white;
+	color: navy;
+	font-weight: bold;
 }
 
+#frameApp .appMenu .pgm {
+
+	font-weight: normal;
+	
+}
+
+
+
 #frameApp .appMenu .PGM {
-	border-top: 1px solid hsl(215 12% 87%); 
-	background-color: hsl(212deg 80% 95%);
+
+	
 	width: 100%;
 }
+
+/*
 
 #frameApp .appMenu .PGM .app {
     display: flex;
@@ -995,51 +1005,62 @@ button {
     align-items: flex-start;
     column-gap: 1em;
 }
+*/
 	.mobile #frameApp .appMenu .PGM .app {
-		padding-top: 1em
+		background-color: pink; width: 100%; height: 100%;
 	}
+
+
 #frameApp .appMenu .PGM .app > div { 
-	width: 100%;
+	width: 100%; border: 2px dashed black;
+	
 }
 
+/*하위메뉴의 각 부제목*/
 #frameApp .appMenu .PGM .app .pgmgrp {
-    font-weight: bolder;
+	text-align: left;
+	background-color: #384a90;
+	font-size: 20px;
+	line-height: 30px;
+
 }
+
 
 #frameApp .appMenu .PGM .app .box {
-	margin: 0 0.5em 1em 0em;
+	
     padding-left: 0px;
-    background-color: white;
+    background-color: green;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
 }
 
+
 #frameApp .appMenu .PGM .app .box .pgm {
     background-color: whitesmoke;
-	min-width: 10em;
-	flex: 0 0 auto;
-    margin: 5px;
-    padding-left: 15px;
-    padding-right: 15px;
-    padding-bottom: 5px;
-    padding-top: 5px; 
-    font-size: 14px;
-    list-style: none; 
-    cursor: pointer;
+	border: 1px solid black;
+	width: 100%;
+	text-align: left;
+	margin-left:15px ;
+	font-size: 20px;
+	line-height: 30px;
 }
+
+
 
 #frameApp .appMenu .PGM .app div .box .pgm:hover {
 	background-color: hsl(217 48% 18%);
 	color: hsl(0 0% 100%); 
 }
 
+/*
+
 #frameApp .appMenu .PGM .app div .box .pgm.fav {
     border: 1px dashed orange;
-}
+} */
 /* frameApp ***************************************************************************/
 
-#frameSearch {
+ #frameSearch {
 	background-color: hsl(0 0% 100%);
 	box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
 	transition: all 0.3s cubic-bezier(.25,.8,.25,1);
@@ -1060,7 +1081,7 @@ button {
 	height: 48px;
 	font-size: 16px;
 
-}
+} 
 
 /* #frameSearch button {
 	background-color: blue;
@@ -1070,7 +1091,7 @@ button {
 	width: 50px;
 } */
 
-#frameChat {
+/* #frameChat {
 	position: absolute;
 	top: 0px;
 	left: 0px;
@@ -1265,7 +1286,6 @@ button {
 			}
 			#frameMsg .msgList .msg .user_nick_nm {
 				grid-column: span 10;
-				font-size: 15px;
 				color: hsl(0 0% 100%);
 			}
 			#frameMsg .msgList .msg .closeMsg i.fas.fa-times {
@@ -1292,4 +1312,4 @@ button {
 
 		#frameMsg .msgList .alert {
 			
-		}
+		} */
