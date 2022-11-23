@@ -37,16 +37,19 @@ function gfnMDI(pageContainer,tabContainer) {
 		me.idx++;
 		return me.idx;
 	} 
+
 	//page# 지난 번호
 	me.getPrev = function() {
 		me.idx--;
 		return me.idx;
 	}
 	//page# 현재 페이지 번호
+
 	me.getNum = function() {
 		me.idx;
 		return me.idx;
 	}
+
 	//frameBottom 의 좌우버튼 색표시
 	me.syncGNB = function() { 
 		var prev = me.tabContainer.children("a.active").prev().length;
@@ -209,7 +212,7 @@ function gfnMDI(pageContainer,tabContainer) {
 				if(me.tabContainer.children("a.tab[pageidx=page"+(i+1)+"]").attr("grpid") == grpid) {
 					count++;
 				}
-			}	
+			}
 			
 			//1개 이상은 중복이므로,
 			if(count > 1) {

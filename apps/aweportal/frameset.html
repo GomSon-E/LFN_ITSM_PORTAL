@@ -110,13 +110,13 @@
                 color: #0e2d87;
             }
 
-            .userSC {
+            .user {
                 border: none;
                 background-color: transparent;
                 transition: all 0.5s;
             }
 
-            .userSC:hover {
+            .user:hover {
                 cursor: pointer;
                 color: #0e2d87;
             }
@@ -153,10 +153,10 @@
 
             }
 
-            div::-webkit-scrollbar {
+            #mySidenav::-webkit-scrollbar {
                 display: none;
-                /* for Chrome, Safari, and Opera */
-            }
+               
+            } 
 
 
             .logoside {
@@ -245,9 +245,9 @@
 
             #tabline {
                 height: 90px;
-                background-color: #8ddedb;
+                background-color: #fcfefe;
 
-                border: 2px dashed #0e2d87;
+              
             }
 
             #frameMain {
@@ -398,7 +398,7 @@
                 color: #0e2d87;
             }
 
-            .userSC {
+            .user {
                 border: none;
                 background-color: transparent;
                 transition: all 0.5s;
@@ -441,10 +441,10 @@
 
             }
 
-            div::-webkit-scrollbar {
+            /* div::-webkit-scrollbar {
                 display: none;
-                /* for Chrome, Safari, and Opera */
-            }
+              
+            } */
 
             #mySidenav a {
                 padding: 8px 8px 8px 32px;
@@ -607,7 +607,7 @@
 
                     <button class="apps"><i class="fas fa-th"></i></button>
 
-                    <button class="userSC"><i class="fas fa-user-circle"></i></button>
+                    <button class="user"><i class="fas fa-user-circle"></i></button>
 
                 </div>
 
@@ -615,14 +615,14 @@
         </div>
 
         <!------kes 앱 지움 ------->
-        <!-- <div class="userInfo hidden">
+        <div class="userInfo hidden">
             <ul class="userInfo-item">
                 <li class="profile">프로필 관리</li>
                 <li class="changePwd">비밀번호변경</li>
                 <li class="withdrawlUser">회원탈퇴</li>
                 <li class="logout">로그아웃</li>
             </ul>
-        </div> -->
+        </div>
 
     </header>
 
@@ -663,7 +663,7 @@
 
         <main id="frameMain">
             <div id="tabline">  
-                <div id="frameTab"></div>
+                <div id="frameTab" style="padding-top:61px"></div>
             </div>
         </main>
     </div>
