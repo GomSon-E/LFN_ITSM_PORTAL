@@ -169,16 +169,10 @@ else if ("loginCheck".equals(func)) {
     } finally {
     	closeConn(conn); 
     } 
-}  
-else if ("sendReq".equals(func)) {
-    //INVAR={data.nm)||isNull(data.email)||isNull(data.title)||isNull(data.content} 
-    /* To-do: 
-        요청테이블에 저장
-        시스템관리자 메시지발송
-    */   
 } 
 //이메일 인증 진행중
 else if ("pwdclearReq".equals(func)) {
+    
     //INVAR={email} 
     /* To-do:
         사용자정보 이메일 존재 체크

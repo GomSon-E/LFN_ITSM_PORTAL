@@ -125,13 +125,13 @@ button {
 		top: 9px;
 	}
 	#frameGNB .userInfo {
-        margin : 0 auto;
+        margin-left : 200px;
         height: 50px;
-        line-height: 25px;
+        line-height: 40px;
         width:calc(100% - 10em);
     }
     #frameGNB .userInfo-item {
-        float : left;
+        /* float : left; */
         text-align : center;
         width: 100%;
         padding-left: 15px;
@@ -142,12 +142,11 @@ button {
         text-align: center;
         list-style: none;
         width: 24%;
-        height: 30px;
         float: left;
         cursor: pointer;
     }
     #frameGNB .userInfo-item li:hover{
-        background-color: hsl(207, 100%, 78%);
+        background-color: #1e7ae1;
     }
 	#frameGNB .curtime {
 		text-align: right;

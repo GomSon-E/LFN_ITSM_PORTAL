@@ -1,6 +1,8 @@
 <style>[pgmid='manageProfile'].framepage { 
     max-width: 400px;
     max-height: 400px;
+    margin-left:500px;
+    margin-top: 20px;
 }</style>
 
 <!-- HTML autogen start ---------------------------------------------- -->            
@@ -52,18 +54,7 @@ me.dataDef["_pgm_data"]["list"]={"sort_seq":"1","data_id":"list","data_nm":"사�
 
             /* 사용자초기화 */
     me.fnInitExtra=function() {
-        me.fnSearch();
-        //탭 설정
-        //gfnTab(pageid, "tabs", {"multi-active":"off","toggle-switch":"on"}); 
-        //사용자 컴포넌트 
-        //me.dataDef["_pgm_data"][myCompoId] = {...};
-        //me.pageObj["myCompoId"] = new gfnComponent( me.pageid, myCompoId, me.dataDef["_pgm_data"][myCompoId], me.fnEH, me); 
-        //me.pageObj["myCompoId"].userComponent = "myCompoId";
-        //사용자 컨트롤
-        //var myColinfo = {colid:...}
-        //me.pageObj["myColId"] = new gfnControl(myColinfo, me.fnEH) 
-        //me.page.find("#myCol").append(me.pageObj["myColId"].dispObj);
-        //me.pageObj["myColId"].getVal(); / myCol.setVal(val);...    
+        me.fnSearch();   
     }
     /* 이벤트핸들러 */
     me.fnEH=function(component, evt, row, col, val) { 
