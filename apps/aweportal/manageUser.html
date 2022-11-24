@@ -17,8 +17,8 @@ align-items: flex-start;
 <div class="pageContent flexRow">
     <div id="list" style="flex:1 1 50%" class="flexColumn"></div>
     <div  style="flex:1 1 calc(50% - 3em)" class="flexColumn">
-      <div id="mst"></div> 
-      <div id="grp_dt"  class="flexColumn"></div>     
+        <div id="mst"></div> 
+        <div id="grp_dt"  class="flexColumn"></div>     
     </div>
     
 </div>
@@ -69,15 +69,20 @@ me.dataDef["_pgm_data"]["grp_dt"]={"sort_seq":"4","data_id":"grp_dt","data_nm":"
         function _auth(auth) {
             if(isNull(auth)) { 
                 gfnAlert("시스템 사용권한 점검","화면에 대한 권한이 없습니다!");
+                var curpage = me.pageid.charAt(me.pageid.length-1) -1; // 이전 페이지 ID 가져오기
                 $("*[pageidx='"+me.pageid+"']").remove();
                 delete gfn[me.pageid]; 
                 me.page.remove(); 
+
+                // Alert 확인 이후 빈 페이지로 남는 문제 해결
+                $("#page" + curpage).addClass("active");
+                $("#page" + curpage).css("display", "block");   
             } else {
                 if(isNull(auth.save_yn) || auth.save_yn != "Y") {
-                    me.pageObj._pageFunc.setDisp("save",false);
-                    me.pageObj._pageFunc.setDisp("new",false);
-                    me.pageObj.mst.componentFunc.remove();
-                    me.pageObj.grp_dt.componentFunc.remove();
+                    me.pageObj._pageFunc.setDisp("save",false); // 버튼 안보이게
+                    me.pageObj._pageFunc.setDisp("new",false); // 버튼 안보이게
+                    me.pageObj.mst.componentFunc.remove(); // 도움말
+                    me.pageObj.grp_dt.componentFunc.remove(); // 도움말
                 }
             } 
         }
@@ -88,23 +93,24 @@ me.dataDef["_pgm_data"]["grp_dt"]={"sort_seq":"4","data_id":"grp_dt","data_nm":"
         } else {
             _auth(subset(subset(gds.comcd,"grpcd","pgm_auth"),"pgmid",pgmid)[0]) ;
         }
+
+        me.fnSearch() // 제일 처음 조회 버튼을 누르지 않더라도 모든 목록이 뜨게 끔
     }
     /* 이벤트핸들러 */
     me.fnEH=function(component, evt, row, col, val) { 
-        console.log(evt+","+row+","+col+","+val);
-        
+
         //화면기능버튼이 눌리면 
         if (component==me.pageObj["_pageFunc"]){ 
             if(typeof(me[col])=='function') me[col](); //col=기능명 me["fnSearch"]()=me.fnSearch(); 
         }
         //코드 목록
         else if(component==me.pageObj["list"]) {
-            //목록이 눌렸을때 mst 폼으로 보내줌
+            //목록이 눌렸을때 mst (정보) 폼으로 보내줌
             if(evt=="focus") {
                 if(row >=0 ) {
                     var rowData = me.pageObj.list.getRowData(row); 
-                    rowData.currow = row; //선택된 rowid를 넘겨줌 
-                    me.pageObj.mst.importData(rowData,"C");
+                    rowData.currow = row; //선택된 rowid를 넘겨줌 = row no (0부터 시작)
+                    me.pageObj.mst.importData(rowData,"C"); // R -> C
                     if(!isNull(rowData.usid)) {  
                         me.fnSearchGrp();
                     }
@@ -112,10 +118,9 @@ me.dataDef["_pgm_data"]["grp_dt"]={"sort_seq":"4","data_id":"grp_dt","data_nm":"
             }
         }
         else if(component==me.pageObj["mst"]) {
-            //목록이 눌렸을때 mst 폼으로 보내줌
-           if(evt=="dblclick") {
-               rowData = me.pageObj.mst.exportData()[0];
-                console.log(me.pageObj["mst"].chkValid() );
+            //목록이 눌렸을때 mst (정보) 폼으로 보내줌
+            if(evt=="dblclick") {
+                rowData = me.pageObj.mst.exportData()[0];
                 var crud = me.pageObj.mst.getVal(rowData,"crud");
             }
             else if(row=="savePwd") {
@@ -127,25 +132,19 @@ me.dataDef["_pgm_data"]["grp_dt"]={"sort_seq":"4","data_id":"grp_dt","data_nm":"
                 me.fnSaveGrp();
             }
             else if(row=="addRow") {
-                var rows = component.selectedRows();
                 me.pageObj.grp_dt.addRow();
                 var usid=me.pageObj.mst.exportData()[0].usid;
                 me.pageObj["grp_dt"].setVal(row,"usid",usid);
                 me.pageObj.grp_dt.sizeColumnsToFit();
-                //me.pageObj["grp_dt"].importData(usid);
             } 
             else if(row=="delRow") {
                 var rows = component.selectedRows(); 
-                if(rows.length < 0) {
-                    gfnAlert("줄삭제 확인","선택된 줄이 없습니다."); 
-                } else {
-                    component.delRow(rows);
-                }
+                component.delRow(rows);                
             }
             }
         //코드 폼
         else if(component==me.pageObj["grp_dt"]) {
-            //목록이 눌렸을때 mst 폼으로 보내줌
+            //목록이 눌렸을때 mst (정보) 폼으로 보내줌
             if(evt=="focus") {
                 rowData = me.pageObj.mst.exportData()[0]; 
                 var crud = me.pageObj.grp_dt.getVal(row,"crud");
@@ -188,7 +187,7 @@ me.dataDef["_pgm_data"]["grp_dt"]={"sort_seq":"4","data_id":"grp_dt","data_nm":"
         if( isNull(me.pageObj["mst"].getVal("usid")) ) return;
         var args = me.pageObj["pageCond"].exportData()[0];
         args.usid = me.pageObj["mst"].getVal("usid");
-         var invar = JSON.stringify(args);
+            var invar = JSON.stringify(args);
         gfnTx(appid+"."+pgmid,"searchGrp",{INVAR:invar},function(OUTVAR){
             if(OUTVAR.rtnCd=="OK") {
                 me.pageObj["grp_dt"].importData(OUTVAR.grp_dt);
@@ -249,7 +248,7 @@ me.dataDef["_pgm_data"]["grp_dt"]={"sort_seq":"4","data_id":"grp_dt","data_nm":"
             }
         });
     }
- 
+    
     me.fnSavePwd=function() {
         if( !me.pageObj["pageCond"].chkValid() ) return; 
         if( isNull(me.pageObj["mst"].getVal("usid")) ) return;
@@ -265,8 +264,8 @@ me.dataDef["_pgm_data"]["grp_dt"]={"sort_seq":"4","data_id":"grp_dt","data_nm":"
                 gfnAlert("저장오류",OUTVAR.rtnMsg);
             }
         });
-     }
- 
+        }
+    
 
 
 /*-- SCRIPT autogen ---------------------------------------------------- */        
