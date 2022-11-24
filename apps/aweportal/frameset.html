@@ -628,16 +628,15 @@
             </nav>
         </div>
 
-        <!------kes 앱 지움 ------->
+
         <div class="userInfo hidden">
             <ul class="userInfo-item">
                 <li class="profile">프로필 관리</li>
                 <li class="changePwd">비밀번호변경</li>
-                <li class="withdrawlUser">회원탈퇴</li>
+                <!-- <li class="withdrawlUser">회원탈퇴</li> -->
                 <li class="logout">로그아웃</li>
             </ul>
         </div>
-
     </header>
 
 
@@ -1261,7 +1260,7 @@
                 var pgmid = menu.attr("pgmid");
                 var pgmnm = menu.text();
                 gMDI.openPage(pgmid, pgmnm);
-                // page.find("#frameApp").addClass("hidden"); //메뉴선택시 패널 숨김 11.23 kes 주석처리
+                // page.find("#frameApp").addClass("hidden"); //메뉴선택시 패널 숨김
             });
         }
 

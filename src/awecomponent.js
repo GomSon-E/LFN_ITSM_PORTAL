@@ -729,6 +729,9 @@ function gfnFramepage( page ) {
         var viewBtn = $(`<button class="icon moreBtn"><i class="fas fa-caret-down"></i></button>`);
         me.pageTitle.append(viewBtn);
 		me.pageTop.append(me.pageTitle);
+		
+		me.pageTop.children("*").remove();
+		me.pageTop.html(me.pageTitle); //pageTop초기화
 
 		// console.log(`${page.dataDef._pgm.pgm_nm} 타이틀 추가함`);
 
@@ -736,10 +739,10 @@ function gfnFramepage( page ) {
         viewBtn.on("click", function(e){
             if(viewBtn.hasClass("clicked")){
                 viewBtn.removeClass("clicked");
-                $(".pageCond").css("display", "block");
+                $(`#${page.pageid} >.pageCond`).css("display", "block");
             }else{
                 viewBtn.addClass("clicked");
-                $(".pageCond").css("display", "none");
+                $(`#${page.pageid} >.pageCond`).css("display", "none");
             }
         })
 
@@ -777,8 +780,6 @@ function gfnComponent( pageId, containerId, componentDef, afnEH, page ) {
 		me.componentTitle = $(`<h3 class="componentTitle"></h3>`);
 		if(!isNull(me.componentDef.data_icon)) {
 			me.componentTitle.append(`<i class="${me.componentDef.data_icon}"></i>`);
-		} else {
-			me.componentTitle.append(`<i class="fas fa-square"></i>`);
 		}
 		if(!isNull(me.componentDef.data_nm)) me.componentTitle.append(`<span>${me.componentDef.data_nm}</span>`); 
 		me.componentTitle.on("click",function(e) { //클릭하면 func와 body를 보이거나 숨긴다. 
@@ -792,11 +793,6 @@ function gfnComponent( pageId, containerId, componentDef, afnEH, page ) {
 				me.componentTop.children(".componentFunc").hide();
 				me.container.children(".componentBody").hide(); 
 				me.container.addClass("contentClosed"); 
-				/*me.container.css("flex","unset !important")
-				if(me.container.siblings(".componentContainer").find(".componentBody.agGrid").length > 0) {
-					me.container.siblings(".componentContainer").css("flex","1 1 auto"); 
-				} 
-				*/ 
 			}
 		});
 		me.componentTop.append(me.componentTitle);

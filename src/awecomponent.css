@@ -13,7 +13,7 @@ body{
 .pageNav > .navTree{
 	display: flex;
 	align-items: center;
-    font-size: 0.8em;
+    font-size: 1em;
     color: #808080;
 }
 .pageTop {
@@ -58,6 +58,7 @@ body{
     align-items: center;
     position: relative;
 	flex-wrap: wrap;
+	font-size: 1.2em;
 }
 .pageFunc > .gButton {
     background: none;
@@ -88,6 +89,39 @@ body{
     background-color: #a0d2e9;
 }
 
+/* component */
+.componentContainer {
+	display: flex;
+	flex: 1 1 auto;
+    flex-direction: column;
+    align-content: center;
+    justify-content: space-between;
+	margin: 0.5em 0;
+	padding: 0.5em;
+	cursor: auto;
+	border: 1px solid lightgray;
+	border-radius: 10px;
+}
+
+/* componentTop */
+.componentTop { 
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    align-items: flex-start;
+	/* border-bottom: 1px solid lightgray; */
+	padding: 1em;
+}
+.componentBody {
+	padding: 0.5em;
+}
+.componentTitle span { 
+	font-size: 1.2em;
+	font-weight: 600;
+}
+
 
 /* 희주 */
 /* ================================================================================================================ */
@@ -114,13 +148,13 @@ body{
 }
 .framepage.active > *.pageContent {
 	flex: 1 1 auto;
-	overflow-y: hidden;
+	/* overflow-y: hidden; */
 	background-color: hsla(0 0% 90% / .1);
 }
 .framepage.active > *:last-child {
 	flex: 1 1 auto;
 }
-/*** flexRow, flexColumn ***/
+/* ** flexRow, flexColumn ** */
 .flexColumn {
 	display: flex;
     flex-direction: column !important;
@@ -138,7 +172,7 @@ body{
 }
 .componentBody.agGrid {
 	height: calc(100% - 2em);
-	min-height: 6em;
+	min-height: 20em;
 }
 .flexColumn.componentContainer {
 	row-gap: 0 !important;
@@ -237,114 +271,6 @@ body{
 		color: #fff; 
 		z-index: 1;
 	}	
-.pageGuide {
-	grid-row: 4;
-	margin: 0.25em 1em;
-	position:relative;
-}
-	.mobile .pageGuide {
-		display:none;
-	}
-	.guideBtn {
-		position: absolute; 
-		right: 0;
-		text-align:left;
-		border: 1px solid #eaeaea;  
-		background-color: rgb(98,123,145);
-		width: 48px; 
-		height: 14px;
-		padding: 1px 1em; 
-		color: rgb(255,255,255); 
-		cursor: pointer;
-		float:right;
-		text-align:right;
-		border-bottom-left-radius:4em;
-		font-size: 4px;
-		line-height: 0;
-
-		/*border-top-right-radius:4em*/ 
-	} 
-	.guideBtn.close {
-		top: -0.6em;
-	}
-	.guideText {   
-		border: 1px solid #eaeaea;  
-		background-color: #082b46;  
-		padding: 0.5em 1em 0.5em 1em;
-		line-height: 200%;
-    	text-align: left; 
-	    font-size: 0.9em;
-	    font-family: sans-serif;   
-		font-weight: bolder;
-		display: flex;
-    	column-gap: 2em;
-		flex-direction: row;
-		flex-wrap: wrap;
-	} 
-	.guideText li {
-	    list-style: none;
-	    padding: 0.125em 0.5em;
-	    color: #efefef;
-		user-select: text;
-	} 
-	.guideText b {  
-		color: rgb(241, 68, 79);
-		font-weight: bold;
-	}
-	.pageGuide {
-		grid-row: 4;
-		margin: 0.25em 1em;
-		position:relative;
-	}
-		.mobile .pageGuide {
-			display:none;
-		}
-		.guideBtn {
-			position: absolute; 
-			right: 0;
-			text-align:left;
-			border: 1px solid #eaeaea;  
-			background-color: rgb(98,123,145);
-			width: 48px; 
-			height: 14px;
-			padding: 1px 1em; 
-			color: rgb(255,255,255); 
-			cursor: pointer;
-			float:right;
-			text-align:right;
-			border-bottom-left-radius:4em;
-			font-size: 4px;
-			line-height: 0;
-	
-			/*border-top-right-radius:4em*/ 
-		} 
-		.guideBtn.close {
-			top: -0.6em;
-		}
-		.guideText {   
-			border: 1px solid #eaeaea;  
-			background-color: #082b46;  
-			padding: 0.5em 1em 0.5em 1em;
-			line-height: 200%;
-			text-align: left; 
-			font-size: 0.9em;
-			font-family: sans-serif;   
-			font-weight: bolder;
-			display: flex;
-			column-gap: 2em;
-			flex-direction: row;
-			flex-wrap: wrap;
-		} 
-		.guideText li {
-			list-style: none;
-			padding: 0.125em 0.5em;
-			color: #efefef;
-			user-select: text;
-		} 
-		.guideText b {  
-			color: rgb(241, 68, 79);
-			font-weight: bold;
-		}
 .pageContent {
 	padding:0.25em; 
 	margin:0.25em 1em;
@@ -368,7 +294,7 @@ body{
 
 
 	/*** component *******************************************************************************/	
-.componentContainer {
+/* .componentContainer {
 	flex: 1 1 auto;
 	margin: 0 1px;
 	cursor: auto;
@@ -378,16 +304,16 @@ body{
     align-content: center;
     justify-content: space-between;
     align-items: stretch;
-}
+} */
 .componentContainer > .componentTop {
 	flex: 0 0 auto;
 }
 .componentContainer > .componentBody {
 	flex: 1 1 100%;
 }
-.componentBody  {
+/* .componentBody  {
 	flex: 1 1 100%;
-}
+} */
 .componentBody .ag-root-wrapper {
     height: 100%;
 } 
@@ -407,7 +333,7 @@ body{
     .flexRow > .contentClosed {
 		max-width: 1em;
 	}
-.componentTop { 
+/* .componentTop { 
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -416,7 +342,7 @@ body{
     align-items: flex-start;	
 	margin-top: 1em;
 	margin-bottom: 0.5em;
-}
+} */
 	.componentTop > * { 
 		flex: 1 1 auto;
 	}
@@ -424,13 +350,13 @@ body{
 		margin: 0;
 		font-size: 1.1em;
 	}
-	.componentTitle span  { 
+	/* .componentTitle span  { 
 		margin-left: 0.5em;
 		color: hsl(224 50% 10%);
-	}
+	} */
 	.componentTitle.closed span  { 
-		color: hsl(224 40% 20%);
-		text-decoration:underline 1px dashed hsl(224 100% 80%);
+		/* color: hsl(224 40% 20%);
+		text-decoration:underline 1px dashed hsl(224 100% 80%); */
 	}
 	.componentFunc {
 		display: flex;

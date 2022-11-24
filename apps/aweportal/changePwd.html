@@ -1,6 +1,8 @@
 <style>[pgmid='changePwd'].framepage {
     max-width: 500px;
     max-height: 500px;
+    margin-left:500px;
+    margin-top: 20px;
 }
 
 [pgmid='changePwd'].framepage .pageContent { 
@@ -73,18 +75,7 @@ me.dataDef["_pgm_data"]["list"]={"sort_seq":"1","data_id":"list","data_nm":"비�
     } 
 /*-- SCRIPT autogen end ---------------------------------------------- */
 /* 사용자초기화 */
-    me.fnInitExtra=function() {
-        //탭 설정
-        //gfnTab(pageid, "tabs", {"multi-active":"off","toggle-switch":"on"}); 
-        //사용자 컴포넌트 
-        //me.dataDef["_pgm_data"][myCompoId] = {...};
-        //me.pageObj["myCompoId"] = new gfnComponent( me.pageid, myCompoId, me.dataDef["_pgm_data"][myCompoId], me.fnEH, me); 
-        //me.pageObj["myCompoId"].userComponent = "myCompoId";
-        //사용자 컨트롤
-        //var myColinfo = {colid:...}
-        //me.pageObj["myColId"] = new gfnControl(myColinfo, me.fnEH) 
-        //me.page.find("#myCol").append(me.pageObj["myColId"].dispObj);
-        //me.pageObj["myColId"].getVal(); / myCol.setVal(val);...    
+    me.fnInitExtra=function() { 
     }
     /* 이벤트핸들러 */
     me.fnEH=function(component, evt, row, col, val) { 
@@ -131,7 +122,8 @@ me.dataDef["_pgm_data"]["list"]={"sort_seq":"1","data_id":"list","data_nm":"비�
             if(OUTVAR.rtnCd=="OK") {
                 gfnAlert("저장확인","비밀번호가 변경 되었습니다.");
                 window.location.reload();
-            } else {
+            } 
+            else {
                 gfnAlert("현재패스워드가 일치하지 않습니다",OUTVAR.rtnMsg);
             }
         });
