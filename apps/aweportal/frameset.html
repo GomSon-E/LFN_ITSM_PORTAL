@@ -1029,7 +1029,7 @@
 
                 $(".gButtonsetpanel").hide();
 
-                if (!$("#frameApp").hasClass("hidden")) $("#frameApp").addClass("hidden");
+                // if (!$("#frameApp").hasClass("hidden")) $("#frameApp").addClass("hidden");
             }
         }
 
@@ -1221,7 +1221,7 @@ if (page.find("#frameApp .appMenu .PGM .app div").hasClass(row.pgm_grp_nm) == fa
                 var pgmid = menu.attr("pgmid");
                 var pgmnm = menu.text();
                 gMDI.openPage(pgmid, pgmnm);
-                page.find("#frameApp").addClass("hidden"); //메뉴선택시 패널 숨김
+                // page.find("#frameApp").addClass("hidden"); //메뉴선택시 패널 숨김
             });
         }
 

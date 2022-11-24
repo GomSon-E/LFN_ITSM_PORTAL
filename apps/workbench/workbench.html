@@ -1,6 +1,6 @@
 <style>[pgmid='workbench'].framepage div.aceEdit {
-    width: 575px;
-    height: 200px;
+    width: 50rem;
+    height: 30rem;
     border: 1px solid hsl(0 10% 80%);
 }
 [pgmid='workbench'] .srcEditor .componentBody {
@@ -12,21 +12,6 @@
 [pgmid='workbench'] #pgm_data .componentBody.agGrid{
     min-height : 25em;
 }
-[pgmid='workbench'].framepage #jsonEditor ul {
-    border: 1px solid #eaeaea;
-    background-color: #082b46;
-    padding: 0.5em 1em 0.5em 1em;
-    line-height: 1.1;
-    text-align: left;
-    font-size: 0.9em;
-    font-family: sans-serif;
-}
-[pgmid='workbench'].framepage #jsonEditor li {
-    list-style: none;
-    padding: 0.1em;
-    color: #efefef;
-    user-select: text;
-}
 .framepage .preview {
     width: 100%;
     min-height: 600px;
@@ -34,27 +19,22 @@
 <div class="pageNav"></div>
 <div class="pageTop"></div> 
 <div class="pageContent flexColumn">
-    <ul id="tabs">
-        <li refid="t1">프로그램 기본정보 & 기능</li>
-        <li refid="t2">페이지 컴포넌트 & 데이터 정의</li>
-        <li refid="t3">소스코드</li>
-    </ul>
     <div>
         <div id="t1" class="flexColumn">
-            <div id="pgm">프로그램 기본정보</div>
-            <div id="pgm_func">기능목록</div> 
+            <div id="pgm"></div>
+            <div id="pgm_func"></div> 
         </div>        
         <div id="t2" class="flexColumn"> 
-            <div id="pgm_data">컴포넌트목록</div>
-            <div id="pgm_data_content">데이터컬럼</div> 
+            <div id="pgm_data"></div>
+            <div id="pgm_data_content"></div> 
         </div>    
         <div id="t3" class="flexColumn"> 
-            <div id="pgm_src">소스코드목록</div>
-            <div id="pgm_src_edit">소스코드</div> 
+            <div id="pgm_src"></div>
+            <div id="pgm_src_edit"></div> 
         </div>
     </div>
 </div>
-<div id="jsonEditor">
+<!-- <div id="jsonEditor">
     <ul>
         <li>{</li>
         <li>"height":"34em",/*ComponentBody영역높이지정*/</li>
@@ -68,7 +48,7 @@
     <div class="aceEdit">
         <textarea class='ace_editor ace-dawn'></textarea>
     </div>
-</div>
+</div> -->
 <script>
 /*-- SCRIPT autogen start ---------------------------------------------- */        
 $(function() {
@@ -111,7 +91,7 @@ me.dataDef["_pgm_data"]["pgm_src_edit"]={"sort_seq":"6","data_id":"pgm_src_edit"
         if(typeof(me.fnInitExtra)=='function') me.fnInitExtra(); 
     } 
 /*-- SCRIPT autogen end ---------------------------------------------- */
-    me.fnInitExtra=function() {
+me.fnInitExtra=function() {
         //탭 설정
         gfnTab(pageid, "tabs", {"multi-active":"off","toggle-switch":"on"});
         //pgm_data_content는 definition(dataDef)만 사용하고 화면에서 날려줌 
@@ -129,7 +109,7 @@ me.dataDef["_pgm_data"]["pgm_src_edit"]={"sort_seq":"6","data_id":"pgm_src_edit"
         me.pageObj["pgm_src_edit"].currow = -1;
 
         //컴포넌트 옵션편집창
-        me.jsonEditor = ace.edit(me.page.find("#jsonEditor div.aceEdit")[0]);
+        me.jsonEditor = ace.edit($("#jsonEditor > div.aceEdit")[0]);
         me.jsonEditor.setTheme("ace/theme/chrome");
         me.jsonEditor.session.setMode("ace/mode/json");
         me.jsonEditor.opts = { 
@@ -156,14 +136,7 @@ me.dataDef["_pgm_data"]["pgm_src_edit"]={"sort_seq":"6","data_id":"pgm_src_edit"
             me.jsonEditor.opts);
         //컬럼정렬순서 잡아줌
         sort(me.dataDef["_pgm_data_content"],"sort_seq");
-        
-        //운영환경에서는 운영이관버튼과 저장버튼 숨기기
-        //if(gUserinfo.server=='prod') {
-        //    me.pageObj._pageFunc.setDisp("migrate",false);
-        //    me.pageObj._pageFunc.setDisp("save",false);
-        //    me.pageObj._pageFunc.setDisp("new",false);
-        //}
-        
+            
         //프로그램관리에서 호출된 경우 프로그램ID를 입력하여 조회처리 
         if(gParam["workbench"]!=undefined && !isNull(gParam["workbench"].pgmid)) {
             me.pageObj["pgm"].importData(gParam["workbench"]);  
@@ -171,12 +144,14 @@ me.dataDef["_pgm_data"]["pgm_src_edit"]={"sort_seq":"6","data_id":"pgm_src_edit"
             me.fnSearch();
         }
     } 
+
+
     //화면 이벤트시 srcEditor의 높이를 맞춰줌.
     me.fnFramepageLayout=function() {
         var pageH = me.page.outerHeight();
-        var editT = me.page.find("#pgm_src_edit").position().top;
+        var editT = $("#pgm_src_edit").position().top;
         var editH = pageH - editT - 45; 
-        me.page.find(".srcEditor .componentBody").outerHeight(editH);
+        $(".srcEditor .componentBody").outerHeight(editH);
     }
     /* data의 컬럼리스트를 stringify하여 Get/Set한다. Set할때 Grid가 없으면 생성한다. */
     me.fnColinfo=function(rowid, val) {
@@ -200,8 +175,8 @@ me.dataDef["_pgm_data"]["pgm_src_edit"]={"sort_seq":"6","data_id":"pgm_src_edit"
             else if($.type(val)=="string") colinfos[rowid].importData(  sort(JSON.parse(nvl(val,"[]")),"sort_seq")  );
             else colinfos[rowid].importData( sort(val,"sort_seq") );
             colinfos.currow = rowid;
-            me.page.find(`.colinfo[rowid!='${rowid}']`).hide();
-            me.page.find(`.colinfo[rowid='${rowid}']`).show();
+            $(`.colinfo[rowid!='${rowid}']`).hide();
+            $(`.colinfo[rowid='${rowid}']`).show();
         }
     },
     /* 에디터를 Get/Set한다. Set할때 rowid에 해당하는 에디터가 없으면 생성한다. */
@@ -217,10 +192,13 @@ me.dataDef["_pgm_data"]["pgm_src_edit"]={"sort_seq":"6","data_id":"pgm_src_edit"
                 editors.component.append(editor);
                 editors[rowid] = new gfnComponent( me.pageid, `srcEditor${rowid}`, me.dataDef["_pgm_src_edit"], me.fnEH, me);
                 editors[rowid].componentBody.append("<textarea class='ace_editor ace-dawn' style='height:1200px' ></textarea>");
+
                 editors[rowid].aceEdit = ace.edit( editors[rowid].componentBody[0] );
                 editors[rowid].userComponent = "pgm_src_edit"; //fnEH에서 참조하기 위한 hintKey
                 editors[rowid].aceEdit.setTheme("ace/theme/chrome");
                 editors[rowid].aceEdit.session.setMode("ace/mode/javascript");
+                editors[rowid].aceEdit.setFontSize("1rem");
+
                 editors[rowid].aceEdit.getSession().on('change', function() { //변경이 일어나면 소스에 올려준다.
                     var psEditor = me.pageObj["pgm_src_edit"];
                     if(me.fnEditor(psEditor.currow)!=undefined && psEditor.currow != -1) {
@@ -232,10 +210,11 @@ me.dataDef["_pgm_data"]["pgm_src_edit"]={"sort_seq":"6","data_id":"pgm_src_edit"
             editors[rowid].componentTitle.text( me.pageObj["pgm_src"].getVal(rowid,"src_nm"));
             var mode = nvl(me.pageObj["pgm_src"].getVal(rowid,"src_tp"),"javascript");
             editors[rowid].aceEdit.session.setMode("ace/mode/"+mode);
+            editors[rowid].aceEdit.setFontSize("1rem");
             editors[rowid].aceEdit.setValue(val);
             editors.currow = rowid;
-            me.page.find(`.srcEditor[rowid!='${rowid}']`).hide();
-            me.page.find(`.srcEditor[rowid='${rowid}']`).show();
+            $(`.srcEditor[rowid!='${rowid}']`).hide();
+            $(`.srcEditor[rowid='${rowid}']`).show();
             me.fnFramepageLayout();
         }           
     }, 
@@ -442,13 +421,13 @@ me.dataDef["_pgm_data"]["pgm_src_edit"]={"sort_seq":"6","data_id":"pgm_src_edit"
         me.pageObj["pgm_data_colinfo"].component.children("*").remove();
         delete me.pageObj["pgm_data_colinfo"];
         me.pageObj["pgm_data_colinfo"] = {}; 
-        me.pageObj["pgm_data_colinfo"].component = me.page.find("#pgm_data_content");
+        me.pageObj["pgm_data_colinfo"].component = $("#pgm_data_content");
         me.pageObj["pgm_data_colinfo"].currow = -1;
         //editor 초기화 
         me.pageObj["pgm_src_edit"].component.children("*").remove();
         delete me.pageObj["pgm_src_edit"];
         me.pageObj["pgm_src_edit"] = {}
-        me.pageObj["pgm_src_edit"].component = me.page.find("#pgm_src_edit");
+        me.pageObj["pgm_src_edit"].component = $("#pgm_src_edit");
         me.pageObj["pgm_src_edit"].currow = -1;
     }    
     me.fnSave=function() { 
