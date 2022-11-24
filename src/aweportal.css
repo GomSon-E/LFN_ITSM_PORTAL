@@ -5,23 +5,28 @@ body {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	flex-direction: column; 
+	flex-direction: column;
 	position: fixed;
 	column-gap: 1px;
-	top:0;left:0;right:0;bottom:0;
-	min-height: 100%; 	
-    margin: 0;
-    padding: 0;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	min-height: 100%;
+	margin: 0;
+	padding: 0;
 	background-color: hsl(215 12% 37%);
-    font-family: "Noto Sans KR", sans-serif;
+	font-family: "Noto Sans KR", sans-serif;
 	font-size: 12px;
 	user-select: none;
 	box-sizing: border-box;
-} 
+}
+
 button {
 	cursor: pointer;
 }
-.copy { 
+
+.copy {
 	border-radius: 0.25em;
 	background-color: white;
 	color: #8a8a8a;
@@ -31,402 +36,470 @@ button {
 	justify-content: space-around;
 	align-items: center;
 }
+
 /* frameset ***************************************************************************/
 #frameGNB {
 	flex: 0 0 auto;
 	width: 100%;
 	background-color: hsl(215deg 88% 23%);
-	border-bottom: 1px solid  hsl(215deg 88% 23%);
-	position: relative; 
+	border-bottom: 1px solid hsl(215deg 88% 23%);
+	position: relative;
 }
-	#frameGNB.dock {
-		position: fixed;
-		top: 0;
-		left: 0;
-		right: 0; 
-		box-shadow: rgb(0 0 0 / 10%) 0 0 1.25rem;
-	}
-	#frameGNB .gnb {
-		display: flex;
-		flex-direction: row;
-		flex-wrap: nowrap;
-		align-content: center;
-		justify-content: space-between;
-		align-items: center;
-		margin: 0;
-		padding: 0.5em;
-	}
-	.mobile #frameGNB .gnb {
-		padding: 0;
-	}
-	#frameGNB .gnb > * {
-		margin: 0 1em;
-	}
-    #frameGNB .CI {	 
-		max-height: 4.125em;
-		max-width: 10em;
-		margin: -0.5em 0 -0.5em -1em;
-		border-top-right-radius: 0.5em;
-		border-bottom-right-radius: 0.5em;
-		box-shadow: #00000050 4px 0 4px 0px;
-	}
-	#frameGNB.dock .banner {
-		display: none !important;
-	}	
-    #frameGNB .banner {
-		border-top: 1px solid hsl(215deg 88% 23%);
-		background-color: #fffbef;
-		color:rgb(127, 128, 131);
-		padding: 0.5em;
-		font-size: 1em;
-		display: flex;
-	} 
-    #frameGNB .banner span {
-		width: 90%;
-		max-width: 90%;
-		text-overflow: ellipsis;
-		text-align: center; 
-		overflow: hidden;
-		white-space: nowrap;
-		overflow-wrap: normal;
-	}	
-    #frameGNB .bannerUp {
-		background-color: #9a9a9a;
-		color:rgb(255, 255, 255); 
-		border-bottom: 1px solid hsla(0 0% 50% / 50%);
-	}
-	#frameGNB .banner i.fas { 
-		margin-left: auto;
-	} 
-	#frameGNB .banner i.fas:hover {
-		color:red;
-		cursor:pointer;
-	}	
-	#frameGNB button.notice b {
-		position: relative;
-		background-color: hsl(0 100% 40%);
-		font-size: 0.5em;
-		color: hsl(0 0% 100%);
-		border-radius: 0.375em;
-		left: -0.5em;
-		top: -0.7em;
-		padding: 0.2em;
-	}
-	#frameGNB button.notice .countAlert {
-		position: absolute;
-    	background-color: hsl(3 100% 61.4%);
-    	font-size: 14px;
-    	padding: 3px;
-		padding-left: 5px;
-		padding-right: 5px;
-    	border-radius: 20px;
-    	color: hsl(0 0% 100%);
-    	margin-left: 22px;
-		top: 9px;
-	}
-	#frameGNB .userInfo {
-        margin-left : 200px;
-        height: 50px;
-        line-height: 40px;
-        width:calc(100% - 10em);
-    }
-    #frameGNB .userInfo-item {
-        /* float : left; */
-        text-align : center;
-        width: 100%;
-        padding-left: 15px;
-    }
-    #frameGNB .userInfo-item li{
-        display: block;
-        color: hsl(0, 100%, 100%);
-        text-align: center;
-        list-style: none;
-        width: 24%;
-        float: left;
-        cursor: pointer;
-    }
-    #frameGNB .userInfo-item li:hover{
-        background-color: #1e7ae1;
-    }
-	#frameGNB .curtime {
-		text-align: right;
-		vertical-align: middle;
-		color: hsl(210 11% 80%);
-		font-size: 0.8em;
-		padding-top: 0.3em;
-	}
-	.mobile .curtime {
-		display: none;
-	}
-	.mobile .remote {
-		display: none;
-	}
-#frameBottom {
-	background-color: rgba(5, 0, 0, 0.8); 
+
+#frameGNB.dock {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
 	box-shadow: rgb(0 0 0 / 10%) 0 0 1.25rem;
-	position: relative;	
+}
+
+#frameGNB .gnb {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	align-content: center;
+	justify-content: space-between;
+	align-items: center;
+	margin: 0;
+	padding: 0.5em;
+}
+
+.mobile #frameGNB .gnb {
+	padding: 0;
+}
+
+#frameGNB .gnb>* {
+	margin: 0 1em;
+}
+
+#frameGNB .CI {
+	max-height: 4.125em;
+	max-width: 10em;
+	margin: -0.5em 0 -0.5em -1em;
+	border-top-right-radius: 0.5em;
+	border-bottom-right-radius: 0.5em;
+	box-shadow: #00000050 4px 0 4px 0px;
+}
+
+#frameGNB.dock .banner {
+	display: none !important;
+}
+
+#frameGNB .banner {
+	border-top: 1px solid hsl(215deg 88% 23%);
+	background-color: #fffbef;
+	color: rgb(127, 128, 131);
+	padding: 0.5em;
+	font-size: 1em;
+	display: flex;
+}
+
+#frameGNB .banner span {
+	width: 90%;
+	max-width: 90%;
+	text-overflow: ellipsis;
+	text-align: center;
+	overflow: hidden;
+	white-space: nowrap;
+	overflow-wrap: normal;
+}
+
+#frameGNB .bannerUp {
+	background-color: #9a9a9a;
+	color: rgb(255, 255, 255);
+	border-bottom: 1px solid hsla(0 0% 50% / 50%);
+}
+
+#frameGNB .banner i.fas {
+	margin-left: auto;
+}
+
+#frameGNB .banner i.fas:hover {
+	color: red;
+	cursor: pointer;
+}
+
+#frameGNB button.notice b {
+	position: relative;
+	background-color: hsl(0 100% 40%);
+	font-size: 0.5em;
+	color: hsl(0 0% 100%);
+	border-radius: 0.375em;
+	left: -0.5em;
+	top: -0.7em;
+	padding: 0.2em;
+}
+
+#frameGNB button.notice .countAlert {
+	position: absolute;
+	background-color: hsl(3 100% 61.4%);
+	font-size: 14px;
+	padding: 3px;
+	padding-left: 5px;
+	padding-right: 5px;
+	border-radius: 20px;
+	color: hsl(0 0% 100%);
+	margin-left: 22px;
+	top: 9px;
+}
+
+#frameGNB .userInfo {
+	margin: 0 auto;
+	height: 50px;
+	line-height: 25px;
+	width: calc(100% - 10em);
+}
+
+#frameGNB .userInfo-item {
+	float: left;
+	text-align: center;
+	width: 100%;
+	padding-left: 15px;
+}
+
+#frameGNB .userInfo-item li {
+	display: block;
+	color: hsl(0, 100%, 100%);
+	text-align: center;
+	list-style: none;
+	width: 24%;
+	height: 30px;
+	float: left;
+	cursor: pointer;
+}
+
+#frameGNB .userInfo-item li:hover {
+	background-color: hsl(207, 100%, 78%);
+}
+
+#frameGNB .curtime {
+	text-align: right;
+	vertical-align: middle;
+	color: hsl(210 11% 80%);
+	font-size: 0.8em;
+	padding-top: 0.3em;
+}
+
+.mobile .curtime {
+	display: none;
+}
+
+.mobile .remote {
+	display: none;
+}
+
+
+#frameBottom {
+	background-color: rgba(5, 0, 0, 0.8);
+	box-shadow: rgb(0 0 0 / 10%) 0 0 1.25rem;
+	position: relative;
 	padding: 0.5rem 1rem 0.25rem 1rem;
 }
-	.mobile #frameBottom {
-		padding: 0;
-	}
-	#frameBottom.bottom {
-		border-top: 1px solid #f0efef;	
-		position: fixed;
-		bottom: 0;
-		left: 0;
-		right: 0; 
-		font-size: 0;
-	}
-	#frameBottom.dock { 
-		border-top: 0;	 
-		bottom: unset;
-		left: unset;
-		right: unset; 
-		min-width: calc( 50% - 100px); 
-		font-size: x-small;
-		border-radius: 0.5em;
-	} 
-	#frameBottom button.noMore i { 
-		color: hsl(0,0%,30%) !important;
-	}
+
+.mobile #frameBottom {
+	padding: 0;
+}
+
+#frameBottom.bottom {
+	border-top: 1px solid #f0efef;
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	font-size: 0;
+}
+
+#frameBottom.dock {
+	border-top: 0;
+	bottom: unset;
+	left: unset;
+	right: unset;
+	min-width: calc(50% - 100px);
+	font-size: x-small;
+	border-radius: 0.5em;
+}
+
+#frameBottom button.noMore i {
+	color: hsl(0, 0%, 30%) !important;
+}
 
 
 #frameset {
 	flex: 1 1 auto;
-    width: 100%;
-    height: 100%; 
-    background-color: hsl(0 0% 22%); 
-    margin: 0;
-    padding: 0;
-    min-width: 400px;
-    overflow-y: auto;
-    display: flex;
-    flex-direction: row; 
-    align-content: flex-start;
-    justify-content: space-between;
-    align-items: flex-start; 
-	row-gap: 1px; 
+	width: 100%;
+	height: 100%;
+	background-color: hsl(0 0% 22%);
+	margin: 0;
+	padding: 0;
+	min-width: 400px;
+	overflow-y: auto;
+	display: flex;
+	flex-direction: row;
+	align-content: flex-start;
+	justify-content: space-between;
+	align-items: flex-start;
+	row-gap: 1px;
 	column-gap: 1px;
 }
-#frameMain { 
+
+#frameMain {
 	flex: 1 1 auto;
-	background-color: rgb(253, 253, 255); 
-	position: relative;	 
-	height: calc( 100% - 3px );
+	background-color: rgb(253, 253, 255);
+	position: relative;
+	height: calc(100% - 3px);
 }
-	#frameMain .btnShow {
-		position: absolute;
-		top: 0px;
-		left: -20px;
-		padding: 0 5px;
-		margin: 0px 0.15rem;
-		text-align: center !important;
-		cursor: pointer;
-		border: 0;
-		font-size: 1.5em;
-		background-color: white;
-		color: hsl(30 50% 50% / 0.5);
-		z-index: 1;
-	}
-	#frameMain .btnShow.closed {
-		left: 0;
-		padding: 0;
-		background-color: unset;
-	}
-	.mobile #frameMain .btnShow {
-		left: 0;
-		padding: 0;
-		background-color: unset;
-	}
-	#frameMain .btnShow:hover {
-		color: hsl(30 50% 50%);
-	}
-	#frameMain .btnShowR {
-		position: absolute;
-		top: 0px;
-		right: 0px;
-		padding: 0;
-		margin: 0px 0.15rem;
-		text-align: center !important;
-		cursor: pointer;
-		border: 0;
-		font-size: 1.5em;
-		background-color: unset;
-		color: hsl(30 50% 50% / 0.5);
-		z-index: 1;
-	}
-	#frameMain .btnShowR:hover {
-		color: hsl(30 50% 50%);
-	}
-	.framepage .btnScreen {
-		display: none;
-	}	
-	.framepage[stat='max'] .btnScreen {
-		display: inline-block;
-	}
-	.mobile .framepage .btnScreen {
-		display: none !important;
-	}
-#frameLeft { 
+
+#frameMain .btnShow {
+	position: absolute;
+	top: 0px;
+	left: -20px;
+	padding: 0 5px;
+	margin: 0px 0.15rem;
+	text-align: center !important;
+	cursor: pointer;
+	border: 0;
+	font-size: 1.5em;
+	background-color: white;
+	color: hsl(30 50% 50% / 0.5);
+	z-index: 1;
+}
+
+#frameMain .btnShow.closed {
+	left: 0;
+	padding: 0;
+	background-color: unset;
+}
+
+.mobile #frameMain .btnShow {
+	left: 0;
+	padding: 0;
+	background-color: unset;
+}
+
+#frameMain .btnShow:hover {
+	color: hsl(30 50% 50%);
+}
+
+#frameMain .btnShowR {
+	position: absolute;
+	top: 0px;
+	right: 0px;
+	padding: 0;
+	margin: 0px 0.15rem;
+	text-align: center !important;
+	cursor: pointer;
+	border: 0;
+	font-size: 1.5em;
+	background-color: unset;
+	color: hsl(30 50% 50% / 0.5);
+	z-index: 1;
+}
+
+#frameMain .btnShowR:hover {
+	color: hsl(30 50% 50%);
+}
+
+.framepage .btnScreen {
+	display: none;
+}
+
+.framepage[stat='max'] .btnScreen {
+	display: inline-block;
+}
+
+.mobile .framepage .btnScreen {
+	display: none !important;
+}
+
+#frameLeft {
 	flex: 0 0 auto;
 	display: flex;
 	flex-direction: column;
-    flex-wrap: nowrap;
-    align-content: space-around;
-    justify-content: flex-start;
-    align-items: stretch;
-    overflow-y: auto; 
-	height: 100%; 
-	padding: 0; 
+	flex-wrap: nowrap;
+	align-content: space-around;
+	justify-content: flex-start;
+	align-items: stretch;
+	overflow-y: auto;
+	height: 100%;
+	padding: 0;
 	background-color: hsl(217 48% 18%);
 	color: hsl(0 0% 68%);
 	position: relative;
 	min-width: 20em;
 }
-	.mobile #frameLeft {
-		height: unset;
-	}
-	#frameLeft.float {
-		position: fixed;
-		left: 1rem; 
-		margin-top: 1rem;
-		box-shadow: rgb(0 0 0 / 20%) 0 0 1em 1em;
-		z-index: 1000;
-		max-height: calc( 100% - 4rem);
-		overflow-y: auto;
-	} 
-	#frameLeft .frameBtnSet.C { 
-		display: flex;
-		flex-direction: row;
-		flex-wrap: nowrap;
-		align-content: flex-start;
-		justify-content: flex-start; 
-		height: 2em; 
-		background-color: hsl(0 78% 30%);
-	}
-	#frameLeft .frameBtnSet.C button { 
-		color: hsl(360 0% 100%);
-	}
-	#frameLeft .frameBtnSet.C button:hover { 
-		color: hsl(360 0% 100%);
-	}
-	#frameLeft .appMenu, #frameLeft .grp {
-		padding: 1em;
-	}
-	#frameLeft .grp div h3 {
-		display: flex;
-		justify-content: space-between;
-	}
-	/* #frameLeft .grp div ul li {
+
+.mobile #frameLeft {
+	height: unset;
+}
+
+#frameLeft.float {
+	position: fixed;
+	left: 1rem;
+	margin-top: 1rem;
+	box-shadow: rgb(0 0 0 / 20%) 0 0 1em 1em;
+	z-index: 1000;
+	max-height: calc(100% - 4rem);
+	overflow-y: auto;
+}
+
+#frameLeft .frameBtnSet.C {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	align-content: flex-start;
+	justify-content: flex-start;
+	height: 2em;
+	background-color: hsl(0 78% 30%);
+}
+
+#frameLeft .frameBtnSet.C button {
+	color: hsl(360 0% 100%);
+}
+
+#frameLeft .frameBtnSet.C button:hover {
+	color: hsl(360 0% 100%);
+}
+
+#frameLeft .appMenu,
+#frameLeft .grp {
+	padding: 1em;
+}
+
+#frameLeft .grp div h3 {
+	display: flex;
+	justify-content: space-between;
+}
+
+/* #frameLeft .grp div ul li {
 		cursor: pointer;
 	} */
-	#frameLeft .grp div ul {
-		padding: 0;
-	}
-	#frameLeft .grp div ul li {
-		cursor: pointer;
-		list-style: none;
-		background-color: hsl(0 0% 10%);
-		margin: 2px;
-		border-radius: 0px;
-		padding-left: 10px;
-		padding-top: 5px;
-		padding-bottom: 5px;
-		color: hsl(0 0% 100%);
-		overflow: hidden;
-		text-overflow: ellipsis;
-		white-space: nowrap;
-		display: flex;
-		justify-content: space-between;
-		width: 200px;
-	}
-		.mobile #frameLeft .grp div ul li {
-			width: unset;
-		}
-	#frameLeft .grp div ul li:hover {
-		background-color: hsl(0 0% 30%);
-	}
+#frameLeft .grp div ul {
+	padding: 0;
+}
 
-	#frameLeft .grp div ul li.listChat .countChat {
-		background-color: hsl(3 100% 61.4%);
-		padding-left: 7px;
-		padding-right: 7px;
-		padding-bottom: 2px;
-		margin-right: 10px;
-		border-radius: 4px;
-	}
-#frameRight {  
+#frameLeft .grp div ul li {
+	cursor: pointer;
+	list-style: none;
+	background-color: hsl(0 0% 10%);
+	margin: 2px;
+	border-radius: 0px;
+	padding-left: 10px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	color: hsl(0 0% 100%);
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	display: flex;
+	justify-content: space-between;
+	width: 200px;
+}
+
+.mobile #frameLeft .grp div ul li {
+	width: unset;
+}
+
+#frameLeft .grp div ul li:hover {
+	background-color: hsl(0 0% 30%);
+}
+
+#frameLeft .grp div ul li.listChat .countChat {
+	background-color: hsl(3 100% 61.4%);
+	padding-left: 7px;
+	padding-right: 7px;
+	padding-bottom: 2px;
+	margin-right: 10px;
+	border-radius: 4px;
+}
+
+#frameRight {
 	flex: 0 0 auto;
 	display: flex;
 	flex-direction: column;
-    flex-wrap: nowrap;
-    align-content: space-around;
-    justify-content: flex-start;
-    align-items: stretch;
-    overflow-y: auto; 
-	height: 100%; 
-	padding: 0;  
+	flex-wrap: nowrap;
+	align-content: space-around;
+	justify-content: flex-start;
+	align-items: stretch;
+	overflow-y: auto;
+	height: 100%;
+	padding: 0;
 	background-color: rgb(248, 250, 255);
-	position: relative;	 
+	position: relative;
 }
-	.mobile #frameRight {
-		height: unset;
-	}
-	#frameRight.float { 
-		box-shadow: rgb(0 0 0 / 20%) 0 0 1em 1em;
-		max-height: calc( 100% - 4rem);
-		overflow-y: auto;
-	}
-	#frameRight .frameBtnSet.C { 
-		display: flex;
-		flex-direction: row;
-		flex-wrap: nowrap;
-		align-content: flex-start;
-		justify-content: flex-end; 
-		height: 2em;
-		background-color: hsl(120deg 41% 86%);
-	} 
-	#frameRight .info {
-		max-width: 18em;
-		padding: 1em;
-	}	
-	#frameRight ul {
-		margin: 0;
-		padding: 0;
-	} 
-	#frameRight li {
-		list-style: none;
-		white-space: normal;
-	}
+
+.mobile #frameRight {
+	height: unset;
+}
+
+#frameRight.float {
+	box-shadow: rgb(0 0 0 / 20%) 0 0 1em 1em;
+	max-height: calc(100% - 4rem);
+	overflow-y: auto;
+}
+
+#frameRight .frameBtnSet.C {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	align-content: flex-start;
+	justify-content: flex-end;
+	height: 2em;
+	background-color: hsl(120deg 41% 86%);
+}
+
+#frameRight .info {
+	max-width: 18em;
+	padding: 1em;
+}
+
+#frameRight ul {
+	margin: 0;
+	padding: 0;
+}
+
+#frameRight li {
+	list-style: none;
+	white-space: normal;
+}
 
 @media (min-width: 768px) {
+
 	/* 가로화면 */
 	#frameset {
 		flex-wrap: nowrap;
 		width: 100%;
 	}
+
 	/* #frameLeft {
 		width: 20em; 
-	} */	 
+	} */
 	#frameRight {
-		min-width: 20em;  
+		min-width: 20em;
 	}
+
 	#frameMain {
-		min-width: calc( 100% - 41em ); 
-		width: 100%; 
+		min-width: calc(100% - 41em);
+		width: 100%;
 	}
-} 
+}
+
 @media only screen and (max-width: 768px) {
+
 	/* 세로화면 */
 	#frameset {
 		flex-wrap: wrap;
 	}
-	#frameMain, #frameLeft, #frameRight {
-		width:100%;
-		margin-top: 0 !important;  
-	}	
-	#frameLeft .frameBtnSet.C, #frameRight .frameBtnSet.C {
+
+	#frameMain,
+	#frameLeft,
+	#frameRight {
+		width: 100%;
+		margin-top: 0 !important;
+	}
+
+	#frameLeft .frameBtnSet.C,
+	#frameRight .frameBtnSet.C {
 		display: none;
 	}
 }
@@ -440,26 +513,26 @@ button {
 }
 
 #frameTab::-webkit-scrollbar {
-    width: 0.5vw;
+	width: 0.5vw;
 	height: 7px;
 }
 
 #frameTab::-webkit-scrollbar-thumb {
-    background-color: hsla(219, 97%, 15%, 0.679);
-    border-radius: 100px;
+	background-color: hsla(219, 97%, 15%, 0.679);
+	border-radius: 100px;
 }
 
 #frameTab a {
-    height: 30px;
-    background-color: rgb(255, 255, 255);
-    color: hsl(0 0% 0%);
-    box-shadow: rgb(0 0 0 / 10%) 0 0 0.5rem 0.25rem;
-    line-height: 30px;
-    text-indent: 10px;
-    font-size: 12px;
-    display: grid;
-    grid-auto-flow: column;
-    justify-content: space-between;
+	height: 30px;
+
+	color: hsl(0 0% 0%);
+	box-shadow: rgb(0 0 0 / 10%) 0 0 0.5rem 0.25rem;
+	line-height: 30px;
+	text-indent: 10px;
+	font-size: 12px;
+	display: grid;
+	grid-auto-flow: column;
+	justify-content: space-between;
 }
 
 
@@ -468,27 +541,28 @@ button {
 }
 
 #frameTab a div {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 1;
-    -webkit-box-orient: vertical;
-    word-wrap: break-word;
-    width: 186px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	display: -webkit-box;
+	-webkit-line-clamp: 1;
+	-webkit-box-orient: vertical;
+	word-wrap: break-word;
+	width: 186px;
 }
-	.mobile #frameTab a div {
-		width: unset;
-	}
+
+.mobile #frameTab a div {
+	width: unset;
+}
 
 #frameTab a i {
 	width: 30px;
-    height: 30px;
-    font-size: 20px;
-    text-align: center;
-    line-height: 30px;
-    color: hsl(0 0% 30%);
-    cursor: pointer;
-    text-indent: -1px;
+	height: 30px;
+	font-size: 20px;
+	text-align: center;
+	line-height: 30px;
+	color: hsl(0 0% 30%);
+	cursor: pointer;
+	text-indent: -1px;
 }
 
 #frameTab .APP {
@@ -526,15 +600,17 @@ button {
 	} */
 
 .hidden {
-	display:none !important;
+	display: none !important;
 }
+
 .leftMini {
 	min-width: 1px !important;
 
 
-	
+
 	height: 0 !important;
 }
+
 .rightMini {
 	min-width: 1px !important;
 	height: 0 !important;
@@ -542,40 +618,41 @@ button {
 
 
 .generalNotice {
-	padding: 2em 1em; 
-    border-top: 1px solid #aeaeae;
-    background-color: #efefef;
-    display: flex;
-    align-content: space-around;
-    justify-content: space-around;
-    place-content: space-around;
-    color: rgba(0,0,0,0.6);
-    font-size: 0.75em;
+	padding: 2em 1em;
+	border-top: 1px solid #aeaeae;
+	background-color: #efefef;
+	display: flex;
+	align-content: space-around;
+	justify-content: space-around;
+	place-content: space-around;
+	color: rgba(0, 0, 0, 0.6);
+	font-size: 0.75em;
 	width: 100%;
 	flex: 1 1 100%;
 }
-	.generalNotice div:hover {
-		text-decoration:underline;
-		color:rgb(12, 12, 236);		
-		cursor: pointer;
-	}
+
+.generalNotice div:hover {
+	text-decoration: underline;
+	color: rgb(12, 12, 236);
+	cursor: pointer;
+}
 
 /** frameLeft *************************************************************************/
 #frameLeft h3 {
-    background-color: hsla(0 10% 40% / 0.5);
-    color: hsl(0 0% 90%);
-    padding: 0.25em 1em;
-    margin: 0;
+	background-color: hsla(0 10% 40% / 0.5);
+	color: hsl(0 0% 90%);
+	padding: 0.25em 1em;
+	margin: 0;
 }
 
 #frameLeft .APP {
-    margin: 0;
-    background-color: hsl(0 0% 70%);
-    display: flex;
+	margin: 0;
+	background-color: hsl(0 0% 70%);
+	display: flex;
 	min-height: 250px;
 }
 
-	/*#frameLeft .APP {
+/*#frameLeft .APP {
 		margin: 0;
 		padding: 0.5em;
 		background-color: hsl(0 0% 70%);
@@ -611,105 +688,126 @@ button {
 	} */
 /** frameBtnSet : 일관성 유지***********************************************************/
 .frameBtnSet {
-    display: flex;
+	display: flex;
 	justify-content: space-between;
 	width: 100%;
 }
+
 .frameBtnSet button {
 	display: block;
-	border:0;
+	border: 0;
 	margin: 0 0.15rem;
-	padding: 0; 
+	padding: 0;
 	background-color: unset;
-	text-align: center !important;  
-	cursor:pointer;
+	text-align: center !important;
+	cursor: pointer;
 	border-radius: 5px;
-} 
-.frameBtnSet button i { 
+}
+
+.frameBtnSet button i {
 	font-size: 1.25rem;
-	padding: 0.5rem;	
+	padding: 0.5rem;
 	padding-bottom: 0.15rem;
 	border-top-left-radius: 0.3rem;
 	border-top-right-radius: 0.3rem;
 	display: block;
 }
-	.frameBtnSet.A button i {  
-		color: hsl(0 12% 12%); 
-	}
-	.frameBtnSet.A button:hover i { 
-		background-color: hsl(12 79% 54%); 
-		color: hsl(12 79% 100%); 
-	} 
-	.frameBtnSet.B button i {  
-		color: hsl(0 33% 97%); 
-	}
-	.frameBtnSet.B button:hover i { 
-		background-color: hsl(49 100% 49%);
-		color: hsl(0 72% 23%);
-	} 	
-	.frameBtnSet.C button i { 
-		padding: 0;
-		color: hsl(0 33% 97%); 
-	}
-	.frameBtnSet.C button:hover i { 
-		color: hsl(52 99% 52%); 
-	}	 
-.frameBtnSet button span { 
-	padding: 0.5rem;	
+
+.frameBtnSet.A button i {
+	color: hsl(0 12% 12%);
+}
+
+.frameBtnSet.A button:hover i {
+	background-color: hsl(12 79% 54%);
+	color: hsl(12 79% 100%);
+}
+
+.frameBtnSet.B button i {
+	color: hsl(0 33% 97%);
+}
+
+.frameBtnSet.B button:hover i {
+	background-color: hsl(49 100% 49%);
+	color: hsl(0 72% 23%);
+}
+
+.frameBtnSet.C button i {
+	padding: 0;
+	color: hsl(0 33% 97%);
+}
+
+.frameBtnSet.C button:hover i {
+	color: hsl(52 99% 52%);
+}
+
+.frameBtnSet button span {
+	padding: 0.5rem;
 	padding-top: 0.15rem;
-	font-size: x-small; 
+	font-size: x-small;
 	border-bottom-left-radius: 0.3rem;
 	border-bottom-right-radius: 0.3rem;
 	display: block;
-}	
-	.frameBtnSet.A button span { 
-		color: hsl(210 11% 80%);  	
-	} 
-	.frameBtnSet.A button:hover span { 
-		background-color: hsl(210 11% 80%);  	
-		color: hsl(210 11% 10%);  	
-	} 
-	.frameBtnSet.B button span {
-		margin-top: -1rem;
-		color: hsla(0 0% 10% / 0);  /* frameBtnSetB는 글자는 표시하지 않음 */ 
-	}
-	.frameBtnSet.B button:hover span { 
-		color: hsla(0 0% 10% / 1);
-		background-color: hsl(49 100% 49%);
-	}   
-	.frameBtnSet.C button span {
-		padding: 0;	
-		font-size: 0; /* frameBtnSetC도 글자는 표시하지 않음 */ 
-	}  
+}
+
+.frameBtnSet.A button span {
+	color: hsl(210 11% 80%);
+}
+
+.frameBtnSet.A button:hover span {
+	background-color: hsl(210 11% 80%);
+	color: hsl(210 11% 10%);
+}
+
+.frameBtnSet.B button span {
+	margin-top: -1rem;
+	color: hsla(0 0% 10% / 0);
+	/* frameBtnSetB는 글자는 표시하지 않음 */
+}
+
+.frameBtnSet.B button:hover span {
+	color: hsla(0 0% 10% / 1);
+	background-color: hsl(49 100% 49%);
+}
+
+.frameBtnSet.C button span {
+	padding: 0;
+	font-size: 0;
+	/* frameBtnSetC도 글자는 표시하지 않음 */
+}
 
 /** frameMain *************************************************************************/
 .framepage {
 	margin: 0;
-    padding: 0;
+	padding: 0;
 	line-height: 1.5;
-} 
-	.mobile .framepage {
-		padding: 0.1em;
-	}
-	.framepage H1 {
-		margin: 0;
-		background-color: #efefef;
-		padding: 2em;
-		font-size: xx-large;
-		color: rgba(0,0,0,0.9);
-		text-shadow: 2px 2px rgb(0 0 0 / 10%);
-		font-weight:bolder;
-	}
-	.framepage .section {
-		padding: 1em 1em;
-	}
-	.framepage .section H2 {
-		margin: 0;
-		color: rgba(0,0,0,0.9);
-		padding: 1rem;
-		font-size: x-large;
-		font-weight:bolder;
-	}
+}
+
+.mobile .framepage {
+	padding: 0.1em;
+}
+
+.framepage H1 {
+	margin: 0;
+	background-color: #efefef;
+	padding: 2em;
+	font-size: xx-large;
+	color: rgba(0, 0, 0, 0.9);
+	text-shadow: 2px 2px rgb(0 0 0 / 10%);
+	font-weight: bolder;
+}
+
+.framepage .section {
+	padding: 1em 1em;
+}
+
+.framepage .section H2 {
+	margin: 0;
+	color: rgba(0, 0, 0, 0.9);
+	padding: 1rem;
+	font-size: x-large;
+	font-weight: bolder;
+}
+
 .framepage .section ul {
 	display: flex;
 	flex-wrap: wrap;
@@ -718,80 +816,94 @@ button {
 	justify-content: flex-start;
 	align-content: space-around;
 }
-	.framepage .section li {
-		display: flex;
-		flex-direction: column;
-		flex: 1 1 50%;
-	}
-	.framepage .section li h4 {
-		margin: 0;
-		color: rgba(0,0,0,0.9); 
-		font-size: large;
-		font-weight:bolder;
-	}
-	.framepage .section li p {
-		margin: 0 1rem 0 0;
-		padding: 0.5rem 0 0 0;
-		color: rgba(0,0,0,0.8);
-		font-size: medium; 
-	}
-	.framepage .section li span {
-		margin: 0 0 2rem 0;
-		color: rgba(0,0,0,0.5);
-		font-size: small;
-	}
-	
-	.framepage table.calendar {
-		width: 100%;
-		height: 100%;
-		height: 90%;
-		border: 1px solid rgba(0,0,0,0.5);
-		padding: 0;
-		border-spacing: 0;
-		table-layout: fixed;
-	}
-		.framepage table.calendar thead th {
-			padding: 0.25em;
-			border-bottom: 2px solid rgba(0,0,0,0.5);
-			border-right: 1px solid rgba(0,0,0,0.2);
-			background-color: #fafffc;
-			color: #313c31;
-		}		
-		.framepage table.calendar thead th:nth-child(1) {
-			background-color: #fffbfb;
-			color: #5a3131;
-		}
-		.framepage table.calendar thead tr th:last-child {
-			background-color: #eaf3fb;
-			color: #31315a;	
-		}
-		.framepage table.calendar tbody td {
-			border-collapse: collapse;
-			padding: 0.05em 0.25em 5em;
-			border-bottom: 1px solid rgba(0,0,0,0.5);
-			border-right: 1px solid rgba(0,0,0,0.2);
-			background-color: #ffffff;
-			color: #313c31;
-		}		
-		.framepage table.calendar tbody td:hover {
-			background-color: #fff5ef !important;
-			color: red;
-			text-decoration: underline;	
-			cursor: pointer;
-		}
-		.framepage table.calendar tbody td:nth-child(1) {
-			background-color: #fffbfb;
-			color: #5a3131;
-		}
-		.framepage table.calendar tbody td p {
-			color: black;
-		}.framepage table.calendar tbody td b {
-			padding-right: 10px;
-		}
-		.framepage table.calendar tbody tr td:last-child {
-			background-color: #eaf3fb;
-			color: #31315a;	
-		}
+
+.framepage .section li {
+	display: flex;
+	flex-direction: column;
+	flex: 1 1 50%;
+}
+
+.framepage .section li h4 {
+	margin: 0;
+	color: rgba(0, 0, 0, 0.9);
+	font-size: large;
+	font-weight: bolder;
+}
+
+.framepage .section li p {
+	margin: 0 1rem 0 0;
+	padding: 0.5rem 0 0 0;
+	color: rgba(0, 0, 0, 0.8);
+	font-size: medium;
+}
+
+.framepage .section li span {
+	margin: 0 0 2rem 0;
+	color: rgba(0, 0, 0, 0.5);
+	font-size: small;
+}
+
+.framepage table.calendar {
+	width: 100%;
+	height: 100%;
+	height: 90%;
+	border: 1px solid rgba(0, 0, 0, 0.5);
+	padding: 0;
+	border-spacing: 0;
+	table-layout: fixed;
+}
+
+.framepage table.calendar thead th {
+	padding: 0.25em;
+	border-bottom: 2px solid rgba(0, 0, 0, 0.5);
+	border-right: 1px solid rgba(0, 0, 0, 0.2);
+	background-color: #fafffc;
+	color: #313c31;
+}
+
+.framepage table.calendar thead th:nth-child(1) {
+	background-color: #fffbfb;
+	color: #5a3131;
+}
+
+.framepage table.calendar thead tr th:last-child {
+	background-color: #eaf3fb;
+	color: #31315a;
+}
+
+.framepage table.calendar tbody td {
+	border-collapse: collapse;
+	padding: 0.05em 0.25em 5em;
+	border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+	border-right: 1px solid rgba(0, 0, 0, 0.2);
+	background-color: #ffffff;
+	color: #313c31;
+}
+
+.framepage table.calendar tbody td:hover {
+	background-color: #fff5ef !important;
+	color: red;
+	text-decoration: underline;
+	cursor: pointer;
+}
+
+.framepage table.calendar tbody td:nth-child(1) {
+	background-color: #fffbfb;
+	color: #5a3131;
+}
+
+.framepage table.calendar tbody td p {
+	color: black;
+}
+
+.framepage table.calendar tbody td b {
+	padding-right: 10px;
+}
+
+.framepage table.calendar tbody tr td:last-child {
+	background-color: #eaf3fb;
+	color: #31315a;
+}
 
 /* MISC ****************************************************************************/
 .dummy {
@@ -801,21 +913,25 @@ button {
 	background-color: #aeaeae;
 	text-align: center;
 }
+
 .dummy:after {
 	content: " ";
-	white-space: pre; 
+	white-space: pre;
 }
+
 #ruler {
 	position: fixed;
-	display: none; /* block */
-    left: 1rem;
-    bottom: 3.375rem;
-    font-size: 0.75em;
-    height: 1rem;
-    padding: 0;
-    margin: 0;
-	color: rgba(0,0,128,0.5);
+	display: none;
+	/* block */
+	left: 1rem;
+	bottom: 3.375rem;
+	font-size: 0.75em;
+	height: 1rem;
+	padding: 0;
+	margin: 0;
+	color: rgba(0, 0, 128, 0.5);
 }
+
 #frameStatus {
 	position: fixed;
 	top: 0.5em;
@@ -826,97 +942,112 @@ button {
 	flex-direction: column-reverse;
 	box-shadow: rgb(0 0 0 / 10%) 0 0 1.25rem;
 	z-index: 3;
-} 
-	#frameStatus .msg {
-		border: 2px solid rgba(0,0,0,0.1);
-		color:rgba(5, 0, 0, 0.8);
-		font-size: smaller;
-		padding: 0.5em 1em; 
-		display: flex;
-	}
-	#frameStatus .msg span {
-		display: inline-block;
-		margin-left: auto;
-		font-size: x-small;
-		color: #adb5bd;
-	}
+}
+
+#frameStatus .msg {
+	border: 2px solid rgba(0, 0, 0, 0.1);
+	color: rgba(5, 0, 0, 0.8);
+	font-size: smaller;
+	padding: 0.5em 1em;
+	display: flex;
+}
+
+#frameStatus .msg span {
+	display: inline-block;
+	margin-left: auto;
+	font-size: x-small;
+	color: #adb5bd;
+}
+
 .aweAlert {
 	padding: 0.5em;
-    background-color: #ffe200 !important; 
-    margin: 0.25em;
-    font-size: 1em;
+	background-color: #ffe200 !important;
+	margin: 0.25em;
+	font-size: 1em;
 	min-height: 3em !important;
-    line-height: 1.25;
+	line-height: 1.25;
 	user-select: text;
 }
+
 .loader {
 	position: fixed;
-    top: calc(50% - 10rem);
-    left: calc(50% - 10rem);
-    width: 20em;
-    height: 4rem;
-    background-color: beige;
-    border: 1px solid #d0d098;
-    border-radius: 3em;
-    text-align: center;
-    padding-top: 1.5em;
-    padding-left: 3.5em;
-    padding-right: 2em;
-    background-image: url(/images/loader.gif);
-    background-repeat: no-repeat;
-    background-position-y: center;
-    background-position-x: 1em;
-    white-space: nowrap;
-    z-Index: 100000;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    box-shadow: rgb(0 0 0 / 10%) 0 0 1.25rem;
+	top: calc(50% - 10rem);
+	left: calc(50% - 10rem);
+	width: 20em;
+	height: 4rem;
+	background-color: beige;
+	border: 1px solid #d0d098;
+	border-radius: 3em;
+	text-align: center;
+	padding-top: 1.5em;
+	padding-left: 3.5em;
+	padding-right: 2em;
+	background-image: url(/images/loader.gif);
+	background-repeat: no-repeat;
+	background-position-y: center;
+	background-position-x: 1em;
+	white-space: nowrap;
+	z-Index: 100000;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	box-shadow: rgb(0 0 0 / 10%) 0 0 1.25rem;
 }
 
 /* JQUERY-UI HACK ******************************************************************/
 .ui-widget {
 	font-size: 0.9em !important;
 }
+
 .ui-dialog {
-	box-shadow: 0 2px 4px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.75)!important;
+	box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.75) !important;
 }
-	.mobile .ui-dialog {
-		width: 95% !important;
-	}
+
+.mobile .ui-dialog {
+	width: 95% !important;
+}
+
 .ui-dialog .framepage {
 	padding: 0 !important;
-}	
-.ui-dialog .pageTitle {
-	font-size: 1em;	
 }
-	
+
+.ui-dialog .pageTitle {
+	font-size: 1em;
+}
+
 
 .ui-dialog .ui-dialog-buttonpane {
 	padding: unset !important;
 }
+
 .ui-tooltip {
-	font-size: 0.8em; 
+	font-size: 0.8em;
 }
+
 .ui-widget-shadow {
 	box-shadow: rgb(0 0 0 / 10%) 0 0 1.25rem;
 }
+
 .ui-widget-overlay {
-    background: #aaa;
-    opacity: .3;
-    filter: Alpha(Opacity=30);
+	background: #aaa;
+	opacity: .3;
+	filter: Alpha(Opacity=30);
 }
+
 .ui-autocomplete-category {
-    font-weight: bold;
-    padding: .2em .4em;
-    margin: .8em 0 .2em;
-    line-height: 1.5;
+	font-weight: bold;
+	padding: .2em .4em;
+	margin: .8em 0 .2em;
+	line-height: 1.5;
 }
-.ui-selectmenu-menu .ui-menu { 
+
+.ui-selectmenu-menu .ui-menu {
 	max-height: 200px !important;
 }
+
 /* frameApp ***************************************************************************/
 /* 
 #frameApp {
+
 
 	background-color: orange;
 	transition: all 0.3s cubic-bezier(.25,.8,.25,1);
@@ -937,57 +1068,83 @@ button {
 }
 */
 
+
+#frameApp .appMenu:hover{
+	cursor: pointer;
+	
+}
+
 #frameApp .appMenu .APP {
 
-    padding-left: 0;
+	padding-left: 0;
 
-} 
-
+}
 
 .mobile #frameApp .appMenu .APP {
-		flex-wrap: wrap;
-	}
+	flex-wrap: wrap;
+}
 
-	
 
 #frameApp .appMenu .APP .app {
-    background-color:skyblue;
-	
 	width: 100%;
 	text-align: left;
-	padding-left: 10px;
 	font-size: 20px;
 	line-height: 30px;
-	border-bottom: 2PX solid pink;
 	height: auto;
 	line-height: 50px;
-	
-}
-	.mobile #frameApp .appMenu .APP .app {
-		width: 100%;
-		line-height: 1.5;
-	}
-#frameApp .appMenu .APP .app:hover {
-	background-color: hsl(58 100% 90%);
+	border-bottom: 1px solid #cccccc;
+	color: #cccccc;
+	padding-left: 15px;
+
+
 }
 
+
+#frameApp .appMenu .APP .app h3{
+	padding-left: 10px;
+}
+
+.mobile #frameApp .appMenu .APP .app {
+	width: 100%;
+	text-align: left;
+	font-size: 20px;
+	line-height: 30px;
+	height: auto;
+	line-height: 50px;
+	border-bottom: 1px solid #cccccc;
+	color: #cccccc;
+	padding-left: 15px;
+
+
+}
+
+#frameApp .appMenu .APP .app:hover {
+color: #140930;
+transition: all 0.5s;
+}
+
+
+
 #frameApp .appMenu .APP .app.selected {
-	background-color:white;
+	background-color: white;
 	color: navy;
 	font-weight: bold;
+	border-bottom: none;
+	transition: all 0.5s;
 }
 
 #frameApp .appMenu .pgm {
-
 	font-weight: normal;
+	background-color: #262626;
+	color: #cccccc;
+	height: 50px;
+	padding-left: -15px;
 	
 }
 
 
 
 #frameApp .appMenu .PGM {
-
-	
 	width: 100%;
 }
 
@@ -1005,51 +1162,83 @@ button {
     column-gap: 1em;
 }
 */
-	.mobile #frameApp .appMenu .PGM .app {
-		background-color: pink; width: 100%; height: 100%;
-	}
+.mobile #frameApp .appMenu .PGM .app {
 
+	width: 100%;
+	height: 100%;
 
-#frameApp .appMenu .PGM .app > div { 
-	width: 100%; border: 2px dashed black;
 	
+}
+
+
+#frameApp .appMenu .PGM .app div {
+	width: 100%;
+
+
 }
 
 /*하위메뉴의 각 부제목*/
 #frameApp .appMenu .PGM .app .pgmgrp {
 	text-align: left;
 	background-color: #384a90;
-	font-size: 20px;
+	font-size: 18px;
 	line-height: 30px;
+	height: 50px;
+	margin-left: -30px;
+	padding-left: 20px;
+	padding-top: 12px;
+	width:300px;
+
+}
+
+.mobile #frameApp .appMenu .PGM .app .pgmgrp {
+	text-align: left;
+	background-color: #384a90;
+	font-size: 18px;
+	line-height: 30px;
+	height: 50px;
+	margin-left: -30px;
+	padding-left: 20px;
+	padding-top: 12px;
+	width:300px;
 
 }
 
 
+#frameApp .appMenu .PGM .app .pgmgrp .box {
+	padding-left: 10px;
+}
+
 #frameApp .appMenu .PGM .app .box {
+
 	
-    padding-left: 0px;
-    background-color: green;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
+	background-color: green;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
 }
 
 
 #frameApp .appMenu .PGM .app .box .pgm {
-    background-color: whitesmoke;
-	border: 1px solid black;
+	
+	border: 1px solid #cccccc;
 	width: 100%;
 	text-align: left;
-	margin-left:15px ;
-	font-size: 20px;
+	font-size: 18px;
 	line-height: 30px;
+	padding-left: 20px;
+	display: flex;
+	margin-left: -30px;
+	width: 300px;
+	align-items: center;
+
 }
 
 
 
 #frameApp .appMenu .PGM .app div .box .pgm:hover {
 	background-color: hsl(217 48% 18%);
-	color: hsl(0 0% 100%); 
+	color: hsl(0 0% 100%);
 }
 
 /*
@@ -1059,18 +1248,17 @@ button {
 } */
 /* frameApp ***************************************************************************/
 
- #frameSearch {
+#frameSearch {
 	background-color: hsl(0 0% 100%);
-	box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
-	transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+	box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+	transition: all 0.3s cubic-bezier(.25, .8, .25, 1);
 	position: fixed;
 	top: 5em;
 	height: 50px;
 
 }
 
-#frameSearch .frameSearchSet {
-}
+#frameSearch .frameSearchSet {}
 
 #frameSearch .searchBar {
 	border: none;
@@ -1080,7 +1268,7 @@ button {
 	height: 48px;
 	font-size: 16px;
 
-} 
+}
 
 /* #frameSearch button {
 	background-color: blue;
