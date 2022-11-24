@@ -9,12 +9,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="format-detection" content="telephone=no" />
 
-
     <title>LF Networks ITSM</title>
     <script src="https://kit.fontawesome.com/b8597271c4.js" crossorigin="anonymous"></script>
-
-    <link href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@400;500;600;700;800;900&display=swap"
-        rel="stylesheet">
 
     <style>
         * {
@@ -26,8 +22,7 @@
         body {
             overflow: hidden;
             /* Don't move scrollbars 스크롤바 못움직이게 하는거 */
-            background-color: #cccccc;
-            font-family: 'Gothic A1', sans-serif;
+            
         }
 
         /*상단 메뉴 */
@@ -60,7 +55,7 @@
                 overflow: hidden;
                 background-color: #1e7ae1;
                 height: 80px;
-                width: 100%;
+                /* width: 100%; */
 
             }
 
@@ -103,24 +98,24 @@
                 color: #0e2d87;
             }
 
-            .alarm {
+            .apps {
                 border: none;
                 background-color: transparent;
                 transition: all 0.5s;
             }
 
-            .alarm:hover {
+            .apps:hover {
                 cursor: pointer;
                 color: #0e2d87;
             }
 
-            .user {
+            .userSC {
                 border: none;
                 background-color: transparent;
                 transition: all 0.5s;
             }
 
-            .user:hover {
+            .userSC:hover {
                 cursor: pointer;
                 color: #0e2d87;
             }
@@ -128,8 +123,8 @@
             .textSearch {
                 float: left;
                 margin-top: 22px;
-                height: 3em;
-                width: 20em;
+                height: 30px;
+                width: 200px;
                 border: 2px solid #cccccc;
                 border-radius: 8px;
                 padding: 5px;
@@ -145,7 +140,7 @@
                 top: 0;
                 left: 0;
                 background-color: #0e2d87;
-                background-image: linear-gradient(180deg, navy, #1e7ae1);
+                background-image: linear-gradient(180deg, #0e2d87, #1e7ae1);
                 overflow-x: hidden;
                 transition: 0.5s;
                 padding-top: 60px;
@@ -157,9 +152,9 @@
 
             }
 
-            #mySidenav::-webkit-scrollbar {
+            div::-webkit-scrollbar {
                 display: none;
-
+                /* for Chrome, Safari, and Opera */
             }
 
 
@@ -173,10 +168,7 @@
                 justify-content: center;
 
 
-
             }
-
-
 
             #mySidenav a {
                 padding: 8px 8px 8px 32px;
@@ -186,8 +178,6 @@
                 display: block;
                 transition: 0.3s;
                 border-bottom: 1px solid white;
-                text-align: left;
-
             }
 
             #mySidenav a:hover {
@@ -196,14 +186,12 @@
 
             #mySidenav .closebtn {
                 position: absolute;
-              
                 top: 0;
                 right: 25px;
                 font-size: 36px;
                 margin-left: 50px;
                 border: none;
                 color: #ffffff;
-
 
             }
 
@@ -255,10 +243,10 @@
             /*탭라인*/
 
             #tabline {
-                height: 80px;
-                background-color: #fcfefe;
+                height: 90px;
+                background-color: #8ddedb;
 
-
+                border: 2px dashed #0e2d87;
             }
 
             #frameMain {
@@ -288,7 +276,7 @@
             #undercopy {
 
                 color: #aaaaaa;
-                height: 15px;
+                height: 25px;
                 transition: margin-left .5s;
                 display: flex;
                 align-items: center;
@@ -347,6 +335,7 @@
                 background-color: #1e7ae1;
                 height: 80px;
                 width: 100%;
+
             }
 
             .menu button {
@@ -398,18 +387,18 @@
             }
 
 
-            .alarm {
+            .apps {
                 border: none;
                 background-color: transparent;
                 transition: all 0.5s;
             }
 
-            .alarm:hover {
+            .apps:hover {
                 cursor: pointer;
                 color: #0e2d87;
             }
 
-            .user {
+            .userSC {
                 border: none;
                 background-color: transparent;
                 transition: all 0.5s;
@@ -452,10 +441,10 @@
 
             }
 
-            /* div::-webkit-scrollbar {
+            div::-webkit-scrollbar {
                 display: none;
-              
-            } */
+                /* for Chrome, Safari, and Opera */
+            }
 
             #mySidenav a {
                 padding: 8px 8px 8px 32px;
@@ -465,7 +454,6 @@
                 display: block;
                 transition: 0.3s;
                 border-bottom: 1px solid white;
-                text-align: left;
             }
 
             #mySidenav a:hover {
@@ -576,21 +564,20 @@
             /*푸터*/
 
 
-            footer {
-                background-color: #aaaaaa;
-                color: white;
-                width: 100%;
-                height: 30px;
+            #undercopy {
+
+                color: #aaaaaa;
+                height: 25px;
+                transition: margin-left .5s;
                 display: flex;
                 align-items: center;
-                justify-content: flex-start;
-                transition: margin-left .5s;
 
             }
 
-            footer p {
-                margin-left: 10px;
+            #undercopy p {
+                margin-top: 18px;s
             }
+
         }
     </style>
 
@@ -617,11 +604,9 @@
 
                     <button class="searchSC"><i class="fas fa-search"></i></button>
 
-                    <!-- <button class="apps"><i class="fas fa-th"></i></button> -->
-                    <button class="alarm"> <i class="far fa-bell"></i></button>
+                    <button class="apps"><i class="fas fa-th"></i></button>
 
-
-                    <button class="user"><i class="fas fa-user-circle"></i></button>
+                    <button class="userSC"><i class="fas fa-user-circle"></i></button>
 
                 </div>
 
@@ -629,19 +614,16 @@
         </div>
 
         <!------kes 앱 지움 ------->
-        <div class="userInfo hidden">
+        <!-- <div class="userInfo hidden">
             <ul class="userInfo-item">
                 <li class="profile">프로필 관리</li>
                 <li class="changePwd">비밀번호변경</li>
                 <li class="withdrawlUser">회원탈퇴</li>
                 <li class="logout">로그아웃</li>
             </ul>
-        </div>
+        </div> -->
 
     </header>
-
-
-
 
     <div id="frameset">
 
@@ -657,23 +639,10 @@
 
             </div>
 
-            <!------앱버튼------->
-            <nav id="frameApp">
-                <div class="appMenu">
-                    <ul class="APP"></ul>
-                    <!---foPortal이랑 매장 맨위탭--->
-                    <!--하위메뉴 사용자랑 포털들-->
-                    <div class="PGM" style="display: none;"></div>
-                </div>
-
-            </nav>
-
             <a href="#">About</a>
             <a href="#">Services</a>
 
             <button class="dropdown-btn">Clients▼</button>
-
-
 
             <div class="dropdown-container">
                 <a href="#">Link 1</a>
@@ -687,17 +656,13 @@
 
             <a href="#" style="margin-bottom:60px">Contact</a>
 
-
-
-
-
         </div>
 
         <!----탭밑에 컨텐츠 화면들----->
 
         <main id="frameMain">
             <div id="tabline">
-                <div id="frameTab" style="padding-top:61px"></div>
+                <div id="frameTab"></div>
             </div>
         </main>
     </div>
@@ -708,9 +673,6 @@
         <p>copyright &copy; 2022 LF networks. All Right Reserved</p>
 
     </div>
-
-
-
 
     <!-- status -->
     <div id="status">
@@ -767,6 +729,17 @@
     </div>
 
 
+    <!------앱버튼 지움------->
+
+    <!-- <nav id="frameApp" class="aweApp hidden">
+        <div class="appMenu">
+            <ul class="APP"></ul>
+            <div class="PGM"></div>
+        </div>
+        <div class="pgmMenu">
+        </div>
+    </nav> -->
+
 
 </body>
 
@@ -806,16 +779,15 @@
 
         document.getElementById("mySidenav").style.width = "0";
         document.getElementById("frameMain").style.marginLeft = "0";
-        document.querySelector("nav").style.marginLeft = "0";
         document.getElementById("undercopy").style.marginLeft = "0";
-      
+        document.querySelector("nav").style.marginLeft = "0";
 
         document.getElementById("frameMain").style.opacity = "1";
         document.querySelector("nav").style.opacity = "1";
 
-      
-        document.querySelector(".Cactive").style.backgroundColor = "transparent"
-        document.querySelector(".Cactive").style.color = "#cccccc"
+        document.querySelector(".dropdown-container").style.display = "none";
+        document.querySelector(".Cactive").style.backgroundColor = "transparent";
+        document.querySelector(".Cactive").style.color = "#cccccc";
     }
 
 
@@ -905,8 +877,8 @@
                 console.error(`${pgmid} window.load : ${e}`);
             }
 
-            //mainLogo 로고 클릭시 리로드
-            $(".mainLogo").on("click", function () {
+            //CI 로고 클릭시 리로드
+            $("img.CI").on("click", function () {
                 alert("시스템 리소스 파일을 초기화합니다.")
                 location.href = "/index.html?" + date("today", "yyyymmddhh24miss");
             });
@@ -1042,7 +1014,7 @@
 
                 $(".gButtonsetpanel").hide();
 
-                // if (!$("#frameApp").hasClass("hidden")) $("#frameApp").addClass("hidden");
+                if (!$("#frameApp").hasClass("hidden")) $("#frameApp").addClass("hidden");
             }
         }
 
@@ -1143,7 +1115,9 @@
 
         me.fnShowFrameApp = function () {
             var showMenu = function (app_pgm_nm) {
-                
+                page.find("#frameApp .appMenu .APP .app").removeClass("selected");
+                page.find("#frameApp .appMenu .APP div[app='" + app_pgm_nm + "']").addClass("selected");
+
                 //$.each(subset(gds.menu, "app_pgm_nm", app_pgm_nm), function(idx, row) {
                 var pgms = subset(gds.menu, "app_pgm_nm", app_pgm_nm);
                 sort(pgms, "sort_seq");
@@ -1151,56 +1125,20 @@
                     //idx 시작 값 0 이벤트 - 기존 APP 메뉴 대분류 제거, 새로운 APP 메뉴 대분류 생성
                     if (idx == 0) {
                         page.find("#frameApp .appMenu .PGM .app").remove();
-                        var app = $("<div><h3></h3></div>");
-
+                        var app = $("<div></div>");
                         app.addClass("app");
-
                         app.attr("app", app_pgm_nm);
-
                         page.find("#frameApp .appMenu .PGM").append(app);
-                   
-                        // var dropdown = document.getElementsByClassName("APP");
-                        // var i;
-
-
-
-                        // for (i = 0; i < dropdown.length; i++) {
-                        //     dropdown[i].addEventListener("click", function () {
-
-                        //         var dropdownContent = this.nextElementSibling;
-                        //         console.log(dropdownContent)
-
-                        //         // if (dropdownContent.style.display === "block") {
-                        //         //     dropdownContent.style.display = "none";
-                        //         // } else {
-                        //         //     // $("#frameApp>.appMenu>.APP>.app.selected").append($(".PGM"))
-
-                        //         //     // $("#frameApp .appMenu .PGM").append(app);
-                        //         //     dropdownContent.style.display = "block"
-                        //         // }
-                        //     });
-                        // }
-
-                    
                     }
-    
-                    $($("#frameApp>.appMenu>.APP>.app")).click(function() {  
-                        
-                    })
-
-                    //////Apps 메뉴 구조임      
 
                     //Apps 메뉴 버튼들
                     //hasClass() boolean - 이미 생성된 중분류가 있는지 확인 후 대분류에 append()
                     if (page.find("#frameApp .appMenu .PGM .app div").hasClass(row.pgm_grp_nm) == false) {
-
-
                         var grp = $("<div></div>");
-
                         grp.addClass(row.pgm_grp_nm);
                         //grp.attr("pgmgrp", row.pgm_grp_nm);
-                        grp.append("<div class='pgmgrp'>" + row.pgm_grp_nm + "</div>") //부제목 하위메뉴
-                        grp.append("<ul class='box'></ul>") //하위메뉴의 하위메뉴
+                        grp.append("<div class='pgmgrp'>" + row.pgm_grp_nm + "</div>")
+                        grp.append("<ul class='box'></ul>")
                         //grp.text(row.pgm_grp_nm);
                         page.find("#frameApp .appMenu .PGM .app").append(grp);
                     }
@@ -1229,30 +1167,17 @@
                 if (idx == 0) page.find("#frameApp .appMenu .APP .app").remove();
 
                 //extract()로 중복 제거한 applist를 each()로 반복 - row값 idx 0인 경우만 showMenu로 전달
-
                 var app = $("<div app='" + row + "'></div>");
                 app.addClass("app")
                 app.text(row);
                 page.find("#frameApp .appMenu .APP").append(app);
-
-                // if (idx == 0) showMenu(row);
-
+                if (idx == 0) showMenu(row);
             });
 
-            //event-handler(frameGNB) : frameApp menu click event 상위메뉴 클릭하면 하위메뉴 뜨게 하는것
+            //event-handler(frameGNB) : frameApp menu click event
             page.find("#frameApp .appMenu .APP .app").on("click", function (e) {
                 //Apps 을 클릭하면 하단에 pgm리스트를 표시한다.
                 showMenu($(e.target).text());
-
-                $(this).append($(".PGM"))
-
-                $(".PGM").css("display", "block")
-        
-                $("#frameApp>.appMenu>.APP>.app").removeClass("selected");
-                $(this).addClass("selected");
-
-
-
             });
 
             page.find("#frameApp .appMenu .PGM").on("click", ".pgm", function (e) {
@@ -1261,7 +1186,7 @@
                 var pgmid = menu.attr("pgmid");
                 var pgmnm = menu.text();
                 gMDI.openPage(pgmid, pgmnm);
-                // page.find("#frameApp").addClass("hidden"); //메뉴선택시 패널 숨김 11.23 kes 주석처리
+                page.find("#frameApp").addClass("hidden"); //메뉴선택시 패널 숨김
             });
         }
 
@@ -1292,39 +1217,39 @@
 
         }
 
-        // me.fnShowFrameLeftBar = function (bShow) {
-        //     if (bShow == undefined) {
-        //         if (page.find("#frameLeft").hasClass("leftMini")) bShow = true;
-        //         else bShow = false;
-        //     }
-        //     if (bShow) {
-        //         if ($("#frameBottom nav .screen").hasClass("max")) $("#frameGNB").css("display", "block");
-        //         page.find("#frameLeft .appMenu").show();
-        //         page.find("#frameLeft .grp").show();
-        //         page.find("#frameLeft").removeClass("leftMini");
-        //         $("#frameMain .btnShow").removeClass("closed");
-        //     } else {
-        //         if ($("#frameBottom nav .screen").hasClass("max")) $("#frameGNB").css("display", "none");
-        //         page.find("#frameLeft .appMenu").hide();
-        //         page.find("#frameLeft .grp").hide();
-        //         page.find("#frameLeft").addClass("leftMini");
-        //         $("#frameMain .btnShow").addClass("closed");
-        //     }
-        // }
+        me.fnShowFrameLeftBar = function (bShow) {
+            if (bShow == undefined) {
+                if (page.find("#frameLeft").hasClass("leftMini")) bShow = true;
+                else bShow = false;
+            }
+            if (bShow) {
+                if ($("#frameBottom nav .screen").hasClass("max")) $("#frameGNB").css("display", "block");
+                page.find("#frameLeft .appMenu").show();
+                page.find("#frameLeft .grp").show();
+                page.find("#frameLeft").removeClass("leftMini");
+                $("#frameMain .btnShow").removeClass("closed");
+            } else {
+                if ($("#frameBottom nav .screen").hasClass("max")) $("#frameGNB").css("display", "none");
+                page.find("#frameLeft .appMenu").hide();
+                page.find("#frameLeft .grp").hide();
+                page.find("#frameLeft").addClass("leftMini");
+                $("#frameMain .btnShow").addClass("closed");
+            }
+        }
 
-        // me.fnShowFrameRightBar = function (bShow) {
-        //     if (bShow == undefined) {
-        //         if (page.find("#frameRight").hasClass("rightMini")) bShow = true;
-        //         else bShow = false;
-        //     }
-        //     if (bShow) {
-        //         page.find("#frameRight .info").show();
-        //         page.find("#frameRight").removeClass("rightMini");
-        //     } else {
-        //         page.find("#frameRight .info").hide();
-        //         page.find("#frameRight").addClass("rightMini");
-        //     }
-        // }
+        me.fnShowFrameRightBar = function (bShow) {
+            if (bShow == undefined) {
+                if (page.find("#frameRight").hasClass("rightMini")) bShow = true;
+                else bShow = false;
+            }
+            if (bShow) {
+                page.find("#frameRight .info").show();
+                page.find("#frameRight").removeClass("rightMini");
+            } else {
+                page.find("#frameRight .info").hide();
+                page.find("#frameRight").addClass("rightMini");
+            }
+        }
 
         me.fnEHFrameStatus = function () {
             /* 커서가 있으면 frameStatus메시지 위치를 변경한다. */
@@ -1365,7 +1290,6 @@
                     gfnHome();
                 }
             })
-
             $("#frameGNB .gnb nav .notice").on({
                 click: function () {
                     $("#frameGNB .gnb nav .notice").attr("style", "background-color:unset");
@@ -1390,15 +1314,15 @@
 
         me.fnEHFrameApp = function () {
 
-            $("#frameGNB .gnb nav ").on({
+            $("#frameGNB .gnb nav .apps").on({
                 click: function () {
-                    // $("#frameApp").toggleClass("hidden");
+                    $("#frameApp").toggleClass("hidden");
                 }
             })
             $(window).on({  //메뉴표시 바깥 클릭시 메뉴 숨기기 
                 click: function (e) {
-                    if (!$("#frameGNB .gnb nav ").has(e.target).length && !$("#frameApp").has(e.target).length) {
-                        // $("#frameApp").addClass("hidden");
+                    if (!$("#frameGNB .gnb nav .apps").has(e.target).length && !$("#frameApp").has(e.target).length) {
+                        $("#frameApp").addClass("hidden");
                     }
                 }
             });
