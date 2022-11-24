@@ -620,16 +620,15 @@
             </nav>
         </div>
 
-        <!------kes 앱 지움 ------->
+
         <div class="userInfo hidden">
             <ul class="userInfo-item">
                 <li class="profile">프로필 관리</li>
                 <li class="changePwd">비밀번호변경</li>
-                <li class="withdrawlUser">회원탈퇴</li>
+                <!-- <li class="withdrawlUser">회원탈퇴</li> -->
                 <li class="logout">로그아웃</li>
             </ul>
         </div>
-
     </header>
 
 
@@ -1221,7 +1220,7 @@ if (page.find("#frameApp .appMenu .PGM .app div").hasClass(row.pgm_grp_nm) == fa
                 var pgmid = menu.attr("pgmid");
                 var pgmnm = menu.text();
                 gMDI.openPage(pgmid, pgmnm);
-                page.find("#frameApp").addClass("hidden"); //메뉴선택시 패널 숨김
+                // page.find("#frameApp").addClass("hidden"); //메뉴선택시 패널 숨김
             });
         }
 
@@ -1347,21 +1346,21 @@ if (page.find("#frameApp .appMenu .PGM .app div").hasClass(row.pgm_grp_nm) == fa
             })
         }
 
-        // me.fnEHFrameApp = function () {
+me.fnEHFrameApp = function () {
 
-        //     $("#frameGNB .gnb nav .apps").on({
-        //         click: function () {
-        //             $("#frameApp").toggleClass("hidden");
-        //         }
-        //     })
-        //     $(window).on({  //메뉴표시 바깥 클릭시 메뉴 숨기기 
-        //         click: function (e) {
-        //             if (!$("#frameGNB .gnb nav .apps").has(e.target).length && !$("#frameApp").has(e.target).length) {
-        //                 $("#frameApp").addClass("hidden");
-        //             }
-        //         }
-        //     });
-        // }
+            $("#frameGNB .gnb nav ").on({
+                click: function () {
+                    $("#frameApp").toggleClass("hidden");
+                }
+            })
+            $(window).on({  //메뉴표시 바깥 클릭시 메뉴 숨기기 
+                click: function (e) {
+                    if (!$("#frameGNB .gnb nav ").has(e.target).length && !$("#frameApp").has(e.target).length) {
+                        $("#frameApp").addClass("hidden");
+                    }
+                }
+            });
+        }
 
         me.fnEHFrameSearch = function () {
             $("#frameGNB .gnb .frameBtnSet .search").on({
