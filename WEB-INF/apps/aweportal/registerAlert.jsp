@@ -78,69 +78,20 @@ JSONObject INVAR  = getObject(invar);
     //알림저장:저장 이벤트처리(DB_Write)
     if("saveLog".equals(func)) {
         Connection conn = null; 
-        try {   
-            /* {usid}
-             , {comments}
-             , {ref_info}
-             , {pgmid} */ 
-            INVAR.put("reg_usid",USERID); 
-            
+        try {               
             conn = getConn("LFN");
             conn.setAutoCommit(false);
             String qry = getQuery(pgmid, "saveLog");
-            String qryRun = bindVAR(qry, INVAR);  //매장정보 저장 
-                
-            JSONObject rst = executeSVC(conn, qryRun);          
-            /******************************************/
+            String qryRun = bindVAR(qry, INVAR); 
+            JSONObject rst = executeSVC(conn,qryRun);
+            OUTVAR.put("qryRun",qryRun);
             if(!"OK".equals(getVal(rst,"rtnCd"))) {
                 conn.rollback();
                 rtnCode = getVal(rst,"rtnCd"); 
                 rtnMsg  = getVal(rst,"rtnMsg"); 
             } else { 
                 conn.commit();
-            }   
-            
-        } catch (Exception e) {
-            rtnCode = "ERR";
-            rtnMsg = e.toString();
-        } finally {
-            closeConn(conn);
-        }
-    }
-    
-    //알림저장:저장 이벤트처리(DB_Write)
-    if("saveLog2".equals(func)) {
-        Connection conn = null; 
-        try {   
-            /* [{usid}]
-             , {comments}
-             , {ref_info}
-             , {pgmid} */ 
-        
-            //INVAR.put("reg_usid",USERID); 
-            
-            conn = getConn("LFN");
-            conn.setAutoCommit(false);
-            String qry = getQuery(pgmid, "saveLog");
-            String qryRun = ""; 
-            JSONArray arrList = getArray(INVAR,"list");
-            JSONObject rst = new JSONObject();
-            rst.put("rtnCd","OK");
-            for(int i = 0; i < arrList.size(); i++) {
-                JSONObject row = getRow(arrList,i);
-                row.put("reg_usid", USERID);  
-                qryRun += bindVAR(qry,row) + "\n";
-            }  
-            if(!"".equals(qryRun)) rst = executeSVC(conn, qryRun);  
-            /******************************************/
-            if(!"OK".equals(getVal(rst,"rtnCd"))) {
-                conn.rollback();
-                rtnCode = getVal(rst,"rtnCd"); 
-                rtnMsg  = getVal(rst,"rtnMsg"); 
-            } else { 
-                conn.commit();
-            }   
-            
+            }        
         } catch (Exception e) {
             rtnCode = "ERR";
             rtnMsg = e.toString();
