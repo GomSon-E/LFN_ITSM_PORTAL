@@ -117,6 +117,8 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Tangerine">        
 <SCRIPT src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.3.2/chart.min.js" crossorigin="anonymous"></script>
 <div class="pageContent flexRow">
+
+
     <div style="flex:1 1 30%" class="flexColumn flex50">
         <div style="flex:1 1 50%;" class="flexColumn">
             <ul id="tabs2">
@@ -126,25 +128,28 @@
             <div id='notice' class="flexColumn"></div>
             <div id='csrList' class="flexColumn"></div>
         </div>
-        <div style="flex:1 1 50%" class="flexColumn">
+        <!-- <div style="flex:1 1 50%" class="flexColumn">
             <ul id="tabs">
                 <li refid="list7">매장간 이동요청</li> 
                 <li refid="list5">매장별 매출현황</li> 
             </ul>
             <div id='list7' class="flexColumn"></div>
             <div id='list5' class="flexColumn"></div> 
-        </div>
+        </div> -->      
     </div>
-    <div style="flex:1 1 calc(30% - 3em)" class="flexColumn flex50">
-        <div id='list2' style="flex:1 1 50%" ></div>
-        <div id='list6' style="flex:1 1 50%" class="flexColumn"></div>
-    </div> 
-    <div style="flex:1 1 calc(30% - 3em);height:100%;display:block">
+    
+    <div  style="flex:1 1 30%" class="flexColumn flex50">
+        <div id='list4' style="height:50%;position:relative"></div>
+    </div>
+
+
+    <!----- 11.24 원본 (차트와 달력)-->
+    <!-- <div style="flex:1 1 calc(30% - 3em);height:100%;display:block">
         <div id='graph' style="height:50%;position:relative">
             <canvas id="myChart" style="height:100%;width:100%;"></canvas>    
         </div>
         <div id='list4' style="height:50%;position:relative"></div>
-    </div>  
+    </div> -->
 </div>
 <script>
 /*-- SCRIPT autogen start ---------------------------------------------- */        

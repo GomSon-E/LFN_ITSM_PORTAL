@@ -1,139 +1,188 @@
-<style>#login {
-        display:table-cell;vertical-align:middle;min-width:10em;max-width:30em;
-    }
-    .loginForm {
-        background-color:hsl(0,0%,100%);border:2px solid #0b6ab2;padding:2em;max-width:40em;
-    }
-    .loginForm h1 {
-    font-size: 2em;
-        color: #ffe200;
-        margin-left: -0.1em;
-        margin-top: 0;
-        float: left;
-        text-shadow: 2px 2px 2px grey;
-    } 
-    .loginForm  p:eq(0) {
-        color:#549bd8;
-    }
-    #frmLogin {
-        color: #549bd8; 
-        line-height:1.5;
-    } 
-    #frmLogin h1 {
-        font-size:2em;color:#ffe200;text-shadow:unset;
-    } 
-    #frmLogin div {
-        padding: 0.25em;
-    }
-    #frmLogin label {
-        min-width:5em;
-        text-align:right;
-        font-weight: bold;
-        text-decoration: underline;
-        padding-right:0.5em;
-    }
-    #frmLogin input[type='text'],#frmLogin input[type='password'] {
-        padding: 1em;
-        font-size: 1.25em !important;
-        border: 1px solid #aeaeae;
-        border-radius: 0.25em;
-        width: calc(100% -  2em);
-        
-    }
-    .loginForm button { 
-        padding: 1em;
-        font-size: 1.25em !important;
-        border-radius: 0.25em;
-        font-weight: bold;
-        color: #ffffff;
-        background-color: #3a3f42;
-        width: 100%;
-    }
-    .helpdesk {
-        color: hsl(342 95% 50%);
-        float: left;
-        font-weight:bold;
-        font-size: 1.5em;
-        cursor: pointer;
-        font-family: sans-serif; 
-    } 
-    
-    .pwdClear {
-    float: right; 
-        color: #fff;
-        text-decoration: none;
-        background: #e83e4b;
-        padding: 5px 10px;
-        margin-bottom: 1em;
-    }
-    
-    #helpdeskform label {
-        width: 30%;
-        text-decoration: underline;
-        min-width: 100px;
-        text-align: right;
-        display: block;
-        margin: 1em 2px 2px 2px;
-        text-align: left;
-        color: #549bd8;
-    }
-    #helpdeskform input {
-        width: calc(100% - 2em);
-        min-width: 200px;
-        border: 1px solid #aeaeae;
-        padding: 0.5em;
-    }
-    #helpdeskform textarea {
-        width: calc(100% - 2em);
-        min-width: 200px;
-        min-height: 6em;
-        padding: 0.5em;
-    }
-    #helpdeskform button { 
-        padding: 0.5em 1em;
-        font-size: 1.25em !important;
-        border-radius: 0.25em;
-        font-weight: bold;
-        color: #ffffff;
-        background-color: #3a3f42;
-        width: 100%;
-    }
-    #pwdclearform label {
-        width: 30%;
-        text-decoration: underline;
-        min-width: 100px;
-        text-align: right;
-        display: block;
-        margin: 1em 2px 2px 2px;
-        text-align: left;
-        color: #549bd8;
-    }
-    #pwdclearform input {
-        width: calc(100% - 2em);
-        min-width: 200px;
-        border: 1px solid #aeaeae;
-        padding: 0.5em;
-    } 
-    #pwdclearform button { 
-        padding: 0.5em 1em;
-        font-size: 1.25em !important;
-        border-radius: 0.25em;
-        font-weight: bold;
-        color: #ffffff;
-        background-color: #3a3f42;
-        width: 100%;
-    }
-    .hidden {
-        display: none;
-    }</style>
+<style>.loginForm { 
+    max-width: 400px;
+    max-height: 400px;
+    margin-left:120px;
+    margin-top: 20px;
+}
+@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css");
 
-<!-- HTML autogen start ---------------------------------------------- -->            
+* {
+  box-sizing: border-box;
+}
+body {
+  font-family: "Montserrat", sans-serif;
+  margin: 0;
+  padding: 0;
+}
+.wrapper {
+  /* width: 100%; */
+  height: 80vh;
+  width: 163vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background:  #1e79e128;
+  overflow: hidden;
+  margin-top: 100px;
+}
+.container {
+  border-radius: 10px;
+  box-shadow: -5px -5px 10px #fff, 5px 5px 10px #babebc;
+  position: absolute;
+  width: 768px;
+  min-height: 480px;
+  overflow: hidden;
+}
+form {
+  background: #ebecf0;
+  display: flex;
+  flex-direction: column;
+  padding: 0 50px;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+}
+form input {
+  background: #eee;
+  padding: 16px;
+  margin: 8px 0;
+  width: 85%;
+  border: 0;
+  outline: none;
+  border-radius: 20px;
+  box-shadow: inset 7px 2px 10px #babebc, inset -5px -5px 12px #fff;
+}
+button {
+  border-radius: 20px;
+  border: none;
+  outline: none;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 15px 45px;
+  margin: 14px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: transform 80ms ease-in;
+}
+.form_btn {
+  box-shadow: -5px -5px 10px #fff, 5px 5px 8px #babebc;
+}
+.form_btn:active {
+  box-shadow: inset 1px 1px 2px #babebc, inset -1px -1px 2px #fff;
+}
+.overlay_btn {
+  background-color: #1e7ae1;
+  color: #fff;
+  box-shadow: -5px -5px 10px  #000000, 5px 5px 8px  #656769;
+}
+.sign-in-container {
+  position: absolute;
+  left: 0;
+  width: 50%;
+  height: 100%;
+  transition: all 0.5s;
+}
+.sign-up-container {
+  position: absolute;
+  left: 0;
+  width: 50%;
+  height: 100%;
+  opacity: 0;
+  transition: all 0.5s;
+}
+.overlay-left {
+  display: flex;
+  flex-direction: column;
+  padding: 0 50px;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  right: 0;
+  width: 50%;
+  height: 100%;
+  opacity: 0;
+  background-color: #ff4b2b;
+  color: #fff;
+  transition: all 0.5s;
+}
+.overlay-right {
+  display: flex;
+  flex-direction: column;
+  padding: 0 50px;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  right: 0;
+  width: 50%;
+  height: 100%;
+  background-color: #1e7ae1;
+  color: #fff;
+  transition: all 0.5s;
+}
+.container.right-panel-active .sign-in-container {
+  transform: translateX(100%);
+  opacity: 0;
+}
+.container.right-panel-active .sign-up-container {
+  transform: translateX(100%);
+  opacity: 1;
+  z-index: 2;
+}
+.container.right-panel-active .overlay-right {
+  transform: translateX(-100%);
+  opacity: 0;
+}
+.container.right-panel-active .overlay-left {
+  transform: translateX(-100%);
+  opacity: 1;
+  z-index: 2;
+}
+.social-links {
+  margin: 20px 0;
+}
+form h1 {
+  font-weight: bold;
+  margin: 0;
+  color: #000;
+}
+
+p {
+  font-size: 16px;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+  margin: 20px 0 30px;
+}
+span {
+  font-size: 12px;
+  color: #000;
+  letter-spacing: 0.5px;
+  margin-bottom: 10px;
+}
+.social-links div {
+  width: 40px;
+  height: 40px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 5px;
+  border-radius: 50%;
+  box-shadow: -5px -5px 10px #fff, 5px 5px 8px #babebc;
+  cursor: pointer;
+}
+.social-links a {
+  color: #000;
+}
+.social-links div:active {
+  box-shadow: inset 1px 1px 2px #babebc, inset -1px -1px 2px #fff;
+}
+</style>
+
+<!-- HTML autogen start ---------------------------------------------- -->   
+<div class="wrapper">
 <div id="login">
         <div class="loginForm">
             <img src="./images/CI.jpg">
-            <p style="float: right;"> Smart workplace <i class="fa fa-chart-line"></i></p>
-            <h1>Enterprise Portal</h1>
-            <hr style="clear: both;">
             <div id="frmLogin">
                 <p class="message">환영합니다. 로그인 해 주세요</p>
                 <div><input type="text" id="userid" placeholder="로그인 계정(사번)"></div>
@@ -143,33 +192,39 @@
             <button><i class="fas fa-key" aria-hidden="true"></i> L o g i n </button>
         </div>
         <div style="max-width:40em;font-size: 1em;margin-top:1em">
-            <!-- span id="helpdesk" class="helpdesk"> HelpDesk </span> 
-            <a id="pwdclear" href="#" class="pwdClear">비밀번호 초기화</a -->
     </div>
-    
-    <div id='helpdeskform' class="hidden">
-        <label>이름</label><input type='text' name='nm'/> 
-        <label>이메일</label><input type='email' name='email'/>
-        <label>제목</label><input type='text' name='title'/>
-        <label>내용</label><textarea name='content'></textarea>
-        <button>문의등록</button>
-        <hr>
-        <p> 
-            <li>담당: 이기현 부장 (kihyunlee@lfnetworks.co.kr)</li>
-        </p>
-        <hr>
-        <h5>이메일주소 무단수집 거부</h5>
-        <p>본 홈페이지에 게시된 이메일 주소가 전자우편 수집 프로그램이나 그 밖의 기술적 장치를 이용하여 무단으로 수집되는 것을 거부하며, 
-        이를 위반 시 정보통신망법에 의해 형사 처벌됨을 유념하시기 바랍니다.</p>
-        <span>게시일: 2021년 10월 26일</span>
-    </div>     
-    
-    <div id='pwdclearform' class="hidden">
+</div>
+    <!-- <div id='pwdclearform'>
         <p>이메일을 입력하면 암호초기화Key가 발송됩니다.</p>
         <label>이메일</label>
         <input type='email' name='email'/>
         <button>암호변경 메일발송</button>
-    </div>
+    </div> -->
+
+<!-- ------------------------------------------------- -->
+<!-- <div id="login">
+    <div class="container">
+    <div class="loginForm">
+      <div class="sign-in-container">
+        <form>
+          <div id="frmLogin">
+            <div><input type="text" id="userid" placeholder="로그인 계정(사번)"></div>
+            <div><input type="password" id="loginpwd" placeholder="비밀번호"></div>
+            <h9>아이디 저장</h9>
+            <div><input type="checkbox" id="idSaveCheck"></div>
+        </div> 
+        </form>
+      </div>
+      <div class="overlay-container">
+        <div class="overlay-right">
+            <h1>LOGIN</h1>
+            <p class="message">환영합니다. 로그인 해 주세요</p>
+            <button id="signUp" class="overlay_btn">로그인</button>
+          </div>
+      
+    </div> -->
+<!-- ------------------------------------------------- -->
+
     <script	src="https://cdnjs.cloudflare.com/ajax/libs/js-sha256/0.9.0/sha256.min.js"></script>
     <script type="text/javascript" src="/lib/jquery/core.min.js"></script>
     <script type="text/javascript" src="/lib/jquery/sha256.min.js"></script>  
@@ -219,6 +274,7 @@ me.dataDef["_pgm_data"] = {};
         var userCdCompany = getCookie("cd_company");
         $("#userid").val(userInputId);
         $("#cd_company").val(userCdCompany);
+        
         if(userInputId != "") { // 그 전에 ID를 저장해서 처음 페이지 로딩 시, 입력 칸에 저장된 ID가 표시된 상태라면,
             $("#idSaveCheck").attr("checked", true); // ID 저장하기를 체크 상태로 두기.
         }	    
@@ -242,7 +298,6 @@ me.dataDef["_pgm_data"] = {};
             //버튼클릭
             if(oE.isON(".loginForm button")) me.fnLogin(); 
             else if(oE.is("#loginpwd") && e.keyCode==13 && $("#loginpwd").val() != "") me.fnLogin();
-            else if(oE.is("#helpdesk")) me.fnHelpdesk();
             else if(oE.is("#pwdclear")) me.fnPwdclear();
         });  
     }
@@ -258,6 +313,7 @@ me.dataDef["_pgm_data"] = {};
             //if(evt=="dblclick" && col=="colid") {...}
         }
     }
+    //암호화
     me.fnLogin= function() { 
         //로그인 시 콘솔창이나 세션에 패스워드 보이지 않도록 암호화 
         var args = {userid:$("#userid").val(), loginpwd:CryptoJS.SHA256($("#loginpwd").val()).toString()};
@@ -270,8 +326,6 @@ me.dataDef["_pgm_data"] = {};
                 if(gUserinfo.temp_pwd=="Y") {
                     gfnAlert("알림","비밀번호를 변경해주세요"); 
                 }
-                var msg = OUTVAR.userinfo.usernm + "님 환영합니다~"; 
-                $(".message").text(msg).addClass("ui-state-highlight");
                 var oFrameset = $("<div></div>"); 
                 gfnLoad("aweportal","frameset",oFrameset,function(OUTVAR){ 
                     $("body").html( oFrameset.html() );
@@ -281,38 +335,12 @@ me.dataDef["_pgm_data"] = {};
                 $(".message").text(msg).addClass("ui-state-error");
             }
         },true);	
-    },
-    me.fnHelpdesk= function() {         
-        var oPop = null;
-        var popBody = $("#helpdeskform").clone();
-        popBody.removeClass("hidden");
-        $(popBody).on("click","button",function(e){
-            var data = {};
-            data.nm = popBody.find("[name='nm']").val();
-            data.email = popBody.find("[name='email']").val();
-            data.title = popBody.find("[name='title']").val();
-            data.content = popBody.find("[name='content']").val();
-            if(isNull(data.nm)||isNull(data.email)||isNull(data.title)||isNull(data.content)) {
-                gfnAlert("문의등록 확인","이름, 이메일, 제목, 내용 모두 입력하여야 합니다.");
-                return;
-            }
-            var args = JSON.stringify(data);
-            gfnTx("aweportal.login","sendReq",{INVAR:args},function(OUTVAR){
-                if(OUTVAR.rtnCd=="OK") {
-                    gfnAlert("문의등록 완료","문의내용이 등록되었습니다. 내용 확인하여 회신드리겠습니다!");
-                    gParam["rtn"]="OK";
-                    if(oPop!=null) oPop.dialog("close");
-                } else {
-                    gfnAlert("문의등록 오류","문의등록시 오류가 발생하였습니다.:"+OUTVAR.rtnMsg);
-                } 
-            }); 
-        }); 
-        oPop = gfnPopup("HelpDesk", popBody, {width:300,height:400}); 
-    },
+    }
+    ,
     me.fnPwdclear= function() {
         var oPop = null;
         var popBody = $("#pwdclearform").clone();
-        popBody.removeClass("hidden");            
+        // popBody.removeClass("hidden");            
         $(popBody).on("click","button",function(e){
             var data = {}; 
             data.email = popBody.find("[name='email']").val(); 
