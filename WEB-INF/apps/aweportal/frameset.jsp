@@ -115,55 +115,6 @@ if("retrieveInit".equals(func)) {
     	closeConn(conn); 
     }        
 }
-/*if("retrieveInit".equals(func)) {
-    Connection conn = null;  
-    try {
-    
-					gds.comcd         = OUTVAR.comcd;   //공통코드
-					gUserinfo.defval  = OUTVAR.defval;  //사용자기본값
-					gUserinfo.usergrp = OUTVAR.usergrp; //사용자그룹
-					gds.menu          = OUTVAR.menu;    //권한화면목록 
-					gds.notice        = OUTVAR.notice;  //사용자알림
-             
-        conn = getConn("LFN");  // DB 커넥션 파라미터 세팅  
-
-        String qry = getQuery(pgmid,"retrieveComcd"); //T_PGM_SRC.content 
-        //OUTVAR.put("qry",qry);
-        JSONArray comcd = selectSVC(conn,qry);   
-        OUTVAR.put("comcd",comcd);
-
-        INVAR.put("usid",USERID);
-        qry = getQuery(pgmid,"retrieveDefval");   
-        qry = bindVAR(qry,INVAR);
-        //OUTVAR.put("qry",qry);        
-        JSONArray defval = selectSVC(conn,qry);   
-        OUTVAR.put("defval",defval);
-
-        qry = getQuery(pgmid,"retrieveUsergrp");   
-        qry = bindVAR(qry,INVAR);
-        //OUTVAR.put("qry",qry);        
-        JSONArray usergrp = selectSVC(conn,qry);   
-        OUTVAR.put("usergrp",usergrp);
-
-        qry = getQuery(pgmid,"retrieveMenu");   
-        qry = bindVAR(qry,INVAR);
-        //OUTVAR.put("qry",qry);        
-        JSONArray menu = selectSVC(conn,qry);   
-        OUTVAR.put("menu",menu);
-
-        qry = getQuery(pgmid,"retrieveNotice");   
-        qry = bindVAR(qry,INVAR);
-        //OUTVAR.put("qry",qry);        
-        JSONArray notice = selectSVC(conn,qry);   
-        OUTVAR.put("notice",notice);
-
-    } catch(Exception e) {
-    	rtnCode = "ERR";
-    	rtnMsg  = e.toString();
-    } finally {
-    	closeConn(conn); 
-    }        
-}*/
 else if("retrieveChat".equals(func)) {
     Connection conn = null;
      try {  
@@ -508,6 +459,26 @@ else if("retrieveChat".equals(func)) {
     String uuid = getUUID(digit);  
     OUTVAR.put("uuid",uuid);     
 } 
+
+else if ("checkMsg".equals(func)) {
+    Connection conn = null;
+        
+        try  {
+            conn = getConn("LFN");
+            
+            String qry = "SELECT COUNT(*) AS NUM FROM T_CHAT WHERE GRPID = {usid} AND READ_YN = 'N'";
+            qry = bindVAR(qry, INVAR);
+            JSONArray num = selectSVC(conn, qry);
+            OUTVAR.put("num", num);
+            OUTVAR.put("qry", qry);
+            
+        } catch(Exception e) {
+            rtnCode = "ERR";
+            rtnMsg  = e.toString();
+        } finally {
+            closeConn(conn);
+        }
+}
 
 /***************************************************************************************************/
 } catch (Exception e) {
