@@ -1,9 +1,10 @@
-<style>.loginForm { 
+<style>
+/* .loginForm { 
     max-width: 400px;
     max-height: 400px;
     margin-left:120px;
     margin-top: 20px;
-}
+} */
 @import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css");
 
 * {
@@ -224,7 +225,11 @@ span {
       
     </div> -->
 <!-- ------------------------------------------------- -->
-
+<!-- 암복호화 -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
+<!-- 복호화 -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
+<!-- 기존 암호화 -->
     <script	src="https://cdnjs.cloudflare.com/ajax/libs/js-sha256/0.9.0/sha256.min.js"></script>
     <script type="text/javascript" src="/lib/jquery/core.min.js"></script>
     <script type="text/javascript" src="/lib/jquery/sha256.min.js"></script>  
@@ -335,31 +340,6 @@ me.dataDef["_pgm_data"] = {};
                 $(".message").text(msg).addClass("ui-state-error");
             }
         },true);	
-    }
-    ,
-    me.fnPwdclear= function() {
-        var oPop = null;
-        var popBody = $("#pwdclearform").clone();
-        // popBody.removeClass("hidden");            
-        $(popBody).on("click","button",function(e){
-            var data = {}; 
-            data.email = popBody.find("[name='email']").val(); 
-            if(isNull(data.email)) {
-                gfnAlert("비밀번호 초기화 확인","이메일 주소를 정확히 입력하세요!");
-                return;
-            }
-            var args = JSON.stringify(data);
-            gfnTx("aweportal.login","pwdclearReq",{INVAR:args},function(OUTVAR){
-                if(OUTVAR.rtnCd=="OK") {
-                    gfnAlert("비밀번호 초기화 등록","입력한 메일로 암호변경 키와 주소가 회신되었습니다.");
-                    gParam["rtn"]="OK";
-                    if(oPop!=null) oPop.dialog("close");
-                } else {
-                    gfnAlert("비밀번호 초기화 등록 오류","비밀번호 초기화 등록시 오류가 발생하였습니다.:"+OUTVAR.rtnMsg);
-                } 
-            }); 
-        });    
-        oPop = gfnPopup("비밀번호 초기화", popBody, {width:300,height:200}); 
     }
     
     
