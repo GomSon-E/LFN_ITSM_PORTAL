@@ -28,7 +28,6 @@ button {
 
 .copy {
 	border-radius: 0.25em;
-	background-color: white;
 	color: #8a8a8a;
 	padding: 0.25em;
 	display: flex;
@@ -152,9 +151,10 @@ button {
 }
 
 #frameGNB .userInfo-item {
+	float: left;
 	text-align: center;
 	width: 100%;
-	padding-left: 200px;
+	padding-left: 15px;
 }
 
 #frameGNB .userInfo-item li {
