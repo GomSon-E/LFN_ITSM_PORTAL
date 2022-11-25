@@ -131,9 +131,9 @@ me.fnInitExtra=function() {
 				me.fnJsonEditor(); //close시에 팝업content삭제안함
             }
         } 
-        me.pageObj["jsonEditor"] = gfnPopup("컴포넌트옵션",
-            me.page.find("#jsonEditor"), 
-            me.jsonEditor.opts);
+        // me.pageObj["jsonEditor"] = gfnPopup("컴포넌트옵션",
+        //     me.page.find("#jsonEditor"), 
+        //     me.jsonEditor.opts);
         //컬럼정렬순서 잡아줌
         sort(me.dataDef["_pgm_data_content"],"sort_seq");
             
@@ -458,12 +458,12 @@ me.fnInitExtra=function() {
         var invar = JSON.stringify(args);
         //console.log(args);  
         gfnTx(appid+"."+pgmid,"saveSpec",{INVAR:invar},function(OUTVAR){
-            //console.log(OUTVAR);
             if(OUTVAR.rtnCd=="OK") {
                 gfnAlert("저장성공","프로그램 스펙정보를 저장하였습니다.");
                 //me.fnSearch();
             } else {
                 gfnAlert("저장오류",OUTVAR.rtnMsg);
+                console.log(OUTVAR.rtnMsg);
             }
         });
     },
