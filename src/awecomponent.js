@@ -44,13 +44,12 @@ function gfnMDI(pageContainer,tabContainer) {
 		return me.idx;
 	}
 	//page# 현재 페이지 번호
-
 	me.getNum = function() {
 		me.idx;
 		return me.idx;
 	}
 
-	//frameBottom 의 좌우버튼 색표시
+//frameBottom 의 좌우버튼 색표시
 	me.syncGNB = function() { 
 		var prev = me.tabContainer.children("a.active").prev().length;
 		if(prev > 0) $("#frameBottom button.prev").removeClass("noMore");

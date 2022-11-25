@@ -22,30 +22,21 @@ JSONObject INVAR  = getObject(invar);
             
             //INVAR.put("usid", USERID);
             
-            String qry = getQuery(pgmid, "retrieveAlertList");
+            String qry = "SELECT A.GRPID AS RECEIVER, B.NM AS SENDER, A.REG_USID AS SENDER_ID, A.REF_ID, A.COMMENTS, A.REF_INFO_TP, A.REG_DT, A.READ_YN, A.rowid ";
+            qry += "FROM T_CHAT A, T_USER B WHERE A.REG_USID = B.USID ";
+            qry += "AND A.GRPID    = {usid} ";
+            qry += "AND A.REF_ID   = NVL({ref_id}, A.REF_ID) ";
+            qry += "AND A.READ_YN  = NVL({cd_read}, A.READ_YN) ";
+            qry += "AND A.REG_DT BETWEEN TO_DATE({fromdate}, 'YYYYMMDD') AND TO_DATE({todate}, 'YYYYMMDD') ";
+            qry += "AND A.COMMENTS LIKE '%[comments]%' ";
+            qry += "AND NOT(A.READ_YN = 'E') ";
+            qry += "ORDER BY REG_DT DESC";
+
             qry = bindVAR(qry, INVAR);
             JSONArray list = selectSVC(conn, qry);
-            
-            OUTVAR.put("list", list);
-            
-        } catch(Exception e) {
-            rtnCode = "ERR";
-            rtnMsg  = e.toString();
-        } finally {
-            closeConn(conn);
-        }
-    }
-    if("checkAlert".equals(func)) {
-        Connection conn = null;
         
-        try  {
-            JSONObject ARGS = new JSONObject();
-            ARGS.put("usid",USERID);
-            conn = getConn("LFN"); 
-            String qry = getQuery(pgmid, "retrieveAlert");
-            qry = bindVAR(qry, ARGS);
-            JSONArray list = selectSVC(conn, qry); 
             OUTVAR.put("list", list);
+            OUTVAR.put("qry", qry);
             
         } catch(Exception e) {
             rtnCode = "ERR";
