@@ -377,8 +377,9 @@ body{
 	}
 	.componentFunc .gButton {
 		height: 2em;
-		padding: 0.15em 0.5em;
+		padding: 0.3em 1em;
 		font-size: 0.75em;
+		border: none;
 	}
 	.ui-dialog-content .componentFunc .gButton {
 		font-size: 1em;

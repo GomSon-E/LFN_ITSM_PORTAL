@@ -24,8 +24,7 @@
         }
 
         body {
-            overflow: hidden;
-            /* Don't move scrollbars 스크롤바 못움직이게 하는거 */
+        
             background-color: #cccccc;
             font-family: 'Gothic A1', sans-serif;
         }
@@ -87,7 +86,7 @@
 
             .menu-right button {
                 color: #a0d2e9;
-                margin-top: 1px;
+                margin-top: 0.5rem;
 
             }
 
@@ -196,7 +195,7 @@
 
             #mySidenav .closebtn {
                 position: absolute;
-              
+
                 top: 0;
                 right: 25px;
                 font-size: 36px;
@@ -254,24 +253,34 @@
 
             /*탭라인*/
 
+            #frameMain {
+
+                transition: margin-left .5s;
+                overflow-y: scroll;
+            }
+
+
+           
+            #frameMain::-webkit-scrollbar {
+                display: none;
+              
+            }
+
+         
             #tabline {
-                height: 80px;
+                height: 65px;
                 background-color: #fcfefe;
 
 
             }
 
-            #frameMain {
-
-                transition: margin-left .5s;
-            }
 
             nav {
                 transition: margin-left .5s;
 
             }
 
-            /*콘텐츠박스*/
+ 
 
             /*콘텐츠박스*/
 
@@ -292,8 +301,13 @@
                 transition: margin-left .5s;
                 display: flex;
                 align-items: center;
+            
 
             }
+
+
+
+
 
             #undercopy p {
                 margin-top: 18px;
@@ -452,10 +466,14 @@
 
             }
 
-            /* div::-webkit-scrollbar {
+            div::-webkit-scrollbar {
                 display: none;
               
-            } */
+            }
+
+          
+
+
 
             #mySidenav a {
                 padding: 8px 8px 8px 32px;
@@ -551,11 +569,10 @@
             /*탭라인*/
 
             #tabline {
-                height: 80px;
-                background-color: white;
+                height: 60px;
+                background-color: #d7e8fc;
                 transition: margin-left .5s;
-                border: 2px dashed #0e2d87;
-
+              
             }
 
 
@@ -607,6 +624,8 @@
                 <!-- <button class="apps"><i class="fas fa-bars"></i><span></span></button> -->
                 <i class="fas fa-bars" id="menuIcon" onclick="openNav()"></i>
 
+
+
                 <a href="#" class="mainLogo">
                     <i class="fab fa-reddit-square" style="font-size:30px; color: #a0d2e9;">Logo</i>
                 </a>
@@ -619,7 +638,6 @@
 
                     <!-- <button class="apps"><i class="fas fa-th"></i></button> -->
                     <button class="alarm"> <i class="far fa-bell"></i></button>
-
 
                     <button class="user"><i class="fas fa-user-circle"></i></button>
 
@@ -696,7 +714,7 @@
 
         <main id="frameMain">
             <div id="tabline">
-                <div id="frameTab" style="padding-top:61px"></div>
+                <div id="frameTab" style="padding-top:30px; background-color: #d7e8fc;"></div>
             </div>
         </main>
     </div>
@@ -807,12 +825,12 @@
         document.getElementById("frameMain").style.marginLeft = "0";
         document.querySelector("nav").style.marginLeft = "0";
         document.getElementById("undercopy").style.marginLeft = "0";
-      
+
 
         document.getElementById("frameMain").style.opacity = "1";
         document.querySelector("nav").style.opacity = "1";
 
-      
+
         document.querySelector(".Cactive").style.backgroundColor = "transparent"
         document.querySelector(".Cactive").style.color = "#cccccc"
     }
@@ -1142,7 +1160,7 @@
 
         me.fnShowFrameApp = function () {
             var showMenu = function (app_pgm_nm) {
-                
+
                 //$.each(subset(gds.menu, "app_pgm_nm", app_pgm_nm), function(idx, row) {
                 var pgms = subset(gds.menu, "app_pgm_nm", app_pgm_nm);
                 sort(pgms, "sort_seq");
@@ -1157,34 +1175,13 @@
                         app.attr("app", app_pgm_nm);
 
                         page.find("#frameApp .appMenu .PGM").append(app);
-                   
-                        // var dropdown = document.getElementsByClassName("APP");
-                        // var i;
 
 
 
-                        // for (i = 0; i < dropdown.length; i++) {
-                        //     dropdown[i].addEventListener("click", function () {
-
-                        //         var dropdownContent = this.nextElementSibling;
-                        //         console.log(dropdownContent)
-
-                        //         // if (dropdownContent.style.display === "block") {
-                        //         //     dropdownContent.style.display = "none";
-                        //         // } else {
-                        //         //     // $("#frameApp>.appMenu>.APP>.app.selected").append($(".PGM"))
-
-                        //         //     // $("#frameApp .appMenu .PGM").append(app);
-                        //         //     dropdownContent.style.display = "block"
-                        //         // }
-                        //     });
-                        // }
-
-                    
                     }
-    
-                    $($("#frameApp>.appMenu>.APP>.app")).click(function() {  
-                        
+
+                    $($("#frameApp>.appMenu>.APP>.app")).click(function () {
+
                     })
 
                     //////Apps 메뉴 구조임      
@@ -1246,10 +1243,10 @@
                 $(this).append($(".PGM"))
 
                 $(".PGM").css("display", "block")
-        
+                
+
                 $("#frameApp>.appMenu>.APP>.app").removeClass("selected");
                 $(this).addClass("selected");
-
 
 
             });
