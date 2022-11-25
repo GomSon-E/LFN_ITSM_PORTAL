@@ -1,11 +1,12 @@
-<style>[pgmid='changePwd'].framepage {
+<style>
+/* [pgmid='changePwd'].framepage {
     max-width: 500px;
     max-height: 500px;
     margin-left:500px;
     margin-top: 20px;
-}
+} */
 
-[pgmid='changePwd'].framepage .pageContent { 
+/* [pgmid='changePwd'].framepage .pageContent { 
     align-content: center;
     justify-content: center;
     align-items: center;
@@ -22,7 +23,7 @@
 
 [pgmid='changePwd'].framepage #list label {
     flex: 0 0 9em;
-}
+} */
 </style>
 
 <!-- HTML autogen start ---------------------------------------------- -->            
@@ -119,13 +120,19 @@ me.dataDef["_pgm_data"]["list"]={"sort_seq":"1","data_id":"list","data_nm":"비�
         var invar = JSON.stringify(args);
         gfnTx(appid+"."+pgmid,"save",{INVAR:invar},function(OUTVAR){
             //console.log(OUTVAR);
+            // if(OUTVAR.rtnCd=="OK") {
+            //     gfnAlert("저장확인","비밀번호가 변경 되었습니다.", function() {
+            //         window.location.reload();
+
+            //     });
             if(OUTVAR.rtnCd=="OK") {
                 gfnAlert("저장확인","비밀번호가 변경 되었습니다.");
                 window.location.reload();
             } 
             else {
-                gfnAlert("현재패스워드가 일치하지 않습니다",OUTVAR.rtnMsg);
+                gfnAlert("저장실패","현재 패스워드가 일치하지 않습니다",OUTVAR.rtnMsg);
             }
+        
         });
     }
 

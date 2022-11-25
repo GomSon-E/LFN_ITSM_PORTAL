@@ -152,10 +152,9 @@ button {
 }
 
 #frameGNB .userInfo-item {
-	float: left;
 	text-align: center;
 	width: 100%;
-	padding-left: 15px;
+	padding-left: 200px;
 }
 
 #frameGNB .userInfo-item li {
