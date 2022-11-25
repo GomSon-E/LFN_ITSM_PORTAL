@@ -772,39 +772,49 @@ function gfnComponent( pageId, containerId, componentDef, afnEH, page ) {
 		
 	},
 	me.initComponentTitle = function() {
+		// console.log("initComponentTitle");
+
 		me.container.children("*").remove(); //일단 지우고 시작
 		me.container.html("");
 		me.componentTop = $(`<div class="componentTop"></div>`);
 		//ComponentTitle
-		me.componentTitle = $(`<h3 class="componentTitle"></h3>`);
-		if(!isNull(me.componentDef.data_icon)) {
-			me.componentTitle.append(`<i class="${me.componentDef.data_icon}"></i>`);
-		}
-		if(!isNull(me.componentDef.data_nm)) me.componentTitle.append(`<span>${me.componentDef.data_nm}</span>`); 
-		me.componentTitle.on("click",function(e) { //클릭하면 func와 body를 보이거나 숨긴다. 
-			if( me.componentTitle.hasClass("closed")) {
-				me.componentTitle.removeClass("closed"); 
-				me.componentTop.children(".componentFunc").show();
-				me.container.children(".componentBody").show();
-				me.container.removeClass("contentClosed"); 
-			} else {
-				me.componentTitle.addClass("closed");
-				me.componentTop.children(".componentFunc").hide();
-				me.container.children(".componentBody").hide(); 
-				me.container.addClass("contentClosed"); 
-			}
-		});
+		me.componentTitle = $(`<div class="componentTitle">${me.componentDef.data_nm}</div>`);
+		// if(!isNull(me.componentDef.data_icon)) {
+		// 	me.componentTitle.append(`<i class="${me.componentDef.data_icon}"></i>`);
+		// } else {
+		// 	me.componentTitle.append(`<i class="fas fa-square"></i>`);
+		// }
+		// if(!isNull(me.componentDef.data_nm)) me.componentTitle.append(`<span>${me.componentDef.data_nm}</span>`); 
+		// me.componentTitle.on("click",function(e) { //클릭하면 func와 body를 보이거나 숨긴다. 
+		// 	if( me.componentTitle.hasClass("closed")) {
+		// 		me.componentTitle.removeClass("closed"); 
+		// 		me.componentTop.children(".componentFunc").show();
+		// 		me.container.children(".componentBody").show();
+		// 		me.container.removeClass("contentClosed"); 
+		// 	} else {
+		// 		me.componentTitle.addClass("closed");
+		// 		me.componentTop.children(".componentFunc").hide();
+		// 		me.container.children(".componentBody").hide(); 
+		// 		me.container.addClass("contentClosed"); 
+		// 		/*me.container.css("flex","unset !important")
+		// 		if(me.container.siblings(".componentContainer").find(".componentBody.agGrid").length > 0) {
+		// 			me.container.siblings(".componentContainer").css("flex","1 1 auto"); 
+		// 		} 
+		// 		*/ 
+		// 	}
+		// });
 		me.componentTop.append(me.componentTitle);
+		
 		//ComponentFunc  
-		//if(!isNull(me.componentDef.component_option)) { 
+		if(!isNull(me.componentDef.component_option)) { 
 			me.componentTop.children(".componentFunc").remove();
 			me.componentFunc = $(`<div class="componentFunc"></div>`);
 			//component_option .remark, .content, .func
-			if(!isNull(me.componentDef.component_option) &&
-			   !isNull(me.componentDef.component_option.remark)) me.componentFunc.append(`<h5 class="quickGuide">${componentDef.component_option.remark}</h5>`);
+			if(!isNull(me.componentDef.component_option) && !isNull(me.componentDef.component_option.remark)) {
+				me.componentFunc.append(`<h5 class="quickGuide">${componentDef.component_option.remark}</h5>`);
+			}
 			//[SEL:30줄씩][BTN:추가] 등을 구현할때 아래와 같이 사용한다.
-			if(!isNull(me.componentDef.component_option) &&
-			   !isNull(me.componentDef.component_option.content)) { 
+			if(!isNull(me.componentDef.component_option) && !isNull(me.componentDef.component_option.content)) { 
 				me._componentCond = {};
 				for(var i=0; i < me.componentDef.component_option.content.length; i++) {
 					var colinfo = me.componentDef.component_option.content[i]; 
@@ -815,19 +825,21 @@ function gfnComponent( pageId, containerId, componentDef, afnEH, page ) {
 					me.componentFunc.append( me._componentCond[colinfo.colid].dispObj );
 				}
 			} 			
-			if(!isNull(me.componentDef.component_option) &&
-			   !isNull(me.componentDef.component_option.func)) { 
+			if(!isNull(me.componentDef.component_option) && !isNull(me.componentDef.component_option.func)) { 
 				//기능버튼이 있으면 추가해주고
-				me._componentFunc = new gfnButtonSet(me.componentFunc, me.componentDef.component_option.func, function(btnSet, evt, funcid, func) { 
+				me.componentFunc[me.componentDef.data_id] = new gfnButtonSet(me.componentFunc, me.componentDef.component_option.func, function(btnSet, evt, funcid, func) { 
 					//이벤트를 바인딩해준다. 이때 이벤트유형은 componentFunc이다.
 					afnEH(me, "componentFunc", funcid, func);
 				}); 
-			} else {
+			} 
+			else {
 				me._componentFunc = new gfnButtonSet(me.componentFunc); 
 			}
 			me.componentTop.append(me.componentFunc);
-		//}
-		me.container.append(me.componentTop);
+		}
+
+		// me.container.append(me.componentTop);
+		$(`#${me.componentDef.data_id}`).append(me.componentTop);
 	} 
 	me.initComponentBody = function() {
 		me.componentBody = $(`<div class="componentBody"></div>`); 
@@ -835,7 +847,7 @@ function gfnComponent( pageId, containerId, componentDef, afnEH, page ) {
 		me.component_option = me.componentDef.component_option;
 		//컴포넌트Body그리드 높이지정: 미지정시 컨텐츠에 맞게 늘어남 
 		if(!isNull(me.component_option)) {
-			if(!isNull(me.component_option.height)) me.componentBody.css("height",me.component_option.height );
+			// if(!isNull(me.component_option.height)) me.componentBody.css("height",me.component_option.height );
 			if(!isNull(me.component_option.width)) me.componentBody.css("width",me.component_option.width );
 			if(!isNull(me.component_option.class)) me.componentBody.addClass( me.component_option.class );
 		}    
@@ -1040,6 +1052,694 @@ function gfnComponent( pageId, containerId, componentDef, afnEH, page ) {
 				if(me.col[colid] != undefined) me.col[colid].refreshOptions(arr);
 			} 
 
+		} else if(me.componentDef.component_pgmid =="aweForm_v2"){
+			console.log("==== aweForm_v2 - Start =====")
+			me.col = {}; //aweForm은 me.col[colid] 로 해당 컬럼에 접근할 수 있다. 
+
+			console.log(me.componentDef);
+
+			// Control 생성 + 그리기
+			me.colinfo = me.componentDef.content;
+			for(var i=0; i < me.colinfo.length; i++) {
+				var colinfo = me.colinfo[i]; 
+				
+				me.col[colinfo.colid] = new gfnControl2(colinfo,function(colid, evt, newval){
+					//이벤트를 바인딩해준다. 
+					afnEH(me, evt, 0, colid, newval );
+				}, me);
+
+				var controllArea = $(`<div class="controllArea"></div>`);
+				var inputHead = $(`<div class="inputHaed">${colinfo.colnm}</div>`);
+				var inputWrap = $(`<div class="inputWrap"></div>`);
+
+				
+				// 아이콘 Null Check
+				if(!isNull(colinfo.section_icon)) {
+					var inputIcon = $(`<i class="${colinfo.section_icon}"></i>"`)
+					inputWrap.append(inputIcon);
+				}
+				
+				// 그리드 처리-1 (JSON: colspan)
+				console.log(colinfo.colspan);
+				if(colinfo.colspan != undefined) {
+					if(me.componentDef.content_grid == 2){
+						controllArea = $(`<div class="controllArea" style="flex: 1 ${colinfo.colspan} 100%"></div>`);
+					} else if(me.componentDef.content_grid == 3) {
+						controllArea = $(`<div class="controllArea" style="flex: 1 ${colinfo.colspan} ${colinfo.colspan*32.5}%"></div>`);
+					}
+				}
+
+				// componentBody 생성
+				inputWrap.append(me.col[colinfo.colid].dispObj);
+				controllArea.append(inputHead);
+				controllArea.append(inputWrap);
+				me.componentBody.append(controllArea);
+
+				// me.componentBody.append(inputWrap);
+			}
+			$("#" + me.componentDef.data_id).append(me.componentBody);
+
+			// 그리드 처리-2 (JSON: content_grid)
+			if(me.componentDef.content_grid == 2){
+				console.log("그리드 : 2");
+				me.componentBody.children('*').addClass("aweForm_v2_grid2");
+			} else if(me.componentDef.content_grid == 3) {
+				console.log("그리드 : 3");
+				me.componentBody.children('*').addClass("aweForm_v2_grid3");
+			} else {
+				console.log("정의되지 않은 그리드 입니다.")
+			}
+
+			
+			me.stat = "";
+			me.setStat = function(bChange) {
+				if(bChange==true) {
+					if(me.stat=="") me.stat="C";
+					else if(me.stat=="R") me.stat="U";
+				} else {
+					if(me.stat=="C") me.stat="";
+					else if(me.stat=="U") me.stat="R";
+				}
+				for(var colid in me.col) {
+					if( inStr(me.col[colid].attr,"pk") >= 0 ) {
+						if( me.stat=="R"||me.stat=="U") me.col[colid].setDisable(true);
+						else me.col[colid].setDisable(false);
+					}
+				}
+			}
+			//setVal
+			me.setVal = function(colid,val) {
+				if(me.col[colid] == undefined) {
+					me.data[colid] = val; 
+				} else {
+					me.col[colid].setVal(val); //setVal과정에서 정제될 수 있으므로
+					me.data[colid] = me.getVal(colid); //data는 정제된 값을 적재함.
+				}  
+			}			
+			//getVal 
+			me.getVal = function(colid) {
+				if(me.col[colid] == undefined) return me.data[colid];
+				else {
+					return me.col[colid].getVal();
+				} 
+			} 
+			//cval 
+			me.cval = function(colid, val) {
+				if(val==undefined) me.getVal(colid);
+				else me.setVal(colid, val);
+			}
+			//dispVal : dtype에 의해 표시된 값을 그대로 가져옴 
+			me.dispVal = function(colid) {
+				if(me.col[colid] == undefined) return me.data[colid];
+				else return me.col[colid].dispVal();
+			}
+			//form에 데이터표시 : 정의하지 않은 컬럼은 데이터를 저장하지 않는다. 
+			me.importFormData = function(rowdata, stat) {
+				try {
+					if($.type(rowdata)!='array') rowdata = $.makeArray(rowdata);
+					for(var colid in rowdata[0]) { //첫번째 데이터만 사용 
+						me.setVal(colid, rowdata[0][colid]);
+					}
+					me.stat = nvl(stat,"R");
+					me.setStat(false);
+					return true;
+				} catch {
+					return false;
+				}
+			}
+			//form에서 데이터추출 : 정의하지 않은 컬럼은 데이터를 리턴하지 않는다. 
+			me.exportFormData = function() {
+				var rtnData = [];
+				var row = {};
+				for(var i=0; i < me.colinfo.length; i++) {
+					var colinfo = me.colinfo[i]; 
+					row[colinfo.colid] = me.getVal(colinfo.colid); 
+				} 
+				row.crud = me.stat;
+				rtnData.push(row);
+				return rtnData;
+			}
+			//form에 데이터표시 : 정의하지 않은 컬럼은 데이터저장 
+			me.importData = function(rowdata, stat) {
+				try {
+					delete me.data; me.data=[];  
+					if($.type(rowdata)!='array') rowdata = $.makeArray(rowdata);
+					rowdata = rowdata[0]; //배열로 만든후 첫번쨰 Row만 Import함 
+                    var cols = extract(me.colinfo,"colid");
+				    var colDefVals = extract(me.colinfo,["colid","defval"]); 
+				    var curcols = Object.keys(nvl(rowdata,{})); 
+					curcols.forEach((colid)=>{ //신규데이터에 있는 컬럽값은 row에 넣어주고 
+						me.setVal(colid,rowdata[colid]); 
+					});
+					cols.forEach((colid)=>{ //컬럼정의에 있으나 신규데이터에 없는 컬럼은 기본값 넣어줌 
+						if(curcols.length == 0 || inStr(curcols,colid) < 0) {
+							me.setVal(colid, eval2(subset(colDefVals,"colid",colid)[0].defval)); 
+						}
+					});  
+					me.stat = nvl(stat,"R");
+					me.setStat(false);
+					return true;
+				} catch {
+					return false;
+				}
+			}
+			me.exportData = function() { 
+				var rtndata =  {};
+				var cols = extract(me.colinfo,"colid");  
+				rtndata = $.extend({},me.data);
+				cols.forEach((colid)=>{ //컬럼정의에 있는 컬럼값은 최종값 넣어줌  
+					rtndata[colid] = me.getVal(colid); 
+				});  
+				rtndata.crud = me.stat;
+				return [rtndata];
+			} 
+			//resetForm
+			me.reset = me.initComponentBody;
+			//focus
+			me.focus = function(colid) {
+				if(!isNull(me.col)&&!isNull(me.col[colid])&&!isNull(me.col[colid].obj)&&!me.col[colid].obj.is(":focus")) me.col[colid].focus();
+			}
+			//보이기 숨기기
+			me.setDisp = function(colid, bShow) { 
+			    if(!isNull(me.col[colid])) {
+					me.col[colid].setHidden(!bShow);
+					var colgrp = me.col[colid].obj.exactObj("[colgrp]");
+					if(bShow) { 
+						colgrp.show(); colgrp.removeClass("hidden");
+					} else {
+						if(colgrp.find(".aweCol").map((idx,el)=>$(el).css("display")).get().every(el=>el=='none')) colgrp.hide(); 
+					}
+					var section = colgrp.exactObj("[section]");
+					if(bShow) {
+						section.show(); section.removeClass("hidden");
+					} else {
+						if(section.children("[colgrp]").map((idx,el)=>$(el).css("display")).get().every(el=>el=='none')) section.hide();
+					}
+				}
+			}			
+			//validation 
+			me.chkValid = function(bWarn) {
+				if(bWarn==undefined) bWarn = true;
+				for(var i=0; i < me.colinfo.length; i++) {
+					var colinfo = me.colinfo[i]; 
+					if(me.col[colinfo.colid] == undefined) continue;
+					var chk = me.col[colinfo.colid].chkValid(bWarn); //validation Error인 경우 메시지
+					if(chk != true) {
+						me.col[colinfo.colid].focus();     //컬럼에 포커스만 주고 
+						return false; 
+					}
+				}
+				return true;
+			} 
+			//auto complete, popup, select, radio의 선택가능 옵션을 변경함 
+			me.refreshOptions = function(colid, arr) {
+				//arr에는 grpcd, 데이터배열, function이 들어올 수 있다.
+				if(me.col[colid] != undefined) me.col[colid].refreshOptions(arr);
+			} 			
+			
+
+			console.log("==== aweForm_v2 - End =====");
+		} else if(me.componentDef.component_pgmid =="agGrid_v2") {
+			console.log("==== agGrid_v2 - Start =====")
+			me.colinfo = me.componentDef.content;
+			me.component_option = me.componentDef.component_option;
+
+			// const columnDefs = [
+			// 	{ field: 'athlete', headerName: 'The full Name of the athlete', headerTooltip: "The athlete's name" },
+			// 	{ field: 'age', },
+			// 	{ field: 'country'},
+			// 	{ field: 'sport' },
+			// 	{ field: 'year' },
+			// 	{ field: 'date' },
+			// 	{ field: 'gold' },
+			// 	{ field: 'silver' },
+			// 	{ field: 'bronze' },
+			// 	{ field: 'total' },
+			// ];
+
+			// 열 Option
+			// field: String            == 컬럼명
+			// headerName: String       == 컬럼 대채명
+			// headerToolTip: String    == 툴팁
+			// sortable: bool           == 정렬 여부
+			// comparator: function()	== 정렬 방식 직접 지정
+			// suppressMenu: bool		== 옵션 버튼 여부
+			// filter: "agNumberColumnFilter" == ??
+			// maxWidth: int			== 최대 폭
+			// minWidth: int			== 최소 폭
+			// resizable: bool			== 폭 조절 여부
+			// suppressMovable: bool    == 위치 이동 여부 (true: 다른 컬럼에 의해서만 이동가능)
+			// lockPosition: 'left'	    == 위치 고정 (left: 가장 왼쪽에 고정, right: 가장 오른쪽 고정)
+			// pinned: 'left'			== 위치 고정 (left: 가장 왼쪽에 고정, right: 가장 오른쪽 고정)
+			// lockPinned: bool         == pinned 상태에서 이동 여부
+			
+			// colSpan: (params) => {
+			// 	const {"열"} = params.data.{"열"};
+			// 	if ({"열"} === {"값"}) {
+			// 	  // have all Russia age columns width 2
+			// 	  return 2;
+			// 	} else if ({"열"} === {"값"}) {
+			// 	  // have all United States column width 4
+			// 	  return 4;
+			// 	} else {
+			// 	  // all other rows should be just normal
+			// 	  return 1;
+			// 	}
+			//   },
+
+
+			const gridOptions = {
+
+				// 열 정의
+				columnDefs: gfnAgGridColumnDef2(
+					me,
+					me.colinfo, 
+					function(nodeid, colid, evt, newval) {
+						if(evt=="change" && me.gridOptions.api.getRowNode(nodeid)!=undefined) {
+							me.setCRUD(nodeid,"U");
+						}
+						afnEH(me, evt, nodeid, colid, newval);
+					}
+				),
+				// columnDefs: columnDefs,
+
+				// 행 정의 
+				// rowData: [
+				// 	{ chk: null, rn: null, usid: "sju02092", nm: "나상하", nick_nm: "나상하123", email: "sju02092@naver.com" }
+				// ],
+				rowData: [],
+				components:{ 
+					agGridCellRender: gfnAgGridCellRender,
+					agGridCellEdit: gfnAgGridCellEdit,
+					agDetailCellRender: gfnAgDetailCellRenderer
+				},
+				/* master-detail */ 
+				masterDetail: true, 
+				detailRowAutoHeight: true,
+				detailCellRenderer: 'agDetailCellRender',  
+				detailCellRendererParams: { 
+					pgmid: me.container.parents(".framepage").attr("pgmid"),
+					componentId: me.componentId
+				},
+
+				// 기본 정의
+				defaultColDef: {
+					editable: true,
+					resizable: true,
+					sortable: true,
+					
+					// initalWidth: 100,		// 초기 폭
+					// width: 200,				// 폭의 정의
+
+					// sortable: true,			// Sorting 여부
+					// resizable: true,		// 사이즈 조절 여부
+					
+					// enablePivot: true,
+					// enableValue: true,
+
+					// wrapHeaderText: true,	// 컬럼 폭에 맞춰 줄바꿈
+    				// autoHeaderHeight: true,  // 컬럼 높이 자동변경
+
+					// suppressMenuHide: true,
+					// filter: true,
+				},
+				enableRangeSelection: true,		// 드래그 선택
+				// 사이드바
+				sideBar: {
+					toolPanels: ['columns'],
+				},
+
+				// rowGroupPanelShow: 'always',
+				// pivotPanelShow: 'always',
+				// pagination: true,
+				rowSelection: 'multiple',
+				colResizeDefault: 'shift',	// 폭 조절시 옆에 폭도 조절
+
+				// 이벤트
+				onRowClicked: event => {
+					console.log(event);
+					console.log("행이 클릭 되엇습니다.");
+				},
+				onCellClicked: event => {
+					console.log(event);
+					console.log("Event - onCellClicked")
+				},
+				// onCellDoubleClicked: event => console.log("Event - onCellDoubleClicked"),
+				// rowDoubleClicked: event => console.log("Event - rowDoubleClicked"),
+				onColumnResized: event => console.log('A column was resized'),
+				onGridReady: event => {},
+
+				// 행 높이
+				getRowHeight: (params) => 25
+			};
+			
+
+			////////////// Function Definition - Start ////////////////////////
+			// Function ////
+			
+			// 줄추가
+			me.addRow = function(row, NodeId) { //선택안하면 맨뒤, 선택하면 그 줄 위에 삽입 -> 처음으로 추가된 줄 Selected 
+				console.log("줄 추가");
+				console.log(row);
+				if(row.length == 0) {
+					console.log("새로운 행을 만듭니다.1");
+					var newRow = {usid: '',nm: '', nick_nm: '', email: ''};
+					gridOptions.api.applyTransaction({add: [{newRow}]});
+				}
+			}
+			// 줄 삭제
+			me.removeRow = function() {
+				console.log("줄 삭제");
+				const row = gridOptions.api.getSelectedRows();
+				gridOptions.api.updateRowData({remove: row});
+			}
+			// 테이블 데이터 가져오기
+			me.getTableData = function(nodeid) {
+				var rowDatas = gridOptions.api.getRenderedNodes();
+				// console.log(rowDatas[0].data);
+				var resultArr = [];
+				for(var i=0; i<rowDatas.length; i++)
+				{
+					// console.log(rowDatas[i].data);
+					resultArr.push(rowDatas[i].data);
+				}
+				return resultArr;
+			
+			}
+			// 자동 폭 맞춤
+			me.sizeColumnsToFit = function() {
+				gridOptions.api.sizeColumnsToFit();
+			}
+			// 데이터 불러오기
+			me.importData = function(rowdata,crudFlag) { 
+				if(isNull(rowdata)) {
+					gridOptions.api.setRowData([]); 
+					return;
+				}
+				gridOptions.api.setRowData(rowdata);  
+			} 
+
+			me.testFunc = function() {
+				console.log(me.componentDef.data_id);
+			}
+
+
+			//// Column ////
+			// 열 업데이트
+			me.onBtExcludeMedalColumns = function(colArry) {
+				gridOptions.api.setColumnDefs(colArry);
+			} 
+			// 테이블 초기화
+			me.resetState = function() {
+				gridOptions.columnApi.resetColumnState();
+			} 
+			// 현재상태 저장
+			me.saveState = function() {
+				window.colState = gridOptions.columnApi.getColumnState();
+			} 
+			// 상태 저장 내용 불러오기
+			me.restoreState = function() {
+				if (!window.colState) {
+					return;
+				}
+				gridOptions.columnApi.applyColumnState({
+					state: window.colState,
+					applyOrder: true,
+				});
+			}
+			// 컬럼으로 정렬하기(컬럼, 정렬방법)
+			me.sortTableByCol = function(colid, sortMethod){
+				gridOptions.columnApi.applyColumnState({
+					state: [{ colId: colid, sort: sortMethod }],
+				});
+			}
+			// 두가지 컬럼으로 정렬하기(컬럼1, 컬럼1정렬, 컬럼2, 컬럼2정렬)
+			me.sortTableByTwoCol = function(colid1, colid1_sm, colid2, colid2_sm ) {
+				gridOptions.columnApi.applyColumnState({
+				  state: [
+					{ colId: colid1, sort: colid1_sm, sortIndex: 0 },
+					{ colId: colid2, sort: colid2_sm, sortIndex: 1 },
+				  ],
+				  defaultState: { sort: null },
+				});
+			}
+			// 정렬초기화
+			me.sortReset = function() {
+				gridOptions.columnApi.applyColumnState({
+				  defaultState: { sort: null },
+				});
+			}
+			// 컬럼 숨기기
+			me.hideCol = function() {
+				gridOptions.columnApi.applyColumnState({
+				  state: [
+					{ colId: 'gold', hide: true },
+					{ colId: 'silver', hide: true },
+					{ colId: 'bronze', hide: true },
+					{ colId: 'total', hide: true },
+				  ],
+				});
+			}
+			// 컬럼 보이기 (선택)
+			me.showCol = function() {
+				gridOptions.columnApi.applyColumnState({
+				  state: [
+					{ colId: 'gold', hide: false },
+					{ colId: 'silver', hide: false },
+					{ colId: 'bronze', hide: false },
+					{ colId: 'total', hide: false },
+				  ],
+				});
+			}
+			// 컬럼 보이기 (전체)
+			me.showAllCol = function() {
+				gridOptions.columnApi.applyColumnState({
+					defaultState: { hide: false },
+				});
+			}
+			// 컬럼 순서 바꾸기
+			me.setColSeq = function () {
+				gridOptions.columnApi.applyColumnState({
+				  state: [
+					{ colId: 'gold' },
+					{ colId: 'silver' },
+					{ colId: 'bronze' },
+					{ colId: 'total' },
+					{ colId: 'athlete' },
+					{ colId: 'age' },
+					{ colId: 'country' },
+					{ colId: 'sport' },
+					{ colId: 'year' },
+					{ colId: 'date' },
+				  ],
+				  applyOrder: true,
+				});
+			}
+			// 그룹화
+			me.groupingByCol = function() {
+				gridOptions.columnApi.applyColumnState({
+				  state: [
+					{ colId: 'country', rowGroupIndex: 0 },
+					{ colId: 'sport', rowGroupIndex: 1 },
+				  ],
+				  defaultState: { rowGroup: false },
+				});
+			}
+			// 그룹조건 선택 삭제
+			me.delGroupingCondByCol = function() {
+				gridOptions.columnApi.applyColumnState({
+					state: [{ colId: 'sport', rowGroup: false }],
+				});
+			}
+			// 그룹조건 전체 삭제
+			me.delAllGroupingCond = function() {
+				gridOptions.columnApi.applyColumnState({
+					defaultState: { rowGroup: false },
+				});
+			}
+			// 정렬 정보 저장
+			me.saveSortInfo = function() {
+				const allState = gridOptions.columnApi.getColumnState();
+				const sortState = allState.map((state) => ({	
+					colId: state.colId,
+					sort: state.sort,
+					sortIndex: state.sortIndex,
+				}));
+				window.sortState = sortState;
+			}
+			// 정렬 정보 불러오기
+			me.restoreSortInfo = function() {
+				if (!window.sortState) {
+					return;
+				}
+				gridOptions.columnApi.applyColumnState({
+				state: window.sortState,
+				});
+			}
+			// 컬럼 폭 조절
+			me.reSizeColWidth = function() {
+				function onBtWidthNarrow() {
+					gridOptions.columnApi.applyColumnState({
+					  state: [
+						{ colId: 'age', width: 100 },
+						{ colId: 'athlete', width: 100 },
+					  ],
+					});
+				  }
+			}
+			// 그룹 헤드 높이
+			me.setGroupHeaderHeight = function(value) {
+				gridOptions.api.setGroupHeaderHeight(value);
+				// setIdText('groupHeaderHeight', value);
+			}
+			// 헤드 높이 
+			me.setHeaderHeight = function(value) {
+				gridOptions.api.setHeaderHeight(value);
+				// setIdText('headerHeight', value);
+			}
+			// 필터 높이
+			me.setFloatingFiltersHeight = function(value) {
+				gridOptions.api.setFloatingFiltersHeight(value);
+				// setIdText('floatingFiltersHeight', value);
+			}
+			// 폭 자동맞춤
+			me.setWidthFit = function() {
+				gridOptions.api.sizeColumnsToFit();
+			}
+			// 폭 자동맞춤 - Header여부
+			me.setWidthFitRefHeader = function(skipHeader) {
+				// true - Header 포함
+				// false - Header 포함X
+				const allColumnIds = [];
+				gridOptions.columnApi.getColumns().forEach((column) => {
+				  allColumnIds.push(column.getId());
+				});
+			  
+				gridOptions.columnApi.autoSizeColumns(allColumnIds, skipHeader);
+			}
+			// 컬럼 순서 이동 
+			me.exchangeColum = function() {
+				// ex) moveColumnByIndex(0, 3) --> 0번 컬럼을 3번째로
+				gridOptions.columnApi.moveColumnByIndex(0, 3);
+			}
+			// 열 고정 (스크롤시 그대로)
+			me.fixedCol = function() {
+				gridOptions.columnApi.applyColumnState({
+					state: [
+						{ colId: 'country', pinned: 'left' },
+						{ colId: 'age', pinned: 'left' },
+					],
+				});
+			}
+			// 열 고정 해제 (선택)
+			me.unfixedCol = function() {
+				gridOptions.columnApi.applyColumnState({
+					state: [{ colId: 'country', pinned: null }],
+				});
+			}
+			// 열 고정 해제 (전체)
+			me.unfixedAllCol = function() {
+				gridOptions.columnApi.applyColumnState({ defaultState: { pinned: null } });
+			}
+			// 해당 열로 이동
+			me.jumpToCol = function(value) {
+				
+				if (typeof index !== 'string' || value === '') return;
+			  
+				const index = Number(value);
+				if (typeof index !== 'number' || isNaN(index)) return;
+			  
+				// it's actually a column the api needs, so look the column up
+				const allColumns = gridOptions.columnApi.getColumns();
+				if (allColumns) {
+				  const column = allColumns[index];
+				  if (column) {
+					gridOptions.api.ensureColumnVisible(column);
+				  }
+				}
+			}
+			// 해당 행으로 이동
+			me.jumpToRow = function(value) {
+				const index = Number(value);
+				if (typeof index === 'number' && !isNaN(index)) {
+				  gridOptions.api.ensureIndexVisible(index);
+				}
+			}
+			// Row Data 가져오기
+			me.getRowData = function(nodeid) {
+				console.log(gridOptions.api.getRowNode(1).data);
+				return gridOptions.api.getRowNode(nodeid).data;
+			}
+			// selectedRows
+			me.selectedRows = function() { 
+				var rtn = [];
+				gridOptions.api.forEachNode(function(node,idx) {
+					if(node.isSelected()) rtn.push(node.id);
+				});
+				return rtn;
+			}
+			
+			// 선택된 NodeId가져오기
+			me.selectedRow = function() {
+				var selectedRows = me.selectedRows(); 
+				if(selectedRows.length==0) return -1;
+				else return selectedRows[0];
+			} 
+			// exportData
+			me.exportData = function(sCRUD) {
+				me.grid.gridOptions.api.stopEditing(false);
+				var rtn = [];
+				if(sCRUD==undefined) sCRUD = "CRUD";
+				if(sCRUD=="selected") {
+					me.grid.gridOptions.api.forEachNode(function(row,idx)  {
+						if(row.isSelected()) {
+							for(var i=0; i < me.colinfo.length; i++) {
+								row.data[me.colinfo[i].colid] = nvl(row.data[me.colinfo[i].colid],null);
+							}
+							row.data.id = row.id;
+							rtn.push(row.data);
+						}
+					});
+				} else {
+					me.grid.gridOptions.api.forEachNode(function(row,idx) {
+						var crud = nvl(row.data.crud,"R");
+						if(inStr(sCRUD,crud)>=0) {
+							for(var i=0; i < me.colinfo.length; i++) {
+								row.data[me.colinfo[i].colid] = nvl(row.data[me.colinfo[i].colid],null);
+							}
+							row.data.id = row.id;
+							rtn.push(row.data);
+						}
+					});
+				} 
+				return rtn;
+			} 
+			// setVal
+			me.setVal = function(nodeId, colid, val) { 
+				if(!isNull(me.grid.gridOptions.api.getRowNode(nodeId))) {
+					if(!isNull(colid) && subset(me.colinfo,"colid",colid).length > 0) {
+						me.grid.gridOptions.api.getRowNode(nodeId).setDataValue(colid,val);
+					}
+				}
+			} 
+			//자동폭맞춤
+			me.sizeColumnsToFit=function() {
+				if(!isNull(me.container.parents(".framepage")) && me.container.parents(".framepage").css("display") != 'none') { 
+					gridOptions.api.sizeColumnsToFit();
+				}
+			}
+			
+
+			////////////// Function Definition - End ////////////////////////
+
+			gridDiv = document.querySelector('#'+me.componentDef.data_id);
+			new agGrid.Grid(gridDiv, gridOptions);
+			// fetch('https://www.ag-grid.com/example-assets/olympic-winners.json')
+			// .then((response) => response.json())
+			// .then((data) => gridOptions.api.setRowData(data));
+
+			console.log("==== agGrid_v2 - End =====")
+		
 		} else if( me.componentDef.component_pgmid =="agGrid" ) {
 			me.colinfo = me.componentDef.content;
 			me.component_option = me.componentDef.component_option;
@@ -3003,9 +3703,9 @@ function gfnControl(colinfo, afnEH, oComponent, rowid, val, rowPinned, agHack) {
 				obj =  $(`<select></select>`);
 			} 
 		} else if(me.etype=="cbx") {
-			// obj =  $(`<input type="checkbox"/>`);
+			obj =  $(`<input type="checkbox"/>`);
 		} else if(me.etype=="tarea") {
-			// obj =  $(`<textarea></textarea>`); 
+			obj =  $(`<textarea></textarea>`); 
 		} else if(me.etype=="img") {
 			// obj =  $(`<img></img>`); 
 		} else if(me.etype=="link") {
@@ -3883,8 +4583,9 @@ function gfnAgGridColumnDef(oComponent, colinfos, afnEH) {
 		var RowNumbering = {  
 			colId: "rn",
 			field: "rn",
-			width: RN_WIDTH,  
+			width: 50,  
 			headerName: "No", 
+			resizable: false,
 			suppressMenu: true, 
 			pinned : "left", 
 			cellClass: "text-center",
@@ -3910,7 +4611,9 @@ function gfnAgGridColumnDef(oComponent, colinfos, afnEH) {
 		var cbx = { 
 			colId: "chk",
 			field: "chk",
-			width: CHK_WIDTH, 
+			headerName: "",
+			width: 30,
+			resizable: false,
 			headerCheckboxSelection: true, 
 			editable: false,			
 			cellClass: "text-center",
@@ -5035,4 +5738,587 @@ function gfnTable(framepage,gridId,arrDispCols,arrColHeader=[],arrColAttr=[],tot
 		tbl.append(thead).append(tbody);
 	}
 	return div.html();
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////
+// 나상하 제작
+function gfnAgGridColumnDef2(oComponent, colinfos, afnEH) {
+
+	// console.log("gfnAgGridColumnDef2");
+	// console.log(oComponent);
+	// console.log(colinfos);
+	// console.log(afnEH);
+
+	var colDefs = []; 
+	//맨 앞에 rownum을 넣어줌
+	if(!isNull(oComponent.component_option) && inStr(oComponent.component_option.gridOpt,"rn")>=0) {
+		/* RowIndex와 RowNode를 표시 */
+		var RowNumbering = {  
+			colId: "rn",
+			field: "rn",
+			width: 50,  
+			resizable: false,
+			headerName: "No", 
+			suppressMenu: true, 
+			pinned : "left", 
+			cellClass: "text-center",
+			valueGetter: function(params) { 
+				//console.log(params);
+				return {rowIndex:(params.node.rowIndex+1),nodeId:params.node.id}; 
+			},
+			cellRenderer: function(params) { 
+				var bg = "rgba(210, 210, 210, 0.3)";
+				if(params.data!=undefined&&params.data.crud=="D") bg = "rgba(10, 10, 10, 0.5)";
+				else if(params.data!=undefined&&params.data.crud=="C") bg = "hsla(65 100% 90% / 0.5)";
+				else if(params.data!=undefined&&params.data.crud=="U") bg = "hsla(95 100% 90% / 0.5)";
+				//else if(params.node.isSelected()) bg = "rgba(0, 145, 234, 0.5)";
+				params.eGridCell.style.backgroundColor=bg; 
+				if(params.data!=undefined&&!isNull(params.data.rn)) return params.data.rn;
+				return (params.value!=undefined)?params.value.rowIndex:null; //+"-"+params.value.nodeId;
+			} 
+		};
+		colDefs.unshift(RowNumbering); 
+	}
+	//그 앞에 체크박스를 넣어줌
+	if(!isNull(oComponent.component_option) && inStr(oComponent.component_option.gridOpt,"chk")>=0) {
+		var cbx = { 
+			colId: "chk",
+			field: "chk",
+			headerName: "",
+			width: 30,
+			resizable: false,
+			headerCheckboxSelection: true, 
+			editable: false,			
+			cellClass: "text-center",
+			checkboxSelection: true, 
+			pinned: 'left', 
+			lockPinned: true,
+			suppressMenu: true
+			/* suppressClickEdit: true */
+		} 
+		colDefs.unshift(cbx);
+	}
+	// 나머지 열 생성
+	for(var i=0; i < colinfos.length; i++) {
+		var colinfo = colinfos[i];
+		var colDef = {};
+		colDef.headerName = colinfo.colnm;
+		colDef.field      = colinfo.colid;
+
+		var data = { 
+			colId: colinfo.colid,
+			field: colinfo.colid,
+			headerName: colinfo.colnm,
+			// width: 100,
+			aggFunc: null,
+			editable: true,			
+			cellClass: "text-center",
+			// suppressSizeToFit: false
+		} 
+		colDefs.unshift(data);
+	}   
+	// console.log("열 정보");
+	// console.log(colDefs);
+	return colDefs; 
+}
+function gfnControl2(colinfo, afnEH, oComponent, rowid, val, rowPinned, agHack) {
+	var me = this;
+	me.oComponent = oComponent;
+	me.colinfo = $.extend({},colinfo); //colinfo가 null일때 exception처리때문에 {}로 치환 
+	me.afnEH = afnEH;
+	me.obj = $("<span class='aweCol'></span>"); 
+	me.agHack = agHack; 
+	/* 합계에서는 etype:raw, attr:auto,ymd,pop을 제거한다.*/
+	if(rowPinned==true) { 
+		me.colinfo.etype = "raw";
+		me.colinfo.defval = "";
+		if(!isNull(me.colinfo.attr)) {
+			me.colinfo.attr = me.colinfo.attr.replace("ymd","").replace("auto","").replace("pop","");
+		}  
+	} 	
+	me.init = function() {
+		
+		me.colid = nvl(me.colinfo.colid,"");
+		me.dtype = nvl(me.colinfo.dtype,"text");
+		me.etype = nvl(me.colinfo.etype,"txt");
+		me.attr  = nvl(me.colinfo.attr,"");
+
+		/* len:w:h 로 관리하던 것을  -> len 과 w, h를 분리하기로 함 */
+		me.len   = nvl(me.colinfo.len,0); 
+		if(inStr(me.len,":")>=0) {
+			me.w = trim(me.len.split(":")[0]);
+			me.h = trim(me.len.split(":")[1]);
+			me.len = me.len.split(":")[0];
+		} else {
+			me.w = me.len; 
+			me.h = "";
+		}
+		me.w = nvl(nvl(me.colinfo.w, me.w),8); //길이 기본값은 8
+		me.h = nvl(me.colinfo.h, me.h);
+
+		/* 기본값: dv가 function이면 실행, dv가 String이면 그대로 사용 */
+		var dv = eval2(nvl(me.colinfo.defval,null));
+	    me.defval = $.type(dv)=='function'?dv():dv;  
+		/* sel, auto, pop일때 사용하는 옵션 */
+	    me.refcd = eval2(me.colinfo.refcd);  //참조공통코드 또는 참조데이터array/function 
+		me.option = nvl(me.colinfo.option,"all:cd:nm:cdnm"); //참조옵션: gfnSetOpts참고할 것
+		if(!isNull(me.option)) { 
+			try {
+				var opt = JSON.parse(me.option);
+				if(typeof(opt)=="object") me.oOption = opt;
+			} catch {
+				//do_nothing
+			}
+		}
+		me.setPairVal = function(colid, val) { 
+			//console.log(arguments);
+			//if(val==undefined) return console.log("val:"+val);
+			if(colid==me.colid) return; // console.log("colid:"+colid);
+			if(oComponent==undefined) return; // console.log("oComponent");
+			if(oComponent.componentDef==undefined) { /* 직접추가한 컬럼일 경우 직접val세팅 */
+				if( oComponent instanceof jQuery ) oComponent.val(val);
+				else if (oComponent instanceof gfnControl ) oComponent.setVal(val);  
+			} else if(oComponent.componentDef.component_pgmid=="aweForm") { /* aweForm일때 */
+				oComponent.setVal(colid, val);  
+			} else if(oComponent.componentDef.component_pgmid=="agGrid") { /* agGrid일때 */
+				//console.log("agGrid");
+				oComponent.setVal(rowid, colid, val);  	 
+			} 
+		}
+		/* validation, 수식, 소계, 총계, 비고 */
+	    me.valid  = eval2(me.colinfo.valid);  
+	    me.valFormula = eval2(me.colinfo.valFormula);		
+	    me.grpFormula = eval2(me.colinfo.grpFormula);  
+	    me.totFormula = eval2(me.colinfo.totFormula);  
+		me.remark = nvl(me.colinfo.remark,"");
+
+		/* etype에 따른 컨트롤 오브젝트 생성 */
+		var obj = $(`<span></span>`); 
+		if( me.etype=="pre") {
+			obj =  $(`<${me.etype}></${me.etype}>`); 
+		} else if(me.etype=="txt") {
+			obj =  $(`<input type="text" placeholder="${me.remark}"/>`); 
+		} else if(me.etype=="pwd") {
+			obj =  $(`<input type="password" placeholder="${me.remark}"/>`); 
+		} else if(me.etype=="sel") {
+			if(me.agHack=="selRenderer") {
+				obj = $(`<span></span>`); 
+			} else {
+				obj =  $(`<select></select>`);
+			} 
+		} else if(me.etype=="cbx") {
+			obj =  $(`<input type="checkbox"/>`);
+		} else if(me.etype=="tarea") {
+			obj =  $(`<textarea></textarea>`); 
+		} else if(me.etype=="img") {
+			obj =  $(`<img></img>`); 
+		} else if(me.etype=="link") {
+			obj =  $(`<a target="_blank"></a>`); 
+		} else if(me.etype=="btn") { 
+			obj =  $(`<button></button>`); 
+			// obj.addClass("ui-button");
+		} else if(me.etype=="none") {
+			obj.addClass("hidden");
+		}
+		if(!isNull(me.oOption)) {
+			Object.keys(me.oOption).forEach(key=>{
+				obj.attr(key,me.oOption[key]);
+			})
+		}
+		obj.attr("colid",me.colid);
+		obj.addClass("aweCol"); 
+		/* etype, attr에 따른 기능Bind : sel pk disabled readonly hidden auto pop ymd dec1~4 upper lower*/
+		obj.addClass(me.dtype); /* num ymd text */
+		if(!isNull(me.attr)) obj.addClass(me.attr); /*pk, keycol, center, readonly, hidden */
+		if(inStr(me.attr,"inputmodenone") >= 0) obj.attr("inputmode","none");
+		if(inStr(me.attr,"disabled") >= 0) me.setDisable(true);
+		if(oComponent!=undefined&&rowid!=undefined&&oComponent.getVal!=undefined) {
+			setTimeout(function(){ 
+				var crud = nvl(oComponent.getVal(rowid,"crud"),"C");
+				if(crud != "C" && inStr(me.attr,"pk") >= 0) me.setDisable(true);
+			}); 
+		}
+		if(inStr(me.attr,"readonly") >= 0) me.setReadonly(true);
+		if(inStr(me.attr,"hidden") >= 0) me.setHidden(true);
+		if(inStr(me.attr,"scan") >= 0) obj.attr("inputmode","none");
+		/* me.obj에 할당 */
+		me.obj = obj;
+		me.dispObj = obj; 
+		/* cbx는 span으로 싸준다. */
+		if(me.etype=="cbx" && !isNull(me.attr)) {
+			me.dispObj = $("<span></span>");
+			me.dispObj.addClass("aweCol");
+			me.dispObj.addClass(me.dtype);  
+			me.dispObj.addClass(me.attr);
+			me.dispObj.append(me.obj);
+		}
+		/* dblclick event 바인드 */ 
+		if(me.rowid == undefined) { 
+			me.obj.on("dblclick",function(e){
+				afnEH(me.colid, "dblclick", me.getVal());  
+			});
+		}
+		/* sel 옵션추가 */
+		if(me.etype=="sel") {
+			if(me.agHack!="selRenderer") {
+				gfnSetOpts(obj, me.refcd, me.option, me.defval);
+			}
+		}
+		/* btn 표시 */
+		if (me.etype=="btn") {
+			var btnText = nvl(me.colinfo.defval,me.colinfo.colnm);
+			var btnIcon = nvl(me.colinfo.section_icon,"");
+			if(!isNull(me.colinfo.option)) {
+				btnText = me.colinfo.option.split(":")[0];
+				btnIcon = me.colinfo.option.split(":")[1];
+			}   
+			if(!isNull(btnIcon)) me.obj.append(`<i class='${btnIcon}'></i> `);
+			me.obj.append(btnText);
+			me.obj.on("click",function(){ 
+				afnEH(me.colid, "click");  
+			});
+		}
+        /* ymd, auto, pop 은 버튼이 추가됨 */				
+		if(inStr(me.attr,"ymd")>=0||inStr(me.attr,"pop")>=0) {			
+			me.dispObj = gfnSetOpts(obj, me.refcd, me.option, me.defval);
+		} else if(inStr(me.attr,"auto")>=0 && rowPinned == undefined) {
+			me.dispObj = gfnSetOpts(obj, me.refcd, me.option, me.defval);
+		} else { /* 엔터키 이벤트를 추가해 줌 */
+			me.obj.on("keyup",function(e){
+				if(e.keyCode==13) {
+					afnEH($(e.target).attr("colid"), "enter", me.getVal()); 
+				}
+			});
+		} 
+		/* auto select 선택되면 처리 */ 	
+		me.obj.on("autoselect",function(e, aParam){
+			if(aParam==gParam) return;
+			/* sel, auto, pop 은 값 변경이 일어났을때 코드/명과 같은 쌍 컬럼값을 변경해 준다. */
+			var cdVal = (!isNull(aParam) && !isNull(aParam.item))?nvl(aParam.item.cd,null):null;
+			var nmVal = (!isNull(aParam) && !isNull(aParam.item))?nvl(aParam.item.nm,null):null; 
+			setTimeout(function() {
+				me.setPairVal(me.option.split(":")[1], cdVal);
+				me.setPairVal(me.option.split(":")[2], nmVal); 
+				afnEH(me.colid, "change", me.getVal());  
+			},1); 
+		});	
+		/* auto select 선택되면 처리 */ 	
+		me.obj.on("autoselect2",function(e, aParam){
+			/* sel, auto, pop 은 값 변경이 일어났을때 코드/명과 같은 쌍 컬럼값을 변경해 준다. */
+			var cdVal = (!isNull(aParam) && !isNull(aParam.item))?nvl(aParam.item.cd,null):null;
+			var nmVal = (!isNull(aParam) && !isNull(aParam.item))?nvl(aParam.item.nm,null):null; 
+			setTimeout(function() {
+				me.setPairVal(me.option.split(":")[1], cdVal);
+				me.setPairVal(me.option.split(":")[2], nmVal);  
+				afnEH(me.colid, "change", me.getVal());  
+			},1); 
+		});
+		//popup
+		me.obj.on("searchPop",function(e, aParam) { //사용자조작에 의해 바뀔때 Invoke된다. 
+			//사용자정의 팝업을 사용하려는 경우 바로 리턴한다. 
+			if( !isNull(arguments) && !isNull(arguments[1]) && arguments[1] =="mypop") {
+				afnEH(me.colid, "mypop", arguments);  
+				return;
+			}
+			var cdVal = null;
+			var nmVal = null;  
+			//aParam은 데이터만 조회할떄와 팝업이 뜰떄가 달라서 사용안함 대신 gParam사용 
+			if(!isNull(gParam) && !isNull(gParam.rtnData)) {
+				cdVal = nvl(gParam.rtnData[0]["cd"],null);
+				nmVal = nvl(gParam.rtnData[0]["nm"],null);
+			} 
+			if(me.colid==gParam.colcd) me.setVal(cdVal);
+			else if(me.colid==gParam.colnm) me.setVal(nmVal); 
+			 //변경발생시 데이터정제 
+			setTimeout(function() { 
+				me.setPairVal(me.option.split(":")[1], cdVal);
+				me.setPairVal(me.option.split(":")[2], nmVal); 
+				afnEH(me.colid, "change", me.getVal());  
+			},1);
+		});
+		me.obj.on("change",function(e, aParam){ //사용자조작에 의해 바뀔때 Invoke된다. 
+			/* sel, auto, pop 은 값 변경이 일어났을때 코드/명과 같은 쌍 컬럼값을 변경해 준다. */
+			if (me.etype=="sel") { 
+				if(me.agHack!="selRenderer") { 
+					setTimeout(function() {
+						var cdVal = me.obj.find("option:selected").val(); 
+						var nmVal = me.obj.find("option:selected").attr("pairVal"); 					
+						me.setPairVal(me.option.split(":")[1], cdVal);
+						me.setPairVal(me.option.split(":")[2], nmVal); 
+					},1);
+				} //selRenderer 모드일때는 change event가 발생할 수 없고, 처리하지도 않는다. 
+			}  
+			if (inStr(me.attr,"auto") < 0 && inStr(me.attr,"pop") < 0) { 
+				var val = me.dispVal();
+				me.setVal(val); //변경발생시 데이터정제  
+				afnEH(me.colid, "change", me.getVal());  
+			}
+		}); 
+		me.focusHack = false;
+		me.obj.on("focus",function(e){
+			if(!me.focusHack) {
+				me.focusHack = true;
+				me.obj.select(); 
+			}
+		}); 
+
+		/* 기본값 설정 */
+		if(val!=undefined) me.setVal(val,true); //값이 있으면 값이 우선
+		else if(!isNull(me.defval)) me.setVal(me.defval); //없으면 기본값을 세팅
+
+		/* 활성상태 */
+		if(inStr(me.attr,"readonly")>=0) me.setReadonly(true);
+		if(inStr(me.attr,"disabled")>=0) me.setDisable(true);
+		
+		/* 크기 표시 */
+		if(!isNull(me.w)) me.dispObj.attr("w",me.w); 
+		// me.dispObj.css("flex", "1 1 "+me.w+"em"); 
+		if(!isNull(me.h)) me.dispObj.css("height",me.h+"em");   
+
+		/* select2 적용  */
+		if(me.etype=="sel") {
+			
+			if(me.agHack!="selRenderer") {
+				if(!isNull(me.oComponent) && !isNull(me.oComponent.componentId) && me.oComponent.componentId=="pageCond") {
+					if(!isNull(me.oComponent) && !isNull(me.oComponent.componentId) && me.oComponent.componentId=="pageCond") {
+					if((inStr(me.option,"multi")>=0)) {
+						setTimeout(function(control,bMulti){$(control).select2({
+							multiple: true,
+							closeOnSelect : false,
+							dropdownAutoWidth : true 
+						})},5,me.obj);
+					} else {
+						setTimeout(function(control,bMulti){$(control).select2({
+							dropdownAutoWidth : true 
+						})},5,me.obj);
+					}
+					} 
+				}
+			}
+		}
+
+		/* tooltip추가 */
+		if(!isNull(me.remark)) me.obj.attr("title",me.remark); 
+
+		console.log("gfn2 테스트");
+		
+		return me;
+	}  
+	//값 변경시 데이터형식에 맞게 값 정제
+	me.setter = function(val) {  
+		// console.log("me.setter") ;
+		if(me.dtype=="num") {
+			if(inStr(me.attr,"dec1")>=0) return format(toNum(val),1);
+			else if(inStr(me.attr,"dec2")>=0) return format(toNum(val),2);
+			else if(inStr(me.attr,"dec3")>=0) return format(toNum(val),3);
+			else if(inStr(me.attr,"dec4")>=0) return format(toNum(val),4);
+			else return format(toNum(val));
+		}
+		else if (me.dtype=="ymd") {
+			val=""+val;
+			if(trim(val).length==8) return date(val,"yyyymmdd"); 
+			else if(trim(val).length==4) return date((date("today").substr(0,4)+""+val),"yyyymmdd"); 
+			else return date(val);
+		}
+		else if (me.dtype=="text") {
+			if($.type(val)=="string") {
+				if(inStr(me.attr, "upper")>=0) val = upper(val);
+				else if(inStr(me.attr, "lower")>=0) val = lower(val);
+				else if(inStr(me.attr,"biz_no")>=0) val = biz_no(val); 
+				else if(inStr(me.attr,"ccard")>=0) val = ccard(val); 
+				else if(inStr(me.attr,"nm")>=0) {
+					me.cdnmVal = val;
+					val = (val||"").split(":")[1];
+				}
+			}
+			return val;
+		} else if (me.etype=="cbx") {
+			if(val==true||val=="on"||val=="Y") return "Y";
+			else return "N";
+		}
+		return val;
+	}
+	//값 세팅
+    me.setVal = function(val,bIinitialSkip) {
+		// console.log("me.setVal") ;
+		if( me.etype=="raw") {
+			me.obj.includeObj(".aweCol").html(me.setter(val));
+		} else if( me.etype=="pre") {
+			me.obj.includeObj(".aweCol").html(me.setter(val));
+		} else if(me.etype=="txt") {
+			me.obj.includeObj(".aweCol").val(me.setter(val));
+		} else if(me.etype=="pwd") {
+			me.obj.includeObj(".aweCol").val(val);
+		} else if(me.etype=="cbx") {  
+			if(me.setter(val)=="Y") {
+				me.obj.includeObj(".aweCol")[0].checked=true; 
+				me.obj.includeObj(".aweCol").prop("checked",true);
+			} else {
+				me.obj.includeObj(".aweCol")[0].checked=false;  
+				me.obj.includeObj(".aweCol").removeProp("checked");
+			}
+		} else if(me.etype=="sel") {
+            if(me.agHack!="selRenderer") {
+				me.obj.includeObj(".aweCol").val(val);
+				setTimeout(function() {
+					var cdVal = me.obj.find("option:selected").val(); 
+					var nmVal = me.obj.find("option:selected").attr("pairVal"); 					
+					me.setPairVal(me.option.split(":")[1], cdVal);
+					me.setPairVal(me.option.split(":")[2], nmVal); 
+				},1); 
+			} else {  
+				var pairVal = null;
+				if(!isNull(me.colinfo)&&!isNull(me.refcd)&&!isNull(val)) {
+					var disp = "cdnm"; 
+					if(!isNull(me.colinfo)&&!isNull(me.option)&&!isNull(me.option.split(":")[3])) {
+						disp = me.option.split(":")[3]; 
+					}
+					pairVal = gfnCdNm(me.refcd, val, "nm");
+					if(disp=="cd") {
+						me.obj.includeObj(".aweCol").html( me.setter( val ) );  
+					} else if(disp=="nm") {
+						me.obj.includeObj(".aweCol").html( pairVal );  
+					} else {
+						me.obj.includeObj(".aweCol").html( "["+me.setter( val )+"] " + pairVal );   
+					} 
+				} else {
+					me.obj.includeObj(".aweCol").html( this.setter( val ) );  
+				} 
+				setTimeout(function() {
+					me.setPairVal(me.option.split(":")[1], val);
+					me.setPairVal(me.option.split(":")[2], pairVal); 
+				},1); 
+			} 
+		} else if(me.etype=="tarea") {
+			me.obj.includeObj(".aweCol").val(val);
+		} else if(me.etype=="img") {
+			me.obj.includeObj(".aweCol").attr("src",val);
+		} else if(me.etype=="link") {
+			me.obj.includeObj(".aweCol").attr("href",val);
+		} else if(me.etype=="btn") {
+			if(!isNull(val) && (isNull(me.colinfo) || isNull(me.colinfo.option))) { 
+				var icon = nvl(me.obj.includeObj(".aweCol").children("i"),"");
+				console.log(icon);
+				me.obj.includeObj(".aweCol").html(val);
+				if(!isNull(icon)) icon.prependTo(me.obj.includeObj(".aweCol"));
+			}	
+			me.obj.includeObj(".aweCol").data("val",val);
+		} 
+		if(rowid != undefined && !bIinitialSkip) { //agGrid일 경우 컨트롤이 변경된 경우 값을 agGrid쪽으로 값을 Sync해줘야함 
+			if(oComponent.componentDef!=undefined && 
+			   oComponent.componentDef.component_pgmid=="agGrid" &&
+			   $.type(oComponent.setVal)=='function') {
+				oComponent.setVal(rowid, me.colid, val);
+			}
+		}  
+	}
+	//표시값 가져오기 
+	me.dispVal = function() {
+		// console.log("me.disVal");
+
+		var rtn = null;		
+		if( me.etype=="raw") {
+			rtn = me.obj.includeObj(".aweCol").html();
+		} else if( me.etype=="pre") {
+			rtn = me.obj.includeObj(".aweCol").html();
+		} else if(me.etype=="txt") { 
+			rtn = me.obj[0].value;
+			// rtn = me.obj.includeObj(".aweCol").val();
+			if(inStr(me.attr,"nm")>=0) rtn = me.cdnmVal; 
+		} else if(me.etype=="pwd") {
+			rtn = me.obj[0].value;
+			// rtn = me.obj.includeObj(".aweCol").val();
+		} else if(me.etype=="cbx") {
+			if(me.obj.includeObj(".aweCol")[0].checked==true||me.obj.includeObj(".aweCol").prop("checked")==true) rtn = "Y";
+			else rtn = "N";  
+		} else if(me.etype=="sel") {
+			rtn = me.obj.includeObj(".aweCol").val();
+		} else if(me.etype=="tarea") {
+			rtn = me.obj.includeObj(".aweCol").val();
+		} else if(me.etype=="img") {
+			rtn = me.obj.includeObj(".aweCol").attr("src");
+		} else if(me.etype=="link") {
+			rtn = me.obj.includeObj(".aweCol").attr("href");
+		} else if(me.etype=="btn") {
+			rtn = me.obj.includeObj(".aweCol").data("val"); 
+		} 
+		if($.type(rtn)=="string") {
+			if(inStr(me.attr, "upper")>=0) rtn = upper(rtn);
+			else if(inStr(me.attr, "lower")>=0) rtn = lower(rtn);
+		}
+		return rtn;
+	}
+	//데이터형식에 맞는 값 가져오기 
+	me.getVal = function() {
+		// console.log("me.getVal") ;
+		var rtn = me.dispVal();
+		if(me.dtype=="num") return toNum(rtn); 
+		else if (me.dtype=="ymd") return date(rtn,"yyyy-mm-dd","yyyymmdd"); 
+		return rtn;
+	}  
+	//ATTR에 따른 상태처리 
+	me.setDisable = function(bLock) {
+		// console.log("me.setDisable") ;
+		if(bLock==true) {
+			me.obj.includeObj(".aweCol").addClass("disabled");
+			me.obj.includeObj(".aweCol").attr("disabled","disabled"); 
+			me.obj.children(".aweColBtn").attr("disabled","disabled");
+		} else {
+			me.obj.includeObj(".aweCol").removeClass("disabled");
+			me.obj.includeObj(".aweCol").removeAttr("disabled");
+			me.obj.children(".aweColBtn").removeAttr("disabled");
+		}
+	} 
+	me.setReadonly = function(bLock) {
+		// console.log("me.setReadonly") ;
+		if(bLock==true) {
+			me.obj.includeObj(".aweCol").addClass("readonly");
+			me.obj.includeObj(".aweCol").attr("readonly","readonly");
+			me.obj.children(".aweColBtn").attr("disabled","disabled");
+			if(me.etype == "sel") { me.obj.includeObj(".aweCol").attr("disabled","disabled"); }		
+		
+		} else {
+			me.obj.includeObj(".aweCol").removeClass("readonly");
+			me.obj.includeObj(".aweCol").removeAttr("readonly");
+			me.obj.children(".aweColBtn").removeAttr("disabled");
+			if(me.etype == "sel") { me.obj.includeObj(".aweCol").removeAttr("disabled"); }
+		}
+	}		
+	me.setHidden = function(bHide) {
+		// console.log("me.setHidden") ;
+		if(bHide==true) {
+			me.obj.hide();
+			if(!isNull(me.dispObj)) me.dispObj.hide();
+			me.obj.siblings(".select2").hide();
+		} else {
+			me.obj.show(); 
+			if(!isNull(me.dispObj)) { me.dispObj.show(); me.dispObj.removeClass("hidden"); }
+			me.obj.siblings(".select2").show().removeClass("hidden");
+		}
+	}	
+	//컨트롤에 포커스 주기 
+	me.focus = function() {
+		console.log("me.focus") ;
+		if(!me.obj.includeObj(".aweCol").is(":focus")) { 
+			setTimeout(function() {
+				//console.log("focus on me.obj:"+me.colinfo.colid);
+				me.obj.includeObj(".aweCol").focus();
+				//console.log("control focused");
+				//me.obj.includeObj(".aweCol").select();
+			},1); 
+		}
+	}
+	//option을 변경해 줌
+	me.refreshOptions  = function(arr) {
+		// console.log("me.refreshOption") ;
+		var obj = me.obj.includeObj(".aweCol"); 
+		gfnSetOpts(obj, arr, me.option, me.getVal() );
+	}
+	//값이 Valid한지 Return
+	me.chkValid = function(bWarn) { 
+		// console.log("me.chkValid") ;
+		return gfnChkValid(me.colinfo, me.getVal(), bWarn);
+	}
+
+	me.init(); //초기화호출
 }

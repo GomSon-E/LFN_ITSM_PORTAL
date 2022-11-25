@@ -376,9 +376,18 @@ body{
 		flex: 1 1 100%;
 	}
 	.componentFunc .gButton {
-		height: 2em;
-		padding: 0.15em 0.5em;
-		font-size: 0.75em;
+		/* height: 2em; */
+		/* padding: 0.15em 0.5em; */
+		font-size: 1em;
+		border-radius: 15px;
+		border: 1px solid rgb(30,122,225);
+		background-color: transparent;
+		color: black;
+		padding: 8px;
+	}
+	.componentFunc .gButton:hover {
+		background-color: rgb(30,122,225);
+		color: white;
 	}
 	.ui-dialog-content .componentFunc .gButton {
 		font-size: 1em;
@@ -1309,3 +1318,60 @@ span.cell-deleted {
         max-width: 5em;
         border: 1px solid darkslategrey;
     }
+
+/* 나상하 제작 - aweForm_v2 */
+.aweForm_v2{
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+}
+.aweForm_v2_grid2{
+	flex: 1 1 48%;
+	padding: 5px;
+}
+.aweForm_v2_grid2 > .inputHead {
+	margin-bottom: 10px;
+}
+.aweForm_v2_grid2 > .inputWrap {
+
+}
+.aweForm_v2_grid2 > .inputWrap:focus-within {
+	border: 1.5px solid blue;
+}
+.aweForm_v2_grid3{
+	flex: 1 1 32%;
+	/* border: 1px solid grey; */
+	padding: 5px;
+}
+.aweForm_v2_grid3 > .inputHead {
+	margin-bottom: 10px;
+}
+.aweForm_v2_grid3 > .inputWrap {
+
+}
+.aweForm_v2_grid3 > .inputWrap:focus-within {
+	border: 1.5px solid blue;
+}
+.inputWrap {
+	display: flex;
+	padding: 5px;
+	border: 0.8px solid gray;
+	border-radius: 5px;
+	align-items: center;
+}
+.inputWrap> i{
+	/* background-color: red; */
+	padding-left: 5px;
+	padding-right: 8px;
+	border-right: 0.5px solid black;
+}
+.inputWrap> input[type=text]{
+	background-color: transparent;
+	width: 100%;
+	margin-left: 8px;
+	border: none;
+}
+.inputWrap> input[type=text]:focus{
+	outline: none;
+}
+
