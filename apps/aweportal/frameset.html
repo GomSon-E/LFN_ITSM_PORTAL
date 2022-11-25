@@ -27,7 +27,17 @@
             overflow: hidden;
             /* Don't move scrollbars 스크롤바 못움직이게 하는거 */
             background-color: #cccccc;
-            font-family: 'Gothic A1', sans-serif;
+            /* font-family: 'Gothic A1', sans-serif; */
+        }
+
+        @keyframes blink-effect {
+            50% {
+                opacity: 0;
+            }
+        }
+
+        .fa-comment-dots{
+            animation: blink-effect 1s step-end infinite;
         }
 
         /*상단 메뉴 */
@@ -618,7 +628,12 @@
                     <button class="searchSC"><i class="fas fa-search"></i></button>
 
                     <!-- <button class="apps"><i class="fas fa-th"></i></button> -->
-                    <button class="alarm"> <i class="far fa-bell"></i></button>
+                    <button class="alarm" onclick="gMDI.openPage('manageAlert', '알림 목록');"> 
+                        <i class="far fa-comment"></i>
+                      
+                      <!-- <i class="fas fa-comment-dots"></i> -->
+                      
+                    </button>
 
 
                     <button class="user"><i class="fas fa-user-circle"></i></button>
@@ -1498,22 +1513,20 @@
         }
         //여기도 페이지 리로딩 시 (리스너) 초기화 필요	
         me.fnEHMessageReceive = function () {
-            //메인 그룹 메세지 리스너	
-            messages.on("main", function (data) {
-            })
-            //유저 전용 메세지 리스너	
-            messages.on(gUserinfo.userid, function (data) {
-                if (data.type == "chatInvite") {
-                    gMDI.portletChat();
-                    gMDI.portletAlert();
-                    me.fnEHAlert();
-                }
-            })
-        }
-        me.fnEHAlert = () => {
-            //chaim.play();
-            $("#frameGNB .gnb nav .notice").animate({ "background-color": "rgb(0, 0, 0)" }, 1000);
-            $("#frameGNB .gnb nav .notice i").animate({ "color": "rgb(255, 255, 255)" }, 1000);
+            setInterval(function() {
+                var args = {usid : gUserinfo.userid}; 
+                var invar = JSON.stringify(args);
+                gfnTx(appid + "." + pgmid, "checkMsg", { INVAR : invar }, function(OUTVAR) {
+                    if (OUTVAR.num[0]["num"] > 0) {
+                        $(".alarm>i").removeClass("far fa-comment")
+                        $(".alarm>i").addClass("fas fa-comment-dots")                        
+                    }
+                    else {
+                        $(".alarm>i").removeClass("fas fa-comment-dots")
+                        $(".alarm>i").addClass("far fa-comment")
+                    }
+                }, true)
+            }, 5000);
         }
 
 

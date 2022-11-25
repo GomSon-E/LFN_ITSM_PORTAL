@@ -3003,9 +3003,9 @@ function gfnControl(colinfo, afnEH, oComponent, rowid, val, rowPinned, agHack) {
 				obj =  $(`<select></select>`);
 			} 
 		} else if(me.etype=="cbx") {
-			// obj =  $(`<input type="checkbox"/>`);
+			obj =  $(`<input type="checkbox"/>`);
 		} else if(me.etype=="tarea") {
-			// obj =  $(`<textarea></textarea>`); 
+			obj =  $(`<textarea></textarea>`); 
 		} else if(me.etype=="img") {
 			// obj =  $(`<img></img>`); 
 		} else if(me.etype=="link") {
