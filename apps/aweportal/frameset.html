@@ -1530,15 +1530,17 @@
                 gfnTx(appid + "." + pgmid, "checkMsg", { INVAR : invar }, function(OUTVAR) {
                     if (OUTVAR.num[0]["num"] > 0) {
                         $(".alarm>i").removeClass("far fa-comment")
-                        $(".alarm>i").addClass("fas fa-comment-dots")                        
+                        $(".alarm>i").addClass("fas fa-comment-dots") 
+                        
+                        $(".alarm>span").show()
+                        $(".alarm>span").text(OUTVAR.num[0]["num"])
                     }
                     else {
                         $(".alarm>i").removeClass("fas fa-comment-dots")
                         $(".alarm>i").addClass("far fa-comment")
-                    }
 
-                    $(".alarm>span").text(OUTVAR.num[0]["num"])
-                    console.log($(".alarm>span").text())
+                        $(".alarm>span").hide()
+                    }
                 }, true)
             }, 5000);
         }
