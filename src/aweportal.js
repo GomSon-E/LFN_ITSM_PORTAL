@@ -260,7 +260,7 @@ function gfnLog(pgm, data, key, func, sub) {
 
 function gfnStatus(msg, state) {	
 	//status layer 띄우기
-	$("#status>ul").append('<li class="alert alert-dismissible alert-primary" style="top: ' + (40 * $("#status>ul").children().length + 10) + 'px;">' + msg + '<span>' + date("today","yyyy-mm-dd hh24:mi:ss") + '</span></li>');
+	$("#status>ul").append('<li class="alert alert-dismissible alert-primary" style="top: ' + (40 * $("#status>ul").children().length + 90) + 'px;">' + msg + '<span>' + date("today","yyyy-mm-dd hh24:mi:ss") + '</span></li>');
 
 	//status layer 사라지기
 	setTimeout(function(){
