@@ -1,10 +1,10 @@
 <style>
-/* [pgmid='changePwd'].framepage {
-    max-width: 500px;
-    max-height: 500px;
-    margin-left:500px;
-    margin-top: 20px;
-} */
+[pgmid='changePwd'].framepage {
+    max-width: 1000px;
+    max-height: 1000px;
+    margin-left:300px;
+    margin-top: 5px;
+}
 
 /* [pgmid='changePwd'].framepage .pageContent { 
     align-content: center;
@@ -20,10 +20,10 @@
 [pgmid='changePwd'].framepage #list .colgrp {
     height: 3em;
 }
-
+*/
 [pgmid='changePwd'].framepage #list label {
     flex: 0 0 9em;
-} */
+} 
 </style>
 
 <!-- HTML autogen start ---------------------------------------------- -->            
@@ -131,6 +131,7 @@ me.dataDef["_pgm_data"]["list"]={"sort_seq":"1","data_id":"list","data_nm":"비�
             } 
             else {
                 gfnAlert("저장실패","현재 패스워드가 일치하지 않습니다",OUTVAR.rtnMsg);
+                return false;
             }
         
         });
