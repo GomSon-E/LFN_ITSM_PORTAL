@@ -66,6 +66,7 @@ button {
 
 .mobile #frameGNB .gnb {
 	padding: 0;
+	position: relative;
 }
 
 #frameGNB .gnb>* {
@@ -143,32 +144,38 @@ button {
 	top: 9px;
 }
 
-#frameGNB .userInfo {
-	margin: 0 auto;
-	height: 50px;
-	line-height: 25px;
-	width: calc(100% - 10em);
-}
+ .userInfo {
+    height: auto;
+    line-height: 25px;
+    width: 200px;
+    position: absolute;
+    top: 70px;
+    right: 30px;
+    background-color: red;
+    z-index: 50000000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
-#frameGNB .userInfo-item {
+ }
+
+ .userInfo-item {
 	float: left;
-	text-align: center;
-	width: 100%;
-	padding-left: 15px;
+    text-align: center;
 }
 
-#frameGNB .userInfo-item li {
+ .userInfo-item li {
 	display: block;
-	color: hsl(0, 100%, 100%);
-	text-align: center;
-	list-style: none;
-	width: 24%;
-	height: 30px;
-	float: left;
-	cursor: pointer;
+    color: hsl(0, 100%, 100%);
+    text-align: center;
+    list-style: none;
+    width: 100%;
+    height: a;
+    /* float: left; */
+    cursor: pointer;
 }
 
-#frameGNB .userInfo-item li:hover {
+.userInfo-item li:hover {
 	background-color: hsl(207, 100%, 78%);
 }
 
@@ -244,7 +251,7 @@ button {
 
 #frameMain {
 	flex: 1 1 auto;
-	background-color: rgb(253, 253, 255);
+	background-color: #d7e8fc;
 	position: relative;
 	height: calc(100% - 3px);
 }
@@ -501,14 +508,19 @@ button {
 	#frameRight .frameBtnSet.C {
 		display: none;
 	}
-}
 
+
+
+	
+}
 
 #frameTab {
 	color: hsl(0 0% 100%);
 	display: flex;
 	flex-direction: row;
 	overflow: overlay;
+	padding-top:30px;
+	background-color: #d7e8fc ;
 }
 
 #frameTab::-webkit-scrollbar {
@@ -528,15 +540,21 @@ button {
 	box-shadow: rgb(0 0 0 / 10%) 0 0 0.5rem 0.25rem;
 	line-height: 30px;
 	text-indent: 10px;
-	font-size: 12px;
+	font-size: 14px;
 	display: grid;
 	grid-auto-flow: column;
 	justify-content: space-between;
+	border-top-right-radius: 10px;
+	border-top-left-radius: 10px;
+    text-decoration: none;
+	border-right: 1px solid #aaaaaa;
+   
 }
 
 
 #frameTab a.active {
-	background-color: #1e7ae1;
+	background-color: white;
+	color: black;
 }
 
 #frameTab a div {
@@ -546,7 +564,8 @@ button {
 	-webkit-line-clamp: 1;
 	-webkit-box-orient: vertical;
 	word-wrap: break-word;
-	width: 186px;
+	width: auto;
+
 }
 
 .mobile #frameTab a div {
@@ -556,7 +575,7 @@ button {
 #frameTab a i {
 	width: 30px;
 	height: 30px;
-	font-size: 20px;
+	/* font-size: 20px; */
 	text-align: center;
 	line-height: 30px;
 	color: hsl(0 0% 30%);
@@ -566,6 +585,91 @@ button {
 
 #frameTab .APP {
 	background-color: hsl(0 0% 100%);
+}
+
+
+
+
+@media(max-width:768px) {
+
+
+
+	#frameTab {
+		color: hsl(0 0% 100%);
+		display: flex;
+		flex-direction: row;
+		overflow: overlay;
+		padding-top: 15px;
+		background-color: #d7e8fc ;
+	}
+	
+	#frameTab::-webkit-scrollbar {
+		width: 0.5vw;
+		height: 7px;
+	}
+	
+	#frameTab::-webkit-scrollbar-thumb {
+		background-color: hsla(219, 97%, 15%, 0.679);
+		border-radius: 100px;
+	}
+	
+	#frameTab a {
+		height: 35px;
+	background-color: #b6d6fa;
+		color: hsl(0 0% 0%);
+		line-height: 30px;
+		text-indent: 10px;
+		font-size: 14px;
+		display: grid;
+		grid-auto-flow: column;
+		justify-content: space-between;
+		border-top-right-radius: 15px;
+		border-top-left-radius: 15px;
+		border-bottom-right-radius: 15px;
+		border-bottom-left-radius: 15px;
+		text-decoration: none;
+		margin-left: 10px;
+		box-shadow: none;
+	   
+	}
+	
+	
+	#frameTab a.active {
+		background-color: white;
+		color: black;
+	}
+	
+	#frameTab a div {
+		overflow: hidden;
+		text-overflow: ellipsis;
+		display: -webkit-box;
+		-webkit-line-clamp: 1;
+		-webkit-box-orient: vertical;
+		word-wrap: break-word;
+		width: auto;
+		
+	}
+	
+	.mobile #frameTab a div {
+		width: unset;
+	}
+	
+	#frameTab a i {
+		width: 35px;
+		height: 30px;
+		/* font-size: 20px; */
+		text-align: center;
+		line-height: 30px;
+		color: hsl(0 0% 30%);
+		cursor: pointer;
+	
+	}
+	
+	#frameTab .APP {
+		background-color: hsl(0 0% 100%);
+	}
+	
+	
 }
 
 /* #frameTab {
@@ -1091,9 +1195,10 @@ button {
 	line-height: 30px;
 	height: auto;
 	line-height: 50px;
-	border-bottom: 1px solid #cccccc;
-	color: #cccccc;
-	padding-left: 15px;
+	border-bottom:1px solid rgba(255, 255, 255, 0.5);
+	color: #ffffff;
+	/* padding-left: 15px; */
+	text-indent: 35px;
 
 
 }
@@ -1111,40 +1216,40 @@ button {
 	height: auto;
 	line-height: 50px;
 	border-bottom: 1px solid #cccccc;
-	color: #cccccc;
-	padding-left: 15px;
+	color: #ffffff;
+	/* padding-left: 15px; */
+	text-indent: 35px;
 
 
 }
 
 #frameApp .appMenu .APP .app:hover {
-color: #140930;
-transition: all 0.5s;
+color:navy;
+transition: all 0.3s;
 }
 
 
 
 #frameApp .appMenu .APP .app.selected {
-	background-color: white;
 	color: navy;
-	font-weight: bold;
+	background-color:#5ca7fa ;
 	border-bottom: none;
 	transition: all 0.5s;
 }
 
 #frameApp .appMenu .pgm {
 	font-weight: normal;
-	background-color: #262626;
-	color: #cccccc;
+	background: rgba(0, 0, 0, 0.3);
+	color: #ffffff;
 	height: 50px;
 	padding-left: -15px;
-	
 }
 
 
 
 #frameApp .appMenu .PGM {
 	width: 100%;
+
 }
 
 /*
@@ -1179,25 +1284,23 @@ transition: all 0.5s;
 /*하위메뉴의 각 부제목*/
 #frameApp .appMenu .PGM .app .pgmgrp {
 	text-align: left;
-	background-color: #384a90;
 	font-size: 18px;
 	line-height: 30px;
 	height: 50px;
-	margin-left: -30px;
-	padding-left: 20px;
+	/* margin-left: -30px; */
 	padding-top: 12px;
 	width:300px;
-
+	background:#3557b5;
+color: white;
 }
 
 .mobile #frameApp .appMenu .PGM .app .pgmgrp {
 	text-align: left;
-	background-color: #384a90;
 	font-size: 18px;
 	line-height: 30px;
 	height: 50px;
-	margin-left: -30px;
-	padding-left: 20px;
+	/* margin-left: -30px; */
+	/* padding-left: 20px; */
 	padding-top: 12px;
 	width:300px;
 
@@ -1209,9 +1312,7 @@ transition: all 0.5s;
 }
 
 #frameApp .appMenu .PGM .app .box {
-
 	
-	background-color: green;
 	display: flex;
 	flex-direction: row;
 	flex-wrap: wrap;
@@ -1219,15 +1320,15 @@ transition: all 0.5s;
 
 
 #frameApp .appMenu .PGM .app .box .pgm {
-	
-	border: 1px solid #cccccc;
+	border-top: 1px solid rgba(255, 255, 255, 0.2);
 	width: 100%;
 	text-align: left;
+
 	font-size: 18px;
 	line-height: 30px;
-	padding-left: 20px;
+
 	display: flex;
-	margin-left: -30px;
+	/* margin-left: -30px; */
 	width: 300px;
 	align-items: center;
 
@@ -1235,8 +1336,10 @@ transition: all 0.5s;
 
 
 
+
+
 #frameApp .appMenu .PGM .app div .box .pgm:hover {
-	background-color: hsl(217 48% 18%);
+	
 	color: hsl(0 0% 100%);
 }
 
