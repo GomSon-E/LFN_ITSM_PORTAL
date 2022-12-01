@@ -52,7 +52,9 @@ $(function() {
     } 
 /*-- SCRIPT autogen end ---------------------------------------------- */
     /* 사용자초기화 */
-    me.fnInitExtra=function() {}
+    me.fnInitExtra=function() {
+        gfnAlert("유의사항", "한번 신규 저장된 코드는 삭제할 수 없습니다. 사용중지 처리하세요.");
+    }
     /* 이벤트핸들러 */
     me.fnEH=function(component, evt, row, col, val) { 
         //화면기능버튼이 눌리면 
@@ -90,7 +92,6 @@ $(function() {
 
     //new:신규 
     me.fnNew=function() {
-        gfnAlert("유의사항", "한번 저장된 코드는 삭제할 수 없습니다. 사용중지 처리하세요.");
         var fnRealNew = function() {
             me.pageObj["grpcd"].reset();
             me.pageObj["cd"].reset();
@@ -118,8 +119,6 @@ $(function() {
         gfnTx(appid+"."+pgmid,"save",{INVAR:invar},function(OUTVAR){
             if(OUTVAR.rtnCd=="OK") {
                 gfnAlert("저장성공","정상적으로 저장되었습니다.");
-                me.pageObj.pageCond.setVal("grpcd",me.dataSet["grpcd"][0]["cd"]);
-                me.fnSearch();
             } else {
                 gfnAlert("저장오류",OUTVAR.rtnMsg);
             }
