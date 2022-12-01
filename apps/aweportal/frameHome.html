@@ -308,6 +308,7 @@ me.fnEH=function(component, evt, row, col, val) {
 }
 
 me.ticker = null;
+
 me.fnSearch=function() { 
     //응답속도 지연으로 순차적으로 로딩한다.
     /*
@@ -398,26 +399,28 @@ me.fnSearch=function() {
     })
     
 } 
-me.fnRefresh=function(listId, fnCallback) {
-    var args = {listId:listId};
-    var invar = JSON.stringify(args);
-    gfnTx(appid+"."+pgmid,"refresh", {INVAR:invar}, function(OUTVAR){
-        if(OUTVAR.rtnCd=="OK") {
-            if(listId=="list4") {
-                me.pageObj.list4.importData(OUTVAR.list);
-            } else if (listId=="list3") {
-                me.fnChart(OUTVAR.list);
-            } else {
-                me.pageObj[listId].importData(OUTVAR.list);
-                if(!isNull(me.pageObj[listId].container) && me.pageObj[listId].container.css("display")!="none") me.pageObj[listId].sizeColumnsToFit();  
-                me.pageObj[listId].total("top");
-            }
-            if(typeof(fnCallback)=='function') fnCallback();
-        } else {
-            gfnAlert("조회오류",OUTVAR.rtnMsg);
-        }    
-    });
-}
+
+// ---------------------------------------------------------------------------임시 오라클 오류 해결 --------------------------------------------------------------------
+// me.fnRefresh=function(listId, fnCallback) {
+//     var args = {listId:listId};
+//     var invar = JSON.stringify(args);
+//     gfnTx(appid+"."+pgmid,"refresh", {INVAR:invar}, function(OUTVAR){
+//         if(OUTVAR.rtnCd=="OK") {
+//             if(listId=="list4") {
+//                 me.pageObj.list4.importData(OUTVAR.list);
+//             } else if (listId=="list3") {
+//                 me.fnChart(OUTVAR.list);
+//             } else {
+//                 me.pageObj[listId].importData(OUTVAR.list);
+//                 if(!isNull(me.pageObj[listId].container) && me.pageObj[listId].container.css("display")!="none") me.pageObj[listId].sizeColumnsToFit();  
+//                 me.pageObj[listId].total("top");
+//             }
+//             if(typeof(fnCallback)=='function') fnCallback();
+//         } else {
+//             gfnAlert("조회오류",OUTVAR.rtnMsg);
+//         }    
+//     });
+// }
 
 me.fnChart=function(data) {
     console.log(data);

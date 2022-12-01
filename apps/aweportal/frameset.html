@@ -2,7 +2,7 @@
 <link rel="stylesheet" href="/src/awecomponent.css">
 
 <head>
-
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport"
         content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
@@ -16,6 +16,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@400;500;600;700;800;900&display=swap"
         rel="stylesheet">
 
+
+
     <style>
         * {
             margin: 0;
@@ -24,7 +26,7 @@
         }
 
         body {
-        
+
             background-color: #cccccc;
             /* font-family: 'Gothic A1', sans-serif; */
         }
@@ -35,7 +37,7 @@
             }
         }
 
-        .fa-comment-dots{
+        .fa-comment-dots {
             animation: blink-effect 1s step-end infinite;
         }
 
@@ -270,13 +272,13 @@
             }
 
 
-           
+
             #frameMain::-webkit-scrollbar {
                 display: none;
-              
+
             }
 
-         
+
             #tabline {
                 height: 65px;
                 background-color: #fcfefe;
@@ -290,7 +292,7 @@
 
             }
 
- 
+
 
             /*콘텐츠박스*/
 
@@ -311,7 +313,7 @@
                 transition: margin-left .5s;
                 display: flex;
                 align-items: center;
-            
+
 
             }
 
@@ -397,6 +399,15 @@
                 color: #a0d2e9;
             }
 
+            .profile {
+                position: relative;
+                width: 60px;
+                height: 60px;
+                border-radius: 50%;
+                overflow: hidden;
+                cursor: pointer;
+            }
+
             .searchSC {
                 display: none;
                 border: none;
@@ -478,10 +489,10 @@
 
             div::-webkit-scrollbar {
                 display: none;
-              
+
             }
 
-          
+
 
 
 
@@ -582,7 +593,7 @@
                 height: 60px;
                 background-color: #d7e8fc;
                 transition: margin-left .5s;
-              
+
             }
 
 
@@ -618,6 +629,14 @@
             footer p {
                 margin-left: 10px;
             }
+
+            .action {
+                position: fixed;
+                top: 20px;
+                right: 30px;
+            }
+
+
         }
     </style>
 
@@ -647,11 +666,11 @@
                     <button class="searchSC"><i class="fas fa-search"></i></button>
 
                     <!-- <button class="apps"><i class="fas fa-th"></i></button> -->
-                    <button class="alarm" onclick="gMDI.openPage('manageAlert', '알림 목록');"> 
+                    <button class="alarm" onclick="gMDI.openPage('manageAlert', '알림 목록');">
                         <i class="far fa-comment"></i>
-                      
-                      <!-- <i class="fas fa-comment-dots"></i> -->
-                      
+
+                        <!-- <i class="fas fa-comment-dots"></i> -->
+
                     </button>
 
                     <button class="user"><i class="fas fa-user-circle"></i></button>
@@ -662,14 +681,45 @@
         </div>
 
 
+
+        <div class="user" onclick="menuToggle();">
+        </div>
+
         <div class="userInfo hidden">
+
             <ul class="userInfo-item">
-                <li class="profile">프로필 관리</li>
-                <li class="changePwd">비밀번호변경</li>
+
+                <div class="p-2">
+                    <div class="media">
+                        <div class="media-body">
+                            <span id="userid" class="d-block fs-8 link-secondary">ID</span>
+                            <span class="d-flex align-items-center link-dark">
+                                <div class="media-head me-2">
+                                    <div class="avatar avatar-primary avatar-sm avatar-rounded">
+                                        <i class="glyphicon glyphicon-ok"></i>
+                                        <span id="usernicknm" class="initial-wrap">AJ</span>
+                                    </div>
+                                </div>
+
+                                <span id="usernm">usernm</span>
+                                <i id="usergrp" class="ri-checkbox-circle-fill fs-7 text-primary ms-1"></i>
+                            </span>
+
+                        </div>
+                    </div>
+                </div>
+                <hr style="border: solid 1px rgb(255, 255, 255);">
+                <h6 class="dropdown-header">사용자정보 관리</h6>
+                <hr style="border: solid 1px rgb(255, 255, 255);">
+                <li class="profile"><i class="glyphicon glyphicon-user"></i>
+                    프로필 관리</li>
+                <li class="changePwd"><i class="glyphicon glyphicon-edit"></i>비밀번호변경</li>
                 <!-- <li class="withdrawlUser">회원탈퇴</li> -->
-                <li class="logout">로그아웃</li>
+                <li class="logout"><i class="	glyphicon glyphicon-log-out"></i>로그아웃</li>
             </ul>
         </div>
+
+
     </header>
 
 
@@ -801,6 +851,15 @@
 
 
 </body>
+
+
+<script>
+    function menuToggle() {
+        const toggleMenu = document.querySelector(".menu");
+        toggleMenu.classList.toggle("active");
+    }
+</script>
+
 
 <script>
 
@@ -956,6 +1015,11 @@
 
             gfnTx("aweportal.frameset", "getReq", {}, function (OUTVAR) {
                 console.log(OUTVAR);
+
+                // $("#usernicknm").text(gUserinfo.usernicknm.substr(0, 2));
+                // $("#usernm").text(gUserinfo.usernm);
+                // if (!gUserinfo.usergrp.some(e => e.role_tp == "ADM")) $("#usergrp").css("display", "none");
+                // $("#email").text(gUserinfo.email);
             });
         }
 
@@ -983,6 +1047,13 @@
                     gds.notice = OUTVAR.notice;  //사용자알림
 
                     encdeckey = "lfnetworks";   //메세지 암호화 복호화 키
+
+
+
+                    $("#usernicknm").text(gUserinfo.usernicknm.substr(0, 2));
+                    $("#usernm").text(gUserinfo.usernm);
+                    if (!gUserinfo.usergrp.some(e => e.role_tp == "ADM")) $("#usergrp").css("display", "none");
+                    $("#userid").text(gUserinfo.userid);
 
                     me.fnInitMDI();
                     me.fnInitFrameGNB();
@@ -1258,7 +1329,7 @@
                 $(this).append($(".PGM"))
 
                 $(".PGM").css("display", "block")
-                
+
 
                 $("#frameApp>.appMenu>.APP>.app").removeClass("selected");
                 $(this).addClass("selected");
@@ -1510,13 +1581,13 @@
         }
         //여기도 페이지 리로딩 시 (리스너) 초기화 필요	
         me.fnEHMessageReceive = function () {
-            setInterval(function() {
-                var args = {usid : gUserinfo.userid}; 
+            setInterval(function () {
+                var args = { usid: gUserinfo.userid };
                 var invar = JSON.stringify(args);
-                gfnTx(appid + "." + pgmid, "checkMsg", { INVAR : invar }, function(OUTVAR) {
+                gfnTx(appid + "." + pgmid, "checkMsg", { INVAR: invar }, function (OUTVAR) {
                     if (OUTVAR.num[0]["num"] > 0) {
                         $(".alarm>i").removeClass("far fa-comment")
-                        $(".alarm>i").addClass("fas fa-comment-dots")                        
+                        $(".alarm>i").addClass("fas fa-comment-dots")
                     }
                     else {
                         $(".alarm>i").removeClass("fas fa-comment-dots")
