@@ -118,6 +118,14 @@
                 border: none;
                 background-color: transparent;
                 transition: all 0.5s;
+                position: relative;
+            }
+
+            .alarm > span {
+                position: absolute;
+                top: 7px; right: 7px;
+                font-size: 15px;
+
             }
 
             .alarm:hover {
@@ -666,10 +674,10 @@
                     <button class="searchSC"><i class="fas fa-search"></i></button>
 
                     <!-- <button class="apps"><i class="fas fa-th"></i></button> -->
-                    <button class="alarm" onclick="gMDI.openPage('manageAlert', '알림 목록');">
-                        <i class="far fa-comment"></i>
 
-                        <!-- <i class="fas fa-comment-dots"></i> -->
+                    <button class="alarm" onclick="gMDI.openPage('manageAlert', '알림 목록');"> 
+                        <i class="far fa-comment"></i> 
+                        <span></span>                  
 
                     </button>
 
@@ -778,7 +786,7 @@
         <!----탭밑에 컨텐츠 화면들----->
 
         <main id="frameMain">
-            <div id="tabline">
+            <!-- <div id="tabline"> -->
                 <div id="frameTab" style="padding-top:30px; background-color: #d7e8fc;"></div>
             </div>
         </main>
@@ -1322,13 +1330,23 @@
             });
 
             //event-handler(frameGNB) : frameApp menu click event 상위메뉴 클릭하면 하위메뉴 뜨게 하는것
+            var content = $(".PGM").parent().attr("app")
             page.find("#frameApp .appMenu .APP .app").on("click", function (e) {
                 //Apps 을 클릭하면 하단에 pgm리스트를 표시한다.
                 showMenu($(e.target).text());
 
                 $(this).append($(".PGM"))
 
-                $(".PGM").css("display", "block")
+
+                // $(".PGM").css("display", "block")
+                
+                if ($(".PGM").parent().attr("app") !== content) {
+                    $(".PGM").slideDown();
+                    content = $(".PGM").parent().attr("app")
+                }
+                else {
+                    $(".PGM").slideToggle();
+                }
 
 
                 $("#frameApp>.appMenu>.APP>.app").removeClass("selected");
@@ -1587,11 +1605,18 @@
                 gfnTx(appid + "." + pgmid, "checkMsg", { INVAR: invar }, function (OUTVAR) {
                     if (OUTVAR.num[0]["num"] > 0) {
                         $(".alarm>i").removeClass("far fa-comment")
-                        $(".alarm>i").addClass("fas fa-comment-dots")
+
+                        $(".alarm>i").addClass("fas fa-comment-dots") 
+                        
+                        $(".alarm>span").show()
+                        $(".alarm>span").text(OUTVAR.num[0]["num"])
+
                     }
                     else {
                         $(".alarm>i").removeClass("fas fa-comment-dots")
                         $(".alarm>i").addClass("far fa-comment")
+
+                        $(".alarm>span").hide()
                     }
                 }, true)
             }, 5000);
