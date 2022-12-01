@@ -1269,6 +1269,8 @@ transition: all 0.3s;
 	background-color:#5ca7fa ;
 	border-bottom: none;
 	transition: all 0.5s;
+	line-height: 15px;
+    padding-top: 20px;
 }
 
 #frameApp .appMenu .pgm {
