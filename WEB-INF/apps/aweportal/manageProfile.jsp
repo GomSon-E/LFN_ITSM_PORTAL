@@ -20,7 +20,8 @@ JSONObject INVAR  = getObject(invar);
             OUTVAR.put("INVAR",INVAR); //for debug
             conn = getConn("LFN");  
             INVAR.put("usid",USERID);
-            String qry = getQuery(pgmid, "search"); 
+            String qry = "SELECT USID, NM, NICK_NM, EMAIL, COMPANY, DEPART, INTRO,ORGN_NM FROM T_USER WHERE USID = {usid}";
+            // String qry = getQuery(pgmid, "search"); 
             String qryRun = bindVAR(qry,INVAR);
             OUTVAR.put("qryRun",qryRun); //for debug
             JSONArray list = selectSVC(conn, qryRun);
@@ -40,7 +41,8 @@ JSONObject INVAR  = getObject(invar);
         try {  
             conn = getConn("LFN");
             conn.setAutoCommit(false);
-            String qry = getQuery(pgmid, "save");
+            String qry = "UPDATE T_USER SET NM = {nm}, NICK_NM = {nick_nm},EMAIL = {email},COMPANY = {company},DEPART = {depart}, INTRO = {intro}, ORGN_NM={orgn_nm} WHERE USID = {usid};";
+            // String qry = getQuery(pgmid, "save");
             String qryRun = "";
             JSONArray arrList = getArray(INVAR,"list");
             for(int i = 0; i < arrList.size(); i++) {
@@ -63,6 +65,8 @@ JSONObject INVAR  = getObject(invar);
             closeConn(conn);
         }
     }
+
+ 
 // *********************************************************************************************/
 } catch (Exception e) {
 	logger.error("error occurred:"+rtnCode,e);

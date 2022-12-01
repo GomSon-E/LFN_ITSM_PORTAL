@@ -144,20 +144,43 @@ button {
 	top: 9px;
 }
 
- .userInfo {
+#frameGNB .userInfo {
     height: auto;
     line-height: 25px;
     width: 200px;
     position: absolute;
     top: 70px;
-    right: 30px;
-    background-color: red;
+    padding: 10px 20px;
+    margin-right: 40px;
+    margin-top: 3px;
+    right: -25px;
+    box-sizing: 0 5px 25px rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
+    background-color: #ebd6d6;
     z-index: 50000000;
     display: flex;
     justify-content: center;
+    transition: 0.5s;
     align-items: center;
+    position: absolute;
+}
 
- }
+#frameGNB .userInfo::before {
+    content: "";
+    position: absolute;
+    top: -5px;
+    right: 28px;
+    width: 20px;
+    height: 20px;
+    background: #ebd6d6;
+    transform: rotate(45deg);
+}
+
+#frameGNB.userInfo.activ {
+    top: 80px;
+    visibility: visible;
+    opacity: 1;
+}
 
  .userInfo-item {
 	float: left;
@@ -705,6 +728,17 @@ button {
 .hidden {
 	display: none !important;
 }
+.action {
+	position: fixed;
+	top: 20px;
+	right: 30px;
+  }
+
+   .userInfo.active {
+	top: 80px;
+	visibility: visible;
+	opacity: 1;
+  }
 
 .leftMini {
 	min-width: 1px !important;
