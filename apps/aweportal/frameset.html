@@ -2,7 +2,6 @@
 <link rel="stylesheet" href="/src/awecomponent.css">
 
 <head>
-
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport"
         content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
@@ -16,7 +15,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@400;500;600;700;800;900&display=swap"
         rel="stylesheet">
 
-    <style>
+
+
+    <!-- <style>
         * {
             margin: 0;
             padding: 0;
@@ -24,10 +25,108 @@
         }
 
         body {
-        
+
             background-color: #cccccc;
             /* font-family: 'Gothic A1', sans-serif; */
         }
+
+
+
+        /*로고사이드 애니메이션*/
+        .link {
+            width: 200px;
+            height: 200px;
+            display: inline-block;
+            font: 300 1.55rem/1.4 "Josefin Sans";
+            text-transform: uppercase;
+            letter-spacing: 0.1175em;
+            word-spacing: 0.3em;
+        }
+
+        .link__svg {
+            width: 100%;
+            height: auto;
+            transform-box: fill-box;
+            fill: white;
+            stroke: white;
+            stroke-width: 0.05em;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .link__cloud {
+            transform-origin: 50% 50%;
+            -webkit-animation: rotate normal infinite 60s linear;
+            animation: rotate normal infinite 60s linear;
+            fill: rgba(255, 255, 255, 0.15);
+        }
+
+        .link__face,
+        .link__arrow {
+            transform-origin: 50% 50%;
+            transition: transform 0.15s cubic-bezier(0.32, 0, 0.67, 0);
+        }
+
+        .link:hover .link__face,
+        .link:hover .link__arrow {
+            transform: scale(1.1);
+            transition: transform 0.3s cubic-bezier(0.33, 1, 0.68, 1);
+        }
+
+        .link__arrow {
+            stroke-width: 0.075em;
+        }
+
+        .link__text {
+            -webkit-animation: rotateReverse normal infinite 20s linear;
+            animation: rotateReverse normal infinite 20s linear;
+            transform-origin: 50% 50%;
+        }
+
+
+        .link__face {
+            -webkit-animation: rotate normal infinite 20s linear;
+            animation: rotate normal infinite 20s linear;
+            transform-origin: 50% 50%;
+        }
+
+        .link:hover .link__text {
+            -webkit-animation-play-state: paused;
+            animation-play-state: paused;
+        }
+
+        .link--alt {
+            font-size: 1.15rem;
+            letter-spacing: 0;
+            word-spacing: 0;
+        }
+
+        @-webkit-keyframes rotate {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes rotate {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        @-webkit-keyframes rotateReverse {
+            to {
+                transform: rotate(-360deg);
+            }
+        }
+
+        @keyframes rotateReverse {
+            to {
+                transform: rotate(-360deg);
+            }
+        }
+
+
+        /*로고사이드 애니메이션 끝*/
 
         @keyframes blink-effect {
             50% {
@@ -35,7 +134,7 @@
             }
         }
 
-        .fa-comment-dots{
+        .fa-comment-dots {
             animation: blink-effect 1s step-end infinite;
         }
 
@@ -47,27 +146,49 @@
                 width: 100%;
                 position: relative;
                 padding-bottom: 0;
-                transition: margin-left .5s;
+             
+            }
+
+
+            .mainLogo {
+                text-decoration: none;
+                color: navy;
+                font-weight: bold;
+            }
+
+            .mainLogo p {
+                font-size: 30px;
+                display: inline;
+                margin-top: 20px;
+
             }
 
             #menuIcon {
-                font-size: 30px;
+                font-size: 20px;
                 cursor: pointer;
-                margin: 0px 10px 0 10px;
+                margin: 21px 10px 0 10px;
                 color: #ffffff;
-                line-height: 75px;
+
+                background-color: #2b4cbc;
+                border-radius: 50%;
+                padding: 10px 12px;
+                transition: all 0.3s;
+
             }
+
+
 
             .gnb {
                 overflow: hidden;
-                background-color: #1e7ae1;
+                background-image: linear-gradient(to right, #58aafc, #2b4cbc);
                 height: 80px;
+                transition: margin-left .5s;
 
             }
 
             .menu {
                 overflow: hidden;
-                background-color: #1e7ae1;
+                background-image: linear-gradient(to right, #58aafc, #2b4cbc);
                 height: 80px;
                 width: 100%;
 
@@ -77,37 +198,47 @@
                 float: left;
                 color: black;
                 text-align: center;
-                padding: 14px 16px;
                 text-decoration: none;
                 font-size: 30px;
-                margin-top: 13px;
+
             }
 
-            .menu :hover {
-                color: black;
-            }
 
             .menu-right {
                 float: right;
                 background-color: transparent;
                 color: white;
+                width: 300px;
+                height: 80%;
+
+                background-color: rgba(0, 0, 0, 0.1);
+                border-top-left-radius: 20px;
+                border-top-right-radius: 20px;
+                border-bottom-left-radius: 20px;
+                border-bottom-right-radius: 20px;
+                margin-top: 9px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
 
             }
 
             .menu-right button {
                 color: #a0d2e9;
-                margin-top: 0.5rem;
+
 
             }
 
-            .searchSC {
+            .search {
                 border: none;
                 background-color: transparent;
                 transition: all 0.5s;
+                padding-left: 5px;
+                padding-right: 30px;
 
             }
 
-            .searchSC:hover {
+            .search:hover {
                 cursor: pointer;
                 color: #0e2d87;
             }
@@ -116,6 +247,15 @@
                 border: none;
                 background-color: transparent;
                 transition: all 0.5s;
+                padding-right: 20px;
+                position: relative;
+            }
+
+            .alarm>span {
+                position: absolute;
+                top: 3px;
+                right: 7px;
+                font-size: 15px;
             }
 
             .alarm:hover {
@@ -127,6 +267,7 @@
                 border: none;
                 background-color: transparent;
                 transition: all 0.5s;
+                padding-left: 10px;
             }
 
             .user:hover {
@@ -136,7 +277,7 @@
 
             .textSearch {
                 float: left;
-                margin-top: 22px;
+
                 height: 3em;
                 width: 20em;
                 border: 2px solid #cccccc;
@@ -154,7 +295,7 @@
                 top: 0;
                 left: 0;
                 background-color: #0e2d87;
-                background-image: linear-gradient(180deg, navy, #1e7ae1);
+                background-image: linear-gradient(180deg, #0e2d87, #78c1f5);
                 overflow-x: hidden;
                 transition: 0.5s;
                 padding-top: 60px;
@@ -163,6 +304,7 @@
                 scrollbar-width: none;
                 /* for Firefox */
                 overflow-y: scroll;
+
 
             }
 
@@ -176,26 +318,32 @@
 
                 width: 100%;
                 height: 200px;
-                background-color: navy;
                 display: flex;
                 align-items: center;
                 justify-content: center;
+                margin-bottom: 30px;
 
 
+            }
 
+            .logoside p {
+
+                font-size: 30px;
+                color: #a0d2e9;
+                background-color: navy;
+                padding: 10px 20px;
+                border-top-left-radius: 20px;
+                border-top-right-radius: 20px;
+                border-bottom-left-radius: 20px;
+                border-bottom-right-radius: 20px;
             }
 
 
 
             #mySidenav a {
-                padding: 8px 8px 8px 32px;
+                position: absolute;
                 text-decoration: none;
-                font-size: 25px;
-                color: #cccccc;
-                display: block;
-                transition: 0.3s;
-                border-bottom: 1px solid white;
-                text-align: left;
+
 
             }
 
@@ -205,143 +353,92 @@
 
             #mySidenav .closebtn {
                 position: absolute;
-
                 top: 0;
                 right: 25px;
-                font-size: 36px;
+                font-size: 50px;
                 margin-left: 50px;
                 border: none;
                 color: #ffffff;
 
-
-            }
-
-            /*사이드 메뉴 네비 바 드롭다운메뉴*/
-
-            .dropdown-container {
-                display: none;
-                background-color: #262626;
-                padding-left: 8px;
-
-            }
-
-            .dropdown-btn {
-
-                padding: 8px 8px 8px 32px;
-                text-decoration: none;
-                font-size: 25px;
-                color: #cccccc;
-                display: block;
-                transition: 0.3s;
-                background-color: transparent;
-                border: none;
-                border-bottom: 1px solid white;
-                width: 100%;
-                text-align: left;
-
-            }
-
-            .dropdown-btn:hover {
-
-                cursor: pointer;
-            }
-
-            .fa-caret-down {
-                float: right;
-                padding-right: 8px;
             }
 
 
-            .fa-caret-down:hover {
-                cursor: pointer;
-            }
-
-            .Cactive {
-                background-color: white;
-                color: navy;
-            }
 
             /*탭라인*/
 
             #frameMain {
 
                 transition: margin-left .5s;
-                overflow-y: scroll;
+                /* overflow-y: scroll; */
             }
 
 
-           
-            #frameMain::-webkit-scrollbar {
+
+
+            /* #frameMain::-webkit-scrollbar {
                 display: none;
-              
-            }
 
-         
+            } */
+
             #tabline {
                 height: 65px;
                 background-color: #fcfefe;
-
-
             }
-
 
             nav {
                 transition: margin-left .5s;
-
             }
-
- 
 
             /*콘텐츠박스*/
 
             #main {
                 height: auto;
-
                 background-color: white;
                 border: 2px dashed #0e2d87;
-
                 transition: margin-left .5s;
                 padding: 16px;
             }
 
             #undercopy {
 
-                color: #aaaaaa;
-                height: 15px;
-                transition: margin-left .5s;
-                display: flex;
-                align-items: center;
-            
 
+                background-color: #cccccc;
+                text-align: center;
+                font-weight: normal;
+                width: 100%;
             }
 
-
-
-
-
-            #undercopy p {
-                margin-top: 18px;
-            }
 
             #frameHome {
                 transition: margin-left .5s;
+                display: block;
             }
         }
 
+
         /************************모바일 사이즈************************/
 
-        @media(max-width:767px) {
+        @media(max-width:768px) {
 
             /*상단 메뉴 */
 
             #frameGNB {
                 padding-bottom: 0;
-                transition: margin-left .5s;
                 position: relative;
             }
 
             .gnb {
-                background-color: #1e7ae1;
+                background-image: linear-gradient(to right, #58aafc, #2b4cbc);
+                transition: margin-left .5s;
+            }
+
+
+            .menu {
+                overflow: hidden;
+                background-image: linear-gradient(to right, #58aafc, #2b4cbc);
+                height: 80px;
+                width: 100%;
+
             }
 
             .mainLogo {
@@ -350,54 +447,58 @@
                 top: 50%;
                 left: 50%;
                 transform: translate(-50%, -50%);
-
+                font-size: 30px;
+                color: navy;
+                text-decoration: none;
+                font-weight: bold;
             }
-
 
             #menuIcon {
-                font-size: 30px;
+                font-size: 20px;
                 cursor: pointer;
-                margin: 5px 10px 0 30px;
+                margin: 21px 10px 0 10px;
                 color: #ffffff;
-                line-height: 75px;
+
+                background-color: #2b4cbc;
+                border-radius: 50%;
+                padding: 10px 12px;
+                transition: all 0.3s;
 
             }
 
 
 
 
-            .menu {
-                overflow: hidden;
-                background-color: #1e7ae1;
-                height: 80px;
-                width: 100%;
-            }
 
             .menu button {
                 float: left;
                 color: black;
                 text-align: center;
-                padding: 14px 16px;
+                padding: 14px 6px;
                 text-decoration: none;
                 font-size: 30px;
                 margin-top: 5px;
             }
 
-            .menu:hover {
-                color: black;
-            }
-
             .menu-right {
                 float: right;
-                background-color: #1e7ae1;
                 color: white;
+
             }
 
             .menu-right button {
                 color: #a0d2e9;
             }
 
-            .searchSC {
+            .profile {
+                position: relative;
+                width: 60px;
+                height: 60px;
+                overflow: hidden;
+                cursor: pointer;
+            }
+
+            .search {
                 display: none;
                 border: none;
                 background-color: transparent;
@@ -405,7 +506,7 @@
 
             }
 
-            .searchSC:hover {
+            .search:hover {
                 cursor: pointer;
                 color: #0e2d87;
             }
@@ -426,6 +527,15 @@
                 border: none;
                 background-color: transparent;
                 transition: all 0.5s;
+                position: relative;
+                margin-right: 10px;
+            }
+
+            .alarm>span {
+                position: absolute;
+                top: 17px;
+                right: -7px;
+                font-size: 15px;
             }
 
             .alarm:hover {
@@ -456,16 +566,14 @@
                 height: 100%;
                 width: 0;
                 position: fixed;
-                z-index: 1;
+                z-index: 10;
                 top: 0;
                 left: 0;
                 background-color: #0e2d87;
-                background-image: linear-gradient(180deg, #0e2d87, #1e7ae1);
+                background-image: linear-gradient(180deg, #0e2d87, #78c1f5);
                 overflow-x: hidden;
                 transition: 0.5s;
                 padding-top: 60px;
-
-
                 -ms-overflow-style: none;
                 /* for Internet Explorer, Edge */
                 scrollbar-width: none;
@@ -473,27 +581,17 @@
                 overflow-y: scroll;
 
 
-
             }
 
-            div::-webkit-scrollbar {
+            /* div::-webkit-scrollbar {
                 display: none;
-              
-            }
 
-          
-
-
+            } */
 
             #mySidenav a {
-                padding: 8px 8px 8px 32px;
+                position: absolute;
                 text-decoration: none;
-                font-size: 25px;
-                color: #cccccc;
-                display: block;
-                transition: 0.3s;
-                border-bottom: 1px solid white;
-                text-align: left;
+
             }
 
             #mySidenav a:hover {
@@ -516,75 +614,24 @@
 
                 width: 100%;
                 height: 200px;
-                background-color: navy;
                 display: flex;
                 align-items: center;
                 justify-content: center;
-
-
-            }
-
-
-            /*사이드 메뉴 네비 바 드롭다운메뉴*/
-
-            .dropdown-container {
-                display: none;
-                background-color: #262626;
-                padding-left: 8px;
+                margin-bottom: 30px;
 
             }
 
-            .dropdown-btn {
+            .logoside p {
 
-                padding: 8px 8px 8px 32px;
-                text-decoration: none;
-                font-size: 25px;
-                color: #cccccc;
-                display: block;
-                transition: 0.3s;
-                background-color: transparent;
-                border: none;
-                border-bottom: 1px solid white;
-                width: 100%;
-                text-align: left;
-
+                font-size: 30px;
+                color: #a0d2e9;
+                background-color: navy;
+                padding: 10px 20px;
+                border-top-left-radius: 20px;
+                border-top-right-radius: 20px;
+                border-bottom-left-radius: 20px;
+                border-bottom-right-radius: 20px;
             }
-
-
-            .dropdown-btn:hover {
-
-                cursor: pointer;
-            }
-
-
-
-            .fa-caret-down {
-                float: right;
-                padding-right: 8px;
-            }
-
-
-            .fa-caret-down:hover {
-                cursor: pointer;
-            }
-
-            .Cactive {
-                background-color: white;
-                color: navy;
-            }
-
-
-
-
-            /*탭라인*/
-
-            #tabline {
-                height: 60px;
-                background-color: #d7e8fc;
-                transition: margin-left .5s;
-              
-            }
-
 
 
             /*콘텐츠박스*/
@@ -602,7 +649,6 @@
 
             /*푸터*/
 
-
             footer {
                 background-color: #aaaaaa;
                 color: white;
@@ -618,8 +664,16 @@
             footer p {
                 margin-left: 10px;
             }
+
+            .action {
+                position: fixed;
+                top: 20px;
+                right: 30px;
+            }
+
+
         }
-    </style>
+    </style> -->
 
 </head>
 
@@ -634,24 +688,21 @@
                 <!-- <button class="apps"><i class="fas fa-bars"></i><span></span></button> -->
                 <i class="fas fa-bars" id="menuIcon" onclick="openNav()"></i>
 
-
-
                 <a href="#" class="mainLogo">
-                    <i class="fab fa-reddit-square" style="font-size:30px; color: #a0d2e9;">Logo</i>
+                    <p>Logo</p>
                 </a>
 
                 <div class="menu-right">
 
-                    <input type="text" placeholder="Search.." class="textSearch">
-
-                    <button class="searchSC"><i class="fas fa-search"></i></button>
+                  
+                    <!-- <input type="text" placeholder="Search.." class="textSearch"> -->
+                    <button class="search"><i class="fas fa-search"></i></button>
 
                     <!-- <button class="apps"><i class="fas fa-th"></i></button> -->
-                    <button class="alarm" onclick="gMDI.openPage('manageAlert', '알림 목록');"> 
+
+                    <button class="alarm" onclick="gMDI.openPage('manageAlert', '알림 목록');">
                         <i class="far fa-comment"></i>
-                      
-                      <!-- <i class="fas fa-comment-dots"></i> -->
-                      
+                        <span></span>
                     </button>
 
                     <button class="user"><i class="fas fa-user-circle"></i></button>
@@ -662,14 +713,48 @@
         </div>
 
 
+        <div class="user" onclick="menuToggle();">
+        </div>
+
         <div class="userInfo hidden">
+
             <ul class="userInfo-item">
-                <li class="profile">프로필 관리</li>
-                <li class="changePwd">비밀번호변경</li>
+
+                <div class="p-2">
+                    <div class="media">
+
+                        <div class="media-body">
+
+                                <p id="userid" class="d-block fs-8 link-secondary">ID</p>
+                                
+                                <span class="d-flex align-items-center">
+<!-- 
+                                    <div class="media-head me-2">
+
+                                        <div class="avatar avatar-primary avatar-sm avatar-rounded">
+                                         
+                                            <span id="usernicknm" class="initial-wrap">AJ</span>
+
+                                        </div>
+
+                                    </div> -->
+
+                                    <span id="usernm">usernm</span><p>님 환영합니다 ^^</p>
+                                   
+                                </span>
+
+                        </div>
+                    </div>
+                </div>
+    
+              <li class="profile"><i class="fas fa-user-edit"></i>   프로필 관리</li>
+                <li class="changePwd"><i class="fas fa-pencil-alt"></i>비밀번호변경</li>
                 <!-- <li class="withdrawlUser">회원탈퇴</li> -->
-                <li class="logout">로그아웃</li>
+                <li class="logout"><i class="fas fa-sign-out-alt"></i>로그아웃</li>
+
             </ul>
         </div>
+
     </header>
 
 
@@ -681,68 +766,67 @@
 
         <div id="mySidenav">
 
-            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+            <a href="javascript:void(0)" class="closebtn" id="closebtn" onclick="closeNav()">&times;</a>
 
             <div class="logoside">
 
-                <i class="fab fa-reddit-square" style="font-size:30px; color: #a0d2e9; ">Logoside</i>
+                <!----로고 애니메이션----->
+
+                <a href="#" class="link">
+
+                    <svg viewBox='0 0 200 200' width='200' height='200' xmlns='http://www.w3.org/2000/svg'
+                        class="link__svg" aria-labelledby="link1-title link1-desc">
+
+                        <path id="link-circle" class="link__path" d="M 20, 100 a 80,80 0 1,1 160,0 a 80,80 0 1,1 -160,0"
+                            stroke="none" fill="none" />
+
+                        <path class="link__cloud" class="link__path"
+                            d="M 35, 100 a 65,65 0 1,1 130,0 a 65,65 0 1,1 -130,0" stroke="none" fill="none" />
+
+                        <g class="link__face">
+                            <ellipse class='' cx='100' cy='100' rx='45' ry='45' stroke-dasharray="5,5" fill="none" />
+                        </g>
+
+                        <path class="link__arrow" d="M 75 100 L 125 100 L 110 85 M 125 100 L 110 115" fill="none" />
+
+                        <text class="link__text">
+                            <textPath href="#link-circle" stroke="none">
+                                Put the lf logo here
+                            </textPath>
+                        </text>
+
+                    </svg>
+
+                </a>
 
             </div>
 
+
             <!------앱버튼------->
-            <nav id="frameApp">
+            <nav id="frameApp" style="position:absolute; width: auto; ">
                 <div class="appMenu">
-                    <ul class="APP"></ul>
-                    <!---foPortal이랑 매장 맨위탭--->
+                    <ul class="APP" style="width:300px"></ul>
                     <!--하위메뉴 사용자랑 포털들-->
                     <div class="PGM" style="display: none;"></div>
                 </div>
-
             </nav>
-
-            <a href="#">About</a>
-            <a href="#">Services</a>
-
-            <button class="dropdown-btn">Clients▼</button>
-
-
-
-            <div class="dropdown-container">
-                <a href="#">Link 1</a>
-                <a href="#">Link 2</a>
-                <a href="#">Link 3</a>
-                <a href="#">Link 3</a>
-                <a href="#">Link 1</a>
-                <a href="#">Link 2</a>
-                <a href="#">Link 3</a>
-            </div>
-
-            <a href="#" style="margin-bottom:60px">Contact</a>
-
-
-
-
 
         </div>
 
         <!----탭밑에 컨텐츠 화면들----->
 
+
         <main id="frameMain">
-            <!-- <div id="tabline"> -->
-                <div id="frameTab" style="background-color: #d7e8fc;"></div>
-            <!-- </div> -->
-  
+            <div id="frameTab"></div>
         </main>
     </div>
 
     <!----푸터---->
-    <div id="undercopy">
+ 
+    <footer id="undercopy">
 
         <p>copyright &copy; 2022 LF networks. All Right Reserved</p>
-
-    </div>
-
-
+    </footer>
 
     <!-- status -->
     <div id="status">
@@ -797,10 +881,21 @@
             </div>
         </div>
     </div>
-
-
+    <search id="frameSearch" class="aweSearch hidden">
+    </search>
 
 </body>
+
+
+<script>
+    function menuToggle() {
+        const toggleMenu = document.querySelector(".menu");
+        toggleMenu.classList.toggle("active");
+       
+
+    }
+</script>
+
 
 <script>
 
@@ -810,16 +905,19 @@
 
         document.getElementById("mySidenav").style.width = "300px";
 
+        document.getElementById("menuIcon").style.color = "transparent";
+        document.getElementById("menuIcon").style.backgroundColor = "transparent"
+        document.getElementById("closebtn").style.color = "white";
+
+
         /*모바일 767px일 경우 */
 
         if (window.outerWidth < 767) {
             document.querySelector("#mySidenav").style.zIndex = 15;
             document.getElementById("frameMain").style.marginLeft = "0";
-            document.querySelector("nav").style.marginLeft = "0";
-
+            document.querySelector(".gnb").style.marginLeft = "0";
             document.getElementById("frameMain").style.opacity = "0.3";
             document.querySelector("nav").style.opacity = "0.3";
-
         }
 
         /*데스크탑일 경우*/
@@ -827,8 +925,7 @@
         else {
             document.getElementById("frameMain").style.marginLeft = "300px";
             document.getElementById("undercopy").style.marginLeft = "300px";
-            document.querySelector("nav").style.marginLeft = "300px";
-
+            document.querySelector(".gnb").style.marginLeft = "300px";
         }
     }
 
@@ -838,36 +935,36 @@
 
         document.getElementById("mySidenav").style.width = "0";
         document.getElementById("frameMain").style.marginLeft = "0";
-        document.querySelector("nav").style.marginLeft = "0";
+        document.querySelector(".gnb").style.marginLeft = "0";
         document.getElementById("undercopy").style.marginLeft = "0";
-
 
         document.getElementById("frameMain").style.opacity = "1";
         document.querySelector("nav").style.opacity = "1";
 
 
-        document.querySelector(".Cactive").style.backgroundColor = "transparent"
-        document.querySelector(".Cactive").style.color = "#cccccc"
+        document.getElementById("menuIcon").style.color = "white";
+        document.getElementById("menuIcon").style.backgroundColor = "#2b4cbc"
+        document.getElementById("closebtn").style.color = "transparent";
+
+
+        $(".PGM").slideUp();
+        $(".app").removeClass("selected");
+
     }
 
+    function newPagenav() {
 
-    /*사이드 네비바 드롭다운 메뉴들*/
-    var dropdown = document.getElementsByClassName("dropdown-btn");
-    var i;
+        document.getElementById("mySidenav").style.width = "0";
+        document.getElementById("frameMain").style.marginLeft = "0";
+        document.querySelector(".gnb").style.marginLeft = "0";
+        document.getElementById("undercopy").style.marginLeft = "0";
 
-
-    for (i = 0; i < dropdown.length; i++) {
-        dropdown[i].addEventListener("click", function () {
-            this.classList.toggle("Cactive");
-            var dropdownContent = this.nextElementSibling;
-            if (dropdownContent.style.display === "block") {
-                dropdownContent.style.display = "none";
-            } else {
-                dropdownContent.style.display = "block";
-            }
-        });
+        document.getElementById("frameMain").style.opacity = "1";
+        document.querySelector("nav").style.opacity = "1";
+        document.getElementById("menuIcon").style.color = "white";
+        document.getElementById("menuIcon").style.backgroundColor = "#2b4cbc"
+        document.getElementById("closebtn").style.color = "transparent";
     }
-
 
 </script>
 
@@ -956,6 +1053,11 @@
 
             gfnTx("aweportal.frameset", "getReq", {}, function (OUTVAR) {
                 console.log(OUTVAR);
+
+                // $("#usernicknm").text(gUserinfo.usernicknm.substr(0, 2));
+                // $("#usernm").text(gUserinfo.usernm);
+                // if (!gUserinfo.usergrp.some(e => e.role_tp == "ADM")) $("#usergrp").css("display", "none");
+                // $("#email").text(gUserinfo.email);
             });
         }
 
@@ -983,6 +1085,13 @@
                     gds.notice = OUTVAR.notice;  //사용자알림
 
                     encdeckey = "lfnetworks";   //메세지 암호화 복호화 키
+
+
+
+                    $("#usernicknm").text(gUserinfo.usernicknm.substr(0, 2));
+                    $("#usernm").text(gUserinfo.usernm);
+                    if (!gUserinfo.usergrp.some(e => e.role_tp == "ADM")) $("#usergrp").css("display", "none");
+                    $("#userid").text(gUserinfo.userid);
 
                     me.fnInitMDI();
                     me.fnInitFrameGNB();
@@ -1173,6 +1282,7 @@
             $("#frameGNB button.user span").text(gUserinfo.usernm);
         }
 
+        /*kes 여기부터*/
         me.fnShowFrameApp = function () {
             var showMenu = function (app_pgm_nm) {
 
@@ -1190,6 +1300,8 @@
                         app.attr("app", app_pgm_nm);
 
                         page.find("#frameApp .appMenu .PGM").append(app);
+
+
 
 
 
@@ -1250,21 +1362,38 @@
 
             });
 
+
+
             //event-handler(frameGNB) : frameApp menu click event 상위메뉴 클릭하면 하위메뉴 뜨게 하는것
+            var content = $(".PGM").parent().attr("app")
+
             page.find("#frameApp .appMenu .APP .app").on("click", function (e) {
                 //Apps 을 클릭하면 하단에 pgm리스트를 표시한다.
                 showMenu($(e.target).text());
 
+
                 $(this).append($(".PGM"))
 
-                $(".PGM").css("display", "block")
-                
+                // $(this).toggleClass("selected");
 
-                $("#frameApp>.appMenu>.APP>.app").removeClass("selected");
-                $(this).addClass("selected");
+                if ($(".PGM").parent().attr("app") !== content) {
 
+                    $(".PGM").slideDown();
+                    $(this).toggleClass('selected')
+                    $(this).siblings().removeClass('selected');
+                    content = $(".PGM").parent().attr("app")
+
+                }
+                else {
+
+                    $(".PGM").slideToggle();
+                    $(this).toggleClass('selected')
+
+                }
 
             });
+
+
 
             page.find("#frameApp .appMenu .PGM").on("click", ".pgm", function (e) {
                 //pgm을 클릭하면 해당 화면을 열어준다.
@@ -1272,7 +1401,21 @@
                 var pgmid = menu.attr("pgmid");
                 var pgmnm = menu.text();
                 gMDI.openPage(pgmid, pgmnm);
-                // page.find("#frameApp").addClass("hidden"); //메뉴선택시 패널 숨김
+                page.find("#frameHome").css("display", "block") //메뉴선택시 패널 숨김
+
+                newPagenav();
+
+
+                // page.find("#mySidenav").addClass("hidden"); //메뉴선택시 패널 숨김
+                // page.find("#frameApp .appMenu .APP .app").removeClass("selected");         
+                // $(".PGM").slideUp();
+                // $("#frameApp .appMenu .APP .app").removeClass("selected");
+                //  $("#frameApp .appMenu .APP .app selected").css('backgroundColor')
+
+
+
+
+
             });
         }
 
@@ -1303,25 +1446,25 @@
 
         }
 
-        // me.fnShowFrameLeftBar = function (bShow) {
-        //     if (bShow == undefined) {
-        //         if (page.find("#frameLeft").hasClass("leftMini")) bShow = true;
-        //         else bShow = false;
-        //     }
-        //     if (bShow) {
-        //         if ($("#frameBottom nav .screen").hasClass("max")) $("#frameGNB").css("display", "block");
-        //         page.find("#frameLeft .appMenu").show();
-        //         page.find("#frameLeft .grp").show();
-        //         page.find("#frameLeft").removeClass("leftMini");
-        //         $("#frameMain .btnShow").removeClass("closed");
-        //     } else {
-        //         if ($("#frameBottom nav .screen").hasClass("max")) $("#frameGNB").css("display", "none");
-        //         page.find("#frameLeft .appMenu").hide();
-        //         page.find("#frameLeft .grp").hide();
-        //         page.find("#frameLeft").addClass("leftMini");
-        //         $("#frameMain .btnShow").addClass("closed");
-        //     }
-        // }
+        me.fnShowFrameLeftBar = function (bShow) {
+            if (bShow == undefined) {
+                if (page.find("#frameLeft").hasClass("leftMini")) bShow = true;
+                else bShow = false;
+            }
+            if (bShow) {
+                if ($("#frameBottom nav .screen").hasClass("max")) $("#frameGNB").css("display", "block");
+                // page.find("#frameLeft .appMenu").show();
+                // page.find("#frameLeft .grp").show();
+                // page.find("#frameLeft").removeClass("leftMini");
+                $("#frameMain .btnShow").removeClass("closed");
+            } else {
+                if ($("#frameBottom nav .screen").hasClass("max")) $("#frameGNB").css("display", "none");
+                // page.find("#frameLeft .appMenu").hide();
+                // page.find("#frameLeft .grp").hide();
+                // page.find("#frameLeft").addClass("leftMini");
+                $("#frameMain .btnShow").addClass("closed");
+            }
+        }
 
         // me.fnShowFrameRightBar = function (bShow) {
         //     if (bShow == undefined) {
@@ -1370,6 +1513,8 @@
             });
         }
 
+        /*kes여기까지*/
+
         me.fnEHFrameGNB = function () {
             $("#frameGNB .gnb .CI").on({
                 click: function () {
@@ -1401,18 +1546,21 @@
 
         me.fnEHFrameApp = function () {
 
-            $("#frameGNB .gnb nav ").on({
-                click: function () {
-                    // $("#frameApp").toggleClass("hidden");
-                }
-            })
-            $(window).on({  //메뉴표시 바깥 클릭시 메뉴 숨기기 
-                click: function (e) {
-                    if (!$("#frameGNB .gnb nav ").has(e.target).length && !$("#frameApp").has(e.target).length) {
-                        // $("#frameApp").addClass("hidden");
-                    }
-                }
-            });
+            // $("#frameGNB .gnb nav ").on({
+            //     click: function () {
+            //         $("#frameApp").toggleClass("hidden");
+            //     }
+            // })
+            // $(window).on({  
+            //     click: function (e) {
+            //         if (!$("#frameGNB .gnb nav ").has(e.target).length && !$("#frameApp").has(e.target).length) {
+            //             $("#frameApp").addClass("hidden");
+            //         }
+            //     }
+            // });
+            //메뉴표시 바깥 클릭시 메뉴 숨기기 
+            document.querySelector("#frameMain").addEventListener('click', closeNav);
+
         }
 
         me.fnEHFrameSearch = function () {
@@ -1434,10 +1582,12 @@
         me.fnEHFrameUser = function () {
             $("#frameGNB .gnb nav .user").on({
                 click: function (e) {
-                    $("#frameGNB .userInfo").toggleClass("hidden");
+                    $(".userInfo").toggleClass("hidden");
+              
+
                 }
             })
-            $("#frameGNB .userInfo").on({
+            $(" .userInfo").on({
                 click: function (e) {
                     var oE = $(e.target);
 
@@ -1450,7 +1600,9 @@
             $(page).on({
                 click: function (e) {
                     if (!$("#frameGNB .gnb nav .user").has(e.target).length && !$("#frameGNB .list").has(e.target).length) {
-                        $("#frameGNB .userInfo").addClass("hidden");
+                        $(" .userInfo").addClass("hidden");
+               
+
                     }
                 }
             });
@@ -1510,22 +1662,28 @@
         }
         //여기도 페이지 리로딩 시 (리스너) 초기화 필요	
         me.fnEHMessageReceive = function () {
-            setInterval(function() {
-                var args = {usid : gUserinfo.userid}; 
+            setInterval(function () {
+                var args = { usid: gUserinfo.userid };
                 var invar = JSON.stringify(args);
-                gfnTx(appid + "." + pgmid, "checkMsg", { INVAR : invar }, function(OUTVAR) {
+                gfnTx(appid + "." + pgmid, "checkMsg", { INVAR: invar }, function (OUTVAR) {
                     if (OUTVAR.num[0]["num"] > 0) {
                         $(".alarm>i").removeClass("far fa-comment")
-                        $(".alarm>i").addClass("fas fa-comment-dots")                        
+
+                        $(".alarm>i").addClass("fas fa-comment-dots")
+
+                        $(".alarm>span").show()
+                        $(".alarm>span").text(OUTVAR.num[0]["num"])
+
                     }
                     else {
                         $(".alarm>i").removeClass("fas fa-comment-dots")
                         $(".alarm>i").addClass("far fa-comment")
+
+                        $(".alarm>span").hide()
                     }
                 }, true)
             }, 5000);
         }
-
 
         /*-- SCRIPT autogen ---------------------------------------------------- */
         if (typeof (me.fnInit) == 'function') me.fnInit();

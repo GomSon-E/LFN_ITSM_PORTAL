@@ -1,113 +1,194 @@
 <style>
-/* [pgmid='manageProfile'].framepage { 
-    max-width: 400px;
-    max-height: 400px;
-    margin-left:500px;
-    margin-top: 20px;
+    /* [pgmid='manageProfile'].framepage { 
+    max-width: 1000px;
+    max-height: 1000px;
+    margin-left:300px;
+    margin-top: 5px;
 } */
+body {
+  background-color: #efefef;
+}
+.profile-pic {
+    width: 200px;
+    max-height: 200px;
+    display: inline-block;
+    margin-left: 400px
+}
+.p-image {
+  position: absolute;
+  top: 330px;
+  right:1020px;
+  color: #666666;
+  transition: all .3s cubic-bezier(.175, .885, .32, 1.275);
+}
+.upload-button {
+  font-size: 2em;
+}
+.file-upload {
+    display: none;
+}
+
+
+.file {
+    visibility: hidden;
+    position: absolute;
+}
 </style>
 
-<!-- HTML autogen start ---------------------------------------------- -->            
+<!-- HTML autogen start ---------------------------------------------- -->
+
 <div class="pageNav"></div>
 <div class="pageTop"></div>
 <div class="pageCond"></div>
 <div class="pageGuide"></div>
 <div class="pageContent">
+    <!-- <div class="row">
+        <div class="small-12 medium-2 large-2 columns">
+            <div class="circle">
+                <img class="profile-pic"
+                    src="https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg">
+            </div>
+            <div class="p-image">
+                <i class="fa fa-camera upload-button"></i>
+                <input class="file-upload" type="file" accept="image/*" />
+            </div>
+        </div>
+    </div> -->
     <div id="list"></div>
 </div>
 <!-- HTML autogen end ---------------------------------------------- -->
+
+
 <script>
-/*-- SCRIPT autogen start ---------------------------------------------- */        
-$(function() {
-    var appid = "aweportal";
-    var pgmid = "manageProfile"; 
-    var page = $("*[pgmid='"+pgmid+"'].framepage").last();
-    var pageid = page.attr("id"); 
-    var me = {}
-    var dataSet = {};
-    var dataDef = {};
-    var pageObj = {};
-    var bEdit = false;
-    me.fnInit = function() {
-        gfn[pageid] = me; 
-        me.appid    = appid;
-        me.pgmid    = pgmid;
-        me.pageid   = pageid;
-        me.page     = page; 
-        me.dataSet = dataSet;
-        me.dataDef = dataDef;
-        me.pageObj = pageObj;
-        me.bEdit = bEdit;
-me.dataDef["_pgm"]={"ver":1.5,"upd_dt":"2022-10-12 16:03:28","remark":"사용자의 프로필을 조회한다.","pgmid":"manageProfile","proc_mst_id":"","pgm_stat":"Y","sort_seq":4,"app_pgmid":"aweportal","shortcut":"ZZ88","reg_dt":"2022-10-12 16:03:28","reg_usid":"jjr","pgm_nm":"사용자프로필","upd_usid":"jjr","pgm_tp":"UX","pgm_grp_nm":"사용자","proc_mst_nm":"","app_pgm_nm":"FO Portal","":"트랜젝션(메뉴)","crud":""};
-me.dataDef["_pgm_func"]=[{"func_icon":"fas fa-save","reg_dt":"2022-10-12 16:03:28","reg_usid":"","func_nm":"저장","upd_usid":"","upd_dt":"2022-10-12 16:03:28","func_tp":"DB_W","remark":"사용자 프로필 변경 창 입니다.","pgmid":"manageProfile","sort_seq":"1","funcid":"save","content":"사용자 프로필 변경사항 저장","crud":"R","id":"0"},{"func_icon":"fas fa-search","reg_dt":"2022-10-12 16:03:28","reg_usid":"","func_nm":"조회","upd_usid":"","upd_dt":"2022-10-12 16:03:28","func_tp":"DB_R","remark":null,"pgmid":"manageProfile","sort_seq":"2","funcid":"search","content":"사용자 프로필 조회","crud":"R","id":"1"}];
-me.dataDef["_pgm_data"] = {};
-me.dataDef["_pgm_data"]["list"]={"sort_seq":"1","data_id":"list","data_nm":"사용자 정보 목록","data_icon":null,"component_pgmid":"aweForm","component_option":{"height":"40em","gridOpt":"rn chk","gridOptions":{"statusBar":"false"}},"inout_tp":"INOUT","content":[{"sort_seq":1,"section":null,"section_icon":null,"colgrp":null,"colid":"usid","colnm":"아이디","dtype":"text","etype":"txt","attr":"pk ","len":20,"defval":null,"refcd":null,"option":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","w":null,"h":null,"id":"0"},{"sort_seq":2,"section":null,"section_icon":null,"colgrp":null,"colid":"nm","colnm":"이름","dtype":"text","etype":"txt","attr":null,"len":20,"defval":null,"refcd":null,"option":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","w":null,"h":null,"id":"1"},{"sort_seq":3,"section":null,"section_icon":null,"colgrp":null,"colid":"nick_nm","colnm":"별명","dtype":"text","etype":"txt","attr":null,"len":20,"defval":null,"refcd":null,"option":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","w":null,"h":null,"id":"2"},{"sort_seq":4,"section":null,"section_icon":null,"colgrp":null,"colid":"email","colnm":"이메일","dtype":"text","etype":"txt","attr":"keycol","len":50,"defval":null,"refcd":null,"option":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","w":null,"h":null,"id":"3"}]};
+    /*-- SCRIPT autogen start ---------------------------------------------- */
+    $(function () {
+        var appid = "aweportal";
+        var pgmid = "manageProfile";
+        var page = $("*[pgmid='" + pgmid + "'].framepage").last();
+        var pageid = page.attr("id");
+        var me = {}
+        var dataSet = {};
+        var dataDef = {};
+        var pageObj = {};
+        var bEdit = false;
+        me.fnInit = function () {
+            gfn[pageid] = me;
+            me.appid = appid;
+            me.pgmid = pgmid;
+            me.pageid = pageid;
+            me.page = page;
+            me.dataSet = dataSet;
+            me.dataDef = dataDef;
+            me.pageObj = pageObj;
+            me.bEdit = bEdit;
+            me.dataDef["_pgm"] = { "ver": 1.5, "upd_dt": "2022-10-12 16:03:28", "remark": "사용자의 프로필을 조회한다.", "pgmid": "manageProfile", "proc_mst_id": "", "pgm_stat": "Y", "sort_seq": 4, "app_pgmid": "aweportal", "shortcut": "ZZ88", "reg_dt": "2022-10-12 16:03:28", "reg_usid": "jjr", "pgm_nm": "사용자프로필", "upd_usid": "jjr", "pgm_tp": "UX", "pgm_grp_nm": "사용자", "proc_mst_nm": "", "app_pgm_nm": "FO Portal", "": "트랜젝션(메뉴)", "crud": "" };
+            me.dataDef["_pgm_func"] = [
+                { "func_icon": "fas fa-save", "reg_dt": "2022-10-12 16:03:28", "reg_usid": "", "func_nm": "저장", "upd_usid": "", "upd_dt": "2022-10-12 16:03:28", "func_tp": "DB_W", "remark": "사용자 프로필 변경 창 입니다.", "pgmid": "manageProfile", "sort_seq": "1", "funcid": "save", "content": "사용자 프로필 변경사항 저장", "crud": "R", "id": "0" },
+             { "func_icon": "fas fa-search", "reg_dt": "2022-10-12 16:03:28", "reg_usid": "", "func_nm": "조회", "upd_usid": "", "upd_dt": "2022-10-12 16:03:28", "func_tp": "DB_R", "remark": null, "pgmid": "manageProfile", "sort_seq": "2", "funcid": "search", "content": "사용자 프로필 조회", "crud": "R", "id": "1" }
+            ];
+            me.dataDef["_pgm_data"] = {};
+            me.dataDef["_pgm_data"]["list"] = {
+                "sort_seq": "1", "data_id": "list", "data_nm": "사용자 정보 목록", "data_icon": null, "component_pgmid": "aweForm", "component_option": { "height": "40em", "gridOpt": "rn chk", "gridOptions": { "statusBar": "false" } }, "inout_tp": "INOUT", "content": [
+                    { "sort_seq": 1, "section": null, "section_icon": null, "colgrp": null, "colid": "usid", "colnm": "아이디", "dtype": "text", "etype": "txt", "attr": "pk ", "len": 20, "defval": null, "refcd": null, "option": null, "valid": null, "colFormula": null, "grpFormula": null, "totFormula": null, "remark": null, "crud": "C", "w": null, "h": null, "id": "0" },
+                    { "sort_seq": 2, "section": null, "section_icon": null, "colgrp": null, "colid": "nm", "colnm": "이름", "dtype": "text", "etype": "txt", "attr": null, "len": 20, "defval": null, "refcd": null, "option": null, "valid": null, "colFormula": null, "grpFormula": null, "totFormula": null, "remark": null, "crud": "C", "w": null, "h": null, "id": "1" },
+                    { "sort_seq": 3, "section": null, "section_icon": null, "colgrp": null, "colid": "email", "colnm": "이메일", "dtype": "text", "etype": "txt", "attr": "keycol", "len": 50, "defval": null, "refcd": null, "option": null, "valid": null, "colFormula": null, "grpFormula": null, "totFormula": null, "remark": null, "crud": "C", "w": null, "h": null, "id": "2" },
+                    { "sort_seq": 4, "section": null, "section_icon": null, "colgrp": null, "colid": "company", "colnm": "소속회사", "dtype": "text", "etype": "txt", "attr": null, "len": 50, "defval": null, "refcd": null, "option": null, "valid": null, "colFormula": null, "grpFormula": null, "totFormula": null, "remark": null, "crud": "C", "w": null, "h": null, "id": "3" },
+                    { "sort_seq": 5, "section": null, "section_icon": null, "colgrp": null, "colid": "depart", "colnm": "부서", "dtype": "text", "etype": "txt", "attr": null, "len": 25, "defval": null, "refcd": null, "option": null, "valid": null, "colFormula": null, "grpFormula": null, "totFormula": null, "remark": null, "crud": "C", "w": null, "h": null, "id": "4" },
+                    { "sort_seq": 6, "section": null, "section_icon": null, "colgrp": null, "colid": "nick_nm", "colnm": "직책", "dtype": "text", "etype": "txt", "attr": null, "len": 20, "defval": null, "refcd": null, "option": null, "valid": null, "colFormula": null, "grpFormula": null, "totFormula": null, "remark": null, "crud": "C", "w": null, "h": null, "id": "5" },
+                    { "sort_seq": 6, "section": null, "section_icon": null, "colgrp": null, "colid": "intro", "colnm": "자기소개", "dtype": "text", "etype": "txt", "attr": null, "len": 100, "defval": null, "refcd": null, "option": null, "valid": null, "colFormula": null, "grpFormula": null, "totFormula": null, "remark": null, "crud": "C", "w": null, "h": null, "id": "6" }
+                    // {"sort_seq":7,"section":null,"section_icon":null,"colgrp":null,"colid":"orgn_nm","colnm":"등록파일명","dtype":"text","etype":"raw","attr":null,"len":null,"defval":null,"refcd":null,"option":null,"valid":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","w":"53","h":null,"colFormula":null,"id":"7"},
+                ]
+            };
 
-        me.pageObj["_page"] = new gfnFramepage( me ); 
-        for(var component_id in me.dataDef["_pgm_data"]) { 
-            me.pageObj[component_id] = new gfnComponent( me.pageid, component_id, me.dataDef["_pgm_data"][component_id], me.fnEH, me); 
-        }  
-        setTimeout(function(){
-            $("#frameset").scrollTo(0); //스크롤 
-        },10);
-        if(typeof(me.fnInitExtra)=='function') me.fnInitExtra(); 
-    } 
-/*-- SCRIPT autogen end ---------------------------------------------- */
-
-            /* 사용자초기화 */
-    me.fnInitExtra=function() {
-        me.fnSearch();   
-    }
-    /* 이벤트핸들러 */
-    me.fnEH=function(component, evt, row, col, val) { 
-        //console.log(evt+","+row+","+col+","+val);
-        //화면기능버튼이 눌리면 
-        if (component==me.pageObj["_pageFunc"]){ 
-            if(typeof(me[col])=='function') me[col](); //col=기능명 me["fnSearch"]()=me.fnSearch(); 
-        }
-
-        //사용자 컴포넌트/컨트롤
-        else if(component.userComponent=="list") {
-            //if(evt=="dblclick" && col=="colid") {...}
-        }
-    }
-    //search:조회 
-    me.fnSearch=function() {
-        var args = {};
-        //console.log(args);
-        var invar = JSON.stringify(args);
-        gfnTx(appid+"."+pgmid,"search",{INVAR:invar},function(OUTVAR){
-            //console.log(OUTVAR);
-            if(OUTVAR.rtnCd=="OK") {
-                me.pageObj["list"].importData(OUTVAR.list);
-            } else {
-                gfnAlert("조회오류",OUTVAR.rtnMsg);
+            me.pageObj["_page"] = new gfnFramepage(me);
+            for (var component_id in me.dataDef["_pgm_data"]) {
+                me.pageObj[component_id] = new gfnComponent(me.pageid, component_id, me.dataDef["_pgm_data"][component_id], me.fnEH, me);
             }
-        });
-    }
-    //save:저장 
-    me.fnSave=function() {
-        if( !me.pageObj["list"].chkValid() ) return;
-        var args = me.pageObj["list"].exportData()[0];
-        var list = me.pageObj.list.exportData("CRU");     
-        args.list = list;
-        //console.log(args);
-        var invar = JSON.stringify(args);
-        gfnTx(appid+"."+pgmid,"save",{INVAR:invar},function(OUTVAR){
-            //console.log(OUTVAR);
-            if(OUTVAR.rtnCd=="OK") {
-                gfnAlert("저장성공","정보가 저장되었습니다.");
-                me.pageObj["list"].importData(OUTVAR.list);
-            } else {
-                gfnAlert("조회오류",OUTVAR.rtnMsg);
+            setTimeout(function () {
+                $("#frameset").scrollTo(0); //스크롤 
+            }, 10);
+            if (typeof (me.fnInitExtra) == 'function') me.fnInitExtra();
+        }
+        /*-- SCRIPT autogen end ---------------------------------------------- */
+
+        /* 사용자초기화 */
+        me.fnInitExtra = function () {
+            me.fnSearch();
+        }
+        /* 이벤트핸들러 */
+        me.fnEH = function (component, evt, row, col, val) {
+            //console.log(evt+","+row+","+col+","+val);
+            //화면기능버튼이 눌리면 
+            if (component == me.pageObj["_pageFunc"]) {
+                if (typeof (me[col]) == 'function') me[col](); //col=기능명 me["fnSearch"]()=me.fnSearch(); 
             }
-        });
-    }
 
+            //사용자 컴포넌트/컨트롤
+            else if (component.userComponent == "list") {
+                //if(evt=="dblclick" && col=="colid") {...}
+            }
+        }
+        //search:조회 
+        me.fnSearch = function () {
+            var args = {};
+            //console.log(args);
+            var invar = JSON.stringify(args);
+            gfnTx(appid + "." + pgmid, "search", { INVAR: invar }, function (OUTVAR) {
+                //console.log(OUTVAR);
+                if (OUTVAR.rtnCd == "OK") {
+                    me.pageObj["list"].importData(OUTVAR.list);
+                } else {
+                    gfnAlert("조회오류", OUTVAR.rtnMsg);
+                }
+            });
+        }
+        //save:저장 
+        me.fnSave = function () {
+            if (!me.pageObj["list"].chkValid()) return;
+            var args = me.pageObj["list"].exportData()[0];
+            var list = me.pageObj.list.exportData("CRU");
+            args.list = list;
+            //console.log(args);
+            var invar = JSON.stringify(args);
+            gfnTx(appid + "." + pgmid, "save", { INVAR: invar }, function (OUTVAR) {
+                //console.log(OUTVAR);
+                if (OUTVAR.rtnCd == "OK") {
+                    gfnAlert("저장성공", "정보가 저장되었습니다.");
+                    me.pageObj["list"].importData(OUTVAR.list);
+                } else {
+                    gfnAlert("조회오류", OUTVAR.rtnMsg);
+                }
+            });
+        }
+        
+        
 
+        // 사진업로드
+        // $(document).ready(function () {
+        //     var readURL = function (input) {
+        //         if (input.files && input.files[0]) {
+        //             var reader = new FileReader();
 
-/*-- SCRIPT autogen ---------------------------------------------------- */        
-if(typeof(me.fnInit)=='function') me.fnInit();
-});
+        //             reader.onload = function (e) {
+        //                 $('.profile-pic').attr('src', e.target.result);
+        //             }
 
+        //             reader.readAsDataURL(input.files[0]);
+        //         }
+        //     }
+        //     $(".file-upload").on('change', function () {
+        //         readURL(this);
+        //     });
+
+        //     $(".upload-button").on('click', function () {
+        //         $(".file-upload").click();
+        //     });
+        // });
+        /*-- SCRIPT autogen ---------------------------------------------------- */
+        if (typeof (me.fnInit) == 'function') me.fnInit();
+    });
+
+   
 </script>
+
+

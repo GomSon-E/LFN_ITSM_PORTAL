@@ -260,7 +260,7 @@ function gfnLog(pgm, data, key, func, sub) {
 
 function gfnStatus(msg, state) {	
 	//status layer 띄우기
-	$("#status>ul").append('<li class="alert alert-dismissible alert-primary" style="top: ' + (40 * $("#status>ul").children().length + 10) + 'px;">' + msg + '<span>' + date("today","yyyy-mm-dd hh24:mi:ss") + '</span></li>');
+	$("#status>ul").append('<li class="alert alert-dismissible alert-primary" style="top: ' + (40 * $("#status>ul").children().length + 90) + 'px;">' + msg + '<span>' + date("today","yyyy-mm-dd hh24:mi:ss") + '</span></li>');
 
 	//status layer 사라지기
 	setTimeout(function(){
@@ -302,16 +302,23 @@ function progressUnvisible() {
 }
 
 function gfnPopup(title, content, aOpt, afnCallback) {
+	var popupMain = $("#popup .modal-content")
+
+	$("#popup").css("left", 0);
+	$("#popup").css("top", 0);
+	$("#popup").css("width", "100%")
+	$("#popup").css("height", "100%")
+	popupMain.css("left", 0);
+	popupMain.css("top", 0);
+
 	if(isNull(afnCallback)) afnCallback = gfnCallback; 
 
 	var width = aOpt.width ? aOpt.width : 400 ;
 	var height = aOpt.height ? aOpt.height : 500;
-	var popupMain = $("#popup .modal-content")
 	popupMain.css("width", width)
 	popupMain.css("height", height)
 	popupMain.css("left", "calc(50% - " + width/2 + "px)");
 	popupMain.css("top", "calc(50% - " + height/2 + "px)");
-	popupMain.draggable({handle: '.modal-header'});
 	popupMain.resizable({minWidth: 200, minHeight: 200});
 	
 	$("#popup .modal-body").css("overflow", "scroll");
@@ -321,7 +328,22 @@ function gfnPopup(title, content, aOpt, afnCallback) {
 
 	// popup layer 띄우기	
 	$("#popup").css("z-index", 20);
-	$("#popup").css("background-color", "background-color: rgba(0, 0, 0, 0.5);")
+
+	if (aOpt.modal) {
+		$("#popup").css("position", "inherit")
+		popupMain.draggable({handle: '.modal-header'});
+		popupMain.css("left", "calc(50% - " + width/2 + "px)");
+		popupMain.css("top", "calc(50% - " + height/2 + "px)");
+		$("#popup").css("background-color", "rgba(0, 0, 0, 0.5)")
+	} else {
+		$("#popup").draggable({handle: '.modal-header'});
+		$("#popup").css("position", "absolute")
+		$("#popup").css("left", "calc(50% - " + width/2 + "px)");
+		$("#popup").css("top", "calc(50% - " + height/2 + "px)");
+		$("#popup").css("width", width)
+		$("#popup").css("height", height)
+		$("#popup").css("background-color", "transparent")
+	}
 }
 
 function gfnConfirm(title, content, afnCallback, oPos) {
