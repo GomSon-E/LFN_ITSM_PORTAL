@@ -232,7 +232,7 @@ button {
 	margin: 0;
 	padding: 0;
 	min-width: 400px;
-	overflow-y: auto;
+	/* overflow-y: auto; */
 	display: flex;
 	flex-direction: row;
 	align-content: flex-start;
@@ -246,7 +246,7 @@ button {
 	flex: 1 1 auto;
 	background-color: rgb(253, 253, 255);
 	position: relative;
-	height: calc(100% - 3px);
+	/* height: calc(100% - 3px); */
 }
 
 #frameMain .btnShow {
@@ -779,6 +779,7 @@ button {
 	margin: 0;
 	padding: 0;
 	line-height: 1.5;
+	height: calc(100%);
 }
 
 .mobile .framepage {
