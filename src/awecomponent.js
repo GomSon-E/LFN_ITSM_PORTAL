@@ -657,7 +657,6 @@ function gfnReplaceCss(rule) {
 function gfnFramepage( page ) {
     var me = this;
     me.page = $("#"+page.pageid);
-	console.log(me.page);
     me.init = function() {
         me.initPageNav();
 		me.initPageTop(); 
@@ -838,8 +837,12 @@ function gfnComponent( pageId, containerId, componentDef, afnEH, page ) {
 			me.componentTop.append(me.componentFunc);
 		}
 
-		// me.container.append(me.componentTop);
-		$(`#${me.componentDef.data_id}`).append(me.componentTop);
+		me.container.append(me.componentTop);
+		// if(me.componentDef.data_id == "pgm_data_content"){
+		// 	$(`#${me.componentDef.data_id} > #${containerId}`).append(me.componentTop);
+		// } else {
+		// 	$(`#${me.componentDef.data_id}`).append(me.componentTop);
+		// }
 	} 
 	me.initComponentBody = function() {
 		me.componentBody = $(`<div class="componentBody"></div>`); 
@@ -1052,694 +1055,6 @@ function gfnComponent( pageId, containerId, componentDef, afnEH, page ) {
 				if(me.col[colid] != undefined) me.col[colid].refreshOptions(arr);
 			} 
 
-		} else if(me.componentDef.component_pgmid =="aweForm_v2"){
-			console.log("==== aweForm_v2 - Start =====")
-			me.col = {}; //aweForm은 me.col[colid] 로 해당 컬럼에 접근할 수 있다. 
-
-			console.log(me.componentDef);
-
-			// Control 생성 + 그리기
-			me.colinfo = me.componentDef.content;
-			for(var i=0; i < me.colinfo.length; i++) {
-				var colinfo = me.colinfo[i]; 
-				
-				me.col[colinfo.colid] = new gfnControl2(colinfo,function(colid, evt, newval){
-					//이벤트를 바인딩해준다. 
-					afnEH(me, evt, 0, colid, newval );
-				}, me);
-
-				var controllArea = $(`<div class="controllArea"></div>`);
-				var inputHead = $(`<div class="inputHaed">${colinfo.colnm}</div>`);
-				var inputWrap = $(`<div class="inputWrap"></div>`);
-
-				
-				// 아이콘 Null Check
-				if(!isNull(colinfo.section_icon)) {
-					var inputIcon = $(`<i class="${colinfo.section_icon}"></i>"`)
-					inputWrap.append(inputIcon);
-				}
-				
-				// 그리드 처리-1 (JSON: colspan)
-				console.log(colinfo.colspan);
-				if(colinfo.colspan != undefined) {
-					if(me.componentDef.content_grid == 2){
-						controllArea = $(`<div class="controllArea" style="flex: 1 ${colinfo.colspan} 100%"></div>`);
-					} else if(me.componentDef.content_grid == 3) {
-						controllArea = $(`<div class="controllArea" style="flex: 1 ${colinfo.colspan} ${colinfo.colspan*32.5}%"></div>`);
-					}
-				}
-
-				// componentBody 생성
-				inputWrap.append(me.col[colinfo.colid].dispObj);
-				controllArea.append(inputHead);
-				controllArea.append(inputWrap);
-				me.componentBody.append(controllArea);
-
-				// me.componentBody.append(inputWrap);
-			}
-			$("#" + me.componentDef.data_id).append(me.componentBody);
-
-			// 그리드 처리-2 (JSON: content_grid)
-			if(me.componentDef.content_grid == 2){
-				console.log("그리드 : 2");
-				me.componentBody.children('*').addClass("aweForm_v2_grid2");
-			} else if(me.componentDef.content_grid == 3) {
-				console.log("그리드 : 3");
-				me.componentBody.children('*').addClass("aweForm_v2_grid3");
-			} else {
-				console.log("정의되지 않은 그리드 입니다.")
-			}
-
-			
-			me.stat = "";
-			me.setStat = function(bChange) {
-				if(bChange==true) {
-					if(me.stat=="") me.stat="C";
-					else if(me.stat=="R") me.stat="U";
-				} else {
-					if(me.stat=="C") me.stat="";
-					else if(me.stat=="U") me.stat="R";
-				}
-				for(var colid in me.col) {
-					if( inStr(me.col[colid].attr,"pk") >= 0 ) {
-						if( me.stat=="R"||me.stat=="U") me.col[colid].setDisable(true);
-						else me.col[colid].setDisable(false);
-					}
-				}
-			}
-			//setVal
-			me.setVal = function(colid,val) {
-				if(me.col[colid] == undefined) {
-					me.data[colid] = val; 
-				} else {
-					me.col[colid].setVal(val); //setVal과정에서 정제될 수 있으므로
-					me.data[colid] = me.getVal(colid); //data는 정제된 값을 적재함.
-				}  
-			}			
-			//getVal 
-			me.getVal = function(colid) {
-				if(me.col[colid] == undefined) return me.data[colid];
-				else {
-					return me.col[colid].getVal();
-				} 
-			} 
-			//cval 
-			me.cval = function(colid, val) {
-				if(val==undefined) me.getVal(colid);
-				else me.setVal(colid, val);
-			}
-			//dispVal : dtype에 의해 표시된 값을 그대로 가져옴 
-			me.dispVal = function(colid) {
-				if(me.col[colid] == undefined) return me.data[colid];
-				else return me.col[colid].dispVal();
-			}
-			//form에 데이터표시 : 정의하지 않은 컬럼은 데이터를 저장하지 않는다. 
-			me.importFormData = function(rowdata, stat) {
-				try {
-					if($.type(rowdata)!='array') rowdata = $.makeArray(rowdata);
-					for(var colid in rowdata[0]) { //첫번째 데이터만 사용 
-						me.setVal(colid, rowdata[0][colid]);
-					}
-					me.stat = nvl(stat,"R");
-					me.setStat(false);
-					return true;
-				} catch {
-					return false;
-				}
-			}
-			//form에서 데이터추출 : 정의하지 않은 컬럼은 데이터를 리턴하지 않는다. 
-			me.exportFormData = function() {
-				var rtnData = [];
-				var row = {};
-				for(var i=0; i < me.colinfo.length; i++) {
-					var colinfo = me.colinfo[i]; 
-					row[colinfo.colid] = me.getVal(colinfo.colid); 
-				} 
-				row.crud = me.stat;
-				rtnData.push(row);
-				return rtnData;
-			}
-			//form에 데이터표시 : 정의하지 않은 컬럼은 데이터저장 
-			me.importData = function(rowdata, stat) {
-				try {
-					delete me.data; me.data=[];  
-					if($.type(rowdata)!='array') rowdata = $.makeArray(rowdata);
-					rowdata = rowdata[0]; //배열로 만든후 첫번쨰 Row만 Import함 
-                    var cols = extract(me.colinfo,"colid");
-				    var colDefVals = extract(me.colinfo,["colid","defval"]); 
-				    var curcols = Object.keys(nvl(rowdata,{})); 
-					curcols.forEach((colid)=>{ //신규데이터에 있는 컬럽값은 row에 넣어주고 
-						me.setVal(colid,rowdata[colid]); 
-					});
-					cols.forEach((colid)=>{ //컬럼정의에 있으나 신규데이터에 없는 컬럼은 기본값 넣어줌 
-						if(curcols.length == 0 || inStr(curcols,colid) < 0) {
-							me.setVal(colid, eval2(subset(colDefVals,"colid",colid)[0].defval)); 
-						}
-					});  
-					me.stat = nvl(stat,"R");
-					me.setStat(false);
-					return true;
-				} catch {
-					return false;
-				}
-			}
-			me.exportData = function() { 
-				var rtndata =  {};
-				var cols = extract(me.colinfo,"colid");  
-				rtndata = $.extend({},me.data);
-				cols.forEach((colid)=>{ //컬럼정의에 있는 컬럼값은 최종값 넣어줌  
-					rtndata[colid] = me.getVal(colid); 
-				});  
-				rtndata.crud = me.stat;
-				return [rtndata];
-			} 
-			//resetForm
-			me.reset = me.initComponentBody;
-			//focus
-			me.focus = function(colid) {
-				if(!isNull(me.col)&&!isNull(me.col[colid])&&!isNull(me.col[colid].obj)&&!me.col[colid].obj.is(":focus")) me.col[colid].focus();
-			}
-			//보이기 숨기기
-			me.setDisp = function(colid, bShow) { 
-			    if(!isNull(me.col[colid])) {
-					me.col[colid].setHidden(!bShow);
-					var colgrp = me.col[colid].obj.exactObj("[colgrp]");
-					if(bShow) { 
-						colgrp.show(); colgrp.removeClass("hidden");
-					} else {
-						if(colgrp.find(".aweCol").map((idx,el)=>$(el).css("display")).get().every(el=>el=='none')) colgrp.hide(); 
-					}
-					var section = colgrp.exactObj("[section]");
-					if(bShow) {
-						section.show(); section.removeClass("hidden");
-					} else {
-						if(section.children("[colgrp]").map((idx,el)=>$(el).css("display")).get().every(el=>el=='none')) section.hide();
-					}
-				}
-			}			
-			//validation 
-			me.chkValid = function(bWarn) {
-				if(bWarn==undefined) bWarn = true;
-				for(var i=0; i < me.colinfo.length; i++) {
-					var colinfo = me.colinfo[i]; 
-					if(me.col[colinfo.colid] == undefined) continue;
-					var chk = me.col[colinfo.colid].chkValid(bWarn); //validation Error인 경우 메시지
-					if(chk != true) {
-						me.col[colinfo.colid].focus();     //컬럼에 포커스만 주고 
-						return false; 
-					}
-				}
-				return true;
-			} 
-			//auto complete, popup, select, radio의 선택가능 옵션을 변경함 
-			me.refreshOptions = function(colid, arr) {
-				//arr에는 grpcd, 데이터배열, function이 들어올 수 있다.
-				if(me.col[colid] != undefined) me.col[colid].refreshOptions(arr);
-			} 			
-			
-
-			console.log("==== aweForm_v2 - End =====");
-		} else if(me.componentDef.component_pgmid =="agGrid_v2") {
-			console.log("==== agGrid_v2 - Start =====")
-			me.colinfo = me.componentDef.content;
-			me.component_option = me.componentDef.component_option;
-
-			// const columnDefs = [
-			// 	{ field: 'athlete', headerName: 'The full Name of the athlete', headerTooltip: "The athlete's name" },
-			// 	{ field: 'age', },
-			// 	{ field: 'country'},
-			// 	{ field: 'sport' },
-			// 	{ field: 'year' },
-			// 	{ field: 'date' },
-			// 	{ field: 'gold' },
-			// 	{ field: 'silver' },
-			// 	{ field: 'bronze' },
-			// 	{ field: 'total' },
-			// ];
-
-			// 열 Option
-			// field: String            == 컬럼명
-			// headerName: String       == 컬럼 대채명
-			// headerToolTip: String    == 툴팁
-			// sortable: bool           == 정렬 여부
-			// comparator: function()	== 정렬 방식 직접 지정
-			// suppressMenu: bool		== 옵션 버튼 여부
-			// filter: "agNumberColumnFilter" == ??
-			// maxWidth: int			== 최대 폭
-			// minWidth: int			== 최소 폭
-			// resizable: bool			== 폭 조절 여부
-			// suppressMovable: bool    == 위치 이동 여부 (true: 다른 컬럼에 의해서만 이동가능)
-			// lockPosition: 'left'	    == 위치 고정 (left: 가장 왼쪽에 고정, right: 가장 오른쪽 고정)
-			// pinned: 'left'			== 위치 고정 (left: 가장 왼쪽에 고정, right: 가장 오른쪽 고정)
-			// lockPinned: bool         == pinned 상태에서 이동 여부
-			
-			// colSpan: (params) => {
-			// 	const {"열"} = params.data.{"열"};
-			// 	if ({"열"} === {"값"}) {
-			// 	  // have all Russia age columns width 2
-			// 	  return 2;
-			// 	} else if ({"열"} === {"값"}) {
-			// 	  // have all United States column width 4
-			// 	  return 4;
-			// 	} else {
-			// 	  // all other rows should be just normal
-			// 	  return 1;
-			// 	}
-			//   },
-
-
-			const gridOptions = {
-
-				// 열 정의
-				columnDefs: gfnAgGridColumnDef2(
-					me,
-					me.colinfo, 
-					function(nodeid, colid, evt, newval) {
-						if(evt=="change" && me.gridOptions.api.getRowNode(nodeid)!=undefined) {
-							me.setCRUD(nodeid,"U");
-						}
-						afnEH(me, evt, nodeid, colid, newval);
-					}
-				),
-				// columnDefs: columnDefs,
-
-				// 행 정의 
-				// rowData: [
-				// 	{ chk: null, rn: null, usid: "sju02092", nm: "나상하", nick_nm: "나상하123", email: "sju02092@naver.com" }
-				// ],
-				rowData: [],
-				components:{ 
-					agGridCellRender: gfnAgGridCellRender,
-					agGridCellEdit: gfnAgGridCellEdit,
-					agDetailCellRender: gfnAgDetailCellRenderer
-				},
-				/* master-detail */ 
-				masterDetail: true, 
-				detailRowAutoHeight: true,
-				detailCellRenderer: 'agDetailCellRender',  
-				detailCellRendererParams: { 
-					pgmid: me.container.parents(".framepage").attr("pgmid"),
-					componentId: me.componentId
-				},
-
-				// 기본 정의
-				defaultColDef: {
-					editable: true,
-					resizable: true,
-					sortable: true,
-					
-					// initalWidth: 100,		// 초기 폭
-					// width: 200,				// 폭의 정의
-
-					// sortable: true,			// Sorting 여부
-					// resizable: true,		// 사이즈 조절 여부
-					
-					// enablePivot: true,
-					// enableValue: true,
-
-					// wrapHeaderText: true,	// 컬럼 폭에 맞춰 줄바꿈
-    				// autoHeaderHeight: true,  // 컬럼 높이 자동변경
-
-					// suppressMenuHide: true,
-					// filter: true,
-				},
-				enableRangeSelection: true,		// 드래그 선택
-				// 사이드바
-				sideBar: {
-					toolPanels: ['columns'],
-				},
-
-				// rowGroupPanelShow: 'always',
-				// pivotPanelShow: 'always',
-				// pagination: true,
-				rowSelection: 'multiple',
-				colResizeDefault: 'shift',	// 폭 조절시 옆에 폭도 조절
-
-				// 이벤트
-				onRowClicked: event => {
-					console.log(event);
-					console.log("행이 클릭 되엇습니다.");
-				},
-				onCellClicked: event => {
-					console.log(event);
-					console.log("Event - onCellClicked")
-				},
-				// onCellDoubleClicked: event => console.log("Event - onCellDoubleClicked"),
-				// rowDoubleClicked: event => console.log("Event - rowDoubleClicked"),
-				onColumnResized: event => console.log('A column was resized'),
-				onGridReady: event => {},
-
-				// 행 높이
-				getRowHeight: (params) => 25
-			};
-			
-
-			////////////// Function Definition - Start ////////////////////////
-			// Function ////
-			
-			// 줄추가
-			me.addRow = function(row, NodeId) { //선택안하면 맨뒤, 선택하면 그 줄 위에 삽입 -> 처음으로 추가된 줄 Selected 
-				console.log("줄 추가");
-				console.log(row);
-				if(row.length == 0) {
-					console.log("새로운 행을 만듭니다.1");
-					var newRow = {usid: '',nm: '', nick_nm: '', email: ''};
-					gridOptions.api.applyTransaction({add: [{newRow}]});
-				}
-			}
-			// 줄 삭제
-			me.removeRow = function() {
-				console.log("줄 삭제");
-				const row = gridOptions.api.getSelectedRows();
-				gridOptions.api.updateRowData({remove: row});
-			}
-			// 테이블 데이터 가져오기
-			me.getTableData = function(nodeid) {
-				var rowDatas = gridOptions.api.getRenderedNodes();
-				// console.log(rowDatas[0].data);
-				var resultArr = [];
-				for(var i=0; i<rowDatas.length; i++)
-				{
-					// console.log(rowDatas[i].data);
-					resultArr.push(rowDatas[i].data);
-				}
-				return resultArr;
-			
-			}
-			// 자동 폭 맞춤
-			me.sizeColumnsToFit = function() {
-				gridOptions.api.sizeColumnsToFit();
-			}
-			// 데이터 불러오기
-			me.importData = function(rowdata,crudFlag) { 
-				if(isNull(rowdata)) {
-					gridOptions.api.setRowData([]); 
-					return;
-				}
-				gridOptions.api.setRowData(rowdata);  
-			} 
-
-			me.testFunc = function() {
-				console.log(me.componentDef.data_id);
-			}
-
-
-			//// Column ////
-			// 열 업데이트
-			me.onBtExcludeMedalColumns = function(colArry) {
-				gridOptions.api.setColumnDefs(colArry);
-			} 
-			// 테이블 초기화
-			me.resetState = function() {
-				gridOptions.columnApi.resetColumnState();
-			} 
-			// 현재상태 저장
-			me.saveState = function() {
-				window.colState = gridOptions.columnApi.getColumnState();
-			} 
-			// 상태 저장 내용 불러오기
-			me.restoreState = function() {
-				if (!window.colState) {
-					return;
-				}
-				gridOptions.columnApi.applyColumnState({
-					state: window.colState,
-					applyOrder: true,
-				});
-			}
-			// 컬럼으로 정렬하기(컬럼, 정렬방법)
-			me.sortTableByCol = function(colid, sortMethod){
-				gridOptions.columnApi.applyColumnState({
-					state: [{ colId: colid, sort: sortMethod }],
-				});
-			}
-			// 두가지 컬럼으로 정렬하기(컬럼1, 컬럼1정렬, 컬럼2, 컬럼2정렬)
-			me.sortTableByTwoCol = function(colid1, colid1_sm, colid2, colid2_sm ) {
-				gridOptions.columnApi.applyColumnState({
-				  state: [
-					{ colId: colid1, sort: colid1_sm, sortIndex: 0 },
-					{ colId: colid2, sort: colid2_sm, sortIndex: 1 },
-				  ],
-				  defaultState: { sort: null },
-				});
-			}
-			// 정렬초기화
-			me.sortReset = function() {
-				gridOptions.columnApi.applyColumnState({
-				  defaultState: { sort: null },
-				});
-			}
-			// 컬럼 숨기기
-			me.hideCol = function() {
-				gridOptions.columnApi.applyColumnState({
-				  state: [
-					{ colId: 'gold', hide: true },
-					{ colId: 'silver', hide: true },
-					{ colId: 'bronze', hide: true },
-					{ colId: 'total', hide: true },
-				  ],
-				});
-			}
-			// 컬럼 보이기 (선택)
-			me.showCol = function() {
-				gridOptions.columnApi.applyColumnState({
-				  state: [
-					{ colId: 'gold', hide: false },
-					{ colId: 'silver', hide: false },
-					{ colId: 'bronze', hide: false },
-					{ colId: 'total', hide: false },
-				  ],
-				});
-			}
-			// 컬럼 보이기 (전체)
-			me.showAllCol = function() {
-				gridOptions.columnApi.applyColumnState({
-					defaultState: { hide: false },
-				});
-			}
-			// 컬럼 순서 바꾸기
-			me.setColSeq = function () {
-				gridOptions.columnApi.applyColumnState({
-				  state: [
-					{ colId: 'gold' },
-					{ colId: 'silver' },
-					{ colId: 'bronze' },
-					{ colId: 'total' },
-					{ colId: 'athlete' },
-					{ colId: 'age' },
-					{ colId: 'country' },
-					{ colId: 'sport' },
-					{ colId: 'year' },
-					{ colId: 'date' },
-				  ],
-				  applyOrder: true,
-				});
-			}
-			// 그룹화
-			me.groupingByCol = function() {
-				gridOptions.columnApi.applyColumnState({
-				  state: [
-					{ colId: 'country', rowGroupIndex: 0 },
-					{ colId: 'sport', rowGroupIndex: 1 },
-				  ],
-				  defaultState: { rowGroup: false },
-				});
-			}
-			// 그룹조건 선택 삭제
-			me.delGroupingCondByCol = function() {
-				gridOptions.columnApi.applyColumnState({
-					state: [{ colId: 'sport', rowGroup: false }],
-				});
-			}
-			// 그룹조건 전체 삭제
-			me.delAllGroupingCond = function() {
-				gridOptions.columnApi.applyColumnState({
-					defaultState: { rowGroup: false },
-				});
-			}
-			// 정렬 정보 저장
-			me.saveSortInfo = function() {
-				const allState = gridOptions.columnApi.getColumnState();
-				const sortState = allState.map((state) => ({	
-					colId: state.colId,
-					sort: state.sort,
-					sortIndex: state.sortIndex,
-				}));
-				window.sortState = sortState;
-			}
-			// 정렬 정보 불러오기
-			me.restoreSortInfo = function() {
-				if (!window.sortState) {
-					return;
-				}
-				gridOptions.columnApi.applyColumnState({
-				state: window.sortState,
-				});
-			}
-			// 컬럼 폭 조절
-			me.reSizeColWidth = function() {
-				function onBtWidthNarrow() {
-					gridOptions.columnApi.applyColumnState({
-					  state: [
-						{ colId: 'age', width: 100 },
-						{ colId: 'athlete', width: 100 },
-					  ],
-					});
-				  }
-			}
-			// 그룹 헤드 높이
-			me.setGroupHeaderHeight = function(value) {
-				gridOptions.api.setGroupHeaderHeight(value);
-				// setIdText('groupHeaderHeight', value);
-			}
-			// 헤드 높이 
-			me.setHeaderHeight = function(value) {
-				gridOptions.api.setHeaderHeight(value);
-				// setIdText('headerHeight', value);
-			}
-			// 필터 높이
-			me.setFloatingFiltersHeight = function(value) {
-				gridOptions.api.setFloatingFiltersHeight(value);
-				// setIdText('floatingFiltersHeight', value);
-			}
-			// 폭 자동맞춤
-			me.setWidthFit = function() {
-				gridOptions.api.sizeColumnsToFit();
-			}
-			// 폭 자동맞춤 - Header여부
-			me.setWidthFitRefHeader = function(skipHeader) {
-				// true - Header 포함
-				// false - Header 포함X
-				const allColumnIds = [];
-				gridOptions.columnApi.getColumns().forEach((column) => {
-				  allColumnIds.push(column.getId());
-				});
-			  
-				gridOptions.columnApi.autoSizeColumns(allColumnIds, skipHeader);
-			}
-			// 컬럼 순서 이동 
-			me.exchangeColum = function() {
-				// ex) moveColumnByIndex(0, 3) --> 0번 컬럼을 3번째로
-				gridOptions.columnApi.moveColumnByIndex(0, 3);
-			}
-			// 열 고정 (스크롤시 그대로)
-			me.fixedCol = function() {
-				gridOptions.columnApi.applyColumnState({
-					state: [
-						{ colId: 'country', pinned: 'left' },
-						{ colId: 'age', pinned: 'left' },
-					],
-				});
-			}
-			// 열 고정 해제 (선택)
-			me.unfixedCol = function() {
-				gridOptions.columnApi.applyColumnState({
-					state: [{ colId: 'country', pinned: null }],
-				});
-			}
-			// 열 고정 해제 (전체)
-			me.unfixedAllCol = function() {
-				gridOptions.columnApi.applyColumnState({ defaultState: { pinned: null } });
-			}
-			// 해당 열로 이동
-			me.jumpToCol = function(value) {
-				
-				if (typeof index !== 'string' || value === '') return;
-			  
-				const index = Number(value);
-				if (typeof index !== 'number' || isNaN(index)) return;
-			  
-				// it's actually a column the api needs, so look the column up
-				const allColumns = gridOptions.columnApi.getColumns();
-				if (allColumns) {
-				  const column = allColumns[index];
-				  if (column) {
-					gridOptions.api.ensureColumnVisible(column);
-				  }
-				}
-			}
-			// 해당 행으로 이동
-			me.jumpToRow = function(value) {
-				const index = Number(value);
-				if (typeof index === 'number' && !isNaN(index)) {
-				  gridOptions.api.ensureIndexVisible(index);
-				}
-			}
-			// Row Data 가져오기
-			me.getRowData = function(nodeid) {
-				console.log(gridOptions.api.getRowNode(1).data);
-				return gridOptions.api.getRowNode(nodeid).data;
-			}
-			// selectedRows
-			me.selectedRows = function() { 
-				var rtn = [];
-				gridOptions.api.forEachNode(function(node,idx) {
-					if(node.isSelected()) rtn.push(node.id);
-				});
-				return rtn;
-			}
-			
-			// 선택된 NodeId가져오기
-			me.selectedRow = function() {
-				var selectedRows = me.selectedRows(); 
-				if(selectedRows.length==0) return -1;
-				else return selectedRows[0];
-			} 
-			// exportData
-			me.exportData = function(sCRUD) {
-				me.grid.gridOptions.api.stopEditing(false);
-				var rtn = [];
-				if(sCRUD==undefined) sCRUD = "CRUD";
-				if(sCRUD=="selected") {
-					me.grid.gridOptions.api.forEachNode(function(row,idx)  {
-						if(row.isSelected()) {
-							for(var i=0; i < me.colinfo.length; i++) {
-								row.data[me.colinfo[i].colid] = nvl(row.data[me.colinfo[i].colid],null);
-							}
-							row.data.id = row.id;
-							rtn.push(row.data);
-						}
-					});
-				} else {
-					me.grid.gridOptions.api.forEachNode(function(row,idx) {
-						var crud = nvl(row.data.crud,"R");
-						if(inStr(sCRUD,crud)>=0) {
-							for(var i=0; i < me.colinfo.length; i++) {
-								row.data[me.colinfo[i].colid] = nvl(row.data[me.colinfo[i].colid],null);
-							}
-							row.data.id = row.id;
-							rtn.push(row.data);
-						}
-					});
-				} 
-				return rtn;
-			} 
-			// setVal
-			me.setVal = function(nodeId, colid, val) { 
-				if(!isNull(me.grid.gridOptions.api.getRowNode(nodeId))) {
-					if(!isNull(colid) && subset(me.colinfo,"colid",colid).length > 0) {
-						me.grid.gridOptions.api.getRowNode(nodeId).setDataValue(colid,val);
-					}
-				}
-			} 
-			//자동폭맞춤
-			me.sizeColumnsToFit=function() {
-				if(!isNull(me.container.parents(".framepage")) && me.container.parents(".framepage").css("display") != 'none') { 
-					gridOptions.api.sizeColumnsToFit();
-				}
-			}
-			
-
-			////////////// Function Definition - End ////////////////////////
-
-			gridDiv = document.querySelector('#'+me.componentDef.data_id);
-			new agGrid.Grid(gridDiv, gridOptions);
-			// fetch('https://www.ag-grid.com/example-assets/olympic-winners.json')
-			// .then((response) => response.json())
-			// .then((data) => gridOptions.api.setRowData(data));
-
-			console.log("==== agGrid_v2 - End =====")
-		
 		} else if( me.componentDef.component_pgmid =="agGrid" ) {
 			me.colinfo = me.componentDef.content;
 			me.component_option = me.componentDef.component_option;
@@ -3711,7 +3026,7 @@ function gfnControl(colinfo, afnEH, oComponent, rowid, val, rowPinned, agHack) {
 		} else if(me.etype=="link") {
 			// obj =  $(`<a target="_blank"></a>`); 
 		} else if(me.etype=="btn") { 
-			// obj =  $(`<button></button>`); 
+			obj =  $(`<button></button>`); 
 			// obj.addClass("ui-button");
 		} else if(me.etype=="none") {
 			// obj.addClass("hidden");
@@ -6321,4 +5636,315 @@ function gfnControl2(colinfo, afnEH, oComponent, rowid, val, rowPinned, agHack) 
 	}
 
 	me.init(); //초기화호출
+}
+function workbenchForm(pageid, component_id, dataDef, afnEH, me, rowData, distinctRow) {
+
+	console.log("Workbench Form생성");
+	// console.log(pageid);
+	// console.log(component_id);
+	// console.log(dataDef);
+	// console.log(afnEH);
+	// console.log(me);
+	// console.log(rowData);
+	console.log(distinctRow);
+
+	
+	// 화면기능, 화면컴포넌트, 화면소스 구분
+	var componentType = ""
+	if(component_id == "pgm_func") componentType = "funcInfo";
+	else if(component_id == "pgm_data") componentType = "dataInfo";
+	else if(component_id == "pgm_src") componentType = "srcInfo";
+
+
+	if(component_id == "pgm_func") {
+		
+		// 초기 데이터
+		var colinfos1 = dataDef.content;
+		var colinfos2 = dataDef.contentForm.content;
+		var funcBtns = dataDef.contentForm.contentFunc;
+		me.pageContentMain = {};
+		me.pageContentMain[component_id] = {};
+	
+		// 페이지 중복 처리
+		$(`.${pageid}.dataInfo`).hide();
+		$(`.${pageid}.srcInfo`).hide();
+		if($(".pageContentMain").children(`.${pageid}`).hasClass("funcInfo"+distinctRow)) {
+			console.log("이미 작성중인 행입니다. 불러옵니다.");
+			$(`.funcInfo[rowid != '${distinctRow}']`).hide();
+			$(`.${pageid}.funcInfo[rowid = '${distinctRow}']`).show();
+			return;
+		}
+
+		// Top 생성
+		var pageContentMainTop = $(`<div class="pageContentMainTop"></div>`);
+		var pageContentMainTitle = $(`<div class="pageContentMainTitle">${dataDef.data_nm} (추가)</div>`);
+		var pageContentMainFunc = $(`<div class="pageContentMainFunc"></div>`);
+		new gfnButtonSet(pageContentMainFunc, funcBtns, function(btnSet, evt, funcid, func) { 
+			//이벤트를 바인딩해준다. 이때 이벤트유형은 componentFunc이다.
+			var row = component_id + "#" + distinctRow
+			afnEH(me.pageContentMain, evt, row, funcid, func);
+		}); 
+		pageContentMainTop.append(pageContentMainTitle);
+		pageContentMainTop.append(pageContentMainFunc);
+		
+		// Body 생성
+		var pageContentMainBody = $(`<div class="pageContentMainBody"></div>`);
+	
+		for(var i=0; i<colinfos1.length-1; i++) {
+			var colinfo = colinfos1[i];
+	
+			var pageContentMainInputWrap = $(`<div class="pageContentMainInputWrap ${colinfo.colid}"></div>`);
+			var InputWrapTitle = $(`<div class="InputWrapTitle">${colinfo.colnm}</div>`);
+			var InputWrapContent = $(`<div class="InputWrapContent"></div>`);
+	
+			me.pageContentMain[component_id][colinfo.colid] = new gfnControl(colinfo,function(colid, evt, newval){
+				//이벤트를 바인딩해준다. 
+				var row = component_id + "#" + distinctRow
+				afnEH(me.pageContentMain, evt, row, colid, newval );
+			});
+			InputWrapContent.append( me.pageContentMain[component_id][colinfo.colid].dispObj );
+			var value;
+			
+			if(rowData == undefined) {
+				value = "";
+			} else {
+				value = !isNull(rowData[colinfo.colid]) ? rowData[colinfo.colid] : ""
+			}
+	
+			me.pageContentMain[component_id][colinfo.colid].setVal(value)
+	
+			pageContentMainInputWrap.append(InputWrapTitle);
+			pageContentMainInputWrap.append(InputWrapContent);
+			pageContentMainBody.append(pageContentMainInputWrap);
+		}
+	
+		for(var i=0; i<colinfos2.length; i++) {
+			var colinfo = colinfos2[i];
+	
+			var pageContentMainInputWrap = $(`<div class="pageContentMainInputWrap ${colinfo.colid}"></div>`);
+			var InputWrapTitle = $(`<div class="InputWrapTitle">${colinfo.colnm}</div>`);
+			var InputWrapContent = $(`<div class="InputWrapContent"></div>`);
+	
+			me.pageContentMain[component_id][colinfo.colid] = new gfnControl(colinfo,function(colid, evt, newval){
+				//이벤트를 바인딩해준다. 
+				var row = component_id + "#" + distinctRow
+				afnEH(me.pageContentMain, evt, row, colid, newval );
+			});
+			InputWrapContent.append( me.pageContentMain[component_id][colinfo.colid].dispObj );
+	
+			pageContentMainInputWrap.append(InputWrapTitle);
+			pageContentMainInputWrap.append(InputWrapContent);
+			pageContentMainBody.append(pageContentMainInputWrap);
+		}
+	
+		var workBenchFormWrap = $(`<div class="workBenchFormWrap ${pageid}"></div>`);
+		workBenchFormWrap.attr("rowid", distinctRow)
+		workBenchFormWrap.addClass(componentType+distinctRow);
+		workBenchFormWrap.addClass(componentType);
+		workBenchFormWrap.append(pageContentMainTop);
+		workBenchFormWrap.append(pageContentMainBody);
+		// $(`.pageContentMain`).append(workBenchFormWrap);
+		$(`#${pageid} > .pageContent > .pageContentMain`).append(workBenchFormWrap);
+	
+		$(`.funcInfo[rowid != '${distinctRow}']`).hide(); // 나머지 숨기기
+		return workBenchFormWrap;
+	} 
+	else if(component_id == "pgm_data") {
+
+		// 초기 데이터
+		var colinfos1 = dataDef.content;
+		var colinfos2 = dataDef.contentForm.content;
+		var funcBtns = dataDef.contentForm.contentFunc;
+		var componentOptions = dataDef.contentForm.componentOption;
+		me.pageContentMain = {};
+		me.pageContentMain[component_id] = {};
+		me.pageContentMain[component_id]["componentOption"] = {};
+	
+		// 페이지 중복 처리
+		$(`.${pageid}.funcInfo`).hide();
+		$(`.${pageid}.srcInfo`).hide();
+		if($(".pageContentMain").children(`.${pageid}`).hasClass("dataInfo"+distinctRow)) {
+			console.log("이미 작성중인 행입니다. 불러옵니다.");
+			$(`.dataInfo[rowid != '${distinctRow}']`).hide();
+			$(`.${pageid}.dataInfo[rowid = '${distinctRow}']`).show();
+			return;
+		}
+
+		// Top 생성
+		var pageContentMainTop = $(`<div class="pageContentMainTop"></div>`);
+		var pageContentMainTitle = $(`<div class="pageContentMainTitle">${dataDef.data_nm} (추가)</div>`);
+		var pageContentMainFunc = $(`<div class="pageContentMainFunc"></div>`);
+		new gfnButtonSet(pageContentMainFunc, funcBtns, function(btnSet, evt, funcid, func) { 
+			//이벤트를 바인딩해준다. 이때 이벤트유형은 componentFunc이다.
+			var row = component_id + "#" + distinctRow
+			afnEH(me.pageContentMain, evt, row, funcid, func);
+		}); 
+		pageContentMainTop.append(pageContentMainTitle);
+		pageContentMainTop.append(pageContentMainFunc);
+		
+		// Body 생성
+		var pageContentMainBody = $(`<div class="pageContentMainBody"></div>`);
+	
+		// Body 생성 - content
+		for(var i=0; i<colinfos1.length-1; i++) {
+			var colinfo = colinfos1[i];
+	
+			var pageContentMainInputWrap = $(`<div class="pageContentMainInputWrap ${colinfo.colid}"></div>`);
+			var InputWrapTitle = $(`<div class="InputWrapTitle">${colinfo.colnm}</div>`);
+			var InputWrapContent = $(`<div class="InputWrapContent"></div>`);
+	
+			me.pageContentMain[component_id][colinfo.colid] = new gfnControl(colinfo,function(colid, evt, newval){
+				//이벤트를 바인딩해준다. 
+				var row = component_id + "#" + distinctRow
+				afnEH(me.pageContentMain, evt, row, colid, newval );
+			});
+			InputWrapContent.append( me.pageContentMain[component_id][colinfo.colid].dispObj );
+			var value;
+			
+			if(rowData == undefined) {
+				value = "";
+			} else {
+				value = !isNull(rowData[colinfo.colid]) ? rowData[colinfo.colid] : ""
+			}
+	
+			me.pageContentMain[component_id][colinfo.colid].setVal(value)
+	
+			pageContentMainInputWrap.append(InputWrapTitle);
+			pageContentMainInputWrap.append(InputWrapContent);
+			pageContentMainBody.append(pageContentMainInputWrap);
+		}
+	
+		// Body 생성 - contentForm.content
+		for(var i=0; i<colinfos2.length; i++) {
+			var colinfo = colinfos2[i];
+	
+			var pageContentMainInputWrap = $(`<div class="pageContentMainInputWrap ${colinfo.colid}"></div>`);
+			var InputWrapTitle = $(`<div class="InputWrapTitle">${colinfo.colnm}</div>`);
+			var InputWrapContent = $(`<div class="InputWrapContent"></div>`);
+	
+			me.pageContentMain[component_id][colinfo.colid] = new gfnControl(colinfo,function(colid, evt, newval){
+				//이벤트를 바인딩해준다. 
+				var row = component_id + "#" + distinctRow
+				afnEH(me.pageContentMain, evt, row, colid, newval );
+			});
+			InputWrapContent.append( me.pageContentMain[component_id][colinfo.colid].dispObj );
+	
+			pageContentMainInputWrap.append(InputWrapTitle);
+			pageContentMainInputWrap.append(InputWrapContent);
+			pageContentMainBody.append(pageContentMainInputWrap);
+		}
+
+		// Body 생성 - contentForm.componentOption
+		var pageContentMainInputWrap = $(`<div class="pageContentMainInputWrap componentOption"></div>`);
+		var InputWrapTitle = $(`<div class="InputWrapTitle">컴포넌트 옵션</div>`);
+		var InputWrapContent = $(`<div class="InputWrapContent"></div>`);
+		for(var i=0; i<componentOptions.length; i++) {
+			var colinfo = componentOptions[i];
+			
+			var componentOptionWrap = $(`<div class="componentOptionWrap"></div>`);
+			
+			// componentOption Title
+			var componentOptionTitle = $(`<div class="componentOptionTitle">${colinfo.colid}</div>`);
+			
+			// componentOption Body
+			var componentOptionBody = $(`<div class="componentOptionBody"></div>`);
+			me.pageContentMain[component_id]["componentOption"][colinfo.colid] = new gfnControl(colinfo,function(colid, evt, newval){
+				//이벤트를 바인딩해준다. 
+				var row = component_id + "#" + distinctRow
+				afnEH(me.pageContentMain, evt, row, colid, newval );
+			});
+			componentOptionBody.append( me.pageContentMain[component_id]["componentOption"][colinfo.colid].dispObj );
+			
+			// // componentOption Func
+			// var componentOptionFunc = $(`<div class="componentOptionFunc"></div>`);
+			// var cancelBtn = [ {"funcid":"del","func_nm":"X","func_icon":""},]
+			// new gfnButtonSet(componentOptionFunc, cancelBtn, function(btnSet, evt, funcid, func) { 
+			// 	//이벤트를 바인딩해준다. 이때 이벤트유형은 componentFunc이다.
+			// 	var row = component_id + "#" + distinctRow
+			// 	afnEH(me.pageContentMain, evt, row, funcid, func);
+			// }); 
+
+			componentOptionWrap.append(componentOptionTitle);
+			componentOptionWrap.append(componentOptionBody);
+			// componentOptionWrap.append(componentOptionFunc);
+			InputWrapContent.append(componentOptionWrap);
+		}
+		
+		// 추가버튼
+		// var componentOptionFunc2 = $(`<div class="componentOptionFunc2"></div>`);
+		// var addBtn = [ {"funcid":"add","func_nm":"추가","func_icon":"fa fas-plus"},]
+		// new gfnButtonSet(componentOptionFunc2, addBtn, function(btnSet, evt, funcid, func) { 
+		// 	//이벤트를 바인딩해준다. 이때 이벤트유형은 componentFunc이다.
+		// 	var row = component_id + "#" + distinctRow
+		// 	afnEH(me.pageContentMain, evt, row, funcid, func);
+		// }); 
+		// InputWrapContent.append(componentOptionFunc2);
+
+		pageContentMainInputWrap.append(InputWrapTitle);
+		pageContentMainInputWrap.append(InputWrapContent);
+		pageContentMainBody.append(pageContentMainInputWrap);
+		
+	
+		var workBenchFormWrap = $(`<div class="workBenchFormWrap ${pageid}"></div>`);
+		workBenchFormWrap.attr("rowid", distinctRow)
+		workBenchFormWrap.addClass(componentType+distinctRow);
+		workBenchFormWrap.addClass(componentType);
+
+		workBenchFormWrap.append(pageContentMainTop);
+		workBenchFormWrap.append(pageContentMainBody);
+		// $(`.pageContentMain`).append(workBenchFormWrap);
+		$(`#${pageid} > .pageContent > .pageContentMain`).append(workBenchFormWrap);
+	
+		 // 나머지 숨기기
+		$(`.dataInfo[rowid != '${distinctRow}']`).hide();
+		return workBenchFormWrap;
+	} 
+	else if (component_id == "pgm_src") {
+		console.log('소스에 들어옴');
+
+		// 초기데이터
+		var funcBtns = dataDef.contentForm.contentFunc;
+		me.pageContentMain = {};
+		me.pageContentMain[component_id] = {};
+
+		// 페이지 중복 처리
+		$(`.${pageid}.dataInfo`).hide();
+		$(`.${pageid}.funcInfo`).hide();
+		if($(".pageContentMain").children(`.${pageid}`).hasClass("srcInfo"+distinctRow)) {
+			console.log("이미 작성중인 행입니다. 불러옵니다.");
+			// $(`.srcInfo[rowid != '${distinctRow}']`).hide();
+			$(`.srcInfo[rowid = '${distinctRow}']`).show();
+			return "alreadyPage";
+		}
+
+		// Top 생성
+		var pageContentMainTop = $(`<div class="pageContentMainTop"></div>`);
+		var pageContentMainTitle = $(`<div class="pageContentMainTitle">${dataDef.data_nm} - ${rowData.src_nm}</div>`);
+		var pageContentMainFunc = $(`<div class="pageContentMainFunc"></div>`);
+		new gfnButtonSet(pageContentMainFunc, funcBtns, function(btnSet, evt, funcid, func) { 
+			//이벤트를 바인딩해준다. 이때 이벤트유형은 componentFunc이다.
+			var row = component_id + "#" + distinctRow
+			afnEH(me.pageContentMain, evt, row, funcid, func);
+		}); 
+		pageContentMainTop.append(pageContentMainTitle);
+		pageContentMainTop.append(pageContentMainFunc);
+
+		// Body 생성
+		var pageContentMainBody = $(`<div class="pageContentMainBody"></div>`);
+
+		// workBenchFormWrap 생성
+		// if($(`#${pageid}`).)
+		var workBenchFormWrap = $(`<div class="workBenchFormWrap ${pageid}"></div>`);
+		workBenchFormWrap.attr("rowid", distinctRow)
+		workBenchFormWrap.addClass(componentType+distinctRow);
+		workBenchFormWrap.addClass(componentType);
+		workBenchFormWrap.append(pageContentMainTop);
+		workBenchFormWrap.append(pageContentMainBody);
+		// $(`.pageContentMain`).append(workBenchFormWrap);
+		$(`#${pageid} > .pageContent > .pageContentMain`).append(workBenchFormWrap);
+		// console.log(`#${pageid} > .pageContent > .pageContentMain`);
+	
+		// $(`.srcInfo[rowid != '${distinctRow}']`).hide(); // 나머지 숨기기
+		return workBenchFormWrap;
+	}
 }

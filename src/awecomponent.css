@@ -6,10 +6,17 @@ body {
 	margin: 0;
 }
 
+.framepage.active {
+    height: calc(100vh - 140px);
+    overflow-y: hidden;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+}
 
-.pageNav {
-	display: flex;
-	justify-content: space-between;
+.pageNav{
+    display: flex;
+    justify-content: space-between;
 	padding: 0.5rem;
 }
 
@@ -30,16 +37,19 @@ body {
 		margin-top:6px;
 	
 	}
+
 }
+
+
 
 
 .pageTop {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* padding: 0.3rem; */
+    flex-wrap: wrap;
 
-	flex-wrap: wrap;
-}
 
 .commonFunc>button {
 	background: none;
@@ -121,901 +131,332 @@ body {
 .componentContainer {
 	display: flex;
 	flex: 1 1 auto;
-	flex-direction: column;
-	align-content: center;
+  flex-direction: column;
+  align-content: center;
 	justify-content: space-between;
 	margin: 0.5em 0;
 	padding: 0.5em;
 	cursor: auto;
-	border: 1px solid lightgray;
-	border-radius: 10px;
+	/* border: 1px solid lightgray; */
+	/* border-radius: 10px; */
 }
 
 /* componentTop */
-.componentTop {
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
-	flex-wrap: wrap;
-	align-content: flex-start;
-	align-items: flex-start;
-	/* border-bottom: 1px solid lightgray; */
+
+.componentTop { 
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
 	padding: 1em;
 }
 
 .componentBody {
 	padding: 0.5em;
+	height: 100%;
 }
 
-.componentTitle span {
+.componentTitle { 
 	font-size: 1.2em;
 	font-weight: 600;
 }
 
+.pageContent{
+	width: 100%;
+	display: flex;
+    height: 100%;
+}
+/* ----------------------------------------------------------- */
 
+/* ----------------------------------------------------------- */
+#pgm_data_content{
+    position: absolute;
+	width: 70%;
+	background-color: #FEFEFE;
+	border: 1px solid rgb(30, 122, 225);
+	border-radius: 10px;
+	padding: 5px;
+	z-index: 10;
+	display: none;
+}
+#pgm_data_content > .componentBody{
+    height: 300px;
+}
+#pgm_data_content > .componentTop > .componentFunc > button{
+    margin-right: 10px;
+    padding: 5px 10px 5px 10px;
+    border: none;
+    border-radius: 5px;
+	background-color: rgb(30, 122, 225);
+	color: white;
+	font-size: 15px;
+	box-shadow: 3px 3px 3px gray;
+}
+#pgm_data_content > .componentTop > .componentFunc > button[funcid=closeColList]{
+    margin-right: 10px;
+    padding: 5px 10px 5px 10px;
+    border: none;
+	background-color: transparent;
+	color: black;
+	font-size: 15px;
+	box-shadow: none;
+}
 /* 희주 */
 /* ================================================================================================================ */
 /* ================================================================================================================ */
 /* ================================================================================================================ */
-/* 기존 */
 
-/* mdiPage Style ******************************************************************************************************************/
-.framepage {
-	background-color: rgb(255, 255, 255);
-}
+/* ===================================================================================================== */
+/* ============================================ 나상하 제작 ============================================ */
+/* ==================================================================================================== */
 
-.framepage.active {
+/* ============================ workbenchForm - Start ============================ */
+.pageContentSide{
+	/* background-color: red; */
 	display: flex;
 	flex-direction: column;
-	flex-wrap: nowrap;
-	justify-content: flex-start;
-	align-items: stretch;
-	height: 100%;
-	overflow-y: auto;
-	overflow-x: hidden;
-
+	height: calc(100vh - 220px);
+	flex-basis: 35%;
+    overflow-y: scroll;
 }
-
-@media(max-width:768px) {
-
-	.framepage.active {
-		display: flex;
-		flex-direction: column;
-		flex-wrap: nowrap;
-		justify-content: flex-start;
-		align-items: stretch;
-		height: 100%;
-		overflow-y: auto;
-		overflow-x: hidden;
-		border-top-left-radius: 30px;
-		border-top-right-radius: 30px;
-		padding: 5%;
-		border-left: 10px solid #d7e8fc;
-		border-right: 10px solid #d7e8fc;
-
-
-	}
-
-
-
+.pageContentSide > div{
+	border: 1px solid rgba(30, 122, 225, 0.5);
 }
-
-
-
-
-
-
-.framepage.active>* {
-	flex: 0 0 auto;
+.pageContentSide > div > .componentTop > .componentTitle{
+	font-size: 20px;
 }
-
-.framepage.active>*.pageContent {
-	flex: 1 1 auto;
-	/* overflow-y: hidden; */
-	background-color: hsla(0 0% 90% / .1);
-}
-
-.framepage.active>*:last-child {
-	flex: 1 1 auto;
-}
-
-/* ** flexRow, flexColumn ** */
-.flexColumn {
-	display: flex;
-	flex-direction: column !important;
-	flex-wrap: nowrap;
-	align-content: flex-start;
-	justify-content: flex-start;
-	align-items: stretch;
-	overflow-y: auto !important;
-	overflow-x: hidden !important;
-	height: 100%;
-}
-
-.flexColumn.Resizable {
-	cursor: row-resize;
-	row-gap: 1em;
-}
-
-.componentBody.agGrid {
-	height: calc(100% - 2em);
-	min-height: 20em;
-}
-
-.flexColumn.componentContainer {
-	row-gap: 0 !important;
-}
-
-.flexColumn>* {
-	flex: 1 1 auto;
-}
-
-.flexColumn>*:first-child {
-	flex: 0 0 auto;
-}
-
-.flexColumn>*:last-child {
-	flex: 1 1 auto;
-	height: unset !important;
-}
-
-.flexRow {
-	display: flex;
-	flex-direction: row !important;
-	flex-wrap: nowrap;
-	align-content: stretch;
-	justify-content: flex-start;
-	align-items: stretch;
-	height: 100%;
-	overflow-y: auto !important;
-	overflow-x: hidden !important;
-	column-gap: 1em;
-}
-
-.flexRow.Resizable {
-	cursor: col-resize;
-}
-
-.mobile .flexRow {
-	display: block !important;
-	flex-wrap: wrap !important;
-}
-
-.flexRow>* {
-	flex: 0 0 auto;
-}
-
-.flexRow>*:last-child {
-	flex: 1 1 auto;
-}
-
-.flexRowHandler {
-	position: absolute;
-	top: 10px;
-	left: 10px;
-	width: 12px;
-	height: 64px;
-	background-color: hsla(32 50% 80% / .4);
-	cursor: col-resize;
-}
-
-.flexColumnHandler {
-	position: absolute;
-	top: 10px;
-	left: 10px;
-	width: 64px;
-	height: 12px;
-	background-color: hsla(32 50% 80% / .4);
-	cursor: row-resize;
-}
-
-.framepage.hidden {
-	display: none;
-}
-
-.pageCond {
-	display: flex;
-	flex-direction: row !important;
-	flex-wrap: wrap;
-	align-items: center;
-	justify-content: flex-start;
-	margin: 0.25em 1em !important;
-	border: 1px solid #eaeaea;
-	padding: 0.5em;
-	font-size: 1em;
-	background-color: rgb(242, 246, 249);
-	text-align: left;
-	line-height: 2.5;
-	position: relative;
-}
-
-.pageCond .aweForm>* {
-	flex: unset;
-}
-
-.pageCond .aweForm {
-	border: 0;
-}
-
-.pageCond .aweForm div[colgrp] {
-	border: 0;
-}
-
-.pageCond .aweForm div[colgrp] label {
-	border: 0;
-	background-color: unset;
-}
-
-.btnClear {
-	position: absolute;
-	top: 0;
-	right: 0;
-	background-color: #c5c5c5;
-	/* #dfeffc url("../images/ui-bg_gloss-wave_55_5c9ccc_500x100.png") 50% 50% repeat-x; */
-	border: 1px solid #eaeaea;
-	color: #fff;
-	z-index: 1;
-}
-
-.pageContent {
-	padding: 0.25em;
-	margin: 0.25em 1em;
-}
-
-.mobile .contentClosed {
-	height: unset;
-}
-
-.layout {
-	margin: 0;
-	padding: 0;
-}
-
-.mT1 {
-	margin-top: 1em;
-}
-
-.pageContent .grid {
-	height: calc(100% - 1em);
-}
-
-.fit-height {
-	height: calc(100% - 3em);
-}
-
-
-/*** component *******************************************************************************/
-/* .componentContainer {
-	flex: 1 1 auto;
-	margin: 0 1px;
-	cursor: auto;
-	display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    align-content: center;
-    justify-content: space-between;
-    align-items: stretch;
-} */
-.componentContainer>.componentTop {
-	flex: 0 0 auto;
-}
-
-.componentContainer>.componentBody {
-	flex: 1 1 100%;
-}
-
-/* .componentBody  {
-	flex: 1 1 100%;
-} */
-.componentBody .ag-root-wrapper {
-	height: 100%;
-}
-
-.componentBody .ag-root-wrapper-body {
-	min-height: 5em;
-}
-
-.ui-dialog-content .componentBody .ag-root-wrapper-body {
-	min-height: 15em;
-}
-
-.contentClosed {
-	flex: none;
-}
-
-.flexRow .contentClosed {
-	flex: none !important;
-}
-
-.flexRow>.contentClosed {
-	max-width: 1em;
-}
-
-/* .componentTop { 
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    align-content: flex-start;
-    align-items: flex-start;	
-	margin-top: 1em;
-	margin-bottom: 0.5em;
-} */
-.componentTop>* {
-	flex: 1 1 auto;
-}
-
-.componentTitle {
-	margin: 0;
-	font-size: 1.1em;
-}
-
-/* .componentTitle span  { 
-		margin-left: 0.5em;
-		color: hsl(224 50% 10%);
-	} */
-.componentTitle.closed span {
-	/* color: hsl(224 40% 20%);
-		text-decoration:underline 1px dashed hsl(224 100% 80%); */
-}
-
-.componentFunc {
-	display: flex;
-	flex-direction: row;
-	justify-content: flex-end;
-	align-content: flex-start;
-	flex-wrap: wrap;
-	align-items: center;
-	gap: 2px 2px;
-}
-
-.componentFunc h5 {
-	margin: 0;
-	white-space: nowrap;
-	text-align: right;
-}
-
-.mobile .componentFunc h5 {
-	flex: 1 1 100%;
-}
-
-.componentFunc .gButton {
-	/* height: 2em; */
-	/* padding: 0.15em 0.5em; */
-	font-size: 1em;
-	border-radius: 15px;
-	border: 1px solid rgb(30, 122, 225);
-	background-color: transparent;
-	color: black;
-	padding: 8px;
-}
-
-.componentFunc .gButton:hover {
+.pageContentSide > div > .componentTop > .gbuttonSet > .gButton{
+	margin-right: 10px;
+    padding: 5px 10px 5px 10px;
+    border: none;
+    border-radius: 5px;
 	background-color: rgb(30, 122, 225);
 	color: white;
+	font-size: 15px;
+	box-shadow: 3px 3px 3px gray;
 }
 
-.ui-dialog-content .componentFunc .gButton {
-	font-size: 1em;
-}
-
-.componentFunc .aweCol {
-	max-width: 5em;
-}
-
-/*** aweTab *******************************************************************************/
-.aweTab {
+.pageContentMain{
+    width: 100%;
+    height: calc(100vh - 220px);
+    flex-basis: 65%;
 	display: flex;
-	border-bottom: 1px solid #cbc3c3;
-	padding-left: 0;
-	overflow-x: auto;
-	overflow-y: hidden;
-	margin-top: 0.1em;
-	margin-bottom: 0;
-	flex: 0 0 auto !important;
+	/* background-color: rgb(182, 182, 241); */
+    /* overflow-y: scroll; */
 }
 
-.aweTab .tab {
-	margin-left: 2px;
-	border: 1px solid #aeaeae;
-	border-radius: 0.5em 0.5em 0 0;
-	padding: 0.25em 1em;
-	background-color: #aeaeae;
-	/* #1c84c6#1989ce */
+.workBenchFormWrap{
+	background-color: rgba(30, 122, 225, 0.1);
+	width: 100%; height: 100%;
+	display: flex; flex-direction: column;
+	/* border: 1px solid lightgray; */
+	border-radius: 10px;
+	padding: 20px 10px 20px 10px;
+	margin: 3px 0px 3px 0px;
+}
+.pageContentMainTop{
+	/* background-color: aqua; */
+	width: 100%;
+	display: flex; flex-direction: row;
+	padding: 0px 10px 0px 10px;
+	margin-bottom: 10px;
+}
+.pageContentMainTop > .pageContentMainTitle{
+	/* background-color: gold; */
+	width: 80%;
+	font-size: 20px;
+	font-weight:  bold;
+}
+.pageContentMainTop > .pageContentMainFunc{
+	/* background-color: green; */
+	width: 20%;
+	text-align: end;
+}
+.pageContentMainTop > .pageContentMainFunc > button{
+	margin-right: 10px;
+    padding: 5px 10px 5px 10px;
+    border: none;
+    border-radius: 5px;
+	background-color: rgb(30, 122, 225);
 	color: white;
-	cursor: pointer;
-	list-style: none;
-	white-space: nowrap;
+	font-size: 15px;
+	box-shadow: 3px 3px 3px gray;
+}
+.pageContentMainTop > .pageContentMainFunc > button[funcid = cancel]{
+	border: none;
+	background-color: transparent;
+	box-shadow: none;
+	color: black;
+	font-size: 20px;
 }
 
-.aweTab .tab:hover {
-	color: yellow;
+.pageContentMainBody{
+	/* background-color: red; */
+	height: 100%;
+	padding-left: 2%; padding-right: 2%;
 }
-
-.aweTab .tab.active {
-	background-color: #ffffff;
-	border-bottom: 2px solid #ffffff;
-	margin-bottom: -1px;
-	color: #000;
+.pageContentMainBody > .pageContentMainInputWrap{
+	/* background-color: blue; */
+	border-top: 1px solid black;
+	width: 100%;
+	display: flex; flex-direction: row;
+	padding-top: 10px; padding-bottom: 10px;
+	margin-bottom: 5px;
 }
-
-.aweTab .tab i:hover {
-	color: hsl(0 80% 50%);
+.pageContentMainBody > .pageContentMainInputWrap > .InputWrapTitle{
+	/* background-color: yellow; */
+	width: 30%;
+	padding-left: 10px;
+	font-size: 15px;
 }
-
-.aweTab .closetab {
-	float: right;
+.pageContentMainBody > .pageContentMainInputWrap > .InputWrapContent{
+	/* background-color: aqua; */
+	width: 66%;
 }
-
-/*aweCalendar *******************************************************************************/
-.aweCalendar {
+.pageContentMainBody > .pageContentMainInputWrap > .InputWrapContent > *{
+	font-size: 15px;
+}
+.pageContentMainBody > .pageContentMainInputWrap > .InputWrapContent > .componentOptionWrap{
 	display: flex;
 	flex-direction: row;
-	flex-wrap: wrap;
-	align-content: flex-start;
-	justify-content: space-between;
-	align-items: stretch;
-	gap: 1px;
-	margin: 0;
-	border: 1px solid hsl(0 0% 80%);
-	font-size: 12px;
-	text-align: left;
-	position: relative;
-	background-color: #ffffffA0;
-	flex-direction: column;
-	flex-wrap: nowrap;
+	margin-bottom: 5px;
+	width: 100%;
 }
-
-.aweCalendar>* {
-	flex: 1 1 auto;
+.pageContentMainBody > .pageContentMainInputWrap > .InputWrapContent > .componentOptionWrap > .componentOptionTitle{
+	width: 20%;
+	margin-right: 10px;
 }
-
-.aweCalendar .calendarTop {
-	margin: 0;
-	color: rgba(0, 0, 0, 0.9);
-	padding: 1em 1em;
-	font-weight: bolder;
+.pageContentMainBody > .pageContentMainInputWrap > .InputWrapContent > .componentOptionWrap > .componentOptionBody{
+	width: 80%;
+	margin-right: 10px;
 }
-
-.aweCalendar .calendar {
-	flex: 1 1 100%;
+.pageContentMainBody > .pageContentMainInputWrap > .InputWrapContent > .componentOptionWrap > div > input{
+	width: 100%;
+	padding: 5px 0px 5px 5px;
+	border: none;
+	margin-right: 3px;
+}
+.pageContentMainBody > .pageContentMainInputWrap > .InputWrapContent > .componentOptionWrap > .componentOptionFunc{
+	border: none;
+	margin-right: 3px;
+}
+.pageContentMainBody > .pageContentMainInputWrap > .InputWrapContent > .componentOptionFunc2{
 	text-align: center;
+	margin-top: 10px;
+}
+.pageContentMainBody > .pageContentMainInputWrap > .InputWrapContent > .componentOptionFunc2 > button{
+	width: 80%;
 }
 
-.aweCalendar .calendar thead {
-	background-color: #ffffee;
+.pageContentMainBody > .pageContentMainInputWrap > .InputWrapContent > input{
+	width: 100%;
+	padding: 5px 10px 5px 10px;
+	border: none;
+}
+.pageContentMainBody > .pageContentMainInputWrap > .InputWrapContent > select{
+	width: 100%;
+	padding: 5px 10px 5px 10px;
+	border: none;
+}
+.pageContentMainBody > .pageContentMainInputWrap > .InputWrapContent > textarea{
+	width: 100%;
+	padding: 5px 10px 5px 10px;
+	border: none;
+}
+.pageContentMainBody > .pageContentMainInputWrap > .InputWrapContent > button{
+	width: 100%;
+	padding: 5px 10px 5px 10px;
+	border: none;
+	border-radius: 5px;
+	background-color: rgb(30, 122, 225);
+	font-size: 18px;
+	color: white;
+	box-shadow: 3px 3px 3px grey;
+}
+.pageContentMainBody > .pageContentMainInputWrap > .InputWrapContent > button:hover{
+	/* border: 1px solid rgb(30, 122, 225); */
 }
 
-.aweCalendar .calendar tbody {
-	background-color: #ffffffa0;
-	vertical-align: text-top;
-	text-align: left;
+.pageContentMainBody > div > .componentTop{
+	display: none;
 }
-
-.aweCalendar .calendar tr td {
-	width: calc(100% / 7);
-	height: calc(100% / 6);
+.srcEditor {
+	height: 100%;
 }
+.componentBody.ace_editor.ace-chrome {
+    height: 100%;
 
-.aweCalendar .calendar tr td:first-child {
-	background-color: #ffeeeea0;
 }
+/* ============================ workbenchForm - Start ============================ */
 
-.aweCalendar .calendar tr td:last-child {
-	background-color: #eeeeffa0;
+
+/* ============================ Ag Gird - Start ============================ */
+.ag-cell > button[colid=content] {
+	background-color: rgb(30, 122, 225);
+	border: none;
 }
-
-.aweCalendar .calendar #top {
-	font: var(--fontSmall);
-	color: var(--fontSubColor);
+.ag-cell > button[colid=content] > i{
+	color: white;
 }
+/* ============================Ag Gird - End ============================ */
 
-.aweCalendar .calendar #top b {
-	font: var(--fontBig);
-	color: var(--logoBG);
-	cursor: pointer;
-	padding-right: 0.5em;
-}
-
-.aweCalendar .calendar #top b:hover {
-	color: var(--pointColor)
-}
-
-.aweCalendar .calendar .today {
-	background-color: #fffcee !important;
-}
-
-.aweCalendar .calendar .prevMon {
-	background-color: #3a3a3a2e !important;
-}
-
-.aweCalendar .calendar .nextMon {
-	background-color: #3a3a3a2e !important;
-}
-
-
-/*** aweForm *******************************************************************************/
-.aweForm {
+/* ============================ aweForm_v2 - Start ============================ */
+.aweForm_v2{
 	display: flex;
 	flex-direction: row;
 	flex-wrap: wrap;
-	align-content: flex-start;
-	justify-content: flex-start;
-	align-items: stretch;
-	gap: 1px;
-	margin: 0;
-	/* border: 1px solid hsl(0 0% 80%); */
-	font-size: 12px;
-	text-align: left;
-	position: relative;
 }
-
-.aweForm>* {
-	flex: 1 1 auto;
+.aweForm_v2_grid2{
+	flex: 1 1 48%;
+	padding: 5px;
 }
-
-.aweForm fieldset {
-	display: inline-flex;
-	flex-direction: row;
-	flex-wrap: wrap;
-	justify-content: space-between;
-	align-content: stretch;
-	align-items: stretch;
-	margin: -1px -1px 5px 1px;
-	border: 1px solid hsla(0 0% 80% / 0.5);
-	padding: 0;
-	padding-right: 5px;
-	background-color: hsla(195 38% 94% / 0.9);
+.aweForm_v2_grid2 > .inputHead {
+	margin-bottom: 10px;
 }
+.aweForm_v2_grid2 > .inputWrap {
 
-.aweForm fieldset>* {
-	flex: 1 1 auto;
 }
-
-.aweForm div[colgrp] {
-	display: inline-flex;
-	flex-wrap: nowrap;
-	flex-direction: row;
-	justify-content: flex-start;
-	align-content: center;
+.aweForm_v2_grid2 > .inputWrap:focus-within {
+	border: 1.5px solid blue;
+}
+.aweForm_v2_grid3{
+	flex: 1 1 32%;
+	/* border: 1px solid grey; */
+	padding: 5px;
+}
+.aweForm_v2_grid3 > .inputHead {
+	margin-bottom: 10px;
+}
+.aweForm_v2_grid3 > .inputWrap {
+}
+.aweForm_v2_grid3 > .inputWrap:focus-within {
+	border: 1.5px solid blue;
+}
+.inputWrap {
+	display: flex;
+	padding: 5px;
+	border: 0.8px solid gray;
+	border-radius: 5px;
 	align-items: center;
-	margin: -1px;
-	margin-bottom: 1px;
-	border: 1px solid hsla(0 0% 75% / 0.5);
-	padding: 0;
-	min-height: 1.25em;
-	white-space: nowrap;
-	position: relative;
 }
 
-.mobile .aweForm div[colgrp] {
-	justify-content: stretch;
-	align-items: stretch;
-	width: 100% !important;
-}
-
-.aweForm label {
-	flex: 0 0 5em;
-	display: inline-flex;
-	flex-direction: row;
-	align-items: center;
-	align-content: space-around;
-	justify-content: flex-end;
-	margin: 0;
+.inputWrap> i{
+	/* background-color: red; */
 	padding-left: 5px;
-	border-right: 1px solid hsla(0 0% 80% / 0.5);
-	padding-right: 0.5em;
-	min-width: 5em;
-	height: 100%;
-	color: hsla(0 0% 0% / 0.54) !important;
-	background-color: hsla(0 0% 95% / 0.9);
-	white-space: nowrap;
-	font-weight: bold;
-	text-align: right;
+	padding-right: 8px;
+	border-right: 0.5px solid black;
 }
-
-.mobile .aweForm label {
-	flex: 0 0 4em;
-	min-width: 5em;
-}
-
-.aweColWrap {
-	display: inline-flex;
-	flex-direction: row;
-	flex-wrap: nowrap;
-	align-content: center;
-	align-items: center;
-	justify-content: space-between;
-	min-height: 1.25em;
-	height: 100%;
-}
-
-.aweCol {
-	min-height: 1.25em;
+.inputWrap> input[type=text]{
+	background-color: transparent;
 	width: 100%;
-	font-size: 12px;
-	box-sizing: border-box !important;
+	margin-left: 8px;
+	border: none;
 }
-
-input.aweCol {
-	margin: 0;
-	border: 1px solid #aeaeaff0;
-	border-bottom: 1px solid #aeaeaf6b;
-	border-right: 1px solid #aeaeaf6b;
-	padding: 0.25em;
-	height: 100%;
-	max-height: 27px;
-	width: 100%;
+.inputWrap> input[type=text]:focus{
+	outline: none;
 }
+/* ============================ aweForm_v2 - End ============================ */
 
-input[type="checkbox"].aweCol {
-	min-height: 1.25em;
-	height: 1.25em;
-	max-height: 1.25em;
-	min-width: 1.25em;
-}
-
-.mobile input[type="checkbox"].aweCol {
-	height: unset !important;
-	max-height: unset !important;
-}
-
-.aweForm input[type="checkbox"].aweCol {
-	flex: 0 0 1.25em !important;
-}
-
-select.aweCol {
-	margin: 0;
-	border: 1px solid hsla(0 0% 80% / 0.5);
-	height: 100%;
-}
-
-textarea.aweCol {
-	margin: 0;
-	border: 1px solid hsla(0 0% 80% / 0.5);
-	resize: none;
-}
-
-button.aweCol {
-	background-color: steelblue !important;
-	border: #aeaeae;
-	color: #fff;
-}
-
-button.aweCol:hover {
-	background-color: slategrey !important;
-	border: #aeaeae;
-	color: #000;
-}
-
-span.aweCol,
-div.aweCol,
-pre.aweCol {
-	display: inline-block;
-	height: 100%;
-	padding: 0.25em;
-	margin: 0;
-	border-bottom: 1px solid #eaeaea6b;
-	border-right: 1px solid #eaeaea6b;
-}
-
-.aweCol.pk {
-	background-position: left top;
-	background-image: url(../images/keycol.png);
-	background-repeat: no-repeat;
-	background-color: rgba(255, 255, 156, 0.25) !important;
-	color: #6d2c2c;
-}
-
-.aweCol.keycol {
-	background-repeat: no-repeat;
-	background-color: rgba(255, 255, 156, 0.25) !important;
-}
-
-.aweCol.center,
-.aweCol.ymd {
-	text-align: center !important;
-}
-
-.aweCol.left {
-	text-align: left;
-}
-
-.aweCol.right,
-.aweCol.num {
-	text-align: right !important;
-}
-
-.aweColBtn {
-	flex: 0 0 1.2em;
-	border: 0;
-	background-color: hsla(0 0% 80% / 0.5);
-	margin-right: 5px;
-	width: 14px;
-	min-height: 19px;
-}
-
-.aweCol.num.minus {
-	font-weight: 500;
-	color: #c10909;
-}
-
-.aweForm span.aweCol,
-.aweForm pre.aweCol {
-	user-select: text;
-	border: 1px solid #aeaeaeae;
-}
-
-/*** end of aweForm *******************************************************************************/
-
-/*** select2 Hack *********************************************************************************/
-.aweForm .select2-container {
-	width: 100% !important;
-	font-size: 9px;
-	overflow: hidden;
-	background-color: white;
-	border-radius: 2px;
-	border: 1px solid #aeaeaff0;
-	border-bottom: 1px solid #aeaeaf6b;
-	border-right: 1px solid #aeaeaf6b;
-}
-
-.mobile .aweForm .select2-container {
-	width: 100% !important;
-}
-
-.aweForm .select2 .selection {}
-
-.aweForm .select2-selection--single {
-	border: 0;
-}
-
-.aweForm .pk .select2-selection--single {
-	background-image: url(../images/keycol.png);
-	background-repeat: no-repeat;
-	color: #6d2c2c;
-	background-color: rgba(255, 255, 156, 0.25) !important;
-}
-
-.aweForm .keycol .select2-selection--single {
-	background-color: rgba(255, 255, 156, 0.25) !important;
-}
-
-.aweForm .disabled .select2-selection--single {
-	background-color: rgba(128, 128, 128, 0.2) !important;
-}
-
-.aweForm .select2-selection--multiple {
-	border: 0;
-	padding: 0;
-	min-height: unset !important;
-	display: flex;
-}
-
-.aweForm .pk .select2-selection--multiple {
-	background-image: url(../images/keycol.png);
-	background-repeat: no-repeat;
-	color: #6d2c2c;
-	background-color: rgba(255, 255, 156, 0.25) !important;
-}
-
-.aweForm .keycol .select2-selection--multiple {
-	background-color: rgba(255, 255, 156, 0.25) !important;
-}
-
-.aweForm .disabled .select2-selection--multiple {
-	background-color: rgba(128, 128, 128, 0.2) !important;
-}
-
-.aweForm .select2-selection--multiple .select2-selection__rendered {
-	display: flex;
-	margin: 0;
-}
-
-.aweForm .select2-container--default .select2-selection--multiple .select2-selection__choice {
-	margin: 1px;
-	padding: 2px;
-	min-width: 2.5em;
-	max-width: 7em;
-	border-radius: 2px;
-	background-color: #eaeaea !important;
-	border: unset !important;
-}
-
-.aweForm .select2-container--default .select2-selection--multiple .select2-selection__choice__display {
-	padding-left: 0;
-	border-radius: 2px;
-	margin-right: 2px;
-}
-
-.select2-selection__choice__remove {
-	height: 50%;
-	background-color: #f06a61c9;
-}
-
-.select2-results__option {
-	padding: 3px;
-}
-
-.select2-results__option:before {
-	content: "";
-	display: inline-block;
-	position: relative;
-	height: 13px;
-	width: 13px;
-	border: 2px solid #e9e9e9;
-	border-radius: 3px;
-	background-color: #fff;
-	margin-right: 6px;
-	vertical-align: middle;
-}
-
-.select2-results__option[aria-selected=true]:before {
-	font-family: fontAwesome;
-	content: "\f00c";
-	color: #fff;
-	background-color: #f77750 !important;
-	border: 0;
-	display: inline-block;
-	padding-left: 2px;
-}
-
-.select2-container--default .select2-results__option[aria-selected=true] {
-	background-color: #fff;
-}
-
-.select2-container--default .select2-results__option--highlighted[aria-selected] {
-	background-color: #eaeaeb;
-	color: #272727;
-}
-
-.select2-container--default .select2-results__option--selected {
-	background-color: #eaeaeb;
-	color: #272727;
-}
-
-.select2-container--default .select2-results__option--selected:before {
-	font-family: fontAwesome;
-	content: "\f00c";
-	color: #fff;
-	background-color: #f77750 !important;
-	border: 0;
-	display: inline-block;
-	padding-left: 2px;
-}
-
-.select2-container--open .select2-dropdown--below {
-	box-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
-}
-
-.select2-selection .select2-selection--multiple:after {
-	content: 'hhghgh';
-}
-
-/* select with icons badges single*/
-.select-icon .select2-selection__placeholder .badge {
-	display: none;
-}
-
-.select-icon .placeholder {
-	/* 	display: none; */
-}
-
-.select-icon .select2-results__option:before,
-.select-icon .select2-results__option[aria-selected=true]:before {
-	display: none !important;
-	/* content: "" !important; */
-}
-
-.select-icon .select2-search--dropdown {
-	display: none;
-}
-
-/*** select2 Hack *********************************************************************************/
-
-.gfpl {
-	min-height: 17em;
-}
 
 /*** agGrid ***************************************************************************************/
 .gridHeight {
@@ -1084,7 +525,7 @@ pre.aweCol {
 	min-height: 22px !important;
 	padding: 0 0.5em;
 	background-color: transparent;
-	text-align: left;
+	text-align: center;
 }
 
 .ag-cell [type='checkbox'].aweCol {
@@ -1351,286 +792,3 @@ span.cell-deleted {
 }
 
 /*** end of agGrid ********************************************************************************/
-
-/*** jquery Dialog Hack ******************************************************************************/
-[role='dialog'] {
-	max-width: 100% !important;
-	max-height: 100% !important;
-}
-
-
-/*** aweCardView *****/
-.componentBody.aweCardView {
-	position: relative;
-	display: block;
-}
-
-.aweCardView .aweRow {
-	display: flex;
-	flex-direction: column;
-	flex-wrap: nowrap;
-	align-content: center;
-	justify-content: space-between;
-	align-items: stretch;
-	padding: 2px;
-	margin: 2px;
-	border-radius: 1em;
-	border: 1px solid white;
-	background-color: #ffffff66;
-	overflow: hidden;
-}
-
-.aweCardView .aweRow>section {
-	display: flex;
-	flex-direction: row;
-	align-content: center;
-	justify-content: flex-start;
-	align-items: center;
-}
-
-/*** aweComment **************************************************************************************/
-.aweComment {
-	display: flex;
-	flex-direction: column;
-	flex-wrap: nowrap;
-	align-content: center;
-	justify-content: space-between;
-	align-items: center;
-	width: 100%;
-	height: 100%;
-	max-height: 60vh;
-	position: relative;
-	background-color: slategray;
-	background-image: url(/images/bg.png);
-	background-size: cover;
-	max-width: 400px;
-	min-width: 250px;
-	padding: 1em 1px 1px 1px;
-	row-gap: 1em;
-}
-
-.aweCommentList {
-	flex: 1 1 100%;
-	width: 100%;
-	height: 100%;
-	overflow-y: auto;
-	max-height: 700px;
-	margin: 0;
-	padding: 0;
-}
-
-.aweCommentList::-webkit-scrollbar-thumb {
-	border: 1px solid palegoldenrod;
-}
-
-.aweCommentList::-webkit-scrollbar {
-	background-color: rgba(0, 0, 0, 0.1);
-	width: 2px;
-}
-
-.aweCommentList .aweRow {
-	max-height: unset !important;
-	display: flex;
-	flex-direction: row;
-	flex-wrap: nowrap;
-	align-content: flex-end;
-	justify-content: flex-start;
-	align-items: flex-end;
-	position: relative;
-}
-
-.aweCommentList .aweRow.my {
-	flex-direction: row-reverse;
-}
-
-.aweCommentList .aweRow.syslog {
-	justify-content: center;
-	color: lightsteelblue !important;
-	margin-bottom: 1em;
-}
-
-.aweCommentList .aweCommentBy {
-	text-align: center;
-	white-space: nowrap;
-	position: relative;
-	min-width: 40px;
-}
-
-.aweCommentList .aweRow.syslog .aweCommentBy {
-	display: none;
-}
-
-.aweCommentList .aweCommentBy::before {
-	content: " ";
-	position: absolute;
-	bottom: 15px;
-	left: 5px;
-	width: 32px;
-	height: 32px;
-	background-image: url(/images/member.png);
-	background-repeat: no-repeat;
-	background-size: 28px;
-	background-position: center;
-}
-
-.aweCommentList .aweRow.my .aweCommentBy {
-	font-size: 0;
-}
-
-.aweCommentList .aweRow.my .aweCommentBy::before {
-	left: unset;
-	bottom: 10px;
-	right: 5px;
-	background-image: url(/images/memberMe.png);
-	background-color: yellow;
-	border-radius: 32px;
-	width: 30px;
-	height: 30px;
-}
-
-.aweCommentList .aweCommentMsg {
-	display: inline-block;
-	border-radius: 1em;
-	border: 1px solid #ffffff55;
-	padding: 1em;
-	margin: 0.15em 0.5em;
-	max-width: fit-content;
-	white-space: break-spaces;
-	background-color: rgba(255, 255, 255, 0.7);
-	color: #1a1a1a;
-	list-style: none;
-	box-shadow: 0 0 2px 2px #3a3a3a3a;
-	position: relative;
-}
-
-.aweCommentList .aweRow.syslog .aweCommentMsg {
-	border: 0;
-	box-shadow: none;
-	background: transparent;
-	margin: 0;
-	padding: 0 1em;
-}
-
-.aweCommentList .aweRow.focus .aweCommentMsg {
-	border-color: goldenrod;
-	background-color: white;
-	color: black;
-	user-select: text;
-}
-
-.aweCommentMsg .info {
-	display: block;
-	color: darkblue;
-	font-family: sans-serif;
-}
-
-.aweCommentList .aweCommentAt {
-	font-size: smaller;
-	color: #5a5a5c;
-}
-
-.aweCommentList .aweRow.my .aweCommentAt {
-	text-align: right;
-}
-
-.aweComment i.fa-trash {
-	position: absolute;
-	top: 2px;
-	right: 4px;
-	color: steelblue;
-}
-
-.aweComment i.fa-trash:hover {
-	color: orange;
-	cursor: pointer;
-}
-
-
-.aweComment .addComment {
-	flex: 0 0 auto;
-	display: flex;
-	flex-direction: row;
-	flex-wrap: nowrap;
-	align-content: space-between;
-	justify-content: space-between;
-	align-items: stretch;
-	width: 100%;
-
-}
-
-.aweComment .addComment textarea {
-	font-size: 12px;
-	flex: 1 1 auto;
-	background-color: #fdfde4;
-	padding: 0.5em;
-	min-height: 8.25em;
-}
-
-.aweComment .addComment button {
-	max-width: 5em;
-	border: 1px solid darkslategrey;
-}
-
-/* 나상하 제작 - aweForm_v2 */
-.aweForm_v2 {
-	display: flex;
-	flex-direction: row;
-	flex-wrap: wrap;
-}
-
-.aweForm_v2_grid2 {
-	flex: 1 1 48%;
-	padding: 5px;
-}
-
-.aweForm_v2_grid2>.inputHead {
-	margin-bottom: 10px;
-}
-
-.aweForm_v2_grid2>.inputWrap {}
-
-.aweForm_v2_grid2>.inputWrap:focus-within {
-	border: 1.5px solid blue;
-}
-
-.aweForm_v2_grid3 {
-	flex: 1 1 32%;
-	/* border: 1px solid grey; */
-	padding: 5px;
-}
-
-.aweForm_v2_grid3>.inputHead {
-	margin-bottom: 10px;
-}
-
-.aweForm_v2_grid3>.inputWrap {}
-
-.aweForm_v2_grid3>.inputWrap:focus-within {
-	border: 1.5px solid blue;
-}
-
-.inputWrap {
-	display: flex;
-	padding: 5px;
-	border: 0.8px solid gray;
-	border-radius: 5px;
-	align-items: center;
-}
-
-.inputWrap>i {
-	/* background-color: red; */
-	padding-left: 5px;
-	padding-right: 8px;
-	border-right: 0.5px solid black;
-}
-
-.inputWrap>input[type=text] {
-	background-color: transparent;
-	width: 100%;
-	margin-left: 8px;
-	border: none;
-}
-
-.inputWrap>input[type=text]:focus {
-	outline: none;
-}
