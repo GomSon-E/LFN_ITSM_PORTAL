@@ -321,7 +321,6 @@ function gfnPopup(title, content, aOpt, afnCallback) {
 	popupMain.css("top", "calc(50% - " + height/2 + "px)");
 	popupMain.resizable({minWidth: 200, minHeight: 200});
 	
-	$("#popup").draggable({handle: '.modal-header'});
 	$("#popup .modal-body").css("overflow", "scroll");
 
 	$("#popup h5").html(title);
@@ -331,6 +330,7 @@ function gfnPopup(title, content, aOpt, afnCallback) {
 	$("#popup").css("z-index", 20);
 
 	if (isNum(aOpt.modal)) {
+		$("#popup").draggable({handle: '.modal-header'});
 		$("#popup").css("position", "absolute")
 		$("#popup").css("left", "calc(50% - " + width/2 + "px)");
 		$("#popup").css("top", "calc(50% - " + height/2 + "px)");
@@ -338,6 +338,8 @@ function gfnPopup(title, content, aOpt, afnCallback) {
 		$("#popup").css("height", height)
 		$("#popup").css("background-color", "transparent")
 	} else {
+		$("#popup").css("position", "inherit")
+		popupMain.draggable({handle: '.modal-header'});
 		popupMain.css("left", "calc(50% - " + width/2 + "px)");
 		popupMain.css("top", "calc(50% - " + height/2 + "px)");
 		$("#popup").css("background-color", "rgba(0, 0, 0, 0.5)")
