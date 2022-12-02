@@ -167,10 +167,10 @@ h6, .h6 {
   font-size: 1rem;
 }
 
-p {
+/* p {
   margin-top: 0;
   margin-bottom: 1rem;
-}
+} */
 
 abbr[title] {
   -webkit-text-decoration: underline dotted;
@@ -195,7 +195,7 @@ ol,
 ul,
 dl {
   margin-top: 0;
-  margin-bottom: 1rem;
+  /* margin-bottom: 1rem; */
 }
 
 ol ol,
@@ -7098,9 +7098,21 @@ textarea.form-control-lg {
 .d-inline-block {
   display: inline-block !important;
 }
-
+/*드롭다운 프로필*/
 .d-block {
-  display: block !important;
+  border-bottom: 1px solid white;
+  /* height: 50%; */
+  display: flex;
+  height: 40px;
+  align-items: center;
+  justify-content: center;
+  margin: 0px auto;
+  background: #739efa;
+  width: 100px;
+  border-top-left-radius: 30px;
+  border-top-right-radius: 30px;
+  border-bottom-left-radius: 30px;
+  border-bottom-right-radius: 30px;
 }
 
 .d-grid {
@@ -7496,9 +7508,10 @@ textarea.form-control-lg {
 .align-items-end {
   align-items: flex-end !important;
 }
-
+/*드롭다운 프로필*/
 .align-items-center {
-  align-items: center !important;
+  height: 40px;
+  justify-content: center;
 }
 
 .align-items-baseline {
@@ -7807,9 +7820,9 @@ textarea.form-control-lg {
   padding: 0.25rem !important;
 }
 
-.p-2 {
+/* .p-2 {
   padding: 0.5rem !important;
-}
+} */
 
 .p-3 {
   padding: 1rem !important;
