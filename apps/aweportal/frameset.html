@@ -2,7 +2,6 @@
 <link rel="stylesheet" href="/src/awecomponent.css">
 
 <head>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport"
         content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
@@ -368,7 +367,7 @@
             #frameMain {
 
                 transition: margin-left .5s;
-                overflow-y: scroll;
+                /* overflow-y: scroll; */
             }
 
 
@@ -640,14 +639,6 @@
             }
 
 
-            /*탭라인*/
-
-            #tabline {
-                height: 60px;
-                background-color: #d7e8fc;
-                transition: margin-left .5s;
-            }
-
             /*콘텐츠박스*/
 
             #main {
@@ -756,11 +747,11 @@
                 <hr style="border: solid 1px rgb(255, 255, 255);">
                 <h6 class="dropdown-header">사용자정보 관리</h6>
                 <hr style="border: solid 1px rgb(255, 255, 255);">
-                <li class="profile"><i class="glyphicon glyphicon-user"></i>
+                <li class="profile">
                     프로필 관리</li>
-                <li class="changePwd"><i class="glyphicon glyphicon-edit"></i>비밀번호변경</li>
+                <li class="changePwd">비밀번호변경</li>
                 <!-- <li class="withdrawlUser">회원탈퇴</li> -->
-                <li class="logout"><i class="	glyphicon glyphicon-log-out"></i>로그아웃</li>
+                <li class="logout">로그아웃</li>
             </ul>
         </div>
 
@@ -826,9 +817,7 @@
 
 
         <main id="frameMain">
-            <div id="tabline">
-                <div id="frameTab"></div>
-            </div>
+            <div id="frameTab"></div>
         </main>
     </div>
 
