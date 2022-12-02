@@ -319,9 +319,9 @@ function gfnPopup(title, content, aOpt, afnCallback) {
 	popupMain.css("height", height)
 	popupMain.css("left", "calc(50% - " + width/2 + "px)");
 	popupMain.css("top", "calc(50% - " + height/2 + "px)");
-	popupMain.draggable({handle: '.modal-header'});
 	popupMain.resizable({minWidth: 200, minHeight: 200});
 	
+	$("#popup").draggable({handle: '.modal-header'});
 	$("#popup .modal-body").css("overflow", "scroll");
 
 	$("#popup h5").html(title);
@@ -336,7 +336,7 @@ function gfnPopup(title, content, aOpt, afnCallback) {
 		$("#popup").css("top", "calc(50% - " + height/2 + "px)");
 		$("#popup").css("width", width)
 		$("#popup").css("height", height)
-		$("#popup").css("background-color", "#FFF")
+		$("#popup").css("background-color", "transparent")
 	} else {
 		popupMain.css("left", "calc(50% - " + width/2 + "px)");
 		popupMain.css("top", "calc(50% - " + height/2 + "px)");
