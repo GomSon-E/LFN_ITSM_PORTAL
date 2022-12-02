@@ -329,7 +329,13 @@ function gfnPopup(title, content, aOpt, afnCallback) {
 	// popup layer 띄우기	
 	$("#popup").css("z-index", 20);
 
-	if (isNum(aOpt.modal)) {
+	if (aOpt.modal) {
+		$("#popup").css("position", "inherit")
+		popupMain.draggable({handle: '.modal-header'});
+		popupMain.css("left", "calc(50% - " + width/2 + "px)");
+		popupMain.css("top", "calc(50% - " + height/2 + "px)");
+		$("#popup").css("background-color", "rgba(0, 0, 0, 0.5)")
+	} else {
 		$("#popup").draggable({handle: '.modal-header'});
 		$("#popup").css("position", "absolute")
 		$("#popup").css("left", "calc(50% - " + width/2 + "px)");
@@ -337,12 +343,6 @@ function gfnPopup(title, content, aOpt, afnCallback) {
 		$("#popup").css("width", width)
 		$("#popup").css("height", height)
 		$("#popup").css("background-color", "transparent")
-	} else {
-		$("#popup").css("position", "inherit")
-		popupMain.draggable({handle: '.modal-header'});
-		popupMain.css("left", "calc(50% - " + width/2 + "px)");
-		popupMain.css("top", "calc(50% - " + height/2 + "px)");
-		$("#popup").css("background-color", "rgba(0, 0, 0, 0.5)")
 	}
 }
 
