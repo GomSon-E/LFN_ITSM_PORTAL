@@ -306,7 +306,6 @@ button {
 	margin: 0;
 	padding: 0;
 	min-width: 400px;
-	/* overflow-y: auto; */
 	display: flex;
 	flex-direction: row;
 	align-content: flex-start;
@@ -561,11 +560,12 @@ button {
 	color: hsl(0 0% 100%);
 	display: flex;
 	flex-direction: row;
+	height: 43px;
 
-	padding-top: 30px;
+	padding-top: 13px;
 	background-color: #d7e8fc;
 
-	overflow: overlay;
+	/* overflow: overlay; */
 	-webkit-overflow-scrolling: touch;
 }
 
@@ -2067,7 +2067,7 @@ button {
             #frameMain {
 
                 transition: margin-left .5s;
-                overflow-y: scroll;
+      
             }
 
 
