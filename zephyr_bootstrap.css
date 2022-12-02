@@ -13,7 +13,7 @@ h5, .h5{
 
 p {
   margin-top: 0;
-  margin-bottom: 1rem;
+  /* margin-bottom: 1rem; */
 }
 
 [role=button] {
@@ -32,6 +32,7 @@ button:not(:disabled),
 [type=submit]:not(:disabled) {
   cursor: pointer;
 }
+
 
 .btn {
   --bs-btn-padding-x: 1rem;

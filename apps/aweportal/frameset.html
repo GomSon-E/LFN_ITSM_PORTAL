@@ -17,7 +17,7 @@
 
 
 
-    <style>
+    <!-- <style>
         * {
             margin: 0;
             padding: 0;
@@ -126,7 +126,7 @@
         }
 
 
-        /*로고사이드 애니메이션*/
+        /*로고사이드 애니메이션 끝*/
 
         @keyframes blink-effect {
             50% {
@@ -146,7 +146,7 @@
                 width: 100%;
                 position: relative;
                 padding-bottom: 0;
-                transition: margin-left .5s;
+             
             }
 
 
@@ -182,6 +182,7 @@
                 overflow: hidden;
                 background-image: linear-gradient(to right, #58aafc, #2b4cbc);
                 height: 80px;
+                transition: margin-left .5s;
 
             }
 
@@ -207,7 +208,7 @@
                 float: right;
                 background-color: transparent;
                 color: white;
-                width: 450px;
+                width: 300px;
                 height: 80%;
 
                 background-color: rgba(0, 0, 0, 0.1);
@@ -250,9 +251,10 @@
                 position: relative;
             }
 
-            .alarm > span {
+            .alarm>span {
                 position: absolute;
-                top: 3px; right: 7px;
+                top: 3px;
+                right: 7px;
                 font-size: 15px;
             }
 
@@ -353,7 +355,7 @@
                 position: absolute;
                 top: 0;
                 right: 25px;
-                font-size: 36px;
+                font-size: 50px;
                 margin-left: 50px;
                 border: none;
                 color: #ffffff;
@@ -381,45 +383,38 @@
             #tabline {
                 height: 65px;
                 background-color: #fcfefe;
-
-
             }
 
             nav {
                 transition: margin-left .5s;
-
             }
 
             /*콘텐츠박스*/
 
             #main {
                 height: auto;
-
                 background-color: white;
                 border: 2px dashed #0e2d87;
-
                 transition: margin-left .5s;
                 padding: 16px;
             }
 
             #undercopy {
 
-                color: #aaaaaa;
-                height: 15px;
-                transition: margin-left .5s;
-                display: flex;
-                align-items: center;
+
+                background-color: #cccccc;
+                text-align: center;
+                font-weight: normal;
+                width: 100%;
             }
 
-            #undercopy p {
-                margin-top: 18px;
-            }
 
             #frameHome {
                 transition: margin-left .5s;
                 display: block;
             }
         }
+
 
         /************************모바일 사이즈************************/
 
@@ -429,12 +424,12 @@
 
             #frameGNB {
                 padding-bottom: 0;
-                transition: margin-left .5s;
                 position: relative;
             }
 
             .gnb {
                 background-image: linear-gradient(to right, #58aafc, #2b4cbc);
+                transition: margin-left .5s;
             }
 
 
@@ -449,7 +444,7 @@
             .mainLogo {
                 float: none;
                 position: absolute;
-                top: 60%;
+                top: 50%;
                 left: 50%;
                 transform: translate(-50%, -50%);
                 font-size: 30px;
@@ -499,7 +494,6 @@
                 position: relative;
                 width: 60px;
                 height: 60px;
-                border-radius: 50%;
                 overflow: hidden;
                 cursor: pointer;
             }
@@ -537,9 +531,10 @@
                 margin-right: 10px;
             }
 
-            .alarm > span {
+            .alarm>span {
                 position: absolute;
-                top: 17px; right: -7px;
+                top: 17px;
+                right: -7px;
                 font-size: 15px;
             }
 
@@ -678,7 +673,7 @@
 
 
         }
-    </style>
+    </style> -->
 
 </head>
 
@@ -699,15 +694,15 @@
 
                 <div class="menu-right">
 
+                  
                     <!-- <input type="text" placeholder="Search.." class="textSearch"> -->
-                    <input type="text" placeholder="Search.." class="textSearch">
                     <button class="search"><i class="fas fa-search"></i></button>
 
                     <!-- <button class="apps"><i class="fas fa-th"></i></button> -->
 
-                    <button class="alarm" onclick="gMDI.openPage('manageAlert', '알림 목록');"> 
-                        <i class="far fa-comment"></i> 
-                        <span></span>                  
+                    <button class="alarm" onclick="gMDI.openPage('manageAlert', '알림 목록');">
+                        <i class="far fa-comment"></i>
+                        <span></span>
                     </button>
 
                     <button class="user"><i class="fas fa-user-circle"></i></button>
@@ -727,37 +722,42 @@
 
                 <div class="p-2">
                     <div class="media">
-                        <div class="media-body">
-                            <span id="userid" class="d-block fs-8 link-secondary">ID</span>
-                            <span class="d-flex align-items-center link-dark">
-                                <div class="media-head me-2">
-                                    <div class="avatar avatar-primary avatar-sm avatar-rounded">
-                                        <i class="glyphicon glyphicon-ok"></i>
-                                        <span id="usernicknm" class="initial-wrap">AJ</span>
-                                    </div>
-                                </div>
 
-                                <span id="usernm">usernm</span>
-                                <i id="usergrp" class="ri-checkbox-circle-fill fs-7 text-primary ms-1"></i>
-                            </span>
+                        <div class="media-body">
+
+                                <p id="userid" class="d-block fs-8 link-secondary">ID</p>
+                                
+                                <span class="d-flex align-items-center">
+<!-- 
+                                    <div class="media-head me-2">
+
+                                        <div class="avatar avatar-primary avatar-sm avatar-rounded">
+                                         
+                                            <span id="usernicknm" class="initial-wrap">AJ</span>
+
+                                        </div>
+
+                                    </div> -->
+
+                                    <span id="usernm">usernm</span><p>님 환영합니다 ^^</p>
+                                   
+                                </span>
 
                         </div>
                     </div>
                 </div>
-                <hr style="border: solid 1px rgb(255, 255, 255);">
-                <h6 class="dropdown-header">사용자정보 관리</h6>
-                <hr style="border: solid 1px rgb(255, 255, 255);">
-                <li class="profile">
-                    프로필 관리</li>
-                <li class="changePwd">비밀번호변경</li>
+    
+              <li class="profile"><i class="fas fa-user-edit"></i>   프로필 관리</li>
+                <li class="changePwd"><i class="fas fa-pencil-alt"></i>비밀번호변경</li>
                 <!-- <li class="withdrawlUser">회원탈퇴</li> -->
-                <li class="logout">로그아웃</li>
+                <li class="logout"><i class="fas fa-sign-out-alt"></i>로그아웃</li>
+
             </ul>
         </div>
 
     </header>
 
-   
+
 
 
     <div id="frameset">
@@ -822,12 +822,13 @@
     </div>
 
     <!----푸터---->
-    <div id="undercopy">
+ 
+    <footer id="undercopy">
 
         <p>copyright &copy; 2022 LF networks. All Right Reserved</p>
 
-    </div>
-
+    </footer
+    >
 
     <!-- status -->
     <div id="status">
@@ -892,6 +893,8 @@
     function menuToggle() {
         const toggleMenu = document.querySelector(".menu");
         toggleMenu.classList.toggle("active");
+       
+
     }
 </script>
 
@@ -914,8 +917,7 @@
         if (window.outerWidth < 767) {
             document.querySelector("#mySidenav").style.zIndex = 15;
             document.getElementById("frameMain").style.marginLeft = "0";
-            document.querySelector("nav").style.marginLeft = "0";
-
+            document.querySelector(".gnb").style.marginLeft = "0";
             document.getElementById("frameMain").style.opacity = "0.3";
             document.querySelector("nav").style.opacity = "0.3";
         }
@@ -925,7 +927,7 @@
         else {
             document.getElementById("frameMain").style.marginLeft = "300px";
             document.getElementById("undercopy").style.marginLeft = "300px";
-            document.querySelector("nav").style.marginLeft = "300px";
+            document.querySelector(".gnb").style.marginLeft = "300px";
         }
     }
 
@@ -935,7 +937,7 @@
 
         document.getElementById("mySidenav").style.width = "0";
         document.getElementById("frameMain").style.marginLeft = "0";
-        document.querySelector("nav").style.marginLeft = "0";
+        document.querySelector(".gnb").style.marginLeft = "0";
         document.getElementById("undercopy").style.marginLeft = "0";
 
         document.getElementById("frameMain").style.opacity = "1";
@@ -956,7 +958,7 @@
 
         document.getElementById("mySidenav").style.width = "0";
         document.getElementById("frameMain").style.marginLeft = "0";
-        document.querySelector("nav").style.marginLeft = "0";
+        document.querySelector(".gnb").style.marginLeft = "0";
         document.getElementById("undercopy").style.marginLeft = "0";
 
         document.getElementById("frameMain").style.opacity = "1";
@@ -1559,8 +1561,8 @@
             //     }
             // });
             //메뉴표시 바깥 클릭시 메뉴 숨기기 
-           document.querySelector("#frameMain").addEventListener('click',closeNav); 
-    
+            document.querySelector("#frameMain").addEventListener('click', closeNav);
+
         }
 
         me.fnEHFrameSearch = function () {
@@ -1583,6 +1585,8 @@
             $("#frameGNB .gnb nav .user").on({
                 click: function (e) {
                     $(".userInfo").toggleClass("hidden");
+              
+
                 }
             })
             $(" .userInfo").on({
@@ -1599,6 +1603,8 @@
                 click: function (e) {
                     if (!$("#frameGNB .gnb nav .user").has(e.target).length && !$("#frameGNB .list").has(e.target).length) {
                         $(" .userInfo").addClass("hidden");
+               
+
                     }
                 }
             });
@@ -1665,8 +1671,8 @@
                     if (OUTVAR.num[0]["num"] > 0) {
                         $(".alarm>i").removeClass("far fa-comment")
 
-                        $(".alarm>i").addClass("fas fa-comment-dots") 
-                        
+                        $(".alarm>i").addClass("fas fa-comment-dots")
+
                         $(".alarm>span").show()
                         $(".alarm>span").text(OUTVAR.num[0]["num"])
 

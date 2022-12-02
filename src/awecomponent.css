@@ -187,8 +187,8 @@ body {
 		height: 100%;
 		overflow-y: auto;
 		overflow-x: hidden;
-		border-top-left-radius: 20px;
-		border-top-right-radius: 20px;
+		border-top-left-radius: 30px;
+		border-top-right-radius: 30px;
 		padding: 5%;
 		border-left: 10px solid #d7e8fc;
 		border-right: 10px solid #d7e8fc;
