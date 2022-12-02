@@ -319,7 +319,6 @@ function gfnPopup(title, content, aOpt, afnCallback) {
 	popupMain.css("height", height)
 	popupMain.css("left", "calc(50% - " + width/2 + "px)");
 	popupMain.css("top", "calc(50% - " + height/2 + "px)");
-	popupMain.draggable({handle: '.modal-header'});
 	popupMain.resizable({minWidth: 200, minHeight: 200});
 	
 	$("#popup .modal-body").css("overflow", "scroll");
@@ -330,17 +329,20 @@ function gfnPopup(title, content, aOpt, afnCallback) {
 	// popup layer 띄우기	
 	$("#popup").css("z-index", 20);
 
-	if (isNum(aOpt.modal)) {
+	if (aOpt.modal) {
+		$("#popup").css("position", "inherit")
+		popupMain.draggable({handle: '.modal-header'});
+		popupMain.css("left", "calc(50% - " + width/2 + "px)");
+		popupMain.css("top", "calc(50% - " + height/2 + "px)");
+		$("#popup").css("background-color", "rgba(0, 0, 0, 0.5)")
+	} else {
+		$("#popup").draggable({handle: '.modal-header'});
 		$("#popup").css("position", "absolute")
 		$("#popup").css("left", "calc(50% - " + width/2 + "px)");
 		$("#popup").css("top", "calc(50% - " + height/2 + "px)");
 		$("#popup").css("width", width)
 		$("#popup").css("height", height)
-		$("#popup").css("background-color", "#FFF")
-	} else {
-		popupMain.css("left", "calc(50% - " + width/2 + "px)");
-		popupMain.css("top", "calc(50% - " + height/2 + "px)");
-		$("#popup").css("background-color", "rgba(0, 0, 0, 0.5)")
+		$("#popup").css("background-color", "transparent")
 	}
 }
 
