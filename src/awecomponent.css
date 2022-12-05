@@ -1,3 +1,161 @@
+/*여기부터*/
+
+/*** aweTab *******************************************************************************/
+.aweTab {
+	display: flex;
+	border-bottom: 1px solid #cbc3c3;
+	padding-left: 0;
+	overflow-x: auto;
+	overflow-y: hidden;
+	margin-top: 0.1em;
+	margin-bottom: 0;
+	flex: 0 0 auto !important;
+}
+
+.aweTab .tab {
+	margin-left: 2px;
+	border: 1px solid #aeaeae;
+	border-radius: 0.5em 0.5em 0 0;
+	padding: 0.25em 1em;
+	background-color: #aeaeae;
+	/* #1c84c6#1989ce */
+	color: white;
+	cursor: pointer;
+	list-style: none;
+	white-space: nowrap;
+}
+
+.aweTab .tab:hover {
+	color: yellow;
+}
+
+.aweTab .tab.active {
+	background-color: #ffffff;
+	border-bottom: 2px solid #ffffff;
+	margin-bottom: -1px;
+	color: #000;
+}
+
+.aweTab .tab i:hover {
+	color: hsl(0 80% 50%);
+}
+
+.aweTab .closetab {
+	float: right;
+}
+.framepage.active>* {
+	flex: 0 0 auto;
+}
+
+.framepage.active>*.pageContent {
+	flex: 1 1 auto;
+	/* overflow-y: hidden; */
+	background-color: hsla(0 0% 90% / .1);
+}
+
+.framepage.active>*:last-child {
+	flex: 1 1 auto;
+}
+
+/* ** flexRow, flexColumn ** */
+.flexColumn {
+	display: flex;
+	flex-direction: column !important;
+	flex-wrap: nowrap;
+	align-content: flex-start;
+	justify-content: flex-start;
+	align-items: stretch;
+	/* overflow-y: auto !important;
+	overflow-x: hidden !important; */
+	height: 100%;
+}
+
+.flexColumn.Resizable {
+	cursor: row-resize;
+	row-gap: 1em;
+}
+
+.componentBody.agGrid {
+	height: calc(100% - 2em);
+	min-height: 20em;
+}
+
+.flexColumn.componentContainer {
+	row-gap: 0 !important;
+}
+
+.flexColumn>* {
+	flex: 1 1 auto;
+}
+
+.flexColumn>*:first-child {
+	flex: 0 0 auto;
+}
+
+.flexColumn>*:last-child {
+	flex: 1 1 auto;
+	height: unset !important;
+}
+
+.flexRow {
+	display: flex;
+	flex-direction: row !important;
+	flex-wrap: nowrap;
+	align-content: stretch;
+	justify-content: flex-start;
+	align-items: stretch;
+	height: 100%;
+	/* overflow-y: auto !important;
+	overflow-x: hidden !important; */
+	column-gap: 1em;
+}
+
+.flexRow.Resizable {
+	cursor: col-resize;
+}
+
+.mobile .flexRow {
+	display: block !important;
+	flex-wrap: wrap !important;
+}
+
+.flexRow>* {
+	flex: 0 0 auto;
+}
+
+.flexRow>*:last-child {
+	flex: 1 1 auto;
+}
+
+.flexRowHandler {
+	position: absolute;
+	top: 10px;
+	left: 10px;
+	width: 12px;
+	height: 64px;
+	background-color: hsla(32 50% 80% / .4);
+	cursor: col-resize;
+}
+
+.flexColumnHandler {
+	position: absolute;
+	top: 10px;
+	left: 10px;
+	width: 64px;
+	height: 12px;
+	background-color: hsla(32 50% 80% / .4);
+	cursor: row-resize;
+}
+
+.framepage.hidden {
+	display: none;
+}
+
+/*여기까지*/
+
+
+
+
 * {
 	box-sizing: border-box;
 }
@@ -914,9 +1072,10 @@ input[type="checkbox"].aweCol {
 	flex: 0 0 1.25em !important;
 }
 select.aweCol { 
-	margin: 0;
+	/* margin: 0;
 	border: 1px solid hsla(0 0% 80% / 0.5);
-	height: 100%;   
+	height: 100%;    */
+	width: 50px;
 }	
 textarea.aweCol {
 	margin: 0;

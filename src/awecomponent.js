@@ -3020,7 +3020,7 @@ function gfnControl(colinfo, afnEH, oComponent, rowid, val, rowPinned, agHack) {
 		} else if(me.etype=="cbx") {
 			obj =  $(`<input type="checkbox"/>`);
 		} else if(me.etype=="tarea") {
-			obj =  $(`<textarea></textarea>`); 
+			obj =  $(`<textarea placeholder="${me.remark}"></textarea>`); 
 		} else if(me.etype=="img") {
 			// obj =  $(`<img></img>`); 
 		} else if(me.etype=="link") {
