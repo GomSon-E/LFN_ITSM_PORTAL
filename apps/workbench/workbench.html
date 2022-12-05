@@ -235,6 +235,7 @@ me.dataDef["_pgm_src_edit"] = {
         },10);
         if(typeof(me.fnInitExtra)=='function') me.fnInitExtra(); 
     } 
+
 /*-- SCRIPT autogen end ---------------------------------------------- */
     me.fnInitExtra=function() {
         console.log("fnInitExtra 실행");
@@ -264,14 +265,9 @@ me.dataDef["_pgm_src_edit"] = {
         });
 
         // editor 초기화 
-		// me.pageObj["pgm_src_edit"].component.remove();
-		// me.pageObj["pgm_src_edit"].componentBody.remove();
-        // me.editorArea = $(`<div id="pgm_src_edit"></div>`);
         me.pageObj["pgm_src_edit"] = {};
-        me.pageObj["pgm_src_edit"].component = $('#pgm_src_edit');
+        me.pageObj["pgm_src_edit"].component = $('.workBenchFormWrap.srcInfo');
         me.pageObj["pgm_src_edit"].currow = -1;
-        // $('.pageContentMain').append(me.editorArea);
-
         //컬럼정렬순서 잡아줌
         sort(me.dataDef["_pgm_data_content"],"sort_seq");
 
@@ -285,7 +281,7 @@ me.dataDef["_pgm_src_edit"] = {
         }
 
         // 처음 파일 호출(HTML, CSS, JS)
-        me.fnSave();
+        // me.fnSave();
     } 
 
     /* 데이터 컬럼리스트 GET/SET */
@@ -319,7 +315,14 @@ me.dataDef["_pgm_src_edit"] = {
 
     // 코드 에디터 GET SET
     me.fnEditor = function(rowid, val){
-        var editors = me.pageObj["pgm_src_edit"];
+        var editors = me.pageObj["pgm_src_edit"]; // 더보기 눌렀던 코드들이 담김
+        var pgmsrc =  me.pageObj["pgm_src"];
+        // console.log(`rowid: ${rowid}`);
+        // console.log('val');
+        // console.log(`${val}`);
+        // console.log(editors);
+        // console.log('me.pageObj["pgm_src"]');
+        // console.log(pgmsrc);
         if(val == undefined) { // get
             if(editors[rowid] != undefined) {
                 return editors[rowid].aceEdit.getValue();
@@ -328,7 +331,6 @@ me.dataDef["_pgm_src_edit"] = {
             if(editors[rowid] == undefined) {
                 var editor =  $(`<div id="srcEditor${rowid}" class="srcEditor srcEditor${rowid}" rowid='${rowid}'></div>`);
                 editors.component.append(editor);
-                // me.editorArea.append(editor);
                 $(`.srcInfo${rowid} > .pageContentMainBody`).append(editor);
                 editors[rowid] = new gfnComponent( me.pageid, `srcEditor${rowid}`, me.dataDef["_pgm_src_edit"], me.fnEH, me);
                 editors[rowid].aceEdit = ace.edit( editors[rowid].componentBody[0] );
@@ -337,13 +339,13 @@ me.dataDef["_pgm_src_edit"] = {
                 editors[rowid].aceEdit.session.setMode("ace/mode/javascript");
                 editors[rowid].aceEdit.setFontSize("1.1em");
    
-                editors[rowid].aceEdit.getSession().on('change', function() { // 소스 편집했을 때
-                    var psEditor = me.pageObj["pgm_src_edit"];
-                    if(me.fnEditor(psEditor.currow) != undefined && psEditor.currow != -1) {
-                        // console.log("pgm_src_edit Changed:"+psEditor.currow);
-                        me.pageObj["pgm_src"].setVal(psEditor.currow, "content", me.fnEditor(psEditor.currow)); 
-                    }
-                });
+                // editors[rowid].aceEdit.getSession().on('change', function() { // 소스코드 편집했을 때
+                //     var psEditor = me.pageObj["pgm_src_edit"];
+                //     if(me.fnEditor(psEditor.currow) != undefined && psEditor.currow != -1) {
+                //         // console.log("pgm_src_edit Changed:"+psEditor.currow);
+                //         me.pageObj["pgm_src"].setVal(psEditor.currow, "content", me.fnEditor(psEditor.currow)); 
+                //     }
+                // });
             }
 
             editors[rowid].componentTitle.text( me.pageObj["pgm_src"].getVal(rowid,"src_nm"));
@@ -456,11 +458,13 @@ me.dataDef["_pgm_src_edit"] = {
                 var data = me.pageObj["pgm_src"].exportData()[curRow]; 
                 var result =  workbenchForm(me.pageid, "pgm_src", me.dataDef["_pgm_data"]["pgm_src"], me.fnEH, me, data, distictRow);
                 
-                if(result == 'alreadyPage') return; 
-                else me.fnEditor(row, nvl(me.pageObj["pgm_src"].getVal(row,"content"),""));
+                me.fnEditor(row, nvl(me.pageObj["pgm_src"].getVal(row,"content"),""));
+
+                // if(result == 'alreadyPage') return; 
+                // else me.fnEditor(row, nvl(me.pageObj["pgm_src"].getVal(row,"content"),""));
                 
 
-            } else if (evt=="change" && col=="src_tp") {
+            } else if (evt=="change" && col=="src_tp") { // 소스타입 바꿨을 때
                 me.fnEditor(row, nvl(me.pageObj["pgm_src"].getVal(row,"content"),"")); //set;
             }
         
@@ -600,11 +604,11 @@ me.dataDef["_pgm_src_edit"] = {
         me.fnMakeFullCode(fullCode); /* Full HTML을 만들어준다. */
         me.fnGetJSP();
 
-        // var args = {};
-        // args["pgm"]      = me.dataSet["pgm"];  
-        // args["pgm_func"] = me.dataSet["pgm_func"];  
-        // args["pgm_data"] = me.dataSet["pgm_data"];
-        // args["pgm_src"]  = me.dataSet["pgm_src"];
+        var args = {};
+        args["pgm"]      = me.dataSet["pgm"];  
+        args["pgm_func"] = me.dataSet["pgm_func"];  
+        args["pgm_data"] = me.dataSet["pgm_data"];
+        args["pgm_src"]  = me.dataSet["pgm_src"];
 
         // var invar = JSON.stringify(args);
         // console.log(args);
@@ -651,6 +655,7 @@ me.dataDef["_pgm_src_edit"] = {
             me.dataSet["pgm_src"] = [];
             for(var i = 0; i < me.pageObj["pgm_src"].countRow(); i++) {
                 var rowid = me.pageObj["pgm_src"].getNodeId(i);
+                
                 var row = {};
                 var rowraw = me.pageObj["pgm_src"].getRowData(rowid);
                 var colinfo = me.pageObj["pgm_src"].colinfo;
@@ -672,7 +677,8 @@ me.dataDef["_pgm_src_edit"] = {
     // html과 css 소스 있으면 가져오고 없으면 생성
     me.fnGetHTMLCSS = function() {
         var pgm_info = me.dataSet["pgm"][0];
-        
+        console.log('me.dataSet["pgm_data"]');
+        console.log(me.dataSet["pgm_data"]);
         var components = "";
         me.dataSet["pgm_data"].forEach(data => {
             if(data.data_id != 'pageCond'){
@@ -695,8 +701,12 @@ me.dataDef["_pgm_src_edit"] = {
     ${components}
 </div>`;
 
+console.log(templateHTMLCSS);
+
         var row = subset(me.dataSet['pgm_src'], "srcid", "HTML_CSS");
+        console.log(`row = ${JSON.stringify(row)}`);
         if(row.length == 0){ // 생성 (소스코드 리스트에 생성됨)
+            console.log("html,css를 새로 생성합니다.")
             var rowId = me.pageObj["pgm_src"].addRow();
             me.pageObj["pgm_src"].setVal(rowId,"sort_seq",toNum(rowId)+1);
             me.pageObj["pgm_src"].setVal(rowId,"src_tp","html");
@@ -704,7 +714,8 @@ me.dataDef["_pgm_src_edit"] = {
             me.pageObj["pgm_src"].setVal(rowId,"src_nm","1) HTML&CSS (개발자작성)");
             me.pageObj["pgm_src"].setVal(rowId,"content",templateHTMLCSS); 
 
-        } else { // 가져오기
+        } else { // 
+            console.log("html,css를 수정합니다.")
             for(var i = 0; i < me.pageObj["pgm_src"].countRow(); i++) { 
                 var rowId = me.pageObj["pgm_src"].getNodeId(i);
                 if(me.pageObj["pgm_src"].getVal(rowId,"srcid") == "HTML_CSS") {
@@ -712,9 +723,13 @@ me.dataDef["_pgm_src_edit"] = {
                     me.pageObj["pgm_src"].setVal(rowId,"srcid","HTML_CSS");
                     me.pageObj["pgm_src"].setVal(rowId,"src_nm","1) HTML&CSS (개발자작성)");
                     me.pageObj["pgm_src"].setVal(rowId,"content",templateHTMLCSS); 
+                    console.log("변경해주세요");
+                    var ct = me.pageObj["pgm_src"].getVal(rowId,"content");
+                    console.log(ct);
                     break;
                 } 
             }
+            console.log( me.pageObj);
         }
         return templateHTMLCSS;
     }
@@ -822,7 +837,7 @@ if(typeof(me.fnInit)=='function') me.fnInit();
         var pgm_info = me.dataSet["pgm"][0];    
         var row = subset(me.dataSet["pgm_src"],"srcid","script");
         if(row.length == 0) {
-            var script = `/*-- script2(개발자작성) start ---------------------------------------------------- */ 
+            var script = `/*-- script(개발자작성) start ---------------------------------------------------- */ 
     /* 사용자초기화 */
     me.fnInitExtra=function() {
         //사용자 컴포넌트 
@@ -1047,6 +1062,7 @@ if("${row.funcid}".equals(func)) {
         var pgm_info = me.dataSet["pgm"][0];     
         var row = subset(me.dataSet["pgm_src"],"srcid","HTML");  
         var orgEdit = me.pageObj.pgm_src_edit.currow;
+        console.log(`orgEdit: ${orgEdit}`);
         if(row.length == 0) {
             var rowId = me.pageObj["pgm_src"].addRow(); 
             me.pageObj["pgm_src"].setVal(rowId,"sort_seq",toNum(rowId)+1);
