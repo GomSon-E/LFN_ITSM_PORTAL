@@ -189,34 +189,56 @@
                     let getUsid = me.pageObj["list"].getRowData(rows[i]).usid;
                     me.dataSet["selectEmp"].push({ usid : getUsid });
                     getUsidList.push(getUsid);
-                    // getUsidList += getUsid
                 }
+
+                var save = false;
+                var send = false;
                 
                 gfnConfirm("알림 전송 확인", "[" + alertInfo.comments + "] 을 전송합니다. 계속하시겠습니까?", function(bConfirm) {
                     for (var i = 0; i < getUsidList.length; i++) {
-                            var args = { 
-                                        usid: getUsidList[i], 
-                                        comments: alertInfo.comments,
-                                        ref_info: "",
-                                        pgmid: alertInfo.ref_id,
-                                        reg_usid: gUserinfo.userid
-                                    };    
-                            var invar = JSON.stringify(args);
-    
-                            gfnTx(appid + "." + pgmid, "saveLog", { INVAR : invar }, function(OUTVAR) {
-                            console.log(OUTVAR);
+                        var args = { 
+                                    usid: getUsidList[i], 
+                                    comments: alertInfo.comments,
+                                    ref_info: "",
+                                    pgmid: alertInfo.ref_id,
+                                    reg_usid: gUserinfo.userid
+                                };    
+                        var invar = JSON.stringify(args);
+
+                        gfnTx(appid + "." + pgmid, "saveLog", { INVAR : invar }, function(OUTVAR) {
                             if(OUTVAR.rtnCd == "OK") {
-                                gfnAlert("메시지전송 완료","메시지 전송을 완료하였습니다.");
-                                me.pageObj["mst"].reset();
-                                $("#mst").hide()
-                                $("#last").show()
-                                $("#lastUser").show()  
+                                save = true;
                             }
                             else {
                                 gfnAlert("저장오류",OUTVAR.rtnMsg);
                             }
                         }, true);
-                    }                
+
+                        var usid = [];
+                        usid.push({'usid':getUsidList[i], 'msg':alertInfo.comments, 'type':"text"});
+                        var args = {};
+                        args.usidlist = usid;
+                        var invar = JSON.stringify(args);
+                        gfnTx("api.itsm_naver_bot","sendMsg3",{INVAR:invar},function(OUTVAR){
+                            console.log(OUTVAR);
+                            if(OUTVAR.rtnCd=="OK") {
+                                send = true;
+
+                                if (save && save) {
+                                    gfnAlert("메시지전송 완료","메시지 전송을 완료하였습니다.");
+                                    me.pageObj["mst"].reset();
+                                    $("#mst").hide()
+                                    $("#last").show()
+                                    $("#lastUser").show()
+                                }
+                            } else {
+                                console.log(OUTVAR);
+                                console.log(OUTVAR.os);
+                                console.log(OUTVAR.huc);
+                                gfnAlert("메세지 발송(네이버웍스 bot 전송) 오류",OUTVAR.rtnMsg);
+                            }
+                        })
+                    }     
                 }); 
             }
         }
