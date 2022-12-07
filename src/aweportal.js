@@ -293,6 +293,10 @@ function gfnAlert(title, content, afnCallback) {
 function layerClickHandler (p) {
 	$("#"+p).css("z-index", -1);
 	$("#"+p).css("background-color", "none") 
+
+	if (p == "confirm") {
+		$("#"+p).css("display", none);
+	}
 }
 
 function progressUnvisible() {
@@ -347,36 +351,28 @@ function gfnPopup(title, content, aOpt, afnCallback) {
 }
 
 function gfnConfirm(title, content, afnCallback, oPos) {
-	if(isNull(afnCallback)) return false;
-	var pos = {my:"center", at:"center", of: window};
-	if(oPos!=undefined) pos = oPos; 
-	var popupConfirm = $("<div id='onloading"+title+"' title='"+title+"'><div>"+content+"</div></div>");
-	popupConfirm.dialog({
-		position: pos,
-		resizable: false,
-		modal: true, 
-		buttons: [
-			{   text:"확인",
-				icon:"ui-icon-check",
-				click:function() {
-					afnCallback(true);
-					$(this).dialog("close");
-				}
-			},
-			{   text:"취소",
-				icon:"ui-icon-cancel",
-				click:function() {
-					afnCallback(false);
-					$(this).dialog("close");
-				}
-			} 			
-		],
-		close:  function( event, ui ) { 
-			$(this).remove(); 
-		}
-	}); 
-	return popupConfirm;
-}  
+	if(isNull(afnCallback)) afnCallback = gfnCallback; 
+
+	if (!isNum(title)) {
+		$("#confirm h5").html(title);
+		$("#confirm p").html(content);
+
+		// alert layer 띄우기
+		$("#confirm").css("z-index", 20);
+		$("#confirm").css("display", "block");
+		$("#confirm").css("background-color", "background-color: rgba(0, 0, 0, 0.5);")
+	}
+
+	$("#confirm .yes").click(function() {
+		afnCallback(true);
+		layerClickHandler("confirm")
+	})
+
+	$("#confirm .no").click(function() {
+		afnCallback(false);
+		layerClickHandler("confirm")
+	})
+} 
 
 /**** aweportal portal Common *****************************************************************************/
 function gfnHome() {

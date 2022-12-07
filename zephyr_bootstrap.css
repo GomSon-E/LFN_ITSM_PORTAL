@@ -132,6 +132,52 @@ button:not(:disabled),
   --bs-btn-disabled-border-color: #3459e6;
 }
 
+.btn-secondary {
+  --bs-btn-color: #000;
+  --bs-btn-bg: #fff;
+  --bs-btn-border-color: #fff;
+  --bs-btn-hover-color: #000;
+  --bs-btn-hover-bg: white;
+  --bs-btn-hover-border-color: white;
+  --bs-btn-focus-shadow-rgb: 217, 217, 217;
+  --bs-btn-active-color: #000;
+  --bs-btn-active-bg: white;
+  --bs-btn-active-border-color: white;
+  --bs-btn-active-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --bs-btn-disabled-color: #000;
+  --bs-btn-disabled-bg: #fff;
+  --bs-btn-disabled-border-color: #fff;
+}
+
+.btn-secondary,
+.btn-light,
+.btn-outline-secondary,
+.btn-outline-light {
+  color: #212529;
+}
+
+.btn-secondary:disabled, .btn-secondary.disabled,
+.btn-light:disabled,
+.btn-light.disabled,
+.btn-outline-secondary:disabled,
+.btn-outline-secondary.disabled,
+.btn-outline-light:disabled,
+.btn-outline-light.disabled {
+  border: 1px solid #e6e6e6;
+}
+
+.btn-secondary,
+.btn-outline-secondary {
+  border-color: #e6e6e6;
+}
+.btn-secondary:hover, .btn-secondary:active,
+.btn-outline-secondary:hover,
+.btn-outline-secondary:active {
+  background-color: #e6e6e6;
+  border-color: #e6e6e6;
+}
+
+
 .alert {
   --bs-alert-bg: transparent;
   --bs-alert-padding-x: 1rem;
