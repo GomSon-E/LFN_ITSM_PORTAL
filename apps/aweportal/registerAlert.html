@@ -215,7 +215,19 @@
                         }, true);
 
                         var usid = [];
-                        usid.push({'usid':getUsidList[i], 'msg':alertInfo.comments, 'type':"text"});
+                        // 텍스트만 보낼 때
+                        usid.push({
+                            'usid':getUsidList[i], 
+                            'msg':alertInfo.comments, 
+                            'type':"text", 
+                        });
+                        // 텍스트+링크 보낼 때 
+                        // usid.push({
+                        //     'usid':getUsidList[i], 
+                        //     'msg':alertInfo.comments, 
+                        //     'type':"link", 
+                        //     'link':"http://localhost:9090/"
+                        // });
                         var args = {};
                         args.usidlist = usid;
                         var invar = JSON.stringify(args);
