@@ -20,7 +20,7 @@ JSONObject INVAR  = getObject(invar);
             OUTVAR.put("INVAR",INVAR); //for debug
             conn = getConn("LFN");  
             INVAR.put("usid",USERID);
-            String qry = "SELECT USID, NM, NICK_NM, EMAIL, COMPANY, DEPART, INTRO,ORGN_NM FROM T_USER WHERE USID = {usid}";
+            String qry = "SELECT USID, NM, NICK_NM, EMAIL, COMPANY, DEPART, INTRO,PHONENUM FROM T_USER WHERE USID = {usid}";
             // String qry = getQuery(pgmid, "search"); 
             String qryRun = bindVAR(qry,INVAR);
             OUTVAR.put("qryRun",qryRun); //for debug
@@ -41,7 +41,7 @@ JSONObject INVAR  = getObject(invar);
         try {  
             conn = getConn("LFN");
             conn.setAutoCommit(false);
-            String qry = "UPDATE T_USER SET NM = {nm}, NICK_NM = {nick_nm},EMAIL = {email},COMPANY = {company},DEPART = {depart}, INTRO = {intro}, ORGN_NM={orgn_nm} WHERE USID = {usid};";
+            String qry = "UPDATE T_USER SET NM = {nm}, NICK_NM = {nick_nm},EMAIL = {email},COMPANY = {company},DEPART = {depart}, INTRO = {intro}, PHONENUM={phonenum} WHERE USID = {usid};";
             // String qry = getQuery(pgmid, "save");
             String qryRun = "";
             JSONArray arrList = getArray(INVAR,"list");
