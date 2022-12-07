@@ -3795,7 +3795,8 @@ function gfnUpload(UUID, file_tp, ref_file_tp, afnCallback) {
 	/* 팝업창을 띄운다. */ 
 	var fnOpenPop = function(UUID, file_tp, ref_file_tp) {
 		var popid =  "upload"+gMDI.getNext();
-		var container = $("<div id='"+popid+"' class='framepage popupUpload' style='display:flex;flex-direction:column;'></div>");
+		var container = 
+		$("<div id='"+popid+"' class='framepage popupUpload' style='display:flex;flex-direction:column;'></div>");
 		$("#frameset").append(container);
 
 		/* 선언된 데이터를 업로드창으로 넘겨준다. */
@@ -3811,7 +3812,7 @@ function gfnUpload(UUID, file_tp, ref_file_tp, afnCallback) {
 				draggable : true,
 				minWidth : 850
 			} 
-	    	gfn["popupTemp"] = gfnPopup(title, container, opt, function(){ 
+	    	gfn["popupTemp"] = gfnPopup(title, container,{width:896,height:530}, function(){ 
 				var filelist = [];
 				if(gParam!=undefined && gParam.rtnCd =="OK" ) { 
 					filelist = gParam.filelist;

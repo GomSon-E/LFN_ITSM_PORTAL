@@ -15,15 +15,18 @@
 	align-content: flex-start;
 	justify-content: flex-start;
 	align-items: stretch;
+    background-color: red;
 } 
 
 [pgmid='popupUpload'] > * {
 	flex: 0 0 auto;
 }
+
+
 [pgmid='popupUpload'] > .pageContent {
     flex: 1 1 100%;
     display: flex;
-    min-height: 30em;
+    /* min-height: 30em; */
     flex-direction: column;
     align-content: center;
     justify-content: space-between;
@@ -32,11 +35,12 @@
 
 [pgmid='popupUpload'] .pageContent > * {
     flex: 0 0 auto !important;
+  
 }
 
 [pgmid='popupUpload'] #fileDropZone {
     font-size: 1.2em;
-    height: 70px;
+    height: 80px;
     border : 1px solid rgb(204, 204, 204);  
     display: flex;
     flex-direction: row;
@@ -44,10 +48,11 @@
     align-content: center;
     justify-content: space-around;
     align-items: center;
+    margin-top: 15px;
 }
 [pgmid='popupUpload'] #fileDropZone:hover {
-    border : 1px dashed orange;  
-    background-color: beige;
+    border : 1px dashed #899ad9;  
+    background-color: #ccd7fc;
 }
 
 [pgmid='popupUpload'] #filelist {
@@ -58,7 +63,7 @@
 <div class="pageTop"></div>
 <div class="pageGuide"></div>
 <div class="pageContent">
-    <div id='fileinfo'></div>
+    <!-- <div id='fileinfo'></div>--등록파일정보 -->
     <div id="fileDropZone">
         <div id="fileDragDesc" style="margin: 10px;">여기에 파일을 끌어놓거나 클릭하여 파일을 추가하세요.</div>
     </div>
@@ -93,7 +98,7 @@ me.dataDef["_pgm"]={"ver":1.9,"upd_dt":"2022-09-27 08:37:59","remark":"","pgmid"
 me.dataDef["_pgm_func"]=[{"func_icon":"fas fa-search","reg_dt":"2022-09-22 17:15:44","reg_usid":"","func_nm":"파일목록조회","upd_usid":"","upd_dt":"2022-09-22 17:15:44","func_tp":"DB_R","remark":"파일 선택 후 업로드 버튼을 눌러야 업로드가 정상적으로 완료됩니다.","pgmid":"popupUpload","sort_seq":"1","funcid":"getfile","content":"업로드된 파일 정보를 조회한다.","crud":"R","id":"0"},{"func_icon":"fa fa-folder-open","reg_dt":"2022-09-22 17:15:44","reg_usid":"","func_nm":"파일선택","upd_usid":"","upd_dt":"2022-09-22 17:15:44","func_tp":"EH","remark":"파일 업로드 최대크기는 개별파일 50MB, 전체 100MB입니다.","pgmid":"popupUpload","sort_seq":"2","funcid":"select","content":"파일을 선택한다.","crud":"R","id":"1"},{"func_icon":"fa fa-file-upload","reg_dt":"2022-09-22 17:15:44","reg_usid":"","func_nm":"업로드","upd_usid":"","upd_dt":"2022-09-22 17:15:44","func_tp":"FILE_W","remark":"파일은 순차적으로 업로드되며, 작업완료창이 닫힐때까지 기다려주십시오.","pgmid":"popupUpload","sort_seq":"3","funcid":"upload","content":"서버로 전송하고 fileid와 DB저장정보를 리턴한다.","crud":"R","id":"2"},{"func_icon":"fa fa-close","reg_dt":"2022-09-22 17:15:44","reg_usid":"","func_nm":"닫기","upd_usid":"","upd_dt":"2022-09-22 17:15:44","func_tp":"EH","remark":null,"pgmid":"popupUpload","sort_seq":"4","funcid":"close","content":"팝업창 닫기","crud":"R","id":"3"}];
 me.dataDef["_pgm_data"] = {};
 me.dataDef["_pgm_data"]["fileinfo"]={"sort_seq":"1","data_id":"fileinfo","data_nm":"등록파일정보","data_icon":"fas fa-info-circle","component_pgmid":"aweForm","component_option":null,"inout_tp":"OUT","content":[{"sort_seq":1,"section":null,"section_icon":null,"colgrp":null,"colid":"file_tp","colnm":"파일구분","dtype":"text","etype":"txt","attr":"keycol","len":"20","defval":null,"refcd":"FILE_TP","option":"sel:file_tp::nm","valid":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","w":null,"h":null,"colFormula":null,"id":"0"},{"sort_seq":2,"section":null,"section_icon":null,"colgrp":null,"colid":"ref_file_tp","colnm":"참조정보","dtype":"text","etype":"txt","attr":null,"len":"20","defval":null,"refcd":"INFO_TP","option":"sel:ref_file_tp::nm","valid":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","w":null,"h":null,"colFormula":null,"id":"1"},{"sort_seq":3,"section":null,"section_icon":null,"colgrp":null,"colid":"ref_id","colnm":"참조Key","dtype":"text","etype":"raw","attr":null,"len":"20","defval":null,"refcd":null,"option":null,"valid":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","w":null,"h":null,"colFormula":null,"id":"2"}]};
-me.dataDef["_pgm_data"]["filelist"]={"sort_seq":"2","data_id":"filelist","data_nm":"업로드 파일목록","data_icon":"fas fa-list","component_pgmid":"agGrid","component_option":{"gridOpt":"rn chk","gridOptions":{"statusBar":"false"},"func":[{"funcid":"delRow","func_nm":"선택파일삭제","func_icon":"fas fa-minus"},{"funcid":"updateSortseq","func_nm":"정렬순서저장","func_icon":"fas fa-save"}]},"inout_tp":"IN","content":[{"sort_seq":1,"section":null,"section_icon":null,"colgrp":null,"colid":"fileid","colnm":"파일ID","dtype":"text","etype":"raw","attr":"hidden","len":null,"defval":null,"refcd":null,"option":null,"valid":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","w":null,"h":null,"colFormula":null,"id":"0"},{"sort_seq":2,"section":null,"section_icon":null,"colgrp":null,"colid":"orgn_nm","colnm":"등록파일명","dtype":"text","etype":"raw","attr":null,"len":null,"defval":null,"refcd":null,"option":null,"valid":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","w":"53","h":null,"colFormula":null,"id":"1"},{"sort_seq":3,"section":null,"section_icon":null,"colgrp":null,"colid":"file_ext","colnm":"확장자","dtype":"text","etype":"raw","attr":"hidden","len":null,"defval":null,"refcd":null,"option":null,"valid":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","w":null,"h":null,"colFormula":null,"id":"2"},{"sort_seq":4,"section":null,"section_icon":null,"colgrp":null,"colid":"file_url","colnm":"파일주소","dtype":"text","etype":"raw","attr":"hidden","len":null,"defval":null,"refcd":null,"option":null,"valid":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","w":null,"h":null,"colFormula":null,"id":"3"},{"sort_seq":5,"section":null,"section_icon":null,"colgrp":null,"colid":"file_dir","colnm":"파일경로","dtype":"text","etype":"raw","attr":"hidden","len":null,"defval":null,"refcd":null,"option":null,"valid":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","w":null,"h":null,"colFormula":null,"id":"4"},{"sort_seq":6,"section":null,"section_icon":null,"colgrp":null,"colid":"file_sz","colnm":"파일크기","dtype":"num","etype":"raw","attr":null,"len":null,"defval":null,"refcd":null,"option":null,"valid":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","w":"10","h":null,"colFormula":null,"id":"5"},{"sort_seq":7,"section":null,"section_icon":null,"colgrp":null,"colid":"sort_seq","colnm":"정렬순서","dtype":"num","etype":"txt","attr":"hidden","defval":null,"w":"10","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"6"},{"sort_seq":8,"section":null,"section_icon":null,"colgrp":null,"colid":"download","colnm":"다운로드","dtype":"text","etype":"btn","attr":"center fixR","defval":null,"w":"10","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"7"}]};
+    me.dataDef["_pgm_data"]["filelist"]={"sort_seq":"2","data_id":"filelist","data_nm":"업로드 파일목록","data_icon":"fas fa-list","component_pgmid":"agGrid","component_option":{"gridOpt":"rn chk","gridOptions":{"statusBar":"false"},"func":[{"funcid":"delRow","func_nm":"선택파일삭제","func_icon":"fas fa-minus"}/*,{"funcid":"updateSortseq","func_nm":"정렬순서저장","func_icon":"fas fa-save"}*/]},"inout_tp":"IN","content":[{"sort_seq":1,"section":null,"section_icon":null,"colgrp":null,"colid":"fileid","colnm":"파일ID","dtype":"text","etype":"raw","attr":"hidden","len":null,"defval":null,"refcd":null,"option":null,"valid":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","w":null,"h":null,"colFormula":null,"id":"0"},{"sort_seq":2,"section":null,"section_icon":null,"colgrp":null,"colid":"orgn_nm","colnm":"등록파일명","dtype":"text","etype":"raw","attr":null,"len":null,"defval":null,"refcd":null,"option":null,"valid":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","w":"53","h":null,"colFormula":null,"id":"1"},{"sort_seq":3,"section":null,"section_icon":null,"colgrp":null,"colid":"file_ext","colnm":"확장자","dtype":"text","etype":"raw","attr":"hidden","len":null,"defval":null,"refcd":null,"option":null,"valid":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","w":null,"h":null,"colFormula":null,"id":"2"},{"sort_seq":4,"section":null,"section_icon":null,"colgrp":null,"colid":"file_url","colnm":"파일주소","dtype":"text","etype":"raw","attr":"hidden","len":null,"defval":null,"refcd":null,"option":null,"valid":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","w":null,"h":null,"colFormula":null,"id":"3"},{"sort_seq":5,"section":null,"section_icon":null,"colgrp":null,"colid":"file_dir","colnm":"파일경로","dtype":"text","etype":"raw","attr":"hidden","len":null,"defval":null,"refcd":null,"option":null,"valid":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","w":null,"h":null,"colFormula":null,"id":"4"},{"sort_seq":6,"section":null,"section_icon":null,"colgrp":null,"colid":"file_sz","colnm":"파일크기","dtype":"num","etype":"raw","attr":null,"len":null,"defval":null,"refcd":null,"option":null,"valid":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","w":"10","h":null,"colFormula":null,"id":"5"},{"sort_seq":7,"section":null,"section_icon":null,"colgrp":null,"colid":"sort_seq","colnm":"정렬순서","dtype":"num","etype":"txt","attr":"hidden","defval":null,"w":"10","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"6"},{"sort_seq":8,"section":null,"section_icon":null,"colgrp":null,"colid":"download","colnm":"다운로드","dtype":"text","etype":"btn","attr":"center fixR","defval":null,"w":"10","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"7"}]};
 
         me.pageObj["_page"] = new gfnFramepage( me ); 
         for(var component_id in me.dataDef["_pgm_data"]) { 
@@ -110,18 +115,19 @@ var file_tp = gParam["file_tp"];
 var ref_file_tp = gParam["ref_file_tp"];
 if(UUID == undefined || isNull(UUID) || UUID == "") {
     gfnAlert("업로드 불가", "키값이 존재하지 않습니다.");
-    //$("button[title=Close]").trigger("click");
+    $("button[title=Close]").trigger("click");
     me.fnClose();
 }
 
 me.fnInitExtra=function() {
     //화면이 너무 복잡해 보여서 숨기거나 정리
     me.page.find("#fileinfo .componentTitle").trigger("click");
-    me.pageObj._pageFunc.setDisp("getfile",false);
-    me.pageObj._pageFunc.setDisp("select",false); 
-    me.pageObj.filelist._componentFunc.setDisp("updateSortseq",false); 
-    
+    // me.pageObj._pageFunc.setDisp("getfile",false);
+    // me.pageObj._pageFunc.setDisp("select",false); 
+    // me.pageObj.filelist._componentFunc.setDisp("updateSortseq",false); 
     //전달받은 파일구분, 참조정보코드, 새파일명을 세팅한다.
+
+$(".modal-body").css("overflow","auto");
     me.pageObj["fileinfo"].setVal("file_tp",file_tp);
     me.pageObj["fileinfo"].setVal("ref_file_tp",ref_file_tp);
     me.pageObj["fileinfo"].setVal("ref_id",UUID);
@@ -130,6 +136,8 @@ me.fnInitExtra=function() {
     //파일목록조회
     me.fnGetfile()
 }
+
+// gfnPopup("타이틀", "content", {width : 500, height: 600, modal:true})
 
 /* 이벤트핸들러 */
 me.fnEH=function(component, evt, row, col, val) { 
@@ -255,13 +263,13 @@ function fileDropDown() {
         e.stopPropagation();
         e.preventDefault();
         // 드롭다운 영역 css
-        fileDropZone.css('background-color', '#E3F2FC');
+        fileDropZone.css('background-color', 'pink');
     });
     fileDropZone.on('dragleave', function(e) {
         e.stopPropagation();
         e.preventDefault();
         // 드롭다운 영역 css
-        fileDropZone.css('background-color', '#FFFFFF');
+        fileDropZone.css('background-color', 'green');
     });
     fileDropZone.on('dragover', function(e) {
         e.stopPropagation();
@@ -324,23 +332,27 @@ function selectFile(fileObject) {
             if ($.inArray(ext, [ 'exe', 'bat', 'sh', 'java', 'jsp', 'html', 'js', 'css', 'xml' ]) >= 0) {
                 // 확장자 체크
                 gfnAlert("등록 실패", ext+" 확장자 파일은 등록할 수 없습니다.");
+                $("#alert").css("zIndex","99999")
                 break; 
             }
             if ($.inArray(ext, [ 'hwp', 'doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx', 'txt', 'png', 'pdf', 'jpg', 'JPG', 'jpeg', 'gif', 'zip', 'apk' ]) <= 0) {
                 // 확장자 체크
                 gfnAlert("등록 실패", "등록이 불가능한 파일 입니다.("+fileName+")");
+                $("#alert").css("zIndex","99999")
                 break; 
             }
             if(ref_file_tp == "manageHelp") {
                 if ($.inArray(ext, [ 'pdf', 'jpg', 'jpeg', 'gif', 'png', 'JPG' ]) <= 0) {
                     // 확장자 체크
                     gfnAlert("등록 실패", "등록이 불가능한 파일 입니다.("+fileName+")");
+                    $("#alert").css("zIndex","99999")
                     break; 
                 }
             }
             if (fileSizeMb > uploadSize) {
                 // 파일 사이즈 체크
                 gfnAlert("업로드 파일확인","용량 초과\n업로드 가능 용량 : " + uploadSize + " MB");
+                $("#alert").css("zIndex","99999")
                 break;
             } else { 
                 totalFileSize += fileSizeMb; // 전체 파일 사이즈 
@@ -385,6 +397,8 @@ function uploadFile(ref_id) {
     if (uploadFileList.length == 0) {
         // 파일등록 경고창
         gfnAlert("파일 미등록", "업로드할 파일이 없습니다.");
+        $("#alert").css("zIndex","99999")
+
         return;
     }
 
@@ -464,7 +478,7 @@ me.fnUpload=function() {
 //close:닫기 
 me.fnClose=function() {
     gParam = $.extend(true, gParam, {rtnCd : "OK", filelist: me.pageObj.filelist.exportData() });
-    gfn.popupTemp.dialog("close");
+    layerClickHandler("popup")
     fileIndex = 0;
     totalFileSize = 0;
     fileList = new Array();
