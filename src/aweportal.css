@@ -614,8 +614,26 @@ button {
 
 }
 
+.d-block {
+	display: block !important;
+	border-bottom: 1px solid white;
+	/* height: 50%; */
+	display: flex;
+	height: 40px;
+	line-height: 35px;
+	align-items: center;
+	justify-content: center;
+	margin: 0px auto;
+	background: #739efa;
+	width: 100px;
+	border-top-left-radius: 30px;
+	border-top-right-radius: 30px;
+	border-bottom-left-radius: 30px;
+	border-bottom-right-radius: 30px;
+  }
+
 .media-body > p, .media-body > span {
-	display: inline;
+	/* display: inline; */
 }
 /* 
 .mobile #frameTab a div {
@@ -1001,6 +1019,10 @@ button {
 
 .mobile .framepage {
 	padding: 0.1em;
+	border-top-left-radius: 20px;
+	border-top-right-radius: 20px;
+	width: 95%;
+	margin:0 auto;
 }
 
 .framepage H1 {

@@ -12,7 +12,7 @@ String pgmid = "fileUploader";
 String func  = request.getParameter("func"); 
 String rtnCode    = "OK";
 String rtnMsg     = "";
-String serverDir = "http://localhost:8080";
+String serverDir = "http://localhost:9090";
 try { 
 /***************************************************************************************************/
 Connection conn = null;

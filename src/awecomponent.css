@@ -76,8 +76,9 @@
 }
 
 .componentBody.agGrid {
-	height: calc(100% - 2em);
+	/* height: calc(100% - 2em); */
 	min-height: 20em;
+	height: 20em;/*kes 파일업로드창 업로드파일목록*/
 }
 
 .flexColumn.componentContainer {
@@ -292,7 +293,7 @@ body {
 	flex: 1 1 auto;
   flex-direction: column;
   align-content: center;
-	justify-content: space-between;
+	/* justify-content: space-between; *//*kes 파일업로드창 업로드파일목록*/
 	margin: 0.5em 0;
 	padding: 0.5em;
 	cursor: auto;
@@ -308,6 +309,13 @@ body {
     justify-content: space-between;
     flex-wrap: wrap;
 	padding: 1em;
+}
+/*파일업로드창 버튼*/
+#filelist .componentTop .gButton { 
+	background-color: #648ed1;
+    padding: 5px;
+    color: white;
+    border: none;
 }
 
 .componentBody {
