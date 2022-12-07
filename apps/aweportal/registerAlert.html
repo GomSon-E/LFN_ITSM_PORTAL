@@ -195,7 +195,8 @@
                 var send = false;
                 
                 gfnConfirm("알림 전송 확인", "[" + alertInfo.comments + "] 을 전송합니다. 계속하시겠습니까?", function(bConfirm) {
-                    for (var i = 0; i < getUsidList.length; i++) {
+                    if (bConfirm) {
+                        for (var i = 0; i < getUsidList.length; i++) {
                         var args = { 
                                     usid: getUsidList[i], 
                                     comments: alertInfo.comments,
@@ -251,6 +252,7 @@
                             }
                         })
                     }     
+                    }
                 }); 
             }
         }
