@@ -40,8 +40,7 @@ if("sendMsg3".equals(func)) {
     try {  
         OUTVAR.put("INVAR",INVAR);
         JSONArray usidlist = getArray(INVAR,"usidlist"); 
-        String token = "kr1AAAA2aGuyiZJqHDPApfn23Nhxfqr+dIbJ10H+ewo5z1NllbrKMinDDEJENwPFDtgaWiAuEcTHzZefp3buaRYWTIWcfklZuFjn6XZRSrEjMpZPwzr7xTJQXqZ2JGY1rwBzzpQjisaUpBCnGdmsSQeYSikFDzii/F7SVGk6OYOuboNdX9/VxbSh5VqBMN/OhjKSCuSLPT4+e4L5q7F6BDc2mEe6R0bjdf9nbSUDrzN47DfW0Y+yTXP14E0+ygkp7Y9Ub1mwb2QhDJNI6t2JDKi4RgOZ8ORObJCity1kPdp+eZlhYoQ";
-        token = URLEncoder.encode(token,"UTF-8");
+        String token = "kr1AAAA3SunikDDk8fj+xwULBh0UbcUEEPl9lgcRucyyfK5hd5sPH0eZv8QOafhz7cNkbTH4Klhhl+/ye1FBGOoNSsu9O74rinnv+WQpW3eREzL1zk6ErXR/AJ3wWcup1xav4Xw/wE38td7ivOwqfzTnMCFr0GZNz51w2ntrpX2CmJeTV5w2MqS5H+XPqhnsdyRhumZywC5MRtWomTZIMc6H4i5mwS/qJlOF+jiLcPjoHMIlfHB6NadZ7vNcVxlBRzbsh+kgZr7lPE34nDKNDD40iNg8Kjvu0AiT0wdOvqhWlVcJkKv";
 
         for(int k=0; k<usidlist.size(); k++){
         
@@ -64,7 +63,7 @@ if("sendMsg3".equals(func)) {
             
     	    HttpURLConnection huc = (HttpURLConnection)url.openConnection();
     	    huc.setRequestMethod("POST");  
-            huc.setRequestProperty("Authorization", "Bearer kr1AAAA2aGuyiZJqHDPApfn23Nhxfqr+dIbJ10H+ewo5z1NllbrKMinDDEJENwPFDtgaWiAuEcTHzZefp3buaRYWTIWcfklZuFjn6XZRSrEjMpZPwzr7xTJQXqZ2JGY1rwBzzpQjisaUpBCnGdmsSQeYSikFDzii/F7SVGk6OYOuboNdX9/VxbSh5VqBMN/OhjKSCuSLPT4+e4L5q7F6BDc2mEe6R0bjdf9nbSUDrzN47DfW0Y+yTXP14E0+ygkp7Y9Ub1mwb2QhDJNI6t2JDKi4RgOZ8ORObJCity1kPdp+eZlhYoQ");
+            huc.setRequestProperty("Authorization", header);
             OUTVAR.put("header",header);
             huc.setRequestProperty("Content-Type", "application/json");
             huc.setRequestProperty("Accept", "application/json");
