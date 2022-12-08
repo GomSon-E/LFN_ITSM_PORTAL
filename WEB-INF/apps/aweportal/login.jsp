@@ -169,39 +169,7 @@ else if ("loginCheck".equals(func)) {
     } finally {
     	closeConn(conn); 
     } 
-} 
-//이메일 인증 진행중
-else if ("pwdclearReq".equals(func)) {
-    
-    //INVAR={email} 
-    /* To-do:
-        사용자정보 이메일 존재 체크
-        암호초기화키 생성
-        메일발송/메시지발송
-        시스템관리자 메시지 발송 
-    */   
-    //사용자 정보 이메일 존재 체크
-    Connection conn = null;  
-    try {
-        //INVAR={userid, loginpwd}
-        
-        conn = getConn("LFN");
-        String qry = getQuery(pgmid,"selectEmail"); //T_PGM_SRC.content 
-        String qryRun = bindVAR(qry,INVAR);
-
-        //OUTVAR.put("qry",qry); 
-        JSONArray list = selectSVC(conn,qry);  
-        OUTVAR.put("list",list); 
-
-    } catch(Exception e) {
-    	rtnCode = "ERR";
-    	rtnMsg  = e.toString();
-    } finally {
-    	closeConn(conn); 
-    } 
-     
-} 
-else if ("logout".equals(func)) {
+} else if ("logout".equals(func)) {
     //변수 Clear
     ORGCD  = null;
     ORGNM  = null;
@@ -225,7 +193,56 @@ else if ("logout".equals(func)) {
     session.setAttribute("MULTIORGYN", MULTIORGYN );  
     session.setAttribute("USERSESSION", USERSESSION );     
     session.setAttribute("DOCID", null );    
-} 
+} else if("savePwd".equals(func)) {
+    Connection conn = null; 
+    try {  
+        conn = getConn("LFN");
+        conn.setAutoCommit(false);
+        String qry = "MERGE INTO T_USER_PWD USING DUAL ON (USID={usid}) WHEN MATCHED THEN UPDATE SET UPD_DT  = SYSDATE,PWD = '6cbefd8960d511540f34779628ef4e5a55b758d3be5749cd8878a09b348c052b', TEMP_YN = 'Y' WHEN NOT MATCHED THEN INSERT (USID,PWD,TEMP_YN,SECU_CD,IPADDR,REG_USID,REG_DT,UPD_USID,UPD_DT) VALUES( {usid},'6cbefd8960d511540f34779628ef4e5a55b758d3be5749cd8878a09b348c052b', 'Y', NULL, NULL, 'admin', SYSDATE, 'admin', SYSDATE );";
+        qry = bindVAR(qry,INVAR);
+        OUTVAR.put("qry",qry);
+        JSONObject rst = executeSVC(conn, qry);  
+        if(!"OK".equals(getVal(rst,"rtnCd"))) {
+            conn.rollback();
+            rtnCode = getVal(rst,"rtnCd"); 
+            rtnMsg  = getVal(rst,"rtnMsg"); 
+        } else { 
+            conn.commit();
+        } 
+    } catch (Exception e) {
+        rtnCode = "ERR";
+        rtnMsg = e.toString();
+    } finally {
+        closeConn(conn);
+    }
+}
+else if("save".equals(func)) {
+    Connection conn = null; 
+    try {  
+        conn = getConn("LFN");
+        conn.setAutoCommit(false);
+        String qry ="MERGE INTO T_USER USING DUAL ON (USID={usid}) WHEN MATCHED THEN INSERT (USID, NM, NICK_NM, PROFILE_FILEID, EMAIL, USER_STAT, REG_USID, REG_DT, UPD_USID, UPD_DT) VALUES ({usid}, {nm}, {nick_nm}, null, {email}, 'Y', {userid}, SYSDATE, {userid}, SYSDATE);";
+        String qrypwd = getQuery(pgmid, "savePwd");
+        String qryRun = "";
+        INVAR.put("userid",USERID);
+        qryRun += bindVAR(qrypwd,INVAR) + "\n";
+        qryRun += bindVAR(qry,INVAR);
+        OUTVAR.put("qry",qryRun);
+        JSONObject rst = executeSVC(conn, qryRun); 
+        if(!"OK".equals(getVal(rst,"rtnCd"))) {
+            conn.rollback();
+            rtnCode = getVal(rst,"rtnCd"); 
+            rtnMsg  = getVal(rst,"rtnMsg"); 
+        } else { 
+            conn.commit();
+        } 
+    } catch (Exception e) {
+        rtnCode = "ERR";
+        rtnMsg = e.toString();
+    } finally {
+        closeConn(conn);
+    }
+}
 
 /***************************************************************************************************/
 } catch (Exception e) {

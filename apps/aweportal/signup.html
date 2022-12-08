@@ -1,0 +1,200 @@
+<!-- css start -->
+<style>
+    [pgmid=''].framepage .userClass { 
+        width:100%;
+    }
+    </style>
+    
+    <!-- html start -->
+    <div class="pageNav"></div>
+    <div class="pageTop"></div>
+    <div class="pageCond"></div>
+    <div class="pageContent">
+        <div name="frm" action="#" id="frm">
+            아이디 : <input type="text" name="usid" id="usid" /><br />
+            이름 : <input type="text" name="nm" id="nm"><br />
+            이메일 : <input type="email" name="email" id="email" /><br />
+            전화번호 : <input type="tel" name="phonenum" id="phonenum"><br />
+            소속회사 : <input type="text" name="company" id="company" /><br />
+            부서 : <input type="text" name="depart" id="depart" /><br />
+            직책 : <input type="text" name="nick_nm" id="nick_nm" /><br />
+            <button id="signUpBtn"><i class="fas fa-save" aria-hidden="true"></i>회원가입</button>
+          </div>
+    </div>
+    <script>
+    /*-- _script(자동생성1) start ---------------------------------------------- */        
+    $(function() {
+        var appid = "aweportal";
+        var pgmid = "signup"; 
+        var page = $("*[pgmid='"+pgmid+"'].framepage").last();
+        var pageid = page.attr("id"); 
+        var me = {}
+        var dataSet = {};
+        var dataDef = {};
+        var pageObj = {};
+        var bEdit = false;
+        me.fnInit = function() {
+            gfn[pageid] = me; 
+            me.appid    = appid;
+            me.pgmid    = pgmid;
+            me.pageid   = pageid;
+            me.page     = page; 
+            me.dataSet = dataSet;
+            me.dataDef = dataDef;
+            me.pageObj = pageObj;
+            me.bEdit = bEdit;
+    me.dataDef["_pgm"]={"pgmid":"signup","pgm_nm":"회원가입","pgm_tp":"UX","proc_mst_id":"","proc_mst_nm":"","remark":"","ver":0.1,"pgm_stat":"N","reg_usid":"jhk","reg_dt":"2022-12-08","upd_usid":"jhk","upd_dt":"2022-12-08","app_pgmid":"aweportal","pgm_grp_nm":"","sort_seq":null,"shortcut":"","crud":"","app_pgm_nm":"FO Portal"};
+    me.dataDef["_pgm_func"]=[];
+    me.dataDef["_pgm_data"] = {};
+    
+        me.pageObj["_page"] = new gfnFramepage( me ); 
+        for(var component_id in me.dataDef["_pgm_data"]) { 
+            me.pageObj[component_id] = new gfnComponent( me.pageid, component_id, me.dataDef["_pgm_data"][component_id], me.fnEH, me); 
+        }  
+        setTimeout(function(){
+            $("#frameset").scrollTo(0); //스크롤 
+        },10);
+        if(typeof(me.fnInitExtra)=='function') me.fnInitExtra(); 
+    }
+    /*-- script(개발자작성) start ---------------------------------------------------- */ 
+        /* 사용자초기화 */
+        me.fnInitExtra=function() {
+            //사용자 컴포넌트 
+            //me.dataDef["_pgm_data"][myCompoId] = {...};
+            //me.pageObj["myCompoId"] = new gfnComponent( me.pageid, myCompoId, me.dataDef["_pgm_data"][myCompoId], me.fnEH, me); 
+            //me.pageObj["myCompoId"].userComponent = "myCompoId";
+            //사용자 컨트롤
+            //var myColinfo = {colid:...}
+            //me.pageObj["myColId"] = new gfnControl(myColinfo, me.fnEH) 
+            //me.page.find("#myCol").append(me.pageObj["myColId"].dispObj);
+            //me.pageObj["myColId"].getVal(); / myCol.setVal(val);...    
+        }
+        /* 이벤트핸들러 */
+        me.fnEH=function(component, evt, row, col, val) { 
+            //화면기능버튼이 눌리면 
+            if (component==me.pageObj["_pageFunc"]){ 
+                if(typeof(me[col])=='function') me[col](); //col=기능명 me["fnSearch"]()=me.fnSearch(); 
+            }
+            //사용자 컴포넌트/컨트롤
+            else if(component.userComponent=="myCompoId") {
+                //if(evt=="dblclick" && col=="colid") {...}
+            }
+        }
+
+              //회원가입
+     
+   
+      
+      //회원가입 저장
+      $("#signUpBtn").click(function () {
+        
+     
+          if ($("#usid").val().trim() == "") {
+            alert("아이디를 입력하세요.");
+            $("#usid").focus();
+            return false;
+          }
+          if ($("#nm").val().trim() == "") {
+            alert("이름을 입력하세요.");
+            $("#nm").focus();
+            return false;
+          }
+          if ($("#email").val().trim() == "") {
+            alert("이메일을 입력하세요.");
+            $("#email").focus();
+            return false;
+          }
+          if ($("#phonenum").val().trim() == "") {
+            alert("전화번호를 입력하세요.");
+            $("#phonenum").focus();
+            return false;
+          }
+          if ($("#company").val().trim() == "") {
+            alert("소속회사를 입력하세요.");
+            $("#company").focus();
+            return false;
+          }
+          if ($("#depart").val().trim() == "") {
+            alert("부서를 입력하세요.");
+            $("#depart").focus();
+            return false;
+          }
+          if ($("#nick_nm").val().trim() == "") {
+            alert("직책을 입력하세요.");
+            $("#nick_nm").focus();
+            return false;
+          }
+        
+        me.fnSave()
+      })
+
+        //save:저장 
+        me.fnSave = function () {
+            gfnConfirm("회원가입 확인", " 회원가입 하시겠습니까?", function (bConfirm) {
+            // if (!me.pageObj["frm"].chkVal'id()) return;
+            // var args = me.pageObj["frm"].exportData()[0];
+            // var frm = me.pageObj.frm.exportData("CRU");
+            // args.frm = frm;
+            var args = {
+                "usid" : $("#usid").val(),
+                "nm" : $("#nm").val(),
+                "email" : $("#email").val(),
+                "phonenum" : $("#phonenum").val(),
+                "company" : $("#company").val(), 
+                "depart" : $("#depart").val(),
+                "nick_nm" : $("#nick_nm").val()
+            }
+            console.log(args);
+            var invar = JSON.stringify(args);
+            gfnTx(appid + "." + pgmid, "save", { INVAR: invar }, function (OUTVAR) {
+                console.log(OUTVAR);
+                if (OUTVAR.rtnCd == "OK") {
+                    me.fnSavePwd3();
+                    me.fnSaveGrp();
+         
+
+                } else {
+                    gfnAlert("조회오류", OUTVAR.rtnMsg);
+                   
+                }
+            });
+        }
+        );
+        }
+
+        me.fnSavePwd3=function() {
+            var args = {
+                "usid" : $("#usid").val()
+            }
+        var invar = JSON.stringify(args);
+        console.log(args);
+        gfnTx(appid+"."+pgmid,"savePwd",{INVAR:invar},function(OUTVAR){
+            console.log(OUTVAR);
+            if(OUTVAR.rtnCd=="OK") {
+                // gfnAlert("저장성공","비밀번호가 초기화 되었습니다."); 
+                // me.fnSearchGrp();
+            } else {
+                gfnAlert("저장오류",OUTVAR.rtnMsg);
+            }
+        });
+        }
+
+        me.fnSaveGrp=function() {
+        var args = {
+            "usid" :  $("#usid").val()
+        }
+        var invar = JSON.stringify(args);
+        gfnTx(appid+"."+pgmid,"saveGrp",{INVAR:invar},function(OUTVAR){
+            console.log(OUTVAR);
+            if(OUTVAR.rtnCd=="OK") {
+                location.reload();
+            } else {
+                gfnAlert("저장오류",OUTVAR.rtnMsg);
+            }
+        });
+    }
+    /*-- _script2(자동생성2) start ---------------------------------------------------- */        
+    if(typeof(me.fnInit)=='function') me.fnInit();
+    });
+    
+    </script>

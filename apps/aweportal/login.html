@@ -1,12 +1,9 @@
 <style>
-
-
   body {
-    background-color: #3595fc;
     background: linear-gradient(70deg, #3595fc, pink);
     font-family: "Asap", sans-serif;
   }
-  
+
   .login {
     overflow: hidden;
     background-color: white;
@@ -26,7 +23,9 @@
     transition: transform 300ms, box-shadow 300ms;
     box-shadow: 5px 10px 10px rgba(2, 128, 144, 0.2);
   }
-  .login::before, .login::after {
+
+  .login::before,
+  .login::after {
     content: "";
     position: absolute;
     width: 600px;
@@ -37,6 +36,7 @@
     border-bottom-right-radius: 40%;
     z-index: -1;
   }
+
   .login::before {
     left: 20%;
     bottom: -100%;
@@ -45,6 +45,7 @@
     -moz-animation: wawes 6s infinite linear;
     animation: wawes 6s infinite linear;
   }
+
   .login::after {
     left: 15%;
     bottom: -105%;
@@ -53,6 +54,7 @@
     -moz-animation: wawes 7s infinite;
     animation: wawes 7s infinite;
   }
+
   .login #userid {
     font-family: "Asap", sans-serif;
     display: block;
@@ -65,7 +67,7 @@
     margin: 20px -10px;
   }
 
-  .login  #loginpwd {
+  .login #loginpwd {
     font-family: "Asap", sans-serif;
     display: block;
     border-radius: 5px;
@@ -78,18 +80,25 @@
   }
 
 
-  #logsave{
+  #logsave {
 
     width: 95%;
     height: auto;
-    
-    
+
+
   }
 
-  #logsave #idSaveCheck{float: right; margin-top: 13px;}
-  #logsave p{ float: right;margin-top: 8px;}
+  #logsave #idSaveCheck {
+    float: right;
+    margin-top: 13px;
+  }
 
-  .login  button {
+  #logsave p {
+    float: right;
+    margin-top: 8px;
+  }
+
+  .login button {
     font-family: "Asap", sans-serif;
     cursor: pointer;
     color: #fff;
@@ -98,33 +107,40 @@
     width: 100px;
     height: 40px;
     border: 0;
- 
+
     border-radius: 5px;
     background-color: #4296fc;
     -webkit-transition: background-color 300ms;
     -moz-transition: background-color 300ms;
     transition: background-color 300ms;
   }
-  .login > button:hover {
+
+
+
+  .login>button:hover {
     background-color: #8ebcf5;
   }
-  
+
   @-webkit-keyframes wawes {
     from {
       -webkit-transform: rotate(0);
     }
+
     to {
       -webkit-transform: rotate(360deg);
     }
   }
+
   @-moz-keyframes wawes {
     from {
       -moz-transform: rotate(0);
     }
+
     to {
       -moz-transform: rotate(360deg);
     }
   }
+
   @keyframes wawes {
     from {
       -webkit-transform: rotate(0);
@@ -133,6 +149,7 @@
       -o-transform: rotate(0);
       transform: rotate(0);
     }
+
     to {
       -webkit-transform: rotate(360deg);
       -moz-transform: rotate(360deg);
@@ -141,193 +158,415 @@
       transform: rotate(360deg);
     }
   }
+
   a {
     text-decoration: none;
     color: rgba(255, 255, 255, 0.6);
-    position: absolute;
+    /* position: absolute; */
     right: 10px;
     bottom: 10px;
     font-size: 12px;
+    color: rgb(46, 39, 39);
   }
-  
-  </style>
 
-<!-- HTML autogen start ---------------------------------------------- -->   
+  #Outer {
+    /* border: 1px solid black; */
+    padding-top: 10px;
+    height: 140px;
+    /* background: rgb(9, 28, 9); */
+    display: none;
+  }
+
+  #Outer2 {
+    /* border: 1px solid black; */
+    padding-top: 10px;
+    height: 200px;
+    /* background: rgb(9, 28, 9); */
+    display: none;
+  }
+</style>
+
+<!-- HTML autogen start ---------------------------------------------- -->
+
+
 <div class="wrapper">
-  <form class="login">
+  <div class="login">
     <div class="loginForm">
       <img src="./images/CI.jpg">
       <div id="frmLogin">
         <p class="message">환영합니다. 로그인 해 주세요</p>
         <input type="text" id="userid" placeholder="로그인 계정(사번)">
         <input type="password" id="loginpwd" placeholder="비밀번호">
-      <div id="logsave">  
-
-       <button><i class="fas fa-key" aria-hidden="true"></i> Login</button> 
-       <p>아이디 저장</p> <input type="checkbox" id="idSaveCheck">
-         
+        <div id="logsave">
+          <button><i class="fas fa-key" aria-hidden="true"></i> Login</button>
+          <p>아이디 저장</p> <input type="checkbox" id="idSaveCheck">
         </div>
-        
       </div>
-    
-  </form>
-</div>
-<!----전--->
-<!-- <div class="login2">
-  <div id='pwdclearform'>
-    <p>이메일을 입력하면 암호초기화Key가 발송됩니다.</p>
-    <label>이메일</label>
-    <input type='email' name='email'/>
-    <button>암호변경 메일발송</button>
-</div>
-</div> -->
+    </div>
+    <!-- 비밀번호 초기화 -->
+    <a id="btn" href="#" class="pwdClear">>비밀번호 초기화</a>
+    <div id="Outer">
+      <div id='pwdclearform'>
+        <p>아이디을 입력하면 비밀번호 초기화 메세지가 발송됩니다.</p>
+        <label>아이디</label>
+        <input type="text" id="checkId" placeholder="ID">
+        <button id="pwClearBtn"><i class="fas fa-save" aria-hidden="true"></i>메세지 발송</button>
+      </div>
 
-<!-- ------------------------------------------------- -->
-<!-- <div id="login">
-    <div class="container">
-    <div class="loginForm">
-      <div class="sign-in-container">
-        <form>
-          <div id="frmLogin">
-            <div><input type="text" id="userid" placeholder="로그인 계정(사번)"></div>
-            <div><input type="password" id="loginpwd" placeholder="비밀번호"></div>
-            <h9>아이디 저장</h9>
-            <div><input type="checkbox" id="idSaveCheck"></div>
-        </div> 
-        </form>
+      <div id='pwdclearform2'>
+        <p>이메일을 입력하면 비밀번호 초기화 메일이 발송됩니다.</p>
+        <label>이메일</label>
+        <input type="text" id="checkMail" placeholder="example@lfnetworks.co.kr">
+        <button id="pwClearBtn2"><i class="fas fa-save" aria-hidden="true"></i>메일 발송</button>
       </div>
-      <div class="overlay-container">
-        <div class="overlay-right">
-            <h1>LOGIN</h1>
-            <p class="message">환영합니다. 로그인 해 주세요</p>
-            <button id="signUp" class="overlay_btn">로그인</button>
-          </div>
-      
-    </div> -->
-<!-- ------------------------------------------------- -->
-<!-- 암복호화 -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
-<!-- 복호화 -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
-<!-- 기존 암호화 -->
-    <script	src="https://cdnjs.cloudflare.com/ajax/libs/js-sha256/0.9.0/sha256.min.js"></script>
-    <script type="text/javascript" src="/lib/jquery/core.min.js"></script>
-    <script type="text/javascript" src="/lib/jquery/sha256.min.js"></script>  
-<!-- HTML autogen end ---------------------------------------------- -->
-<script>
-/*-- SCRIPT autogen start ---------------------------------------------- */        
-$(function() {
-    var appid = "aweportal";
-    var pgmid = "login"; 
-    var page = $("*[pgmid='"+pgmid+"'].framepage").last();
-    var pageid = page.attr("id"); 
-    var me = {}
-    var dataSet = {};
-    var dataDef = {};
-    var pageObj = {};
-    var bEdit = false;
-    me.fnInit = function() {
-        gfn[pageid] = me; 
-        me.appid    = appid;
-        me.pgmid    = pgmid;
-        me.pageid   = pageid;
-        me.page     = page; 
+    </div>
+    <!-- 회원가입 -->
+    <a1 id="btn2" href="#" class="signUp">>회원가입</a1>
+    <div id="Outer2">
+      <div name="frm" action="#" id="frm">
+        아이디 : <input type="text" name="usid" id="usid" /><br />
+        이름 : <input type="text" name="nm" id="nm"><br />
+        이메일 : <input type="email" name="email" id="email" /><br />
+        전화번호 : <input type="tel" name="phonenum" id="phonenum"><br />
+        소속회사 : <input type="text" name="company" id="company" /><br />
+        부서 : <input type="text" name="depart" id="depart" /><br />
+        직책 : <input type="text" name="nick_nm" id="nick_nm" /><br />
+        <button id="signUpBtn"><i class="fas fa-save" aria-hidden="true"></i>회원가입</button>
+      </div>
+
+    </div>
+
+  </div>
+
+
+
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sha256/0.9.0/sha256.min.js"></script>
+  <script type="text/javascript" src="/lib/jquery/core.min.js"></script>
+  <script type="text/javascript" src="/lib/jquery/sha256.min.js"></script>
+  <!-- HTML autogen end ---------------------------------------------- -->
+  <script>
+    /*-- SCRIPT autogen start ---------------------------------------------- */
+    $(function () {
+      var appid = "aweportal";
+      var pgmid = "login";
+      var page = $("*[pgmid='" + pgmid + "'].framepage").last();
+      var pageid = page.attr("id");
+      var me = {}
+      var dataSet = {};
+      var dataDef = {};
+      var pageObj = {};
+      var bEdit = false;
+      me.fnInit = function () {
+        gfn[pageid] = me;
+        me.appid = appid;
+        me.pgmid = pgmid;
+        me.pageid = pageid;
+        me.page = page;
         me.dataSet = dataSet;
         me.dataDef = dataDef;
         me.pageObj = pageObj;
         me.bEdit = bEdit;
-me.dataDef["_pgm"]={"ver":1.8,"upd_dt":"2022-09-27 08:37:59","remark":"","pgmid":"login","proc_mst_id":"","pgm_stat":"Y","sort_seq":91,"app_pgmid":"aweportal","shortcut":"","reg_dt":"2022-09-04 20:55:28","reg_usid":"kihyunlee","pgm_nm":"로그인","upd_usid":"kihyunlee","pgm_tp":"TX","pgm_grp_nm":"공통","proc_mst_nm":"","app_pgm_nm":"FO Portal","":"트랜젝션(화면)","crud":""};
-me.dataDef["_pgm_func"]=[];
-me.dataDef["_pgm_data"] = {};
+        me.dataDef["_pgm"] = { "ver": 1.8, "upd_dt": "2022-09-27 08:37:59", "remark": "", "pgmid": "login", "proc_mst_id": "", "pgm_stat": "Y", "sort_seq": 91, "app_pgmid": "aweportal", "shortcut": "", "reg_dt": "2022-09-04 20:55:28", "reg_usid": "kihyunlee", "pgm_nm": "로그인", "upd_usid": "kihyunlee", "pgm_tp": "TX", "pgm_grp_nm": "공통", "proc_mst_nm": "", "app_pgm_nm": "FO Portal", "": "트랜젝션(화면)", "crud": "" };
+        me.dataDef["_pgm_func"] = [
+          { "func_icon": "fas fa-save", "reg_dt": "2022-08-04 23:01:25", "reg_usid": "", "func_nm": "비밀번호 재설정 전송", "upd_usid": "", "upd_dt": "2022-08-04 23:01:25", "func_tp": "DB_W", "remark": "작성한 신규 알림을 알림 메세지 혹은 팝업과 함께 전송합니다.", "pgmid": "registerAlert", "sort_seq": "3", "funcid": "save", "content": "비밀번호 재설정", "crud": "R", "id": "2" }];
+        me.dataDef["_pgm_data"] = {};
 
-        me.pageObj["_page"] = new gfnFramepage( me ); 
-        for(var component_id in me.dataDef["_pgm_data"]) { 
-            me.pageObj[component_id] = new gfnComponent( me.pageid, component_id, me.dataDef["_pgm_data"][component_id], me.fnEH, me); 
-        }  
-        setTimeout(function(){
-            $("#frameset").scrollTo(0); //스크롤 
-        },10);
-        if(typeof(me.fnInitExtra)=='function') me.fnInitExtra(); 
-    } 
-/*-- SCRIPT autogen end ---------------------------------------------- */
+        me.pageObj["_page"] = new gfnFramepage(me);
+        for (var component_id in me.dataDef["_pgm_data"]) {
+          me.pageObj[component_id] = new gfnComponent(me.pageid, component_id, me.dataDef["_pgm_data"][component_id], me.fnEH, me);
+        }
+        setTimeout(function () {
+          $("#frameset").scrollTo(0); //스크롤 
+        }, 10);
+        if (typeof (me.fnInitExtra) == 'function') me.fnInitExtra();
+      }
+      /*-- SCRIPT autogen end ---------------------------------------------- */
 
-    /* 사용자초기화 */
-    me.fnInitExtra=function() {
+      /* 사용자초기화 */
+      me.fnInitExtra = function () {
         page = $("*[pgmid='login']");
         //쿠키 아이디 세팅
         var userInputId = getCookie("userid");
         var userCdCompany = getCookie("cd_company");
         $("#userid").val(userInputId);
         $("#cd_company").val(userCdCompany);
-        
-        if(userInputId != "") { // 그 전에 ID를 저장해서 처음 페이지 로딩 시, 입력 칸에 저장된 ID가 표시된 상태라면,
-            $("#idSaveCheck").attr("checked", true); // ID 저장하기를 체크 상태로 두기.
-        }	    
+
+        if (userInputId != "") { // 그 전에 ID를 저장해서 처음 페이지 로딩 시, 입력 칸에 저장된 ID가 표시된 상태라면,
+          $("#idSaveCheck").attr("checked", true); // ID 저장하기를 체크 상태로 두기.
+        }
         $("#userid").select();
 
         //event-handler
-        page.on("change click keyup",function(e) {
-            var oE = $(e.target);
-            gDebug = oE;
-            //뭐든 바뀌었을대 idSaveCheck 체크여부에 따라  
-            if($("#idSaveCheck").is(":checked")){ // ID 저장하기 체크했을 때,
-                var userInputId = $("#userid").val();
-                setCookie("userid", userInputId, 7); // 7일 동안 쿠키 보관
-                var userCdCompany = getCookie("cd_company");
-                setCookie("cd_company", userCdCompany, 7); // 7일 동안 쿠키 보관
-            }else{ // ID 저장하기 체크 해제 시,
-                deleteCookie("userid");
-                deleteCookie("cd_company");
-            }
+        page.on("change click keyup", function (e) {
+          var oE = $(e.target);
+          gDebug = oE;
+          //뭐든 바뀌었을대 idSaveCheck 체크여부에 따라  
+          if ($("#idSaveCheck").is(":checked")) { // ID 저장하기 체크했을 때,
+            var userInputId = $("#userid").val();
+            setCookie("userid", userInputId, 7); // 7일 동안 쿠키 보관
+            var userCdCompany = getCookie("cd_company");
+            setCookie("cd_company", userCdCompany, 7); // 7일 동안 쿠키 보관
+          } else { // ID 저장하기 체크 해제 시,
+            deleteCookie("userid");
+            deleteCookie("cd_company");
+          }
 
-            //버튼클릭
-            if(oE.isON(".loginForm button")) me.fnLogin(); 
-            else if(oE.is("#loginpwd") && e.keyCode==13 && $("#loginpwd").val() != "") me.fnLogin();
-            else if(oE.is("#pwdclear")) me.fnPwdclear();
-        });  
-    }
-    /* 이벤트핸들러 */
-    me.fnEH=function(component, evt, row, col, val) { 
-        //console.log(evt+","+row+","+col+","+val);
+          //버튼클릭
+          if (oE.isON(".loginForm button")) me.fnLogin();
+          else if (oE.is("#loginpwd") && e.keyCode == 13 && $("#loginpwd").val() != "") me.fnLogin();
+          // else if (oE.is("#pwClearBtn")) me.fnPwdclear();
+        });
+      }
+      /* 이벤트핸들러 */
+      me.fnEH = function (component, evt, row, col, val) {
+        // console.log(evt+","+row+","+col+","+val);
         //화면기능버튼이 눌리면 
-        if (component==me.pageObj["_pageFunc"]){ 
-            if(typeof(me[col])=='function') me[col](); //col=기능명 me["fnSearch"]()=me.fnSearch(); 
+        if (component == me.pageObj["_pageFunc"]) {
+          if (typeof (me[col]) == 'function') me[col](); //col=기능명 me["fnSearch"]()=me.fnSearch(); 
         }
         //사용자 컴포넌트/컨트롤
-        else if(component.userComponent=="myCompoId") {
-            //if(evt=="dblclick" && col=="colid") {...}
+        else if (component.userComponent == "myCompoId") {
+          //if(evt=="dblclick" && col=="colid") {...}
         }
-    }
-    //암호화
-    me.fnLogin= function() { 
+      }
+      //암호화
+      me.fnLogin = function () {
         //로그인 시 콘솔창이나 세션에 패스워드 보이지 않도록 암호화 
-        var args = {userid:$("#userid").val(), loginpwd:CryptoJS.SHA256($("#loginpwd").val()).toString()};
+        var args = { userid: $("#userid").val(), loginpwd: CryptoJS.SHA256($("#loginpwd").val()).toString() };
         var invar = JSON.stringify(args);
-        console.dir( "fnLogin"+":"+ invar );
-        gfnTx("aweportal.login","loginCheck",{INVAR:invar},function(OUTVAR){ 
-            if(OUTVAR.rtnCd=="OK") {
-                gUserinfo = OUTVAR.userinfo;
-                gUserinfo.temp_pwd = OUTVAR.list[0].temp_yn; //"Y"
-                if(gUserinfo.temp_pwd=="Y") {
-                    gfnAlert("알림","비밀번호를 변경해주세요"); 
-                }
-                var oFrameset = $("<div></div>"); 
-                gfnLoad("aweportal","frameset",oFrameset,function(OUTVAR){ 
-                    $("body").html( oFrameset.html() );
-                },true);  
-            } else {
-                var msg = OUTVAR.rtnMsg; 
-                $(".message").text(msg).addClass("ui-state-error");
+        console.dir("fnLogin" + ":" + invar);
+        gfnTx("aweportal.login", "loginCheck", { INVAR: invar }, function (OUTVAR) {
+          if (OUTVAR.rtnCd == "OK") {
+            gUserinfo = OUTVAR.userinfo;
+            gUserinfo.temp_pwd = OUTVAR.list[0].temp_yn; //"Y"
+            if (gUserinfo.temp_pwd == "Y") {
+              gfnAlert("알림", "비밀번호를 변경해주세요");
             }
-        },true);	
-    }
-    
-    
-    
-    
+            var oFrameset = $("<div></div>");
+            gfnLoad("aweportal", "frameset", oFrameset, function (OUTVAR) {
+              $("body").html(oFrameset.html());
+            }, true);
+          } else {
+            var msg = OUTVAR.rtnMsg;
+            $(".message").text(msg).addClass("ui-state-error");
+          }
+        }, true);
+      }
 
-/*-- SCRIPT autogen ---------------------------------------------------- */        
-if(typeof(me.fnInit)=='function') me.fnInit();
-});
 
-</script>
+      //봇 메세지 전송
+      $("#pwClearBtn").click(function () {
+        me.fnPwdclear()
+      })
+
+
+      me.fnPwdclear = function () {
+
+        // console.log("여기")
+        console.log($("#checkId").val())
+        gfnConfirm("메세지 전송 확인", " 비밀번호 재발송 하시겠습니까?", function (bConfirm) {
+          if (bConfirm) {
+            // 비밀번호 초기화
+            me.fnSavePwd();
+
+            var link = "http://localhost:9090/?"; //링크
+
+            var usid = [];
+            usid.push({ 'usid': $("#checkId").val(), 'msg': "비밀번호가 초기화 되었습니다. 다시 로그인 시도해주세요. 초기 비밀번호는 1234! 입니다", 'link': link, 'type': "link" });
+            var args = {};
+            args.usidlist = usid;
+            var invar = JSON.stringify(args);
+            gfnTx("api.itsm_naver_bot", "sendMsg3", { INVAR: invar }, function (OUTVAR) {
+              if (OUTVAR.rtnCd == "OK") {
+                gfnAlert("비밀번호 초기화 등록", "입력한 아이디로 암호변경 키와 주소가 회신되었습니다.");
+                gParam["rtn"] = "OK";
+                console.log(OUTVAR)
+              }
+              else {
+                gfnAlert("비밀번호 초기화 등록 오류", "비밀번호 초기화 등록시 오류가 발생하였습니다.:" + OUTVAR.rtnMsg);
+                location.reload();
+              }
+            })
+          }
+
+        }
+        );
+      }
+      me.fnSavePwd = function () {
+        var args = { usid: $("#checkId").val() };
+        var invar = JSON.stringify(args);
+        console.log(args);
+        gfnTx(appid + "." + pgmid, "savePwd", { INVAR: invar }, function (OUTVAR) {
+          console.log(OUTVAR);
+          if (OUTVAR.rtnCd == "OK") {
+            gfnAlert("저장성공", "비밀번호가 초기화 되었습니다.");
+            me.fnSearchGrp();
+          } else {
+            gfnAlert("저장오류", OUTVAR.rtnMsg);
+          }
+        });
+      }
+
+      //이메일 전송
+      $("#pwClearBtn2").click(function () {
+        me.fnPwdclear2()
+      })
+
+      me.fnPwdclear2 = function () {
+
+        // console.log("여기")
+        console.log($("#checkMail").val())
+        gfnConfirm("메일 전송 확인", " 비밀번호 재발송 하시겠습니까?", function (bConfirm) {
+          if (bConfirm) {
+            // 비밀번호 초기화
+            me.fnSavePwd2();
+
+            var link = "http://localhost:9090/?"; //링크
+
+            var usid = [];
+            usid.push({ 'usid': $("#checkMail").val(), 'msg': "비밀번호가 초기화 되었습니다. 다시 로그인 시도해주세요. 초기 비밀번호는 1234! 입니다", 'link': link, 'type': "link" });
+            console.log($("#checkMail").val())
+            var args = {};
+            args.usidlist = usid;
+            var invar = JSON.stringify(args);
+            gfnTx("api.ITSM_naver_mail", "sendMsg4", { INVAR: invar }, function (OUTVAR) {
+              if (OUTVAR.rtnCd == "OK") {
+                gfnAlert("비밀번호 초기화 등록", "입력한 메일로 암호변경 키와 주소가 회신되었습니다.");
+                gParam["rtn"] = "OK";
+                // console.log(OUTVAR)
+                // console.log(OUTVAR.usid)
+              } else {
+                gfnAlert("비밀번호 초기화 등록 오류", "비밀번호 초기화 등록시 오류가 발생하였습니다.:" + OUTVAR.rtnMsg);
+                // console.log(OUTVAR)
+                // console.log(OUTVAR.usid)
+              }
+            })
+          }
+
+        }
+        );
+      }
+      me.fnSavePwd2 = function () {
+        var args = { usid: $("#checkMail").val() };
+        var invar = JSON.stringify(args);
+        console.log(args);
+        gfnTx(appid + "." + pgmid, "savePwd", { INVAR: invar }, function (OUTVAR) {
+          console.log(OUTVAR);
+          if (OUTVAR.rtnCd == "OK") {
+            gfnAlert("저장성공", "비밀번호가 초기화 되었습니다.");
+            me.fnSearchGrp();
+          } else {
+            gfnAlert("저장오류", OUTVAR.rtnMsg);
+          }
+        });
+      }
+
+      //비밀번호 초기화 버튼
+      $(document).ready(function () {
+        $("#btn").click(function () {
+          $("#Outer").show("swing");
+        });
+      });
+
+
+
+      //회원가입
+      $(function () {
+        $("#frm").submit(function () {
+          if ($("#userId").val().trim() == "") {
+            alert("아이디를 입력하세요.");
+            $("#userId").focus();
+            return false;
+          }
+          if ($("#userName").val().trim() == "") {
+            alert("이름을 입력하세요.");
+            $("#userName").focus();
+            return false;
+          }
+          if ($("#userPh").val().trim() == "") {
+            alert("이메일을 입력하세요.");
+            $("#userPh").focus();
+            return false;
+          }
+          if ($("#userPh").val().trim() == "") {
+            alert("전화번호를 입력하세요.");
+            $("#userPh").focus();
+            return false;
+          }
+          if ($("#userPh").val().trim() == "") {
+            alert("소속회사를 입력하세요.");
+            $("#userPh").focus();
+            return false;
+          }
+          if ($("#userPh").val().trim() == "") {
+            alert("부서를 입력하세요.");
+            $("#userPh").focus();
+            return false;
+          }
+          if ($("#userPh").val().trim() == "") {
+            alert("직책을 입력하세요.");
+            $("#userPh").focus();
+            return false;
+          }
+        });
+      });
+
+      //회원가입 저장
+      $("#signUpBtn").click(function () {
+        me.fnSave()
+      })
+
+        //save:저장 
+        me.fnSave = function () {
+            if (!me.pageObj["frm"].chkValid()) return;
+            var args = me.pageObj["frm"].exportData()[0];
+            var frm = me.pageObj.frm.exportData("CRU");
+            args.frm = frm;
+            //console.log(args);
+            var invar = JSON.stringify(args);
+            gfnTx(appid + "." + pgmid, "save", { INVAR: invar }, function (OUTVAR) {
+                //console.log(OUTVAR);
+                if (OUTVAR.rtnCd == "OK") {
+                    gfnAlert("저장성공", "정보가 저장되었습니다.");
+                    me.pageObj["list"].importData(OUTVAR.list);
+                } else {
+                    gfnAlert("조회오류", OUTVAR.rtnMsg);
+                }
+            });
+        }
+
+        me.fnSavePwd3=function() {
+        if( !me.pageObj["frm"].chkValid() ) return; 
+        if( isNull(me.pageObj["frm"].getVal("usid")) ) return;
+        var args = me.pageObj["frm"].exportData()[0];
+        var invar = JSON.stringify(args);
+        console.log(args);
+        gfnTx(appid+"."+pgmid,"savePwd",{INVAR:invar},function(OUTVAR){
+            console.log(OUTVAR);
+            if(OUTVAR.rtnCd=="OK") {
+                gfnAlert("저장성공","비밀번호가 초기화 되었습니다."); 
+                me.fnSearchGrp();
+            } else {
+                gfnAlert("저장오류",OUTVAR.rtnMsg);
+            }
+        });
+        }
+
+      //회원가입 버튼 
+      $(document).ready(function () {
+        $("#btn2").click(function () {
+          // $("#Outer2").show("swing");
+          var oSignup = $("<div></div>")
+          gfnLoad("aweportal","signup",oSignup,function(OUTVAR){  
+					    $("body").html( oSignup.html() ); 
+				},true);
+        });
+      });
+
+      /*-- SCRIPT autogen ---------------------------------------------------- */
+      if (typeof (me.fnInit) == 'function') me.fnInit();
+    });
+
+  </script>

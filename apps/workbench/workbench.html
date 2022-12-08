@@ -45,7 +45,7 @@
                 { "func_icon": " ", "reg_dt": "2022-08-18 17:06:49", "reg_usid": "", "func_nm": "프리뷰", "upd_usid": "", "upd_dt": "2022-08-18 17:06:49", "func_tp": "EH", "remark": "[프리뷰]는 작성 중인 소스를 프레임웍 페이지에서 확인합니다.", "pgmid": "workbench", "sort_seq": "3", "funcid": "preview", "content": "화면 확인", "crud": "R", "id": "2" },
                 { "func_icon": " ", "reg_dt": "2022-08-18 17:06:49", "reg_usid": "", "func_nm": "배포", "upd_usid": "", "upd_dt": "2022-08-18 17:06:49", "func_tp": "FILE_W", "remark": "[배포]시 서버경로에 html파일과 jsp파일을 전송합니다.", "pgmid": "workbench", "sort_seq": "4", "funcid": "deploy", "content": "WEB/WAS경로에 저장 ", "crud": "R", "id": "3" },
                 { "func_icon": "fas fa-save", "reg_dt": "2022-08-18 17:06:49", "reg_usid": "", "func_nm": "저장", "upd_usid": "", "upd_dt": "2022-08-18 17:06:49", "func_tp": "DB_W", "remark": "[저장]시 입력사항을 테이블에 저장합니다.", "pgmid": "workbench", "sort_seq": "5", "funcid": "save", "content": "프로그램정보 저장", "crud": "R", "id": "4" },
-                { "func_icon": "extra", "reg_dt": "2022-08-18 17:06:49", "reg_usid": "", "func_nm": "권한관리", "upd_usid": "", "upd_dt": "2022-08-18 17:06:49", "func_tp": "EH", "remark": null, "pgmid": "workbench", "sort_seq": "6", "funcid": "auth", "content": "화면사용권한정보 수정", "crud": "R", "id": "5" },
+                { "func_icon": "", "reg_dt": "2022-08-18 17:06:49", "reg_usid": "", "func_nm": "권한관리", "upd_usid": "", "upd_dt": "2022-08-18 17:06:49", "func_tp": "EH", "remark": null, "pgmid": "workbench", "sort_seq": "6", "funcid": "auth", "content": "화면사용권한정보 수정", "crud": "R", "id": "5" },
                 { "func_icon": "extra fas fa-database", "reg_dt": "2022-08-18 17:06:49", "reg_usid": "", "func_nm": "운영이관", "upd_usid": "", "upd_dt": "2022-08-18 17:06:49", "func_tp": "DB_W", "remark": "[운영이관]시 프로그램소스코드가 운영환경으로 복사됩니다. (프리뷰 및 배포는 운영환경에서 진행할 것!)", "pgmid": "workbench", "sort_seq": "7", "funcid": "migrate", "content": "프로그램소스데이터 운영복사", "crud": "R", "id": "6" },
                 { "func_icon": "extra", "reg_dt": "2022-08-18 17:06:49", "reg_usid": "", "func_nm": "이전버전 가져오기", "upd_usid": "", "upd_dt": "2022-08-18 17:06:49", "func_tp": "DB_R", "remark": "[이전버전 가져오기] 배포 후 이전버전 소스를 조회하여 필요시 원상복구 합니다.", "pgmid": "workbench", "sort_seq": "8", "funcid": "revert", "content": "이전버전 소스코드를 가져옵니다.", "crud": "R", "id": "7" }
             ];
@@ -1070,6 +1070,11 @@ if("${row.funcid}".equals(func)) {
             }
             me.fnEditor(orgEdit, me.fnEditor(orgEdit));
             me.fnGetData(); //생성된 HTML을 dataSet으로 업데이트
+        }
+        //권한관리 화면호출
+        me.fnAuth = function () {
+            gParam.pgminfo = me.pageObj.pgm.exportData()[0];
+            gMDI.openPage("managePgmAccess", "프로그램 사용권한 관리", undefined, "workbench");
         }
         /*-- SCRIPT autogen ---------------------------------------------------- */
         if (typeof (me.fnInit) == 'function') me.fnInit();
