@@ -290,7 +290,7 @@ function gfnAlert(title, content, afnCallback) {
 	}	
 } 
 
-function layerClickHandler (p) {
+function gfnCloseLayer (p) {
 	$("#"+p).css("z-index", -1);
 	$("#"+p).css("background-color", "none") 
 
@@ -365,12 +365,12 @@ function gfnConfirm(title, content, afnCallback, oPos) {
 
 	$("#confirm .yes").click(function() {
 		afnCallback(true);
-		layerClickHandler("confirm")
+		gfnCloseLayer("confirm")
 	})
 
 	$("#confirm .no").click(function() {
 		afnCallback(false);
-		layerClickHandler("confirm")
+		gfnCloseLayer("confirm")
 	})
 } 
 

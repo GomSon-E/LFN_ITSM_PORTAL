@@ -478,7 +478,7 @@ me.fnUpload=function() {
 //close:닫기 
 me.fnClose=function() {
     gParam = $.extend(true, gParam, {rtnCd : "OK", filelist: me.pageObj.filelist.exportData() });
-    layerClickHandler("popup")
+    gfnCloseLayer("popup")
     fileIndex = 0;
     totalFileSize = 0;
     fileList = new Array();
