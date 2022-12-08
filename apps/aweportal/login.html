@@ -222,19 +222,7 @@
     </div>
     <!-- 회원가입 -->
     <a1 id="btn2" href="#" class="signUp">>회원가입</a1>
-    <div id="Outer2">
-      <div name="frm" action="#" id="frm">
-        아이디 : <input type="text" name="usid" id="usid" /><br />
-        이름 : <input type="text" name="nm" id="nm"><br />
-        이메일 : <input type="email" name="email" id="email" /><br />
-        전화번호 : <input type="tel" name="phonenum" id="phonenum"><br />
-        소속회사 : <input type="text" name="company" id="company" /><br />
-        부서 : <input type="text" name="depart" id="depart" /><br />
-        직책 : <input type="text" name="nick_nm" id="nick_nm" /><br />
-        <button id="signUpBtn"><i class="fas fa-save" aria-hidden="true"></i>회원가입</button>
-      </div>
-
-    </div>
+    
 
   </div>
 
@@ -471,90 +459,7 @@
       });
 
 
-
-      //회원가입
-      $(function () {
-        $("#frm").submit(function () {
-          if ($("#userId").val().trim() == "") {
-            alert("아이디를 입력하세요.");
-            $("#userId").focus();
-            return false;
-          }
-          if ($("#userName").val().trim() == "") {
-            alert("이름을 입력하세요.");
-            $("#userName").focus();
-            return false;
-          }
-          if ($("#userPh").val().trim() == "") {
-            alert("이메일을 입력하세요.");
-            $("#userPh").focus();
-            return false;
-          }
-          if ($("#userPh").val().trim() == "") {
-            alert("전화번호를 입력하세요.");
-            $("#userPh").focus();
-            return false;
-          }
-          if ($("#userPh").val().trim() == "") {
-            alert("소속회사를 입력하세요.");
-            $("#userPh").focus();
-            return false;
-          }
-          if ($("#userPh").val().trim() == "") {
-            alert("부서를 입력하세요.");
-            $("#userPh").focus();
-            return false;
-          }
-          if ($("#userPh").val().trim() == "") {
-            alert("직책을 입력하세요.");
-            $("#userPh").focus();
-            return false;
-          }
-        });
-      });
-
-      //회원가입 저장
-      $("#signUpBtn").click(function () {
-        me.fnSave()
-      })
-
-        //save:저장 
-        me.fnSave = function () {
-            if (!me.pageObj["frm"].chkValid()) return;
-            var args = me.pageObj["frm"].exportData()[0];
-            var frm = me.pageObj.frm.exportData("CRU");
-            args.frm = frm;
-            //console.log(args);
-            var invar = JSON.stringify(args);
-            gfnTx(appid + "." + pgmid, "save", { INVAR: invar }, function (OUTVAR) {
-                //console.log(OUTVAR);
-                if (OUTVAR.rtnCd == "OK") {
-                    gfnAlert("저장성공", "정보가 저장되었습니다.");
-                    me.pageObj["list"].importData(OUTVAR.list);
-                } else {
-                    gfnAlert("조회오류", OUTVAR.rtnMsg);
-                }
-            });
-        }
-
-        me.fnSavePwd3=function() {
-        if( !me.pageObj["frm"].chkValid() ) return; 
-        if( isNull(me.pageObj["frm"].getVal("usid")) ) return;
-        var args = me.pageObj["frm"].exportData()[0];
-        var invar = JSON.stringify(args);
-        console.log(args);
-        gfnTx(appid+"."+pgmid,"savePwd",{INVAR:invar},function(OUTVAR){
-            console.log(OUTVAR);
-            if(OUTVAR.rtnCd=="OK") {
-                gfnAlert("저장성공","비밀번호가 초기화 되었습니다."); 
-                me.fnSearchGrp();
-            } else {
-                gfnAlert("저장오류",OUTVAR.rtnMsg);
-            }
-        });
-        }
-
-      //회원가입 버튼 
+      //회원가입 버튼 눌러서 회원가입 html로 넘어가게 연결
       $(document).ready(function () {
         $("#btn2").click(function () {
           // $("#Outer2").show("swing");
