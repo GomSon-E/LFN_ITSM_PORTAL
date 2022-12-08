@@ -33,6 +33,25 @@ JSONObject INVAR  = getObject(invar);
             closeConn(conn);
         }  
     }
+    if("searchDetail".equals(func)) {
+        Connection conn = null; 
+        try {  
+            OUTVAR.put("INVAR",INVAR); //for debug
+            //System.out.println(INVAR);
+            conn = getConn("LFN");  
+            String qry = "SELECT USID, NM, NICK_NM, EMAIL, COMPANY, DEPART, INTRO,PHONENUM FROM T_USER WHERE USID = {usid}";
+            String qryRun = bindVAR(qry,INVAR);
+            OUTVAR.put("qryRun",qryRun); //for debug
+            JSONArray list = selectSVC(conn, qryRun);
+            OUTVAR.put("list",list); 
+
+        } catch (Exception e) { 
+            rtnCode = "ERR";
+            rtnMsg = e.toString();				
+        } finally {
+            closeConn(conn);
+        }  
+    }
     if("searchGrp".equals(func)) {
     Connection conn = null; 
     try {   
@@ -82,7 +101,7 @@ JSONObject INVAR  = getObject(invar);
         try {  
             conn = getConn("LFN");
             conn.setAutoCommit(false);
-            String qry = getQuery(pgmid, "save");
+            String qry = "UPDATE T_USER SET NM = {nm}, NICK_NM = {nick_nm},EMAIL = {email},COMPANY = {company},DEPART = {depart}, INTRO = {intro}, PHONENUM={phonenum} WHERE USID = {usid};";
             String qrypwd = getQuery(pgmid, "savePwd");
             String qryRun = "";
             INVAR.put("userid",USERID);
