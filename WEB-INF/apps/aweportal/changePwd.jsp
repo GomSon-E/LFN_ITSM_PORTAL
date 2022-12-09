@@ -17,7 +17,6 @@ JSONObject INVAR  = getObject(invar);
 //log.error(INVAR, e);
 JSONArray key = (JSONArray)INVAR.get("list");
 JSONObject keylist = (JSONObject)key.get(0);
-String keyvalue = (String)keylist.get("nowpwd");
 /***************************************************************************************************/
     //save:저장 이벤트처리(DB_Write)
     if("save".equals(func)) {
@@ -34,8 +33,7 @@ String keyvalue = (String)keylist.get("nowpwd");
             //System.out.println(pwdvalue);
             log.error(pwdvalue);
             //System.out.println(keyvalue);
-            log.error(keyvalue);
-            if(pwdvalue.equals(keyvalue)){
+
                 String qry = "UPDATE T_USER_PWD SET PWD = {pwd}, TEMP_YN = 'N' WHERE USID = {usid};";
                 String qryRun = "";
                 JSONArray arrList = getArray(INVAR,"list");
@@ -55,10 +53,7 @@ String keyvalue = (String)keylist.get("nowpwd");
                 } else { 
                     conn.commit();
                 } 
-            }else{
-                OUTVAR.put("rtnCd",rtnCode);
-                OUTVAR.put("rtnMsg",rtnMsg);
-            }
+
            
         } catch (Exception e) {
             rtnCode = "ERR";
