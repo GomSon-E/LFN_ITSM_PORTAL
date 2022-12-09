@@ -48,7 +48,6 @@ function gfnMDI(pageContainer,tabContainer) {
 		me.idx;
 		return me.idx;
 	}
-
 //frameBottom 의 좌우버튼 색표시
 	me.syncGNB = function() { 
 		var prev = me.tabContainer.children("a.active").prev().length;
@@ -63,6 +62,8 @@ function gfnMDI(pageContainer,tabContainer) {
 		var oPage = $("<div></div>");
 		oPage.attr("id","frameHome");
 		oPage.addClass("framepage");
+
+	
 		gfnLoad("aweportal","frameHome",oPage,function(OUTVAR){
 			me.pageContainer.children("#frameHome").remove();
 			me.pageContainer.append(oPage);
@@ -3798,6 +3799,8 @@ function gfnUpload(UUID, file_tp, ref_file_tp, afnCallback) {
 		var container = 
 		$("<div id='"+popid+"' class='framepage popupUpload' style='display:flex;flex-direction:column;'></div>");
 		$("#frameset").append(container);
+		// $('#frameset').css("pointer-events","none");
+		// $('#frameGNB').css("pointer-events","none");
 
 		/* 선언된 데이터를 업로드창으로 넘겨준다. */
 		gParam["UUID"] = UUID;
@@ -3812,12 +3815,13 @@ function gfnUpload(UUID, file_tp, ref_file_tp, afnCallback) {
 				draggable : true,
 				minWidth : 850
 			} 
-	    	gfn["popupTemp"] = gfnPopup(title, container,{width:896,height:530}, function(){ 
+	    	gfn["popupTemp"] = gfnPopup(title, container,{width:896,height:530, modal:true}, function(){ 
 				var filelist = [];
 				if(gParam!=undefined && gParam.rtnCd =="OK" ) { 
 					filelist = gParam.filelist;
 				}
 				if(afnCallback!=undefined) afnCallback(filelist);
+				
 			});
 		}, true); 
 	}

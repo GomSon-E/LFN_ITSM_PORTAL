@@ -12,7 +12,7 @@ String pgmid = "fileUploader";
 String func  = request.getParameter("func"); 
 String rtnCode    = "OK";
 String rtnMsg     = "";
-String serverDir = "http://localhost:9090";
+String serverDir = "https://localhost:9090";
 try { 
 /***************************************************************************************************/
 Connection conn = null;
@@ -82,6 +82,7 @@ try {
     qry = bindVAR(qry,INVAR); 
     JSONObject rst = executeSVC(conn, qry);
     OUTVAR.put("file_url",file_url);  
+    OUTVAR.put("qry",qry);
     if(!"OK".equals(getVal(rst,"rtnCd"))) {
         conn.rollback();
         rtnCode = getVal(rst,"rtnCd"); 

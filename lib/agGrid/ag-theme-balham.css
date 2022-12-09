@@ -1918,7 +1918,9 @@
   .ag-theme-balham .ag-row {
     border-color: #d9dcde; }
   .ag-theme-balham .ag-row-selected {
-    border-color: #b7e4ff; }
+    border-color: #b7e4ff;
+    width: 645px;
+  }
   .ag-theme-balham .ag-icon-row-drag {
     background-position-y: center; }
   .ag-theme-balham .ag-column-drag {

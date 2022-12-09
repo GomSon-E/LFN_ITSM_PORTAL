@@ -312,10 +312,14 @@ body {
 }
 /*파일업로드창 버튼*/
 #filelist .componentTop .gButton { 
-	background-color: #648ed1;
+	background-color: #3459e6;
     padding: 5px;
     color: white;
     border: none;
+	border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
 }
 
 .componentBody {
@@ -1126,7 +1130,7 @@ span.aweCol, div.aweCol, pre.aweCol {
 	text-align: left ;
 }
 .aweCol.right, .aweCol.num { 
-	text-align: right !important;
+	/* text-align: right !important; */
 }
 .aweColBtn {
 	flex: 0 0 1.2em;

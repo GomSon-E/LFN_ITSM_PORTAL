@@ -5,14 +5,14 @@
                  com.oreilly.servlet.MultipartRequest, 
                  com.oreilly.servlet.multipart.DefaultFileRenamePolicy " %>
                  
-<% 
+<%  
 JSONObject OUTVAR = new JSONObject(); 
 String appid = "aweportal";  
 String pgmid = "popupUpload"; 
 String func  = request.getParameter("func"); 
 String rtnCode    = "OK";
 String rtnMsg     = "";
-String serverDir = "https://fo.lfnetworks.co.kr";
+String serverDir = "http://localhost:9090";
 try { 
 /***************************************************************************************************/
 if("getFile".equals(func)) {
