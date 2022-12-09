@@ -80,3 +80,19 @@ html, body {
         left: 5%
     }
 }
+
+/*파일업로드창 버튼*/
+#filelist .componentTop .gButton { 
+	background-color: #3459e6;
+    padding: 5px;
+    color: white;
+    border: none;
+	border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+#filelist .componentBody.agGrid {
+    height: 22em;
+}
