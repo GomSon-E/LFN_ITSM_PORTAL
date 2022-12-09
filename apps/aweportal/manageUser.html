@@ -253,6 +253,7 @@ me.dataDef["_pgm_data"]["grp_dt"]={"sort_seq":"4","data_id":"grp_dt","data_nm":"
         };
         var invar = JSON.stringify(args);
         gfnTx(appid+"."+pgmid,"saveGrp",{INVAR:invar},function(OUTVAR){
+            console.log(INVAR);
             console.log(OUTVAR);
             if(OUTVAR.rtnCd=="OK") {
                 gfnAlert("저장성공","사용자정보가 저장되었습니다."); 

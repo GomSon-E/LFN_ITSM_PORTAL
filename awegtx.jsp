@@ -14,8 +14,8 @@ try {
     //     return;
     // }
 
-    String app = pgm[0];
-	String pgmid = pgm[1]+".jsp";
+    String app = pgm[0]; // aweportal
+	String pgmid = pgm[1]+".jsp"; // fileDownloer
     String func = nvl(request.getParameter("func"),"init");
 
     /* 전달받은 요청주소(app.pgmid func)로 Redirect한다. (Redirect시 INVAR data는 자동으로 연결된다.) */

@@ -78,11 +78,15 @@
                 <option value="1">bannerUp</option>
                 <option value="2">bannerDown</option>
             </select>
+            
+
         </div>
+
         <input type="text" class="boardTitle" placeholder="제목">
         <textarea id="mytextarea" class="boardContent" name="mytextarea" placeholder="내용을 입력하세요"></textarea>
         <br>
     </form>
+
 
     <div class="btn-wrapper">
         <button class="uploadBtn">파일업로드</button>
@@ -198,6 +202,7 @@ me.fnInitExtra=function() {
         resize: false,
         paste_data_images: true
     });
+
 
     //****** 버튼 이벤트 바인딩 ***************************************
     //문서구분에 따라 배너인 경우 배너위치 표시

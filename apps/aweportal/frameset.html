@@ -16,6 +16,7 @@
 
 
 
+
     <!-- <style>
         * {
             margin: 0;
@@ -693,9 +694,10 @@
 
                 <div class="menu-right">
 
+                     <button class="search"><i class="fas fa-search"></i></button>
 
                     <!-- <input type="text" placeholder="Search.." class="textSearch"> -->
-                    <button class="search"><i class="fas fa-search"></i></button>
+                    <!-- <button class="search"><i class="fas fa-search"></i></button> -->
 
                     <!-- <button class="apps"><i class="fas fa-th"></i></button> -->
 
@@ -872,6 +874,8 @@
             </div>
         </div>
     </div>
+
+    <!--search-->
     <search id="frameSearch" class="aweSearch hidden">
     </search>
 
@@ -1532,7 +1536,7 @@
             $("#frameGNB .gnb nav .notice").on({
                 click: function () {
                     $("#frameGNB .gnb nav .notice").attr("style", "background-color:unset");
-                    $("#frameGNB .gnb nav .notice i").css("color", "white"); //KESCSS NOTICE 색상바꿈
+                    $("#frameGNB .gnb nav .notice i").css("color", "white"); 
                     $("#frameAlert").toggleClass("hidden");
                 }
             })
@@ -1571,7 +1575,7 @@
         }
 
         me.fnEHFrameSearch = function () {
-            $("#frameGNB .gnb .frameBtnSet .search").on({
+            $("#frameGNB .gnb .search").on({
                 click: function () {
                     $("#frameSearch").toggleClass("hidden");
                     me.fnShowFrameSearch();
@@ -1579,7 +1583,7 @@
             });
             $(window).on({
                 click: function (e) {
-                    if (!$("#frameGNB .gnb .frameBtnSet .search").has(e.target).length && !$("#frameSearch").has(e.target).length) {
+                    if (!$("#frameGNB .gnb .search").has(e.target).length && !$("#frameSearch").has(e.target).length) {
                         $("#frameSearch").addClass("hidden");
                     }
                 }
