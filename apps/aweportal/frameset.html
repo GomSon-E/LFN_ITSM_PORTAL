@@ -694,7 +694,7 @@
 
                 <div class="menu-right">
 
-                  
+
                     <!-- <input type="text" placeholder="Search.." class="textSearch"> -->
                     <button class="search"><i class="fas fa-search"></i></button>
 
@@ -724,32 +724,22 @@
                     <div class="media">
 
                         <div class="media-body">
+                            <!-- 아이디 -->
+                            <p id="userid" class="d-block fs-8 link-secondary">ID</p>
+                            <span class="d-flex align-items-center">
+                                <!-- 직책 -->
+                                <span id="usernicknm" class="initial-wrap">AJ</span>
+                                <!-- 이름 -->
+                                <span id="usernm">usernm</span>
+                                <p>환영합니다.</p>
 
-                                <p id="userid" class="d-block fs-8 link-secondary">ID</p>
-                                
-                                <span class="d-flex align-items-center">
-<!-- 
-                                    <div class="media-head me-2">
-
-                                        <div class="avatar avatar-primary avatar-sm avatar-rounded">
-                                         
-                                            <span id="usernicknm" class="initial-wrap">AJ</span>
-
-                                        </div>
-
-                                    </div> -->
-
-                                    <span id="usernicknm" class="initial-wrap">AJ</span>
-
-                                    <span id="usernm">usernm</span><p>님 환영합니다 ^^</p>
-                                   
-                                </span>
+                            </span>
 
                         </div>
                     </div>
                 </div>
-    
-              <li class="profile"><i class="fas fa-user-edit"></i>   프로필 관리</li>
+
+                <li class="profile"><i class="fas fa-user-edit"></i> 프로필 관리</li>
                 <li class="changePwd"><i class="fas fa-pencil-alt"></i>비밀번호변경</li>
                 <!-- <li class="withdrawlUser">회원탈퇴</li> -->
                 <li class="logout"><i class="fas fa-sign-out-alt"></i>로그아웃</li>
@@ -824,7 +814,7 @@
     </div>
 
     <!----푸터---->
- 
+
     <footer id="undercopy">
 
         <p>copyright &copy; 2022 LF networks. All Right Reserved</p>
@@ -893,8 +883,6 @@
     function menuToggle() {
         const toggleMenu = document.querySelector(".menu");
         toggleMenu.classList.toggle("active");
-       
-
     }
 </script>
 
@@ -1585,7 +1573,7 @@
             $("#frameGNB .gnb nav .user").on({
                 click: function (e) {
                     $(".userInfo").toggleClass("hidden");
-              
+
 
                 }
             })
@@ -1603,7 +1591,7 @@
                 click: function (e) {
                     if (!$("#frameGNB .gnb nav .user").has(e.target).length && !$("#frameGNB .list").has(e.target).length) {
                         $(" .userInfo").addClass("hidden");
-               
+
 
                     }
                 }

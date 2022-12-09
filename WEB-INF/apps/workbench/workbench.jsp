@@ -61,10 +61,10 @@ else if("saveSpec".equals(func)) {
                qry += "   lv_dt   DATE := sysdate; ";
                qry += " BEGIN ";
 		
-		String qryTPGM = "BEGIN	SELECT VER 	, reg_usid, reg_dt	INTO lv_ver	, lv_usid, lv_dt	FROM T_PGM 	WHERE pgmid = lv_pgmid;	EXCEPTION WHEN OTHERS THEN	lv_ver := 0.00;	END;";
+		String qryTPGM = "BEGIN	SELECT VER 	, reg_usid, reg_dt	INTO lv_ver	, lv_usid, lv_dt	FROM T_PGM 	WHERE pgmid = lv_pgmid;	EXCEPTION WHEN OTHERS THEN	lv_ver := 0.00; END;";
 				qryTPGM += "DELETE FROM T_PGM WHERE pgmid = lv_pgmid;	DELETE FROM T_PGM_FUNC WHERE pgmid = lv_pgmid;	DELETE FROM T_PGM_DATA WHERE pgmid = lv_pgmid;	DELETE FROM T_PGM_SRC  WHERE pgmid = lv_pgmid;";
-				qryTPGM += "INSERT INTO T_PGM ( pgmid, ver, app_pgmid, pgm_grp_nm, pgm_nm, pgm_tp, proc_mst_id, pgm_stat, remark, shortcut, sort_seq, reg_dt, reg_usid, upd_dt, upd_usid ) VALUES (  {pgmid}, {ver}, {app_pgmid}, {pgm_grp_nm}, {pgm_nm}, {pgm_tp}, {proc_mst_id}, {pgm_stat}, {remark}, {shortcut}, {sort_seq}, {reg_dt}, {reg_usid}, {upd_dt}, {upd_usid} ); ";  
-         
+				qryTPGM += "INSERT INTO T_PGM ( pgmid, ver, app_pgmid, pgm_grp_nm, pgm_nm, pgm_tp, proc_mst_id, pgm_stat, remark, shortcut, sort_seq, reg_dt, reg_usid, upd_dt, upd_usid ) VALUES (  {pgmid}, {ver}, {app_pgmid}, {pgm_grp_nm}, {pgm_nm}, {pgm_tp}, {proc_mst_id}, {pgm_stat}, {remark}, {shortcut}, {sort_seq}, TO_DATE({reg_dt},'yyyy-MM-dd HH24:mi:ss'), {reg_usid}, TO_DATE({upd_dt},'yyyy-MM-dd HH24:mi:ss'), {upd_usid} );";  
+
 		// String qryTPGM = getQuery(pgmid, "mergeTPGM"); //make history, delete, insert T_pgm
 		String qryTPGMFUNC = getQuery(pgmid, "mergeTPGMFUNC");
         String qryTPGMDATA = getQuery(pgmid, "mergeTPGMDATA");
@@ -106,7 +106,7 @@ else if("saveSpec".equals(func)) {
 			rtnMsg  = getVal(rst,"rtnMsg");
 			//System.out.println("rollback finished");
 		} else { 
-			//System.out.println("105: updateClob ");
+			System.out.println("105: updateClob ");
 			boolean bRst = true;
 			for(int i = 0; i < pgm_data.size(); i++) {
 				//executeUpldateClob(conn,String tbl,String clobCol, String clobData, String where) 
@@ -146,7 +146,7 @@ else if("saveSpec".equals(func)) {
 			} else { 
 				conn.rollback();
 			}  
-			//System.out.println("clob works finished");
+			System.out.println("clob works finished");
 		} 
 	} catch (Exception e) {
 		logger.error("workbench.saveSpec:"+rtnCode,e);

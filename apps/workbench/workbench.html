@@ -1,6 +1,6 @@
 <div class="pageNav"></div>
 <div class="pageTop"></div> 
-<div class="pageContent">
+<div class="pageContent" style="display: flex; flex-direction: row;">
     <div class="pageContentSide">
         <div id="pgm_func"></div>
         <div id="pgm_data"></div>
@@ -12,8 +12,7 @@
 <script>
 /*-- SCRIPT autogen start ---------------------------------------------- */        
 $(function() {
-    // $('.pageContentSide').resizable();
-    $('#pgm_data_content').resizable();
+    // $('#pgm_data_content').resizable();
     $('#pgm_data_content').draggable({
         scroll: false,
         containment : 'parent'
@@ -45,7 +44,7 @@ me.dataDef["_pgm_func"]=[
     {"func_icon":" ","reg_dt":"2022-08-18 17:06:49","reg_usid":"","func_nm":"프리뷰","upd_usid":"","upd_dt":"2022-08-18 17:06:49","func_tp":"EH","remark":"[프리뷰]는 작성 중인 소스를 프레임웍 페이지에서 확인합니다.","pgmid":"workbench","sort_seq":"3","funcid":"preview","content":"화면 확인","crud":"R","id":"2"},
     {"func_icon":" ","reg_dt":"2022-08-18 17:06:49","reg_usid":"","func_nm":"배포","upd_usid":"","upd_dt":"2022-08-18 17:06:49","func_tp":"FILE_W","remark":"[배포]시 서버경로에 html파일과 jsp파일을 전송합니다.","pgmid":"workbench","sort_seq":"4","funcid":"deploy","content":"WEB/WAS경로에 저장 ","crud":"R","id":"3"},
     {"func_icon":"fas fa-save","reg_dt":"2022-08-18 17:06:49","reg_usid":"","func_nm":"저장","upd_usid":"","upd_dt":"2022-08-18 17:06:49","func_tp":"DB_W","remark":"[저장]시 입력사항을 테이블에 저장합니다.","pgmid":"workbench","sort_seq":"5","funcid":"save","content":"프로그램정보 저장","crud":"R","id":"4"},
-    {"func_icon":"extra","reg_dt":"2022-08-18 17:06:49","reg_usid":"","func_nm":"권한관리","upd_usid":"","upd_dt":"2022-08-18 17:06:49","func_tp":"EH","remark":null,"pgmid":"workbench","sort_seq":"6","funcid":"auth","content":"화면사용권한정보 수정","crud":"R","id":"5"},
+    {"func_icon":"","reg_dt":"2022-08-18 17:06:49","reg_usid":"","func_nm":"권한관리","upd_usid":"","upd_dt":"2022-08-18 17:06:49","func_tp":"EH","remark":null,"pgmid":"workbench","sort_seq":"6","funcid":"auth","content":"화면사용권한정보 수정","crud":"R","id":"5"},
     {"func_icon":"extra fas fa-database","reg_dt":"2022-08-18 17:06:49","reg_usid":"","func_nm":"운영이관","upd_usid":"","upd_dt":"2022-08-18 17:06:49","func_tp":"DB_W","remark":"[운영이관]시 프로그램소스코드가 운영환경으로 복사됩니다. (프리뷰 및 배포는 운영환경에서 진행할 것!)","pgmid":"workbench","sort_seq":"7","funcid":"migrate","content":"프로그램소스데이터 운영복사","crud":"R","id":"6"},
     {"func_icon":"extra","reg_dt":"2022-08-18 17:06:49","reg_usid":"","func_nm":"이전버전 가져오기","upd_usid":"","upd_dt":"2022-08-18 17:06:49","func_tp":"DB_R","remark":"[이전버전 가져오기] 배포 후 이전버전 소스를 조회하여 필요시 원상복구 합니다.","pgmid":"workbench","sort_seq":"8","funcid":"revert","content":"이전버전 소스코드를 가져옵니다.","crud":"R","id":"7"}
 ];
@@ -58,7 +57,6 @@ me.dataDef["_pgm_data"]["pgm_func"]={
     "data_icon":null,
     "component_pgmid":"agGrid",
     "component_option":{
-        "height":"17em",
         "gridOpt": "rn",
         "gridOptions":{"singleClickEdit":"false","statusBar":"false"},
         "func":[
@@ -68,20 +66,19 @@ me.dataDef["_pgm_data"]["pgm_func"]={
     },
     "inout_tp":"INOUT",
     "content":[
-        {"colid":"funcid","colnm":"기능ID","dtype":"text","etype":"txt", "attr": "pk", "crud":"U","sort_seq":1,"section":null,"section_icon":null,"colgrp":null,"len":null,"defval":null,"refcd":null,"option":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":"기능ID","w":"8","h":null},
-        {"colid":"func_nm","colnm":"기능명","dtype":"text","etype":"txt", "attr": "pk", "crud":"U","sort_seq":2,"section":null,"section_icon":null,"colgrp":null,"len":null,"defval":null,"refcd":null,"option":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":"기능명","w":"10","h":null},
-        {"colid":"func_icon","colnm":"아이콘","dtype":"text","etype":"txt","crud":"U","sort_seq":3,"section":null,"section_icon":null,"colgrp":null,"attr":null,"len":null,"defval":null,"refcd":null,"option":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":"아이콘","w":"8","h":null},
-        {"colid":"content","colnm":"더보기","dtype":"text","etype":"btn","option":":fas fa-ellipsis-h","crud":"U","sort_seq":4,"section":null,"section_icon":null,"colgrp":null,"attr":null,"len":null,"defval":null,"refcd":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"w":"8","h":null},
+        {"colid":"sort_seq","colnm":"정렬순서","dtype":"num","etype":"txt","crud":"U","sort_seq":1,"section":null,"section_icon":null,"colgrp":null,"attr":"wbhidden","len":null,"defval":null,"refcd":null,"option":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"w":null,"h":null},
+        {"colid":"funcid","colnm":"기능ID","dtype":"text","etype":"txt","attr":"pk","crud":"U","sort_seq":2,"section":null,"section_icon":null,"colgrp":null,"len":null,"defval":null,"refcd":null,"option":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":"기능ID","w":null,"h":null},
+        {"colid":"func_nm","colnm":"기능명","dtype":"text","etype":"txt","attr":"keycol","crud":"U","sort_seq":3,"section":null,"section_icon":null,"colgrp":null,"len":null,"defval":null,"refcd":null,"option":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":"기능명","w":null,"h":null},
+        {"colid":"func_icon","colnm":"아이콘","dtype":"text","etype":"txt","crud":"U","sort_seq":4,"section":null,"section_icon":null,"colgrp":null,"attr":null,"len":null,"defval":null,"refcd":null,"option":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":"아이콘","w":null,"h":null},
+        {"colid":"content","colnm":"더보기","dtype":"text","etype":"btn","option":":fas fa-ellipsis-h","crud":"U","sort_seq":5,"section":null,"section_icon":null,"colgrp":null,"attr":null,"len":null,"defval":null,"refcd":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"w":null,"h":null},
+        {"colid":"func_tp","colnm":"기능유형","dtype":"text","etype":"sel","attr":"wbhidden","refcd":"FUNC_TP","option":"sel:func_tp::cdnm","crud":"U","sort_seq":6,"section":null,"section_icon":null,"colgrp":null,"len":null,"defval":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"w":null,"h":null},
+        {"colid":"content","colnm":"기능설명","dtype":"text","etype":"tarea","attr":"wbhidden","crud":"U","sort_seq":7,"section":null,"section_icon":null,"colgrp":null,"len":null,"defval":null,"refcd":null,"option":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":"기능을 입력해주세요.","w":null,"h":null},
+        {"colid":"remark","colnm":"퀵가이드","dtype":"text","etype":"txt","attr":"wbhidden","crud":"U","sort_seq":8,"section":null,"section_icon":null,"colgrp":null,"len":null,"defval":null,"refcd":null,"option":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":"내용을 입력해주세요.","w":null,"h":null}
     ],
-    "contentForm" : {
+    "workbenchForm" : {
         "contentFunc" : [
-            {"funcid":"save","func_nm":"저장","func_icon":"fas fa-save"},
+            // {"funcid":"save","func_nm":"저장","func_icon":"fas fa-save"},
             {"funcid":"cancel","func_nm":"X","func_icon":""},
-        ],
-        "content" : [
-            {"colid":"func_tp","colnm":"기능유형","dtype":"text","etype":"sel","refcd":"FUNC_TP","option":"sel:func_tp::cdnm","crud":"U","sort_seq":5,"section":null,"section_icon":null,"colgrp":null,"attr":null,"len":null,"defval":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"w":"15","h":null},
-            {"colid":"content","colnm":"기능설명","dtype":"text","etype":"tarea","crud":"U","sort_seq":6,"section":null,"section_icon":null,"colgrp":null,"attr":null,"len":null,"defval":null,"refcd":null,"option":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":"기능을 입력해주세요.","w":"20","h":null},
-            {"colid":"remark","colnm":"퀵가이드","dtype":"text","etype":"tarea","crud":"U","sort_seq":7,"section":null,"section_icon":null,"colgrp":null,"attr":null,"len":20,"defval":null,"refcd":null,"option":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":"퀵가이드를 입력해주세요.","w":"20","h":null}
         ],
     }
 };
@@ -92,7 +89,6 @@ me.dataDef["_pgm_data"]["pgm_data"]={
     "data_icon":null,
     "component_pgmid":"agGrid",
     "component_option":{
-        "height":"17em",
         "gridOpt": "rn",
         "gridOptions":{"singleClickEdit":"false","statusBar":false,"defaultColDef":{"sortable":false}},
         "func":[
@@ -102,30 +98,20 @@ me.dataDef["_pgm_data"]["pgm_data"]={
     },
     "inout_tp":"INOUT",
     "content":[
-        {"colid":"data_id","colnm":"컴포넌트ID","dtype":"text","etype":"txt","crud":"U","sort_seq":1,"section":null,"section_icon":null,"colgrp":null,"len":null,"defval":null,"refcd":null,"option":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":"컴포넌트ID","w":"12","h":null},
-        {"colid":"data_nm","colnm":"컴포넌트명","dtype":"text","etype":"txt","crud":"U","sort_seq":2,"section":null,"section_icon":null,"colgrp":null,"len":null,"defval":null,"refcd":null,"option":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":"컴포넌트명","w":"15","h":null},
-        {"colid":"component_pgmid","colnm":"형식","dtype":"text","etype":"sel","refcd":"COMPONENT_PGMID","option":"sel:component_pgmid::cdnm","crud":"U","sort_seq":3,"section":null,"section_icon":null,"colgrp":null,"attr":null,"len":null,"defval":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"w":"15","h":null},
-        {"colid":"content","colnm":"더보기","dtype":"text","etype":"btn","option":":fas fa-ellipsis-h","crud":"U","sort_seq":4,"section":null,"section_icon":null,"colgrp":null,"attr":null,"len":null,"defval":null,"refcd":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"w":"8","h":null},
-    ],
-    "contentForm": {
+        {"colid":"sort_seq","colnm":"정렬순서","dtype":"num","etype":"txt","crud":"U","sort_seq":1,"section":null,"section_icon":null,"colgrp":null,"attr":"wbhidden","len":null,"defval":null,"refcd":null,"option":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"w":null,"h":null},
+        {"colid":"data_id","colnm":"컴포넌트ID","dtype":"text","etype":"txt","attr":"pk","crud":"U","sort_seq":2,"section":null,"section_icon":null,"colgrp":null,"len":null,"defval":null,"refcd":null,"option":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":"컴포넌트ID","w":null,"h":null},
+        {"colid":"data_nm","colnm":"컴포넌트명","dtype":"text","etype":"txt","attr":"keycol","crud":"U","sort_seq":3,"section":null,"section_icon":null,"colgrp":null,"len":null,"defval":null,"refcd":null,"option":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":"컴포넌트명","w":null,"h":null},
+        {"colid":"component_pgmid","colnm":"형식","dtype":"text","etype":"sel","attr":"keycol","refcd":"COMPONENT_PGMID","option":"sel:component_pgmid::cdnm","crud":"U","sort_seq":4,"section":null,"section_icon":null,"colgrp":null,"len":null,"defval":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"w":null,"h":null},
+        {"colid":"inout_tp","colnm":"입출유형","dtype":"text","etype":"sel","attr":"wbhidden","refcd":"INOUT_TP","option":"sel:inout_tp::cdnm","crud":"U","sort_seq":5,"section":null,"section_icon":null,"colgrp":null,"len":null,"defval":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"w":null,"h":null},
+        {"colid":"content","colnm":"더보기","dtype":"text","etype":"btn","option":":fas fa-ellipsis-h","crud":"U","sort_seq":6,"section":null,"section_icon":null,"colgrp":null,"attr":null,"len":null,"defval":null,"refcd":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"w":null,"h":null},
+        {"colid":"data_icon","colnm":"아이콘","dtype":"text","etype":"txt","crud":"U","sort_seq":7,"section":null,"section_icon":null,"colgrp":null,"attr":"wbhidden","len":null,"defval":null,"refcd":null,"option":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"w":null,"h":null},
+        {"colid":"component_option","colnm":"컴포넌트 옵션","dtype":"text","etype":"txt","attr":"wbhidden","crud":"U","sort_seq":8,"section":null,"section_icon":null,"colgrp":null,"len":null,"defval":null,"refcd":null,"option":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":"컴포넌트명","w":null,"h":null},
+        {"colid":"content","colnm":"컬럼정의","dtype":"text","etype":"btn","attr":"wbhidden","option":"컴포넌트 컬럼:fas fa-align-justify","crud":"U","sort_seq":9,"section":null,"section_icon":null,"colgrp":null,"len":null,"defval":null,"refcd":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"w":null,"h":null}
+   ],
+    "workbenchForm": {
         "contentFunc" : [
-            {"funcid":"save","func_nm":"저장","func_icon":"fas fa-save"},
+            // {"funcid":"save","func_nm":"저장","func_icon":"fas fa-save"},
             {"funcid":"cancel","func_nm":"X","func_icon":""},
-        ],
-        "content" : [
-            {"colid":"inout_tp",
-            "colnm":"입출유형",
-            "dtype":"text",
-            "etype":"sel",
-            "refcd":"INOUT_TP",
-            "option":"sel:inout_tp::cdnm",
-            "crud":"U",
-            "sort_seq":5,
-            "section":null,
-            "section_icon":null,
-            "colgrp":null,
-            "attr":null,"len":null,"defval":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"w":"15","h":null},
-            {"colid":"content","colnm":"컬럼","dtype":"text","etype":"btn","crud":"U","sort_seq":6,"section":null,"section_icon":null,"colgrp":null,"len":null,"defval":null,"refcd":null,"option":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":"컬럼","w":"15","h":null},
         ],
         "componentOption" : [
             {"colid":"height","colnm":"height","dtype":"text","etype":"txt","crud":"U","sort_seq":1,"section":null,"section_icon":null,"colgrp":null,"len":null,"defval":null,"refcd":null,"option":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":"ComponentBody영역 높이 지정","w":"15","h":null},
@@ -150,9 +136,8 @@ me.dataDef["_pgm_data"]["pgm_data_content"]={
             {"funcid":"setSrc","func_nm":"적용","func_icon":"fas fa-plus"},
             {"funcid":"addRow","func_nm":"줄추가","func_icon":"fas fa-plus"},
             {"funcid":"delRow","func_nm":"줄삭제","func_icon":"fas fa-minus"},
-            {"funcid":"closeColList","func_nm":"","func_icon":"fas fa-times"}
+            {"funcid":"closeColList","func_nm":"","func_icon":"fas fa-times"},
         ],
-        // "remark":"* 작업중인 컴포넌트 정보(위)를 수정하려면 [적용] 먼저 클릭! ->",
     },
     "inout_tp":"IN",
     "content":[
@@ -185,17 +170,19 @@ me.dataDef["_pgm_data"]["pgm_src"]={
     "data_icon":null,
     "component_pgmid":"agGrid",
     "component_option":{
-        "height":"17em",
         "gridOpt": "rn",
         "gridOptions":{"statusBar":false,"singleClickEdit":"false","defaultColDef":{"sortable":false}},
         "func":[{"funcid":"addRow","func_nm":"줄추가","func_icon":"fas fa-plus"},{"funcid":"delRow","func_nm":"줄삭제","func_icon":"fas fa-minus"}]
     },
     "inout_tp":"INOUT",
     "content":[
-        {"colid":"srcid","colnm":"소스ID","dtype":"text","etype":"txt","attr":"pk","crud":"U","sort_seq":1,"section":null,"section_icon":null,"colgrp":null,"len":null,"defval":null,"refcd":null,"option":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"w":"15","h":null,"id":"2"},
-        {"colid":"src_nm","colnm":"소스명","dtype":"text","etype":"txt","attr":"keycol","crud":"U","sort_seq":2,"section":null,"section_icon":null,"colgrp":null,"len":null,"defval":null,"refcd":null,"option":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"w":"20","h":null,"id":"3"},
-        {"colid":"src_tp","colnm":"소스유형","dtype":"text","etype":"sel","attr":"keycol","refcd":"SRC_TP","option":"sel:src_tp::cdnm","crud":"U","sort_seq":3,"section":null,"section_icon":null,"colgrp":null,"len":null,"defval":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"w":"15","h":null,"id":"1"},
-        {"colid":"content","colnm":"더보기","dtype":"text","etype":"btn","option":":fas fa-ellipsis-h","crud":"U","sort_seq":4,"section":null,"section_icon":null,"colgrp":null,"attr":null,"len":null,"defval":null,"refcd":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"w":"8","h":null},
+        {"colid":"sort_seq","colnm":"정렬순서","dtype":"num","etype":"txt","crud":"U","sort_seq":1,"section":null,"section_icon":null,"colgrp":null,"attr":"wbhidden","len":null,"defval":null,"refcd":null,"option":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"w":"4","h":null,"id":"0"},
+        {"colid":"srcid","colnm":"소스ID","dtype":"text","etype":"txt","attr":"pk","crud":"U","sort_seq":2,"section":null,"section_icon":null,"colgrp":null,"len":null,"defval":null,"refcd":null,"option":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"w":"15","h":null,"id":"2"},
+        {"colid":"src_nm","colnm":"소스명","dtype":"text","etype":"txt","attr":"keycol","crud":"U","sort_seq":3,"section":null,"section_icon":null,"colgrp":null,"len":null,"defval":null,"refcd":null,"option":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"w":"20","h":null,"id":"3"},
+        {"colid":"src_tp","colnm":"소스유형","dtype":"text","etype":"sel","attr":"keycol","refcd":"SRC_TP","option":"sel:src_tp::cdnm","crud":"U","sort_seq":4,"section":null,"section_icon":null,"colgrp":null,"len":null,"defval":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"w":"15","h":null,"id":"1"},
+        {"colid":"t_id","colnm":"쿼리테이블","dtype":"text","etype":"txt","crud":"U","sort_seq":5,"section":null,"section_icon":null,"colgrp":null,"attr":null,"len":null,"defval":null,"refcd":null,"option":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"w":"15","h":null,"id":"5"},
+        {"colid":"func_tp","colnm":"CRUD","dtype":"text","etype":"txt","crud":"U","sort_seq":6,"section":null,"section_icon":null,"colgrp":null,"attr":null,"len":null,"defval":null,"refcd":null,"option":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"w":"8","h":null,"id":"6"},
+        {"colid":"content","colnm":"더보기","dtype":"text","etype":"btn","option":":fas fa-ellipsis-h","crud":"U","sort_seq":7,"section":null,"section_icon":null,"colgrp":null,"attr":null,"len":null,"defval":null,"refcd":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"w":"8","h":null},
     ],
     "contentForm": {
         "contentFunc" : [
@@ -203,30 +190,8 @@ me.dataDef["_pgm_data"]["pgm_src"]={
         ],
     }
 };
-// me.dataDef["_pgm_data"]["pgm_src_edit"]={
-//     "sort_seq":"6",
-//     "data_id":"pgm_src_edit",
-//     "data_nm":"소스코드편집",
-//     "data_icon":null,
-//     // "component_pgmid":"FreeForm",
-//     // "component_option":{"func":[{"funcid":"setSrc","func_nm":"적용","func_icon":"fas fa-plus"}],"remark":"* 작업중인 소스코드 정보(위)를 수정하려면 [적용] 먼저 클릭! ->"},
-//     "component_option": { "func" : [{"funcid":"closeEditor", "func_nm":"에디터닫기", "func_icon":"fas fa-times"}] },
-//     "inout_tp":"IN",
-//     "content":[
-//         {"sort_seq":1,"section":null,"section_icon":null,"colgrp":null,"colid":"src_tp","colnm":"소스유형","dtype":"text","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},
-//         {"sort_seq":2,"section":null,"section_icon":null,"colgrp":null,"colid":"srcid","colnm":"소스ID","dtype":"text","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},
-//         {"sort_seq":3,"section":null,"section_icon":null,"colgrp":null,"colid":"src_nm","colnm":"소스명","dtype":"text","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},
-//         {"sort_seq":4,"section":null,"section_icon":null,"colgrp":null,"colid":"content","colnm":"내용","dtype":"text","etype":"tarea","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"}
-//     ]
-// };
-me.dataDef["_pgm_src_edit"] = {
-    "component_option": {
-        "func" : [{"funcid":"closeEditor", "func_nm":"", "func_icon":"fas fa-times"}]
-    }
-};
 
         me.pageObj["_page"] = new gfnFramepage( me ); 
-        console.log(me.pageObj._page.pageTitle);
         for(var component_id in me.dataDef["_pgm_data"]) { 
             me.pageObj[component_id] = new gfnComponent( me.pageid, component_id, me.dataDef["_pgm_data"][component_id], me.fnEH, me); 
         }  
@@ -238,10 +203,7 @@ me.dataDef["_pgm_src_edit"] = {
 
 /*-- SCRIPT autogen end ---------------------------------------------- */
     me.fnInitExtra=function() {
-        console.log("fnInitExtra 실행");
-
-        // me.pageObj["pgm"] = {};
-
+        
         me.pageObj["pgm_data_content"].componentTop.remove();
         me.pageObj["pgm_data_content"].componentBody.remove();
         me.pageObj["pgm_data_content"] = null; 
@@ -251,6 +213,7 @@ me.dataDef["_pgm_src_edit"] = {
         me.pageObj["pgm_data_colinfo"] = {}; 
         me.pageObj["pgm_data_colinfo"].component = $("#pgm_data_content");
         me.pageObj["pgm_data_colinfo"].currow = -1;
+        me.pageObj["pgm_data_colinfo"].curdata = {};
         
         // 폭 맞춤 - 초기
         me.pageObj["pgm_func"].sizeColumnsToFit();
@@ -271,7 +234,6 @@ me.dataDef["_pgm_src_edit"] = {
         //컬럼정렬순서 잡아줌
         sort(me.dataDef["_pgm_data_content"],"sort_seq");
 
-
         //프로그램관리에서 호출된 경우 프로그램ID를 입력하여 조회처리 
         if(gParam["workbench"] != undefined && !isNull(gParam["workbench"].pgmid)) {
             console.log("프로그램관리통해서 열림");
@@ -279,93 +241,12 @@ me.dataDef["_pgm_src_edit"] = {
             bEdit = true;
             me.fnSearch();
         }
-
-        // 처음 파일 호출(HTML, CSS, JS)
-        // me.fnSave();
     } 
-
-    /* 데이터 컬럼리스트 GET/SET */
-    me.fnColinfo = function(rowid, val) {
-        // console.log(rowid, val); // 0 , [컬럼데이터들]
-        var colinfos = me.pageObj["pgm_data_colinfo"]; 
-        if(val == undefined) { // get
-            if(colinfos[rowid] != undefined) {
-                colinfos[rowid].grid.gridOptions.api.stopEditing(false); 
-                return JSON.stringify( sort(colinfos[rowid].exportData(),"sort_seq") ); 
-            } else return undefined;
-        } else { // set
-            if(colinfos[rowid] == undefined) {
-                var colinfo = $(`<div id="colinfo${rowid}" class="colinfo" rowid='${rowid}'></div>`);
-                colinfos.component.append(colinfo); 
-                console.log(me.pageid, `colinfo${rowid}`);
-                colinfos[rowid] = new gfnComponent( me.pageid, `colinfo${rowid}`, me.dataDef["_pgm_data_content"], me.fnEH, me);
-                console.log(`colinfos: ${colinfos}`);
-                
-            }
-            colinfos[rowid].componentTitle.text( me.pageObj["pgm_data"].getVal(rowid,"data_nm"));
-            if(isNull(val)) colinfos[rowid].importData([]);
-            else if($.type(val)=="string") colinfos[rowid].importData(sort(JSON.parse(nvl(val,"[]")),"sort_seq"));
-            else colinfos[rowid].importData( sort(val,"sort_seq") );
-
-            colinfos.currow = rowid;
-            $(`.colinfo[rowid != '${rowid}']`).hide();
-            $(`.colinfo[rowid = '${rowid}']`).show();
-        }
-    }
-
-    // 코드 에디터 GET SET
-    me.fnEditor = function(rowid, val){
-        var editors = me.pageObj["pgm_src_edit"]; // 더보기 눌렀던 코드들이 담김
-        var pgmsrc =  me.pageObj["pgm_src"];
-        // console.log(`rowid: ${rowid}`);
-        // console.log('val');
-        // console.log(`${val}`);
-        // console.log(editors);
-        // console.log('me.pageObj["pgm_src"]');
-        // console.log(pgmsrc);
-        if(val == undefined) { // get
-            if(editors[rowid] != undefined) {
-                return editors[rowid].aceEdit.getValue();
-            } else return undefined; 
-        } else { // set
-            if(editors[rowid] == undefined) {
-                var editor =  $(`<div id="srcEditor${rowid}" class="srcEditor srcEditor${rowid}" rowid='${rowid}'></div>`);
-                editors.component.append(editor);
-                $(`.srcInfo${rowid} > .pageContentMainBody`).append(editor);
-                editors[rowid] = new gfnComponent( me.pageid, `srcEditor${rowid}`, me.dataDef["_pgm_src_edit"], me.fnEH, me);
-                editors[rowid].aceEdit = ace.edit( editors[rowid].componentBody[0] );
-                editors[rowid].userComponent = "pgm_src_edit"; //fnEH에서 참조하기 위한 hintKey
-                editors[rowid].aceEdit.setTheme("ace/theme/chrome");
-                editors[rowid].aceEdit.session.setMode("ace/mode/javascript");
-                editors[rowid].aceEdit.setFontSize("1.1em");
-   
-                // editors[rowid].aceEdit.getSession().on('change', function() { // 소스코드 편집했을 때
-                //     var psEditor = me.pageObj["pgm_src_edit"];
-                //     if(me.fnEditor(psEditor.currow) != undefined && psEditor.currow != -1) {
-                //         // console.log("pgm_src_edit Changed:"+psEditor.currow);
-                //         me.pageObj["pgm_src"].setVal(psEditor.currow, "content", me.fnEditor(psEditor.currow)); 
-                //     }
-                // });
-            }
-
-            editors[rowid].componentTitle.text( me.pageObj["pgm_src"].getVal(rowid,"src_nm"));
-            var mode = nvl(me.pageObj["pgm_src"].getVal(rowid,"src_tp"),"javascript");
-            editors[rowid].aceEdit.session.setMode("ace/mode/"+mode);
-            editors[rowid].aceEdit.setValue(val);
-            editors.currow = rowid;
-            // $(`.srcEditor[rowid!='${rowid}']`).hide();
-            // $(`.srcEditor[rowid='${rowid}']`).show();
-            // me.fnFramepageLayout();
-        }
-    }
 
     /* 이벤트핸들러 */
     me.fnEH = function(component, evt, row, col, val) {        
         console.log(`evt : ${evt} /row : ${row} / col : ${col} / val : ${val}`);
-        console.log(component);
-        console.log(me.pageContentMain);
-        // 저장 눌렀을 때 [object Object],click,save,fnSave,undefined
-        // 저장 눌렀을 때 [object Object],click,save,fnSave,undefined
+        // console.log(component);
 
         //화면기능버튼이 눌리면 
         if (component == me.pageObj["_pageFunc"]){ 
@@ -383,20 +264,21 @@ me.dataDef["_pgm_src_edit"] = {
         } 
         // 1. 기능
         else if(component==me.pageObj["pgm_func"]) { 
+            console.log("1. 기능에서 이벤트 발생")
             if(evt=="componentFunc") {
                 if(row == "addRow") {
                     var distictRow = me.pageObj["pgm_func"].addRow();               // 고유Index
                     var curRow = me.pageObj["pgm_func"].getRowIndex(distictRow);    // 실제Index
                     var data = me.pageObj["pgm_func"].exportData()[curRow]; 
                     workbenchForm(me.pageid, "pgm_func", me.dataDef["_pgm_data"]["pgm_func"], me.fnEH, me, data, distictRow);
-                    console.log(`고유Index : ${distictRow}`)
                 } 
                 else if(row=="delRow") {
                     var delRow = me.pageObj["pgm_func"].selectedRow();
                     me.pageObj["pgm_func"].delRow(delRow);
                     $(`.funcInfo${delRow}`).remove();
                 }
-            } else if (evt=="click" && col=="content") {
+            } 
+            else if (evt=="click" && col=="content") {
                 var distictRow = row;                                           // 고유Index
                 var curRow = me.pageObj["pgm_func"].getRowIndex(distictRow);    // 실제Index
                 var data = me.pageObj["pgm_func"].exportData()[curRow]; 
@@ -404,17 +286,18 @@ me.dataDef["_pgm_src_edit"] = {
                 // console.log(data)
                 workbenchForm(me.pageid, "pgm_func", me.dataDef["_pgm_data"]["pgm_func"], me.fnEH, me, data, distictRow);
                                 
-            } else if (evt=="change") {
-                // console.log("값이 변경되었습니다.");
-                $(`.funcInfo${row}`).children(`.pageContentMainBody`)
-                                    .children(`.${col}`)
-                                    .children(`.InputWrapContent`)
-                                    .children(`input`)
-                                    .val(val);
+            } 
+            else if (evt=="change") {
+                // 열러있는 페이지가 자신 페이지일때만 수정
+                var check = $(`.pageContentMain`).children().hasClass(`${pageid} funcInfo${row}`);
+                if(check) {
+                    me.pageContentMain["pgm_func"][col].setVal(val)
+                }
             }
         }
         // 2. 컴포넌트    
         else if(component==me.pageObj["pgm_data"]) { 
+            console.log("2. 컴포넌트에서 이벤트 발생")
             if(evt=="componentFunc") {
                 if(row == "addRow") {
                     var distictRow = me.pageObj["pgm_data"].addRow();               // 고유Index
@@ -426,20 +309,21 @@ me.dataDef["_pgm_src_edit"] = {
                     me.pageObj["pgm_data"].delRow(delRow);
                     $(`.dataInfo${delRow}`).remove();
                 }
-            } else if (evt=="click" && col=="content") {
+            } 
+            else if (evt=="click" && col=="content") {
                 var distictRow = row;                                           // 고유Index
-                var curRow = me.pageObj["pgm_func"].getRowIndex(distictRow);    // 실제Index
-                var data = me.pageObj["pgm_func"].exportData()[curRow]; 
+                var curRow = me.pageObj["pgm_data"].getRowIndex(distictRow);    // 실제Index
+                var data = me.pageObj["pgm_data"].exportData()[curRow]; 
                 // console.log(`고유Index : ${distictRow} / 실제Index : ${curRow}`)
                 // console.log(data)
                 workbenchForm(me.pageid, "pgm_data", me.dataDef["_pgm_data"]["pgm_data"], me.fnEH, me, data, distictRow);
-            } else if (evt=="change") {
-                // console.log("값이 변경되었습니다.");
-                $(`.dataInfo${row}`).children(`.pageContentMainBody`)
-                                    .children(`.${col}`)
-                                    .children(`.InputWrapContent`)
-                                    .children(`input`)
-                                    .val(val);
+            } 
+            else if (evt=="change") {
+                // 열러있는 페이지가 자신 페이지일때만 수정
+                var check = $(`.pageContentMain`).children().hasClass(`${pageid} dataInfo${row}`);
+                if(check) {
+                    me.pageContentMain["pgm_data"][col].setVal(val)
+                }
             }    
         } 
         // 3.1 프로그램 소스   
@@ -447,42 +331,30 @@ me.dataDef["_pgm_src_edit"] = {
             if(evt == "componentFunc") {
                 if(row == "addRow") {
                     me.pageObj["pgm_src"].addRow(); 
-                } else if(row=="delRow") {
+                } else if(row == "delRow") {
                     var delRow = me.pageObj["pgm_src"].selectedRow();
                     me.pageObj["pgm_src"].delRow(delRow);
+                    if(!isNull(me.pageObj["pgm_src_edit"][delRow])) delete me.pageObj["pgm_src_edit"][delRow];
+                    me.pageObj["pgm_src_edit"].component.children(`[rowid='${delRow}']`).remove(); 
                 }
             } else if (evt=="click" && col=="content") { // 소스코드 더보기
-                
+                if(inStr(me.pageObj["pgm_src"].getVal(row,"src_nm"), "(자동생성)") >= 0) {
+                    gfnStatus("자동 생성된 소스입니다. 수정해도 반영되지 않습니다.")
+                }
                 var distictRow = row;                                           // 고유Index
                 var curRow = me.pageObj["pgm_src"].getRowIndex(distictRow);    // 실제Index
                 var data = me.pageObj["pgm_src"].exportData()[curRow]; 
                 var result =  workbenchForm(me.pageid, "pgm_src", me.dataDef["_pgm_data"]["pgm_src"], me.fnEH, me, data, distictRow);
-                
+
                 me.fnEditor(row, nvl(me.pageObj["pgm_src"].getVal(row,"content"),""));
 
-                // if(result == 'alreadyPage') return; 
-                // else me.fnEditor(row, nvl(me.pageObj["pgm_src"].getVal(row,"content"),""));
-                
-
-            } else if (evt=="change" && col=="src_tp") { // 소스타입 바꿨을 때
-                me.fnEditor(row, nvl(me.pageObj["pgm_src"].getVal(row,"content"),"")); //set;
             }
-        
         } 
-        // // 3.2 프로그램 소스 에디터 닫기
-        // else if(evt == "componentFunc" && row == "closeEditor") {
-        //     console.log("해당 에디터를 닫습니다.")
-        //     var componentId = component.componentId;
-        //     console.log(`지워야할 에디터 : ${componentId}`);
-        //     $("#"+componentId).hide();
-        // }
         // 4. WorkbenchForm
         else if(component == me.pageContentMain) {
-            console.log("pageContentMain에서 이벤트 발생.");
-
+            console.log("4. WorkbenchForm에서 이벤트 발생.");
             var component_id = row.split("#")[0];
             var row = row.split("#")[1];
-
             if(evt=="change") {
                 console.log(`넣을 값 : ${val}, row : ${row}`)
                 me.pageObj[component_id].setVal(row, col, val);
@@ -522,18 +394,50 @@ me.dataDef["_pgm_src_edit"] = {
             else if (evt=="click" && col == "cancel") {
                 console.log("페이지를 닫습니다.")
                 if(component_id == "pgm_func") {
-                    $(`.funcInfo${row}`).hide();
+                    $(`.funcInfo${row}`).remove();
                 } else if (component_id == "pgm_data") {
-                    $(`.dataInfo${row}`).hide();
+                    $(`.dataInfo${row}`).remove();
                 } else if (component_id == "pgm_src") {
                     $(`.srcInfo${row}`).hide();
                 }  
             }
             else if (evt=="click" && col == "content") {
-                console.log("컬럼을 불러옵니다.");
+                console.log("컴포넌트 컬럼 창 호출")
+                // 초기화
+                // me.fnClear();
+                console.log(`#${pageid} > .pageContent > #pgm_data_content`);
+                $(`#${pageid} > .pageContent > #pgm_data_content`).empty();     
+                // 창 그리기
                 me.pageObj["pgm_data_content"]= new gfnComponent( me.pageid, "pgm_data_content", me.dataDef["_pgm_data"]["pgm_data_content"], me.fnEH, me);
-                $("#pgm_data_content").show();
-                me.pageObj["pgm_data_content"].autoSizeAllColumns(false);
+                $(`#${pageid} > .pageContent > #pgm_data_content`).show();
+                // 데이터 넣기
+                var rowData = me.pageObj["pgm_data"].getVal(row,"content");
+                me.pageObj["pgm_data_content"].importData(JSON.parse(rowData));
+                me.pageObj["pgm_data_colinfo"].curdata = JSON.parse(rowData);   // 현재상태 저장(데이터)
+                me.pageObj["pgm_data_colinfo"].currow = row;                    // 현재 인덱스 저장
+            }
+        }
+        // 4.1 WorkbenchForm - componentOption
+        else if (component == me.pageContentMain["pgm_data"]["componentOption"]) {
+            console.log("4.1 WorkbenchForm - componentOption에서 이벤트 발생");
+            var component_id = row.split("#")[0];
+            var row = row.split("#")[1];
+            if(evt=="change") {
+                console.log(component)
+                var result = {};
+                var text = "";
+                for(var item in component) {
+                    if(component[item].colid == 'gridOptions' || component[item].colid == 'func') {
+                        text += `"${component[item].colid}":${component[item].getVal()},`
+                    } else {
+                        text += `"${component[item].colid}":"${component[item].getVal()}",`
+                    }
+                }
+                text = `{${text}}`
+                console.log(text);
+                // console.log(result);
+                // var json = JSON.stringify(result);  // 데이터를 String으로 변환
+                me.pageObj[component_id].setVal(row, col, text);
             }
         }
         // 5. 컴포넌트 컬럼
@@ -542,25 +446,130 @@ me.dataDef["_pgm_src_edit"] = {
             if(evt=="componentFunc") {
                 if(row == "addRow") {
                     var distictRow = me.pageObj["pgm_data_content"].addRow();               // 고유Index
-                    // var curRow = me.pageObj["pgm_func"].getRowIndex(distictRow);    // 실제Index
+                    // var curRow = me.pageObj["pgm_func"].getRowIndex(distictRow);         // 실제Index
                     // var data = me.pageObj["pgm_func"].exportData()[curRow]; 
                 } 
                 else if(row=="delRow") {
                     var delRow = me.pageObj["pgm_data_content"].selectedRow();
                     me.pageObj["pgm_data_content"].delRow(delRow);
                 }
-                else if(row=="closeColList") {
-                    $("#pgm_data_content").empty();
-                    $("#pgm_data_content").hide();
-                }
                 else if(row=="setSrc") {
+                    console.log("적용버튼 클릭");
+
+                    if( !me.pageObj["pgm_data_content"].chkValid() ) return;
+
                     var data = me.pageObj["pgm_data_content"].exportData();
-                    console.log(data)
+                    // Export한 데이터(newData)는 id가 들어가 있어 제거해줘야한다.
+                    for(var i=0; i<data.length; i++) {
+                        delete data[i]["id"];
+                    } 
+                    var nodeId = me.pageObj["pgm_data_colinfo"].currow;
+                    me.pageObj["pgm_data"].setVal(nodeId, "content", JSON.stringify(data));
+                    
+                    me.pageObj["pgm_data_colinfo"].curdata = data;  // 상태 저장
+
+                    gfnAlert("적용 성공", "적용되었습니다.");
+                    
+                }
+                else if(row=="closeColList") {
+                    console.log("창을 닫습니다.");
+                    var newData = me.pageObj["pgm_data_content"].exportData();
+                    var oldData = nvl(me.pageObj["pgm_data_colinfo"].curdata, []);
+
+                    // Export한 데이터(newData)는 id가 들어가 있어 제거해줘야 비교가 가능하다.
+                    for(var i=0; i<newData.length; i++) {
+                        delete newData[i]["id"];
+                    }                   
+                    for(var i=0; i<oldData.length; i++) {
+                        delete oldData[i]["id"];
+                    }                   
+
+                    if(JSON.stringify(newData) == JSON.stringify(oldData)) {
+                        console.log("수정된 사항이 없거나 적용을 눌렀습니다. 종료 가능합니다.");
+                        $(`#${pageid} > .pageContent > #pgm_data_content`).empty();
+                        $(`#${pageid} > .pageContent > #pgm_data_content`).hide();
+                    } 
+                    else if(JSON.stringify(newData) != JSON.stringify(oldData)) {
+                        console.log("수정된 사항이 있습니다. 확인 후 저장이 가능합니다."); 
+                        var title = "알림";
+                        var content = "변경된 사항이 있습니다. 저장하지 않고 나가시겠습니까?"
+                        gfnConfirm(title, content, function(confirm) {
+                            if(confirm) {  // 저장 안함
+                                $(`#${pageid} > .pageContent > #pgm_data_content`).empty();
+                                $(`#${pageid} > .pageContent > #pgm_data_content`).hide();
+                            } 
+                        });
+                    }
                 }
             }
         }
+    
     } 
+    /* 데이터 컬럼리스트 GET/SET */
+    me.fnColinfo = function(rowid, val) {
+        // console.log(rowid, val); // 0 , [컬럼데이터들]
+        var colinfos = me.pageObj["pgm_data_colinfo"]; 
+        if(val == undefined) { // get
+            if(colinfos[rowid] != undefined) {
+                colinfos[rowid].grid.gridOptions.api.stopEditing(false); 
+                return JSON.stringify( sort(colinfos[rowid].exportData(),"sort_seq") ); 
+            } else return undefined;
+        } else { // set
+            if(colinfos[rowid] == undefined) {
+                var colinfo = $(`<div id="colinfo${rowid}" class="colinfo" rowid='${rowid}'></div>`);
+                colinfos.component.append(colinfo); 
+                console.log(me.pageid, `colinfo${rowid}`);
+                colinfos[rowid] = new gfnComponent( me.pageid, `colinfo${rowid}`, me.dataDef["_pgm_data_content"], me.fnEH, me);
+                console.log(`colinfos: ${colinfos}`);
+                
+            }
+            colinfos[rowid].componentTitle.text( me.pageObj["pgm_data"].getVal(rowid,"data_nm"));
+            if(isNull(val)) colinfos[rowid].importData([]);
+            else if($.type(val)=="string") colinfos[rowid].importData(sort(JSON.parse(nvl(val,"[]")),"sort_seq"));
+            else colinfos[rowid].importData( sort(val,"sort_seq") );
 
+            colinfos.currow = rowid;
+            $(`.colinfo[rowid != '${rowid}']`).hide();
+            $(`.colinfo[rowid = '${rowid}']`).show();
+        }
+    }
+    // 코드 에디터 GET SET
+    me.fnEditor = function(rowid, val){
+        var editors = me.pageObj["pgm_src_edit"]; // 더보기 눌렀던 코드들이 담김
+
+        if(val == undefined) { // get
+            if(editors[rowid] != undefined) {
+                return editors[rowid].aceEdit.getValue();
+            } else {
+                return undefined; 
+            }
+        } else { // set
+            if(editors[rowid] == undefined) {
+                var editor =  $(`<div id="srcEditor${rowid}" class="srcEditor srcEditor${rowid}" rowid='${rowid}'></div>`);
+                editors.component.append(editor);
+                $(`.srcInfo${rowid} > .pageContentMainBody`).append(editor);
+                editors[rowid] = new gfnComponent( me.pageid, `srcEditor${rowid}`, me.dataDef["_pgm_src_edit"], me.fnEH, me);
+                editors[rowid].aceEdit = ace.edit( editors[rowid].componentBody[0] );
+                editors[rowid].userComponent = "pgm_src_edit"; //fnEH에서 참조하기 위한 hintKey
+                editors[rowid].aceEdit.setTheme("ace/theme/chrome");
+                editors[rowid].aceEdit.session.setMode("ace/mode/javascript");
+                editors[rowid].aceEdit.setFontSize("1.2em");
+   
+                editors[rowid].aceEdit.getSession().on('change', function() { // 소스코드 편집했을 때
+                    var psEditor = me.pageObj["pgm_src_edit"];
+                    if(me.fnEditor(psEditor.currow) != undefined && psEditor.currow != -1) {
+                        me.pageObj["pgm_src"].setVal(rowid, "content", me.fnEditor(rowid)); 
+                    }
+                });
+            }
+            
+            $(`.srcInfo${rowid} > .pageContentMainTop > .pageContentMainTitle`).text(me.pageObj["pgm_src"].getVal(rowid,"src_nm"));
+            var mode = nvl(me.pageObj["pgm_src"].getVal(rowid,"src_tp"),"sql"); // 기본타입 sql로
+            editors[rowid].aceEdit.session.setMode("ace/mode/"+mode);
+            editors[rowid].aceEdit.setValue(val);
+            editors.currow = rowid;
+        }
+    }
     // 조회
     me.fnSearch = function() { 
         var args = me.pageObj["pgm"].exportData()[0];
@@ -578,19 +587,22 @@ me.dataDef["_pgm_src_edit"] = {
                 me.pageObj["pgm_data"].importData(OUTVAR.pgm_data);
                 me.pageObj["pgm_src"].importData(OUTVAR.pgm_src); 
                 // me.fnClear(); //하단 초기화 
-
+                
                 /* 프로그램 마스터 정보 변경시 타이틀 변경해 줌 */
                 // me.pageObj._page.pageTitle.text(me.pageObj["pgm"].getVal("pgmid")+" "+me.pageObj["pgm"].getVal("pgm_nm")+" 프로그램개발(조회:"+me.pageObj["pgm"].getVal("ver")+")" );
                 me.pageObj._page.pageTitle.text(`[${me.appid}] ${me.pageObj["pgm"].getVal("pgmid")} | ${me.pageObj["pgm"].getVal("pgm_nm")}`);
-                // me.pageObj._page.pageTitle.text(`[${me.pageObj.pgm.data.getVal("app_pgmid")}]${me.pageObj.pgm.data.getVal("app_pgm_nm")} | ${me.pageObj["pgm"].getVal("pgmid")} | ${me.pageObj["pgm"].getVal("pgm_nm")}`);
             } else {
                 gfnAlert("조회오류",OUTVAR.rtnMsg);
             }
         });
     }
-
     // 소스코드들 생성 및 저장
     me.fnSave = function() { 
+
+        if( !me.pageObj["pgm_func"].chkValid() ) return;
+        if( !me.pageObj["pgm_data"].chkValid() ) return;
+        if( !me.pageObj["pgm_src"].chkValid() ) return;
+
         me.fnGetData();
         var htmlCss = me.fnGetHTMLCSS();
         var _script = me.fnMakeScript();/* 표준Script를 만든다. */
@@ -603,26 +615,24 @@ me.dataDef["_pgm_src_edit"] = {
         fullCode += _script2 + CR + ("< /script>").replace(" ",""); 
         me.fnMakeFullCode(fullCode); /* Full HTML을 만들어준다. */
         me.fnGetJSP();
-
+        
         var args = {};
         args["pgm"]      = me.dataSet["pgm"];  
         args["pgm_func"] = me.dataSet["pgm_func"];  
         args["pgm_data"] = me.dataSet["pgm_data"];
         args["pgm_src"]  = me.dataSet["pgm_src"];
-
-        // var invar = JSON.stringify(args);
-        // console.log(args);
-        // gfnTx(appid+"."+pgmid,"saveSpec",{INVAR:invar},function(OUTVAR){
-        //     //console.log(OUTVAR);
-        //     if(OUTVAR.rtnCd=="OK") {
-        //         gfnAlert("저장성공","프로그램 스펙정보를 저장하였습니다.");
-        //         //me.fnSearch();
-        //     } else {
-        //         gfnAlert("저장오류",OUTVAR.rtnMsg);
-        //     }
-        // });
+        console.log(args);
+        var invar = JSON.stringify(args);
+        gfnTx(appid+"."+pgmid,"saveSpec",{INVAR:invar},function(OUTVAR){
+            //console.log(OUTVAR);
+            if(OUTVAR.rtnCd=="OK") {
+                gfnAlert("저장성공","프로그램 스펙정보를 저장하였습니다.");
+                //me.fnSearch();
+            } else {
+                gfnAlert("저장오류",OUTVAR.rtnMsg);
+            }
+        });
     }
-
     // 입력되어있는 pgm, pgm_func, pgm_data, pgm_src 가져오기
     me.fnGetData = function() {
         try {
@@ -649,13 +659,14 @@ me.dataDef["_pgm_src_edit"] = {
                     me.dataSet["pgm_data"].push(row); 
                 }
             }
+            // console.log('저장후 me.dataSet["pgm_data"]');
+            // console.log(me.dataSet["pgm_data"]);
 
             /* pgm_src_edit를 가져와서 pgm_src에 넣어준다. */            
             me.pageObj["pgm_src"].grid.gridOptions.api.stopEditing(false);
             me.dataSet["pgm_src"] = [];
             for(var i = 0; i < me.pageObj["pgm_src"].countRow(); i++) {
                 var rowid = me.pageObj["pgm_src"].getNodeId(i);
-                
                 var row = {};
                 var rowraw = me.pageObj["pgm_src"].getRowData(rowid);
                 var colinfo = me.pageObj["pgm_src"].colinfo;
@@ -669,6 +680,8 @@ me.dataDef["_pgm_src_edit"] = {
                     me.dataSet["pgm_src"].push(row); 
                 }
             } 
+            // console.log("저장후 dataSet['pgm_src']");
+            // console.log(me.dataSet["pgm_src"]);
         } catch (e) {
             gfnAlert("데이터확인","데이터 생성 중 오류가 발생하였습니다.:"+e);
             console.error(e);
@@ -677,18 +690,19 @@ me.dataDef["_pgm_src_edit"] = {
     // html과 css 소스 있으면 가져오고 없으면 생성
     me.fnGetHTMLCSS = function() {
         var pgm_info = me.dataSet["pgm"][0];
-        console.log('me.dataSet["pgm_data"]');
-        console.log(me.dataSet["pgm_data"]);
-        var components = "";
+        var components = ""; // div에 컴포넌트들 추가
         me.dataSet["pgm_data"].forEach(data => {
             if(data.data_id != 'pageCond'){
                 components += `     <div id='${data.data_id}'></div>${CR}`;
             }
         })
 
-        var templateHTMLCSS = `<!-- css start -->
+        var row = subset(me.dataSet['pgm_src'], "srcid", "HTML_CSS");
+        if(row.length == 0){ // 생성 (소스코드 리스트에 생성됨)
+
+            var templateHTMLCSS = `<!-- css start -->
 <style>
-[pgmid='${pgm_info.pgmid}'].framepage .userClass { 
+[pgmid='${pgm_info.pgmid}'].framepage { 
     width:100%;
 }
 </style>
@@ -701,37 +715,16 @@ me.dataDef["_pgm_src_edit"] = {
     ${components}
 </div>`;
 
-console.log(templateHTMLCSS);
-
-        var row = subset(me.dataSet['pgm_src'], "srcid", "HTML_CSS");
-        console.log(`row = ${JSON.stringify(row)}`);
-        if(row.length == 0){ // 생성 (소스코드 리스트에 생성됨)
-            console.log("html,css를 새로 생성합니다.")
             var rowId = me.pageObj["pgm_src"].addRow();
             me.pageObj["pgm_src"].setVal(rowId,"sort_seq",toNum(rowId)+1);
             me.pageObj["pgm_src"].setVal(rowId,"src_tp","html");
             me.pageObj["pgm_src"].setVal(rowId,"srcid","HTML_CSS");
             me.pageObj["pgm_src"].setVal(rowId,"src_nm","1) HTML&CSS (개발자작성)");
             me.pageObj["pgm_src"].setVal(rowId,"content",templateHTMLCSS); 
-
-        } else { // 
-            console.log("html,css를 수정합니다.")
-            for(var i = 0; i < me.pageObj["pgm_src"].countRow(); i++) { 
-                var rowId = me.pageObj["pgm_src"].getNodeId(i);
-                if(me.pageObj["pgm_src"].getVal(rowId,"srcid") == "HTML_CSS") {
-                    me.pageObj["pgm_src"].setVal(rowId,"src_tp","html");
-                    me.pageObj["pgm_src"].setVal(rowId,"srcid","HTML_CSS");
-                    me.pageObj["pgm_src"].setVal(rowId,"src_nm","1) HTML&CSS (개발자작성)");
-                    me.pageObj["pgm_src"].setVal(rowId,"content",templateHTMLCSS); 
-                    console.log("변경해주세요");
-                    var ct = me.pageObj["pgm_src"].getVal(rowId,"content");
-                    console.log(ct);
-                    break;
-                } 
-            }
-            console.log( me.pageObj);
+            return templateHTMLCSS;
+        } else { 
+            return row[0]["content"];
         }
-        return templateHTMLCSS;
     }
     // 자동생성 _script fnInit
     me.fnMakeScript = function() {
@@ -761,6 +754,7 @@ $(function() {
         _script += `me.dataDef["_pgm"]=${JSON.stringify(pgm_info)};${CR}`;        
         _script += `me.dataDef["_pgm_func"]=${JSON.stringify(me.dataSet["pgm_func"])};${CR}`;            
         _script += `me.dataDef["_pgm_data"] = {};${CR}`; 
+
 
         me.dataSet["pgm_data"].forEach(data => {
             var row = $.extend({},data);
@@ -950,6 +944,7 @@ if(typeof(me.fnInit)=='function') me.fnInit();
     me.fnGetJSP = function() {
         var pgm_info = me.dataSet["pgm"][0];    
         var row = subset(me.dataSet["pgm_src"],"srcid","jsp");
+        if(row.length == 0){
         var jsp =`<%@ include file="/WEB-INF/src/common.jsp" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" %> 
 <%  
@@ -1034,35 +1029,20 @@ if("${row.funcid}".equals(func)) {
 }
 %>${CR}`;
 
-        var row = subset(me.dataSet["pgm_src"],"srcid","jsp");
-        if(row.length == 0) {
             var rowId = me.pageObj["pgm_src"].addRow();
             me.pageObj["pgm_src"].setVal(rowId,"sort_seq",toNum(rowId)+1);
             me.pageObj["pgm_src"].setVal(rowId,"src_tp","jsp");
             me.pageObj["pgm_src"].setVal(rowId,"srcid","jsp");
             me.pageObj["pgm_src"].setVal(rowId,"src_nm","4) JSP 소스 (개발자작성)");
-            me.pageObj["pgm_src"].setVal(rowId,"content",jsp);  
-        } else {
-            for(var i=0; i < me.pageObj["pgm_src"].countRow(); i++) { 
-                var rowId = me.pageObj["pgm_src"].getNodeId(i);
-                if(me.pageObj["pgm_src"].getVal(rowId,"srcid")=="jsp") {
-                    me.pageObj["pgm_src"].setVal(rowId,"src_tp","jsp");
-                    me.pageObj["pgm_src"].setVal(rowId,"srcid","jsp");
-                    me.pageObj["pgm_src"].setVal(rowId,"src_nm","4) JSP 소스 (개발자작성)");
-                    me.pageObj["pgm_src"].setVal(rowId,"content",jsp); 
-                    break;
-                } 
-            }
-        }
-        me.fnGetData();
-        return jsp; 
+            me.pageObj["pgm_src"].setVal(rowId,"content",jsp);
+            me.fnGetData(); //생성된 jsp를 dataSet으로 업데이트
+            return jsp;
+        } else return row[0]["content"];
     }
     // 전체 html 작성
     me.fnMakeFullCode = function(code) {
         var pgm_info = me.dataSet["pgm"][0];     
-        var row = subset(me.dataSet["pgm_src"],"srcid","HTML");  
-        var orgEdit = me.pageObj.pgm_src_edit.currow;
-        console.log(`orgEdit: ${orgEdit}`);
+        var row = subset(me.dataSet["pgm_src"],"srcid","HTML"); 
         if(row.length == 0) {
             var rowId = me.pageObj["pgm_src"].addRow(); 
             me.pageObj["pgm_src"].setVal(rowId,"sort_seq",toNum(rowId)+1);
@@ -1082,10 +1062,84 @@ if("${row.funcid}".equals(func)) {
                 } 
             }
         } 
-        me.fnEditor(orgEdit,me.fnEditor(orgEdit));
         me.fnGetData(); //생성된 HTML을 dataSet으로 업데이트
     }
-/*-- SCRIPT autogen ---------------------------------------------------- */        
+    /* 입력된 정보로 html소스를 화면에 뿌린다. */
+    me.fnPreview=function() {
+        console.log("fnPreview 호출!");
+        me.fnGetData();
+        var htmlCss = me.fnGetHTMLCSS();
+        var _script = me.fnMakeScript();/* 표준Script를 만든다. */
+        var script = me.fnGetScript(); /* 사용자Script를 가져오고 없으면 만든다. */
+        var _script2 = me.fnMakeScript2();/* 표준Script(Closing)를 만든다. */ 
+        var fullCode = "";
+        fullCode += htmlCss + CR;
+        fullCode += "<script>" + _script + CR;
+        fullCode += script + CR; 
+        fullCode += _script2 + CR + ("< /script>").replace(" ",""); 
+
+        //화면호출: gMDI.openPage에서 부분적으로 업어옴:
+        gMDI.getNext();
+        var oPage = $('<div class="framepage" id="page'+gMDI.idx+'"></div>');
+        var pgm_info = me.dataSet["pgm"][0];
+        oPage.attr("appid",pgm_info.app_pgmid);
+        oPage.attr("pgmid",pgm_info.pgmid);
+        oPage.attr("loadcnt",gMDI.idx);        
+        var oTab = $('<a class="tab" pageidx="page'+gMDI.idx+'">프리뷰'+gMDI.idx+'<i class="fa fa-times closetab"></i></a>');
+        oTab.bind('mouseenter', function(){ /* 폭이 좁아져서 ...이 되면 tooltip으로 화면명 표시 */
+            var $this = $(this); 
+            if(this.offsetWidth < this.scrollWidth && !$this.attr('title')){
+                $this.attr('title', $this.text());
+                $this.tooltip({
+                    content: $this.text()
+                }); 
+            }
+        });
+        gMDI.tabContainer.append(oTab); 
+        gMDI.pageContainer.append(oPage); //addPage
+        
+        console.log(fullCode);
+        me.fnMakeFullCode(fullCode); /* Full fullCode을 만들어준다. */
+        me.fnGetJSP(); /* JSP 템플릿도 만들어서 추가해준다. */ 
+        setTimeout(function() {
+            oPage.html(fullCode); //생성된 fullCode을 바인드한다. 
+            gMDI.go(oPage);  //focus
+            /* 팝업 띄워줄 필요없음.
+            oEditor = $(`<div class="preview"><textarea class='ace_editor ace-dawn'></textarea></div>`);
+            oPage.append(oEditor);
+            var editor = ace.edit(oEditor[0]);
+                editor.userComponent = "pgm_src_edit"; //fnEH에서 참조하기 위한 hintKey
+                editor.setTheme("ace/theme/chrome");
+                editor.session.setMode("ace/mode/javascript");
+                editor.setValue(fullCode);
+            //popup표시
+            gfnPopup('프리뷰'+gMDI.idx, oEditor,
+                {appendTo:"#page"+gMDI.idx,modal:false,width:"600px"});
+            */    
+            gfnPageLayoutResizable(oPage);
+        },10);
+    }
+    //조회 후 하단 컴포넌트 데이터와 소스코드 에디터 클리어
+    me.fnClear=function() {
+        me.pageObj["pgm_data_colinfo"].component.children("*").remove();
+        delete me.pageObj["pgm_data_colinfo"];
+        me.pageObj["pgm_data_colinfo"] = {}; 
+        me.pageObj["pgm_data_colinfo"].component = me.page.find("#pgm_data_content");
+        me.pageObj["pgm_data_colinfo"].currow = -1;
+        me.pageObj["pgm_data_colinfo"].curdata = {};
+        //editor 초기화 
+        me.pageObj["pgm_src_edit"].component.children("*").remove();
+        delete me.pageObj["pgm_src_edit"];
+        me.pageObj["pgm_src_edit"] = {}
+        me.pageObj["pgm_src_edit"].component = me.page.find("#pgm_src_edit");
+        me.pageObj["pgm_src_edit"].currow = -1;
+    }    
+    //권한관리 화면호출
+    me.fnAuth = function() {
+        gParam.pgminfo = me.pageObj.pgm.exportData()[0];
+        gMDI.openPage("managePgmAccess","프로그램 사용권한 관리",undefined,"workbench");
+    }
+    /*-- SCRIPT autogen ---------------------------------------------------- */        
 if(typeof(me.fnInit)=='function') me.fnInit();
 });
 
