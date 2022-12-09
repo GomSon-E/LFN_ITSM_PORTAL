@@ -317,10 +317,14 @@ body {
 }
 /*파일업로드창 버튼*/
 #filelist .componentTop .gButton { 
-	background-color: #648ed1;
+	background-color: #3459e6;
     padding: 5px;
     color: white;
     border: none;
+	border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
 }
 
 .componentBody {
@@ -984,63 +988,11 @@ span.cell-deleted {
     border: none;
     font-size: 1.5em;
 }
+.aweCol.right, .aweCol.num { 
+	/* text-align: right !important; */
+ }
 
 /*** end of aweForm *******************************************************************************/	
-
-/*** aweForm_v2 *******************************************************************************/
-/* .aweForm_v2{
-	display: flex;
-	flex-direction: row;
-	flex-wrap: wrap;
-}
-.aweForm_v2_grid2{
-	flex: 1 1 48%;
-	padding: 5px;
-}
-.aweForm_v2_grid2 > .inputHead {
-	margin-bottom: 10px;
-}
-.aweForm_v2_grid2 > .inputWrap {
-
-}
-.aweForm_v2_grid2 > .inputWrap:focus-within {
-	border: 1.5px solid blue;
-}
-.aweForm_v2_grid3{
-	flex: 1 1 32%;
-	padding: 5px;
-}
-.aweForm_v2_grid3 > .inputHead {
-	margin-bottom: 10px;
-}
-.aweForm_v2_grid3 > .inputWrap {
-}
-.aweForm_v2_grid3 > .inputWrap:focus-within {
-	border: 1.5px solid blue;
-}
-.inputWrap {
-	display: flex;
-	padding: 5px;
-	border: 0.8px solid gray;
-	border-radius: 5px;
-	align-items: center;
-}
-
-.inputWrap> i{
-	padding-left: 5px;
-	padding-right: 8px;
-	border-right: 0.5px solid black;
-}
-.inputWrap> input[type=text]{
-	background-color: transparent;
-	width: 100%;
-	margin-left: 8px;
-	border: none;
-}
-.inputWrap> input[type=text]:focus{
-	outline: none;
-} */
-/*** end of aweForm_v2 *******************************************************************************/	
 
 /*** select2 Hack *********************************************************************************/
 .aweForm .select2-container {

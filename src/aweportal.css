@@ -1494,6 +1494,7 @@ button {
 	position: fixed;
 	top: 5em;
 	height: 50px;
+	z-index:10;
 
 }
 

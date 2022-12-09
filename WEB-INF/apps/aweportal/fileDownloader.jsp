@@ -59,6 +59,7 @@ if (fileType.equals("hwp")){
 response.setHeader("Content-Disposition","attachment;filename="+filename); 
 
 URL infoURL = new URL(url);
+
 URLConnection connection = infoURL.openConnection();
 int contentLength = connection.getContentLength();
 BufferedOutputStream bos = null;
