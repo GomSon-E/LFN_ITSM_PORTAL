@@ -236,6 +236,22 @@
 		</div>		 
 	</div>
 
+	<div id="confirm" class="modal" style="display: none;">
+		<div class="modal-content">
+				<div class="modal-header">
+						<h5 class="modal-title">confirm 창입니다.</h5>
+						<button class="layerBtn btn-close" data-bs-dismiss="modal" aria-label="Close"
+								onclick="gfnLayerClose('confirm')"></button>
+				</div>
+				<div class="modal-body">
+						<p>confirm 내용입니다.</p>
+				</div>
+				<div class="modal-footer">
+						<button class="layerBtn btn btn-primary yes" onclick="gfnCloseLayer('confirm')">확인</button>
+						<button class="layerBtn btn btn-secondary no" data-bs-dismiss="modal" onclick="gfnCloseLayer('confirm')">취소</button>
+				</div>
+		</div>
+</div>
 
 <script>
 $(function() {

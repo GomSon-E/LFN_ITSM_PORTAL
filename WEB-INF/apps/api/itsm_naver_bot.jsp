@@ -40,8 +40,7 @@ if("sendMsg3".equals(func)) {
     try {  
         OUTVAR.put("INVAR",INVAR);
         JSONArray usidlist = getArray(INVAR,"usidlist"); 
-        String token = "kr1AAAA3SunikDDk8fj+xwULBh0UbcUEEPl9lgcRucyyfK5hd5sPH0eZv8QOafhz7cNkbTH4Klhhl+/ye1FBGOoNSsu9O74rinnv+WQpW3eREzL1zk6ErXR/AJ3wWcup1xav4Xw/wE38td7ivOwqfzTnMCFr0GZNz51w2ntrpX2CmJeTV5w2MqS5H+XPqhnsdyRhumZywC5MRtWomTZIMc6H4i5mwS/qJlOF+jiLcPjoHMIlfHB6NadZ7vNcVxlBRzbsh+kgZr7lPE34nDKNDD40iNg8Kjvu0AiT0wdOvqhWlVcJkKv";
-        // token = URLEncoder.encode(token,"UTF-8");
+        String token = "kr1AAAA2uPTC2EAllKzC5ic+5UYtQvBUpwvSy60aIy26YKGeQTEfI4fNhTZ95QArHBrK1qNYUFSZncwAH9aYb7zQySHy+KhIK9aYRcGrDseLU3OxfAIjgH3fGQyq5FTJllwqFq8iWDtRBQsxfiJqiBgPf2Q7fw7gS74ato9dsB3rpMoYJrbctQdGhOAflZdLif82LWeizKhqoCk07xFrMgoMjdFkAP6f6540WxUuJQUOPqqlmQSYhHCMHVt8ehdXHGfBhQJNRzZ42jCHBvgl9CssI/mFVN5qa+ERzar48oGUrdBhf2I";
 
         for(int k=0; k<usidlist.size(); k++){
         

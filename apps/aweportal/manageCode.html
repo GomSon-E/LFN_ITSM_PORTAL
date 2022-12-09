@@ -53,7 +53,6 @@ $(function() {
 /*-- SCRIPT autogen end ---------------------------------------------- */
     /* 사용자초기화 */
     me.fnInitExtra=function() {
-        gfnAlert("유의사항", "한번 신규 저장된 코드는 삭제할 수 없습니다. 사용중지 처리하세요.");
     }
     /* 이벤트핸들러 */
     me.fnEH=function(component, evt, row, col, val) { 
@@ -107,6 +106,8 @@ $(function() {
                 };
             });
         } 
+
+        gfnStatus("한번 신규 저장된 코드는 삭제할 수 없습니다. \n 사용중지 처리하세요.");
     }
 
     //save:저장 

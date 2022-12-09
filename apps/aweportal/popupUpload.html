@@ -507,12 +507,12 @@ me.fnUpload=function() {
 }
 
 
-function layerClick (p) {
-	$("#"+p).css("z-index", -1);
-	$("#"+p).css("background-color", "none") 
+// function layerClick (p) {
+//	$("#"+p).css("z-index", -1);
+//	$("#"+p).css("background-color", "none") 
 //     $('#frameset').css("pointer-events","auto");
 //    $('#frameGNB').css("pointer-events","auto");
-}
+// }
 
 
 
@@ -520,7 +520,7 @@ function layerClick (p) {
 me.fnClose=function() {
     
     gParam = $.extend(true, gParam, {rtnCd : "OK", filelist: me.pageObj.filelist.exportData() });
-    layerClick("popup")
+    gfnCloseLayer("popup")
     fileIndex = 0;
     totalFileSize = 0;
     fileList = new Array();

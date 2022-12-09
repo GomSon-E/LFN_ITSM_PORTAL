@@ -91,7 +91,11 @@
                         rowData.currow = row;
                         me.pageObj.mst.importData(rowData, "C");
                     }
-                } 
+                } else if(evt == "dblclick") {
+                    if(row < 0 ) return;
+                    
+                    gfnPopup("알림 내용", val, {width: 450, height: 700, modal: true})
+                }
             }
         }
         
@@ -103,12 +107,8 @@
     
             var invar = JSON.stringify(args);
             gfnTx(appid + "." + pgmid, "search", { INVAR : invar }, function(OUTVAR) {
-                console.log("나상하 테스트");
-                console.log(OUTVAR.rtnCd);
                 if(OUTVAR.rtnCd == "OK") {
                      me.pageObj["list"].importData(OUTVAR.list);
-                     console.log(OUTVAR.list); 
-                     console.log(OUTVAR.qry); 
                 } else {
                     gfnAlert(me.dataSet[me.pgmid +"pgm_nm"] + "오류", OUTVAR.rtnMsg);
                 }

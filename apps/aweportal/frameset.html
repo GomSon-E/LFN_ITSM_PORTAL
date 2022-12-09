@@ -833,13 +833,13 @@
             <div class="modal-header">
                 <h5 class="modal-title">alert 창입니다.</h5>
                 <button class="layerBtn btn-close" data-bs-dismiss="modal" aria-label="Close"
-                    onclick="layerClickHandler('alert')"></button>
+                    onclick="gfnCloseLayer('alert')"></button>
             </div>
             <div class="modal-body">
                 <p>alert 내용입니다.</p>
             </div>
             <div class="modal-footer">
-                <button class="layerBtn btn btn-primary" onclick="layerClickHandler('alert')">확인</button>
+                <button class="layerBtn btn btn-primary" onclick="gfnCloseLayer('alert')">확인</button>
             </div>
         </div>
     </div>
@@ -867,7 +867,7 @@
             <div class="modal-header">
                 <h5 class="modal-title">popup 창입니다.</h5>
                 <button class="layerBtn btn-close" data-bs-dismiss="modal" aria-label="Close"
-                    onclick="layerClickHandler('popup')"></button>
+                    onclick="gfnCloseLayer('popup')"></button>
             </div>
             <div class="modal-body">
                 <p>popup 내용입니다.</p>
@@ -878,6 +878,24 @@
     <!--search-->
     <search id="frameSearch" class="aweSearch hidden">
     </search>
+
+    <!-- confirm -->
+    <div id="confirm" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">confirm 창입니다.</h5>
+                <button class="layerBtn btn-close" data-bs-dismiss="modal" aria-label="Close"
+                    onclick="gfnCloseLayer('confirm')"></button>
+            </div>
+            <div class="modal-body">
+                <p>confirm 내용입니다.</p>
+            </div>
+            <div class="modal-footer">
+                <button class="layerBtn btn btn-primary yes" onclick="gfnCloseLayer('confirm')">확인</button>
+                <button class="layerBtn btn btn-secondary no" data-bs-dismiss="modal" onclick="gfnCloseLayer('confirm')">취소</button>
+            </div>
+        </div>
+    </div>
 
 </body>
 
