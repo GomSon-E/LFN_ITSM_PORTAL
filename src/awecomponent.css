@@ -76,9 +76,8 @@
 }
 
 .componentBody.agGrid {
-	/* height: calc(100% - 2em); */
-	min-height: 20em;
-	height: 20em;/*kes 파일업로드창 업로드파일목록*/
+	height: calc(100% - 2em);
+  /*  height: 20em;/*kes 파일업로드창 업로드파일목록*/ */
 }
 
 .flexColumn.componentContainer {
@@ -286,29 +285,35 @@ body {
 .pageFunc>.gButtonPanel>li:hover {
 	background-color: #a0d2e9;
 }
+/* ===================================================================================================== */
+/* ============================================ 김희주 제작 ============================================ */
+/* ==================================================================================================== */
 
-/* component */
+/* ===================================================================================================== */
+/* ============================================ 나상하 제작 ============================================ */
+/* ==================================================================================================== */
+
+/* ============================ gfnComponent - Start ============================ */
+
 .componentContainer {
 	display: flex;
 	flex: 1 1 auto;
-  flex-direction: column;
-  align-content: center;
-	/* justify-content: space-between; *//*kes 파일업로드창 업로드파일목록*/
-	margin: 0.5em 0;
+	flex-direction: column;
+	align-content: center;
+	justify-content: space-between;
 	padding: 0.5em;
 	cursor: auto;
-	/* border: 1px solid lightgray; */
-	/* border-radius: 10px; */
 }
-
-/* componentTop */
-
+.pageContent{
+	width: 100%;
+	display: flex;
+	height: 100%;
+}
 .componentTop { 
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     flex-wrap: wrap;
-	padding: 1em;
 }
 /*파일업로드창 버튼*/
 #filelist .componentTop .gButton { 
@@ -324,22 +329,226 @@ body {
 
 .componentBody {
 	padding: 0.5em;
-	height: 100%;
 }
-
 .componentTitle { 
 	font-size: 1.2em;
 	font-weight: 600;
 }
-
-.pageContent{
-	width: 100%;
-	display: flex;
-    height: 100%;
+.componentFunc > .gButton{
+	margin-right: 10px;
+    padding: 5px 10px 5px 10px;
+    border: none;
+    border-radius: 5px;
+	background-color: rgb(30, 122, 225);
+	color: white;
+	font-size: 15px;
+	box-shadow: 3px 3px 3px gray;
 }
-/* ----------------------------------------------------------- */
+.componentFunc > .gButton:hover{
+	/* border: 1px solid rgb(30, 122, 225); */
+}
+.componentBody {
+	padding: 0.5em;
+	height: 100%;
+}
 
-/* ----------------------------------------------------------- */
+/* ============================ gfnComponent - End ============================ */
+
+/* ============================ workbenchForm - Start ============================ */
+.pageContentSide{
+	/* background-color: red; */
+	display: flex; flex-direction: column;
+	height: calc(100vh - 19em);
+	flex-basis: 34%;
+	margin-right: 1%;
+}
+.pageContentSide > div{
+	background-color: white;
+	border-radius: 5px;
+	box-shadow: 3px 3px 3px gray;
+	flex-basis: 33%;
+	margin-bottom: 1em;
+}
+.pageContentSide > div > .componentTop > .componentTitle{
+	font-size: 15px;
+}
+.pageContentSide > div > .componentTop > .gbuttonSet > .gButton{
+	margin-right: 10px;
+    padding: 0.5em;
+    border: none;
+    border-radius: 5px;
+	background-color: rgb(30, 122, 225);
+	color: white;
+	font-size: 0.8em;
+	box-shadow: 3px 3px 3px gray;
+}
+
+.pageContentMain{
+	background-color: white;
+    height: calc(100vh - 20em);
+	padding: 1em;
+    flex-basis: 65%;
+	display: flex;
+	border-radius: 10px;
+	box-shadow: 3px 3px 3px gray;
+}
+
+.workBenchFormWrap{
+	width: 100%; height: 100%;
+	border-radius: 10px;
+}
+.workBenchFormWrap.funcInfo{
+	padding: 1em;
+}
+.workBenchFormWrap.funcInfo > .pageContentMainBody > .funcid, .func_nm, .func_icon, .func_tp{
+	flex-basis: 50%;
+}
+.workBenchFormWrap.dataInfo{
+	padding: 1em;
+}
+.workBenchFormWrap.dataInfo > .pageContentMainBody > .data_id, .data_nm, .component_pgmid, .inout_tp{
+	flex-basis: 25%;
+}
+.workBenchFormWrap.srcInfo{
+	display: flex; flex-direction: column;
+}
+.workBenchFormWrap.srcInfo > .pageContentMainTop{
+	height: 3em;
+}
+.workBenchFormWrap.srcInfo > .pageContentMainBody{
+	height: 95%;
+}
+.pageContentMainTop{
+	width: 100%;
+	display: flex; flex-direction: row;
+	padding: 0px 10px 0px 10px;
+	margin-bottom: 10px;
+}
+.pageContentMainTop > .pageContentMainTitle{
+	width: 80%;
+	font-size: 15px;
+	font-weight:  bold;
+}
+.pageContentMainTop > .pageContentMainFunc{
+	/* background-color: green; */
+	width: 20%;
+	text-align: end;
+}
+.pageContentMainTop > .pageContentMainFunc > button{
+	margin-right: 10px;
+    padding: 5px 10px 5px 10px;
+    border: none;
+    border-radius: 5px;
+	background-color: rgb(30, 122, 225);
+	color: white;
+	font-size: 15px;
+	box-shadow: 3px 3px 3px gray;
+}
+.pageContentMainTop > .pageContentMainFunc > button[funcid = cancel]{
+	border: none;
+	background-color: transparent;
+	box-shadow: none;
+	color: black;
+	font-size: 20px;
+}
+
+.pageContentMainBody{
+	display: flex;	flex-direction: row; flex-wrap: wrap;
+}
+.pageContentMainBody > .pageContentMainInputWrap{
+	width: 100%;
+	margin-bottom: 0.5em;
+}
+.pageContentMainBody > .pageContentMainInputWrap > .InputWrapTitle{
+	width: 100%;
+	color: rgb(30, 122, 225);
+	padding-bottom: 0.5em;
+	font-size: 1em; font-weight: 500;
+}
+.pageContentMainBody > .pageContentMainInputWrap > .InputWrapContent{
+	width: 100%;
+}
+.pageContentMainBody > .pageContentMainInputWrap > .InputWrapContent > input{
+	width: 100%;
+	padding: 0.5em;
+	border: 0.5px solid gray;
+	border-radius: 5px;
+}
+.pageContentMainBody > .pageContentMainInputWrap > .InputWrapContent > input:focus{
+	outline: none;
+}
+.pageContentMainBody > .pageContentMainInputWrap > .InputWrapContent > select{
+	width: 100%;
+	padding: 0.5em;
+	border: 0.5px solid gray;
+	border-radius: 5px;
+}
+.pageContentMainBody > .pageContentMainInputWrap > .InputWrapContent > select:focus{
+	outline: none;
+}
+.pageContentMainBody > .pageContentMainInputWrap > .InputWrapContent > textarea{
+	width: 100%;
+	height: 10em;
+	padding: 0.5em;
+	border: 0.5px solid gray;
+	border-radius: 5px;
+	resize: none;
+}
+.pageContentMainBody > .pageContentMainInputWrap > .InputWrapContent > textarea:focus{
+	outline: none;
+}
+.pageContentMainBody > .pageContentMainInputWrap > .InputWrapContent > button{
+	width: 100%;
+	padding: 5px 10px 5px 10px;
+	border: none;
+	border-radius: 5px;
+	background-color: rgb(30, 122, 225);
+	font-size: 18px;
+	color: white;
+	box-shadow: 3px 3px 3px grey;
+}
+.pageContentMainBody > .pageContentMainInputWrap > .InputWrapContent > .componentOptionWrap{
+	width: 100%;
+	display: flex; flex-direction: row;
+	margin-bottom: 0.5em;
+}
+.pageContentMainBody > .pageContentMainInputWrap > .InputWrapContent > .componentOptionWrap > .componentOptionTitle{
+	flex-basis: 20%;
+	padding-left: 1em;
+	margin-top: auto; margin-bottom: auto;
+}
+.pageContentMainBody > .pageContentMainInputWrap > .InputWrapContent > .componentOptionWrap > .componentOptionBody{
+	flex-basis: 80%;
+}
+.pageContentMainBody > .pageContentMainInputWrap > .InputWrapContent > .componentOptionWrap > .componentOptionBody > input{
+	width: 100%;
+	padding: 0.5em;
+	border: 0.5px solid gray;
+	border-radius: 5px;
+}
+.pageContentMainBody > .pageContentMainInputWrap > .InputWrapContent > .componentOptionWrap > .componentOptionBody > input:focus{
+	outline: none;
+}
+
+.pageContentMainBody > .pageContentMainInputWrap > .InputWrapContent > input.pk{
+	background-color: rgba(255, 255, 0, 0.5);
+}
+.pageContentMainBody > .pageContentMainInputWrap > .InputWrapContent > input.keycol{
+	background-color: rgba(255, 255, 0, 0.5);
+}
+
+
+.pageContentMainBody > div > .componentTop{
+	display: none;
+}
+.srcEditor {
+	height: 100%;
+}
+.componentBody.ace_editor.ace-chrome {
+    height: 100%;
+
+}
+
 #pgm_data_content{
     position: absolute;
 	width: 70%;
@@ -372,196 +581,7 @@ body {
 	font-size: 15px;
 	box-shadow: none;
 }
-/* 희주 */
-/* ================================================================================================================ */
-/* ================================================================================================================ */
-/* ================================================================================================================ */
-
-/* ===================================================================================================== */
-/* ============================================ 나상하 제작 ============================================ */
-/* ==================================================================================================== */
-
-/* ============================ workbenchForm - Start ============================ */
-.pageContentSide{
-	/* background-color: red; */
-	display: flex;
-	flex-direction: column;
-	height: calc(100vh - 220px);
-	flex-basis: 35%;
-    overflow-y: scroll;
-}
-.pageContentSide > div{
-	border: 1px solid rgba(30, 122, 225, 0.5);
-}
-.pageContentSide > div > .componentTop > .componentTitle{
-	font-size: 20px;
-}
-.pageContentSide > div > .componentTop > .gbuttonSet > .gButton{
-	margin-right: 10px;
-    padding: 5px 10px 5px 10px;
-    border: none;
-    border-radius: 5px;
-	background-color: rgb(30, 122, 225);
-	color: white;
-	font-size: 15px;
-	box-shadow: 3px 3px 3px gray;
-}
-
-.pageContentMain{
-    width: 100%;
-    height: calc(100vh - 220px);
-    flex-basis: 65%;
-	display: flex;
-	/* background-color: rgb(182, 182, 241); */
-    /* overflow-y: scroll; */
-}
-
-.workBenchFormWrap{
-	background-color: rgba(30, 122, 225, 0.1);
-	width: 100%; height: 100%;
-	display: flex; flex-direction: column;
-	/* border: 1px solid lightgray; */
-	border-radius: 10px;
-	padding: 10px 10px 10px 0;
-	margin: 3px 0px 3px 0px;
-}
-/* .workBenchFormWrap[display=hidden]:first-child {
-	padding: 10px;
-} */
-.pageContentMainTop{
-	/* background-color: aqua; */
-	width: 100%;
-	display: flex; flex-direction: row;
-	padding: 0px 10px 0px 10px;
-	margin-bottom: 10px;
-}
-.pageContentMainTop > .pageContentMainTitle{
-	/* background-color: gold; */
-	width: 80%;
-	font-size: 20px;
-	font-weight:  bold;
-}
-.pageContentMainTop > .pageContentMainFunc{
-	/* background-color: green; */
-	width: 20%;
-	text-align: end;
-}
-.pageContentMainTop > .pageContentMainFunc > button{
-	margin-right: 10px;
-    padding: 5px 10px 5px 10px;
-    border: none;
-    border-radius: 5px;
-	background-color: rgb(30, 122, 225);
-	color: white;
-	font-size: 15px;
-	box-shadow: 3px 3px 3px gray;
-}
-.pageContentMainTop > .pageContentMainFunc > button[funcid = cancel]{
-	border: none;
-	background-color: transparent;
-	box-shadow: none;
-	color: black;
-	font-size: 20px;
-}
-
-.pageContentMainBody{
-	/* background-color: red; */
-	height: 100%;
-	/* padding-left: 2%; padding-right: 2%; */
-}
-.pageContentMainBody > .pageContentMainInputWrap{
-	/* background-color: blue; */
-	border-top: 1px solid black;
-	width: 100%;
-	display: flex; flex-direction: row;
-	padding-top: 10px; padding-bottom: 10px;
-	margin-bottom: 5px;
-}
-.pageContentMainBody > .pageContentMainInputWrap > .InputWrapTitle{
-	/* background-color: yellow; */
-	width: 30%;
-	padding-left: 10px;
-	font-size: 15px;
-}
-.pageContentMainBody > .pageContentMainInputWrap > .InputWrapContent{
-	/* background-color: aqua; */
-	width: 66%;
-}
-.pageContentMainBody > .pageContentMainInputWrap > .InputWrapContent > *{
-	font-size: 15px;
-}
-.pageContentMainBody > .pageContentMainInputWrap > .InputWrapContent > .componentOptionWrap{
-	display: flex;
-	flex-direction: row;
-	margin-bottom: 5px;
-	width: 100%;
-}
-.pageContentMainBody > .pageContentMainInputWrap > .InputWrapContent > .componentOptionWrap > .componentOptionTitle{
-	width: 20%;
-	margin-right: 10px;
-}
-.pageContentMainBody > .pageContentMainInputWrap > .InputWrapContent > .componentOptionWrap > .componentOptionBody{
-	width: 80%;
-	margin-right: 10px;
-}
-.pageContentMainBody > .pageContentMainInputWrap > .InputWrapContent > .componentOptionWrap > div > input{
-	width: 100%;
-	padding: 5px 0px 5px 5px;
-	border: none;
-	margin-right: 3px;
-}
-.pageContentMainBody > .pageContentMainInputWrap > .InputWrapContent > .componentOptionWrap > .componentOptionFunc{
-	border: none;
-	margin-right: 3px;
-}
-.pageContentMainBody > .pageContentMainInputWrap > .InputWrapContent > .componentOptionFunc2{
-	text-align: center;
-	margin-top: 10px;
-}
-.pageContentMainBody > .pageContentMainInputWrap > .InputWrapContent > .componentOptionFunc2 > button{
-	width: 80%;
-}
-
-.pageContentMainBody > .pageContentMainInputWrap > .InputWrapContent > input{
-	width: 100%;
-	padding: 5px 10px 5px 10px;
-	border: none;
-}
-.pageContentMainBody > .pageContentMainInputWrap > .InputWrapContent > select{
-	width: 100%;
-	padding: 5px 10px 5px 10px;
-	border: none;
-}
-.pageContentMainBody > .pageContentMainInputWrap > .InputWrapContent > textarea{
-	width: 100%;
-	padding: 5px 10px 5px 10px;
-	border: none;
-}
-.pageContentMainBody > .pageContentMainInputWrap > .InputWrapContent > button{
-	width: 100%;
-	padding: 5px 10px 5px 10px;
-	border: none;
-	border-radius: 5px;
-	background-color: rgb(30, 122, 225);
-	font-size: 18px;
-	color: white;
-	box-shadow: 3px 3px 3px grey;
-}
-.pageContentMainBody > .pageContentMainInputWrap > .InputWrapContent > button:hover{
-	/* border: 1px solid rgb(30, 122, 225); */
-}
-
-.pageContentMainBody > div > .componentTop{
-	display: none;
-}
-.srcEditor {
-	height: 100%;
-}
-.componentBody.ace_editor.ace-chrome {
-    height: 100%;
-
-}
-/* ============================ workbenchForm - Start ============================ */
+/* ============================ workbenchForm - End ============================ */
 
 
 /* ============================ Ag Gird - Start ============================ */
@@ -574,68 +594,10 @@ body {
 }
 /* ============================Ag Gird - End ============================ */
 
-/* ============================ aweForm_v2 - Start ============================ */
-.aweForm_v2{
-	display: flex;
-	flex-direction: row;
-	flex-wrap: wrap;
-}
-.aweForm_v2_grid2{
-	flex: 1 1 48%;
-	padding: 5px;
-}
-.aweForm_v2_grid2 > .inputHead {
-	margin-bottom: 10px;
-}
-.aweForm_v2_grid2 > .inputWrap {
-
-}
-.aweForm_v2_grid2 > .inputWrap:focus-within {
-	border: 1.5px solid blue;
-}
-.aweForm_v2_grid3{
-	flex: 1 1 32%;
-	/* border: 1px solid grey; */
-	padding: 5px;
-}
-.aweForm_v2_grid3 > .inputHead {
-	margin-bottom: 10px;
-}
-.aweForm_v2_grid3 > .inputWrap {
-}
-.aweForm_v2_grid3 > .inputWrap:focus-within {
-	border: 1.5px solid blue;
-}
-.inputWrap {
-	display: flex;
-	padding: 5px;
-	border: 0.8px solid gray;
-	border-radius: 5px;
-	align-items: center;
-}
-
-.inputWrap> i{
-	/* background-color: red; */
-	padding-left: 5px;
-	padding-right: 8px;
-	border-right: 0.5px solid black;
-}
-.inputWrap> input[type=text]{
-	background-color: transparent;
-	width: 100%;
-	margin-left: 8px;
-	border: none;
-}
-.inputWrap> input[type=text]:focus{
-	outline: none;
-}
-/* ============================ aweForm_v2 - End ============================ */
-
-
 /*** agGrid ***************************************************************************************/
 .gridHeight {
 	height: calc(100% - 2em);
-	min-height: 10em;
+	min-height: 5em;
 }
 
 .ag-theme-balham {
@@ -824,12 +786,14 @@ body {
 	background-image: url(../images/keycol.png);
 	background-repeat: no-repeat;
 	/* background-color: rgba(255,255,156,0.25) !important;  */
+	background-color: rgba(255, 255, 0, 0.5);
 	color: #6d2c2c;
 }
 
 .ag-cell.keycol span,
 .aweCol.keycol {
-	background-color: rgba(255, 255, 156, 0.25) !important;
+	/* background-color: rgba(255, 255, 156, 0.25) !important; */
+	background-color: rgba(255, 255, 0, 0.5);
 }
 
 .ag-cell.borderL span,
@@ -968,200 +932,76 @@ span.cell-deleted {
 /*** end of agGrid ********************************************************************************/
 
 /*** aweForm *******************************************************************************/
-.aweForm {
-	display: flex;
+.aweForm{
+	display: flex;	
 	flex-direction: row;
 	flex-wrap: wrap;
-	align-content: flex-start;
-	justify-content: flex-start;
-	align-items: stretch;
-gap: 1px; 
-margin:0;
-/* border: 1px solid hsl(0 0% 80%); */
-font-size:12px;    
-text-align: left;
-position:relative;	 
-} 
-.aweForm > * {
-flex: 1 1 auto;
 }
-.aweForm fieldset { 
-	display: inline-flex;
-	flex-direction: row;
-	flex-wrap: wrap;
-justify-content: space-between;
-	align-content: stretch;
-	align-items: stretch; 
-	margin: -1px -1px 5px 1px; 
-	border: 1px solid hsla(0 0% 80% / 0.5);   
-	padding: 0;	
-padding-right: 5px;
-background-color: hsla(195 38% 94% / 0.9); 
+.aweForm > div{
+    padding-right: 1em;
+    flex-grow: 1;
+	display: flex; flex-direction: column;
 }
-.aweForm fieldset > * {
-flex: 1 1 auto;
+.aweForm > div > label{
+	font-size: 15px;
+	margin-bottom: 0.3em;
 }
-.aweForm div[colgrp] { 
-display: inline-flex;
-flex-wrap: nowrap;
-flex-direction: row;
-justify-content: flex-start;
-	align-content: center;
-	align-items: center;
-margin: -1px;
-margin-bottom: 1px;
-border: 1px solid hsla(0 0% 75% / 0.5);   
-padding: 0;  
-min-height: 1.25em;
-white-space: nowrap; 
-position: relative; 
+
+.aweForm > div > input{
+	height: 2.5em;
+    border: 1px solid gray;
+    border-radius: 5px;
+    padding-left: 0.5em;
 }
-.mobile .aweForm div[colgrp] {
-	justify-content: stretch; 
-	align-items: stretch;
-	width: 100% !important;
-} 
-.aweForm label { 
-flex: 0 0 5em;
-display: inline-flex;
-flex-direction: row;
-		align-items: center;
-		align-content: space-around;
-		justify-content: flex-end; 
-margin: 0;
-padding-left: 5px;
-border-right: 1px solid hsla(0 0% 80% / 0.5);   
-padding-right:0.5em;
-min-width:  5em; 
-height:100%;  	
-color: hsla(0 0% 0% / 0.54) !important;
-background-color: hsla(0 0% 95% / 0.9);   
-white-space: nowrap; 	
-font-weight: bold;   
-text-align: right; 
+.aweForm > div > input:focus{
+	outline: none;
 }
-.mobile .aweForm label {
-	flex: 0 0 4em;
-	min-width: 5em;
-} 
-.aweColWrap { 
-display: inline-flex;
-	flex-direction: row;
-	flex-wrap: nowrap;
-	align-content: center;
-	align-items: center;
-	justify-content: space-between;
-	min-height: 1.25em; 
-height: 100%;
+.aweForm > div > textarea{
+	border: 1px solid gray;
+    border-radius: 5px;
+    padding: 0.5em;
+    resize: none;
 }
-.aweCol {
-min-height: 1.25em; 
-width: 100%;
-font-size: 12px;
-box-sizing: border-box !important; 
+.aweForm > div > textarea:focus{
+	outline: none;
 }
-input.aweCol { 
-	margin: 0;
-	border: 1px solid #aeaeaff0;
-	border-bottom: 1px solid #aeaeaf6b;
-	border-right: 1px solid #aeaeaf6b;
-	padding: 0.25em; 
+
+
+.aweForm > div > .aweColWrap{
 	height: 100%;
-	max-height: 27px;
-	width:100%;  
-} 
-input[type="checkbox"].aweCol {  
-	min-height:1.25em;
-	height: 1.25em;
-	max-height:1.25em;
-	min-width: 1.25em;
 }
-.mobile input[type="checkbox"].aweCol {  
-	height: unset !important;
-	max-height: unset !important;
-}
-.aweForm input[type="checkbox"].aweCol {  
-	flex: 0 0 1.25em !important;
-}
-select.aweCol { 
-	/* margin: 0;
-	border: 1px solid hsla(0 0% 80% / 0.5);
-	height: 100%;    */
-	width: 50px;
-}	
-textarea.aweCol {
-	margin: 0;
-	border: 1px solid hsla(0 0% 80% / 0.5);
-	resize: none;  
-} 
-button.aweCol {
-	background-color: steelblue !important;
-		border: #aeaeae;
-	color: #fff;
-} 
-button.aweCol:hover {
-	background-color: slategrey !important;
-		border: #aeaeae;
-	color: #000;
-}
-span.aweCol, div.aweCol, pre.aweCol {
-	display: inline-block;
+.aweForm > div > .aweColWrap > input{
+	width: 90%;
 	height: 100%;
-	padding: 0.25em;
-	margin: 0;
-	border-bottom: 1px solid #eaeaea6b;
-	border-right: 1px solid #eaeaea6b;
+	margin-right: 0.5em;
+	padding-left: 0.5em;
+	border: 1px solid grey;
+	border-radius: 5px;
 }
-.aweCol.pk { 
-	background-position: left top;
-	background-image: url(../images/keycol.png);
-	background-repeat: no-repeat;
-	background-color: rgba(255,255,156,0.25) !important;  
-	color: #6d2c2c;
+.aweForm > div > .aweColWrap > input:focus{
+	outline: none;
 }
-.aweCol.keycol { 
-	background-repeat: no-repeat;
-	background-color: rgba(255,255,156,0.25) !important;
-}
-.aweCol.center, .aweCol.ymd { 
-	text-align: center !important;
-}
-.aweCol.left { 
-	text-align: left ;
+.aweForm > div > .aweColWrap > button{
+	height: 100%;
+	width: 2em;
+	background-color: transparent;
+    border: none;
+    font-size: 1.5em;
 }
 .aweCol.right, .aweCol.num { 
 	/* text-align: right !important; */
-}
-.aweColBtn {
-	flex: 0 0 1.2em;
-	border: 0;
-	background-color: hsla(0 0% 80% / 0.5); 
-	margin-right:5px;
-	width:14px;
-	min-height:19px; 
-} 
+ }
 
-.aweCol.num.minus {
-font-weight: 500;
-color: #c10909;
-}
-
-.aweForm span.aweCol, .aweForm pre.aweCol {
-user-select:text;	
-border: 1px solid #aeaeaeae;
-}
 /*** end of aweForm *******************************************************************************/	
 
 /*** select2 Hack *********************************************************************************/
 .aweForm .select2-container {
-width: 100% !important;
-font-size:9px;
-overflow: hidden; 
-background-color: white;
-border-radius: 2px;
-border: 1px solid #aeaeaff0;
-border-bottom: 1px solid #aeaeaf6b;
-border-right: 1px solid #aeaeaf6b;
+	width: 100% !important;
+	height: 100%;
+	overflow: hidden; 
+	background-color: white;
+	border-radius: 5px;
+	border: 1px solid gray;
 }
 .mobile .aweForm .select2-container {
 width: 100% !important;

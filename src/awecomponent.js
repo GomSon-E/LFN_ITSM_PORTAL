@@ -850,11 +850,11 @@ function gfnComponent( pageId, containerId, componentDef, afnEH, page ) {
 		me.componentBody.addClass(me.componentDef.component_pgmid);
 		me.component_option = me.componentDef.component_option;
 		//컴포넌트Body그리드 높이지정: 미지정시 컨텐츠에 맞게 늘어남 
-		if(!isNull(me.component_option)) {
-			// if(!isNull(me.component_option.height)) me.componentBody.css("height",me.component_option.height );
-			if(!isNull(me.component_option.width)) me.componentBody.css("width",me.component_option.width );
-			if(!isNull(me.component_option.class)) me.componentBody.addClass( me.component_option.class );
-		}    
+		// if(!isNull(me.component_option)) {
+		// 	// if(!isNull(me.component_option.height)) me.componentBody.css("height",me.component_option.height );
+		// 	if(!isNull(me.component_option.width)) me.componentBody.css("width",me.component_option.width );
+		// 	if(!isNull(me.component_option.class)) me.componentBody.addClass( me.component_option.class );
+		// }    
         //aweForm의 Body
 		if( me.componentDef.component_pgmid =="aweForm" ) {  
 			me.colinfo = me.componentDef.content;
@@ -871,7 +871,7 @@ function gfnComponent( pageId, containerId, componentDef, afnEH, page ) {
 				if(isNull(nvl(colinfo.section,""))) container = me.componentBody;
 				else if (colinfo.section!=curSection) {
                     curSection = colinfo.section;
-					container = $(`<fieldset section="${curSection}"></fieldset>`).appendTo(me.componentBody);
+					container = $(`<fieldset section="${curSection}" style="flex-basis: ${colinfo.w}%"></fieldset>`).appendTo(me.componentBody);
 					var sLegend = $(`<legend></legend>`);
 					if(!isNull(colinfo.section_icon)) sLegend.append(`<i class="${colinfo.section_icon}"></i>`);
 					sLegend.append( " "+curSection );
@@ -898,6 +898,9 @@ function gfnComponent( pageId, containerId, componentDef, afnEH, page ) {
 					afnEH(me, evt, 0, colid, newval );
 				},me); //,me : 컴포넌트 자신도 던져줘서 이벤트시 컬럼상호작용시 참조토록 함
 				grpcontainer.append( me.col[colinfo.colid].dispObj ); //컬럼추가
+				
+				/* 컬럼의 폭을 지정해줌 (w) */
+				grpcontainer.css("flex-basis", `${nvl(colinfo.w, 100)}%`)
 
                 /* 컬럼Group의 바깥크기를 지정해 줌 */
 				var colgrpWidth = 0;
@@ -907,7 +910,7 @@ function gfnComponent( pageId, containerId, componentDef, afnEH, page ) {
 						colgrpWidth += toNum($(el).attr("w")); 
 					})
 				}
-				if( colgrpWidth > 0) grpcontainer.css("width",colgrpWidth+"em");
+				// if( colgrpWidth > 0) grpcontainer.css("width",colgrpWidth+"em");
 
 			}
 			// form상태 : "" -> "C" 초기화 상태에서 값이 변경되면 C가 되고
@@ -3183,9 +3186,9 @@ function gfnControl(colinfo, afnEH, oComponent, rowid, val, rowPinned, agHack) {
 		if(inStr(me.attr,"disabled")>=0) me.setDisable(true);
 		
 		/* 크기 표시 */
-		if(!isNull(me.w)) me.dispObj.attr("w",me.w); 
-		me.dispObj.css("flex", "1 1 "+me.w+"em"); 
-		if(!isNull(me.h)) me.dispObj.css("height",me.h+"em");   
+		// if(!isNull(me.w)) me.dispObj.attr("w",me.w); 
+		// me.dispObj.css("flex", "1 1 "+me.w+"em"); 
+		// if(!isNull(me.h)) me.dispObj.css("height",me.h+"em");   
 
 		/* select2 적용  */
 		if(me.etype=="sel") {
@@ -3451,7 +3454,7 @@ function gfnSetOpts(obj, refcd, option, val) {
 	var fnSetOpts = function(arr) { 
 		obj.children("*").remove();
 		if(optSel=="all") obj.append("<option value='' selected='selected'>-전체-</option>");
-		if(optSel=="sel") obj.append("<option disabled selected='selected'>-선택-</option>");
+		if(optSel=="sel") obj.append("<option value='' selected='selected' disabled >-선택-</option>");
 		if(optSel=="multi") {
 			//obj.append("<option disabled selected='selected'>-선택-</option>");
 			obj.prop("multiple","multiple");
@@ -3591,7 +3594,7 @@ function gfnSetOpts(obj, refcd, option, val) {
 		else if(obj.hasClass("pop")) {  
 			var wrap = $("<div class='aweColWrap'></div>");	
 			wrap.append(obj);
-			var btnPop = $("<button class='aweColBtn ui-icon ui-icon-search' tabIndex='-1'></button>");
+			var btnPop = $(`<button class='aweColBtn' tabIndex='-1'><i class="fas fa-search"></i></button>`);
 			wrap.append(btnPop); 
 			/*
 			obj.on("keyup change",function(e){
@@ -3999,7 +4002,12 @@ function gfnAgGridColumnDef(oComponent, colinfos, afnEH) {
 				colDef.editable   = true;
 			} 
 		}
-		if("none"==colinfo.etype || inStr(colinfo.attr,"hidden") >= 0) colDef.hide = true; 
+		if("none"==colinfo.etype || inStr(colinfo.attr,"hidden") >= 0) {
+			colDef.hide = true;
+		}
+		if(inStr(colinfo.attr,"wbhidden") >= 0) {
+			colDef.hide = true;	// 워크벤치 agGird Column 숨김
+		}
 
 		me = {};
 		/* len:w:h 로 관리하던 것을  -> len 과 w, h를 분리하기로 함 */
@@ -5644,14 +5652,14 @@ function gfnControl2(colinfo, afnEH, oComponent, rowid, val, rowPinned, agHack) 
 }
 function workbenchForm(pageid, component_id, dataDef, afnEH, me, rowData, distinctRow) {
 
-	console.log("Workbench Form생성");
+	// console.log("Workbench Form생성");
 	// console.log(pageid);
 	// console.log(component_id);
 	// console.log(dataDef);
 	// console.log(afnEH);
 	// console.log(me);
 	// console.log(rowData);
-	console.log(distinctRow);
+	// console.log(distinctRow);
 
 	
 	// 화면기능, 화면컴포넌트, 화면소스 구분
@@ -5662,23 +5670,16 @@ function workbenchForm(pageid, component_id, dataDef, afnEH, me, rowData, distin
 
 
 	if(component_id == "pgm_func") {
-		
 		// 초기 데이터
-		var colinfos1 = dataDef.content;
-		var colinfos2 = dataDef.contentForm.content;
-		var funcBtns = dataDef.contentForm.contentFunc;
+		var colinfos = dataDef.content;
+		var funcBtns = dataDef.workbenchForm.contentFunc;
 		me.pageContentMain = {};
 		me.pageContentMain[component_id] = {};
 	
-		// 페이지 중복 처리
-		$(`.${pageid}.dataInfo`).hide();
-		$(`.${pageid}.srcInfo`).hide();
-		if($(".pageContentMain").children(`.${pageid}`).hasClass("funcInfo"+distinctRow)) {
-			console.log("이미 작성중인 행입니다. 불러옵니다.");
-			$(`.funcInfo[rowid != '${distinctRow}']`).hide();
-			$(`.${pageid}.funcInfo[rowid = '${distinctRow}']`).show();
-			return;
-		}
+		// 기존 페이지 처리
+		$(`.workBenchFormWrap.${pageid}.funcInfo`).remove();
+		$(`.workBenchFormWrap.${pageid}.dataInfo`).remove();
+		$(`.workBenchFormWrap.${pageid}.srcInfo`).hide();
 
 		// Top 생성
 		var pageContentMainTop = $(`<div class="pageContentMainTop"></div>`);
@@ -5695,85 +5696,63 @@ function workbenchForm(pageid, component_id, dataDef, afnEH, me, rowData, distin
 		// Body 생성
 		var pageContentMainBody = $(`<div class="pageContentMainBody"></div>`);
 	
-		for(var i=0; i<colinfos1.length-1; i++) {
-			var colinfo = colinfos1[i];
+		for(var i=0; i<colinfos.length; i++) {
+			var colinfo = colinfos[i];
+
+			if((colinfo.colnm == "더보기") || (colinfo.colid == "sort_seq") || (colinfo.colid == "data_icon")) continue;
 	
 			var pageContentMainInputWrap = $(`<div class="pageContentMainInputWrap ${colinfo.colid}"></div>`);
 			var InputWrapTitle = $(`<div class="InputWrapTitle">${colinfo.colnm}</div>`);
 			var InputWrapContent = $(`<div class="InputWrapContent"></div>`);
-	
-			me.pageContentMain[component_id][colinfo.colid] = new gfnControl(colinfo,function(colid, evt, newval){
-				//이벤트를 바인딩해준다. 
-				var row = component_id + "#" + distinctRow
-				afnEH(me.pageContentMain, evt, row, colid, newval );
-			});
-			InputWrapContent.append( me.pageContentMain[component_id][colinfo.colid].dispObj );
-			var value;
 			
-			if(rowData == undefined) {
-				value = "";
-			} else {
-				value = !isNull(rowData[colinfo.colid]) ? rowData[colinfo.colid] : ""
-			}
-	
-			me.pageContentMain[component_id][colinfo.colid].setVal(value)
-	
-			pageContentMainInputWrap.append(InputWrapTitle);
-			pageContentMainInputWrap.append(InputWrapContent);
-			pageContentMainBody.append(pageContentMainInputWrap);
-		}
-	
-		for(var i=0; i<colinfos2.length; i++) {
-			var colinfo = colinfos2[i];
-	
-			var pageContentMainInputWrap = $(`<div class="pageContentMainInputWrap ${colinfo.colid}"></div>`);
-			var InputWrapTitle = $(`<div class="InputWrapTitle">${colinfo.colnm}</div>`);
-			var InputWrapContent = $(`<div class="InputWrapContent"></div>`);
-	
 			me.pageContentMain[component_id][colinfo.colid] = new gfnControl(colinfo,function(colid, evt, newval){
 				//이벤트를 바인딩해준다. 
 				var row = component_id + "#" + distinctRow
 				afnEH(me.pageContentMain, evt, row, colid, newval );
 			});
 			InputWrapContent.append( me.pageContentMain[component_id][colinfo.colid].dispObj );
-	
+
+			// agGrid의 값 넣기
+			me.pageContentMain[component_id][colinfo.colid].setVal(rowData[colinfo.colid]);
+			
+			// 폭 조절
+			// if(!isNull(colinfo.w)) {
+			// 	pageContentMainInputWrap.css("flex-basis", `${colinfo.w}%`)
+			// }
+			// 높이 조절
+			// if(!isNull(colinfo.h)) {
+			// 	pageContentMainInputWrap.css("height", `${colinfo.w}em`)
+			// }
+
 			pageContentMainInputWrap.append(InputWrapTitle);
 			pageContentMainInputWrap.append(InputWrapContent);
 			pageContentMainBody.append(pageContentMainInputWrap);
 		}
-	
+
 		var workBenchFormWrap = $(`<div class="workBenchFormWrap ${pageid}"></div>`);
 		workBenchFormWrap.attr("rowid", distinctRow)
 		workBenchFormWrap.addClass(componentType+distinctRow);
 		workBenchFormWrap.addClass(componentType);
 		workBenchFormWrap.append(pageContentMainTop);
 		workBenchFormWrap.append(pageContentMainBody);
-		// $(`.pageContentMain`).append(workBenchFormWrap);
 		$(`#${pageid} > .pageContent > .pageContentMain`).append(workBenchFormWrap);
 	
 		$(`.funcInfo[rowid != '${distinctRow}']`).hide(); // 나머지 숨기기
-		return workBenchFormWrap;
 	} 
 	else if(component_id == "pgm_data") {
 
 		// 초기 데이터
-		var colinfos1 = dataDef.content;
-		var colinfos2 = dataDef.contentForm.content;
-		var funcBtns = dataDef.contentForm.contentFunc;
-		var componentOptions = dataDef.contentForm.componentOption;
+		var colinfos = dataDef.content;
+		var funcBtns = dataDef.workbenchForm.contentFunc;
+		var componentOptions = dataDef.workbenchForm.componentOption;
 		me.pageContentMain = {};
 		me.pageContentMain[component_id] = {};
 		me.pageContentMain[component_id]["componentOption"] = {};
 	
-		// 페이지 중복 처리
-		$(`.${pageid}.funcInfo`).hide();
-		$(`.${pageid}.srcInfo`).hide();
-		if($(".pageContentMain").children(`.${pageid}`).hasClass("dataInfo"+distinctRow)) {
-			console.log("이미 작성중인 행입니다. 불러옵니다.");
-			$(`.dataInfo[rowid != '${distinctRow}']`).hide();
-			$(`.${pageid}.dataInfo[rowid = '${distinctRow}']`).show();
-			return;
-		}
+		// 기존 페이지 처리
+		$(`.workBenchFormWrap.${pageid}.funcInfo`).remove();
+		$(`.workBenchFormWrap.${pageid}.dataInfo`).remove();
+		$(`.workBenchFormWrap.${pageid}.srcInfo`).hide();
 
 		// Top 생성
 		var pageContentMainTop = $(`<div class="pageContentMainTop"></div>`);
@@ -5790,105 +5769,83 @@ function workbenchForm(pageid, component_id, dataDef, afnEH, me, rowData, distin
 		// Body 생성
 		var pageContentMainBody = $(`<div class="pageContentMainBody"></div>`);
 	
-		// Body 생성 - content
-		for(var i=0; i<colinfos1.length-1; i++) {
-			var colinfo = colinfos1[i];
-	
+		for(var i=0; i<colinfos.length; i++) {
+			var colinfo = colinfos[i];
+
+			if((colinfo.colnm == "더보기") || (colinfo.colid == "sort_seq") || (colinfo.colid == "data_icon")) continue;
+			
 			var pageContentMainInputWrap = $(`<div class="pageContentMainInputWrap ${colinfo.colid}"></div>`);
 			var InputWrapTitle = $(`<div class="InputWrapTitle">${colinfo.colnm}</div>`);
 			var InputWrapContent = $(`<div class="InputWrapContent"></div>`);
-	
+			
 			me.pageContentMain[component_id][colinfo.colid] = new gfnControl(colinfo,function(colid, evt, newval){
 				//이벤트를 바인딩해준다. 
 				var row = component_id + "#" + distinctRow
 				afnEH(me.pageContentMain, evt, row, colid, newval );
 			});
 			InputWrapContent.append( me.pageContentMain[component_id][colinfo.colid].dispObj );
-			var value;
-			
-			if(rowData == undefined) {
-				value = "";
-			} else {
-				value = !isNull(rowData[colinfo.colid]) ? rowData[colinfo.colid] : ""
+
+			// agGrid의 값 넣기
+			if(colinfo.colid != "content") {
+				me.pageContentMain[component_id][colinfo.colid].setVal(rowData[colinfo.colid]);
 			}
-	
-			me.pageContentMain[component_id][colinfo.colid].setVal(value)
-	
+			
+			// 컴포넌트 옵션 
+			if(colinfo.colid == "component_option") {
+				
+				InputWrapContent.empty();	// 기존내용 지우고 새로
+				
+				for(var j=0; j<componentOptions.length; j++) {
+
+					var componentOption = componentOptions[j];
+					
+					var componentOptionWrap = $(`<div class="componentOptionWrap"></div>`);
+					var componentOptionTitle = $(`<div class="componentOptionTitle">${componentOption.colnm}</div>`);
+					var componentOptionBody = $(`<div class="componentOptionBody"></div>`);
+					
+					me.pageContentMain[component_id]["componentOption"][componentOption.colid] = new gfnControl(componentOption,function(colid, evt, newval){
+						//이벤트를 바인딩해준다. 
+						var row = component_id + "#" + distinctRow
+						afnEH(me.pageContentMain[component_id]["componentOption"], evt, row, "component_option", newval );
+					});
+					componentOptionBody.append( me.pageContentMain[component_id]["componentOption"][componentOption.colid].dispObj );
+
+					// agGrid의 값 넣기
+					var component_option_data = JSON.parse(rowData.component_option);	// agGird에서 가져온 데이터
+					console.log(component_option_data);
+					if(!isNull(component_option_data)) {
+						var value = component_option_data[componentOption.colid];
+						if(value != undefined) {
+							if(typeof(value) == "string") {
+								// console.log("컴포넌트옵션에 값 넣기 - string");
+								value = value;
+							} else if(typeof(value) == "object") {
+								// console.log("컴포넌트옵션에 값 넣기 - object");
+								value = JSON.stringify(value);
+							}
+							me.pageContentMain[component_id]["componentOption"][componentOption.colid].setVal(value);
+						}					
+					}
+					
+					componentOptionWrap.append(componentOptionTitle);
+					componentOptionWrap.append(componentOptionBody);
+					InputWrapContent.append(componentOptionWrap);
+				}
+			} 
+			
+			// 폭 조절
+			// if(!isNull(colinfo.w)) {
+			// 	pageContentMainInputWrap.css("flex-basis", `${colinfo.w}%`)
+			// }
+
 			pageContentMainInputWrap.append(InputWrapTitle);
 			pageContentMainInputWrap.append(InputWrapContent);
 			pageContentMainBody.append(pageContentMainInputWrap);
 		}
-	
-		// Body 생성 - contentForm.content
-		for(var i=0; i<colinfos2.length; i++) {
-			var colinfo = colinfos2[i];
-	
-			var pageContentMainInputWrap = $(`<div class="pageContentMainInputWrap ${colinfo.colid}"></div>`);
-			var InputWrapTitle = $(`<div class="InputWrapTitle">${colinfo.colnm}</div>`);
-			var InputWrapContent = $(`<div class="InputWrapContent"></div>`);
-	
-			me.pageContentMain[component_id][colinfo.colid] = new gfnControl(colinfo,function(colid, evt, newval){
-				//이벤트를 바인딩해준다. 
-				var row = component_id + "#" + distinctRow
-				afnEH(me.pageContentMain, evt, row, colid, newval );
-			});
-			InputWrapContent.append( me.pageContentMain[component_id][colinfo.colid].dispObj );
-	
-			pageContentMainInputWrap.append(InputWrapTitle);
-			pageContentMainInputWrap.append(InputWrapContent);
-			pageContentMainBody.append(pageContentMainInputWrap);
-		}
-
-		// Body 생성 - contentForm.componentOption
-		var pageContentMainInputWrap = $(`<div class="pageContentMainInputWrap componentOption"></div>`);
-		var InputWrapTitle = $(`<div class="InputWrapTitle">컴포넌트 옵션</div>`);
-		var InputWrapContent = $(`<div class="InputWrapContent"></div>`);
-		for(var i=0; i<componentOptions.length; i++) {
-			var colinfo = componentOptions[i];
-			
-			var componentOptionWrap = $(`<div class="componentOptionWrap"></div>`);
-			
-			// componentOption Title
-			var componentOptionTitle = $(`<div class="componentOptionTitle">${colinfo.colid}</div>`);
-			
-			// componentOption Body
-			var componentOptionBody = $(`<div class="componentOptionBody"></div>`);
-			me.pageContentMain[component_id]["componentOption"][colinfo.colid] = new gfnControl(colinfo,function(colid, evt, newval){
-				//이벤트를 바인딩해준다. 
-				var row = component_id + "#" + distinctRow
-				afnEH(me.pageContentMain, evt, row, colid, newval );
-			});
-			componentOptionBody.append( me.pageContentMain[component_id]["componentOption"][colinfo.colid].dispObj );
-			
-			// // componentOption Func
-			// var componentOptionFunc = $(`<div class="componentOptionFunc"></div>`);
-			// var cancelBtn = [ {"funcid":"del","func_nm":"X","func_icon":""},]
-			// new gfnButtonSet(componentOptionFunc, cancelBtn, function(btnSet, evt, funcid, func) { 
-			// 	//이벤트를 바인딩해준다. 이때 이벤트유형은 componentFunc이다.
-			// 	var row = component_id + "#" + distinctRow
-			// 	afnEH(me.pageContentMain, evt, row, funcid, func);
-			// }); 
-
-			componentOptionWrap.append(componentOptionTitle);
-			componentOptionWrap.append(componentOptionBody);
-			// componentOptionWrap.append(componentOptionFunc);
-			InputWrapContent.append(componentOptionWrap);
-		}
-		
-		// 추가버튼
-		// var componentOptionFunc2 = $(`<div class="componentOptionFunc2"></div>`);
-		// var addBtn = [ {"funcid":"add","func_nm":"추가","func_icon":"fa fas-plus"},]
-		// new gfnButtonSet(componentOptionFunc2, addBtn, function(btnSet, evt, funcid, func) { 
-		// 	//이벤트를 바인딩해준다. 이때 이벤트유형은 componentFunc이다.
-		// 	var row = component_id + "#" + distinctRow
-		// 	afnEH(me.pageContentMain, evt, row, funcid, func);
-		// }); 
-		// InputWrapContent.append(componentOptionFunc2);
 
 		pageContentMainInputWrap.append(InputWrapTitle);
 		pageContentMainInputWrap.append(InputWrapContent);
 		pageContentMainBody.append(pageContentMainInputWrap);
-		
 	
 		var workBenchFormWrap = $(`<div class="workBenchFormWrap ${pageid}"></div>`);
 		workBenchFormWrap.attr("rowid", distinctRow)
@@ -5897,12 +5854,8 @@ function workbenchForm(pageid, component_id, dataDef, afnEH, me, rowData, distin
 
 		workBenchFormWrap.append(pageContentMainTop);
 		workBenchFormWrap.append(pageContentMainBody);
-		// $(`.pageContentMain`).append(workBenchFormWrap);
+		
 		$(`#${pageid} > .pageContent > .pageContentMain`).append(workBenchFormWrap);
-	
-		 // 나머지 숨기기
-		$(`.dataInfo[rowid != '${distinctRow}']`).hide();
-		return workBenchFormWrap;
 	} 
 	else if (component_id == "pgm_src") {
 		console.log('소스에 들어옴');
@@ -5924,7 +5877,7 @@ function workbenchForm(pageid, component_id, dataDef, afnEH, me, rowData, distin
 
 		// Top 생성
 		var pageContentMainTop = $(`<div class="pageContentMainTop"></div>`);
-		var pageContentMainTitle = $(`<div class="pageContentMainTitle">${dataDef.data_nm} - ${rowData.src_nm}</div>`);
+		var pageContentMainTitle = $(`<div class="pageContentMainTitle">${rowData.src_nm}</div>`);
 		var pageContentMainFunc = $(`<div class="pageContentMainFunc"></div>`);
 		new gfnButtonSet(pageContentMainFunc, funcBtns, function(btnSet, evt, funcid, func) { 
 			//이벤트를 바인딩해준다. 이때 이벤트유형은 componentFunc이다.
