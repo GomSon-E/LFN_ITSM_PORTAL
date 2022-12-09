@@ -220,8 +220,7 @@ me.dataDef["_pgm_data"]["pgm_src"]={
         me.pageObj["pgm_src"].sizeColumnsToFit();
         me.pageObj["pgm_data"].sizeColumnsToFit();
 
-        // 폭 맞춤 - Window 크기 변경시
-        $(window).on('resize', function(){
+            // 폭 맞춤 - 초기
             me.pageObj["pgm_func"].sizeColumnsToFit();
             me.pageObj["pgm_src"].sizeColumnsToFit();
             me.pageObj["pgm_data"].sizeColumnsToFit();
@@ -248,17 +247,17 @@ me.dataDef["_pgm_data"]["pgm_src"]={
         console.log(`evt : ${evt} /row : ${row} / col : ${col} / val : ${val}`);
         // console.log(component);
 
-        //화면기능버튼이 눌리면 
-        if (component == me.pageObj["_pageFunc"]){ 
-            var fn = eval( "me."+col );   //"me.fnSearch"
-            if(typeof(fn)=='function') {
-                fn(col); //fn실행
+            //화면기능버튼이 눌리면 
+            if (component == me.pageObj["_pageFunc"]) {
+                var fn = eval("me." + col);   //"me.fnSearch"
+                if (typeof (fn) == 'function') {
+                    fn(col); //fn실행
+                }
             }
-        } 
-        //프로그램 기본정보     
-        else if(component==me.pageObj["pgm"]) {
-            //pgmid를 변경하면 조회할때 화면 초기화 호출 
-            if(evt == "change" && col == "pgmid") bEdit = true;
+            //프로그램 기본정보     
+            else if (component == me.pageObj["pgm"]) {
+                //pgmid를 변경하면 조회할때 화면 초기화 호출 
+                if (evt == "change" && col == "pgmid") bEdit = true;
 
 
         } 
@@ -269,7 +268,9 @@ me.dataDef["_pgm_data"]["pgm_src"]={
                 if(row == "addRow") {
                     var distictRow = me.pageObj["pgm_func"].addRow();               // 고유Index
                     var curRow = me.pageObj["pgm_func"].getRowIndex(distictRow);    // 실제Index
-                    var data = me.pageObj["pgm_func"].exportData()[curRow]; 
+                    var data = me.pageObj["pgm_func"].exportData()[curRow];
+                    // console.log(`고유Index : ${distictRow} / 실제Index : ${curRow}`)
+                    // console.log(data)
                     workbenchForm(me.pageid, "pgm_func", me.dataDef["_pgm_data"]["pgm_func"], me.fnEH, me, data, distictRow);
                 } 
                 else if(row=="delRow") {
@@ -381,13 +382,11 @@ me.dataDef["_pgm_data"]["pgm_src"]={
                                 console.log(me.pageContentMain[component_id]["componentOption"]);
                                 result2[item2] = me.pageContentMain[component_id]["componentOption"][item2].getVal()
                             }
-                            result["componentOption"] = result2;
-                        } else {
-                            result[item] = me.pageContentMain[component_id][item].getVal();
                         }
+                    } else if (component_id == "pgm_src") {
+                        console.log("pgm_src에서 저장")
                     }
-                } else if (component_id == "pgm_src") {
-                    console.log("pgm_src에서 저장")
+                    console.log(result);
                 }
                 console.log(result);
             } 
@@ -662,22 +661,23 @@ me.dataDef["_pgm_data"]["pgm_src"]={
             // console.log('저장후 me.dataSet["pgm_data"]');
             // console.log(me.dataSet["pgm_data"]);
 
-            /* pgm_src_edit를 가져와서 pgm_src에 넣어준다. */            
-            me.pageObj["pgm_src"].grid.gridOptions.api.stopEditing(false);
-            me.dataSet["pgm_src"] = [];
-            for(var i = 0; i < me.pageObj["pgm_src"].countRow(); i++) {
-                var rowid = me.pageObj["pgm_src"].getNodeId(i);
-                var row = {};
-                var rowraw = me.pageObj["pgm_src"].getRowData(rowid);
-                var colinfo = me.pageObj["pgm_src"].colinfo;
-                for(var j = 0; j < colinfo.length; j++) {
-                    row[colinfo[j].colid] = nvl(rowraw[colinfo[j].colid],null); 
-                }            
-                if(rowraw.crud != 'D') {
-                    if(!isNull(me.pageObj["pgm_src_edit"][rowid])) {  
-                        row["content"] = me.fnEditor(rowid); 
+                /* pgm_src_edit를 가져와서 pgm_src에 넣어준다. */
+                me.pageObj["pgm_src"].grid.gridOptions.api.stopEditing(false);
+                me.dataSet["pgm_src"] = [];
+                for (var i = 0; i < me.pageObj["pgm_src"].countRow(); i++) {
+                    var rowid = me.pageObj["pgm_src"].getNodeId(i);
+                    var row = {};
+                    var rowraw = me.pageObj["pgm_src"].getRowData(rowid);
+                    var colinfo = me.pageObj["pgm_src"].colinfo;
+                    for (var j = 0; j < colinfo.length; j++) {
+                        row[colinfo[j].colid] = nvl(rowraw[colinfo[j].colid], null);
                     }
-                    me.dataSet["pgm_src"].push(row); 
+                    if (rowraw.crud != 'D') {
+                        if (!isNull(me.pageObj["pgm_src_edit"][rowid])) {
+                            row["content"] = me.fnEditor(rowid);
+                        }
+                        me.dataSet["pgm_src"].push(row);
+                    }
                 }
             } 
             // console.log("저장후 dataSet['pgm_src']");
@@ -695,7 +695,17 @@ me.dataDef["_pgm_data"]["pgm_src"]={
             if(data.data_id != 'pageCond'){
                 components += `     <div id='${data.data_id}'></div>${CR}`;
             }
-        })
+        }
+        // html과 css 소스 있으면 가져오고 없으면 생성
+        me.fnGetHTMLCSS = function () {
+            var pgm_info = me.dataSet["pgm"][0];
+
+            var components = "";
+            me.dataSet["pgm_data"].forEach(data => {
+                if (data.data_id != 'pageCond') {
+                    components += `     <div id='${data.data_id}'></div>${CR}`;
+                }
+            })
 
         var row = subset(me.dataSet['pgm_src'], "srcid", "HTML_CSS");
         if(row.length == 0){ // 생성 (소스코드 리스트에 생성됨)
@@ -751,9 +761,9 @@ $(function() {
         me.dataDef = dataDef;
         me.pageObj = pageObj;
         me.bEdit = bEdit;${CR}`;
-        _script += `me.dataDef["_pgm"]=${JSON.stringify(pgm_info)};${CR}`;        
-        _script += `me.dataDef["_pgm_func"]=${JSON.stringify(me.dataSet["pgm_func"])};${CR}`;            
-        _script += `me.dataDef["_pgm_data"] = {};${CR}`; 
+            _script += `me.dataDef["_pgm"]=${JSON.stringify(pgm_info)};${CR}`;
+            _script += `me.dataDef["_pgm_func"]=${JSON.stringify(me.dataSet["pgm_func"])};${CR}`;
+            _script += `me.dataDef["_pgm_data"] = {};${CR}`;
 
 
         me.dataSet["pgm_data"].forEach(data => {
@@ -776,53 +786,55 @@ $(function() {
     if(typeof(me.fnInitExtra)=='function') me.fnInitExtra(); 
 }`;
 
-        var row = subset(me.dataSet["pgm_src"],"srcid","_script");
-        if(row.length == 0){ // 생성
-            var rowId = me.pageObj["pgm_src"].addRow();
-            me.pageObj["pgm_src"].setVal(rowId,"sort_seq",toNum(rowId)+1);
-            me.pageObj["pgm_src"].setVal(rowId,"src_tp","javascript");
-            me.pageObj["pgm_src"].setVal(rowId,"srcid","_script");
-            me.pageObj["pgm_src"].setVal(rowId,"src_nm","2-1) JS (자동생성)");
-            me.pageObj["pgm_src"].setVal(rowId,"content",_script); 
-        } else {
-            for(var i=0; i < me.pageObj["pgm_src"].countRow(); i++) { 
-                var rowId = me.pageObj["pgm_src"].getNodeId(i);
-                if(me.pageObj["pgm_src"].getVal(rowId,"srcid") == "_script") {
-                    me.pageObj["pgm_src"].setVal(rowId,"src_tp","javascript");
-                    me.pageObj["pgm_src"].setVal(rowId,"srcid","_script");
-                    me.pageObj["pgm_src"].setVal(rowId,"src_nm","2-1) JS (자동생성)");
-                    me.pageObj["pgm_src"].setVal(rowId,"content",_script); 
-                    break;
-                } 
+            var row = subset(me.dataSet["pgm_src"], "srcid", "_script");
+            if (row.length == 0) { // 생성
+                var rowId = me.pageObj["pgm_src"].addRow();
+                me.pageObj["pgm_src"].setVal(rowId, "sort_seq", toNum(rowId) + 1);
+                me.pageObj["pgm_src"].setVal(rowId, "src_tp", "javascript");
+                me.pageObj["pgm_src"].setVal(rowId, "srcid", "_script");
+                me.pageObj["pgm_src"].setVal(rowId, "src_nm", "2-1) JS (자동생성)");
+                me.pageObj["pgm_src"].setVal(rowId, "content", _script);
+            } else {
+                for (var i = 0; i < me.pageObj["pgm_src"].countRow(); i++) {
+                    var rowId = me.pageObj["pgm_src"].getNodeId(i);
+                    if (me.pageObj["pgm_src"].getVal(rowId, "srcid") == "_script") {
+                        me.pageObj["pgm_src"].setVal(rowId, "src_tp", "javascript");
+                        me.pageObj["pgm_src"].setVal(rowId, "srcid", "_script");
+                        me.pageObj["pgm_src"].setVal(rowId, "src_nm", "2-1) JS (자동생성)");
+                        me.pageObj["pgm_src"].setVal(rowId, "content", _script);
+                        break;
+                    }
+                }
             }
+            return _script;
         }
-        return _script;
-    }
-    // 자동생성 _script2 
-    me.fnMakeScript2 = function() {
-        var pgm_info = me.dataSet["pgm"][0];        
-        var _script2 = `/*-- _script2(자동생성2) start ---------------------------------------------------- */        
+        // 자동생성 _script2 
+        me.fnMakeScript2 = function () {
+            var pgm_info = me.dataSet["pgm"][0];
+            var _script2 = `/*-- _script2(자동생성2) start ---------------------------------------------------- */        
 if(typeof(me.fnInit)=='function') me.fnInit();
-});${CR}`; 
-        var row = subset(me.dataSet["pgm_src"],"srcid","_script2");
-        if(row.length == 0) {
-            var rowId = me.pageObj["pgm_src"].addRow();
-            me.pageObj["pgm_src"].setVal(rowId,"sort_seq",toNum(rowId)+1);
-            me.pageObj["pgm_src"].setVal(rowId,"src_tp","javascript");
-            me.pageObj["pgm_src"].setVal(rowId,"srcid","_script2");
-            me.pageObj["pgm_src"].setVal(rowId,"src_nm","2-3) JS (자동생성)");
-            me.pageObj["pgm_src"].setVal(rowId,"content",_script2); 
-        } else {
-            for(var i=0; i < me.pageObj["pgm_src"].countRow(); i++) { 
-                var rowId = me.pageObj["pgm_src"].getNodeId(i);
-                if(me.pageObj["pgm_src"].getVal(rowId,"srcid") == "_script2") {
-                    me.pageObj["pgm_src"].setVal(rowId,"src_tp","javascript");
-                    me.pageObj["pgm_src"].setVal(rowId,"srcid","_script2");
-                    me.pageObj["pgm_src"].setVal(rowId,"src_nm","2-3) JS (자동생성)");
-                    me.pageObj["pgm_src"].setVal(rowId,"content",_script2); 
-                    break;
-                } 
+});${CR}`;
+            var row = subset(me.dataSet["pgm_src"], "srcid", "_script2");
+            if (row.length == 0) {
+                var rowId = me.pageObj["pgm_src"].addRow();
+                me.pageObj["pgm_src"].setVal(rowId, "sort_seq", toNum(rowId) + 1);
+                me.pageObj["pgm_src"].setVal(rowId, "src_tp", "javascript");
+                me.pageObj["pgm_src"].setVal(rowId, "srcid", "_script2");
+                me.pageObj["pgm_src"].setVal(rowId, "src_nm", "2-3) JS (자동생성)");
+                me.pageObj["pgm_src"].setVal(rowId, "content", _script2);
+            } else {
+                for (var i = 0; i < me.pageObj["pgm_src"].countRow(); i++) {
+                    var rowId = me.pageObj["pgm_src"].getNodeId(i);
+                    if (me.pageObj["pgm_src"].getVal(rowId, "srcid") == "_script2") {
+                        me.pageObj["pgm_src"].setVal(rowId, "src_tp", "javascript");
+                        me.pageObj["pgm_src"].setVal(rowId, "srcid", "_script2");
+                        me.pageObj["pgm_src"].setVal(rowId, "src_nm", "2-3) JS (자동생성)");
+                        me.pageObj["pgm_src"].setVal(rowId, "content", _script2);
+                        break;
+                    }
+                }
             }
+            return _script2;
         }
         return _script2;
     }
@@ -849,9 +861,9 @@ if(typeof(me.fnInit)=='function') me.fnInit();
         //화면기능버튼이 눌리면 
         if (component==me.pageObj["_pageFunc"]){ 
             if(typeof(me[col])=='function') me[col](); //col=기능명 me["fnSearch"]()=me.fnSearch(); 
-        }`; 
-            me.dataSet["pgm_data"].forEach(data => {
-                script += `
+        }`;
+                me.dataSet["pgm_data"].forEach(data => {
+                    script += `
         //${data.data_id}:${data.data_nm} 이벤트처리   
         else if(component==me.pageObj["${data.data_id}"]) {
             if(evt=="componentFunc") {
@@ -863,17 +875,17 @@ if(typeof(me.fnInit)=='function') me.fnInit();
             }
             //if(evt=="change" && col=="colid") {...}
         }${CR}`;
-            });
-            script += `
+                });
+                script += `
         //사용자 컴포넌트/컨트롤
         else if(component.userComponent=="myCompoId") {
             //if(evt=="dblclick" && col=="colid") {...}
         }
     }`;
-            for(var i=0; i < me.dataSet["pgm_func"].length; i++) {  
-                var row = me.dataSet["pgm_func"][i];
-                if(row.funcid=="search") {
-                script += `
+                for (var i = 0; i < me.dataSet["pgm_func"].length; i++) {
+                    var row = me.dataSet["pgm_func"][i];
+                    if (row.funcid == "search") {
+                        script += `
     //${row.funcid}:${row.func_nm} 
     me.fn${row.funcid.charAt(0).toUpperCase()}${row.funcid.slice(1)}=function() {
         if( !me.pageObj["pageCond"].chkValid() ) return;
@@ -889,8 +901,8 @@ if(typeof(me.fnInit)=='function') me.fnInit();
             }
         });
     }${CR}`;
-                } else if(row.funcid=="save") {
-                script += `
+                    } else if (row.funcid == "save") {
+                        script += `
     //${row.funcid}:${row.func_nm} 
     me.fn${row.funcid.charAt(0).toUpperCase()}${row.funcid.slice(1)}=function() {
         if( !me.pageObj["pageCond"].chkValid() ) return;
@@ -909,8 +921,8 @@ if(typeof(me.fnInit)=='function') me.fnInit();
             }
         });
     }${CR}`;
-                } else {
-                script += `
+                    } else {
+                        script += `
     //${row.funcid}:${row.func_nm} 
     me.fn${row.funcid.charAt(0).toUpperCase()}${row.funcid.slice(1)}=function() {
         //VALIDATION  : 
@@ -928,7 +940,8 @@ if(typeof(me.fnInit)=='function') me.fnInit();
                 gfnAlert("오류",OUTVAR.rtnMsg);
             }
         });
-    }${CR}`;        
+    }${CR}`;
+                    }
                 }
             }
             var rowId = me.pageObj["pgm_src"].addRow();
@@ -960,10 +973,10 @@ String rtnMsg     = "";
 try { 
 String invar = request.getParameter("INVAR");
 JSONObject INVAR  = getObject(invar); 
-/***************************************************************************************************/`; 
-            for(var i=0; i < me.dataSet["pgm_func"].length; i++) {
+/***************************************************************************************************/`;
+            for (var i = 0; i < me.dataSet["pgm_func"].length; i++) {
                 var row = me.dataSet["pgm_func"][i];
-                if( row.func_tp =="DB_R") { 
+                if (row.func_tp == "DB_R") {
                     jsp += `
 //${row.funcid}:${row.func_nm} 이벤트처리(DB_Read)     
 if("${row.funcid}".equals(func)) {
@@ -983,8 +996,8 @@ if("${row.funcid}".equals(func)) {
     } finally {
         closeConn(conn);
     }  
-}${CR}`; 
-                } else if( row.func_tp =="DB_W") { 
+}${CR}`;
+                } else if (row.func_tp == "DB_W") {
                     jsp += `
 //${row.funcid}:${row.func_nm} 이벤트처리(DB_Write)
 if("${row.funcid}".equals(func)) {
@@ -1142,5 +1155,4 @@ if("${row.funcid}".equals(func)) {
     /*-- SCRIPT autogen ---------------------------------------------------- */        
 if(typeof(me.fnInit)=='function') me.fnInit();
 });
-
 </script>
