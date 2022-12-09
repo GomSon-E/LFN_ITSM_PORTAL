@@ -186,6 +186,22 @@
         </div>
     </div>
 </div>
+
+<div id="confirm" class="modal" style="display: none;">
+    <div class="modal-content">
+            <div class="modal-header">
+                    <h5 class="modal-title">confirm 창입니다.</h5>
+                    <button class="layerBtn btn-close" data-bs-dismiss="modal" aria-label="Close"
+                            onclick="gfnLayerClose('confirm')"></button>
+            </div>
+            <div class="modal-body">
+                    <p>confirm 내용입니다.</p>
+            </div>
+            <div class="modal-footer">
+                    <button class="layerBtn btn btn-primary yes" onclick="gfnCloseLayer('confirm')">확인</button>
+                    <button class="layerBtn btn btn-secondary no" data-bs-dismiss="modal" onclick="gfnCloseLayer('confirm')">취소</button>
+            </div>
+    </div>
 <script>
     /*-- _script(자동생성1) start ---------------------------------------------- */
     $(function () {
@@ -253,38 +269,38 @@
         //회원가입 저장
         $("#signUpBtn").click(function () {
 
-
-            if ($("#usid").val().trim() == "") {
+            console.log("회원가입 테스트")
+            if ($("#usid").val() == "") {
                 alert("아이디를 입력하세요.");
                 $("#usid").focus();
                 return false;
             }
-            if ($("#nm").val().trim() == "") {
+            if ($("#nm").val() == "") {
                 alert("이름을 입력하세요.");
                 $("#nm").focus();
                 return false;
             }
-            if ($("#email").val().trim() == "") {
+            if ($("#email").val() == "") {
                 alert("이메일을 입력하세요.");
                 $("#email").focus();
                 return false;
             }
-            if ($("#phonenum").val().trim() == "") {
+            if ($("#phonenum").val() == "") {
                 alert("전화번호를 입력하세요.");
                 $("#phonenum").focus();
                 return false;
             }
-            if ($("#company").val().trim() == "") {
+            if ($("#company").val() == "") {
                 alert("소속회사를 입력하세요.");
                 $("#company").focus();
                 return false;
             }
-            if ($("#depart").val().trim() == "") {
+            if ($("#depart").val() == "") {
                 alert("부서를 입력하세요.");
                 $("#depart").focus();
                 return false;
             }
-            if ($("#nick_nm").val().trim() == "") {
+            if ($("#nick_nm").val() == "") {
                 alert("직책을 입력하세요.");
                 $("#nick_nm").focus();
                 return false;
@@ -300,7 +316,8 @@
                 // var args = me.pageObj["frm"].exportData()[0];
                 // var frm = me.pageObj.frm.exportData("CRU");
                 // args.frm = frm;
-                var args = {
+                if (bConfirm) {
+                    var args = {
                     "usid": $("#usid").val(),
                     "nm": $("#nm").val(),
                     "email": $("#email").val(),
@@ -321,6 +338,7 @@
 
                     }
                 });
+                }
             }
             );
         }

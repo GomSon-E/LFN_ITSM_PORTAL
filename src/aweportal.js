@@ -295,7 +295,7 @@ function gfnCloseLayer (p) {
 	$("#"+p).css("background-color", "none") 
 
 	if (p == "confirm") {
-		$("#"+p).css("display", none);
+		$("#"+p).css("display", "none");
 	}
 }
 
