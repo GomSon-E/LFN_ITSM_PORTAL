@@ -571,6 +571,13 @@ body {
 	font-size: 15px;
 	box-shadow: none;
 }
+
+.componentOptionEditor{
+	border: 1px solid gray;
+    border-radius: 5px;
+    overflow: hidden;
+	width: 100%; height: 10em;
+}
 /* ============================ workbenchForm - End ============================ */
 
 
@@ -930,18 +937,19 @@ span.cell-deleted {
 .aweForm > div{
     padding-right: 1em;
     flex-grow: 1;
-	display: flex; flex-direction: column;
+	display: flex; flex-direction: row; flex-wrap: wrap;
+	align-content: flex-start;
+	margin-bottom: 0.5em;
 }
-.aweForm > div > label{
-	font-size: 15px;
-	margin-bottom: 0.3em;
+.aweForm > div > .label{
+    flex-basis: 100%;
 }
-
 .aweForm > div > input{
 	height: 2.5em;
     border: 1px solid gray;
     border-radius: 5px;
     padding-left: 0.5em;
+	flex: 1 1 0;
 }
 .aweForm > div > input:focus{
 	outline: none;
@@ -951,6 +959,7 @@ span.cell-deleted {
     border-radius: 5px;
     padding: 0.5em;
     resize: none;
+	flex: 1 1 0;
 }
 .aweForm > div > textarea:focus{
 	outline: none;
@@ -958,36 +967,49 @@ span.cell-deleted {
 
 
 .aweForm > div > .aweColWrap{
-	height: 100%;
+	width: 100%;
 }
 .aweForm > div > .aweColWrap > input{
+	padding: 0.4em;
+    border: 1px solid gray;
+    border-radius: 5px;
+
 	width: 90%;
-	height: 100%;
-	margin-right: 0.5em;
-	padding-left: 0.5em;
-	border: 1px solid grey;
-	border-radius: 5px;
 }
 .aweForm > div > .aweColWrap > input:focus{
 	outline: none;
 }
 .aweForm > div > .aweColWrap > button{
-	height: 100%;
-	width: 2em;
-	background-color: transparent;
-    border: none;
-    font-size: 1.5em;
+	border: none;
+    margin-left: 0.5em;
 }
-.aweCol.right, .aweCol.num { 
-	/* text-align: right !important; */
- }
+
+.aweForm > fieldset{
+	flex: 1 1 0;
+	border: 1px solid gray;
+	border-radius: 10px;
+	padding: 0.5em;
+	display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+.aweForm > fieldset > div{
+	padding-right: 0.5em;
+}
+.aweForm > fieldset > div > input{
+	width: 100%;
+	padding: 0.5em;
+}
+.aweForm > fieldset > div > input:focus{
+	outline: none;
+}
 
 /*** end of aweForm *******************************************************************************/	
 
 /*** select2 Hack *********************************************************************************/
 .aweForm .select2-container {
 	width: 100% !important;
-	height: 100%;
+	/* height: 100%; */
 	overflow: hidden; 
 	background-color: white;
 	border-radius: 5px;

@@ -867,11 +867,12 @@ function gfnComponent( pageId, containerId, componentDef, afnEH, page ) {
 			var curColgrp = "_init";
 			for(var i =0; i < me.colinfo.length; i++) {
 				var colinfo = me.colinfo[i];
+
 				//section이 없거나 바뀌었으면...
 				if(isNull(nvl(colinfo.section,""))) container = me.componentBody;
 				else if (colinfo.section!=curSection) {
                     curSection = colinfo.section;
-					container = $(`<fieldset section="${curSection}" style="flex-basis: ${colinfo.w}%"></fieldset>`).appendTo(me.componentBody);
+					container = $(`<fieldset section="${curSection}"></fieldset>`).appendTo(me.componentBody);
 					var sLegend = $(`<legend></legend>`);
 					if(!isNull(colinfo.section_icon)) sLegend.append(`<i class="${colinfo.section_icon}"></i>`);
 					sLegend.append( " "+curSection );
@@ -880,11 +881,11 @@ function gfnComponent( pageId, containerId, componentDef, afnEH, page ) {
 				//colgrp이 바뀌었으면...라벨을 달아줘야함
 				if(isNull(nvl(colinfo.colgrp,""))) {
 					grpcontainer = $(`<div colgrp="${colinfo.colnm}"></div>`).appendTo(container);
-					grpcontainer.append(`<label>${colinfo.colnm}</label>`);
+					grpcontainer.append(`<div class="label">${colinfo.colnm}</div>`);
 				} else if (colinfo.colgrp!=curColgrp) {
                     curColgrp = colinfo.colgrp;
 					grpcontainer = $(`<div colgrp="${curColgrp}"></div>`).appendTo(container);
-					grpcontainer.append(`<label>${curColgrp}</label>`);
+					grpcontainer.append(`<div class="label">${curColgrp}</div>`);
 				} 
                 grpcontainer.addClass(colinfo.attr);
 				/*************************************************************************/
@@ -5748,6 +5749,7 @@ function workbenchForm(pageid, component_id, dataDef, afnEH, me, rowData, distin
 		me.pageContentMain = {};
 		me.pageContentMain[component_id] = {};
 		me.pageContentMain[component_id]["componentOption"] = {};
+		me.pageContentMain[component_id]["comOptEditor"] = {};
 	
 		// 기존 페이지 처리
 		$(`.workBenchFormWrap.${pageid}.funcInfo`).remove();
@@ -5795,48 +5797,26 @@ function workbenchForm(pageid, component_id, dataDef, afnEH, me, rowData, distin
 				
 				InputWrapContent.empty();	// 기존내용 지우고 새로
 				
-				for(var j=0; j<componentOptions.length; j++) {
+				// 에디터 생성
+				var componentOptionEditor = $(`<div id="componentOptionEditor${distinctRow}" class="componentOptionEditor"></div>`)
+				me.pageContentMain[component_id]["comOptEditor"][distinctRow] = ace.edit(componentOptionEditor[0]); 
+				me.pageContentMain[component_id]["comOptEditor"][distinctRow].setTheme("ace/theme/chrome");
+				me.pageContentMain[component_id]["comOptEditor"][distinctRow].session.setMode("ace/mode/javascript");
+				me.pageContentMain[component_id]["comOptEditor"][distinctRow].setFontSize("1.2em");
+				me.pageContentMain[component_id]["comOptEditor"][distinctRow].session.on('change', function(delta) {
+					console.log("값이 바뀌었습니다.")
+					value = me.pageContentMain[component_id]["comOptEditor"][distinctRow].getValue();
+					console.log(value);
+					me.pageObj[component_id].setVal(distinctRow, "component_option", value);
+				});
+				console.log(rowData['component_option']);
 
-					var componentOption = componentOptions[j];
-					
-					var componentOptionWrap = $(`<div class="componentOptionWrap"></div>`);
-					var componentOptionTitle = $(`<div class="componentOptionTitle">${componentOption.colnm}</div>`);
-					var componentOptionBody = $(`<div class="componentOptionBody"></div>`);
-					
-					me.pageContentMain[component_id]["componentOption"][componentOption.colid] = new gfnControl(componentOption,function(colid, evt, newval){
-						//이벤트를 바인딩해준다. 
-						var row = component_id + "#" + distinctRow
-						afnEH(me.pageContentMain[component_id]["componentOption"], evt, row, "component_option", newval );
-					});
-					componentOptionBody.append( me.pageContentMain[component_id]["componentOption"][componentOption.colid].dispObj );
+				// 기존 데이터 Set
+				me.pageContentMain[component_id]["comOptEditor"][distinctRow].setValue(nvl(rowData['component_option'], ""))
 
-					// agGrid의 값 넣기
-					var component_option_data = JSON.parse(rowData.component_option);	// agGird에서 가져온 데이터
-					console.log(component_option_data);
-					if(!isNull(component_option_data)) {
-						var value = component_option_data[componentOption.colid];
-						if(value != undefined) {
-							if(typeof(value) == "string") {
-								// console.log("컴포넌트옵션에 값 넣기 - string");
-								value = value;
-							} else if(typeof(value) == "object") {
-								// console.log("컴포넌트옵션에 값 넣기 - object");
-								value = JSON.stringify(value);
-							}
-							me.pageContentMain[component_id]["componentOption"][componentOption.colid].setVal(value);
-						}					
-					}
-					
-					componentOptionWrap.append(componentOptionTitle);
-					componentOptionWrap.append(componentOptionBody);
-					InputWrapContent.append(componentOptionWrap);
-				}
+				
+				InputWrapContent.append(componentOptionEditor);
 			} 
-			
-			// 폭 조절
-			// if(!isNull(colinfo.w)) {
-			// 	pageContentMainInputWrap.css("flex-basis", `${colinfo.w}%`)
-			// }
 
 			pageContentMainInputWrap.append(InputWrapTitle);
 			pageContentMainInputWrap.append(InputWrapContent);
