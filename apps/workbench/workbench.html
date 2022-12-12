@@ -61,7 +61,7 @@ me.dataDef["_pgm_data"]["pgm_func"]={
         "gridOptions":{"singleClickEdit":"false","statusBar":"false"},
         "func":[
             {"funcid":"addRow","func_nm":"줄추가","func_icon":"fas fa-plus"},
-            {"funcid":"delRow","func_nm":"줄삭제","func_icon":"fas fa-sync-alt"}
+            {"funcid":"delRow","func_nm":"줄삭제","func_icon":"fas fa-minus"}
         ]
     },
     "inout_tp":"INOUT",
@@ -133,7 +133,7 @@ me.dataDef["_pgm_data"]["pgm_data_content"]={
         "gridOpt": "rn",
         "gridOptions":{"statusBar":"false","singleClickEdit":"false"},
         "func":[
-            {"funcid":"setSrc","func_nm":"적용","func_icon":"fas fa-plus"},
+            {"funcid":"setSrc","func_nm":"적용","func_icon":"fas fa-check"},
             {"funcid":"addRow","func_nm":"줄추가","func_icon":"fas fa-plus"},
             {"funcid":"delRow","func_nm":"줄삭제","func_icon":"fas fa-minus"},
             {"funcid":"closeColList","func_nm":"","func_icon":"fas fa-times"},
@@ -602,33 +602,42 @@ me.dataDef["_pgm_data"]["pgm_src"]={
         if( !me.pageObj["pgm_data"].chkValid() ) return;
         if( !me.pageObj["pgm_src"].chkValid() ) return;
 
-        me.fnGetData();
-        var htmlCss = me.fnGetHTMLCSS();
-        var _script = me.fnMakeScript();/* 표준Script를 만든다. */
-        var script = me.fnGetScript(); /* 사용자Script를 가져오고 없으면 만든다. */
-        var _script2 = me.fnMakeScript2();/* 표준Script(Closing)를 만든다. */ 
-        var fullCode = "";
-        fullCode += htmlCss + CR;
-        fullCode += "<script>" + _script + CR;
-        fullCode += script + CR; 
-        fullCode += _script2 + CR + ("< /script>").replace(" ",""); 
-        me.fnMakeFullCode(fullCode); /* Full HTML을 만들어준다. */
-        me.fnGetJSP();
-        
-        var args = {};
-        args["pgm"]      = me.dataSet["pgm"];  
-        args["pgm_func"] = me.dataSet["pgm_func"];  
-        args["pgm_data"] = me.dataSet["pgm_data"];
-        args["pgm_src"]  = me.dataSet["pgm_src"];
-        console.log(args);
-        var invar = JSON.stringify(args);
-        gfnTx(appid+"."+pgmid,"saveSpec",{INVAR:invar},function(OUTVAR){
-            //console.log(OUTVAR);
-            if(OUTVAR.rtnCd=="OK") {
-                gfnAlert("저장성공","프로그램 스펙정보를 저장하였습니다.");
-                //me.fnSearch();
+        var title = "저장";
+        var content = "정말 저장하시겠습니까?"
+        gfnConfirm(title, content, function(confirm) {
+            console.log(`결과: ${confirm}`);
+            if(!confirm) {  // 저장 안함
+                return;
             } else {
-                gfnAlert("저장오류",OUTVAR.rtnMsg);
+                me.fnGetData();
+                var htmlCss = me.fnGetHTMLCSS();
+                var _script = me.fnMakeScript();/* 표준Script를 만든다. */
+                var script = me.fnGetScript(); /* 사용자Script를 가져오고 없으면 만든다. */
+                var _script2 = me.fnMakeScript2();/* 표준Script(Closing)를 만든다. */ 
+                var fullCode = "";
+                fullCode += htmlCss + CR;
+                fullCode += "<script>" + _script + CR;
+                fullCode += script + CR; 
+                fullCode += _script2 + CR + ("< /script>").replace(" ",""); 
+                me.fnMakeFullCode(fullCode); /* Full HTML을 만들어준다. */
+                me.fnGetJSP();
+                
+                var args = {};
+                args["pgm"]      = me.dataSet["pgm"];  
+                args["pgm_func"] = me.dataSet["pgm_func"];  
+                args["pgm_data"] = me.dataSet["pgm_data"];
+                args["pgm_src"]  = me.dataSet["pgm_src"];
+                console.log(args);
+                var invar = JSON.stringify(args);
+                gfnTx(appid+"."+pgmid,"saveSpec",{INVAR:invar},function(OUTVAR){
+                    //console.log(OUTVAR);
+                    if(OUTVAR.rtnCd=="OK") {
+                        gfnAlert("저장성공","프로그램 스펙정보를 저장하였습니다.");
+                        //me.fnSearch();
+                    } else {
+                        gfnAlert("저장오류",OUTVAR.rtnMsg);
+                    }
+                });
             }
         });
     }
