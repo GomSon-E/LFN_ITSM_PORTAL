@@ -303,7 +303,7 @@ me.dataDef["_pgm_data"]["pgm_src"]={
                     var distictRow = me.pageObj["pgm_data"].addRow();               // 고유Index
                     var curRow = me.pageObj["pgm_data"].getRowIndex(distictRow);    // 실제Index
                     var data = me.pageObj["pgm_data"].exportData()[curRow]; 
-                    workbenchForm(me.pageid, "pgm_data", me.dataDef["_pgm_data"]["pgm_data"], me.fnEH, me, data, distictRow); 
+                    workbenchForm(me.pageid, "pgm_data", me.dataDef["_pgm_data"]["pgm_data"], me.fnEH, me, data, distictRow);
                 } else if(row=="delRow") {
                     var delRow = me.pageObj["pgm_data"].selectedRow();
                     me.pageObj["pgm_data"].delRow(delRow);
@@ -423,7 +423,6 @@ me.dataDef["_pgm_data"]["pgm_src"]={
             var component_id = row.split("#")[0];
             var row = row.split("#")[1];
             if(evt=="change") {
-                console.log(component)
                 var result = {};
                 var text = "";
                 for(var item in component) {
@@ -1138,6 +1137,10 @@ if("${row.funcid}".equals(func)) {
     me.fnAuth = function() {
         gParam.pgminfo = me.pageObj.pgm.exportData()[0];
         gMDI.openPage("managePgmAccess","프로그램 사용권한 관리",undefined,"workbench");
+    }
+    // 배포
+    me.fnDeploy=function() {
+        console.log("Deploy 입장!");
     }
     /*-- SCRIPT autogen ---------------------------------------------------- */        
 if(typeof(me.fnInit)=='function') me.fnInit();
