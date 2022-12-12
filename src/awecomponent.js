@@ -711,6 +711,13 @@ function gfnFramepage( page ) {
 			}
 			else if (btnMe.attr("id") == "csr") { 
 				console.log('csr 기능');
+				var popid =  "csr"+gMDI.getNext();
+				var container = $("<div id='"+popid+"' class='framepage active'></div>");
+				me.page.append(container);	 
+				gParam = $.extend(true, gParam, {appid:page.appid, pgmid:page.pgmid, dataDef:page.dataDef});  
+				gfnLoad("aweportal","registerCSR",container,function(){ 
+					gfnPopup("시스템요청", container, {width: 600, height:700});
+				});
 			}
 			else if (btnMe.attr("id") == "close") {
 				console.log('close 기능');

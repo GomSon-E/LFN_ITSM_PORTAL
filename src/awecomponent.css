@@ -256,13 +256,20 @@ body {
 
 .pageFunc>.gButton {
 	background: none;
-	border: 1px solid lightgrey;
+	border: 2px solid #384a90;
 	border-radius: 20px;
 	padding: 0.5em 1em;
 	margin-left: 0.2em;
 	cursor: pointer;
+	font-size: 1em;
+    font-weight: 600;
+    color: #384a90;
 }
-
+.pageFunc>.gButton:hover {
+	background-color: #1e7ae1;
+	border: 2px solid #1e7ae1;
+	color: white;
+}
 .pageFunc>.gButtonPanel {
 	display: none;
 	position: absolute;
