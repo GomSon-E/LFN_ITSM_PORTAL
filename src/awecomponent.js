@@ -3525,6 +3525,7 @@ function gfnSetOpts(obj, refcd, option, val) {
 			btnYmd.on("click",function(e){ 
 				var refid = $(e.target).attr("refid");
 				$("#"+refid).datepicker("show"); 
+				$("#ui-datepicker-div").css('z-index', 10);
 			});
 			wrap.append(btnYmd);
 			return wrap; //obj을 둘러싼 wrap을 돌려준다. 
