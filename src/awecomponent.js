@@ -785,7 +785,7 @@ function gfnComponent( pageId, containerId, componentDef, afnEH, page ) {
 		me.container.html("");
 		me.componentTop = $(`<div class="componentTop"></div>`);
 		//ComponentTitle
-		me.componentTitle = $(`<div class="componentTitle">${me.componentDef.data_nm}</div>`);
+		me.componentTitle = $(`<div class="componentTitle"><i class="fas fa-chevron-circle-right"></i>&nbsp${me.componentDef.data_nm}</div>`);
 		// if(!isNull(me.componentDef.data_icon)) {
 		// 	me.componentTitle.append(`<i class="${me.componentDef.data_icon}"></i>`);
 		// } else {
