@@ -950,6 +950,7 @@ span.cell-deleted {
 	border: 1px solid gray;
 	border-radius: 5px;
 	overflow: hidden;
+	flex: 1 1 0;
 }
 .aweForm > div > .aweInputWrap > i{
 	margin-top: auto;
@@ -994,6 +995,7 @@ span.cell-deleted {
 /* Button */
 .aweForm > div.btn > .aweInputWrap {
 	border:none;
+	flex: none;
 }
 .aweForm > div.btn > .aweInputWrap > button{
 	padding: 0.5em;
@@ -1007,6 +1009,7 @@ span.cell-deleted {
 /* CheckBox */
 .aweForm > div.cbx > .aweInputWrap{
 	border: none;
+	flex: none;
 }
 .aweForm > div.cbx > .aweInputWrap > input[type=checkbox]{
 	display: none;
