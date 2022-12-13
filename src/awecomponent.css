@@ -587,17 +587,6 @@ body {
 }
 /* ============================ workbenchForm - End ============================ */
 
-
-/* ============================ Ag Gird - Start ============================ */
-.ag-cell > button[colid=content] {
-	background-color: rgb(30, 122, 225);
-	border: none;
-}
-.ag-cell > button[colid=content] > i{
-	color: white;
-}
-/* ============================Ag Gird - End ============================ */
-
 /*** agGrid ***************************************************************************************/
 .gridHeight {
 	height: calc(100% - 2em);
@@ -664,7 +653,6 @@ body {
 	height: 100% !important;
 	min-height: 22px !important;
 	padding: 0 0.5em;
-	background-color: transparent;
 	text-align: center;
 }
 
@@ -770,16 +758,6 @@ body {
 	margin-right: 0 !important;
 	margin-left: 0 !important;
 }
-
-/*
-.ag-group-value .aweCol {
-	width: unset;
-	height: unset !important;
-	padding-left: unset;
-	padding-right: unset;
-	background-color: transparent; 
-} 
-*/
 .ag-cell[col-id='ag-Grid-AutoColumn'] {
 	text-align: left;
 	margin: 0.1em;
@@ -934,7 +912,22 @@ span.cell-deleted {
 }
 
 /*** end of agGrid ********************************************************************************/
+/* ============================ Ag Gird - Start ============================ */
+.ag-cell > button {
+	border: none;
+    background: rgb(30, 122, 225);
+    color: white;
+    font-size: 0.8em;
+}
 
+.ag-cell > button[colid=content] {
+	background-color: rgb(30, 122, 225);
+	border: none;
+}
+.ag-cell > button[colid=content] > i{
+	color: white;
+}
+/* ============================Ag Gird - End ============================ */
 /*** aweForm *******************************************************************************/
 .aweForm{
 	display: flex;	
@@ -951,46 +944,138 @@ span.cell-deleted {
 .aweForm > div > .label{
     flex-basis: 100%;
 }
-.aweForm > div > input{
-	height: 2.5em;
-    border: 1px solid gray;
-    border-radius: 5px;
-    padding-left: 0.5em;
-	flex: 1 1 0;
+.aweForm > div > .aweInputWrap{
+    width: 100%; height: 2.5em;
+	display: flex; flex-direction: row;
+	border: 1px solid gray;
+	border-radius: 5px;
+	overflow: hidden;
 }
-.aweForm > div > input:focus{
+.aweForm > div > .aweInputWrap > i{
+	margin-top: auto;
+    margin-bottom: auto;
+    padding: 0em 0.5em 0em 0.5em;
+}
+
+/* Text, Password */
+.aweForm > div > .aweInputWrap > input{
+	flex: 1 1 0;
+	border: none;
+	padding-left: 0.5em;
+}
+.aweForm > div > .aweInputWrap > input:focus{
 	outline: none;
 }
-.aweForm > div > textarea{
-	border: 1px solid gray;
-    border-radius: 5px;
+/* TextArea */
+.aweForm > div.tarea > .aweInputWrap{
+    height: 5em;
+}
+.aweForm > div.tarea > .aweInputWrap > textarea{
+	width: 100%;
+    border: none;
     padding: 0.5em;
     resize: none;
-	flex: 1 1 0;
 }
-.aweForm > div > textarea:focus{
+.aweForm > div.tarea > .aweInputWrap > textarea:focus{
 	outline: none;
 }
 
 
-.aweForm > div > .aweColWrap{
+/* Select */
+.aweForm > div > .aweInputWrap > select{
+	width: 100%;
+	border: none;
+}
+.aweForm > div > .aweInputWrap > select:focus{
+	outline: none;
+}
+
+/* Button */
+.aweForm > div.btn > .aweInputWrap {
+	border:none;
+}
+.aweForm > div.btn > .aweInputWrap > button{
+	padding: 0.5em;
+    border: none;
+    border-radius: 5px;
+    background: rgb(30, 122, 225);
+    color: white;
+    box-shadow: 1px 1px 1px grey;
+}
+
+/* CheckBox */
+.aweForm > div.cbx > .aweInputWrap{
+	border: none;
+}
+.aweForm > div.cbx > .aweInputWrap > input[type=checkbox]{
+	display: none;
+}
+.aweForm > div.cbx > .aweInputWrap > input[type="checkbox"] + label {
+	display: block;
+	position: relative;
+	width: 3.3em;
+    height: 2em;
+	border: 2px solid gray;
+	border-radius: 1em;
+	background: #f3f3f3;
+	/* box-shadow: inset 0px 0px 3px 1px rgba(0, 0, 0, 0.3); */
+	cursor: pointer;
+	-webkit-transition: background 0.1s ease-in-out;
+	transition: background 0.1s ease-in-out;
+}
+.aweForm > div.cbx > .aweInputWrap > input[type="checkbox"] + label::before {
+	content: "";
+	display: block;
+	width: 1.2em;
+	height: 1.2em;
+	border-radius: 1em;
+	background: #50565a;
+	/* box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.2); */
+	position: absolute;
+	left: 0.2em;
+	top: 0.23em;
+	-webkit-transition: all 0.2s ease-in-out;
+	transition: all 0.2s ease-in-out;
+}
+.aweForm > div.cbx > .aweInputWrap > input[type="checkbox"]:checked + label {
+	background: #fff;
+	border: 2px solid rgb(30, 122, 225);
+}
+.aweForm > div.cbx > .aweInputWrap > input[type="checkbox"]:checked + label::before {
+	background: rgb(30, 122, 225);
+	/* box-shadow: -2px 0px 5px rgba(0, 0, 0, 0.2); */
+	left: 1.6em;
+}
+
+/* Date */
+.aweForm > div.date > .aweInputWrap > input {
+	padding-right: 1em;
+}
+
+/* 두개 이상 Input */
+.aweForm > div > .aweInputWrap > .aweColWrap{
+	display: flex; flex-direction: row;
 	width: 100%;
 }
-.aweForm > div > .aweColWrap > input{
-	padding: 0.4em;
-    border: 1px solid gray;
-    border-radius: 5px;
-
+.aweForm > div > .aweInputWrap > .aweColWrap > input{
 	width: 90%;
+	height: 100%;
+	border: none;
 }
-.aweForm > div > .aweColWrap > input:focus{
+.aweForm > div > .aweInputWrap > .aweColWrap > input:focus{
 	outline: none;
 }
-.aweForm > div > .aweColWrap > button{
-	border: none;
-    margin-left: 0.5em;
+.aweForm > div > .aweInputWrap > .aweColWrap > button{
+	width: 3em;
+	background-color: transparent;
+    border: none;
+    border-radius: 10px;
+}
+.aweForm > div > .aweInputWrap > .aweColWrap > button:hover{
+	background-color: rgba(30, 122, 225, 0.5);
 }
 
+/* FieldSet */
 .aweForm > fieldset{
 	flex: 1 1 0;
 	border: 1px solid gray;
@@ -1020,7 +1105,6 @@ span.cell-deleted {
 	overflow: hidden; 
 	background-color: white;
 	border-radius: 5px;
-	border: 1px solid gray;
 }
 .mobile .aweForm .select2-container {
 width: 100% !important;

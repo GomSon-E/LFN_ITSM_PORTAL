@@ -130,7 +130,7 @@ me.dataDef["_pgm_data"]["pgm_data_content"]={
     "data_icon":null,
     "component_pgmid":"agGrid",
     "component_option":{
-        "gridOpt": "rn",
+        "gridOpt": "rn chk",
         "gridOptions":{"statusBar":"false","singleClickEdit":"false"},
         "func":[
             {"funcid":"setSrc","func_nm":"적용","func_icon":"fas fa-check"},
@@ -449,8 +449,11 @@ me.dataDef["_pgm_data"]["pgm_src"]={
                     // var data = me.pageObj["pgm_func"].exportData()[curRow]; 
                 } 
                 else if(row=="delRow") {
-                    var delRow = me.pageObj["pgm_data_content"].selectedRow();
-                    me.pageObj["pgm_data_content"].delRow(delRow);
+                    // 구
+                    // var delRow = me.pageObj["pgm_data_content"].selectedRow();
+                    // 현
+                    me.pageObj["pgm_data_content"].delSelectedRow();
+                    
                 }
                 else if(row=="setSrc") {
                     console.log("적용버튼 클릭");
@@ -605,7 +608,6 @@ me.dataDef["_pgm_data"]["pgm_src"]={
         var title = "저장";
         var content = "정말 저장하시겠습니까?"
         gfnConfirm(title, content, function(confirm) {
-            console.log(`결과: ${confirm}`);
             if(!confirm) {  // 저장 안함
                 return;
             } else {
@@ -627,7 +629,6 @@ me.dataDef["_pgm_data"]["pgm_src"]={
                 args["pgm_func"] = me.dataSet["pgm_func"];  
                 args["pgm_data"] = me.dataSet["pgm_data"];
                 args["pgm_src"]  = me.dataSet["pgm_src"];
-                console.log(args);
                 var invar = JSON.stringify(args);
                 gfnTx(appid+"."+pgmid,"saveSpec",{INVAR:invar},function(OUTVAR){
                     //console.log(OUTVAR);
@@ -1074,7 +1075,6 @@ if("${row.funcid}".equals(func)) {
     }
     /* 입력된 정보로 html소스를 화면에 뿌린다. */
     me.fnPreview=function() {
-        console.log("fnPreview 호출!");
         me.fnGetData();
         var htmlCss = me.fnGetHTMLCSS();
         var _script = me.fnMakeScript();/* 표준Script를 만든다. */
@@ -1106,7 +1106,6 @@ if("${row.funcid}".equals(func)) {
         gMDI.tabContainer.append(oTab); 
         gMDI.pageContainer.append(oPage); //addPage
         
-        // console.log(fullCode);
         me.fnMakeFullCode(fullCode); /* Full fullCode을 만들어준다. */
         me.fnGetJSP(); /* JSP 템플릿도 만들어서 추가해준다. */ 
         setTimeout(function() {

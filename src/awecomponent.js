@@ -872,13 +872,14 @@ function gfnComponent( pageId, containerId, componentDef, afnEH, page ) {
 			var grpcontainer = me.componentBody;
 			var curSection = "_init";
 			var curColgrp = "_init";
+			
 			for(var i =0; i < me.colinfo.length; i++) {
 				var colinfo = me.colinfo[i];
-
+				
 				//section이 없거나 바뀌었으면...
 				if(isNull(nvl(colinfo.section,""))) container = me.componentBody;
 				else if (colinfo.section!=curSection) {
-                    curSection = colinfo.section;
+					curSection = colinfo.section;
 					container = $(`<fieldset section="${curSection}"></fieldset>`).appendTo(me.componentBody);
 					var sLegend = $(`<legend></legend>`);
 					if(!isNull(colinfo.section_icon)) sLegend.append(`<i class="${colinfo.section_icon}"></i>`);
@@ -886,15 +887,27 @@ function gfnComponent( pageId, containerId, componentDef, afnEH, page ) {
 					container.append( sLegend );
 				} 
 				//colgrp이 바뀌었으면...라벨을 달아줘야함
+				var aweInputWrap = $(`<div class="aweInputWrap"></div>`)
 				if(isNull(nvl(colinfo.colgrp,""))) {
-					grpcontainer = $(`<div colgrp="${colinfo.colnm}"></div>`).appendTo(container);
+					grpcontainer = $(`<div colgrp="${colinfo.colnm}" class="${colinfo.etype}"></div>`).appendTo(container);
 					grpcontainer.append(`<div class="label">${colinfo.colnm}</div>`);
+					grpcontainer.append(aweInputWrap);
+
 				} else if (colinfo.colgrp!=curColgrp) {
                     curColgrp = colinfo.colgrp;
-					grpcontainer = $(`<div colgrp="${curColgrp}"></div>`).appendTo(container);
+					grpcontainer = $(`<div colgrp="${curColgrp}" class="${colinfo.etype}"></div>`).appendTo(container);
 					grpcontainer.append(`<div class="label">${curColgrp}</div>`);
+					grpcontainer.append(aweInputWrap);
 				} 
                 grpcontainer.addClass(colinfo.attr);
+
+				// 아이콘이 있으면 달아준다.
+				if(!isNull(colinfo.section_icon)) {
+					var icon = $(`<i class="${colinfo.section_icon}"></i>`);
+					aweInputWrap.append(icon);
+				}
+
+
 				/*************************************************************************/
 				/* 컬럼: 컨트롤&eventHandler Callback *************************************/
 				/*************************************************************************/
@@ -905,7 +918,8 @@ function gfnComponent( pageId, containerId, componentDef, afnEH, page ) {
 					//이벤트를 바인딩해준다. 
 					afnEH(me, evt, 0, colid, newval );
 				},me); //,me : 컴포넌트 자신도 던져줘서 이벤트시 컬럼상호작용시 참조토록 함
-				grpcontainer.append( me.col[colinfo.colid].dispObj ); //컬럼추가
+				// grpcontainer.append( me.col[colinfo.colid].dispObj ); //컬럼추가
+				aweInputWrap.append( me.col[colinfo.colid].dispObj ); //컬럼추가
 				
 				/* 컬럼의 폭을 지정해줌 (w) */
 				grpcontainer.css("flex-basis", `${nvl(colinfo.w, 100)}%`)
@@ -1591,6 +1605,11 @@ function gfnComponent( pageId, containerId, componentDef, afnEH, page ) {
 					}
 				}
 				me.redraw();
+			} 
+			me.delSelectedRow = function(){
+				var rowData = me.grid.gridOptions.api.getSelectedRows();
+				var result = me.grid.gridOptions.api.updateRowData({remove:rowData});
+				return result;
 			}
 			me.setCRUD = function(nodeid,crudFlag) {
 				if(isNull(me.gridOptions.api.getRowNode(nodeid))) return;
@@ -3030,18 +3049,20 @@ function gfnControl(colinfo, afnEH, oComponent, rowid, val, rowPinned, agHack) {
 				obj =  $(`<select></select>`);
 			} 
 		} else if(me.etype=="cbx") {
-			obj =  $(`<input type="checkbox"/>`);
+			obj =  $(`<input type="checkbox" id="cbx_${me.colinfo.colid}"/><label for="cbx_${me.colinfo.colid}"></label>`);
 		} else if(me.etype=="tarea") {
 			obj =  $(`<textarea placeholder="${me.remark}"></textarea>`); 
 		} else if(me.etype=="img") {
-			// obj =  $(`<img></img>`); 
+			obj =  $(`<img></img>`); 
 		} else if(me.etype=="link") {
-			// obj =  $(`<a target="_blank"></a>`); 
+			obj =  $(`<a target="_blank"></a>`); 
 		} else if(me.etype=="btn") { 
 			obj =  $(`<button></button>`); 
 			// obj.addClass("ui-button");
+		} else if(me.etype=="date") {
+			obj =  $(`<input type="date"/>`); 
 		} else if(me.etype=="none") {
-			// obj.addClass("hidden");
+			obj.addClass("hidden");
 		}
 		if(!isNull(me.oOption)) {
 			Object.keys(me.oOption).forEach(key=>{
@@ -5817,7 +5838,6 @@ function workbenchForm(pageid, component_id, dataDef, afnEH, me, rowData, distin
 					console.log(value);
 					me.pageObj[component_id].setVal(distinctRow, "component_option", value);
 				});
-				console.log(rowData['component_option']);
 
 				// 기존 데이터 Set
 				me.pageContentMain[component_id]["comOptEditor"][distinctRow].setValue(nvl(rowData['component_option'], ""))
