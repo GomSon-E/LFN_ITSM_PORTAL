@@ -49,8 +49,8 @@
 
 .framepage.active>*.pageContent {
 	flex: 1 1 auto;
-	/* overflow-y: hidden; */
-	background-color: hsla(0 0% 90% / .1);
+	/* overflow-y: hidden;
+	background-color: hsla(0 0% 90% / .1); */
 }
 
 .framepage.active>*:last-child {
@@ -291,6 +291,12 @@ body {
 
 .pageFunc>.gButtonPanel>li:hover {
 	background-color: #a0d2e9;
+}
+
+.pageCond.componentContainer > .componentBody {
+	background-origin: content-box;
+	background-color: #f5f6f7;
+	border: 1px solid #BDC3C7;
 }
 /* ===================================================================================================== */
 /* ============================================ 김희주 제작 ============================================ */
