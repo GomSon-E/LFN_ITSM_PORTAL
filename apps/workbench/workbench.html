@@ -271,11 +271,13 @@ me.dataDef["_pgm_data"]["pgm_src"]={
                     var curRow = me.pageObj["pgm_func"].getRowIndex(distictRow);    // 실제Index
                     var data = me.pageObj["pgm_func"].exportData()[curRow]; 
                     workbenchForm(me.pageid, "pgm_func", me.dataDef["_pgm_data"]["pgm_func"], me.fnEH, me, data, distictRow);
+                    me.getSortSeq("pgm_func");
                 } 
                 else if(row=="delRow") {
-                    var delRow = me.pageObj["pgm_func"].selectedRow();
-                    me.pageObj["pgm_func"].delRow(delRow);
+                    // var delRow = me.pageObj["pgm_data_content"].selectedRow();   // 구
+                    me.pageObj["pgm_func"].delSelectedRow();                // 현
                     $(`.funcInfo${delRow}`).remove();
+                    me.getSortSeq("pgm_func");
                 }
             } 
             else if (evt=="click" && col=="content") {
@@ -304,10 +306,12 @@ me.dataDef["_pgm_data"]["pgm_src"]={
                     var curRow = me.pageObj["pgm_data"].getRowIndex(distictRow);    // 실제Index
                     var data = me.pageObj["pgm_data"].exportData()[curRow]; 
                     workbenchForm(me.pageid, "pgm_data", me.dataDef["_pgm_data"]["pgm_data"], me.fnEH, me, data, distictRow);
+                    me.getSortSeq("pgm_data");
                 } else if(row=="delRow") {
-                    var delRow = me.pageObj["pgm_data"].selectedRow();
-                    me.pageObj["pgm_data"].delRow(delRow);
+                    // var delRow = me.pageObj["pgm_data_content"].selectedRow();   // 구
+                    me.pageObj["pgm_data"].delSelectedRow();                        // 현
                     $(`.dataInfo${delRow}`).remove();
+                    me.getSortSeq("pgm_data");
                 }
             } 
             else if (evt=="click" && col=="content") {
@@ -449,10 +453,8 @@ me.dataDef["_pgm_data"]["pgm_src"]={
                     // var data = me.pageObj["pgm_func"].exportData()[curRow]; 
                 } 
                 else if(row=="delRow") {
-                    // 구
-                    // var delRow = me.pageObj["pgm_data_content"].selectedRow();
-                    // 현
-                    me.pageObj["pgm_data_content"].delSelectedRow();
+                    // var delRow = me.pageObj["pgm_data_content"].selectedRow();   // 구
+                    me.pageObj["pgm_data_content"].delSelectedRow();                // 현
                     
                 }
                 else if(row=="setSrc") {
@@ -1149,6 +1151,19 @@ if("${row.funcid}".equals(func)) {
     // 배포
     me.fnDeploy=function() {
         console.log("Deploy 입장!");
+        var a = me.pageObj["pgm_func"].getNodeId(1);
+        var b = me.pageObj["pgm_func"].getRowIndex(1);
+        
+        console.log(`${a} // ${b}`)
+    }
+    // Sort_seq 자동생성
+    me.getSortSeq = function(component_id) {
+        if(isNull(component_id)) return;
+        var totalRow = me.pageObj[component_id].exportData().length;   
+        for(var i=0; i<totalRow; i++) {
+            var rowNum = me.pageObj[component_id].getNodeId(i);  
+            me.pageObj[component_id].setVal(rowNum, "sort_seq", i+1); 
+        }
     }
     /*-- SCRIPT autogen ---------------------------------------------------- */        
 if(typeof(me.fnInit)=='function') me.fnInit();

@@ -891,13 +891,11 @@ function gfnComponent( pageId, containerId, componentDef, afnEH, page ) {
 				if(isNull(nvl(colinfo.colgrp,""))) {
 					grpcontainer = $(`<div colgrp="${colinfo.colnm}" class="${colinfo.etype}"></div>`).appendTo(container);
 					grpcontainer.append(`<div class="label">${colinfo.colnm}</div>`);
-					grpcontainer.append(aweInputWrap);
 
 				} else if (colinfo.colgrp!=curColgrp) {
                     curColgrp = colinfo.colgrp;
 					grpcontainer = $(`<div colgrp="${curColgrp}" class="${colinfo.etype}"></div>`).appendTo(container);
 					grpcontainer.append(`<div class="label">${curColgrp}</div>`);
-					grpcontainer.append(aweInputWrap);
 				} 
                 grpcontainer.addClass(colinfo.attr);
 
@@ -920,6 +918,7 @@ function gfnComponent( pageId, containerId, componentDef, afnEH, page ) {
 				},me); //,me : 컴포넌트 자신도 던져줘서 이벤트시 컬럼상호작용시 참조토록 함
 				// grpcontainer.append( me.col[colinfo.colid].dispObj ); //컬럼추가
 				aweInputWrap.append( me.col[colinfo.colid].dispObj ); //컬럼추가
+				grpcontainer.append(aweInputWrap);
 				
 				/* 컬럼의 폭을 지정해줌 (w) */
 				grpcontainer.css("flex-basis", `${nvl(colinfo.w, 100)}%`)
