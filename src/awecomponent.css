@@ -1125,6 +1125,11 @@ span.cell-deleted {
 	outline: none;
 }
 
+/* 옵션 이벤트 */
+.aweForm > div > .aweInputWrap > input.readonly{
+	background-color: rgba(0, 0, 0, 0.1);
+}
+
 /*** end of aweForm *******************************************************************************/	
 
 /*** select2 Hack *********************************************************************************/
