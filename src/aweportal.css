@@ -565,7 +565,7 @@ button {
 	padding-top: 13px;
 	background-color: #d7e8fc;
 
-	overflow-x: overlay;
+	/* overflow-x: overlay; */
 	-webkit-overflow-scrolling: touch;
 }
 
