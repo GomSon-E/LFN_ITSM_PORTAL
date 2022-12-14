@@ -947,10 +947,15 @@ span.cell-deleted {
 	align-content: flex-start;
 	margin-bottom: 0.5em;
 }
+.aweForm > div.btn{
+    padding: 0;
+}
+
 .aweForm > div > .label{
     flex-basis: 100%;
 }
 .aweForm > div > .aweInputWrap{
+	background-color: white;
     width: 100%; height: 2.5em;
 	display: flex; flex-direction: row;
 	border: 1px solid gray;
@@ -1004,6 +1009,7 @@ span.cell-deleted {
 	flex: none;
 }
 .aweForm > div.btn > .aweInputWrap > button{
+	margin-left: auto; margin-right: auto;
 	padding: 0.5em;
     border: none;
     border-radius: 5px;
@@ -1013,9 +1019,15 @@ span.cell-deleted {
 }
 
 /* CheckBox */
+.aweForm > div.cbx > .label{
+	text-align: center;
+}
 .aweForm > div.cbx > .aweInputWrap{
 	border: none;
 	flex: none;
+}
+.aweForm > div.cbx > .aweInputWrap > label{
+	margin-left: auto; margin-right: auto;
 }
 .aweForm > div.cbx > .aweInputWrap > input[type=checkbox]{
 	display: none;
@@ -1058,6 +1070,12 @@ span.cell-deleted {
 }
 
 /* Date */
+.periodMark{
+	padding-left: 0.5em;
+    padding-right: 0.5em;
+    margin-top: auto;
+    margin-bottom: auto;
+}
 .aweForm > div.date > .aweInputWrap > input {
 	padding-right: 1em;
 }
@@ -1066,9 +1084,10 @@ span.cell-deleted {
 .aweForm > div > .aweInputWrap > .aweColWrap{
 	display: flex; flex-direction: row;
 	width: 100%;
+	background-color: white;
 }
 .aweForm > div > .aweInputWrap > .aweColWrap > input{
-	width: 90%;
+	flex-basis: 90%;
 	height: 100%;
 	border: none;
 }
@@ -1076,7 +1095,7 @@ span.cell-deleted {
 	outline: none;
 }
 .aweForm > div > .aweInputWrap > .aweColWrap > button{
-	width: 3em;
+	flex-basis: 10%;
 	background-color: transparent;
     border: none;
     border-radius: 10px;
