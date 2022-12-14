@@ -916,10 +916,16 @@ function gfnComponent( pageId, containerId, componentDef, afnEH, page ) {
 					//이벤트를 바인딩해준다. 
 					afnEH(me, evt, 0, colid, newval );
 				},me); //,me : 컴포넌트 자신도 던져줘서 이벤트시 컬럼상호작용시 참조토록 함
-				// grpcontainer.append( me.col[colinfo.colid].dispObj ); //컬럼추가
 				aweInputWrap.append( me.col[colinfo.colid].dispObj ); //컬럼추가
 				grpcontainer.append(aweInputWrap);
-				
+
+				/* option으로 기간(~)을 붙여준다. */
+				if(!isNull(colinfo.option) && (colinfo.option == "periodMark")) {
+					console.log("물결을 붙입니다.");
+					grpcontainer.append(`<span class="periodMark">~</span>`);
+				}
+
+
 				/* 컬럼의 폭을 지정해줌 (w) */
 				grpcontainer.css("flex-basis", `${nvl(colinfo.w, 100)}%`)
 
