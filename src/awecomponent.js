@@ -669,11 +669,6 @@ function gfnFramepage( page ) {
         var pageNav = $(`#${page.pageid} > .pageNav`); 
         if(pageNav.length <= 0) return; 
 
-        // 북마크기능 고쳐야함
-		var userMenuInfo = subset(gds.menu,"pgmid",page.dataDef._pgm.pgmid)[0];
-        var fav = "";
-        if( userMenuInfo!=undefined && userMenuInfo.fav_yn =="Y" ) fav ="fav";
-
         pageNav.html(`<div class="navTree">
             <span colid="app_pgmid">${page.dataDef._pgm.app_pgm_nm}</span>&nbsp>&nbsp   
             <span colid="pgm_grp_nm">${page.dataDef._pgm.pgm_grp_nm}</span>&nbsp>&nbsp
@@ -681,7 +676,6 @@ function gfnFramepage( page ) {
             </div>`);
 
         pageNav.append(`<div class="commonFunc">
-            <button class="icon" id="bookmark"><i class="far fa-bookmark"></i></button>
             <button class="icon" id="help"><i class="fas fa-question"></i></button>
             <button class="icon" id="csr"><i class="fas fa-desktop"></i></button>
             <button class="icon" id="close"><i class="fas fa-times"></i></button>
@@ -695,14 +689,13 @@ function gfnFramepage( page ) {
             var oE = $(e.target);
 			// MDI framepage의 공통버튼 클릭시 이벤트 처리 
 			var btnMe = oE.exactObj("button.icon");
-			if(btnMe.attr("id") == "bookmark") {
-				console.log('bookmark 기능');
-			}
-			else if(btnMe.attr("id") == "help") {
+			// if(btnMe.attr("id") == "bookmark") {
+			// 	console.log('bookmark 기능');
+			// }
+			if(btnMe.attr("id") == "help") {
 				console.log('help 기능');
-				// var popid = "help" + gMDI.getNext(); // gMDI..가 뭐죠
-				// var container = $("<div id='"+popid+"' class='framepage active'></div>");
-				var container = $("<div id='popid' class='framepage active'></div>");
+				var popid = "help" + gMDI.getNext();
+				var container = $("<div id='"+popid+"' class='framepage active'></div>");
 				me.page.append(container);
 				gParam = $.extend(true, gParam, { appid:page.appid, pgmid:page.pgmid, dataDef:page.dataDef });
 				gfnLoad("aweportal","manageHelp",container,function(){ 
