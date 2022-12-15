@@ -1529,7 +1529,8 @@
   .ag-theme-balham .ag-header-group-cell-label {
     height: 100%; }
     .ag-theme-balham .ag-header-group-cell-label span {
-      float: left;
+      float: left; 
+      margin-left: auto; margin-right: auto;
       height: 100%; }
   .ag-theme-balham .ag-header-select-all {
     height: 100%;
