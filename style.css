@@ -150,6 +150,10 @@ body {
     position: absolute; top: 0; left: 0;
 }
 
+.link > img:nth-child(3) {
+    position: absolute; top: 0; left: 0;
+}
+
 
 
 /*상단 메뉴 */
