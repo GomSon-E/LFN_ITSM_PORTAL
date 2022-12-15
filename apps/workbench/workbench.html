@@ -1176,8 +1176,53 @@ if("${row.funcid}".equals(func)) {
         var a = me.pageObj["pgm_func"].getNodeId(1);
         var b = me.pageObj["pgm_func"].getRowIndex(1);
         
-        console.log(`${a} // ${b}`)
+        console.log(`${a} // ${b}`);
+
+        
     }
+    // 소스코드 배포
+    me.fnDeploy2 = function() {
+        me.fnGetData();
+        var htmlCss = me.fnGetHTMLCSS();
+        var _script = me.fnMakeScript();
+        var script = me.fnGetScript(); 
+        var _script2 = me.fnMakeScript2(); 
+        var fullCode = "";
+        fullCode += htmlCss + CR;
+        fullCode += "<script>" + _script + CR;
+        fullCode += script + CR; 
+        fullCode += _script2 + CR + ("< /script>").replace(" ",""); 
+        me.fnMakeFullCode(fullCode);
+        me.fnGetJSP();
+        
+        var html = subset(me.dataSet["pgm_src"], "srcid", "HTML");
+        var jsp = subset(me.dataSet["pgm_src"], "srcid", "jsp");
+
+        if(html.length == 0 ) {
+            gfnAlert("배포소스오류", "HTML생성되지 않음");
+            return;
+        }
+        if(jsp.length == 0 ) {
+            gfnAlert("배포소스오류", "JSP생성되지 않음");
+            return;
+        }
+        var pgm_info = me.dataSet["pgm"][0]; 
+        gfnConfirm("소스코드 배포확인",`apps//${pgm_info.app_pgmid}//${pgm_info.pgmid}.html,.jsp를 생성합니다(덮어씁니다).`,function(rtn){
+            if(rtn) {
+                var html = subset(me.dataSet["pgm_src"],"srcid","HTML")[0].content;
+                var jsp = subset(me.dataSet["pgm_src"],"srcid","jsp")[0].content;
+                var args = { appid:pgm_info.app_pgmid, pgmid:pgm_info.pgmid, ver:pgm_info.ver, html:html, jsp:jsp };
+                var invar = JSON.stringify(args);
+                gfnTx(appid+"."+pgmid,"deploy", {INVAR:invar}, function(OUTVAR){
+                    if(OUTVAR.rtnCd=="OK") {
+                        gfnAlert("배포성공","WEB/WAS경로에 배포되었습니다.");
+                    } else {
+                        gfnAlert("배포오류",OUTVAR.rtnMsg);
+                    }
+                })
+            }
+        })
+    } 
     // Sort_seq 자동생성
     me.getSortSeq = function(component_id) {
         if(isNull(component_id)) return;

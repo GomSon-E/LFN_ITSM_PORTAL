@@ -115,103 +115,7 @@ body {
     /* font-family: 'Gothic A1', sans-serif; */
 }
 
-
-
-/*로고사이드 애니메이션*/
-.link {
-    width: 200px;
-    height: 200px;
-    display: inline-block;
-    font: 300 1.55rem/1.4 "Josefin Sans";
-    text-transform: uppercase;
-    letter-spacing: 0.1175em;
-    word-spacing: 0.3em;
-}
-
-.link__svg {
-    width: 100%;
-    height: auto;
-    transform-box: fill-box;
-    fill: white;
-    stroke: white;
-    stroke-width: 0.05em;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-}
-
-.link__cloud {
-    transform-origin: 50% 50%;
-    -webkit-animation: rotate normal infinite 60s linear;
-    animation: rotate normal infinite 60s linear;
-    fill: rgba(255, 255, 255, 0.15);
-}
-
-.link__face,
-.link__arrow {
-    transform-origin: 50% 50%;
-    transition: transform 0.15s cubic-bezier(0.32, 0, 0.67, 0);
-}
-
-.link:hover .link__face,
-.link:hover .link__arrow {
-    transform: scale(1.1);
-    transition: transform 0.3s cubic-bezier(0.33, 1, 0.68, 1);
-}
-
-.link__arrow {
-    stroke-width: 0.075em;
-}
-
-.link__text {
-    -webkit-animation: rotateReverse normal infinite 20s linear;
-    animation: rotateReverse normal infinite 20s linear;
-    transform-origin: 50% 50%;
-}
-
-
-.link__face {
-    -webkit-animation: rotate normal infinite 20s linear;
-    animation: rotate normal infinite 20s linear;
-    transform-origin: 50% 50%;
-}
-
-.link:hover .link__text {
-    -webkit-animation-play-state: paused;
-    animation-play-state: paused;
-}
-
-.link--alt {
-    font-size: 1.15rem;
-    letter-spacing: 0;
-    word-spacing: 0;
-}
-
-@-webkit-keyframes rotate {
-    to {
-        transform: rotate(360deg);
-    }
-}
-
-@keyframes rotate {
-    to {
-        transform: rotate(360deg);
-    }
-}
-
-@-webkit-keyframes rotateReverse {
-    to {
-        transform: rotate(-360deg);
-    }
-}
-
-@keyframes rotateReverse {
-    to {
-        transform: rotate(-360deg);
-    }
-}
-
-
-/*로고사이드 애니메이션 끝*/
+/* 애니메이션 */
 
 @keyframes blink-effect {
     50% {
@@ -222,6 +126,31 @@ body {
 .fa-comment-dots {
     animation: blink-effect 1s step-end infinite;
 }
+
+@keyframes rotate_image{
+	100% {
+    	transform: rotate(360deg);
+    }
+}
+
+.link > img:nth-child(1) {
+    animation: rotate_image 30s linear infinite;
+    transform-origin: 50% 50%;
+}
+
+@keyframes rotate_reverse_image{
+	100% {
+    	transform: rotate(-360deg);
+    }
+}
+
+.link > img:nth-child(2) {
+    animation: rotate_reverse_image 30s linear infinite;
+    transform-origin: 50% 50%;
+    position: absolute; top: 0; left: 0;
+}
+
+
 
 /*상단 메뉴 */
 @media(min-width:768px) {
@@ -234,38 +163,26 @@ body {
      
     }
 
-
-    .mainLogo {
-        text-decoration: none;
-        color: navy;
-        font-weight: bold;
+    nav.menu {
+        display: flex; 
+        justify-content: space-between;
+        width: 100%;
     }
 
-    .mainLogo p {
-        font-size: 30px;
-        display: inline;
-        margin-top: 20px;
-
+    .logo {
+        display: flex; 
+        align-items: center;
+        height: 80px;
     }
 
-    #menuIcon {
-        font-size: 20px;
-        cursor: pointer;
-        margin: 21px 10px 0 10px;
-        color: #ffffff;
-
-        background-color: #2b4cbc;
-        border-radius: 50%;
-        padding: 10px 12px;
-        transition: all 0.3s;
-
+    .logo > img {
+        margin-right: 10px
     }
-
 
 
     .gnb {
         overflow: hidden;
-        background-image: linear-gradient(to right, #58aafc, #2b4cbc);
+        background-image: linear-gradient(to left, #58aafc, #12329b);
         height: 80px;
         transition: margin-left .5s;
 
@@ -273,7 +190,7 @@ body {
 
     .menu {
         overflow: hidden;
-        background-image: linear-gradient(to right, #58aafc, #2b4cbc);
+        background-image: linear-gradient(to left, #58aafc, #12329b);
         height: 80px;
         width: 100%;
 
@@ -525,35 +442,6 @@ body {
         width: 100%;
 
     }
-
-    .mainLogo {
-        float: none;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        font-size: 30px;
-        color: navy;
-        text-decoration: none;
-        font-weight: bold;
-    }
-
-    #menuIcon {
-        font-size: 20px;
-        cursor: pointer;
-        margin: 21px 10px 0 10px;
-        color: #ffffff;
-
-        background-color: #2b4cbc;
-        border-radius: 50%;
-        padding: 10px 12px;
-        transition: all 0.3s;
-
-    }
-
-
-
-
 
     .menu button {
         float: left;
