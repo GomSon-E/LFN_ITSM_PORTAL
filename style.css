@@ -443,35 +443,6 @@ body {
 
     }
 
-    .mainLogo {
-        float: none;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        font-size: 30px;
-        color: navy;
-        text-decoration: none;
-        font-weight: bold;
-    }
-
-    #menuIcon {
-        font-size: 20px;
-        cursor: pointer;
-        margin: 21px 10px 0 10px;
-        color: #ffffff;
-
-        background-color: #2b4cbc;
-        border-radius: 50%;
-        padding: 10px 12px;
-        transition: all 0.3s;
-
-    }
-
-
-
-
-
     .menu button {
         float: left;
         color: black;
