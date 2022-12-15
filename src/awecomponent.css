@@ -1072,12 +1072,12 @@ span.cell-deleted {
 /* Date */
 .periodMark{
 	padding-left: 0.5em;
-    padding-right: 0.5em;
-    margin-top: auto;
-    margin-bottom: auto;
+	padding-right: 0.5em;
+	margin-top: auto;
+	margin-bottom: auto;
 }
 .aweForm > div.date > .aweInputWrap > input {
-	padding-right: 1em;
+	font-size: 1em;
 }
 
 /* 두개 이상 Input */
@@ -1124,8 +1124,11 @@ span.cell-deleted {
 	height: 100%;
 	padding-left: 0.5em;
 }
+.aweForm > fieldset > div > .aweInputWrap > input[type=date]{
+	font-size: 1em;
+}
 .aweForm > fieldset > div > .aweInputWrap > input[type=month]{
-	padding-right: 0.5em;
+	font-size: 1em;
 }
 .aweForm > fieldset > div > .aweInputWrap > input:focus{
 	outline: none;
