@@ -3059,6 +3059,8 @@ function gfnControl(colinfo, afnEH, oComponent, rowid, val, rowPinned, agHack) {
 			// obj.addClass("ui-button");
 		} else if(me.etype=="date") {
 			obj =  $(`<input type="date"/>`); 
+		} else if(me.etype=="month") {
+			obj =  $(`<input type="month"/>`); 
 		} else if(me.etype=="none") {
 			obj.addClass("hidden");
 		}
@@ -3345,7 +3347,9 @@ function gfnControl(colinfo, afnEH, oComponent, rowid, val, rowPinned, agHack) {
 			me.obj.includeObj(".aweCol").data("val",val);
 		} else if(me.etype=="date") {
 			me.obj.includeObj(".aweCol").val(me.setter(val));
-		}
+		} else if(me.etype=="month") {
+			me.obj.includeObj(".aweCol").val(me.setter(val));
+		} 
 		if(rowid != undefined && !bIinitialSkip) { //agGrid일 경우 컨트롤이 변경된 경우 값을 agGrid쪽으로 값을 Sync해줘야함 
 			if(oComponent.componentDef!=undefined && 
 			   oComponent.componentDef.component_pgmid=="agGrid" &&
@@ -3380,6 +3384,10 @@ function gfnControl(colinfo, afnEH, oComponent, rowid, val, rowPinned, agHack) {
 			rtn = me.obj.includeObj(".aweCol").attr("href");
 		} else if(me.etype=="btn") {
 			rtn = me.obj.includeObj(".aweCol").data("val"); 
+		} else if(me.etype=="date") {
+			rtn = me.obj.includeObj(".aweCol").val();
+		} else if(me.etype=="month") {
+			rtn = me.obj.includeObj(".aweCol").val();
 		} 
 		if($.type(rtn)=="string") {
 			if(inStr(me.attr, "upper")>=0) rtn = upper(rtn);

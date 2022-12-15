@@ -1117,11 +1117,24 @@ span.cell-deleted {
 .aweForm > fieldset > div{
 	padding-right: 0.5em;
 }
-.aweForm > fieldset > div > input{
-	width: 100%;
-	padding: 0.5em;
+.aweForm > fieldset > div > .aweInputWrap{
+	height: 2.5em;
 }
-.aweForm > fieldset > div > input:focus{
+.aweForm > fieldset > div > .aweInputWrap > input{
+	height: 100%;
+	padding-left: 0.5em;
+}
+.aweForm > fieldset > div > .aweInputWrap > input[type=month]{
+	padding-right: 0.5em;
+}
+.aweForm > fieldset > div > .aweInputWrap > input:focus{
+	outline: none;
+}
+.aweForm > fieldset > div > .aweInputWrap > select{
+	height: 100%;
+	padding-left: 0.5em;
+}
+.aweForm > fieldset > div > .aweInputWrap > select:focus{
 	outline: none;
 }
 
