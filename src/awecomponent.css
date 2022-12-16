@@ -1145,6 +1145,15 @@ span.cell-deleted {
 .aweForm > div > .aweInputWrap > input.readonly{
 	background-color: rgba(0, 0, 0, 0.1);
 }
+/* 옵션 이벤트 */
+.aweForm > div.tarea > .aweInputWrap > textarea.readonly {
+	background-color: rgba(0, 0, 0, 0.1);
+}
+.aweForm > div > .aweInputWrap > select.readonly {
+	background-color: rgba(0, 0, 0, 0.1);
+}
+
+
 
 /*** end of aweForm *******************************************************************************/	
 
