@@ -278,7 +278,7 @@ function gfnAlert(title, content, afnCallback) {
 
 		// alert layer 띄우기
 		$("#alert").css("z-index", 20);
-		$("#alert").css("background-color", "background-color: rgba(0, 0, 0, 0.5);")
+		$("#alert").css("background-color", "rgba(0, 0, 0, 0.5)")
 	}
 	else {
 		$("#progress h5").html("Progress");
@@ -286,23 +286,24 @@ function gfnAlert(title, content, afnCallback) {
 
 		// progress layer 띄우기
 		$("#progress").css("z-index", 20);
-		$("#progress").css("background-color", "background-color: rgba(0, 0, 0, 0.5);")
+		$("#progress").css("background-color", "rgba(0, 0, 0, 0.5)")
 	}	
 } 
 
 function gfnCloseLayer (p) {
-	$("#"+p).css("z-index", -1);
-	$("#"+p).css("background-color", "none") 
-
 	if (p == "confirm") {
-		$("#"+p).css("display", "none");
+		$("#"+p).remove()
+	}
+	else {
+		$("#"+p).css("z-index", -1);
+		$("#"+p).css("background-color", "transparent") 
 	}
 }
 
 function progressUnvisible() {
 	// progress 창 사라지기
 	$("#progress").css("z-index", -1);
-	$("#progress").css("background-color", "none")
+	$("#progress").css("background-color", "transparent")
 }
 
 function gfnPopup(title, content, aOpt, afnCallback) {
@@ -353,23 +354,26 @@ function gfnPopup(title, content, aOpt, afnCallback) {
 function gfnConfirm(title, content, afnCallback, oPos) {
 	if(isNull(afnCallback)) afnCallback = gfnCallback; 
 
-	if (!isNum(title)) {
-		$("#confirm h5").html(title);
-		$("#confirm p").html(content);
+	$("body").append(' <div id="confirm" class="modal" style="background-color: rgba(0, 0, 0, 0.5); z-index: 20;">\
+												<div class="modal-content">\
+														<div class="modal-header">\
+																<h5 class="modal-title">'+ title +'</h5>\
+																<button class="layerBtn btn-close" data-bs-dismiss="modal" aria-label="Close"\
+																		onclick="gfnCloseLayer("confirm")">\
+																</button>\
+														</div>\
+														<div class="modal-body">\
+																<p>'+content+'</p>\
+														</div>\
+														<div class="modal-footer">\
+																<button class="layerBtn btn btn-primary yes">확인</button>\
+																<button class="layerBtn btn btn-secondary no" data-bs-dismiss="modal" onclick="gfnCloseLayer("confirm")">취소</button>\
+														</div>\
+												</div>\
+										</div>')
 
-		// alert layer 띄우기
-		$("#confirm").css("z-index", 20);
-		$("#confirm").css("display", "block");
-		$("#confirm").css("background-color", "background-color: rgba(0, 0, 0, 0.5);")
-	}
-
-	$("#confirm .yes").click(function() {
-		afnCallback(true);
-		gfnCloseLayer("confirm")
-	})
-
-	$("#confirm .no").click(function() {
-		afnCallback(false);
+	$("#confirm .yes").click(function(){
+		afnCallback(true); 
 		gfnCloseLayer("confirm")
 	})
 } 
