@@ -202,10 +202,10 @@ me.dataDef["_pgm_data"]["pgm_src"]={
         {"colid":"srcid","colnm":"소스ID","dtype":"text","etype":"txt","attr":"pk","crud":"U","sort_seq":2,"section":null,"section_icon":null,"colgrp":null,"len":null,"defval":null,"refcd":null,"option":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"w":"15","h":null,"id":"2"},
         {"colid":"src_nm","colnm":"소스명","dtype":"text","etype":"txt","attr":"keycol","crud":"U","sort_seq":3,"section":null,"section_icon":null,"colgrp":null,"len":null,"defval":null,"refcd":null,"option":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"w":"20","h":null,"id":"3"},
         {"colid":"src_tp","colnm":"소스유형","dtype":"text","etype":"sel","attr":"keycol","refcd":"SRC_TP","option":"sel:src_tp::cdnm","crud":"U","sort_seq":4,"section":null,"section_icon":null,"colgrp":null,"len":null,"defval":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"w":"15","h":null,"id":"1"},
-        {"colid":"t_id","colnm":"쿼리테이블","dtype":"text","etype":"txt","crud":"U","sort_seq":5,"section":null,"section_icon":null,"colgrp":null,"attr":null,"len":null,"defval":null,"refcd":null,"option":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"w":"15","h":null,"id":"5"},
-        {"colid":"func_tp","colnm":"CRUD","dtype":"text","etype":"txt","crud":"U","sort_seq":6,"section":null,"section_icon":null,"colgrp":null,"attr":null,"len":null,"defval":null,"refcd":null,"option":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"w":"8","h":null,"id":"6"},
-        {"colid":"content","colnm":"더보기","dtype":"text","etype":"btn","option":":fas fa-ellipsis-h","crud":"U","sort_seq":7,"section":null,"section_icon":null,"colgrp":null,"attr":null,"len":null,"defval":null,"refcd":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"w":"8","h":null},
-    ],
+        {"colid":"content","colnm":"더보기","dtype":"text","etype":"btn","option":":fas fa-ellipsis-h","crud":"U","sort_seq":5,"section":null,"section_icon":null,"colgrp":null,"attr":null,"len":null,"defval":null,"refcd":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"w":"8","h":null},
+        {"colid":"t_id","colnm":"쿼리테이블","dtype":"text","etype":"txt","crud":"U","sort_seq":6,"section":null,"section_icon":null,"colgrp":null,"attr":null,"len":null,"defval":null,"refcd":null,"option":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"w":"15","h":null,"id":"5"},
+        {"colid":"func_tp","colnm":"CRUD","dtype":"text","etype":"txt","crud":"U","sort_seq":7,"section":null,"section_icon":null,"colgrp":null,"attr":null,"len":null,"defval":null,"refcd":null,"option":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"w":"8","h":null,"id":"6"}
+        ],
     "contentForm": {
         "contentFunc" : [
             {"funcid":"cancel","func_nm":"X","func_icon":""},
@@ -655,6 +655,8 @@ me.dataDef["_pgm_data"]["pgm_src"]={
                 args["pgm_src"]  = me.dataSet["pgm_src"];
                 var invar = JSON.stringify(args);
                 gfnTx(appid+"."+pgmid,"saveSpec",{INVAR:invar},function(OUTVAR){
+                    console.log('invar===');
+                    console.log(invar)
                     //console.log(OUTVAR);
                     if(OUTVAR.rtnCd=="OK") {
                         gfnAlert("저장성공","프로그램 스펙정보를 저장하였습니다.");
