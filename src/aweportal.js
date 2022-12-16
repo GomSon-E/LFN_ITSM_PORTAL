@@ -358,8 +358,7 @@ function gfnConfirm(title, content, afnCallback, oPos) {
 												<div class="modal-content">\
 														<div class="modal-header">\
 																<h5 class="modal-title">'+ title +'</h5>\
-																<button class="layerBtn btn-close" data-bs-dismiss="modal" aria-label="Close"\
-																		onclick="gfnCloseLayer("confirm")">\
+																<button class="layerBtn btn-close" data-bs-dismiss="modal" aria-label="Close">\
 																</button>\
 														</div>\
 														<div class="modal-body">\
@@ -367,13 +366,22 @@ function gfnConfirm(title, content, afnCallback, oPos) {
 														</div>\
 														<div class="modal-footer">\
 																<button class="layerBtn btn btn-primary yes">확인</button>\
-																<button class="layerBtn btn btn-secondary no" data-bs-dismiss="modal" onclick="gfnCloseLayer("confirm")">취소</button>\
+																<button class="layerBtn btn btn-secondary no" data-bs-dismiss="modal">취소</button>\
 														</div>\
 												</div>\
 										</div>')
 
 	$("#confirm .yes").click(function(){
 		afnCallback(true); 
+		gfnCloseLayer("confirm")
+	})
+
+	$("#confirm .no").click(function(){
+		afnCallback(false); 
+		gfnCloseLayer("confirm")
+	})
+
+	$("#confirm .btn-close").click(function(){
 		gfnCloseLayer("confirm")
 	})
 } 
