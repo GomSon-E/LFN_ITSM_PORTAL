@@ -1220,6 +1220,35 @@ if("${row.funcid}".equals(func)) {
             }
         })
     } 
+    // Revert 이전버전 소스 가져오기 
+    me.fnRevert = function() {
+        if( !me.pageObj.pgm.chkValid() ) return;
+        function _fnRevert(ver) {
+            var args = me.pageObj.pgm.exportData()[0];
+            args.ver = ver;
+            var invar = JSON.stringify(args);
+            gfnTx(appid+"."+pgmid,"revert",{INVAR:invar},function(OUTVAR){
+                console.log(OUTVAR);
+                if(OUTVAR.rtnCd=="OK") {
+                    gParam["workbench"] = null; //조회했을때 전역변수 workbench 를 Clear해줌.
+                    bEdit = false;
+                    me.pageObj["pgm"].importData(OUTVAR.pgm,"C");
+                    me.pageObj["pgm_func"].importData(OUTVAR.pgm_func);
+                    me.pageObj["pgm_data"].importData(OUTVAR.pgm_data);
+                    me.pageObj["pgm_src"].importData(OUTVAR.pgm_src); 
+                    /* 프로그램 마스터 정보 변경시 타이틀 변경해 줌 */
+                    me.pageObj._page.pageTitle.text(me.pageObj["pgm"].getVal("pgmid")+" "+me.pageObj["pgm"].getVal("pgm_nm")+" 프로그램개발(조회:"+me.pageObj["pgm"].getVal("ver")+")" );
+                } else {
+                    gfnAlert("이전버전 소스 가져오기 오류",OUTVAR.rtnMsg);
+                }
+            })
+        }
+        
+        var curVer = toNum(me.pageObj.pgm.getVal("ver")-0.01,2);
+        curVer = toNum(prompt("가져올 버전을 입력하세요",curVer),2);
+        if(isNull(curVer)) return;
+        else _fnRevert(curVer);
+    }
     // Sort_seq 자동생성
     me.getSortSeq = function(component_id) {
         if(isNull(component_id)) return;
