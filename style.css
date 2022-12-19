@@ -134,7 +134,7 @@ body {
 }
 
 .link > img:nth-child(1) {
-    animation: rotate_image 30s linear infinite;
+    animation: rotate_reverse_image 30s linear infinite;
     transform-origin: 50% 50%;
 }
 
@@ -145,8 +145,12 @@ body {
 }
 
 .link > img:nth-child(2) {
-    animation: rotate_reverse_image 30s linear infinite;
+    animation: rotate_image 30s linear infinite;
     transform-origin: 50% 50%;
+    position: absolute; top: 0; left: 0;
+}
+
+.link > img:nth-child(3) {
     position: absolute; top: 0; left: 0;
 }
 
