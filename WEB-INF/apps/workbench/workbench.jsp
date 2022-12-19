@@ -184,15 +184,15 @@ else if("removeSrc".equals(func)) {
 //***********************************************************************************************/
 else if("deploy".equals(func)) { 
 	
-	try {   
+	try {  		
 		String rootDir = application.getRealPath("/");
-		//System.out.println(rootDir);  //C:\LFN\workspace\lfn_ep\
+		// System.out.println(rootDir);  //C:\LFN\workspace\lfn_ep\
 		String app_pgmid = getVal(INVAR,"appid");
 		String _pgmid = getVal(INVAR,"pgmid");
 		String ver = getVal(INVAR,"ver");
 
 		String sPathHTML = rootDir+"apps"+FILESL+app_pgmid+FILESL;   // FILESL = "\\"
-		//System.out.println(sPathHTML);
+		// System.out.println(sPathHTML);
 		File pathHTML = new File(sPathHTML);
 		if (!pathHTML.exists()) {
 			pathHTML.mkdirs();
