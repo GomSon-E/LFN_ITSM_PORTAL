@@ -358,8 +358,9 @@ me.dataDef["_pgm_data"]["pgm_src"]={
                 if(row == "addRow") {
                     me.pageObj["pgm_src"].addRow(); 
                 } else if(row == "delRow") {
-                    var delRow = me.pageObj["pgm_src"].selectedRow();
-                    me.pageObj["pgm_src"].delRow(delRow);
+                    // var delRow = me.pageObj["pgm_src"].selectedRow();
+                    // me.pageObj["pgm_src"].delRow(delRow);
+                    me.pageObj["pgm_src"].delSelectedRow(); 
                     if(!isNull(me.pageObj["pgm_src_edit"][delRow])) delete me.pageObj["pgm_src_edit"][delRow];
                     me.pageObj["pgm_src_edit"].component.children(`[rowid='${delRow}']`).remove(); 
                 }

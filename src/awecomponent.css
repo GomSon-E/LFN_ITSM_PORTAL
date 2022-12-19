@@ -337,6 +337,19 @@ body {
 	font-size: 1.4em;
 	font-weight: 600;
 }
+
+.componentFunc{
+
+}
+.componentFunc  > input{
+	height: 100%;
+	border-radius: 5px;
+	border: 1px solid gray;
+	padding-left: 0.5em;
+}
+.componentFunc  > input:focus{
+	outline: none;
+}
 .componentFunc > .gButton{
 	margin-right: 10px;
     padding: 5px 10px 5px 10px;
@@ -939,6 +952,7 @@ span.cell-deleted {
 	display: flex;	
 	flex-direction: row;
 	flex-wrap: wrap;
+	align-content: flex-start;
 }
 .aweForm > div{
     padding-right: 1em;
@@ -1026,6 +1040,9 @@ span.cell-deleted {
 	border: none;
 	flex: none;
 }
+.aweForm > div.cbx > .aweInputWrap > span{
+	margin: auto;
+}
 .aweForm > div.cbx > .aweInputWrap > label{
 	margin-left: auto; margin-right: auto;
 }
@@ -1070,17 +1087,28 @@ span.cell-deleted {
 }
 
 /* Date */
-.periodMark{
+.aweForm > div.date > .aweInputWrap > input {
+	padding-right: 1em;
+}
+
+/* Span */
+.aweForm > div.raw > .aweInputWrap{
+
+}
+.aweForm > div.raw > .aweInputWrap > span{
+	width: 100%;
+    padding-left: 0.5em;
+	margin-top: auto; margin-bottom: auto;
+}
+
+
+/* 두개 이상 Input */
+.intervalMark{
 	padding-left: 0.5em;
     padding-right: 0.5em;
     margin-top: auto;
     margin-bottom: auto;
 }
-.aweForm > div.date > .aweInputWrap > input {
-	padding-right: 1em;
-}
-
-/* 두개 이상 Input */
 .aweForm > div > .aweInputWrap > .aweColWrap{
 	display: flex; flex-direction: row;
 	width: 100%;
@@ -1120,6 +1148,9 @@ span.cell-deleted {
 .aweForm > fieldset > div > .aweInputWrap{
 	height: 2.5em;
 }
+.aweForm > fieldset > div > .aweInputWrap > i{
+	
+}
 .aweForm > fieldset > div > .aweInputWrap > input{
 	height: 100%;
 	padding-left: 0.5em;
@@ -1137,6 +1168,9 @@ span.cell-deleted {
 .aweForm > fieldset > div > .aweInputWrap > select:focus{
 	outline: none;
 }
+.aweForm > fieldset > div > .aweInputWrap > span{
+	padding-left: 0.5em;
+}
 
 /* 옵션 이벤트 */
 .aweForm > div > .aweInputWrap > input.readonly{
@@ -1147,7 +1181,7 @@ span.cell-deleted {
 
 /*** select2 Hack *********************************************************************************/
 .aweForm .select2-container {
-	width: 100% !important;
+	width: 96% !important;
 	/* height: 100%; */
 	overflow: hidden; 
 	background-color: white;

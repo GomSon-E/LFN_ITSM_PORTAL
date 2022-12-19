@@ -913,14 +913,17 @@ function gfnComponent( pageId, containerId, componentDef, afnEH, page ) {
 				grpcontainer.append(aweInputWrap);
 
 				/* option으로 기간(~)을 붙여준다. */
-				if(!isNull(colinfo.option) && (colinfo.option == "periodMark")) {
-					console.log("물결을 붙입니다.");
-					grpcontainer.append(`<span class="periodMark">~</span>`);
+				if(!isNull(colinfo.option) && (inStr(colinfo.option, "periodMark") != -1)) {
+					grpcontainer.append(`<span class="intervalMark">~</span>`);
+				} else if(!isNull(colinfo.option) && (inStr(colinfo.option, "dashMark") != -1)) {
+					grpcontainer.append(`<span class="intervalMark">-</span>`);
 				}
 
 
 				/* 컬럼의 폭을 지정해줌 (w) */
 				grpcontainer.css("flex-basis", `${nvl(colinfo.w, 100)}%`)
+				/* 컬럼의 높이을 지정해줌 (h) */
+				if(!isNull(colinfo.h)) aweInputWrap.css("height", `${colinfo.h}em`)
 
                 /* 컬럼Group의 바깥크기를 지정해 줌 */
 				var colgrpWidth = 0;
@@ -3061,6 +3064,8 @@ function gfnControl(colinfo, afnEH, oComponent, rowid, val, rowPinned, agHack) {
 			obj =  $(`<input type="date"/>`); 
 		} else if(me.etype=="month") {
 			obj =  $(`<input type="month"/>`); 
+		} else if(me.etype=="number") {
+			obj =  $(`<input type="text"/ placeholder="${me.remark}">`); 
 		} else if(me.etype=="none") {
 			obj.addClass("hidden");
 		}
@@ -3198,6 +3203,29 @@ function gfnControl(colinfo, afnEH, oComponent, rowid, val, rowPinned, agHack) {
 				afnEH(me.colid, "change", me.getVal());  
 			}
 		}); 
+		me.obj.on("keypress", function(event){
+			// etye이 number 일 경우
+			if(me.colinfo.etype == 'number') {
+				if(me.obj.val() == "" && event.key == 0) {
+					return false // 맨 앞 0은 불가
+				}
+				if(event.key >= 0 && event.key <= 9) {
+					return true;
+				} else {
+					return false;
+				}
+			}
+		});
+		me.obj.on("keyup", function(event){
+			// number + comma일 경우
+			if(me.colinfo.etype == 'number' && inStr(nvl(me.colinfo.option, ""), "comma") != -1) {
+				var value = me.obj.val();
+				// ,를 제거하고 다시 붙여줌
+				value = value.replace(/[^\d]+/g, '');
+				value = value.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+				me.obj.val(value);
+			}
+		});
 		me.focusHack = false;
 		me.obj.on("focus",function(e){
 			if(!me.focusHack) {
@@ -3348,7 +3376,12 @@ function gfnControl(colinfo, afnEH, oComponent, rowid, val, rowPinned, agHack) {
 		} else if(me.etype=="date") {
 			me.obj.includeObj(".aweCol").val(me.setter(val));
 		} else if(me.etype=="month") {
-			me.obj.includeObj(".aweCol").val(me.setter(val));
+			// month는 일(day)를 잘라줘야한다.
+			me.obj.includeObj(".aweCol").val(me.setter(val).substring(0, 7));
+		} else if(me.etype=="number") {
+			console.log(me.setter(val));
+			console.log(typeof(me.setter(val)));
+			me.obj.includeObj(".aweCol").val(me.setter(val).slice(0, -2));
 		} 
 		if(rowid != undefined && !bIinitialSkip) { //agGrid일 경우 컨트롤이 변경된 경우 값을 agGrid쪽으로 값을 Sync해줘야함 
 			if(oComponent.componentDef!=undefined && 
@@ -3387,6 +3420,8 @@ function gfnControl(colinfo, afnEH, oComponent, rowid, val, rowPinned, agHack) {
 		} else if(me.etype=="date") {
 			rtn = me.obj.includeObj(".aweCol").val();
 		} else if(me.etype=="month") {
+			rtn = me.obj.includeObj(".aweCol").val();
+		} else if(me.etype=="number") {
 			rtn = me.obj.includeObj(".aweCol").val();
 		} 
 		if($.type(rtn)=="string") {
