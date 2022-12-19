@@ -40,11 +40,11 @@ $(function() {
 me.dataDef["_pgm"]={"ver":3.5,"upd_dt":"2022-08-18 17:06:49","remark":"프로그램 스펙정보와 개발템플릿을 생성한다.","pgmid":"workbench","proc_mst_id":"","pgm_stat":"Y","sort_seq":3,"app_pgmid":"workbench","shortcut":"","reg_dt":"2022-08-18 17:06:49","reg_usid":"kihyunlee","pgm_nm":"개발워크벤치","upd_usid":"kihyunlee","pgm_tp":"UX","pgm_grp_nm":"시스템개발","proc_mst_nm":"","app_pgm_nm":"개발워크벤치","":"트랜젝션(메뉴)","crud":""};
 me.dataDef["_pgm_func"]=[
     {"func_icon":"extra fas fa-new", "reg_dt":"2022-08-18 17:06:49","reg_usid":"","func_nm":"신규","upd_usid":"","upd_dt":"2022-08-18 17:06:49","func_tp":"EH","remark":null,"pgmid":"workbench","sort_seq":"1","funcid":"new","content":"화면초기화","crud":"R","id":"0"},
-    {"func_icon":"fas fa-search","reg_dt":"2022-08-18 17:06:49","reg_usid":"","func_nm":"조회","upd_usid":"","upd_dt":"2022-08-18 17:06:49","func_tp":"DB_R","remark":"프로그램마스터는 프로그램 관리에서 추가합니다.","pgmid":"workbench","sort_seq":"2","funcid":"search","content":"프로그램정보 조회","crud":"R","id":"1"},
-    {"func_icon":" ","reg_dt":"2022-08-18 17:06:49","reg_usid":"","func_nm":"프리뷰","upd_usid":"","upd_dt":"2022-08-18 17:06:49","func_tp":"EH","remark":"[프리뷰]는 작성 중인 소스를 프레임웍 페이지에서 확인합니다.","pgmid":"workbench","sort_seq":"3","funcid":"preview","content":"화면 확인","crud":"R","id":"2"},
-    {"func_icon":" ","reg_dt":"2022-08-18 17:06:49","reg_usid":"","func_nm":"배포","upd_usid":"","upd_dt":"2022-08-18 17:06:49","func_tp":"FILE_W","remark":"[배포]시 서버경로에 html파일과 jsp파일을 전송합니다.","pgmid":"workbench","sort_seq":"4","funcid":"deploy","content":"WEB/WAS경로에 저장 ","crud":"R","id":"3"},
+    // {"func_icon":"fas fa-search","reg_dt":"2022-08-18 17:06:49","reg_usid":"","func_nm":"조회","upd_usid":"","upd_dt":"2022-08-18 17:06:49","func_tp":"DB_R","remark":"프로그램마스터는 프로그램 관리에서 추가합니다.","pgmid":"workbench","sort_seq":"2","funcid":"search","content":"프로그램정보 조회","crud":"R","id":"1"},
+    {"func_icon":"fas fa-tv","reg_dt":"2022-08-18 17:06:49","reg_usid":"","func_nm":"프리뷰","upd_usid":"","upd_dt":"2022-08-18 17:06:49","func_tp":"EH","remark":"[프리뷰]는 작성 중인 소스를 프레임웍 페이지에서 확인합니다.","pgmid":"workbench","sort_seq":"3","funcid":"preview","content":"화면 확인","crud":"R","id":"2"},
+    {"func_icon":"fas fa-share-square","reg_dt":"2022-08-18 17:06:49","reg_usid":"","func_nm":"배포","upd_usid":"","upd_dt":"2022-08-18 17:06:49","func_tp":"FILE_W","remark":"[배포]시 서버경로에 html파일과 jsp파일을 전송합니다.","pgmid":"workbench","sort_seq":"4","funcid":"deploy","content":"WEB/WAS경로에 저장 ","crud":"R","id":"3"},
     {"func_icon":"fas fa-save","reg_dt":"2022-08-18 17:06:49","reg_usid":"","func_nm":"저장","upd_usid":"","upd_dt":"2022-08-18 17:06:49","func_tp":"DB_W","remark":"[저장]시 입력사항을 테이블에 저장합니다.","pgmid":"workbench","sort_seq":"5","funcid":"save","content":"프로그램정보 저장","crud":"R","id":"4"},
-    {"func_icon":"","reg_dt":"2022-08-18 17:06:49","reg_usid":"","func_nm":"권한관리","upd_usid":"","upd_dt":"2022-08-18 17:06:49","func_tp":"EH","remark":null,"pgmid":"workbench","sort_seq":"6","funcid":"auth","content":"화면사용권한정보 수정","crud":"R","id":"5"},
+    {"func_icon":"extra","reg_dt":"2022-08-18 17:06:49","reg_usid":"","func_nm":"권한관리","upd_usid":"","upd_dt":"2022-08-18 17:06:49","func_tp":"EH","remark":null,"pgmid":"workbench","sort_seq":"6","funcid":"auth","content":"화면사용권한정보 수정","crud":"R","id":"5"},
     {"func_icon":"extra fas fa-database","reg_dt":"2022-08-18 17:06:49","reg_usid":"","func_nm":"운영이관","upd_usid":"","upd_dt":"2022-08-18 17:06:49","func_tp":"DB_W","remark":"[운영이관]시 프로그램소스코드가 운영환경으로 복사됩니다. (프리뷰 및 배포는 운영환경에서 진행할 것!)","pgmid":"workbench","sort_seq":"7","funcid":"migrate","content":"프로그램소스데이터 운영복사","crud":"R","id":"6"},
     {"func_icon":"extra","reg_dt":"2022-08-18 17:06:49","reg_usid":"","func_nm":"이전버전 가져오기","upd_usid":"","upd_dt":"2022-08-18 17:06:49","func_tp":"DB_R","remark":"[이전버전 가져오기] 배포 후 이전버전 소스를 조회하여 필요시 원상복구 합니다.","pgmid":"workbench","sort_seq":"8","funcid":"revert","content":"이전버전 소스코드를 가져옵니다.","crud":"R","id":"7"}
 ];
@@ -729,7 +729,7 @@ me.dataDef["_pgm_data"]["pgm_src"]={
         var components = ""; // div에 컴포넌트들 추가
         me.dataSet["pgm_data"].forEach(data => {
             if(data.data_id != 'pageCond'){
-                components += `     <div id='${data.data_id}'></div>${CR}`;
+                components += `    <div id='${data.data_id}'></div>${CR}`;
             }
         })
 
@@ -1173,18 +1173,8 @@ if("${row.funcid}".equals(func)) {
         gParam.pgminfo = me.pageObj.pgm.exportData()[0];
         gMDI.openPage("managePgmAccess","프로그램 사용권한 관리",undefined,"workbench");
     }
-    // 배포
-    me.fnDeploy=function() {
-        console.log("Deploy 입장!");
-        var a = me.pageObj["pgm_func"].getNodeId(1);
-        var b = me.pageObj["pgm_func"].getRowIndex(1);
-        
-        console.log(`${a} // ${b}`);
-
-        
-    }
     // 소스코드 배포
-    me.fnDeploy2 = function() {
+    me.fnDeploy = function() {
         me.fnGetData();
         var htmlCss = me.fnGetHTMLCSS();
         var _script = me.fnMakeScript();
@@ -1210,12 +1200,16 @@ if("${row.funcid}".equals(func)) {
             return;
         }
         var pgm_info = me.dataSet["pgm"][0]; 
+        console.log(pgm_info);
         gfnConfirm("소스코드 배포확인",`apps//${pgm_info.app_pgmid}//${pgm_info.pgmid}.html,.jsp를 생성합니다(덮어씁니다).`,function(rtn){
+            console.log(`확인 결과 : ${rtn}`)
             if(rtn) {
                 var html = subset(me.dataSet["pgm_src"],"srcid","HTML")[0].content;
                 var jsp = subset(me.dataSet["pgm_src"],"srcid","jsp")[0].content;
                 var args = { appid:pgm_info.app_pgmid, pgmid:pgm_info.pgmid, ver:pgm_info.ver, html:html, jsp:jsp };
                 var invar = JSON.stringify(args);
+                console.log(`${appid}.${pgmid}`);
+
                 gfnTx(appid+"."+pgmid,"deploy", {INVAR:invar}, function(OUTVAR){
                     if(OUTVAR.rtnCd=="OK") {
                         gfnAlert("배포성공","WEB/WAS경로에 배포되었습니다.");
