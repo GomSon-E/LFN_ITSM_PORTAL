@@ -2202,7 +2202,7 @@ function gfnComponent( pageId, containerId, componentDef, afnEH, page ) {
 				gfnTx("aweportal.manageCal","initCalendar",{INVAR:invar},function(OUTVAR){
 					if(OUTVAR.rtnCd=="OK") {
 						me.calendar = $(me.calendarTemplate);
-						me.calendar.find("caption").append("<H2>"+date(me.start_dt,"yyyymmdd","'yy.mm월")+"</H2>"); 
+						me.calendar.find("caption").append("<p><</p><H2>"+date(me.start_dt,"yyyymmdd","'yy.mm월")+"</H2><p>></p>");
 						OUTVAR.list.forEach((row,idx)=>{
 							if(idx%7==0) me.calendar.find("tbody").append("<tr></tr>");
 							var td = $(`<td id='${row.ymd}'><div id='top'><b>${row.ymd.substr(6,2)}</b>${nvl(row.remark,"")}</div></td>`);
