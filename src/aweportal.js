@@ -265,10 +265,16 @@ function gfnStatus(msg, state) {
 	//status layer 사라지기
 	setTimeout(function(){
 		$("#status>ul>li").first().remove();
-	}, 3000); 
+	}, 5000); 
+
+	$("#status>ul>li").click(function(){
+		$(this).remove();
+	})
 }
  
 function gfnAlert(title, content, afnCallback) {
+	$("#alert").focus();
+
 	if(isNull(afnCallback)) afnCallback = gfnCallback; 
 
 	if (!isNum(title)) {
@@ -288,6 +294,12 @@ function gfnAlert(title, content, afnCallback) {
 		$("#progress").css("z-index", 20);
 		$("#progress").css("background-color", "rgba(0, 0, 0, 0.5)")
 	}	
+
+	$("#alert").keydown(function(key){
+		if (key.keyCode == 13) {
+			gfnCloseLayer("alert")
+		}
+	})
 } 
 
 function gfnCloseLayer (p) {
@@ -354,7 +366,7 @@ function gfnPopup(title, content, aOpt, afnCallback) {
 function gfnConfirm(title, content, afnCallback, oPos) {
 	if(isNull(afnCallback)) afnCallback = gfnCallback; 
 
-	$("body").append(' <div id="confirm" class="modal" style="background-color: rgba(0, 0, 0, 0.5); z-index: 20;">\
+	$("body").append(' <div id="confirm" class="modal" tabindex="0" style="background-color: rgba(0, 0, 0, 0.5); z-index: 20;">\
 												<div class="modal-content">\
 														<div class="modal-header">\
 																<h5 class="modal-title">'+ title +'</h5>\
@@ -370,6 +382,18 @@ function gfnConfirm(title, content, afnCallback, oPos) {
 														</div>\
 												</div>\
 										</div>')
+
+	$("#confirm").focus()
+
+	$("#confirm").keydown(function(key){
+		if (key.keyCode == 13) {
+			afnCallback(true);
+		}
+		else if (key.keyCode == 27) {
+			afnCallback(false);
+		}
+		gfnCloseLayer("confirm")
+	})
 
 	$("#confirm .yes").click(function(){
 		afnCallback(true); 
