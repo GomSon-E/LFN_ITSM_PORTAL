@@ -94,7 +94,7 @@
 
 .flexColumn>*:last-child {
 	flex: 1 1 auto;
-	height: unset !important;
+	/* height: unset !important; */
 }
 
 .flexRow {
@@ -270,6 +270,11 @@ body {
 	border: 2px solid #1e7ae1;
 	color: white;
 }
+.pageFunc>.gButton.clicked {
+	background-color: #1e7ae1;
+	border: 2px solid #1e7ae1;
+	color: white;
+}
 .pageFunc>.gButtonPanel {
 	display: none;
 	position: absolute;
@@ -407,6 +412,9 @@ body {
 	display: flex;
 	border-radius: 10px;
 	box-shadow: 3px 3px 3px gray;
+}
+.pageContentMain.toggle{
+	flex-basis: 100%;
 }
 
 .workBenchFormWrap{
