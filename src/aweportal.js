@@ -293,7 +293,6 @@ function gfnAlert(title, content, afnCallback) {
 
 	$("#alert").keydown(function(key){
 		if (key.keyCode == 13) {
-			console.log("enter")
 			gfnCloseLayer("alert")
 		}
 	})
@@ -363,7 +362,7 @@ function gfnPopup(title, content, aOpt, afnCallback) {
 function gfnConfirm(title, content, afnCallback, oPos) {
 	if(isNull(afnCallback)) afnCallback = gfnCallback; 
 
-	$("body").append(' <div id="confirm" class="modal" style="background-color: rgba(0, 0, 0, 0.5); z-index: 20;">\
+	$("body").append(' <div id="confirm" class="modal" tabindex="0" style="background-color: rgba(0, 0, 0, 0.5); z-index: 20;">\
 												<div class="modal-content">\
 														<div class="modal-header">\
 																<h5 class="modal-title">'+ title +'</h5>\
@@ -379,6 +378,18 @@ function gfnConfirm(title, content, afnCallback, oPos) {
 														</div>\
 												</div>\
 										</div>')
+
+	$("#confirm").focus()
+
+	$("#confirm").keydown(function(key){
+		if (key.keyCode == 13) {
+			afnCallback(true);
+		}
+		else if (key.keyCode == 27) {
+			afnCallback(false);
+		}
+		gfnCloseLayer("confirm")
+	})
 
 	$("#confirm .yes").click(function(){
 		afnCallback(true); 
