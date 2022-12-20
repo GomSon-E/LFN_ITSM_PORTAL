@@ -167,6 +167,7 @@ function gfnMDI(pageContainer,tabContainer) {
 	//frameHome만 남기고 다 숨겨줌
 	me.hideAll = function() { 
 		me.go(0);
+		me.tabContainer.children("a.oTab").removeClass("active");
 	}
 
 	//프레임페이지를 중복 없이 한 개만 열기
@@ -186,6 +187,7 @@ function gfnMDI(pageContainer,tabContainer) {
 
 		gfnLoad("aweportal", pgmid, oPage, function(OUTVAR){
 			var oTab = $('<a class="tab" pageidx="page'+me.idx+'" grpid="'+grpid+'"><div>'+pagenm+'</div><i class="fa fa-times closetab"></i></a>');
+			me.tabContainer.append(tab);
 			oTab.bind('mouseenter', function(){ /* 폭이 좁아져서 ...이 되면 tooltip으로 화면명 표시 */
 				var $this = $(this); 
 				if(this.offsetWidth < this.scrollWidth && !$this.attr('title')){
@@ -333,8 +335,8 @@ function gfnMDI(pageContainer,tabContainer) {
 		var pageStat = $(".framepage.active").attr("stat"); 
 
 		//Next로 Focus하고 나서
-		me.go("next");
-		$(".framepage.active").attr("stat",pageStat);
+		me.go("prev");
+		// $(".framepage.active").attr("stat",pageStat);
 
 		//remove page
 		me.pageContainer.children(".framepage[id='"+pageidx+"']").remove();
@@ -342,13 +344,7 @@ function gfnMDI(pageContainer,tabContainer) {
 		delete gfn[pageidx];
 
 		//남은 것이 없으면 Home으로
-		if(me.tabContainer.children("a").length==0) {
-			//if(!me.tabContainer.hasClass("hidden")) me.tabContainer.addClass("hidden");
-			$("#frameGNB").css("display","block");
-			gFrameset.fnShowFrameLeftBar(true); 
-			gFrameset.fnFramesetLayout(); 
-			me.go(0); 
-		}
+		if(me.tabContainer.children("a.tab").length==0) me.go("prev");  
 	} 
 
 	//채널 닫기
