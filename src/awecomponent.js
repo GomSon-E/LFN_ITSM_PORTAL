@@ -5305,7 +5305,7 @@ function workbenchForm(pageid, component_id, dataDef, afnEH, me, rowData, distin
 		workBenchFormWrap.append(pageContentMainBody);
 		$(`#${pageid} > .pageContent > .pageContentMain`).append(workBenchFormWrap);
 	
-		$(`.funcInfo[rowid != '${distinctRow}']`).hide(); // 나머지 숨기기
+		// $(`.funcInfo[rowid != '${distinctRow}']`).hide(); // 나머지 숨기기
 	} 
 	else if(component_id == "pgm_data") {
 
@@ -5412,12 +5412,12 @@ function workbenchForm(pageid, component_id, dataDef, afnEH, me, rowData, distin
 		me.pageContentMain[component_id] = {};
 
 		// 페이지 중복 처리
-		$(`.${pageid}.dataInfo`).hide();
-		$(`.${pageid}.funcInfo`).hide();
+		$(`.${pageid}.dataInfo`).remove();
+		$(`.${pageid}.funcInfo`).remove();
 		if($(".pageContentMain").children(`.${pageid}`).hasClass("srcInfo"+distinctRow)) {
 			console.log("이미 작성중인 행입니다. 불러옵니다.");
 			// $(`.srcInfo[rowid != '${distinctRow}']`).hide();
-			$(`.srcInfo[rowid = '${distinctRow}']`).show();
+			$(`.${pageid}.srcInfo[rowid = '${distinctRow}']`).show();
 			return "alreadyPage";
 		}
 

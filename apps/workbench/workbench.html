@@ -41,6 +41,7 @@ me.dataDef["_pgm"]={"ver":3.5,"upd_dt":"2022-08-18 17:06:49","remark":"프로그
 me.dataDef["_pgm_func"]=[
     {"func_icon":"extra fas fa-new", "reg_dt":"2022-08-18 17:06:49","reg_usid":"","func_nm":"신규","upd_usid":"","upd_dt":"2022-08-18 17:06:49","func_tp":"EH","remark":null,"pgmid":"workbench","sort_seq":"1","funcid":"new","content":"화면초기화","crud":"R","id":"0"},
     // {"func_icon":"fas fa-search","reg_dt":"2022-08-18 17:06:49","reg_usid":"","func_nm":"조회","upd_usid":"","upd_dt":"2022-08-18 17:06:49","func_tp":"DB_R","remark":"프로그램마스터는 프로그램 관리에서 추가합니다.","pgmid":"workbench","sort_seq":"2","funcid":"search","content":"프로그램정보 조회","crud":"R","id":"1"},
+    {"func_icon":"","reg_dt":"2022-08-18 17:06:49","reg_usid":"","func_nm":"큰화면","upd_usid":"","upd_dt":"2022-08-18 17:06:49","func_tp":"EH","remark":"사이드를 접어 화면을 크게 봅니다.","pgmid":"workbench","sort_seq":"2","funcid":"toggle","content":"사이드 접기","crud":"R","id":"1"},
     {"func_icon":"fas fa-tv","reg_dt":"2022-08-18 17:06:49","reg_usid":"","func_nm":"프리뷰","upd_usid":"","upd_dt":"2022-08-18 17:06:49","func_tp":"EH","remark":"[프리뷰]는 작성 중인 소스를 프레임웍 페이지에서 확인합니다.","pgmid":"workbench","sort_seq":"3","funcid":"preview","content":"화면 확인","crud":"R","id":"2"},
     {"func_icon":"fas fa-share-square","reg_dt":"2022-08-18 17:06:49","reg_usid":"","func_nm":"배포","upd_usid":"","upd_dt":"2022-08-18 17:06:49","func_tp":"FILE_W","remark":"[배포]시 서버경로에 html파일과 jsp파일을 전송합니다.","pgmid":"workbench","sort_seq":"4","funcid":"deploy","content":"WEB/WAS경로에 저장 ","crud":"R","id":"3"},
     {"func_icon":"fas fa-save","reg_dt":"2022-08-18 17:06:49","reg_usid":"","func_nm":"저장","upd_usid":"","upd_dt":"2022-08-18 17:06:49","func_tp":"DB_W","remark":"[저장]시 입력사항을 테이블에 저장합니다.","pgmid":"workbench","sort_seq":"5","funcid":"save","content":"프로그램정보 저장","crud":"R","id":"4"},
@@ -225,7 +226,6 @@ me.dataDef["_pgm_data"]["pgm_src"]={
 
 /*-- SCRIPT autogen end ---------------------------------------------- */
     me.fnInitExtra=function() {
-        
         me.pageObj["pgm_data_content"].componentTop.remove();
         me.pageObj["pgm_data_content"].componentBody.remove();
         me.pageObj["pgm_data_content"] = null; 
@@ -265,6 +265,7 @@ me.dataDef["_pgm_data"]["pgm_src"]={
         }
     } 
 
+    
     /* 이벤트핸들러 */
     me.fnEH = function(component, evt, row, col, val) {        
         console.log(`evt : ${evt} /row : ${row} / col : ${col} / val : ${val}`);
@@ -421,11 +422,11 @@ me.dataDef["_pgm_data"]["pgm_src"]={
             else if (evt=="click" && col == "cancel") {
                 console.log("페이지를 닫습니다.")
                 if(component_id == "pgm_func") {
-                    $(`.funcInfo${row}`).remove();
+                    $(`.${pageid}.funcInfo${row}`).remove();
                 } else if (component_id == "pgm_data") {
-                    $(`.dataInfo${row}`).remove();
+                    $(`.${pageid}.dataInfo${row}`).remove();
                 } else if (component_id == "pgm_src") {
-                    $(`.srcInfo${row}`).hide();
+                    $(`.${pageid}.srcInfo${row}`).hide();
                 }  
             }
             else if (evt=="click" && col == "content") {
@@ -563,6 +564,8 @@ me.dataDef["_pgm_data"]["pgm_src"]={
     // 코드 에디터 GET SET
     me.fnEditor = function(rowid, val){
         var editors = me.pageObj["pgm_src_edit"]; // 더보기 눌렀던 코드들이 담김
+        console.log("editors====");
+        console.log(editors)
 
         if(val == undefined) { // get
             if(editors[rowid] != undefined) {
@@ -573,12 +576,13 @@ me.dataDef["_pgm_data"]["pgm_src"]={
         } else { // set
             if(editors[rowid] == undefined) {
                 var editor =  $(`<div id="srcEditor${rowid}" class="srcEditor srcEditor${rowid}" rowid='${rowid}'></div>`);
-                editors.component.append(editor);
-                $(`.srcInfo${rowid} > .pageContentMainBody`).append(editor);
+                // editors.component.append(editor);
+                $(`.${me.pageid}.srcInfo${rowid} > .pageContentMainBody`).append(editor);
+ 
                 editors[rowid] = new gfnComponent( me.pageid, `srcEditor${rowid}`, me.dataDef["_pgm_src_edit"], me.fnEH, me);
                 editors[rowid].aceEdit = ace.edit( editors[rowid].componentBody[0] );
                 editors[rowid].userComponent = "pgm_src_edit"; //fnEH에서 참조하기 위한 hintKey
-                editors[rowid].aceEdit.setTheme("ace/theme/chrome");
+                editors[rowid].aceEdit.setTheme("ace/theme/chrome"); //chrome dark monokai
                 editors[rowid].aceEdit.session.setMode("ace/mode/javascript");
                 editors[rowid].aceEdit.setFontSize("1.2em");
    
@@ -590,12 +594,19 @@ me.dataDef["_pgm_data"]["pgm_src"]={
                 });
             }
             
-            $(`.srcInfo${rowid} > .pageContentMainTop > .pageContentMainTitle`).text(me.pageObj["pgm_src"].getVal(rowid,"src_nm"));
+            $(`.${me.pageid}.srcInfo${rowid} > .pageContentMainTop > .pageContentMainTitle`).text(me.pageObj["pgm_src"].getVal(rowid,"src_nm"));
             var mode = nvl(me.pageObj["pgm_src"].getVal(rowid,"src_tp"),"sql"); // 기본타입 sql로
             editors[rowid].aceEdit.session.setMode("ace/mode/"+mode);
             editors[rowid].aceEdit.setValue(val);
             editors.currow = rowid;
         }
+    }
+    // 컨텐츠사이드 토글
+    me.fnToggle = function() {
+        var togBtn = $(`#${me.pageid} > .pageTop > .pageFunc [funcid="toggle"]`);
+        togBtn.toggleClass('clicked');
+        $(`#${me.pageid} > .pageContent > .pageContentSide`).toggle();
+        $(`#${me.pageid} > .pageContent > .pageContentMain`).toggleClass("toggle");
     }
     // 조회
     me.fnSearch = function() { 
@@ -656,8 +667,6 @@ me.dataDef["_pgm_data"]["pgm_src"]={
                 args["pgm_src"]  = me.dataSet["pgm_src"];
                 var invar = JSON.stringify(args);
                 gfnTx(appid+"."+pgmid,"saveSpec",{INVAR:invar},function(OUTVAR){
-                    console.log('invar===');
-                    console.log(invar)
                     //console.log(OUTVAR);
                     if(OUTVAR.rtnCd=="OK") {
                         gfnAlert("저장성공","프로그램 스펙정보를 저장하였습니다.");
@@ -1220,6 +1229,35 @@ if("${row.funcid}".equals(func)) {
             }
         })
     } 
+    // Revert 이전버전 소스 가져오기 
+    me.fnRevert = function() {
+        if( !me.pageObj.pgm.chkValid() ) return;
+        function _fnRevert(ver) {
+            var args = me.pageObj.pgm.exportData()[0];
+            args.ver = ver;
+            var invar = JSON.stringify(args);
+            gfnTx(appid+"."+pgmid,"revert",{INVAR:invar},function(OUTVAR){
+                console.log(OUTVAR);
+                if(OUTVAR.rtnCd=="OK") {
+                    gParam["workbench"] = null; //조회했을때 전역변수 workbench 를 Clear해줌.
+                    bEdit = false;
+                    me.pageObj["pgm"].importData(OUTVAR.pgm,"C");
+                    me.pageObj["pgm_func"].importData(OUTVAR.pgm_func);
+                    me.pageObj["pgm_data"].importData(OUTVAR.pgm_data);
+                    me.pageObj["pgm_src"].importData(OUTVAR.pgm_src); 
+                    /* 프로그램 마스터 정보 변경시 타이틀 변경해 줌 */
+                    me.pageObj._page.pageTitle.text(me.pageObj["pgm"].getVal("pgmid")+" "+me.pageObj["pgm"].getVal("pgm_nm")+" 프로그램개발(조회:"+me.pageObj["pgm"].getVal("ver")+")" );
+                } else {
+                    gfnAlert("이전버전 소스 가져오기 오류",OUTVAR.rtnMsg);
+                }
+            })
+        }
+        
+        var curVer = toNum(me.pageObj.pgm.getVal("ver")-0.01,2);
+        curVer = toNum(prompt("가져올 버전을 입력하세요",curVer),2);
+        if(isNull(curVer)) return;
+        else _fnRevert(curVer);
+    }
     // Sort_seq 자동생성
     me.getSortSeq = function(component_id) {
         if(isNull(component_id)) return;
