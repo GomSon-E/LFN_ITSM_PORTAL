@@ -773,32 +773,9 @@ function gfnComponent( pageId, containerId, componentDef, afnEH, page ) {
 		me.container.children("*").remove(); //일단 지우고 시작
 		me.container.html("");
 		me.componentTop = $(`<div class="componentTop"></div>`);
+		
 		//ComponentTitle
 		me.componentTitle = $(`<div class="componentTitle"><i class="fas fa-chevron-circle-right"></i>&nbsp${me.componentDef.data_nm}</div>`);
-		// if(!isNull(me.componentDef.data_icon)) {
-		// 	me.componentTitle.append(`<i class="${me.componentDef.data_icon}"></i>`);
-		// } else {
-		// 	me.componentTitle.append(`<i class="fas fa-square"></i>`);
-		// }
-		// if(!isNull(me.componentDef.data_nm)) me.componentTitle.append(`<span>${me.componentDef.data_nm}</span>`); 
-		// me.componentTitle.on("click",function(e) { //클릭하면 func와 body를 보이거나 숨긴다. 
-		// 	if( me.componentTitle.hasClass("closed")) {
-		// 		me.componentTitle.removeClass("closed"); 
-		// 		me.componentTop.children(".componentFunc").show();
-		// 		me.container.children(".componentBody").show();
-		// 		me.container.removeClass("contentClosed"); 
-		// 	} else {
-		// 		me.componentTitle.addClass("closed");
-		// 		me.componentTop.children(".componentFunc").hide();
-		// 		me.container.children(".componentBody").hide(); 
-		// 		me.container.addClass("contentClosed"); 
-		// 		/*me.container.css("flex","unset !important")
-		// 		if(me.container.siblings(".componentContainer").find(".componentBody.agGrid").length > 0) {
-		// 			me.container.siblings(".componentContainer").css("flex","1 1 auto"); 
-		// 		} 
-		// 		*/ 
-		// 	}
-		// });
 		me.componentTop.append(me.componentTitle);
 		
 		//ComponentFunc  
@@ -878,12 +855,12 @@ function gfnComponent( pageId, containerId, componentDef, afnEH, page ) {
 				//colgrp이 바뀌었으면...라벨을 달아줘야함
 				var aweInputWrap = $(`<div class="aweInputWrap"></div>`)
 				if(isNull(nvl(colinfo.colgrp,""))) {
-					grpcontainer = $(`<div colgrp="${colinfo.colnm}" class="${colinfo.etype}"></div>`).appendTo(container);
+					grpcontainer = $(`<div colgrp="${colinfo.colnm}" class="awe${colinfo.etype}"></div>`).appendTo(container);
 					grpcontainer.append(`<div class="label">${colinfo.colnm}</div>`);
 
 				} else if (colinfo.colgrp!=curColgrp) {
                     curColgrp = colinfo.colgrp;
-					grpcontainer = $(`<div colgrp="${curColgrp}" class="${colinfo.etype}"></div>`).appendTo(container);
+					grpcontainer = $(`<div colgrp="${curColgrp}" class="awe${colinfo.etype}"></div>`).appendTo(container);
 					grpcontainer.append(`<div class="label">${curColgrp}</div>`);
 				} 
                 grpcontainer.addClass(colinfo.attr);
@@ -893,8 +870,7 @@ function gfnComponent( pageId, containerId, componentDef, afnEH, page ) {
 					var icon = $(`<i class="${colinfo.section_icon}"></i>`);
 					aweInputWrap.append(icon);
 				}
-
-
+				 
 				/*************************************************************************/
 				/* 컬럼: 컨트롤&eventHandler Callback *************************************/
 				/*************************************************************************/
@@ -1061,8 +1037,34 @@ function gfnComponent( pageId, containerId, componentDef, afnEH, page ) {
 			//validation 
 			me.chkValid = function(bWarn) {
 				if(bWarn==undefined) bWarn = true;
+				var dateGrp = "_init";
+				var sDate = "_init";
 				for(var i=0; i < me.colinfo.length; i++) {
-					var colinfo = me.colinfo[i]; 
+					var colinfo = me.colinfo[i];
+					
+					// 날짜(기간)에 대한 Validation
+					if(!isNull(colinfo.colgrp) && (colinfo.etype == "date")) {
+						var eDate = me.getVal(colinfo.colid);
+						if(((sDate == "") && (eDate == "")) || sDate == "_init") {
+							// console.log("Validation 필요X");
+						} else if(dateGrp != colinfo.colgrp) {
+							// console.log("Validation 필요X");
+						}
+						else{
+							// console.log("기간 Validation을 진행합니다.")							
+							if((sDate > eDate) || (sDate == "") || (eDate == "")) {
+								gfnAlert(colinfo.colnm+"("+colinfo.colid+")값 오류", "날짜(기간)의 정보를 확인해주세요.");
+								// 초기화
+								dateGrp = "_init";
+								sDate = "_init";
+							} else {
+								console.log("정상입니다.")
+							}
+						} 
+						dateGrp = colinfo.colgrp;
+						sDate = me.getVal(colinfo.colid);
+					}
+					
 					if(me.col[colinfo.colid] == undefined) continue;
 					var chk = me.col[colinfo.colid].chkValid(bWarn); //validation Error인 경우 메시지
 					if(chk != true) {
@@ -1077,6 +1079,56 @@ function gfnComponent( pageId, containerId, componentDef, afnEH, page ) {
 				//arr에는 grpcd, 데이터배열, function이 들어올 수 있다.
 				if(me.col[colid] != undefined) me.col[colid].refreshOptions(arr);
 			} 
+			//Daum 주소 API호출
+			me.getAddress = function(component, addrNum, addrMain, addrSub, addrSub2){
+				console.log("다음 주소 API 호출");
+				new daum.Postcode({
+					oncomplete: function(data) {
+						// 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+						// 각 주소의 노출 규칙에 따라 주소를 조합한다.
+						// 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+						var addr = ''; // 주소 변수
+						var extraAddr = ''; // 참고항목 변수
+
+						//사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+						if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+							addr = data.roadAddress;
+						} else { // 사용자가 지번 주소를 선택했을 경우(J)
+							addr = data.jibunAddress;
+						}
+
+						// 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
+						if(data.userSelectedType === 'R'){
+							// 법정동명이 있을 경우 추가한다. (법정리는 제외)
+							// 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+							if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+								extraAddr += data.bname;
+							}
+							// 건물명이 있고, 공동주택일 경우 추가한다.
+							if(data.buildingName !== '' && data.apartment === 'Y'){
+								extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+							}
+							// 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+							if(extraAddr !== ''){
+								extraAddr = ' (' + extraAddr + ')';
+							}
+							// 조합된 참고항목을 해당 필드에 넣는다.
+							me.setVal(addrSub2, extraAddr);
+						
+						} else {
+							// document.getElementById("sample6_extraAddress").value = '';
+							me.setVal(addrSub2, "");
+						}
+
+						// 우편번호, 주소에 값을 넣는다.
+						me.setVal(addrNum, data.zonecode);
+						me.setVal(addrMain, addr);
+						// 상세주소에 포커스
+						me.focus(addrSub);
+					}
+				}).open();
+			}
 
 		} else if( me.componentDef.component_pgmid =="agGrid" ) {
 			me.colinfo = me.componentDef.content;
@@ -3119,6 +3171,12 @@ function gfnControl(colinfo, afnEH, oComponent, rowid, val, rowPinned, agHack) {
 			}   
 			if(!isNull(btnIcon)) me.obj.append(`<i class='${btnIcon}'></i> `);
 			me.obj.append(btnText);
+			me.obj.on("click",function(){ 
+				afnEH(me.colid, "click");  
+			});
+		}
+		/* addr 표시 */
+		if (me.etype=="addr") {
 			me.obj.on("click",function(){ 
 				afnEH(me.colid, "click");  
 			});

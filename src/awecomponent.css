@@ -969,9 +969,6 @@ span.cell-deleted {
 	align-content: flex-start;
 	margin-bottom: 0.5em;
 }
-.aweForm > div.btn{
-    padding: 0;
-}
 
 .aweForm > div > .label{
     flex-basis: 100%;
@@ -1002,16 +999,16 @@ span.cell-deleted {
 	outline: none;
 }
 /* TextArea */
-.aweForm > div.tarea > .aweInputWrap{
+.aweForm > div.awetarea > .aweInputWrap{
     height: 5em;
 }
-.aweForm > div.tarea > .aweInputWrap > textarea{
+.aweForm > div.awetarea > .aweInputWrap > textarea{
 	width: 100%;
     border: none;
     padding: 0.5em;
     resize: none;
 }
-.aweForm > div.tarea > .aweInputWrap > textarea:focus{
+.aweForm > div.awetarea > .aweInputWrap > textarea:focus{
 	outline: none;
 }
 
@@ -1026,38 +1023,47 @@ span.cell-deleted {
 }
 
 /* Button */
-.aweForm > div.btn > .aweInputWrap {
+.aweForm > div.awebtn{
+    padding: 0;
+}
+.aweForm > div.awebtn > .label{
+    text-align: center;
+}
+.aweForm > div.awebtn > .aweInputWrap {
 	border:none;
 	flex: none;
 }
-.aweForm > div.btn > .aweInputWrap > button{
-	margin-left: auto; margin-right: auto;
-	padding: 0.5em;
+.aweForm > div.awebtn > .aweInputWrap > button {
+    background: rgb(30, 122, 225);
+	margin-left: auto;
+    margin-right: auto;
+    padding: 0.5em 0.7em;
+    color: white;
+    font-size: 1em;
     border: none;
     border-radius: 5px;
-    background: rgb(30, 122, 225);
-    color: white;
-    box-shadow: 1px 1px 1px grey;
 }
 
+
+
 /* CheckBox */
-.aweForm > div.cbx > .label{
+.aweForm > div.awecbx > .label{
 	text-align: center;
 }
-.aweForm > div.cbx > .aweInputWrap{
+.aweForm > div.awecbx > .aweInputWrap{
 	border: none;
 	flex: none;
 }
-.aweForm > div.cbx > .aweInputWrap > span{
+.aweForm > div.awecbx > .aweInputWrap > span{
 	margin: auto;
 }
-.aweForm > div.cbx > .aweInputWrap > label{
+.aweForm > div.awecbx > .aweInputWrap > label{
 	margin-left: auto; margin-right: auto;
 }
-.aweForm > div.cbx > .aweInputWrap > input[type=checkbox]{
+.aweForm > div.awecbx > .aweInputWrap > input[type=checkbox]{
 	display: none;
 }
-.aweForm > div.cbx > .aweInputWrap > input[type="checkbox"] + label {
+.aweForm > div.awecbx > .aweInputWrap > input[type="checkbox"] + label {
 	display: block;
 	position: relative;
 	width: 3.3em;
@@ -1070,7 +1076,7 @@ span.cell-deleted {
 	-webkit-transition: background 0.1s ease-in-out;
 	transition: background 0.1s ease-in-out;
 }
-.aweForm > div.cbx > .aweInputWrap > input[type="checkbox"] + label::before {
+.aweForm > div.awecbx > .aweInputWrap > input[type="checkbox"] + label::before {
 	content: "";
 	display: block;
 	width: 1.2em;
@@ -1084,29 +1090,44 @@ span.cell-deleted {
 	-webkit-transition: all 0.2s ease-in-out;
 	transition: all 0.2s ease-in-out;
 }
-.aweForm > div.cbx > .aweInputWrap > input[type="checkbox"]:checked + label {
+.aweForm > div.awecbx > .aweInputWrap > input[type="checkbox"]:checked + label {
 	background: #fff;
 	border: 2px solid rgb(30, 122, 225);
 }
-.aweForm > div.cbx > .aweInputWrap > input[type="checkbox"]:checked + label::before {
+.aweForm > div.awecbx > .aweInputWrap > input[type="checkbox"]:checked + label::before {
 	background: rgb(30, 122, 225);
 	/* box-shadow: -2px 0px 5px rgba(0, 0, 0, 0.2); */
 	left: 1.6em;
 }
 
 /* Date */
-.aweForm > div.date > .aweInputWrap > input {
+.aweForm > div.awedate > .aweInputWrap > input {
 	font-size: 1em;
 }
 
 /* Span */
-.aweForm > div.raw > .aweInputWrap{
-
+.aweForm > div.aweraw > .aweInputWrap{
+    background: rgb(20, 122, 225);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 0.5em 1em;
+    font-size: 1em;
 }
 .aweForm > div.raw > .aweInputWrap > span{
 	width: 100%;
     padding-left: 0.5em;
 	margin-top: auto; margin-bottom: auto;
+}
+
+/* Addr */
+.aweForm > div.aweaddr > .aweInputWrap > button{
+    background: rgb(20, 122, 225);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 0.5em 1em;
+    font-size: 1em;
 }
 
 
@@ -1188,7 +1209,7 @@ span.cell-deleted {
 	background-color: rgba(0, 0, 0, 0.1);
 }
 /* 옵션 이벤트 */
-.aweForm > div.tarea > .aweInputWrap > textarea.readonly {
+.aweForm > div.awetarea > .aweInputWrap > textarea.readonly {
 	background-color: rgba(0, 0, 0, 0.1);
 }
 .aweForm > div > .aweInputWrap > select.readonly {
@@ -1201,7 +1222,7 @@ span.cell-deleted {
 
 /*** select2 Hack *********************************************************************************/
 .aweForm .select2-container {
-	width: 96% !important;
+	width: 100% !important;
 	/* height: 100%; */
 	overflow: hidden; 
 	background-color: white;
