@@ -168,6 +168,8 @@ function gfnMDI(pageContainer,tabContainer) {
 	me.hideAll = function() { 
 		me.go(0);
 		me.tabContainer.children("a.oTab").removeClass("active");
+		me.pageContainer.children(".framepage").removeClass("active");
+		me.pageContainer.children(".framepage").hide(); 
 	}
 
 	//프레임페이지를 중복 없이 한 개만 열기
@@ -187,7 +189,7 @@ function gfnMDI(pageContainer,tabContainer) {
 
 		gfnLoad("aweportal", pgmid, oPage, function(OUTVAR){
 			var oTab = $('<a class="tab" pageidx="page'+me.idx+'" grpid="'+grpid+'"><div>'+pagenm+'</div><i class="fa fa-times closetab"></i></a>');
-			me.tabContainer.append(tab);
+			me.tabContainer.append(oTab);
 			oTab.bind('mouseenter', function(){ /* 폭이 좁아져서 ...이 되면 tooltip으로 화면명 표시 */
 				var $this = $(this); 
 				if(this.offsetWidth < this.scrollWidth && !$this.attr('title')){
@@ -261,6 +263,7 @@ function gfnMDI(pageContainer,tabContainer) {
 		gfnLoad(appid, pgmid, oPage, function(OUTVAR){
 			//addTab
 			var oTab = $('<a class="tab" pageidx="page'+me.idx+'"><div>'+pagenm+'</div><i class="fa fa-times closetab"></i></a>');
+			me.tabContainer.append(oTab);
 			oTab.bind('mouseenter', function(){ /* 폭이 좁아져서 ...이 되면 tooltip으로 화면명 표시 */
 				var $this = $(this); 
 				if(this.offsetWidth < this.scrollWidth && !$this.attr('title')){
