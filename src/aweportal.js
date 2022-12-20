@@ -269,6 +269,8 @@ function gfnStatus(msg, state) {
 }
  
 function gfnAlert(title, content, afnCallback) {
+	$("#alert").focus();
+
 	if(isNull(afnCallback)) afnCallback = gfnCallback; 
 
 	if (!isNum(title)) {
@@ -288,6 +290,13 @@ function gfnAlert(title, content, afnCallback) {
 		$("#progress").css("z-index", 20);
 		$("#progress").css("background-color", "rgba(0, 0, 0, 0.5)")
 	}	
+
+	$("#alert").keydown(function(key){
+		if (key.keyCode == 13) {
+			console.log("enter")
+			gfnCloseLayer("alert")
+		}
+	})
 } 
 
 function gfnCloseLayer (p) {
