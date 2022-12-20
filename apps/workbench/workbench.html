@@ -1,3 +1,20 @@
+<style>
+    [pgmid='workbench'].framepage > .pageContent > .pageContentSide > #pgm_func{
+        flex-basis: 25%;
+        box-shadow: none;
+        padding: 0; margin: 0;
+    }
+    [pgmid='workbench'].framepage > .pageContent > .pageContentSide > #pgm_data{
+        flex-basis: 37.5%;
+        box-shadow: none;
+        padding: 0; margin: 0;
+    }
+    [pgmid='workbench'].framepage > .pageContent > .pageContentSide > #pgm_src{
+        flex-basis: 37.5%;
+        box-shadow: none;
+        padding: 0; margin: 0;
+    }
+</style>
 <div class="pageNav"></div>
 <div class="pageTop"></div> 
 <div class="pageContent" style="display: flex; flex-direction: row;">
@@ -205,7 +222,7 @@ me.dataDef["_pgm_data"]["pgm_src"]={
         {"colid":"content","colnm":"더보기","dtype":"text","etype":"btn","option":":fas fa-ellipsis-h","crud":"U","sort_seq":5,"section":null,"section_icon":null,"colgrp":null,"attr":null,"len":null,"defval":null,"refcd":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"w":"8","h":null},
         {"colid":"t_id","colnm":"쿼리테이블","dtype":"text","etype":"txt","crud":"U","sort_seq":6,"section":null,"section_icon":null,"colgrp":null,"attr":null,"len":null,"defval":null,"refcd":null,"option":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"w":"15","h":null,"id":"5"},
         {"colid":"func_tp","colnm":"CRUD","dtype":"text","etype":"txt","crud":"U","sort_seq":7,"section":null,"section_icon":null,"colgrp":null,"attr":null,"len":null,"defval":null,"refcd":null,"option":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"w":"8","h":null,"id":"6"}
-        ],
+    ],
     "contentForm": {
         "contentFunc" : [
             {"funcid":"cancel","func_nm":"X","func_icon":""},
@@ -575,6 +592,8 @@ me.dataDef["_pgm_data"]["pgm_src"]={
                 var editor =  $(`<div id="srcEditor${rowid}" class="srcEditor srcEditor${rowid}" rowid='${rowid}'></div>`);
                 editors.component.append(editor);
                 $(`.srcInfo${rowid} > .pageContentMainBody`).append(editor);
+                console.log("테스트")
+                console.log(me.dataDef["_pgm_src_edit"]);
                 editors[rowid] = new gfnComponent( me.pageid, `srcEditor${rowid}`, me.dataDef["_pgm_src_edit"], me.fnEH, me);
                 editors[rowid].aceEdit = ace.edit( editors[rowid].componentBody[0] );
                 editors[rowid].userComponent = "pgm_src_edit"; //fnEH에서 참조하기 위한 hintKey
@@ -656,8 +675,6 @@ me.dataDef["_pgm_data"]["pgm_src"]={
                 args["pgm_src"]  = me.dataSet["pgm_src"];
                 var invar = JSON.stringify(args);
                 gfnTx(appid+"."+pgmid,"saveSpec",{INVAR:invar},function(OUTVAR){
-                    console.log('invar===');
-                    console.log(invar)
                     //console.log(OUTVAR);
                     if(OUTVAR.rtnCd=="OK") {
                         gfnAlert("저장성공","프로그램 스펙정보를 저장하였습니다.");

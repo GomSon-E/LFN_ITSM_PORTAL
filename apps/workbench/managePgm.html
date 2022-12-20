@@ -156,14 +156,17 @@ me.dataDef["_pgm_data"]["llist"]={
     }
     /* 이벤트핸들러 */
     me.fnEH=function(component, evt, row, col, val) { 
-        //console.log(evt+","+row+","+col+","+val);
+        console.log(`evt : ${evt} /row : ${row} / col : ${col} / val : ${val}`);
         //화면기능버튼이 눌리면 
         if (component==me.pageObj["_pageFunc"]){ 
             if(typeof(me[col])=='function') me[col](); //col=기능명 me["fnSearch"]()=me.fnSearch(); 
         }
         //pageCond:조회조건 이벤트처리     
         else if(component==me.pageObj["pageCond"]) {
-            //if(evt=="change" && col=="colid") {...}
+            if(evt=="change" && col=="app_pgmid") {
+                console.log("값이 바뀌었습니다.");
+                me.fnSearch();
+            }
         }
 
         //llist:프로그램목록 이벤트처리     
