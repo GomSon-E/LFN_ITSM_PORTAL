@@ -168,6 +168,8 @@ function gfnMDI(pageContainer,tabContainer) {
 	me.hideAll = function() { 
 		me.go(0);
 		me.tabContainer.children("a.oTab").removeClass("active");
+		me.pageContainer.children(".framepage").removeClass("active");
+		me.pageContainer.children(".framepage").hide(); 
 	}
 
 	//프레임페이지를 중복 없이 한 개만 열기
