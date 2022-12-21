@@ -37,7 +37,7 @@ JSONObject INVAR  = getObject(invar);
     //save:저장 이벤트처리(DB_Write)
     if("save".equals(func)) {
         Connection conn = null; 
-        try {  
+        try { 
             conn = getConn("LFN");
             conn.setAutoCommit(false);
             String qry = getQuery(pgmid, "mergePgm");
@@ -53,10 +53,11 @@ JSONObject INVAR  = getObject(invar);
             } 
             for(int i = 0; i < arrList.size(); i++) {
                 JSONObject row = getRow(arrList,i); 
-                if(!"D".equals(getVal(row,"crud"))) {
+                // 새로 생긴 내용이나, 업데이트된 내용만 쿼리를 실행한다.
+                if(("C".equals(getVal(row,"crud"))) ||  ("U".equals(getVal(row,"crud")))){
                     row.put("usid",USERID);
                     qryRun += bindVAR(qry,row) + "\n";
-                }
+                } 
             } 
             JSONObject rst = executeSVC(conn, qryRun);  
             if(!"OK".equals(getVal(rst,"rtnCd"))) {

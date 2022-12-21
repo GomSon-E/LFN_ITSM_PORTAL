@@ -1084,7 +1084,10 @@ function gfnComponent( pageId, containerId, componentDef, afnEH, page ) {
 			} 
 			//Daum 주소 API호출
 			me.getAddress = function(component, addrNum, addrMain, addrSub, addrSub2){
-				console.log("다음 주소 API 호출");
+				if((addrNum == undefined) || (addrMain == undefined) || (addrSub == undefined) || (addrSub2 == undefined)){
+					console.log("함수의 입력값이 불충분합니다.")
+					return;
+				}
 				new daum.Postcode({
 					oncomplete: function(data) {
 						// 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.

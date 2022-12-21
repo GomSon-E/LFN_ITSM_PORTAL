@@ -227,9 +227,11 @@ me.dataDef["_pgm_data"]["llist"]={
 
     //save:저장 
     me.fnSave=function() {
+        console.log("fnSave 실행");
         if( !me.pageObj["llist"].chkValid() ) return;
         var args = {list:me.pageObj["llist"].exportData()};
-        //console.log(args);
+        console.log("저장되는 값");
+        console.log(args);
         var invar = JSON.stringify(args);
         gfnTx(appid+"."+pgmid,"save",{INVAR:invar},function(OUTVAR){
             //console.log(OUTVAR);
