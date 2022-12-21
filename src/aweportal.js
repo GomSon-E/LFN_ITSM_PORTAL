@@ -388,11 +388,12 @@ function gfnConfirm(title, content, afnCallback, oPos) {
 	$("#confirm").keydown(function(key){
 		if (key.keyCode == 13) {
 			afnCallback(true);
+			gfnCloseLayer("confirm")
 		}
 		else if (key.keyCode == 27) {
 			afnCallback(false);
+			gfnCloseLayer("confirm")
 		}
-		gfnCloseLayer("confirm")
 	})
 
 	$("#confirm .yes").click(function(){
