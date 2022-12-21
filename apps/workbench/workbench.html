@@ -210,7 +210,7 @@ me.dataDef["_pgm_data"]["pgm_src"]={
     "data_icon":null,
     "component_pgmid":"agGrid",
     "component_option":{
-        "gridOpt": "rn chk",
+        "gridOpt": "rn",
         "gridOptions":{"statusBar":false,"singleClickEdit":"false","defaultColDef":{"sortable":false}},
         "func":[{"funcid":"addRow","func_nm":"줄추가","func_icon":"fas fa-plus"},{"funcid":"delRow","func_nm":"줄삭제","func_icon":"fas fa-minus"}]
     },
@@ -581,8 +581,6 @@ me.dataDef["_pgm_data"]["pgm_src"]={
     // 코드 에디터 GET SET
     me.fnEditor = function(rowid, val){
         var editors = me.pageObj["pgm_src_edit"]; // 더보기 눌렀던 코드들이 담김
-        console.log("editors====");
-        console.log(editors)
 
         if(val == undefined) { // get
             if(editors[rowid] != undefined) {
