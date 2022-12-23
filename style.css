@@ -19,6 +19,10 @@ html, body {
     z-index: 20;
 }
 
+#status .alert:hover {
+    box-shadow: 0 0.5px 0.5px rgba(0, 0, 0, 0.05), 0 0 0 0.25rem rgb(215,232,252);
+}
+
 #status .alert > span {
     padding-left: 10px;
     color: #a7b1de;
@@ -70,7 +74,7 @@ html, body {
     top: calc(50% - 300px);
 }
 
-#alert, #progress, #popup, #confirm {
+#progress, #popup {
     z-index: -1;
 }
 

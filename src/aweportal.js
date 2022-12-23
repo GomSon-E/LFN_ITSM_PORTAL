@@ -273,18 +273,29 @@ function gfnStatus(msg, state) {
 }
  
 function gfnAlert(title, content, afnCallback) {
-	$("#alert").focus();
-
-	if(isNull(afnCallback)) afnCallback = gfnCallback; 
+	if(isNull(afnCallback)) {
+		console.log()
+		afnCallback = gfnCallback; }
 
 	if (!isNum(title)) {
-		$("#alert .modal-content").draggable({handle: '.modal-header'});
-		$("#alert h5").html(title);
-		$("#alert p").html(content);
+		$("body").append('<div id="alert" class="modal"  tabindex="0" style="background-color: rgba(0, 0, 0, 0.5); z-index: 20;">\
+												<div class="modal-content">\
+														<div class="modal-header">\
+																<h5 class="modal-title">'+title+'</h5>\
+																<button class="layerBtn btn-close" data-bs-dismiss="modal" aria-label="Close"\
+																		onclick="gfnCloseLayer("alert")"></button>\
+														</div>\
+														<div class="modal-body">\
+																<p>'+content+'</p>\
+														</div>\
+														<div class="modal-footer">\
+																<button class="layerBtn btn btn-primary">확인</button>\
+														</div>\
+												</div>\
+										</div>')
 
-		// alert layer 띄우기
-		$("#alert").css("z-index", 20);
-		$("#alert").css("background-color", "rgba(0, 0, 0, 0.5)")
+		$("#alert .modal-content").draggable({handle: '.modal-header'});
+		$("#alert").focus();
 	}
 	else {
 		$("#progress h5").html("Progress");
@@ -298,12 +309,18 @@ function gfnAlert(title, content, afnCallback) {
 	$("#alert").keydown(function(key){
 		if (key.keyCode == 13) {
 			gfnCloseLayer("alert")
+			afnCallback()
 		}
 	})
+
+	$("#alert .modal-footer > button").click(function() {
+		gfnCloseLayer("alert")
+		afnCallback()
+	}) 
 } 
 
 function gfnCloseLayer (p) {
-	if (p == "confirm") {
+	if (p == "confirm" || p == "alert") {
 		$("#"+p).remove()
 	}
 	else {
