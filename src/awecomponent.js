@@ -167,9 +167,6 @@ function gfnMDI(pageContainer,tabContainer) {
 	//frameHome만 남기고 다 숨겨줌
 	me.hideAll = function() { 
 		me.go(0);
-		me.tabContainer.children("a.oTab").removeClass("active");
-		me.pageContainer.children(".framepage").removeClass("active");
-		me.pageContainer.children(".framepage").hide(); 
 	}
 
 	//프레임페이지를 중복 없이 한 개만 열기
@@ -189,7 +186,6 @@ function gfnMDI(pageContainer,tabContainer) {
 
 		gfnLoad("aweportal", pgmid, oPage, function(OUTVAR){
 			var oTab = $('<a class="tab" pageidx="page'+me.idx+'" grpid="'+grpid+'"><div>'+pagenm+'</div><i class="fa fa-times closetab"></i></a>');
-			me.tabContainer.append(oTab);
 			oTab.bind('mouseenter', function(){ /* 폭이 좁아져서 ...이 되면 tooltip으로 화면명 표시 */
 				var $this = $(this); 
 				if(this.offsetWidth < this.scrollWidth && !$this.attr('title')){
@@ -263,7 +259,6 @@ function gfnMDI(pageContainer,tabContainer) {
 		gfnLoad(appid, pgmid, oPage, function(OUTVAR){
 			//addTab
 			var oTab = $('<a class="tab" pageidx="page'+me.idx+'"><div>'+pagenm+'</div><i class="fa fa-times closetab"></i></a>');
-			me.tabContainer.append(oTab);
 			oTab.bind('mouseenter', function(){ /* 폭이 좁아져서 ...이 되면 tooltip으로 화면명 표시 */
 				var $this = $(this); 
 				if(this.offsetWidth < this.scrollWidth && !$this.attr('title')){
@@ -335,7 +330,7 @@ function gfnMDI(pageContainer,tabContainer) {
 		me.go(pageidx);
 		
 		//max상태의 창이 닫히면 새로운 창은 stat max를 넣어줘야 함
-		var pageStat = $(".framepage.active").attr("stat"); 
+		// var pageStat = $(".framepage.active").attr("stat"); 
 
 		//Next로 Focus하고 나서
 		me.go("prev");
@@ -347,9 +342,21 @@ function gfnMDI(pageContainer,tabContainer) {
 		delete gfn[pageidx];
 
 		//남은 것이 없으면 Home으로
-		if(me.tabContainer.children("a.tab").length==0) me.go("prev");  
+		if(me.tabContainer.children("a.tab").length==0) me.go("prev"); 
 	} 
-
+	    //탭클릭 이벤트 핸들러 
+		$(me.tabContainer).on("click",function(e){
+			var oE = $(e.target);
+			if(oE.isON("[pageidx]")) {
+				var pageidx = oE.attr("pageidx")||oE.parents("[pageidx]").attr("pageidx"); 
+				// console.log(e);
+				if(oE.hasClass("closetab")) {
+					me.closeTab(pageidx); 
+				} else {
+					me.focusPage(pageidx);
+				}
+			}  
+		});
 	//채널 닫기
 	me.closeChat = function(grpid) {
 		$(".frameChat[id='" + grpid + "']").remove();
@@ -382,27 +389,27 @@ function gfnMDI(pageContainer,tabContainer) {
 	}
 
 //******************** YONG START 210821 ********************
-	$(me.tabContainer).on("click",function(e){
-		var oE = $(e.target);
-		if(oE.isON("[pageidx]")) {
-			var pageidx = oE.attr("pageidx")||oE.parents("[pageidx]").attr("pageidx");
+	// $(me.tabContainer).on("click",function(e){
+	// 	var oE = $(e.target);
+	// 	if(oE.isON("[pageidx]")) {
+	// 		var pageidx = oE.attr("pageidx")||oE.parents("[pageidx]").attr("pageidx");
 			
-			//그룹 아이디 추가
-			var grpid = oE.attr("grpid")||oE.parents("[grpid]").attr("grpid");
-			if(isNull(pageidx)) {
-				return;
+	// 		//그룹 아이디 추가
+	// 		var grpid = oE.attr("grpid")||oE.parents("[grpid]").attr("grpid");
+	// 		if(isNull(pageidx)) {
+	// 			return;
 
-			} else if(!isNull(grpid) && oE.hasClass("closetab")) {
-				me.closeTabOne(grpid);
+	// 		} else if(!isNull(grpid) && oE.hasClass("closetab")) {
+	// 			me.closeTabOne(grpid);
 
-			} else if(oE.hasClass("closetab")) {
-				me.closeTab(pageidx);
+	// 		} else if(oE.hasClass("closetab")) {
+	// 			me.closeTab(pageidx);
 
-			} else {
-				me.focusPage(pageidx);
-			}
-		} 
-	}); 
+	// 		} else {
+	// 			me.focusPage(pageidx);
+	// 		}
+	// 	} 
+	// }); 
 
 	/* 현재시간 : frameset의 fnInit()에 있어야 하지만 소스엉킴 문제로 gfnMDI에서 구현 */ 
 	if( $("#frameGNB .curtime").length > 0) $("#frameGNB .curtime").remove(); 
@@ -415,7 +422,6 @@ function gfnMDI(pageContainer,tabContainer) {
 	
 	return me;
 }
-
 /** PageLayoutResizable */ 
 function gfnPageLayoutResizable(oPage) {
 	function fnFlexRowResizable(oPage) {
