@@ -1076,67 +1076,7 @@ button {
 	font-size: small;
 }
 
-.framepage table.calendar {
-	width: 100%;
-	height: 100%;
-	height: 90%;
-	border: 1px solid rgba(0, 0, 0, 0.5);
-	padding: 0;
-	border-spacing: 0;
-	table-layout: fixed;
-}
 
-.framepage table.calendar thead th {
-	padding: 0.25em;
-	border-bottom: 2px solid rgba(0, 0, 0, 0.5);
-	border-right: 1px solid rgba(0, 0, 0, 0.2);
-	background-color: #fafffc;
-	color: #313c31;
-}
-
-.framepage table.calendar thead th:nth-child(1) {
-	background-color: #fffbfb;
-	color: #5a3131;
-}
-
-.framepage table.calendar thead tr th:last-child {
-	background-color: #eaf3fb;
-	color: #31315a;
-}
-
-.framepage table.calendar tbody td {
-	border-collapse: collapse;
-	padding: 0.05em 0.25em 5em;
-	border-bottom: 1px solid rgba(0, 0, 0, 0.5);
-	border-right: 1px solid rgba(0, 0, 0, 0.2);
-	background-color: #ffffff;
-	color: #313c31;
-}
-
-.framepage table.calendar tbody td:hover {
-	background-color: #fff5ef !important;
-	color: red;
-	text-decoration: underline;
-	cursor: pointer;
-}
-
-.framepage table.calendar tbody td:nth-child(1) {
-	background-color: #fffbfb;
-	color: #5a3131;
-}
-
-.framepage table.calendar tbody td p {
-	color: black;
-}
-
-.framepage table.calendar tbody td b {
-	padding-right: 10px;
-}
-
-.framepage table.calendar tbody tr td:last-child {
-	background-color: #eaf3fb;
-	color: #31315a;
-}
 
 /* MISC ****************************************************************************/
 .dummy {

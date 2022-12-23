@@ -831,12 +831,7 @@ function gfnComponent( pageId, containerId, componentDef, afnEH, page ) {
 		me.componentBody = $(`<div class="componentBody"></div>`); 
 		me.componentBody.addClass(me.componentDef.component_pgmid);
 		me.component_option = me.componentDef.component_option;
-		//컴포넌트Body그리드 높이지정: 미지정시 컨텐츠에 맞게 늘어남 
-		// if(!isNull(me.component_option)) {
-		// 	// if(!isNull(me.component_option.height)) me.componentBody.css("height",me.component_option.height );
-		// 	if(!isNull(me.component_option.width)) me.componentBody.css("width",me.component_option.width );
-		// 	if(!isNull(me.component_option.class)) me.componentBody.addClass( me.component_option.class );
-		// }    
+		
         //aweForm의 Body
 		if( me.componentDef.component_pgmid =="aweForm" ) {  
 			me.colinfo = me.componentDef.content;
@@ -899,7 +894,6 @@ function gfnComponent( pageId, containerId, componentDef, afnEH, page ) {
 				} else if(!isNull(colinfo.option) && (inStr(colinfo.option, "dashMark") != -1)) {
 					grpcontainer.append(`<span class="intervalMark">-</span>`);
 				}
-
 
 				/* 컬럼의 폭을 지정해줌 (w) */
 				grpcontainer.css("flex-basis", `${nvl(colinfo.w, 100)}%`)
@@ -1094,7 +1088,11 @@ function gfnComponent( pageId, containerId, componentDef, afnEH, page ) {
 					console.log("함수의 입력값이 불충분합니다.")
 					return;
 				}
+				var width = 500;
+				var height = 600;
 				new daum.Postcode({
+					width: width,
+					height: height,
 					oncomplete: function(data) {
 						// 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
 
@@ -1139,7 +1137,10 @@ function gfnComponent( pageId, containerId, componentDef, afnEH, page ) {
 						// 상세주소에 포커스
 						me.focus(addrSub);
 					}
-				}).open();
+				}).open({
+					left: (window.screen.width / 2) - (width / 2),
+					top: (window.screen.height / 2) - (height / 2)
+				});
 			}
 
 		} else if( me.componentDef.component_pgmid =="agGrid" ) {
@@ -1989,6 +1990,154 @@ function gfnComponent( pageId, containerId, componentDef, afnEH, page ) {
 			**************************************************************************/  			
 			me.data = []; //정의되지 않은 컬럼의 값도 get/set하고 import/export할 수 있다. 
 			me.colinfo = me.componentDef.content;  //컬럼정의정보[]	
+			me.component_option = me.componentDef.component_option;
+
+
+			me.initCardView = function(datas, contentCnt, curPage, curPageNation) {
+				console.log("aweCardView 실행");
+				if((datas == undefined) || isNull(datas))  datas = [];
+				if((contentCnt == undefined) || isNull(contentCnt)) contentCnt = 5;
+				if((curPage == undefined) || isNull(curPage)) curPage = 1;
+				if((curPageNation == undefined) || isNull(curPageNation)) curPageNation = 1;
+
+				// 초기 데이터 확인
+				// console.log(datas);
+				// console.log(contentCnt);
+				// console.log(me.colinfo);
+				console.log(me.component_option);
+				var cardComponent = me.component_option.cardComponent;
+
+				// 초기화
+				$(`#${pageId} > .pageContent > .componentContainer > .aweCardView`).empty();
+
+				// 페이지 처리
+				var content_sNum = contentCnt*(curPage-1);
+				var content_eNum = content_sNum + contentCnt;
+
+				var cardViewWrap = $(`<div class="cardViewWrap"></div>`)
+
+				for(var i=content_sNum; i<content_eNum; i++){
+					var data = datas[i];
+					if(data == undefined) break;
+					console.log(data);
+
+					// 전체 Wrap 생성
+					var cardWrap = $(`<div class="cardWrap ${pageId}"></div>`) 
+
+					// cardTop 생성
+					var cardTop = $(`<div class="cardTop"></div>`)
+					if(!isNull(cardComponent.profile)){
+						var profile = cardComponent.profile;
+						var cardTopProfile = $(`<div class="cardTopProfile">${data[profile]}</div>`)
+						cardTop.append(cardTopProfile);
+					}
+					if(!isNull(cardComponent.writer)){
+						var writer = cardComponent.writer;
+						var cardTopWriter = $(`<div class="cardTopWriter">작성자 : ${data[writer]}</div>`)
+						cardTop.append(cardTopWriter);
+					}
+					var cancelBtn = $("<button class='cancelBtn'><i class='fas fa-times'></i></button>");
+					cancelBtn.on("click",function(){
+						console.log("창을 닫습니다.")
+					});
+					cardTop.append(cancelBtn);
+
+					// cardBody 생성
+					var cardBody = $(`<div class="cardBody"></div>`)
+					if(!isNull(cardComponent.title)){
+						var title = cardComponent.title;
+						var cardBodyTitle = $(`<div class="cardBodyTitle">${data[title]}</div>`)
+						cardBody.append(cardBodyTitle);
+					}
+					// if(!isNull(cardComponent.content)){
+					// 	var content = cardComponent.content;
+					// 	var cardBodyContent = $(`<div class="cardBodyContent">${data[content]}</div>`)
+					// 	cardBody.append(cardBodyContent);
+					// }
+
+					// cardSub 생성
+					var cardSub = $(`<div class="cardSub"></div>`)
+					if(!isNull(cardComponent.lSub)){
+						var lSub = cardComponent.lSub;
+						var cardlLSub = $(`<div class="cardlLSub">${data[lSub]}</div>`)
+						cardSub.append(cardlLSub);
+					}
+					if(!isNull(cardComponent.rSub)){
+						var rSub = cardComponent.rSub;
+						var cardRSub = $(`<div class="cardRSub">${data[rSub]}</div>`)
+						cardSub.append(cardRSub);
+					}
+					
+					// carBtn 생성
+					var btnInfo = me.componentDef.component_option.cardVeiwFunc;
+					var cardBtn = $(`<div class="cardBtn"></div>`);
+					new gfnButtonSet(cardBtn, me.component_option.cardBtn, function(btnSet, evt, funcid, func) { 
+						console.log("버튼이 눌렸습니다.");
+						// afnEH(me, evt, i, funcid, func);
+					}); 
+
+
+					cardWrap.append(cardTop);
+					cardWrap.append(cardBody);
+					cardWrap.append(cardSub);
+					cardWrap.append(cardBtn);
+					cardViewWrap.append(cardWrap);	
+				}
+				me.componentBody.append(cardViewWrap);	
+				// Pagenation 생성
+				var dataCnt = datas.length;
+				var totalPage = Math.ceil(dataCnt / contentCnt);
+				var showPageCnt = 10; // pagenation에 보여줄 pag 수
+				
+				var page_sNum = showPageCnt*(curPageNation-1)+1;
+				var page_eNum = page_sNum + showPageCnt;
+				
+				console.log(`현재페이지 : ${curPage}`);
+				console.log(`PageNation 시작 : ${page_sNum}`);
+				console.log(`PageNation 시작 : ${page_eNum}`);
+				
+				
+				// Pagenation - Main
+				var pagenation = $(`<div class="pagenation"></div>`);
+				for(var i=page_sNum; i<page_eNum; i++) {
+					if(i > totalPage) break;
+					var page = $(`<button>${i}</button>`)
+					// 현재 페이지 정보 추가
+					if(i == curPage) page.addClass("curPage");
+					pagenation.append(page);
+				}
+				// Pagenation - Previous
+				var pagePrev = $(`<button><i class="fas fa-chevron-left"></i></button>`);
+				pagePrev.on("click", function() {
+					console.log("페이지 뒤로가기");
+					if(curPage-1 < 1) {
+						console.log("첫 페이지 입니다.")
+						curPage = 1;
+					} else {
+						curPage = curPage-1;
+						if(curPage < page_sNum) curPageNation = curPageNation - 1;
+					}
+					me.initCardView(datas, contentCnt, curPage, curPageNation);
+				})
+				// Pagenation - Next
+				var pageNext = $(`<button><i class="fas fa-chevron-right"></i></button>`);
+				pageNext.on("click", function() {
+					console.log("페이지 앞으로가기");
+					if(curPage+1 > totalPage) {
+						console.log("마지막 페이지 입니다.")
+						curPage = totalPage;
+					} else {
+						curPage = curPage+1;
+						if(curPage >= page_eNum) curPageNation = curPageNation + 1;
+					}
+					me.initCardView(datas, contentCnt, curPage, curPageNation);
+				})
+
+
+				pagenation.prepend(pagePrev);
+				pagenation.append(pageNext);
+				me.componentBody.append(pagenation);	
+			}
 			me.setter = function(colid,val) {      //컬럼 값세팅시 dtype,etype,attr에 따라 값정제
 				var colinf = subset(me.colinfo,"colid",colid);
 				if(isNull(colinf) || colinf.length==0) return val;
@@ -2191,7 +2340,6 @@ function gfnComponent( pageId, containerId, componentDef, afnEH, page ) {
 				}
 				rowObj.data("col",col); //upsert
 			}
-
 			me.refreshCol = function(rownum, colid) { 
 				/*
 				var rowObj = me.getRowObj(rownum);
@@ -2223,6 +2371,9 @@ function gfnComponent( pageId, containerId, componentDef, afnEH, page ) {
 				}
 				return true;
 			}  
+
+			// me.initCardView();
+
 		} else if( me.componentDef.component_pgmid =="aweImgViewer" ) {
 
 		} else if( me.componentDef.component_pgmid =="aweCalendar" ) {  
@@ -2255,6 +2406,7 @@ function gfnComponent( pageId, containerId, componentDef, afnEH, page ) {
 				me.caltype    = nvl(me.calOption.caltype,"COMMON");
 				me.fnTemplate = nvl(eval2(me.calOption.fnTemplate),function(row={}){return nvl(row.remark,"")});
 				me.start_dt   = nvl(me.calOption.start_dt,date("1st","yyyymmdd"));
+								
 				if(!isYmd(me.start_dt)) me.start_dt = date("1st","yyyymmdd");
 				me.week_cnt   = nvl(me.calOption.week_cnt,5); 
 				var args = {start_dt:me.start_dt,caltype:me.caltype,week_cnt:me.week_cnt}
@@ -2262,10 +2414,32 @@ function gfnComponent( pageId, containerId, componentDef, afnEH, page ) {
 				gfnTx("aweportal.manageCal","initCalendar",{INVAR:invar},function(OUTVAR){
 					if(OUTVAR.rtnCd=="OK") {
 						me.calendar = $(me.calendarTemplate);
-						me.calendar.find("caption").append("<p><</p><H2>"+date(me.start_dt,"yyyymmdd","'yy.mm월")+"</H2><p>></p>");
+						
+						var captionYear = $(`<div class="captionYear">${date(me.start_dt,"yyyymmdd","yyyy")}</div>`)
+						var captionMonth = $(`<div class="captionMonth">${date(me.start_dt,"yyyymmdd","mm월")}</div>`)
+						
+						// 캘린더 페이지 처리
+						var goPrev = $("<button class='goPrev'><i class='fas fa-caret-left'></i></button>");
+						var goNext = $("<button class='goNext'><i class='fas fa-caret-right'></i></button>");
+						goPrev.on("click",function(){
+							var prev_dt = date(dateAdd(date(me.start_dt,"yyyymmdd"), -1),"yyyy-mm-dd","yyyymm")+"01";
+							me.calOption.start_dt = prev_dt;
+							me.initCalendar(me.calOption);
+						});
+						goNext.on("click",function(){
+							var next_dt = date(dateAdd(date(me.start_dt,"yyyymmdd"), 31),"yyyy-mm-dd","yyyymm")+"01";
+							me.calOption.start_dt = next_dt;
+							me.initCalendar(me.calOption);
+						});
+
+						me.calendar.find("caption").append(captionYear);
+						me.calendar.find("caption").append(goPrev);
+						me.calendar.find("caption").append(captionMonth);
+						me.calendar.find("caption").append(goNext);
+						
 						OUTVAR.list.forEach((row,idx)=>{
 							if(idx%7==0) me.calendar.find("tbody").append("<tr></tr>");
-							var td = $(`<td id='${row.ymd}'><div id='top'><b>${row.ymd.substr(6,2)}</b>${nvl(row.remark,"")}</div></td>`);
+							var td = $(`<td id='${row.ymd}'><div id='top'><b>${row.ymd.substr(6,2)}</b><c>${nvl(row.remark,"")}</c></div></td>`);
 							td.find("div#top").data("data",row);
 							if(me.start_dt.substr(0,6) > row.ymd.substr(0,6)) td.addClass("prevMon");
 							else if(me.start_dt.substr(0,6) < row.ymd.substr(0,6)) td.addClass("nextMon"); 
@@ -2283,7 +2457,7 @@ function gfnComponent( pageId, containerId, componentDef, afnEH, page ) {
 						gfnAlert("Error","calendar initializing Error...:"+OUTVAR.rtnMsg);
 						if(typeof(afnCallback)=='function') afnCallback(OUTVAR); 
 					}
-				});
+				});			
 			} 
 			me.setVal = function(ymd,rowData) {  
 				if(typeof(ymd)=='string' && isYmd(ymd)) {
@@ -2320,7 +2494,19 @@ function gfnComponent( pageId, containerId, componentDef, afnEH, page ) {
 						return $(el).data("data");
 					}  
 				}).get();
-			} 
+			}
+			me.prePage = function() {
+				console.log("이전 페이지로 이동합니다.");
+				var prev_dt = date(dateAdd(date(me.start_dt,"yyyymmdd"), -1),"yyyy-mm-dd","yyyymm")+"01";
+				me.calOption.start_dt = prev_dt;
+				me.initCalendar(me.calOption);
+			}
+			me.nextPage = function() {
+				console.log("다음 페이지로 이동합니다.");
+				var next_dt = date(dateAdd(date(me.start_dt,"yyyymmdd"), 31),"yyyy-mm-dd","yyyymm")+"01";
+				me.calOption.start_dt = next_dt;
+				me.initCalendar(me.calOption);
+			}
 		    if(isNull(me.caltype)) me.initCalendar(); //initCalendar call  
 
 		} else if( me.componentDef.component_pgmid =="aweSalesCalendar" ) {  
