@@ -72,14 +72,7 @@ button {
 	margin: 0 1em;
 }
 
-#frameGNB .CI {
-	max-height: 4.125em;
-	max-width: 10em;
-	margin: -0.5em 0 -0.5em -1em;
-	border-top-right-radius: 0.5em;
-	border-bottom-right-radius: 0.5em;
-	box-shadow: #00000050 4px 0 4px 0px;
-}
+
 
 #frameGNB.dock .banner {
 	display: none !important;

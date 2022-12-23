@@ -25,14 +25,17 @@
             <nav class="menu">
 
                 <div class="logo">
+
                     <img src="servers.png" alt="" onclick="openNav()" width="60">
-                    <img src="logo.png" alt="" width="180" >
+                    <a href="#" class="mainLogo">
+                        <img class="CI" src="logo.png" alt="" width="180">
+                    </a>
                 </div>
 
                 <div class="menu-right">
 
 
-                     <button class="search"><i class="fas fa-search"></i></button>
+                    <button class="search"><i class="fas fa-search"></i></button>
 
                     <!-- <input type="text" placeholder="Search.." class="textSearch"> -->
                     <!-- <button class="search"><i class="fas fa-search"></i></button> -->
@@ -122,18 +125,18 @@
             </nav>
 
         </div>
-                     
+
         <!----탭밑에 컨텐츠 화면들----->
-    
- 
+
+
         <main id="frameMain">
             <div id="frameTab"></div>
         </main>
-       
+
     </div>
-                        <!--search-->
-                        <search id="frameSearch" class="aweSearch hidden">
-                        </search>
+    <!--search-->
+    <search id="frameSearch" class="aweSearch hidden">
+    </search>
     <!----푸터---->
 
     <footer id="undercopy">
@@ -148,7 +151,7 @@
 
 
     <!-- alert -->
-    <div id="alert" class="modal"  tabindex="0">
+    <div id="alert" class="modal" tabindex="0">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">alert 창입니다.</h5>
@@ -336,7 +339,7 @@
 
             //mainLogo 로고 클릭시 리로드
             $(".mainLogo").on("click", function () {
-                alert("시스템 리소스 파일을 초기화합니다.")
+                // gfnAlert("초기화","시스템 리소스 파일을 초기화합니다.")
                 location.href = "/index.html?" + date("today", "yyyymmddhh24miss");
             });
 
@@ -825,7 +828,7 @@
             $("#frameGNB .gnb nav .notice").on({
                 click: function () {
                     $("#frameGNB .gnb nav .notice").attr("style", "background-color:unset");
-                    $("#frameGNB .gnb nav .notice i").css("color", "white"); 
+                    $("#frameGNB .gnb nav .notice i").css("color", "white");
                     $("#frameAlert").toggleClass("hidden");
                 }
             })
