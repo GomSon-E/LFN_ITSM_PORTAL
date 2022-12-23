@@ -1,13 +1,15 @@
 <!-- css start -->
 <style>
-
 [pgmid='componentTest'].framepage { 
     width:100%;
 }
-
-
-[pgmid='componentTest'].framepage > .pageContent > #com> .aweForm{
-    align-content: flex-start;
+[pgmid='componentTest'].framepage > .pageContent > #cardView { 
+    flex-basis: 50%;
+    background: beige;
+    border: 1px solid red;
+}
+[pgmid='componentTest'].framepage > .pageContent > #t1 { 
+    flex-basis: 50%;
 }
 </style>
 
@@ -16,7 +18,8 @@
 <div class="pageTop"></div>
 <div class="pageCond"></div>
 <div class="pageContent">
-    <div id='com'></div>
+    <div id='cardView'></div>
+    <div id="t1"></div>
 </div>
 <script>
 /*-- _script(자동생성1) start ---------------------------------------------- */        
@@ -40,10 +43,39 @@ $(function() {
         me.dataDef = dataDef;
         me.pageObj = pageObj;
         me.bEdit = bEdit;
-me.dataDef["_pgm"]={"ver":0.1,"upd_dt":"2022-12-20 15:28:54","remark":"","pgmid":"componentTest","proc_mst_id":"","pgm_stat":"Y","sort_seq":500,"app_pgmid":"ITSM","shortcut":"","reg_dt":"2022-12-12 16:48:08","reg_usid":"sju02092","pgm_nm":"컴포넌트 테스트","upd_usid":"sju02092","pgm_tp":"UX","pgm_grp_nm":"유지보수","proc_mst_nm":"","":"트랜젝션(메뉴)","app_pgm_nm":"ITSM","crud":""};
-me.dataDef["_pgm_func"]=[{"func_icon":null,"reg_dt":"2022-12-20 15:28:54","reg_usid":"","func_nm":"테스트","upd_usid":"","upd_dt":"2022-12-20 15:28:54","func_tp":null,"remark":null,"pgmid":"componentTest","sort_seq":"1","funcid":"test","content":null,"crud":"R","id":"0"},{"func_icon":null,"reg_dt":"2022-12-20 15:28:54","reg_usid":"","func_nm":"Get","upd_usid":"","upd_dt":"2022-12-20 15:28:54","func_tp":null,"remark":null,"pgmid":"componentTest","sort_seq":"2","funcid":"get","content":null,"crud":"R","id":"1"},{"func_icon":null,"reg_dt":"2022-12-20 15:28:54","reg_usid":"","func_nm":"Set","upd_usid":"","upd_dt":"2022-12-20 15:28:54","func_tp":null,"remark":null,"pgmid":"componentTest","sort_seq":"3","funcid":"set","content":null,"crud":"R","id":"2"}];
+me.dataDef["_pgm"]={"ver":0.1,"upd_dt":"2022-12-22 20:04:38","remark":"","pgmid":"componentTest","proc_mst_id":"","pgm_stat":"Y","sort_seq":500,"app_pgmid":"ITSM","shortcut":"","reg_dt":"2022-12-12 16:48:08","reg_usid":"sju02092","pgm_nm":"컴포넌트 테스트","upd_usid":"sju02092","pgm_tp":"UX","pgm_grp_nm":"유지보수","proc_mst_nm":"","":"트랜젝션(메뉴)","app_pgm_nm":"ITSM","crud":""};
+me.dataDef["_pgm_func"]=[{"func_icon":null,"reg_dt":"2022-12-22 20:04:38","reg_usid":"","func_nm":"SET","upd_usid":"","upd_dt":"2022-12-22 20:04:38","func_tp":null,"remark":null,"pgmid":"componentTest","sort_seq":"3","funcid":"set","content":null,"crud":"R","id":"0"}];
 me.dataDef["_pgm_data"] = {};
-me.dataDef["_pgm_data"]["com"]={"sort_seq":null,"data_id":"com","data_nm":"컴포넌트","component_pgmid":"aweForm","inout_tp":"INOUT","content":[{"sort_seq":1,"section":null,"section_icon":null,"colgrp":null,"colid":"addrNum","colnm":"우편번호","dtype":"text","etype":"txt","attr":null,"defval":null,"w":"25","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":"우편번호","crud":"C"},{"sort_seq":2,"section":null,"section_icon":null,"colgrp":null,"colid":"addrMain","colnm":"주소","dtype":"text","etype":"txt","attr":null,"defval":null,"w":"25","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":"주소","crud":"C"},{"sort_seq":3,"section":null,"section_icon":null,"colgrp":null,"colid":"addrSub","colnm":"상세주소","dtype":"text","etype":"txt","attr":null,"defval":null,"w":"25","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":"상세주소","crud":"C"},{"sort_seq":4,"section":null,"section_icon":null,"colgrp":null,"colid":"addrBtn","colnm":"우편번호 검색","dtype":"text","etype":"btn","attr":null,"defval":null,"w":"25","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":5,"section":null,"section_icon":null,"colgrp":null,"colid":"preview","colnm":"미리보기","dtype":"text","etype":"btn","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"}],"data_icon":null,"component_option":null};
+me.dataDef["_pgm_data"]["cardView"]={
+    "sort_seq":"1",
+    "data_id":"cardView",
+    "data_nm":"공지목록",
+    "component_pgmid":"aweCardView",
+    "inout_tp":null,
+    "content":[
+        {"sort_seq":1,"section":null,"section_icon":null,"colgrp":null,"colid":"profile","colnm":"프로필","dtype":"text","etype":"img","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},
+        {"sort_seq":2,"section":null,"section_icon":null,"colgrp":null,"colid":"writer","colnm":"작성자","dtype":"text","etype":"txt","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},
+        {"sort_seq":3,"section":null,"section_icon":null,"colgrp":null,"colid":"title","colnm":"제목","dtype":"text","etype":"txt","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},
+        {"sort_seq":4,"section":null,"section_icon":null,"colgrp":null,"colid":"content","colnm":"내용","dtype":"text","etype":"txt","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},
+        {"sort_seq":5,"section":null,"section_icon":null,"colgrp":null,"colid":"sub1","colnm":"서브1","dtype":"text","etype":"txt","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},
+        {"sort_seq":6,"section":null,"section_icon":null,"colgrp":null,"colid":"sub2","colnm":"서브2","dtype":"text","etype":"txt","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"}
+    ],
+    "data_icon":null,
+    "component_option":{
+        "cardBtn":[
+            {"funcid":"save","func_nm":"저장","func_icon":"fas fa-save"},
+            {"funcid":"detail","func_nm":"자세히보기","func_icon":"fas fa-plus"}
+        ],
+        "cardComponent":{
+            "profile":null,
+            "writer":"reg_usid",
+            "title":"title",
+            "content":"content",
+            "lSub":"read_cnt",
+            "rSub":"reg_dt"
+        }
+    }
+};
 
     me.pageObj["_page"] = new gfnFramepage( me ); 
     for(var component_id in me.dataDef["_pgm_data"]) { 
@@ -66,30 +98,24 @@ me.dataDef["_pgm_data"]["com"]={"sort_seq":null,"data_id":"com","data_nm":"컴�
         //me.pageObj["myColId"] = new gfnControl(myColinfo, me.fnEH) 
         //me.page.find("#myCol").append(me.pageObj["myColId"].dispObj);
         //me.pageObj["myColId"].getVal(); / myCol.setVal(val);...    
+        me.fnSet();
     }
     /* 이벤트핸들러 */
-    me.fnEH=function(component, evt, row, col, val) {
-        console.log(`evt : ${evt} / row : ${row} / col : ${col} / val : ${val}`);
-        // console.log(component);
+    me.fnEH=function(component, evt, row, col, val) { 
         //화면기능버튼이 눌리면 
         if (component==me.pageObj["_pageFunc"]){ 
             if(typeof(me[col])=='function') me[col](); //col=기능명 me["fnSearch"]()=me.fnSearch(); 
         }
-        //com:컴포넌트 이벤트처리   
-        else if(component==me.pageObj["com"]) {
+        //cardView:공지목록 이벤트처리   
+        else if(component==me.pageObj["cardView"]) {
             if(evt=="componentFunc") {
                 if(row=="addRow") {
                     component.addRow();
                 } else if(row=="delRow") {
                     component.delRow();
                 }
-            } 
-            if(evt=="click" && col=="preview") {
-                console.log("프리뷰를 보여줍니다.");
-                var url = "C:\LFNDEV\workspace\LFN_ITSM_PORTAL\pds\LFN\preview\excel.xlsx";
-                // var filename = "pda스캔 관련 설정_221024.pptx";
-                gfnDownloadDirect(url);
             }
+            //if(evt=="change" && col=="colid") {...}
         }
 
         //사용자 컴포넌트/컨트롤
@@ -97,14 +123,20 @@ me.dataDef["_pgm_data"]["com"]={"sort_seq":null,"data_id":"com","data_nm":"컴�
             //if(evt=="dblclick" && col=="colid") {...}
         }
     }
-    me.fnGet = function() {
-        console.log("fnGet 눌림");
-        console.log(me.pageObj["com"].col['com0'].getVal());
-    }
-    me.fnSet = function() {
-        console.log("fnGet 눌림");
-        console.log(me.pageObj["com"].col['com0']);
-        me.pageObj["com"].col['com0'].setVal('45000')
+    //set:SET 
+    me.fnSet=function() {
+        //REQUEST OBJ : 
+        var args = {};
+        //SERVICE CALL: 
+        var invar = JSON.stringify(args);
+        gfnTx(appid+"."+pgmid,"set",{INVAR:invar},function(OUTVAR){
+            //console.log(OUTVAR);
+            if(OUTVAR.rtnCd=="OK") {
+                me.pageObj["cardView"].initCardView(OUTVAR.list, 5)
+            } else {
+                gfnAlert("오류",OUTVAR.rtnMsg);
+            }
+        });
     }
 
 /*-- _script2(자동생성2) start ---------------------------------------------------- */        

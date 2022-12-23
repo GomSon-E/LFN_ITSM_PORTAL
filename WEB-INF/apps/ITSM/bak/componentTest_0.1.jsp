@@ -14,24 +14,6 @@ try {
 String invar = request.getParameter("INVAR");
 JSONObject INVAR  = getObject(invar); 
 /***************************************************************************************************/// *********************************************************************************************/
-    if("set".equals(func)) {
-        Connection conn = null; 
-        try {  
-            OUTVAR.put("INVAR",INVAR); //for debug
-            conn = getConn("LFN");  
-            String qry = "select * from t_doc where reg_dt > '2022-11-01' order by reg_dt desc"; 
-            String qryRun = bindVAR(qry,INVAR);
-            OUTVAR.put("qryRun",qryRun); //for debug
-            JSONArray list = selectSVC(conn, qryRun);
-            OUTVAR.put("list",list); 
-
-        } catch (Exception e) { 
-            rtnCode = "ERR";
-            rtnMsg = e.toString();				
-        } finally {
-            closeConn(conn);
-        }  
-    }
 } catch (Exception e) {
 	logger.error("error occurred:"+rtnCode,e);
 	rtnCode    = "ERR";

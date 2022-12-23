@@ -1358,3 +1358,255 @@ padding-left: 2px;
 	display: none;
 }
 /*** select2 Hack *********************************************************************************/
+
+
+/*** aweCardView - start *******************************************************************************/	
+.aweCardView{
+	overflow-y: scroll;	
+	display: flex; flex-direction: column;
+	align-content: flex-start;
+}
+.aweCardView::-webkit-scrollbar {
+	display: none;
+}
+.aweCardView > .cardViewWrap{
+	flex-basis: 95%;
+	display: flex; flex-direction: column;
+	justify-content: space-between;
+}
+.aweCardView > .cardViewWrap > .cardWrap{
+	flex-basis: 18%;
+	border: 1px solid rgb(20, 122, 225);
+    border-radius: 5px;
+	overflow: hidden;
+	box-shadow: 3px 3px 3px lightgrey;
+	background-color: white;
+	display: flex;
+    flex-direction: column;
+}
+.aweCardView > .cardViewWrap > .cardWrap > .cardTop,.cardBody,.cardSub{
+	display: flex;
+}
+
+/* cardTop */
+.aweCardView > .cardViewWrap > .cardWrap > .cardTop{
+	flex-basis: 20%;
+	
+}
+.aweCardView > .cardViewWrap > .cardWrap > .cardTop > .cardTopProfile{
+	
+}
+.aweCardView > .cardViewWrap > .cardWrap > .cardTop > .cardTopWriter{
+	
+}
+.aweCardView > .cardViewWrap > .cardWrap > .cardTop > button{
+	margin-left: auto;
+    background: transparent;
+    border: none;
+}
+
+/* cardBody */
+.aweCardView > .cardViewWrap > .cardWrap > .cardBody {
+	flex-basis: 35%;
+}
+.aweCardView > .cardViewWrap > .cardWrap > .cardBody > .cardBodyTitle{
+	font-size: 1em;
+}
+.aweCardView > .cardViewWrap > .cardWrap > .cardBody > .cardBodyContent{
+	
+}
+
+/* cardSub */
+.aweCardView > .cardViewWrap > .cardWrap > .cardSub{
+	flex-basis: 20%;
+}
+.aweCardView > .cardViewWrap > .cardWrap > .cardSub > .cardLSub{
+	flex: 1 1 0;
+	font-size: 0.5em;
+}
+.aweCardView > .cardViewWrap > .cardWrap > .cardSub > .cardRSub{
+	flex: 1 1 0;
+	text-align: end;
+	font-size: 0.5em;
+}
+
+/* cardBtn */
+.aweCardView > .cardViewWrap > .cardWrap > .cardBtn{
+	flex-basis: 25%;
+	display: flex;
+}
+.aweCardView > .cardViewWrap > .cardWrap > .cardBtn > button:nth-child(1){
+	border-right: 1px solid white;
+}
+.aweCardView > .cardViewWrap > .cardWrap > .cardBtn > button{
+	flex: 1 1 0;
+    background: rgb(30, 122, 225);
+    border: none;
+    color: white;
+	font-size: 0.7em;
+    /* height: 1.5em; */
+}
+.aweCardView > .cardViewWrap > .cardWrap > .cardBtn > button > i{
+	
+}
+
+/* pagenation */
+.aweCardView > .pagenation{
+	flex-basis: 5%;
+	text-align: center;
+}
+.aweCardView > .pagenation > button{
+	margin: 0em 0.3em;
+    background: transparent;
+    border: none;
+}
+.aweCardView > .pagenation > button.curPage{
+	color: rgb(20, 122, 225);
+	font-size: 1.5em;
+}
+
+/*** aweCardView - end *******************************************************************************/	
+
+/*** aweCalender - start *******************************************************************************/	
+.aweCalendar{
+	display: flex; flex-direction: column;
+}
+.aweCalendar > table.calendar{
+	width: 100%;
+	flex-basis: 100%;
+	padding-top: 0.5em;
+	border-spacing: 0;
+}
+/* Caption */
+.aweCalendar > .calendar > caption{
+	
+}
+.aweCalendar > .calendar > caption > button{
+	background-color: transparent;
+	border: none;
+}
+.aweCalendar > .calendar > caption > button > i{
+	font-size: 2em;
+}
+.aweCalendar > .calendar > caption > .captionYear{
+
+}
+.aweCalendar > .calendar > caption > .captionMonth{
+	display: inline;
+	font-size: 2em;
+	padding: 0em 2em;
+}
+.aweCalendar > .calendar > caption > .gbuttonSet{
+	background: transparent;
+}
+.aweCalendar > .calendar > caption > .gbuttonSet > button{
+	background: transparent;
+    width: 5em;
+    
+	border: none;
+}
+.aweCalendar > .calendar > caption > .gbuttonSet > button:hover{
+	color: rgb(30, 122, 225);
+}
+.aweCalendar > .calendar > caption > .gbuttonSet > button > i{
+    font-size: 1.5em;
+}
+
+/* thead */
+.framepage table.calendar > thead {
+	padding: 0.5em 0em;
+}
+.framepage table.calendar > thead > tr {
+	background-color: #d7e8fc;
+}
+.framepage table.calendar > thead > tr > th{
+	padding: 0.5em 0em;
+	border: 0.5px solid lightgray;
+}
+
+/* tbody */
+.framepage table.calendar > tbody > tr > td {
+	border: 0.5px solid lightgray;
+	vertical-align: baseline;
+	width: 2em;
+}
+.framepage table.calendar > tbody > tr > td:hover {
+	border: 0.05px solid rgb(20, 122, 225);
+	background-color: rgba(20, 122, 225, 0.05);
+}
+.framepage table.calendar > tbody > tr > td:nth-child(1) > div > b {
+	/* background-color: rgba(20, 122, 225, 0.05); */
+	color: red;
+}
+.framepage table.calendar > tbody > tr > td:last-child > div > b {
+	/* background-color: rgba(20, 122, 225, 0.05); */
+	color: blue;
+}
+.framepage table.calendar > tbody > tr > td > div{
+	padding: 0.5em 0em 0em 0.5em;
+}
+.framepage table.calendar > tbody > tr > td.prevMon {
+	background: rgba(0, 0, 0, 0.05);
+}
+.framepage table.calendar > tbody > tr > td.prevMon > div > b {
+	color: gray;
+}
+.framepage table.calendar > tbody > tr > td.nextMon {
+	background: rgba(0, 0, 0, 0.05);
+}
+.framepage table.calendar > tbody > tr > td.nextMon > div > b {
+	color: gray;
+}
+
+
+/* .framepage table.calendar {
+	width: 100%;
+	height: 100%;
+	height: 90%;
+	border: 1px solid rgba(0, 0, 0, 0.5);
+	padding: 0;
+	border-spacing: 0;
+	table-layout: fixed;
+}
+
+.framepage table.calendar thead tr th:last-child {
+	background-color: #eaf3fb;
+	color: #31315a;
+}
+
+.framepage table.calendar tbody td {
+	border-collapse: collapse;
+	padding: 0.05em 0.25em 5em;
+	border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+	border-right: 1px solid rgba(0, 0, 0, 0.2);
+	background-color: #ffffff;
+	color: #313c31;
+}
+
+.framepage table.calendar tbody td:hover {
+	background-color: #fff5ef !important;
+	color: red;
+	text-decoration: underline;
+	cursor: pointer;
+}
+
+.framepage table.calendar tbody td:nth-child(1) {
+	background-color: #fffbfb;
+	color: #5a3131;
+}
+
+.framepage table.calendar tbody td p {
+	color: black;
+}
+
+.framepage table.calendar tbody td b {
+	padding-right: 10px;
+}
+
+.framepage table.calendar tbody tr td:last-child {
+	background-color: #eaf3fb;
+	color: #31315a;
+} */
+
+
+/*** aweCalender - end *******************************************************************************/	
