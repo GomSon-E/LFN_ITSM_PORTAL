@@ -273,25 +273,29 @@ function gfnStatus(msg, state) {
 }
  
 function gfnAlert(title, content, afnCallback) {
-	$("#alert").focus();
-	console.log("type", typeof(afnCallback))
-	if(isNull(afnCallback)) afnCallback = gfnCallback; 
-	console.log("type2", typeof(afnCallback))
+	if(isNull(afnCallback)) {
+		console.log()
+		afnCallback = gfnCallback; }
 
 	if (!isNum(title)) {
-		console.log("type3", typeof(afnCallback))
-		$("#alert .modal-content").draggable({handle: '.modal-header'});
-		console.log("type4", typeof(afnCallback))
-		$("#alert h5").html(title);
-		console.log("type5", typeof(afnCallback))
-		$("#alert p").html(content);
-		console.log("type6", typeof(afnCallback))
+		$("body").append('<div id="alert" class="modal"  tabindex="0" style="background-color: rgba(0, 0, 0, 0.5); z-index: 20;">\
+												<div class="modal-content">\
+														<div class="modal-header">\
+																<h5 class="modal-title">'+title+'</h5>\
+																<button class="layerBtn btn-close" data-bs-dismiss="modal" aria-label="Close"\
+																		onclick="gfnCloseLayer("alert")"></button>\
+														</div>\
+														<div class="modal-body">\
+																<p>'+content+'</p>\
+														</div>\
+														<div class="modal-footer">\
+																<button class="layerBtn btn btn-primary">확인</button>\
+														</div>\
+												</div>\
+										</div>')
 
-		// alert layer 띄우기
-		$("#alert").css("z-index", 20);
-		console.log("type7", typeof(afnCallback))
-		$("#alert").css("background-color", "rgba(0, 0, 0, 0.5)")
-		console.log("type8", typeof(afnCallback))
+		$("#alert .modal-content").draggable({handle: '.modal-header'});
+		$("#alert").focus();
 	}
 	else {
 		$("#progress h5").html("Progress");
@@ -303,26 +307,20 @@ function gfnAlert(title, content, afnCallback) {
 	}	
 
 	$("#alert").keydown(function(key){
-		console.log("type9", typeof(afnCallback))
 		if (key.keyCode == 13) {
-			console.log("type10", typeof(afnCallback))
 			gfnCloseLayer("alert")
-			console.log("type11", typeof(afnCallback))
 			afnCallback()
-			
 		}
 	})
 
 	$("#alert .modal-footer > button").click(function() {
-		console.log("type9", typeof(afnCallback))
 		gfnCloseLayer("alert")
-		console.log("type10", typeof(afnCallback))
 		afnCallback()
 	}) 
 } 
 
 function gfnCloseLayer (p) {
-	if (p == "confirm") {
+	if (p == "confirm" || p == "alert") {
 		$("#"+p).remove()
 	}
 	else {
