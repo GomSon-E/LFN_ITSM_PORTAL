@@ -274,17 +274,24 @@ function gfnStatus(msg, state) {
  
 function gfnAlert(title, content, afnCallback) {
 	$("#alert").focus();
-
+	console.log("type", typeof(afnCallback))
 	if(isNull(afnCallback)) afnCallback = gfnCallback; 
+	console.log("type2", typeof(afnCallback))
 
 	if (!isNum(title)) {
+		console.log("type3", typeof(afnCallback))
 		$("#alert .modal-content").draggable({handle: '.modal-header'});
+		console.log("type4", typeof(afnCallback))
 		$("#alert h5").html(title);
+		console.log("type5", typeof(afnCallback))
 		$("#alert p").html(content);
+		console.log("type6", typeof(afnCallback))
 
 		// alert layer 띄우기
 		$("#alert").css("z-index", 20);
+		console.log("type7", typeof(afnCallback))
 		$("#alert").css("background-color", "rgba(0, 0, 0, 0.5)")
+		console.log("type8", typeof(afnCallback))
 	}
 	else {
 		$("#progress h5").html("Progress");
@@ -296,10 +303,22 @@ function gfnAlert(title, content, afnCallback) {
 	}	
 
 	$("#alert").keydown(function(key){
+		console.log("type9", typeof(afnCallback))
 		if (key.keyCode == 13) {
+			console.log("type10", typeof(afnCallback))
 			gfnCloseLayer("alert")
+			console.log("type11", typeof(afnCallback))
+			afnCallback()
+			
 		}
 	})
+
+	$("#alert .modal-footer > button").click(function() {
+		console.log("type9", typeof(afnCallback))
+		gfnCloseLayer("alert")
+		console.log("type10", typeof(afnCallback))
+		afnCallback()
+	}) 
 } 
 
 function gfnCloseLayer (p) {
