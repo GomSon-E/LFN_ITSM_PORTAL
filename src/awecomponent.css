@@ -165,7 +165,7 @@ body {
 }
 
 .framepage.active {
-    height: calc(100vh - 140px);
+    height: calc(100vh - 125px);
     overflow-y: hidden;
     overflow-x: hidden;
     display: flex;

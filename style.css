@@ -239,7 +239,7 @@ body {
 
     }
 
-    .search {
+    .menu-right button.toggle {
         border: none;
         background-color: transparent;
         transition: all 0.5s;
@@ -248,7 +248,7 @@ body {
 
     }
 
-    .search:hover {
+    .menu-right button.toggle:hover {
         cursor: pointer;
         color: #0e2d87;
     }
