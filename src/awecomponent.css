@@ -333,14 +333,14 @@ body {
     flex-direction: row;
     justify-content: space-between;
     flex-wrap: wrap;
-		margin: 0.5em;
+	margin: 0.3em;
 }
 
 .componentBody {
 	padding: 0.5em;
 }
 .componentTitle { 
-	font-size: 1.4em;
+	font-size: 1.25em;
 	font-weight: 600;
 }
 
@@ -982,7 +982,7 @@ span.cell-deleted {
 	border: 1px solid gray;
 	border-radius: 5px;
 	overflow: hidden;
-	flex: 1 1 0;
+	/* flex: 1 1 0; */
 }
 .aweForm > div > .aweInputWrap > i{
 	margin-top: auto;
@@ -1161,6 +1161,19 @@ span.cell-deleted {
 }
 .aweForm > div > .aweInputWrap > .aweColWrap > button:hover{
 	background-color: rgba(30, 122, 225, 0.5);
+}
+
+.aweForm > div.aweGrp > .aweInputWrap.awebtn{
+    border: none;
+}
+.aweForm > div.aweGrp > .aweInputWrap > button{
+    background: rgb(20, 122, 225);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 0.5em 1em;
+    font-size: 1em;
+	width: 100%;
 }
 
 /* FieldSet */
@@ -1372,10 +1385,9 @@ padding-left: 2px;
 .aweCardView > .cardViewWrap{
 	flex-basis: 95%;
 	display: flex; flex-direction: column;
-	justify-content: space-between;
+	/* justify-content: space-between; */
 }
 .aweCardView > .cardViewWrap > .cardWrap{
-	flex-basis: 18%;
 	border: 1px solid rgb(20, 122, 225);
     border-radius: 5px;
 	overflow: hidden;
@@ -1383,6 +1395,10 @@ padding-left: 2px;
 	background-color: white;
 	display: flex;
     flex-direction: column;
+	margin-bottom: 0.5em;
+}
+.aweCardView > .cardViewWrap > .cardWrap:hover{
+	border: 2.5px solid rgb(20, 122, 225);
 }
 .aweCardView > .cardViewWrap > .cardWrap > .cardTop,.cardBody,.cardSub{
 	display: flex;
@@ -1391,69 +1407,58 @@ padding-left: 2px;
 /* cardTop */
 .aweCardView > .cardViewWrap > .cardWrap > .cardTop{
 	flex-basis: 20%;
-	
+	padding: 0.5em 1em 0em 0.5em;
 }
-.aweCardView > .cardViewWrap > .cardWrap > .cardTop > .cardTopProfile{
+.aweCardView > .cardViewWrap > .cardWrap > .cardTop > .cardTopTitle{
 	
-}
-.aweCardView > .cardViewWrap > .cardWrap > .cardTop > .cardTopWriter{
-	
-}
-.aweCardView > .cardViewWrap > .cardWrap > .cardTop > button{
-	margin-left: auto;
-    background: transparent;
-    border: none;
 }
 
 /* cardBody */
 .aweCardView > .cardViewWrap > .cardWrap > .cardBody {
-	flex-basis: 35%;
-}
-.aweCardView > .cardViewWrap > .cardWrap > .cardBody > .cardBodyTitle{
-	font-size: 1em;
+	flex-basis: 60%;
+	padding: 0em 0.5em 0em 0.5em;
+	display: flex; flex-direction: row;
 }
 .aweCardView > .cardViewWrap > .cardWrap > .cardBody > .cardBodyContent{
-	
+	font-size: 1em;
+	flex-basis: 60%;
+}
+.aweCardView > .cardViewWrap > .cardWrap > .cardBody > .cardBodyImg{
+	flex-basis: 40%;
+    overflow: hidden;
+    margin-left: auto; margin-right: auto;
+}
+.aweCardView > .cardViewWrap > .cardWrap > .cardBody > .cardBodyImg > img{
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
 }
 
 /* cardSub */
 .aweCardView > .cardViewWrap > .cardWrap > .cardSub{
 	flex-basis: 20%;
+	padding: 0em 0.5em 0em 0.5em;
 }
 .aweCardView > .cardViewWrap > .cardWrap > .cardSub > .cardLSub{
 	flex: 1 1 0;
 	font-size: 0.5em;
+	margin: auto auto;
 }
 .aweCardView > .cardViewWrap > .cardWrap > .cardSub > .cardRSub{
 	flex: 1 1 0;
 	text-align: end;
 	font-size: 0.5em;
-}
-
-/* cardBtn */
-.aweCardView > .cardViewWrap > .cardWrap > .cardBtn{
-	flex-basis: 25%;
-	display: flex;
-}
-.aweCardView > .cardViewWrap > .cardWrap > .cardBtn > button:nth-child(1){
-	border-right: 1px solid white;
-}
-.aweCardView > .cardViewWrap > .cardWrap > .cardBtn > button{
-	flex: 1 1 0;
-    background: rgb(30, 122, 225);
-    border: none;
-    color: white;
-	font-size: 0.7em;
-    /* height: 1.5em; */
-}
-.aweCardView > .cardViewWrap > .cardWrap > .cardBtn > button > i{
-	
+	margin: auto auto;
 }
 
 /* pagenation */
 .aweCardView > .pagenation{
 	flex-basis: 5%;
 	text-align: center;
+	display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-end;
 }
 .aweCardView > .pagenation > button{
 	margin: 0em 0.3em;

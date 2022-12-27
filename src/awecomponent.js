@@ -858,23 +858,40 @@ function gfnComponent( pageId, containerId, componentDef, afnEH, page ) {
 				} 
 				//colgrp이 바뀌었으면...라벨을 달아줘야함
 				var aweInputWrap = $(`<div class="aweInputWrap"></div>`)
+				aweInputWrap.addClass(`awe${colinfo.etype}`);	
 				if(isNull(nvl(colinfo.colgrp,""))) {
 					grpcontainer = $(`<div colgrp="${colinfo.colnm}" class="awe${colinfo.etype}"></div>`).appendTo(container);
 					grpcontainer.append(`<div class="label">${colinfo.colnm}</div>`);
 
 				} else if (colinfo.colgrp!=curColgrp) {
                     curColgrp = colinfo.colgrp;
-					grpcontainer = $(`<div colgrp="${curColgrp}" class="awe${colinfo.etype}"></div>`).appendTo(container);
+					grpcontainer = $(`<div colgrp="${curColgrp}" class="awe${colinfo.etype} aweGrp"></div>`).appendTo(container);
 					grpcontainer.append(`<div class="label">${curColgrp}</div>`);
 				} 
-                grpcontainer.addClass(colinfo.attr);
-
+                grpcontainer.addClass(colinfo.attr);				
+				
 				// 아이콘이 있으면 달아준다.
 				if(!isNull(colinfo.section_icon)) {
 					var icon = $(`<i class="${colinfo.section_icon}"></i>`);
 					aweInputWrap.append(icon);
 				}
-				 
+
+				/* 컬럼의 폭을 지정해줌 (w) */
+				grpcontainer.css("flex-basis", `${colinfo.w})}%`)
+				aweInputWrap.css('flex', '1 1 0');
+				// if(!isNull(colinfo.w)){
+				// 	console.log(colinfo.w);
+				// 	// var h1 = trim(colinfo.h.split(":")[0]);
+				// 	// var h2 = trim(colinfo.h.split(":")[1]);
+				// 	// console.log(`h1 : ${h1} // h2 : ${h2}`);
+				// } else {
+				// 	grpcontainer.css("flex-basis", "100%")
+				// 	aweInputWrap.css('flex', '1 1 0');
+				// }
+
+				/* 컬럼의 높이을 지정해줌 (h) */
+				if(!isNull(colinfo.h)) aweInputWrap.css("height", `${colinfo.h}em`)
+
 				/*************************************************************************/
 				/* 컬럼: 컨트롤&eventHandler Callback *************************************/
 				/*************************************************************************/
@@ -893,12 +910,11 @@ function gfnComponent( pageId, containerId, componentDef, afnEH, page ) {
 					grpcontainer.append(`<span class="intervalMark">~</span>`);
 				} else if(!isNull(colinfo.option) && (inStr(colinfo.option, "dashMark") != -1)) {
 					grpcontainer.append(`<span class="intervalMark">-</span>`);
+				} else if(!isNull(colinfo.option) && (inStr(colinfo.option, "emailMark") != -1)) {
+					grpcontainer.append(`<span class="intervalMark">@</span>`);
 				}
 
-				/* 컬럼의 폭을 지정해줌 (w) */
-				grpcontainer.css("flex-basis", `${nvl(colinfo.w, 100)}%`)
-				/* 컬럼의 높이을 지정해줌 (h) */
-				if(!isNull(colinfo.h)) aweInputWrap.css("height", `${colinfo.h}em`)
+				
 
                 /* 컬럼Group의 바깥크기를 지정해 줌 */
 				var colgrpWidth = 0;
@@ -2022,45 +2038,45 @@ function gfnComponent( pageId, containerId, componentDef, afnEH, page ) {
 					console.log(data);
 
 					// 전체 Wrap 생성
+					var cardHeight = (100/contentCnt) -1
 					var cardWrap = $(`<div class="cardWrap ${pageId}"></div>`) 
+					cardWrap.css("flex-basis", `${cardHeight}%`)
+					cardWrap.on("click", function() {
+						console.log(`${i}번 카드 클릭`)
+						afnEH(me, "evt", i, "colid", "newval" );
+					})
 
 					// cardTop 생성
 					var cardTop = $(`<div class="cardTop"></div>`)
-					if(!isNull(cardComponent.profile)){
-						var profile = cardComponent.profile;
-						var cardTopProfile = $(`<div class="cardTopProfile">${data[profile]}</div>`)
-						cardTop.append(cardTopProfile);
+					if(!isNull(cardComponent.title)){
+						var title = cardComponent.title;
+						var cardTopTitle = $(`<div class="cardTopTitle">${data[title]}</div>`)
+						cardTop.append(cardTopTitle);
 					}
-					if(!isNull(cardComponent.writer)){
-						var writer = cardComponent.writer;
-						var cardTopWriter = $(`<div class="cardTopWriter">작성자 : ${data[writer]}</div>`)
-						cardTop.append(cardTopWriter);
-					}
-					var cancelBtn = $("<button class='cancelBtn'><i class='fas fa-times'></i></button>");
-					cancelBtn.on("click",function(){
-						console.log("창을 닫습니다.")
-					});
-					cardTop.append(cancelBtn);
 
 					// cardBody 생성
 					var cardBody = $(`<div class="cardBody"></div>`)
-					if(!isNull(cardComponent.title)){
-						var title = cardComponent.title;
-						var cardBodyTitle = $(`<div class="cardBodyTitle">${data[title]}</div>`)
-						cardBody.append(cardBodyTitle);
+					if(!isNull(cardComponent.content)){
+						var content = cardComponent.content;
+						var cardBodyContent = $(`<div class="cardBodyContent">${data[content]}</div>`)
+						cardBody.append(cardBodyContent);
 					}
-					// if(!isNull(cardComponent.content)){
-					// 	var content = cardComponent.content;
-					// 	var cardBodyContent = $(`<div class="cardBodyContent">${data[content]}</div>`)
-					// 	cardBody.append(cardBodyContent);
-					// }
+					if(!isNull(cardComponent.img)){
+						// var img = cardComponent.img;
+						// var cardBodyImg = $(`<div class="cardBodyImg"><img src="${data[content]}" alt=""></div>`)
+						
+						// 테스트
+						var imgSrcSample = "https://developer.android.com/static/images/jetpack/compose/graphics-sourceimageland.jpg?hl=ko";
+						var cardBodyImg = $(`<div class="cardBodyImg"><img src="${imgSrcSample}" alt=""></div>`)
+						cardBody.append(cardBodyImg);
+					}
 
 					// cardSub 생성
 					var cardSub = $(`<div class="cardSub"></div>`)
 					if(!isNull(cardComponent.lSub)){
 						var lSub = cardComponent.lSub;
-						var cardlLSub = $(`<div class="cardlLSub">${data[lSub]}</div>`)
-						cardSub.append(cardlLSub);
+						var cardLSub = $(`<div class="cardLSub">${data[lSub]}</div>`)
+						cardSub.append(cardLSub);
 					}
 					if(!isNull(cardComponent.rSub)){
 						var rSub = cardComponent.rSub;
@@ -2068,34 +2084,32 @@ function gfnComponent( pageId, containerId, componentDef, afnEH, page ) {
 						cardSub.append(cardRSub);
 					}
 					
-					// carBtn 생성
-					var btnInfo = me.componentDef.component_option.cardVeiwFunc;
-					var cardBtn = $(`<div class="cardBtn"></div>`);
-					new gfnButtonSet(cardBtn, me.component_option.cardBtn, function(btnSet, evt, funcid, func) { 
-						console.log("버튼이 눌렸습니다.");
-						// afnEH(me, evt, i, funcid, func);
-					}); 
+					// // carBtn 생성
+					// // var btnInfo = me.componentDef.component_option.cardVeiwFunc;
+					// // var cardBtn = $(`<div class="cardBtn"></div>`);
+					// // new gfnButtonSet(cardBtn, me.component_option.cardBtn, function(btnSet, evt, funcid, func) { 
+					// // 	console.log("버튼이 눌렸습니다.");
+					// // 	// afnEH(me, evt, i, funcid, func);
+					// // }); 
 
 
 					cardWrap.append(cardTop);
 					cardWrap.append(cardBody);
 					cardWrap.append(cardSub);
-					cardWrap.append(cardBtn);
+					// cardWrap.append(cardBtn);
+					
 					cardViewWrap.append(cardWrap);	
 				}
 				me.componentBody.append(cardViewWrap);	
+
+
 				// Pagenation 생성
 				var dataCnt = datas.length;
 				var totalPage = Math.ceil(dataCnt / contentCnt);
-				var showPageCnt = 10; // pagenation에 보여줄 pag 수
+				var showPageCnt = 5; // pagenation에 보여줄 pag 수
 				
 				var page_sNum = showPageCnt*(curPageNation-1)+1;
-				var page_eNum = page_sNum + showPageCnt;
-				
-				console.log(`현재페이지 : ${curPage}`);
-				console.log(`PageNation 시작 : ${page_sNum}`);
-				console.log(`PageNation 시작 : ${page_eNum}`);
-				
+				var page_eNum = page_sNum + showPageCnt;				
 				
 				// Pagenation - Main
 				var pagenation = $(`<div class="pagenation"></div>`);
@@ -2132,7 +2146,6 @@ function gfnComponent( pageId, containerId, componentDef, afnEH, page ) {
 					}
 					me.initCardView(datas, contentCnt, curPage, curPageNation);
 				})
-
 
 				pagenation.prepend(pagePrev);
 				pagenation.append(pageNext);
@@ -3282,7 +3295,7 @@ function gfnControl(colinfo, afnEH, oComponent, rowid, val, rowPinned, agHack) {
 		me.remark = nvl(me.colinfo.remark,"");
 
 		/* etype에 따른 컨트롤 오브젝트 생성 */
-		var obj = $(`<span></span>`); 
+		var obj = $(`<span>${me.remark}</span>`); 
 		if( me.etype=="pre") {
 			obj =  $(`<${me.etype}></${me.etype}>`); 
 		} else if(me.etype=="txt") {
@@ -3456,27 +3469,8 @@ function gfnControl(colinfo, afnEH, oComponent, rowid, val, rowPinned, agHack) {
 			}
 		}); 
 		me.obj.on("keypress", function(event){
-			// etye이 number 일 경우
-			if(me.colinfo.etype == 'number') {
-				if(me.obj.val() == "" && event.key == 0) {
-					return false // 맨 앞 0은 불가
-				}
-				if(event.key >= 0 && event.key <= 9) {
-					return true;
-				} else {
-					return false;
-				}
-			}
 		});
 		me.obj.on("keyup", function(event){
-			// number + comma일 경우
-			if(me.colinfo.etype == 'number' && inStr(nvl(me.colinfo.option, ""), "comma") != -1) {
-				var value = me.obj.val();
-				// ,를 제거하고 다시 붙여줌
-				value = value.replace(/[^\d]+/g, '');
-				value = value.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
-				me.obj.val(value);
-			}
 		});
 		me.focusHack = false;
 		me.obj.on("focus",function(e){
