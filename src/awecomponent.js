@@ -332,7 +332,7 @@ function gfnMDI(pageContainer,tabContainer) {
 		var pageStat = $(".framepage.active").attr("stat"); 
 
 		//Next로 Focus하고 나서
-		me.go("next");
+		me.go("prev");
 		$(".framepage.active").attr("stat",pageStat);
 
 		//remove page
