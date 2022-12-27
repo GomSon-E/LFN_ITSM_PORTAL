@@ -3,14 +3,6 @@
 [pgmid='componentTest'].framepage { 
     width:100%;
 }
-[pgmid='componentTest'].framepage > .pageContent > #cardView { 
-    flex-basis: 50%;
-    background: beige;
-    border: 1px solid red;
-}
-[pgmid='componentTest'].framepage > .pageContent > #t1 { 
-    flex-basis: 50%;
-}
 </style>
 
 <!-- html start -->
@@ -18,8 +10,8 @@
 <div class="pageTop"></div>
 <div class="pageCond"></div>
 <div class="pageContent">
-    <div id='cardView'></div>
-    <div id="t1"></div>
+        <div id='form'></div>
+
 </div>
 <script>
 /*-- _script(자동생성1) start ---------------------------------------------- */        
@@ -43,39 +35,10 @@ $(function() {
         me.dataDef = dataDef;
         me.pageObj = pageObj;
         me.bEdit = bEdit;
-me.dataDef["_pgm"]={"ver":0.1,"upd_dt":"2022-12-22 20:04:38","remark":"","pgmid":"componentTest","proc_mst_id":"","pgm_stat":"Y","sort_seq":500,"app_pgmid":"ITSM","shortcut":"","reg_dt":"2022-12-12 16:48:08","reg_usid":"sju02092","pgm_nm":"컴포넌트 테스트","upd_usid":"sju02092","pgm_tp":"UX","pgm_grp_nm":"유지보수","proc_mst_nm":"","":"트랜젝션(메뉴)","app_pgm_nm":"ITSM","crud":""};
-me.dataDef["_pgm_func"]=[{"func_icon":null,"reg_dt":"2022-12-22 20:04:38","reg_usid":"","func_nm":"SET","upd_usid":"","upd_dt":"2022-12-22 20:04:38","func_tp":null,"remark":null,"pgmid":"componentTest","sort_seq":"3","funcid":"set","content":null,"crud":"R","id":"0"}];
+me.dataDef["_pgm"]={"ver":0.1,"upd_dt":"2022-12-27 12:37:39","remark":"","pgmid":"componentTest","proc_mst_id":"","pgm_stat":"Y","sort_seq":500,"app_pgmid":"ITSM","shortcut":"","reg_dt":"2022-12-12 16:48:08","reg_usid":"sju02092","pgm_nm":"컴포넌트 테스트","upd_usid":"sju02092","pgm_tp":"UX","pgm_grp_nm":"유지보수","proc_mst_nm":"","":"트랜젝션(메뉴)","app_pgm_nm":"ITSM","crud":""};
+me.dataDef["_pgm_func"]=[{"func_icon":null,"reg_dt":"2022-12-27 12:37:39","reg_usid":"","func_nm":"SET","upd_usid":"","upd_dt":"2022-12-27 12:37:39","func_tp":null,"remark":null,"pgmid":"componentTest","sort_seq":"3","funcid":"set","content":null,"crud":"R","id":"0"}];
 me.dataDef["_pgm_data"] = {};
-me.dataDef["_pgm_data"]["cardView"]={
-    "sort_seq":"1",
-    "data_id":"cardView",
-    "data_nm":"공지목록",
-    "component_pgmid":"aweCardView",
-    "inout_tp":null,
-    "content":[
-        {"sort_seq":1,"section":null,"section_icon":null,"colgrp":null,"colid":"profile","colnm":"프로필","dtype":"text","etype":"img","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},
-        {"sort_seq":2,"section":null,"section_icon":null,"colgrp":null,"colid":"writer","colnm":"작성자","dtype":"text","etype":"txt","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},
-        {"sort_seq":3,"section":null,"section_icon":null,"colgrp":null,"colid":"title","colnm":"제목","dtype":"text","etype":"txt","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},
-        {"sort_seq":4,"section":null,"section_icon":null,"colgrp":null,"colid":"content","colnm":"내용","dtype":"text","etype":"txt","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},
-        {"sort_seq":5,"section":null,"section_icon":null,"colgrp":null,"colid":"sub1","colnm":"서브1","dtype":"text","etype":"txt","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},
-        {"sort_seq":6,"section":null,"section_icon":null,"colgrp":null,"colid":"sub2","colnm":"서브2","dtype":"text","etype":"txt","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"}
-    ],
-    "data_icon":null,
-    "component_option":{
-        "cardBtn":[
-            {"funcid":"save","func_nm":"저장","func_icon":"fas fa-save"},
-            {"funcid":"detail","func_nm":"자세히보기","func_icon":"fas fa-plus"}
-        ],
-        "cardComponent":{
-            "profile":null,
-            "writer":"reg_usid",
-            "title":"title",
-            "content":"content",
-            "lSub":"read_cnt",
-            "rSub":"reg_dt"
-        }
-    }
-};
+me.dataDef["_pgm_data"]["form"]={"sort_seq":"1","data_id":"form","data_nm":"컴포넌트","component_pgmid":"aweForm","inout_tp":null,"content":[{"sort_seq":null,"section":null,"section_icon":null,"colgrp":null,"colid":"com1","colnm":"길이 테스트","dtype":"text","etype":"txt","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":5,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":null,"section":null,"section_icon":null,"colgrp":null,"colid":"com2","colnm":"number 테스트","dtype":"text","etype":"number","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":null,"section":null,"section_icon":null,"colgrp":null,"colid":"com3","colnm":"dec1","dtype":"num","etype":"txt","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":null,"section":null,"section_icon":null,"colgrp":null,"colid":"com4","colnm":"dec2","dtype":"num","etype":"txt","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":null,"section":null,"section_icon":null,"colgrp":null,"colid":"com5","colnm":"dec3","dtype":"num","etype":"txt","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":null,"section":null,"section_icon":null,"colgrp":null,"colid":"com6","colnm":"dec4","dtype":"num","etype":"txt","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"}],"data_icon":null,"component_option":null};
 
     me.pageObj["_page"] = new gfnFramepage( me ); 
     for(var component_id in me.dataDef["_pgm_data"]) { 
@@ -98,7 +61,6 @@ me.dataDef["_pgm_data"]["cardView"]={
         //me.pageObj["myColId"] = new gfnControl(myColinfo, me.fnEH) 
         //me.page.find("#myCol").append(me.pageObj["myColId"].dispObj);
         //me.pageObj["myColId"].getVal(); / myCol.setVal(val);...    
-        me.fnSet();
     }
     /* 이벤트핸들러 */
     me.fnEH=function(component, evt, row, col, val) { 
@@ -106,8 +68,8 @@ me.dataDef["_pgm_data"]["cardView"]={
         if (component==me.pageObj["_pageFunc"]){ 
             if(typeof(me[col])=='function') me[col](); //col=기능명 me["fnSearch"]()=me.fnSearch(); 
         }
-        //cardView:공지목록 이벤트처리   
-        else if(component==me.pageObj["cardView"]) {
+        //form:컴포넌트 이벤트처리   
+        else if(component==me.pageObj["form"]) {
             if(evt=="componentFunc") {
                 if(row=="addRow") {
                     component.addRow();
@@ -125,18 +87,21 @@ me.dataDef["_pgm_data"]["cardView"]={
     }
     //set:SET 
     me.fnSet=function() {
-        //REQUEST OBJ : 
-        var args = {};
-        //SERVICE CALL: 
-        var invar = JSON.stringify(args);
-        gfnTx(appid+"."+pgmid,"set",{INVAR:invar},function(OUTVAR){
-            //console.log(OUTVAR);
-            if(OUTVAR.rtnCd=="OK") {
-                me.pageObj["cardView"].initCardView(OUTVAR.list, 5)
-            } else {
-                gfnAlert("오류",OUTVAR.rtnMsg);
-            }
-        });
+        //VALIDATION  : 
+        if( !me.pageObj["form"].chkValid() ) return;
+        // //REQUEST OBJ : 
+        // var args = me.pageObj["pageCond"].exportData()[0];
+        // //SERVICE CALL: 
+        // var invar = JSON.stringify(args);
+        // gfnTx(appid+"."+pgmid,"set",{INVAR:invar},function(OUTVAR){
+        //     //console.log(OUTVAR);
+        //     if(OUTVAR.rtnCd=="OK") {
+        //         //서비스 후처리 : 
+        //         gfnAlert("성공","입력한 정보가 저장되었습니다."); 
+        //     } else {
+        //         gfnAlert("오류",OUTVAR.rtnMsg);
+        //     }
+        // });
     }
 
 /*-- _script2(자동생성2) start ---------------------------------------------------- */        
