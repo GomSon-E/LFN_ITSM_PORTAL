@@ -48,6 +48,7 @@ function gfnMDI(pageContainer,tabContainer) {
 		me.idx;
 		return me.idx;
 	}
+
 //frameBottom 의 좌우버튼 색표시
 	me.syncGNB = function() { 
 		var prev = me.tabContainer.children("a.active").prev().length;
@@ -62,8 +63,6 @@ function gfnMDI(pageContainer,tabContainer) {
 		var oPage = $("<div></div>");
 		oPage.attr("id","frameHome");
 		oPage.addClass("framepage");
-
-	
 		gfnLoad("aweportal","frameHome",oPage,function(OUTVAR){
 			me.pageContainer.children("#frameHome").remove();
 			me.pageContainer.append(oPage);
@@ -330,11 +329,11 @@ function gfnMDI(pageContainer,tabContainer) {
 		me.go(pageidx);
 		
 		//max상태의 창이 닫히면 새로운 창은 stat max를 넣어줘야 함
-		// var pageStat = $(".framepage.active").attr("stat"); 
+		var pageStat = $(".framepage.active").attr("stat"); 
 
 		//Next로 Focus하고 나서
-		me.go("prev");
-		// $(".framepage.active").attr("stat",pageStat);
+		me.go("next");
+		$(".framepage.active").attr("stat",pageStat);
 
 		//remove page
 		me.pageContainer.children(".framepage[id='"+pageidx+"']").remove();
@@ -342,21 +341,15 @@ function gfnMDI(pageContainer,tabContainer) {
 		delete gfn[pageidx];
 
 		//남은 것이 없으면 Home으로
-		if(me.tabContainer.children("a.tab").length==0) me.go("prev"); 
+		if(me.tabContainer.children("a").length==0) {
+			//if(!me.tabContainer.hasClass("hidden")) me.tabContainer.addClass("hidden");
+			$("#frameGNB").css("display","block");
+			gFrameset.fnShowFrameLeftBar(true); 
+			gFrameset.fnFramesetLayout(); 
+			me.go(0); 
+		}
 	} 
-	    //탭클릭 이벤트 핸들러 
-		$(me.tabContainer).on("click",function(e){
-			var oE = $(e.target);
-			if(oE.isON("[pageidx]")) {
-				var pageidx = oE.attr("pageidx")||oE.parents("[pageidx]").attr("pageidx"); 
-				// console.log(e);
-				if(oE.hasClass("closetab")) {
-					me.closeTab(pageidx); 
-				} else {
-					me.focusPage(pageidx);
-				}
-			}  
-		});
+
 	//채널 닫기
 	me.closeChat = function(grpid) {
 		$(".frameChat[id='" + grpid + "']").remove();
@@ -389,27 +382,27 @@ function gfnMDI(pageContainer,tabContainer) {
 	}
 
 //******************** YONG START 210821 ********************
-	// $(me.tabContainer).on("click",function(e){
-	// 	var oE = $(e.target);
-	// 	if(oE.isON("[pageidx]")) {
-	// 		var pageidx = oE.attr("pageidx")||oE.parents("[pageidx]").attr("pageidx");
+	$(me.tabContainer).on("click",function(e){
+		var oE = $(e.target);
+		if(oE.isON("[pageidx]")) {
+			var pageidx = oE.attr("pageidx")||oE.parents("[pageidx]").attr("pageidx");
 			
-	// 		//그룹 아이디 추가
-	// 		var grpid = oE.attr("grpid")||oE.parents("[grpid]").attr("grpid");
-	// 		if(isNull(pageidx)) {
-	// 			return;
+			//그룹 아이디 추가
+			var grpid = oE.attr("grpid")||oE.parents("[grpid]").attr("grpid");
+			if(isNull(pageidx)) {
+				return;
 
-	// 		} else if(!isNull(grpid) && oE.hasClass("closetab")) {
-	// 			me.closeTabOne(grpid);
+			} else if(!isNull(grpid) && oE.hasClass("closetab")) {
+				me.closeTabOne(grpid);
 
-	// 		} else if(oE.hasClass("closetab")) {
-	// 			me.closeTab(pageidx);
+			} else if(oE.hasClass("closetab")) {
+				me.closeTab(pageidx);
 
-	// 		} else {
-	// 			me.focusPage(pageidx);
-	// 		}
-	// 	} 
-	// }); 
+			} else {
+				me.focusPage(pageidx);
+			}
+		} 
+	}); 
 
 	/* 현재시간 : frameset의 fnInit()에 있어야 하지만 소스엉킴 문제로 gfnMDI에서 구현 */ 
 	if( $("#frameGNB .curtime").length > 0) $("#frameGNB .curtime").remove(); 
@@ -1099,8 +1092,8 @@ function gfnComponent( pageId, containerId, componentDef, afnEH, page ) {
 				if(me.col[colid] != undefined) me.col[colid].refreshOptions(arr);
 			} 
 			//Daum 주소 API호출
-			me.getAddress = function(component, addrNum, addrMain, addrSub, addrSub2){
-				if((addrNum == undefined) || (addrMain == undefined) || (addrSub == undefined) || (addrSub2 == undefined)){
+			me.getAddress = function(component, addrNum, addrMain, addrSub){
+				if((addrNum == undefined) || (addrMain == undefined) || (addrSub == undefined) ){
 					console.log("함수의 입력값이 불충분합니다.")
 					return;
 				}
@@ -1140,11 +1133,11 @@ function gfnComponent( pageId, containerId, componentDef, afnEH, page ) {
 								extraAddr = ' (' + extraAddr + ')';
 							}
 							// 조합된 참고항목을 해당 필드에 넣는다.
-							me.setVal(addrSub2, extraAddr);
+							// me.setVal(addrSub2, extraAddr);
 						
 						} else {
 							// document.getElementById("sample6_extraAddress").value = '';
-							me.setVal(addrSub2, "");
+							// me.setVal(addrSub2, "");
 						}
 
 						// 우편번호, 주소에 값을 넣는다.
