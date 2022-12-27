@@ -20,22 +20,24 @@ if("retrieveSpec".equals(func)) {
 		OUTVAR.put("INVAR",INVAR); //for debug
 
 		conn = getConn("LFN");  
-        String qry_pgm = "SELECT * FROM T_PGM WHERE pgmid={pgmid}"; 
+		// 가장 최신 버전 불러오기
+
+        String qry_pgm = "SELECT * FROM HIS_PGM WHERE pgmid = {pgmid} AND ver = (SELECT MAX(VER) FROM HIS_PGM WHERE pgmid = {pgmid})"; 
         qry_pgm = bindVAR(qry_pgm,INVAR);
         JSONArray pgm = selectSVC(conn, qry_pgm);
         OUTVAR.put("pgm",pgm);
 
-        String qry_pgm_func = "SELECT * FROM T_PGM_FUNC WHERE pgmid={pgmid} ORDER BY SORT_SEQ"; 
+        String qry_pgm_func = "SELECT * FROM HIS_PGM_FUNC WHERE pgmid={pgmid} AND ver = (SELECT MAX(VER) FROM HIS_PGM WHERE pgmid = {pgmid})"; 
         qry_pgm_func = bindVAR(qry_pgm_func,INVAR);
         JSONArray pgm_func = selectSVC(conn, qry_pgm_func);
         OUTVAR.put("pgm_func",pgm_func);
 
-        String qry_pgm_data = "SELECT * FROM T_PGM_DATA WHERE pgmid={pgmid} ORDER BY SORT_SEQ"; 
+        String qry_pgm_data = "SELECT * FROM HIS_PGM_DATA WHERE pgmid={pgmid} AND ver = (SELECT MAX(VER) FROM HIS_PGM WHERE pgmid = {pgmid})"; 
         qry_pgm_data = bindVAR(qry_pgm_data,INVAR);
         JSONArray pgm_data = selectSVC(conn, qry_pgm_data);
         OUTVAR.put("pgm_data",pgm_data);
 
-        String qry_pgm_src = "SELECT * FROM T_PGM_SRC WHERE pgmid={pgmid} ORDER BY SORT_SEQ"; 
+        String qry_pgm_src = "SELECT * FROM HIS_PGM_SRC WHERE pgmid={pgmid} AND ver = (SELECT MAX(VER) FROM HIS_PGM WHERE pgmid = {pgmid})"; 
         qry_pgm_src = bindVAR(qry_pgm_src,INVAR);
         JSONArray pgm_src = selectSVC(conn, qry_pgm_src);
         OUTVAR.put("pgm_src",pgm_src); 
@@ -43,7 +45,7 @@ if("retrieveSpec".equals(func)) {
 	} catch (Exception e) {
 		logger.error("workbench.retriveSpec:"+rtnCode,e);
 		rtnCode = "ERR";
-		rtnMsg = e.toString();				
+		rtnMsg = e.toString();			
 	} finally {
 		closeConn(conn);
 	}  
@@ -56,43 +58,44 @@ else if("saveSpec".equals(func)) {
 		conn.setAutoCommit(false); 
 		//INVAR = {pgm, pgm_func, pgm_data, pgm_src }
 		String qry = " DECLARE lv_pgmid VARCHAR2(50) := {pgmid};";
-               qry += "   lv_ver NUMBER(6,4) := 0.00; ";
+               qry += "   lv_ver NUMBER(6,4) := 0.02; ";
                qry += "   lv_usid VARCHAR2(50) := 'admin'; ";
                qry += "   lv_dt   DATE := sysdate; ";
                qry += " BEGIN ";
-		
-		String qryTPGM = "BEGIN	SELECT VER 	, reg_usid, reg_dt	INTO lv_ver	, lv_usid, lv_dt	FROM T_PGM 	WHERE pgmid = lv_pgmid;	EXCEPTION WHEN OTHERS THEN	lv_ver := 0.00; END;";
-				qryTPGM += "DELETE FROM T_PGM WHERE pgmid = lv_pgmid;	DELETE FROM T_PGM_FUNC WHERE pgmid = lv_pgmid;	DELETE FROM T_PGM_DATA WHERE pgmid = lv_pgmid;	DELETE FROM T_PGM_SRC  WHERE pgmid = lv_pgmid;";
-				qryTPGM += "INSERT INTO T_PGM ( pgmid, ver, app_pgmid, pgm_grp_nm, pgm_nm, pgm_tp, proc_mst_id, pgm_stat, remark, shortcut, sort_seq, reg_dt, reg_usid, upd_dt, upd_usid ) VALUES (  {pgmid}, {ver}, {app_pgmid}, {pgm_grp_nm}, {pgm_nm}, {pgm_tp}, {proc_mst_id}, {pgm_stat}, {remark}, {shortcut}, {sort_seq}, TO_DATE({reg_dt},'yyyy-MM-dd HH24:mi:ss'), {reg_usid}, sysdate, {usid} );";  
 
-		// String qryTPGM = getQuery(pgmid, "mergeTPGM"); //make history, delete, insert T_pgm
-		String qryTPGMFUNC = getQuery(pgmid, "mergeTPGMFUNC");
-        String qryTPGMDATA = getQuery(pgmid, "mergeTPGMDATA");
-		String qryTPGMSRC = getQuery(pgmid, "mergeTPGMSRC");
+		// 저장시 HIS TABLE에만 저장된다 (버전이 0.01씩 올라감)
+		String qryHISPGM = "BEGIN	SELECT MAX(ver)	INTO lv_ver	FROM HIS_PGM 	WHERE pgmid = lv_pgmid;	EXCEPTION WHEN OTHERS THEN	lv_ver := 0.00;  SELECT  reg_usid, reg_dt	INTO lv_usid, lv_dt FROM HIS_PGM 	WHERE pgmid = lv_pgmid; END;";
+			qryHISPGM += "INSERT INTO HIS_PGM ( pgmid, ver, app_pgmid, pgm_grp_nm, pgm_nm, pgm_tp, proc_mst_id, pgm_stat, remark, shortcut, sort_seq, reg_dt, reg_usid, upd_dt, upd_usid ) VALUES (  {pgmid}, lv_ver+0.01, {app_pgmid}, {pgm_grp_nm}, {pgm_nm}, {pgm_tp}, {proc_mst_id}, {pgm_stat}, {remark}, {shortcut}, {sort_seq}, TO_DATE({reg_dt},'yyyy-MM-dd HH24:mi:ss'), {reg_usid}, sysdate, {usid} );";
+		String qryHISPGMFUNC = "INSERT into HIS_PGM_FUNC (  pgmid, funcid, content, func_icon, func_nm, func_tp, remark, sort_seq, ver ) VALUES (  lv_pgmid, {funcid}, {content}, {func_icon}, {func_nm}, {func_tp}, {remark}, {sort_seq}, lv_ver+0.01 );";
+		String qryHISPGMDATA = "INSERT into HIS_PGM_DATA (  pgmid, data_id, component_option, component_pgmid, data_icon, data_nm, inout_tp, sort_seq, ver ) VALUES (  lv_pgmid, {data_id}, {component_option}, {component_pgmid}, {data_icon}, {data_nm}, {inout_tp}, {sort_seq}, lv_ver+0.01 );";
+		String qryHISPGMSRC = "INSERT into HIS_PGM_SRC (  pgmid, srcid, src_tp, src_nm, sort_seq, t_id, func_tp, ver ) VALUES (  lv_pgmid, {srcid}, {src_tp}, {src_nm}, {sort_seq}, {t_id}, {func_tp}, lv_ver+0.01 );"; 
+		String qryTPGM = "UPDATE T_PGM SET ver = lv_ver+0.01 , upd_dt = sysdate, upd_usid = {usid} WHERE pgmid = lv_pgmid;";
 
-		JSONObject mTPGM = getRow(getArray(INVAR,"pgm"),0);
-    	mTPGM.put("usid",USERID);
-        qry = bindVAR(qry,mTPGM)+ "\n\n";        
-		qry += bindVAR(qryTPGM, mTPGM) + "\n\n";
+
+		JSONObject mHISPGM = getRow(getArray(INVAR,"pgm"),0);
+    	mHISPGM.put("usid",USERID);
+        qry = bindVAR(qry,mHISPGM) + "\n\n";    
+		qry += bindVAR(qryHISPGM, mHISPGM) + "\n\n";
+		qry += bindVAR(qryTPGM, mHISPGM) + "\n\n";    
 
         JSONArray pgm_func = getArray(INVAR,"pgm_func");
 		for(int i = 0; i < pgm_func.size(); i++) {
-			JSONObject mTPGMFUNC = getRow(pgm_func,i); 
-			qry += bindVAR(qryTPGMFUNC,mTPGMFUNC) + "\n";
+			JSONObject mHISPGMFUNC = getRow(pgm_func,i); 
+			qry += bindVAR(qryHISPGMFUNC,mHISPGMFUNC) + "\n";
 		}
 		qry += "\n\n";
 
         JSONArray pgm_data = getArray(INVAR,"pgm_data");
 		for(int i = 0; i < pgm_data.size(); i++) {
-			JSONObject mTPGMDATA = getRow(pgm_data,i); 
-			qry += bindVAR(qryTPGMDATA,mTPGMDATA) + "\n";
+			JSONObject mHISPGMDATA = getRow(pgm_data,i); 
+			qry += bindVAR(qryHISPGMDATA,mHISPGMDATA) + "\n";
 		}
 		qry += "\n\n";
 
         JSONArray pgm_src = getArray(INVAR,"pgm_src");
 		for(int i = 0; i < pgm_src.size(); i++) {
-			JSONObject mTPGMSRC = getRow(pgm_src,i); 
-			qry += bindVAR(qryTPGMSRC,mTPGMSRC) + "\n";
+			JSONObject mHISPGMSRC = getRow(pgm_src,i); 
+			qry += bindVAR(qryHISPGMSRC,mHISPGMSRC) + "\n";
 		} 
         qry += "END;";      
 		OUTVAR.put("qry",qry);
@@ -106,16 +109,17 @@ else if("saveSpec".equals(func)) {
 			rtnMsg  = getVal(rst,"rtnMsg");
 			//System.out.println("rollback finished");
 		} else { 
-			System.out.println("105: updateClob ");
+			System.out.println("105: updateClob");
 			boolean bRst = true;
 			for(int i = 0; i < pgm_data.size(); i++) {
 				//executeUpldateClob(conn,String tbl,String clobCol, String clobData, String where) 
 				JSONObject row = getRow(pgm_data,i);
 				rtnMsg = executeUpdateClob(conn, 
-						                     "T_PGM_DATA",
+						                     "HIS_PGM_DATA",
 						                     "content",
 						                     getVal(row,"content"),
-						                     "WHERE pgmid='"+getVal(mTPGM,"pgmid")+"' AND data_id='"+getVal(row,"data_id")+"'");
+						                     "WHERE pgmid='"+getVal(mHISPGM,"pgmid")+"' AND data_id='"+getVal(row,"data_id")+"' AND ver=(SELECT MAX(VER) FROM HIS_PGM WHERE pgmid = '"+getVal(mHISPGM,"pgmid")+"')");
+
 				if(!"OK".equals(rtnMsg)) {
 					rtnCode = "-8888";
 					bRst = false;
@@ -128,10 +132,10 @@ else if("saveSpec".equals(func)) {
 					//executeUpldateClob(conn,String tbl,String clobCol, String clobData, String where) 
 					JSONObject row = getRow(pgm_src,i);
 					rtnMsg = executeUpdateClob(conn, 
-												"T_PGM_SRC",
+												"HIS_PGM_SRC",
 												"content",
 												getVal(row,"content"),
-												"WHERE pgmid='"+getVal(mTPGM,"pgmid")+"' AND srcid='"+getVal(row,"srcid")+"'");
+												"WHERE pgmid='"+getVal(mHISPGM,"pgmid")+"' AND srcid='"+getVal(row,"srcid")+"' AND ver=(SELECT MAX(VER) FROM HIS_PGM WHERE pgmid = '"+getVal(mHISPGM,"pgmid")+"')");
 					if(!"OK".equals(rtnMsg)) {
 						rtnCode = "-8888";
 						bRst = false;
@@ -182,7 +186,91 @@ else if("removeSrc".equals(func)) {
 }
 
 //***********************************************************************************************/
-else if("deploy".equals(func)) { 
+else if("saveFile".equals(func)){
+	try {  	
+		String rootDir = application.getRealPath("/");
+		// System.out.println(rootDir);  //C:\LFN\workspace\lfn_ep\
+		String app_pgmid = getVal(INVAR,"appid");
+		String _pgmid = getVal(INVAR,"pgmid");
+		String ver = getVal(INVAR,"ver");
+		
+		String sPathHTML = rootDir+"qas"+FILESL+app_pgmid+FILESL;   // FILESL = "\\"
+		// System.out.println(sPathHTML);
+		File pathHTML = new File(sPathHTML);
+		if (!pathHTML.exists()) {
+			pathHTML.mkdirs();
+			pathHTML.setReadable(true,false);
+			pathHTML.setExecutable(true);
+		}
+		File fileHTML = new File(sPathHTML+_pgmid+".html");
+		if (fileHTML.exists()) fileHTML.delete();
+		if (!fileHTML.exists()) {
+			fileHTML.createNewFile();
+			Writer fw = null;
+			fw = new OutputStreamWriter(new FileOutputStream(sPathHTML+_pgmid+".html"), StandardCharsets.UTF_8);
+			fw.write( getVal(INVAR,"html") ); 
+			fw.close(); 
+			fileHTML.setReadable(true,false);
+		}  
+
+		String sPathJSP = rootDir+"WEB-INF"+FILESL+"qas"+FILESL+app_pgmid+FILESL;   // FILESL = "\\"
+		//System.out.println(sPathJSP);
+		File pathJSP = new File(sPathJSP);
+		if (!pathJSP.exists()) {
+			pathJSP.mkdirs();
+			pathJSP.setReadable(true,false);
+			pathJSP.setExecutable(true);
+		}
+		File fileJSP = new File(sPathJSP+_pgmid+".jsp");
+		if (fileJSP.exists()) fileJSP.delete();
+		if (!fileJSP.exists()) {
+			fileJSP.createNewFile();
+			Writer fw = null;
+			fw = new OutputStreamWriter(new FileOutputStream(sPathJSP+_pgmid+".jsp"), StandardCharsets.UTF_8);
+			fw.write( getVal(INVAR,"jsp") ); 
+			fw.close(); 
+			fileJSP.setReadable(true,false); 
+		}   
+	} catch (Exception e) { 
+		rtnCode = "ERR";
+		rtnMsg = e.toString();				
+	} 
+}
+else if("deploySpec".equals(func)) {
+	Connection conn = null; 
+	try {  
+		conn = getConn("LFN");
+		conn.setAutoCommit(false);
+
+		String qry = " DECLARE lv_pgmid VARCHAR2(50) := {pgmid};";
+               qry += "   lv_ver NUMBER(6,4) := 0.00; ";
+               qry += " BEGIN ";
+			   qry += "DELETE FROM T_PGM_FUNC WHERE pgmid = lv_pgmid;	DELETE FROM T_PGM_DATA WHERE pgmid = lv_pgmid;	DELETE FROM T_PGM_SRC  WHERE pgmid = lv_pgmid;";
+
+		qry += "INSERT INTO T_PGM_FUNC (  pgmid, funcid, content, func_icon, func_nm, func_tp, remark, sort_seq ) SELECT pgmid, funcid, content, func_icon, func_nm, func_tp, remark, sort_seq FROM HIS_PGM_FUNC WHERE pgmid=lv_pgmid AND ver = (SELECT MAX(VER) FROM HIS_PGM WHERE pgmid = lv_pgmid);";
+		qry += "INSERT INTO T_PGM_DATA (  pgmid, data_id, component_option, component_pgmid, data_icon, data_nm, inout_tp, sort_seq, content ) SELECT pgmid, data_id, component_option, component_pgmid, data_icon, data_nm, inout_tp, sort_seq, content FROM HIS_PGM_DATA WHERE pgmid=lv_pgmid AND ver = (SELECT MAX(VER) FROM HIS_PGM WHERE pgmid=lv_pgmid);";
+		qry += "INSERT INTO T_PGM_SRC (  pgmid, srcid, src_tp, src_nm, content, sort_seq, t_id, func_tp ) SELECT pgmid, srcid, src_tp, src_nm, content, sort_seq, t_id, func_tp FROM HIS_PGM_SRC WHERE pgmid=lv_pgmid AND ver = (SELECT MAX(VER) FROM HIS_PGM WHERE pgmid=lv_pgmid);"; 
+
+		qry = bindVAR(qry, INVAR);
+        qry += " END;";      
+		OUTVAR.put("qry",qry);
+		JSONObject rst = executeSVC(conn, qry);
+		if(!"OK".equals(getVal(rst,"rtnCd"))) {
+			conn.rollback();
+			rtnCode = getVal(rst,"rtnCd"); 
+			rtnMsg  = getVal(rst,"rtnMsg");
+		}else {
+			conn.commit();
+		}
+	} catch (Exception e) {
+		logger.error("workbench.deploySpec:"+rtnCode,e);
+		rtnCode = "ERR";
+		rtnMsg = e.toString();			
+	} finally {
+		closeConn(conn);
+	} 
+}
+else if("deployFile".equals(func)) { 
 	
 	try {  		
 		String rootDir = application.getRealPath("/");
@@ -199,12 +287,6 @@ else if("deploy".equals(func)) {
 			pathHTML.setReadable(true,false);
 			pathHTML.setExecutable(true);
 		}
-		File fileHTMLold = new File(sPathHTML+_pgmid+".html");
-		if (fileHTMLold.exists()) {
-		    File pathHTMLold = new File(sPathHTML+FILESL+"bak"+FILESL);
-			if (!pathHTMLold.exists()) pathHTMLold.mkdirs();
-			fileHTMLold.renameTo(new File(sPathHTML+FILESL+"bak"+FILESL+_pgmid+"_"+ver+".html"));  
-		}
 		File fileHTML = new File(sPathHTML+_pgmid+".html");
 		if (fileHTML.exists()) fileHTML.delete();
 		if (!fileHTML.exists()) {
@@ -215,6 +297,7 @@ else if("deploy".equals(func)) {
 			fw.close(); 
 			fileHTML.setReadable(true,false);
 		}  
+
 		String sPathJSP = rootDir+"WEB-INF"+FILESL+"apps"+FILESL+app_pgmid+FILESL;   // FILESL = "\\"
 		//System.out.println(sPathJSP);
 		File pathJSP = new File(sPathJSP);
@@ -222,12 +305,6 @@ else if("deploy".equals(func)) {
 			pathJSP.mkdirs();
 			pathJSP.setReadable(true,false);
 			pathJSP.setExecutable(true);
-		}
-		File fileJSPold = new File(sPathJSP+_pgmid+".jsp");
-		if (fileJSPold.exists()) {
-		    File pathJSPold = new File(sPathJSP+FILESL+"bak"+FILESL);
-			if (!pathJSPold.exists()) pathJSPold.mkdirs();
-			fileJSPold.renameTo(new File(sPathJSP+FILESL+"bak"+FILESL+_pgmid+"_"+ver+".jsp"));   
 		}
 		File fileJSP = new File(sPathJSP+_pgmid+".jsp");
 		if (fileJSP.exists()) fileJSP.delete();
