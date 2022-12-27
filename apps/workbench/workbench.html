@@ -667,7 +667,8 @@ me.dataDef["_pgm_data"]["pgm_src"]={
                 gfnTx(appid+"."+pgmid,"saveSpec",{INVAR:invar},function(OUTVAR){
                     //console.log(OUTVAR);
                     if(OUTVAR.rtnCd=="OK") {
-                        gfnAlert("저장성공","프로그램 스펙정보를 저장하였습니다.", function(){
+                        // gfnAlert("저장성공","프로그램 스펙정보를 저장하였습니다.", function(){
+                            gfnStatus("프로그램 스펙정보를 저장하였습니다.");
                             if(prevChk){
                                 console.log("프리뷰를 출력합니다");
                                 me.fnGetData();
@@ -710,7 +711,7 @@ me.dataDef["_pgm_data"]["pgm_src"]={
                                 },10);
                                 prevChk = false;
                             }
-                        });
+                        // });
 
                     } else {
                         gfnAlert("저장오류",OUTVAR.rtnMsg);
