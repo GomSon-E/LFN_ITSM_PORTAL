@@ -870,17 +870,24 @@ function gfnComponent( pageId, containerId, componentDef, afnEH, page ) {
 				}
 
 				/* 컬럼의 폭을 지정해줌 (w) */
-				grpcontainer.css("flex-basis", `${colinfo.w})}%`)
-				aweInputWrap.css('flex', '1 1 0');
-				// if(!isNull(colinfo.w)){
-				// 	console.log(colinfo.w);
-				// 	// var h1 = trim(colinfo.h.split(":")[0]);
-				// 	// var h2 = trim(colinfo.h.split(":")[1]);
-				// 	// console.log(`h1 : ${h1} // h2 : ${h2}`);
-				// } else {
-				// 	grpcontainer.css("flex-basis", "100%")
-				// 	aweInputWrap.css('flex', '1 1 0');
-				// }
+				// grpcontainer.css("flex-basis", `${colinfo.w})}%`)
+				// aweInputWrap.css('flex', '1 1 0');
+				if(!isNull(colinfo.w)){
+					console.log(colinfo.w);
+					if(inStr(colinfo.w, ":") != -1){
+						var w1 = nvl(trim(colinfo.w.split(":")[0]), 100);
+						var w2 = nvl(trim(colinfo.w.split(":")[1]), 100);
+						console.log(`w1 : ${w1} // w2 : ${w2}`);
+						grpcontainer.css("flex-basis", `${w1}%`);
+						aweInputWrap.css("flex-basis", `${w2}%`);
+					} else{
+						grpcontainer.css("flex-basis", `${colinfo.w}%`);
+						aweInputWrap.css('flex', '1 1 0');
+					}
+				} else {
+					grpcontainer.css("flex-basis", "100%")
+					aweInputWrap.css('flex', '1 1 0');
+				}
 
 				/* 컬럼의 높이을 지정해줌 (h) */
 				if(!isNull(colinfo.h)) aweInputWrap.css("height", `${colinfo.h}em`)
