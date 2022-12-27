@@ -199,6 +199,12 @@ me.dataDef["_pgm_data"]["list7"]={"sort_seq":"7","data_id":"list7","data_nm":"�
     } 
 /*-- SCRIPT autogen end ---------------------------------------------- */
 me.fnInitExtra=function() {
+    // LOCAL, QAS, PROD 환경 구분하기
+    var gServer = "QAS";
+    if(window.location.href.indexOf("lfnetworks.co.kr")>=0) gServer='PROD';
+    else if(window.location.href.indexOf("localhost")>=0) gServer='LOCAL';
+    console.log(`------${gServer} 환경입니다------`)
+
     //탭
     gfnTab(pageid, "tabs2");
     gfnTab(pageid, "tabs");
