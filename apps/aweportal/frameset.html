@@ -249,6 +249,10 @@
         document.getElementById("frameMain").style.opacity = "1";
         document.querySelector("nav").style.opacity = "1";
         document.getElementById("closebtn").style.color = "transparent";
+
+        if ($(".toggle > i").hasClass("fa-toggle-on")) {
+            $(".framepage.active").css("height", "calc(100vh - 80px)")
+        }
     }
 
 </script>
@@ -687,20 +691,10 @@
                 var pgmnm = menu.text();
                 gMDI.openPage(pgmid, pgmnm);
                 page.find("#frameHome").css("display", "block") //메뉴선택시 패널 숨김
-
-                newPagenav();
-
-
-                // page.find("#mySidenav").addClass("hidden"); //메뉴선택시 패널 숨김
-                // page.find("#frameApp .appMenu .APP .app").removeClass("selected");         
-                // $(".PGM").slideUp();
-                // $("#frameApp .appMenu .APP .app").removeClass("selected");
-                //  $("#frameApp .appMenu .APP .app selected").css('backgroundColor')
-
-
-
-
-
+                $("#frameTab").show()
+                $(".toggle > i").addClass("fa-toggle-off")
+                $(".toggle > i").removeClass("fa-toggle-on")
+                newPagenav(); 
             });
         }
 
