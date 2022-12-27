@@ -35,7 +35,7 @@
                 <div class="menu-right">
 
 
-                    <button class="search"><i class="fas fa-search"></i></button>
+                    <button class="toggle"><i class="fas fa-toggle-off"></i></button>
 
                     <!-- <input type="text" placeholder="Search.." class="textSearch"> -->
                     <!-- <button class="search"><i class="fas fa-search"></i></button> -->
@@ -139,10 +139,10 @@
     </search>
     <!----푸터---->
 
-    <footer id="undercopy">
+    <!-- <footer id="undercopy">
 
         <p>copyright &copy; 2022 LF networks. All Right Reserved</p>
-    </footer>
+    </footer> -->
 
     <!-- status -->
     <div id="status">
@@ -249,6 +249,10 @@
         document.getElementById("frameMain").style.opacity = "1";
         document.querySelector("nav").style.opacity = "1";
         document.getElementById("closebtn").style.color = "transparent";
+
+        if ($(".toggle > i").hasClass("fa-toggle-on")) {
+            $(".framepage.active").css("height", "calc(100vh - 80px)")
+        }
     }
 
 </script>
@@ -387,7 +391,7 @@
                     me.fnEHFrameStatus();
                     me.fnEHFrameGNB();
                     me.fnEHFrameApp();
-                    me.fnEHFrameSearch();
+                    me.fnEHFrameTabToggle();
                     me.fnEHFrameUser();
                     me.fnEHFrameSet();
                     me.fnEHFrameLeftBar();
@@ -687,20 +691,10 @@
                 var pgmnm = menu.text();
                 gMDI.openPage(pgmid, pgmnm);
                 page.find("#frameHome").css("display", "block") //메뉴선택시 패널 숨김
-
-                newPagenav();
-
-
-                // page.find("#mySidenav").addClass("hidden"); //메뉴선택시 패널 숨김
-                // page.find("#frameApp .appMenu .APP .app").removeClass("selected");         
-                // $(".PGM").slideUp();
-                // $("#frameApp .appMenu .APP .app").removeClass("selected");
-                //  $("#frameApp .appMenu .APP .app selected").css('backgroundColor')
-
-
-
-
-
+                $("#frameTab").show()
+                $(".toggle > i").addClass("fa-toggle-off")
+                $(".toggle > i").removeClass("fa-toggle-on")
+                newPagenav(); 
             });
         }
 
@@ -848,20 +842,20 @@
 
         }
 
-        me.fnEHFrameSearch = function () {
-            $("#frameGNB .gnb .search").on({
-                click: function () {
-                    $("#frameSearch").toggleClass("hidden");
-                    me.fnShowFrameSearch();
-                }
-            });
-            $(window).on({
-                click: function (e) {
-                    if (!$("#frameGNB .gnb .search").has(e.target).length && !$("#frameSearch").has(e.target).length) {
-                        $("#frameSearch").addClass("hidden");
+        me.fnEHFrameTabToggle = function () {
+            $("#frameGNB .gnb .toggle").on({
+                click: function () {                    
+                    $(".toggle > i").toggleClass("fa-toggle-off")
+                    $(".toggle > i").toggleClass("fa-toggle-on")
+                    if ($(".toggle > i").hasClass("fa-toggle-on")) {
+                        $(".framepage.active").css("height", "calc(100vh - 80px)")
+                    } 
+                    else {
+                        $(".framepage.active").css("height", "calc(100vh - 125px)")
                     }
+                    $("#frameTab").toggle();
                 }
-            });
+            })
         }
 
         me.fnEHFrameUser = function () {

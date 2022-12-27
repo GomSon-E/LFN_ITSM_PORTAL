@@ -282,8 +282,7 @@ function gfnAlert(title, content, afnCallback) {
 												<div class="modal-content">\
 														<div class="modal-header">\
 																<h5 class="modal-title">'+title+'</h5>\
-																<button class="layerBtn btn-close" data-bs-dismiss="modal" aria-label="Close"\
-																		onclick="gfnCloseLayer("alert")"></button>\
+																<button class="layerBtn btn-close" data-bs-dismiss="modal" aria-label="Close"></button>\
 														</div>\
 														<div class="modal-body">\
 																<p>'+content+'</p>\
@@ -317,6 +316,10 @@ function gfnAlert(title, content, afnCallback) {
 		gfnCloseLayer("alert")
 		afnCallback()
 	}) 
+
+	$("#alert .btn-close").click(function(){
+		gfnCloseLayer("alert")
+	})
 } 
 
 function gfnCloseLayer (p) {
