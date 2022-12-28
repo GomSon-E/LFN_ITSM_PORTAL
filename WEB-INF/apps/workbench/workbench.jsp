@@ -27,17 +27,17 @@ if("retrieveSpec".equals(func)) {
         JSONArray pgm = selectSVC(conn, qry_pgm);
         OUTVAR.put("pgm",pgm);
 
-        String qry_pgm_func = "SELECT * FROM HIS_PGM_FUNC WHERE pgmid={pgmid} AND ver = (SELECT MAX(VER) FROM HIS_PGM WHERE pgmid = {pgmid})"; 
+        String qry_pgm_func = "SELECT * FROM HIS_PGM_FUNC WHERE pgmid={pgmid} AND ver = (SELECT MAX(VER) FROM HIS_PGM WHERE pgmid = {pgmid}) ORDER BY SORT_SEQ"; 
         qry_pgm_func = bindVAR(qry_pgm_func,INVAR);
         JSONArray pgm_func = selectSVC(conn, qry_pgm_func);
         OUTVAR.put("pgm_func",pgm_func);
 
-        String qry_pgm_data = "SELECT * FROM HIS_PGM_DATA WHERE pgmid={pgmid} AND ver = (SELECT MAX(VER) FROM HIS_PGM WHERE pgmid = {pgmid})"; 
+        String qry_pgm_data = "SELECT * FROM HIS_PGM_DATA WHERE pgmid={pgmid} AND ver = (SELECT MAX(VER) FROM HIS_PGM WHERE pgmid = {pgmid}) ORDER BY SORT_SEQ"; 
         qry_pgm_data = bindVAR(qry_pgm_data,INVAR);
         JSONArray pgm_data = selectSVC(conn, qry_pgm_data);
         OUTVAR.put("pgm_data",pgm_data);
 
-        String qry_pgm_src = "SELECT * FROM HIS_PGM_SRC WHERE pgmid={pgmid} AND ver = (SELECT MAX(VER) FROM HIS_PGM WHERE pgmid = {pgmid})"; 
+        String qry_pgm_src = "SELECT * FROM HIS_PGM_SRC WHERE pgmid={pgmid} AND ver = (SELECT MAX(VER) FROM HIS_PGM WHERE pgmid = {pgmid}) ORDER BY SORT_SEQ"; 
         qry_pgm_src = bindVAR(qry_pgm_src,INVAR);
         JSONArray pgm_src = selectSVC(conn, qry_pgm_src);
         OUTVAR.put("pgm_src",pgm_src); 

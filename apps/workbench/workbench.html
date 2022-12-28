@@ -667,52 +667,49 @@ me.dataDef["_pgm_data"]["pgm_src"]={
                 gfnTx(appid+"."+pgmid,"saveSpec",{INVAR:invar},function(OUTVAR){
                     //console.log(OUTVAR);
                     if(OUTVAR.rtnCd=="OK") {
-                        // gfnAlert("저장성공","프로그램 스펙정보를 저장하였습니다.", function(){
-                            gfnStatus("프로그램 스펙정보를 저장하였습니다.");
-                            if(prevChk){
-                                console.log("프리뷰를 출력합니다");
-                                me.fnGetData();
-                                var htmlCss = me.fnGetHTMLCSS();
-                                var _script = me.fnMakeScript();/* 표준Script를 만든다. */
-                                var script = me.fnGetScript(); /* 사용자Script를 가져오고 없으면 만든다. */
-                                var _script2 = me.fnMakeScript2();/* 표준Script(Closing)를 만든다. */ 
-                                var fullCode = "";
-                                fullCode += htmlCss + CR;
-                                fullCode += "<script>" + _script + CR;
-                                fullCode += script + CR; 
-                                fullCode += _script2 + CR + ("< /script>").replace(" ",""); 
+                        gfnStatus("프로그램 스펙정보를 저장하였습니다.");
+                        if(prevChk){
+                            console.log("프리뷰를 출력합니다");
+                            me.fnGetData();
+                            var htmlCss = me.fnGetHTMLCSS();
+                            var _script = me.fnMakeScript();/* 표준Script를 만든다. */
+                            var script = me.fnGetScript(); /* 사용자Script를 가져오고 없으면 만든다. */
+                            var _script2 = me.fnMakeScript2();/* 표준Script(Closing)를 만든다. */ 
+                            var fullCode = "";
+                            fullCode += htmlCss + CR;
+                            fullCode += "<script>" + _script + CR;
+                            fullCode += script + CR; 
+                            fullCode += _script2 + CR + ("< /script>").replace(" ",""); 
 
-                                //화면호출: gMDI.openPage에서 부분적으로 업어옴:
-                                gMDI.getNext();
-                                var oPage = $('<div class="framepage" id="page'+gMDI.idx+'"></div>');
-                                var pgm_info = me.dataSet["pgm"][0];
-                                oPage.attr("appid",pgm_info.app_pgmid);
-                                oPage.attr("pgmid",pgm_info.pgmid);
-                                oPage.attr("loadcnt",gMDI.idx);        
-                                var oTab = $('<a class="tab" pageidx="page'+gMDI.idx+'">프리뷰'+gMDI.idx+'<i class="fa fa-times closetab"></i></a>');
-                                oTab.bind('mouseenter', function(){ /* 폭이 좁아져서 ...이 되면 tooltip으로 화면명 표시 */
-                                    var $this = $(this); 
-                                    if(this.offsetWidth < this.scrollWidth && !$this.attr('title')){
-                                        $this.attr('title', $this.text());
-                                        $this.tooltip({
-                                            content: $this.text()
-                                        }); 
-                                    }
-                                });
-                                gMDI.tabContainer.append(oTab); 
-                                gMDI.pageContainer.append(oPage); //addPage
-                                
-                                me.fnMakeFullCode(fullCode); /* Full fullCode을 만들어준다. */
-                                me.fnGetJSP(); /* JSP 템플릿도 만들어서 추가해준다. */ 
-                                setTimeout(function() {
-                                    oPage.html(fullCode); //생성된 fullCode을 바인드한다. 
-                                    gMDI.go(oPage);  //focus  
-                                    gfnPageLayoutResizable(oPage);
-                                },10);
-                                prevChk = false;
-                            }
-                        // });
-
+                            //화면호출: gMDI.openPage에서 부분적으로 업어옴:
+                            gMDI.getNext();
+                            var oPage = $('<div class="framepage" id="page'+gMDI.idx+'"></div>');
+                            var pgm_info = me.dataSet["pgm"][0];
+                            oPage.attr("appid",pgm_info.app_pgmid);
+                            oPage.attr("pgmid",pgm_info.pgmid);
+                            oPage.attr("loadcnt",gMDI.idx);        
+                            var oTab = $('<a class="tab" pageidx="page'+gMDI.idx+'">프리뷰'+gMDI.idx+'<i class="fa fa-times closetab"></i></a>');
+                            oTab.bind('mouseenter', function(){ /* 폭이 좁아져서 ...이 되면 tooltip으로 화면명 표시 */
+                                var $this = $(this); 
+                                if(this.offsetWidth < this.scrollWidth && !$this.attr('title')){
+                                    $this.attr('title', $this.text());
+                                    $this.tooltip({
+                                        content: $this.text()
+                                    }); 
+                                }
+                            });
+                            gMDI.tabContainer.append(oTab); 
+                            gMDI.pageContainer.append(oPage); //addPage
+                            
+                            me.fnMakeFullCode(fullCode); /* Full fullCode을 만들어준다. */
+                            me.fnGetJSP(); /* JSP 템플릿도 만들어서 추가해준다. */ 
+                            setTimeout(function() {
+                                oPage.html(fullCode); //생성된 fullCode을 바인드한다. 
+                                gMDI.go(oPage);  //focus  
+                                gfnPageLayoutResizable(oPage);
+                            },10);
+                            prevChk = false;
+                        }
                     } else {
                         gfnAlert("저장오류",OUTVAR.rtnMsg);
                     }
@@ -1254,11 +1251,9 @@ if("${row.funcid}".equals(func)) {
     }
     // 소스코드 배포
     me.fnDeploy = function() {
-        
         me.dataSet["pgm"] = me.pageObj["pgm"].exportData("CRU");
-        var pgm_info = me.dataSet["pgm"][0]; 
-
-        var args = { appid:pgm_info.app_pgmid, pgmid:pgm_info.pgmid, ver:pgm_info.ver};
+        var pgm_info = me.dataSet["pgm"][0];
+        var args = { appid:pgm_info.app_pgmid, pgmid:pgm_info.pgmid, ver:pgm_info.ver };
         var invar = JSON.stringify(args);
 
         gfnConfirm("소스코드 배포확인",`html과 jsp를 생성합니다(덮어씁니다).`,function(confirm){
