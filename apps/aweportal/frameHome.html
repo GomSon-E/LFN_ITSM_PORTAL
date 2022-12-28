@@ -286,17 +286,17 @@ me.fnEH=function(component, evt, row, col, val) {
     else if(component==me.pageObj["notice"]) {
         if (evt=="componentFunc") {
             gMDI.openPage( "manageBBS", "공지사항 관리" );
-        } else if(evt=="dblclick") {
-            var rows = me.pageObj.notice.selectedRows();
-            var rowData = me.pageObj.notice.getRowData(rows);
-            var invar = JSON.stringify(rowData);
-            gfnTx("aweportal.manageBBS", "selectOneDoc", {"INVAR" : invar}, function(OUTVAR){
-                if(OUTVAR.rtnCd=="OK") {
-                    gfnPopupDetailBBS(rowData.docid);
-                } else {
-                    gfnAlert("조회오류",OUTVAR.rtnMsg);
-                }
-            });
+        // } else if(evt=="dblclick") {
+        //     var rows = me.pageObj.notice.selectedRows();
+        //     var rowData = me.pageObj.notice.getRowData(rows);
+        //     var invar = JSON.stringify(rowData);
+        //     gfnTx("aweportal.manageBBS", "selectOneDoc", {"INVAR" : invar}, function(OUTVAR){
+        //         if(OUTVAR.rtnCd=="OK") {
+        //             gfnPopupDetailBBS(rowData.docid);
+        //         } else {
+        //             gfnAlert("조회오류",OUTVAR.rtnMsg);
+        //         }
+        //     });
         }
     }  
     else if(component==me.pageObj["list7"]) {
@@ -324,95 +324,17 @@ me.fnEH=function(component, evt, row, col, val) {
 me.ticker = null;
 
 me.fnSearch=function() { 
-    //응답속도 지연으로 순차적으로 로딩한다.
-    /*
     var args = {docTag:"공지사항"};
     var invar = JSON.stringify(args);    
     gfnTx("aweportal.manageBBS", "selectRecentDoc", {INVAR:invar}, function(OUTVAR){
         if(OUTVAR.rtnCd=="OK") {
             me.pageObj["notice"].importData(OUTVAR.list); 
-            me.pageObj.notice.sizeColumnsToFit();
+            if(!isNull(me.pageObj.notice.container) && me.pageObj.notice.container.css("display")!="none") me.pageObj.notice.sizeColumnsToFit();
         } else {
             gfnAlert("조회오류",OUTVAR.rtnMsg);
         }    
     });
-    gfnTx("aweportal.manageCSR", "searchMyCSR", {}, function(OUTVAR){
-        if(OUTVAR.rtnCd=="OK") {
-            me.pageObj["csrList"].importData(OUTVAR.list); 
-            me.pageObj.csrList.sizeColumnsToFit();
-        } else {
-            gfnAlert("조회오류",OUTVAR.rtnMsg);
-        }    
-    });
-    gfnTx(appid+"."+pgmid,"search", {}, function(OUTVAR){
-        if(OUTVAR.rtnCd=="OK") {
-            gfnStatus("홈화면 정보를 재조회하였습니다!");
-            
-            me.pageObj["list2"].importData(OUTVAR.list2);
-            me.pageObj.list2.sizeColumnsToFit();
-            me.pageObj.list2.total("top");
-            
-            me.pageObj["list6"].importData(OUTVAR.list6);
-            me.pageObj.list6.sizeColumnsToFit(); 
-            me.pageObj.list6.total("top");
-            
-            me.pageObj["list5"].importData(OUTVAR.list5);
-            me.pageObj.list5.sizeColumnsToFit(); 
-            me.pageObj.list5.total("top");
-            
-            me.pageObj["list4"].importData(OUTVAR.list4);
-            
-            me.pageObj["list7"].importData(OUTVAR.list7);
-
-            //CHART
-            me.fnChart(OUTVAR.list3); 
-            
-            var period = me.pageObj.list4._componentCond["period"].getVal();
-            if(isNum(period)) {
-                if(!isNull(me.ticker)) {
-                    window.clearTimeout(me.ticker);
-                    me.ticker = null;
-                }
-                me.ticker = window.setTimeout(me.fnSearch, period*60*1000);     
-            }
-        } else {
-            gfnAlert("조회오류",OUTVAR.rtnMsg);
-        }    
-    });
-    */
-    /* 조회순서 */
-        var args = {docTag:"공지사항"};
-        var invar = JSON.stringify(args);    
-        gfnTx("aweportal.manageBBS", "selectRecentDoc", {INVAR:invar}, function(OUTVAR){
-            if(OUTVAR.rtnCd=="OK") {
-                me.pageObj["notice"].importData(OUTVAR.list); 
-                if(!isNull(me.pageObj.notice.container) && me.pageObj.notice.container.css("display")!="none") me.pageObj.notice.sizeColumnsToFit();
-            } else {
-                gfnAlert("조회오류",OUTVAR.rtnMsg);
-            }    
-        });
 }
-// ---------------------------------------------------------------------------임시 오라클 오류 해결 --------------------------------------------------------------------
-// me.fnRefresh=function(listId, fnCallback) {
-//     var args = {listId:listId};
-//     var invar = JSON.stringify(args);
-//     gfnTx(appid+"."+pgmid,"refresh", {INVAR:invar}, function(OUTVAR){
-//         if(OUTVAR.rtnCd=="OK") {
-//             if(listId=="list4") {
-//                 me.pageObj.list4.importData(OUTVAR.list);
-//             } else if (listId=="list3") {
-//                 me.fnChart(OUTVAR.list);
-//             } else {
-//                 me.pageObj[listId].importData(OUTVAR.list);
-//                 if(!isNull(me.pageObj[listId].container) && me.pageObj[listId].container.css("display")!="none") me.pageObj[listId].sizeColumnsToFit();  
-//                 me.pageObj[listId].total("top");
-//             }
-//             if(typeof(fnCallback)=='function') fnCallback();
-//         } else {
-//             gfnAlert("조회오류",OUTVAR.rtnMsg);
-//         }    
-//     });
-// }
 
 me.fnChart=function(data) {
     console.log(data);

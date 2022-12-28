@@ -47,7 +47,8 @@ if ("selectAllDoc".equals(func)) {
     Connection conn = null;  
     try {      
         conn = getConn("LFN");  // DB 커넥션 파라미터 세팅  
-        String qry = getQuery(pgmid, "selectRecentDoc");
+        // String qry = getQuery(pgmid, "selectRecentDoc");
+        String qry = "SELECT * FROM (	SELECT D.DOCID, D.TITLE, D.CONTENT, D.DOC_TEMPLATE_ID, D.DOC_FILEID, D.DOC_NO, D.TAG, D.VER, D.REF_DOCID, D.REF_INFO_TP, D.REF_ID, D.READ_CNT, D.DOC_STAT, D.REG_USID, D.REG_DT, D.UPD_USID, D.UPD_DT, D.OWN_USID, U.NM 	FROM T_DOC D, T_USER U 	WHERE D.REG_USID = U.USID	AND D.REG_DT > (SYSDATE - (INTERVAL '5' MONTH))	AND D.DOC_STAT = 'Y' 	AND D.DOC_TEMPLATE_ID = '포털사용자그룹'	OR D.DOC_TEMPLATE_ID LIKE 'banner%'	AND U.NM = '관리자'	ORDER BY D.REG_DT DESC	) WHERE ROWNUM <= 28";
         qry = bindVAR(qry,INVAR);
         JSONArray list = selectSVC(conn, qry);
     	OUTVAR.put("list", list);
