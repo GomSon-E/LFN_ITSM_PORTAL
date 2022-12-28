@@ -1,2 +1,5 @@
-WEB-INF\apps\ITSM
-apps\ITSM
+WEB-INF/apps/ITSM/
+apps/ITSM/
+
+WEB-INF/qas/
+qas/
