@@ -13,7 +13,7 @@ html, body {
     width: auto;
     margin: 0;
     padding: 8px 20px;
-    font-size: 12px;
+    font-size: 13px;
     position: fixed;
     right: 25px; top: 90px;
     z-index: 20;
@@ -25,7 +25,7 @@ html, body {
 
 #status .alert > span {
     padding-left: 10px;
-    color: #a7b1de;
+    color: #a9a350;
 }
 
 .modal-content {
