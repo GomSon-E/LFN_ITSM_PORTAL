@@ -205,9 +205,9 @@ button:not(:disabled),
 }
 
 .alert-primary {
-  --bs-alert-color: #07123d;
-  --bs-alert-bg: #d6defa;
-  --bs-alert-border-color: #c2cdf8;
+  --bs-alert-color: #272401;
+  --bs-alert-bg: #fefe9d;
+  --bs-alert-border-color: #fefe9d;
 }
 .alert-primary .alert-link {
   color: #192a6e;
