@@ -193,7 +193,8 @@ me.fnEH=function(component, evt, row, col, val) {
         }
         else if (evt=="componentFunc") {
             if(row=="delRow") {
-                var rows = me.pageObj.filelist.selectedRows();
+                var rows = me.pageObj.filelist.selectedRows(); // 선택한 rows 배열
+                console.log(rows);
                 if(rows.length < 0) {
                     gfnAlert("줄삭제 확인","선택된 줄이 없습니다."); 
                 } else {
@@ -201,7 +202,10 @@ me.fnEH=function(component, evt, row, col, val) {
                         if(confirm) {
                             for (let i = 0; i < rows.length; i++) {
                                 rowData = me.pageObj.filelist.getRowData(rows[i]);
+                                console.log(`rowData =`);
+                                console.log(rowData);
                                 var invar = JSON.stringify(rowData);
+                                console.log(invar);
                                 gfnTx(appid+"."+pgmid, "deleteFile", {"INVAR" : invar}, function(OUTVAR){
                                     if(OUTVAR.rtnCd=="OK") {
                                         me.fnGetfile(false, false);
