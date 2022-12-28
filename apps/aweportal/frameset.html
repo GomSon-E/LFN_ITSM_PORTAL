@@ -351,6 +351,7 @@
         me.fnRetrieveInit = function () {
             gfnTx("aweportal.frameset", "retrieveInit", {}, function (OUTVAR) {
                 if (OUTVAR.rtnCd == "OK") {
+                    /*
                     if (OUTVAR.server != "fo.lfnetworks.co.kr") {
                         // $("#frameGNB").css("background-color", "blue"); 
                         // KESCSS 위에 배경화면색상
@@ -363,6 +364,8 @@
                         console.log("운영환경입니다...!");
                         messages = io('https://fo.lfnetworks.co.kr/socket.io/messages'); //Messages 운영 서버 연결
                     }
+                    */
+
 
                     gds.comcd = OUTVAR.comcd;   //공통코드
                     gUserinfo.defval = OUTVAR.defval;  //사용자기본값
@@ -475,6 +478,7 @@
 
         //main group 유저 접속	
         me.fnInitJoinGroupMain = function () {
+            /*
             var args = {
                 reg_usid: gUserinfo.userid,
                 usnm: gUserinfo.usernm,
@@ -487,6 +491,7 @@
             //     grpid : gUserinfo.userid	
             // }	
             // messages.emit(gUserinfo.userid, args);	
+            */
         }
 
         //gMDI

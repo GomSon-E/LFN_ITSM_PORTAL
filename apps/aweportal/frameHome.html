@@ -381,39 +381,17 @@ me.fnSearch=function() {
     });
     */
     /* 조회순서 */
-    me.fnRefresh("list4",function(){
-        me.fnRefresh("list3",function(){
-            me.fnRefresh("list2",function(){
-                me.fnRefresh("list5",function(){
-                    me.fnRefresh("list6",function(){
-                        me.fnRefresh("list7",function(){
-                            var args = {docTag:"공지사항"};
-                            var invar = JSON.stringify(args);    
-                            gfnTx("aweportal.manageBBS", "selectRecentDoc", {INVAR:invar}, function(OUTVAR){
-                                if(OUTVAR.rtnCd=="OK") {
-                                    me.pageObj["notice"].importData(OUTVAR.list); 
-                                    if(!isNull(me.pageObj.notice.container) && me.pageObj.notice.container.css("display")!="none") me.pageObj.notice.sizeColumnsToFit();
-                                    gfnTx("aweportal.manageCSR", "searchMyCSR", {}, function(OUTVAR){
-                                        if(OUTVAR.rtnCd=="OK") {
-                                            me.pageObj["csrList"].importData(OUTVAR.list); 
-                                            if(!isNull(me.pageObj.csrList.container) && me.pageObj.csrList.container.css("display")!="none") me.pageObj.csrList.sizeColumnsToFit();
-                                        } else {
-                                            gfnAlert("조회오류",OUTVAR.rtnMsg);
-                                        }    
-                                    });
-                                } else {
-                                    gfnAlert("조회오류",OUTVAR.rtnMsg);
-                                }    
-                            });
-                        });
-                    });
-                });
-            });
+        var args = {docTag:"공지사항"};
+        var invar = JSON.stringify(args);    
+        gfnTx("aweportal.manageBBS", "selectRecentDoc", {INVAR:invar}, function(OUTVAR){
+            if(OUTVAR.rtnCd=="OK") {
+                me.pageObj["notice"].importData(OUTVAR.list); 
+                if(!isNull(me.pageObj.notice.container) && me.pageObj.notice.container.css("display")!="none") me.pageObj.notice.sizeColumnsToFit();
+            } else {
+                gfnAlert("조회오류",OUTVAR.rtnMsg);
+            }    
         });
-    })
-    
-} 
-
+}
 // ---------------------------------------------------------------------------임시 오라클 오류 해결 --------------------------------------------------------------------
 // me.fnRefresh=function(listId, fnCallback) {
 //     var args = {listId:listId};
