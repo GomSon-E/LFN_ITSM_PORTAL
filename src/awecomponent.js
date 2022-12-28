@@ -854,12 +854,12 @@ function gfnComponent( pageId, containerId, componentDef, afnEH, page ) {
 				aweInputWrap.addClass(`awe${colinfo.etype}`);	
 				if(isNull(nvl(colinfo.colgrp,""))) {
 					grpcontainer = $(`<div colgrp="${colinfo.colnm}" class="awe${colinfo.etype}"></div>`).appendTo(container);
-					grpcontainer.append(`<div class="label">${colinfo.colnm}</div>`);
+					grpcontainer.append(`<div class="label">${nvl(colinfo.colnm, "")}</div>`);
 
 				} else if (colinfo.colgrp!=curColgrp) {
                     curColgrp = colinfo.colgrp;
 					grpcontainer = $(`<div colgrp="${curColgrp}" class="awe${colinfo.etype} aweGrp"></div>`).appendTo(container);
-					grpcontainer.append(`<div class="label">${curColgrp}</div>`);
+					grpcontainer.append(`<div class="label">${nvl(curColgrp, "")}</div>`);
 				} 
                 grpcontainer.addClass(colinfo.attr);				
 				
@@ -870,23 +870,27 @@ function gfnComponent( pageId, containerId, componentDef, afnEH, page ) {
 				}
 
 				/* 컬럼의 폭을 지정해줌 (w) */
-				// grpcontainer.css("flex-basis", `${colinfo.w})}%`)
-				// aweInputWrap.css('flex', '1 1 0');
 				if(!isNull(colinfo.w)){
-					console.log(colinfo.w);
-					if(inStr(colinfo.w, ":") != -1){
+					if(colinfo.etype == 'img'){
+						grpcontainer.css("flex-basis", "100%");
+						aweInputWrap.css('width', `${colinfo.w}em`);
+					} else if(inStr(colinfo.w, ":") != -1){
 						var w1 = nvl(trim(colinfo.w.split(":")[0]), 100);
 						var w2 = nvl(trim(colinfo.w.split(":")[1]), 100);
-						console.log(`w1 : ${w1} // w2 : ${w2}`);
 						grpcontainer.css("flex-basis", `${w1}%`);
 						aweInputWrap.css("flex-basis", `${w2}%`);
 					} else{
 						grpcontainer.css("flex-basis", `${colinfo.w}%`);
 						aweInputWrap.css('flex', '1 1 0');
 					}
-				} else {
-					grpcontainer.css("flex-basis", "100%")
-					aweInputWrap.css('flex', '1 1 0');
+				} else{
+					if(colinfo.etype == 'img'){
+						grpcontainer.css("flex-basis", "100%");
+						aweInputWrap.css('width', '100%');
+					} else{
+						grpcontainer.css("flex-basis", "100%")
+						aweInputWrap.css('flex', '1 1 0');
+					}
 				}
 
 				/* 컬럼의 높이을 지정해줌 (h) */
@@ -2431,24 +2435,47 @@ function gfnComponent( pageId, containerId, componentDef, afnEH, page ) {
 						var captionYear = $(`<div class="captionYear">${date(me.start_dt,"yyyymmdd","yyyy")}</div>`)
 						var captionMonth = $(`<div class="captionMonth">${date(me.start_dt,"yyyymmdd","mm월")}</div>`)
 						
-						// 캘린더 페이지 처리
-						var goPrev = $("<button class='goPrev'><i class='fas fa-caret-left'></i></button>");
-						var goNext = $("<button class='goNext'><i class='fas fa-caret-right'></i></button>");
-						goPrev.on("click",function(){
+						// 캘린더 페이지 처리 - 월
+						var goPrev_month = $("<button class='goPrev_month'><i class='fas fa-chevron-left'></i></button>");
+						goPrev_month.on("click",function(){
 							var prev_dt = date(dateAdd(date(me.start_dt,"yyyymmdd"), -1),"yyyy-mm-dd","yyyymm")+"01";
 							me.calOption.start_dt = prev_dt;
 							me.initCalendar(me.calOption);
 						});
-						goNext.on("click",function(){
+						var goNext_month = $("<button class='goNext_month'><i class='fas fa-chevron-right'></i></button>");
+						goNext_month.on("click",function(){
 							var next_dt = date(dateAdd(date(me.start_dt,"yyyymmdd"), 31),"yyyy-mm-dd","yyyymm")+"01";
 							me.calOption.start_dt = next_dt;
 							me.initCalendar(me.calOption);
 						});
 
-						me.calendar.find("caption").append(captionYear);
-						me.calendar.find("caption").append(goPrev);
-						me.calendar.find("caption").append(captionMonth);
-						me.calendar.find("caption").append(goNext);
+						
+						var goPrev_year = $("<button class='goPrev_year'><i class='fas fa-angle-double-left'></i></button>");
+						goPrev_year.on("click",function(){
+							var prev_dt = date(dateAdd(date(me.start_dt,"yyyymmdd"), -365),"yyyy-mm-dd","yyyy") + date(me.start_dt,"yyyymmdd", "mm") + "01"
+							me.calOption.start_dt = prev_dt;
+							me.initCalendar(me.calOption);
+						});
+						var goNext_year = $("<button class='goNext_year'><i class='fas fa-angle-double-right'></i></button>");
+						goNext_year.on("click",function(){
+							var prev_dt = date(dateAdd(date(me.start_dt,"yyyymmdd"), 365),"yyyy-mm-dd","yyyy") + date(me.start_dt,"yyyymmdd", "mm") + "01"
+							me.calOption.start_dt = prev_dt;
+							me.initCalendar(me.calOption);
+						});
+						
+						var yearWrap = $(`<div class="yearWrap"></div>`);
+						yearWrap.append(goPrev_year);
+						yearWrap.append(captionYear);
+						yearWrap.append(goNext_year);
+						
+						var monthWrap = $(`<div class="monthWrap"></div>`);
+						monthWrap.append(goPrev_month);
+						monthWrap.append(captionMonth);
+						monthWrap.append(goNext_month);
+
+						me.calendar.find("caption").append(yearWrap);
+						me.calendar.find("caption").append(monthWrap);
+						
 						
 						OUTVAR.list.forEach((row,idx)=>{
 							if(idx%7==0) me.calendar.find("tbody").append("<tr></tr>");
