@@ -116,7 +116,7 @@ me.dataDef["_pgm_data"]["pgm_data"]={
     },
     "inout_tp":"INOUT",
     "content":[
-        {"colid":"sort_seq","colnm":"정렬순서","dtype":"num","etype":"txt","crud":"U","sort_seq":1,"section":null,"section_icon":null,"colgrp":null,"attr":"wbhidden","len":null,"defval":null,"refcd":null,"option":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"w":null,"h":null},
+        {"colid":"sort_seq","colnm":"정렬순서","dtype":"num","etype":"txt","crud":"U","sort_seq":1,"section":null,"section_icon":null,"colgrp":null,"attr":null,"len":null,"defval":null,"refcd":null,"option":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"w":null,"h":null},
         {"colid":"data_id","colnm":"컴포넌트ID","dtype":"text","etype":"txt","attr":"pk","crud":"U","sort_seq":2,"section":null,"section_icon":null,"colgrp":null,"len":null,"defval":null,"refcd":null,"option":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":"컴포넌트ID","w":null,"h":null},
         {"colid":"data_nm","colnm":"컴포넌트명","dtype":"text","etype":"txt","attr":"keycol","crud":"U","sort_seq":3,"section":null,"section_icon":null,"colgrp":null,"len":null,"defval":null,"refcd":null,"option":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":"컴포넌트명","w":null,"h":null},
         {"colid":"component_pgmid","colnm":"형식","dtype":"text","etype":"sel","attr":"keycol","refcd":"COMPONENT_PGMID","option":"sel:component_pgmid::cdnm","crud":"U","sort_seq":4,"section":null,"section_icon":null,"colgrp":null,"len":null,"defval":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"w":null,"h":null},
@@ -619,6 +619,7 @@ me.dataDef["_pgm_data"]["pgm_src"]={
                 me.pageObj["pgm"].importData(OUTVAR.pgm,"C");
                 me.pageObj["pgm_func"].importData(OUTVAR.pgm_func);
                 me.pageObj["pgm_data"].importData(OUTVAR.pgm_data);
+                console.log(OUTVAR.pgm_data);
                 me.pageObj["pgm_src"].importData(OUTVAR.pgm_src); 
                 // me.fnClear(); //하단 초기화 
                 

@@ -996,6 +996,7 @@ span.cell-deleted {
 	border: none;
 	padding-left: 0.5em;
 	width: 100%;
+	font-size: 0.9em;
 }
 .aweForm > div > .aweInputWrap > input:focus{
 	outline: none;
@@ -1019,6 +1020,7 @@ span.cell-deleted {
 .aweForm > div > .aweInputWrap > select{
 	width: 100%;
 	border: none;
+	font-size: 0.9em;
 }
 .aweForm > div > .aweInputWrap > select:focus{
 	outline: none;
@@ -1044,6 +1046,7 @@ span.cell-deleted {
     font-size: 1em;
     border: none;
     border-radius: 5px;
+	width: 100%;
 }
 
 
@@ -1109,12 +1112,7 @@ span.cell-deleted {
 
 /* Span */
 .aweForm > div.aweraw > .aweInputWrap{
-    background: rgb(20, 122, 225);
-    color: white;
     border: none;
-    border-radius: 5px;
-    padding: 0.5em 1em;
-    font-size: 1em;
 }
 .aweForm > div.raw > .aweInputWrap > span{
 	width: 100%;
@@ -1130,6 +1128,17 @@ span.cell-deleted {
     border-radius: 5px;
     padding: 0.5em 1em;
     font-size: 1em;
+}
+
+/* Img */
+.aweForm > div.aweimg > .aweInputWrap.aweimg {
+	flex: none;
+	margin: 0em auto;
+}
+.aweForm > div.aweimg > .aweInputWrap.aweimg > img{
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
 }
 
 
@@ -1174,6 +1183,9 @@ span.cell-deleted {
     padding: 0.5em 1em;
     font-size: 1em;
 	width: 100%;
+}
+.aweForm > div.aweGrp > .aweInputWrap.aweraw{
+    border: none;
 }
 
 /* FieldSet */
@@ -1486,36 +1498,38 @@ padding-left: 2px;
 .aweCalendar > .calendar > caption{
 	
 }
-.aweCalendar > .calendar > caption > button{
-	background-color: transparent;
-	border: none;
+.aweCalendar > .calendar > caption > div{
+	display: flex;
+    flex-direction: row;
+    justify-content: center;
 }
-.aweCalendar > .calendar > caption > button > i{
-	font-size: 2em;
+.aweCalendar > .calendar > caption > div.yearWrap{
+	
 }
-.aweCalendar > .calendar > caption > .captionYear{
+.aweCalendar > .calendar > caption > div.yearWrap > button{
+	background: transparent;
+    border: none;
+}
+.aweCalendar > .calendar > caption > div.yearWrap > div.captionYear{
+	font-size: 1em;
+    padding: 0em 1em;
+}
 
+.aweCalendar > .calendar > caption > div.monthWrap{
+	
 }
-.aweCalendar > .calendar > caption > .captionMonth{
-	display: inline;
+.aweCalendar > .calendar > caption > div.monthWrap > button{
+	background: transparent;
+    border: none;
+}
+.aweCalendar > .calendar > caption > div.monthWrap > div.captionMonth{
 	font-size: 2em;
-	padding: 0em 2em;
+    padding: 0em 0.75em;
 }
-.aweCalendar > .calendar > caption > .gbuttonSet{
-	background: transparent;
-}
-.aweCalendar > .calendar > caption > .gbuttonSet > button{
-	background: transparent;
-    width: 5em;
-    
-	border: none;
-}
-.aweCalendar > .calendar > caption > .gbuttonSet > button:hover{
-	color: rgb(30, 122, 225);
-}
-.aweCalendar > .calendar > caption > .gbuttonSet > button > i{
-    font-size: 1.5em;
-}
+
+
+
+
 
 /* thead */
 .framepage table.calendar > thead {
