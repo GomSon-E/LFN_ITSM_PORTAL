@@ -355,6 +355,15 @@ body {
 .componentFunc  > input:focus{
 	outline: none;
 }
+.componentFunc  > select{
+	width: 10em;
+    height: 100%;
+    border: 1px solid gray;
+    border-radius: 5px;
+}
+.componentFunc  > select:focus{
+	outline: none;
+}
 .componentFunc > .gButton{
 	margin-right: 10px;
     padding: 5px 10px 5px 10px;
@@ -611,7 +620,7 @@ body {
 	border: 1px solid gray;
     border-radius: 5px;
     overflow: hidden;
-	width: 100%; height: 10em;
+	width: 100%; height: 25em;
 }
 /* ============================ workbenchForm - End ============================ */
 
@@ -1030,11 +1039,10 @@ span.cell-deleted {
     padding: 0;
 }
 .aweForm > div.awebtn > .label{
-    text-align: center;
+    /* text-align: center; */
 }
 .aweForm > div.awebtn > .aweInputWrap {
 	border:none;
-	flex: none;
 }
 .aweForm > div.awebtn > .aweInputWrap > button {
     background: rgb(30, 122, 225);
@@ -1112,6 +1120,7 @@ span.cell-deleted {
 /* Span */
 .aweForm > div.aweraw > .aweInputWrap{
     border: none;
+	background-color: transparent;
 }
 .aweForm > div.raw > .aweInputWrap > span{
 	width: 100%;

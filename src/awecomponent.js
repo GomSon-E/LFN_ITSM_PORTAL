@@ -878,26 +878,26 @@ function gfnComponent( pageId, containerId, componentDef, afnEH, page ) {
 				}
 
 				/* 컬럼의 폭을 지정해줌 (w) */
-				if(!isNull(colinfo.w)){
-					if(colinfo.etype == 'img'){
-						grpcontainer.css("flex-basis", "100%");
-						aweInputWrap.css('width', `${colinfo.w}em`);
-					} else if(inStr(colinfo.w, ":") != -1){
-						var w1 = nvl(trim(colinfo.w.split(":")[0]), 100);
-						var w2 = nvl(trim(colinfo.w.split(":")[1]), 100);
-						grpcontainer.css("flex-basis", `${w1}%`);
-						aweInputWrap.css("flex-basis", `${w2}%`);
-					} else{
-						grpcontainer.css("flex-basis", `${colinfo.w}%`);
-						aweInputWrap.css('flex', '1 1 0');
-					}
-				} else{
-					if(colinfo.etype == 'img'){
-						grpcontainer.css("flex-basis", "100%");
-						aweInputWrap.css('width', '100%');
-					} else{
-						grpcontainer.css("flex-basis", "100%")
-						aweInputWrap.css('flex', '1 1 0');
+				if(isNull(colinfo.w)){
+					grpcontainer.css("flex-basis", "100%");
+					aweInputWrap.css("flex", `1 1 0`);
+				} else if(!isNull(colinfo.w)){
+					// 100 모양인 경우
+					if(inStr(colinfo.w, ":") == -1){
+						/* img 컨트롤러는 폭을 em으로 지정한다. */
+						if(colinfo.etype == 'img') {
+							grpcontainer.css("flex-basis", `100%`);
+							aweInputWrap.css("width", `${colinfo.w}em`);	
+						} else {
+							grpcontainer.css("flex-basis", `${colinfo.w}%`);
+						}
+					} 
+					// 100:50 모양인 경우
+					else if(inStr(colinfo.w, ":") != -1){
+						var w0 = nvl(trim(colinfo.w.split(":")[0]), 100);
+						var w1 = nvl(trim(colinfo.w.split(":")[1]), 100);
+						grpcontainer.css("flex-basis", `${w0}%`);
+						aweInputWrap.css("flex-basis", `${w1}%`);
 					}
 				}
 

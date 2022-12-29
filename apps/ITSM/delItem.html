@@ -3,10 +3,21 @@
 [pgmid='delItem'].framepage { 
     width:100%;
 }
-[pgmid='delItem'].framepage > .pageContent > #list{
+[pgmid='delItem'].framepage > .pageContent > #rst {
+    flex-basis: 50%;
+}
+[pgmid='delItem'].framepage > .pageContent > #t1 {
+    flex-basis: 50%;
+    display: flex;
+    flex-direction: column;
+}
+[pgmid='delItem'].framepage > .pageContent > #t1 > #list{
     flex-basis: 60%;
 }
-[pgmid='delItem'].framepage > .pageContent > #form{
+[pgmid='delItem'].framepage > .pageContent > #t1 > #list > .componentTop > .componentFunc > span{
+    margin: 0em 1em;
+}
+[pgmid='delItem'].framepage > .pageContent > #t1 > #form{
     flex-basis: 40%;
 }
 </style>
@@ -16,8 +27,11 @@
 <div class="pageTop"></div>
 <div class="pageCond"></div>
 <div class="pageContent">
-    <div id='list'></div>
-    <div id='form'></div>
+    <div id='rst'></div>
+    <div id="t1"> 
+        <div id='list'></div>
+        <div id='form'></div>
+    </div>
 </div>
 <script>
 /*-- _script(자동생성1) start ---------------------------------------------- */        
@@ -41,12 +55,13 @@ $(function() {
         me.dataDef = dataDef;
         me.pageObj = pageObj;
         me.bEdit = bEdit;
-me.dataDef["_pgm"]={"ver":0.1,"upd_dt":"2022-12-21 14:44:01","remark":"","pgmid":"delItem","proc_mst_id":"","pgm_stat":"Y","sort_seq":522,"app_pgmid":"ITSM","shortcut":"","reg_dt":"2022-12-14 10:05:06","reg_usid":"sju02092","pgm_nm":"폐기/회수 처리","upd_usid":"hjkim","pgm_tp":"UX","pgm_grp_nm":"유지보수","proc_mst_nm":"","":"트랜젝션(메뉴)","app_pgm_nm":"ITSM","crud":""};
-me.dataDef["_pgm_func"]=[{"func_icon":"fas fa-search","reg_dt":"2022-12-21 11:38:28","reg_usid":"","func_nm":"조회","upd_usid":"","upd_dt":"2022-12-21 11:38:28","func_tp":null,"remark":"조회조건에 입력된 항목을 바탕으로 검색후, 결과를 보여줍니다.","pgmid":"delItem","sort_seq":"1","funcid":"search","content":"조회조건에 입력된 항목을 바탕으로 검색후, 결과를 보여줍니다.","crud":"R","id":"0"}];
+me.dataDef["_pgm"]={"ver":0.6,"upd_dt":"2022-12-28 15:57:31","remark":"","pgmid":"delItem","proc_mst_id":"","pgm_stat":"Y","sort_seq":522,"app_pgmid":"ITSM","shortcut":"","reg_dt":"2022-12-14 10:05:06","reg_usid":"sju02092","pgm_nm":"폐기/회수 조회 및 신청","upd_usid":"youjungson89","pgm_tp":"UX","pgm_grp_nm":"유지보수","proc_mst_nm":"","app_pgm_nm":"ITSM","":"트랜젝션(메뉴)","crud":""};
+me.dataDef["_pgm_func"]=[{"func_icon":"fas fa-search","ver":"0.62","func_nm":"조회","upd_dt":"","func_tp":null,"remark":"조회조건에 입력된 항목을 바탕으로 검색후, 결과를 보여줍니다.","pgmid":"delItem","sort_seq":"1","funcid":"search","content":"조회조건에 입력된 항목을 바탕으로 검색후, 결과를 보여줍니다.","reg_dt":"","reg_usid":"","upd_usid":"","crud":"R","id":"0"}];
 me.dataDef["_pgm_data"] = {};
-me.dataDef["_pgm_data"]["pageCond"]={"sort_seq":"1","data_id":"pageCond","data_nm":"조회조건","component_pgmid":"aweForm","inout_tp":null,"content":[{"sort_seq":1,"section":null,"section_icon":null,"colgrp":null,"colid":"manageNum","colnm":"관리번호","dtype":"text","etype":"txt","attr":null,"defval":null,"w":"25","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":"ex) LF-PC-0001","crud":"C"},{"sort_seq":2,"section":null,"section_icon":null,"colgrp":null,"colid":"loc","colnm":"지점","dtype":"text","etype":"sel","attr":null,"defval":null,"w":"25","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":3,"section":null,"section_icon":null,"colgrp":null,"colid":"item","colnm":"장비","dtype":"text","etype":"sel","attr":null,"defval":null,"w":"25","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":4,"section":null,"section_icon":null,"colgrp":null,"colid":"user","colnm":"사용자","dtype":"text","etype":"txt","attr":null,"defval":null,"w":"25","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":"사용자를 입력해주세요.","crud":"C"}],"data_icon":null,"component_option":null};
-me.dataDef["_pgm_data"]["list"]={"sort_seq":"2","data_id":"list","data_nm":"장비목록","component_pgmid":"agGrid","inout_tp":null,"content":[{"sort_seq":1,"section":null,"section_icon":null,"colgrp":null,"colid":"manageNum","colnm":"관리번호","dtype":"text","etype":"txt","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":2,"section":null,"section_icon":null,"colgrp":null,"colid":"loc","colnm":"지점","dtype":"text","etype":"sel","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":3,"section":null,"section_icon":null,"colgrp":null,"colid":"item","colnm":"장비","dtype":"text","etype":"sel","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":4,"section":null,"section_icon":null,"colgrp":null,"colid":"user","colnm":"사용자","dtype":"text","etype":"txt","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"}],"data_icon":null,"component_option":{"gridOpt":"chk","gridOptions":{"statusBar":"false","singleClickEdit":"false"}}};
-me.dataDef["_pgm_data"]["form"]={"sort_seq":"3","data_id":"form","data_nm":"신청양식","component_pgmid":"aweForm","inout_tp":null,"content":[{"sort_seq":1,"section":null,"section_icon":null,"colgrp":null,"colid":"type","colnm":"폐기/회수","dtype":"text","etype":"sel","attr":"keycol","defval":null,"w":"33","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":2,"section":null,"section_icon":null,"colgrp":null,"colid":"user","colnm":"신청인","dtype":"text","etype":"txt","attr":"keycol","defval":null,"w":"33","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":"신청인을 입력해주세요.","crud":"C"},{"sort_seq":3,"section":null,"section_icon":null,"colgrp":null,"colid":"date","colnm":"신청일","dtype":"text","etype":"date","attr":null,"defval":"date(\"today\")","w":"33","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":4,"section":null,"section_icon":null,"colgrp":null,"colid":"content","colnm":"신청내용","dtype":"text","etype":"tarea","attr":null,"defval":null,"w":"100","h":"8","refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":"신청내용을 입력해주세요.","crud":"C"}],"data_icon":null,"component_option":{"func":[{"funcid":"addRow","func_nm":"신청","func_icon":"fas fa-paper-plane"}]}};
+me.dataDef["_pgm_data"]["pageCond"]={"sort_seq":"1","data_id":"pageCond","data_nm":"조회조건","component_pgmid":"aweForm","inout_tp":null,"content":[{"sort_seq":1,"section":null,"section_icon":null,"colgrp":null,"colid":"del_num","colnm":"처리번호","dtype":"text","etype":"txt","attr":null,"defval":null,"w":"20","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":"처리번호","crud":"C"},{"sort_seq":2,"section":null,"section_icon":null,"colgrp":null,"colid":"del_tp","colnm":"구분","dtype":"text","etype":"sel","attr":null,"defval":null,"w":"15","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":3,"section":null,"section_icon":null,"colgrp":null,"colid":"loc","colnm":"지점","dtype":"text","etype":"sel","attr":null,"defval":null,"w":"15","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":4,"section":null,"section_icon":null,"colgrp":null,"colid":"del_user","colnm":"신청인","dtype":"text","etype":"txt","attr":null,"defval":null,"w":"15","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":"신청인","crud":"C"},{"sort_seq":5,"section":null,"section_icon":null,"colgrp":"신청일자","colid":"del_date1","colnm":"신청일자1","dtype":"text","etype":"date","attr":null,"defval":"date(\"today\")","w":"35","h":null,"refcd":null,"option":"periodMark","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":6,"section":null,"section_icon":null,"colgrp":"신청일자","colid":"del_date2","colnm":"신청일자2","dtype":"text","etype":"date","attr":null,"defval":"date(\"today\")","w":"35","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"}],"data_icon":null,"component_option":null};
+me.dataDef["_pgm_data"]["rst"]={"sort_seq":"2","data_id":"rst","data_nm":"신청현황","component_pgmid":"agGrid","inout_tp":null,"content":[{"sort_seq":1,"section":null,"section_icon":null,"colgrp":null,"colid":"del_num","colnm":"처리번호","dtype":"text","etype":"txt","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":2,"section":null,"section_icon":null,"colgrp":null,"colid":"del_tp","colnm":"구분","dtype":"text","etype":"sel","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":3,"section":null,"section_icon":null,"colgrp":null,"colid":"loc","colnm":"지점","dtype":"text","etype":"sel","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":4,"section":null,"section_icon":null,"colgrp":null,"colid":"del_item","colnm":"장비","dtype":"text","etype":"txt","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":5,"section":null,"section_icon":null,"colgrp":null,"colid":"del_user","colnm":"신청인","dtype":"text","etype":"txt","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":6,"section":null,"section_icon":null,"colgrp":null,"colid":"del_content","colnm":"신청내용","dtype":"text","etype":"txt","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":7,"section":null,"section_icon":null,"colgrp":null,"colid":"del_date","colnm":"신청일자","dtype":"text","etype":"date","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"}],"data_icon":null,"component_option":{"gridOpt":"rn"}};
+me.dataDef["_pgm_data"]["list"]={"sort_seq":"3","data_id":"list","data_nm":"장비목록","component_pgmid":"agGrid","inout_tp":null,"content":[{"sort_seq":1,"section":null,"section_icon":null,"colgrp":null,"colid":"manageNum","colnm":"관리번호","dtype":"text","etype":"txt","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":2,"section":null,"section_icon":null,"colgrp":null,"colid":"loc","colnm":"지점","dtype":"text","etype":"sel","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":3,"section":null,"section_icon":null,"colgrp":null,"colid":"item","colnm":"장비","dtype":"text","etype":"sel","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":4,"section":null,"section_icon":null,"colgrp":null,"colid":" user","colnm":"사용자","dtype":"text","etype":"txt","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"}],"data_icon":null,"component_option":{"gridOpt":"chk","func":[{"funcid":"search","func_nm":"검색","func_icon":"fas fa-search"}],"content":[{"colid":"info1","colnm":"","dtype":"text","etype":"raw","crud":"U","sort_seq":1,"section":null,"section_icon":null,"colgrp":null,"attr":null,"len":null,"defval":null,"refcd":null,"option":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":"지점","w":null,"h":null},{"colid":"loc","colnm":"지점","dtype":"text","etype":"sel","crud":"U","sort_seq":1,"section":null,"section_icon":null,"colgrp":null,"attr":null,"len":null,"defval":null,"refcd":null,"option":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"w":null,"h":null},{"colid":"info2","colnm":"","dtype":"text","etype":"raw","crud":"U","sort_seq":2,"section":null,"section_icon":null,"colgrp":null,"attr":null,"len":null,"defval":null,"refcd":null,"option":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":"장비","w":null,"h":null},{"colid":"item","colnm":"장비","dtype":"text","etype":"sel","crud":"U","sort_seq":2,"section":null,"section_icon":null,"colgrp":null,"attr":null,"len":null,"defval":null,"refcd":null,"option":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"w":null,"h":null}]}};
+me.dataDef["_pgm_data"]["form"]={"sort_seq":"4","data_id":"form","data_nm":"신청","component_pgmid":"aweForm","inout_tp":null,"content":[{"sort_seq":1,"section":null,"section_icon":null,"colgrp":null,"colid":"del_tp","colnm":"구분","dtype":"text","etype":"sel","attr":null,"defval":null,"w":"33","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":2,"section":null,"section_icon":null,"colgrp":null,"colid":"del_user","colnm":"신청인","dtype":"text","etype":"txt","attr":null,"defval":null,"w":"33","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":"신청인","crud":"C"},{"sort_seq":3,"section":null,"section_icon":null,"colgrp":null,"colid":"del_date","colnm":"신청일자","dtype":"text","etype":"date","attr":null,"defval":"date(\"today\")","w":"33","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":4,"section":null,"section_icon":null,"colgrp":null,"colid":"del_item","colnm":"신청장비","dtype":"text","etype":"tarea","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":"신청 장비 리스트","crud":"C"},{"sort_seq":5,"section":null,"section_icon":null,"colgrp":null,"colid":"del_content","colnm":"신청내용","dtype":"text","etype":"tarea","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":"신청내용을 입력해주세요.","crud":"C"}],"data_icon":null,"component_option":null};
 
     me.pageObj["_page"] = new gfnFramepage( me ); 
     for(var component_id in me.dataDef["_pgm_data"]) { 
@@ -62,9 +77,11 @@ me.dataDef["_pgm_data"]["form"]={"sort_seq":"3","data_id":"form","data_nm":"신�
     me.fnInitExtra=function() {
         // 폭 맞춤
         me.pageObj["list"].sizeColumnsToFit();
+        me.pageObj["rst"].sizeColumnsToFit();
         $(window).on('resize', function(){
             me.pageObj["list"].sizeColumnsToFit();
-        });    
+            me.pageObj["rst"].sizeColumnsToFit();
+        });   
     }
     /* 이벤트핸들러 */
     me.fnEH=function(component, evt, row, col, val) { 
@@ -74,6 +91,18 @@ me.dataDef["_pgm_data"]["form"]={"sort_seq":"3","data_id":"form","data_nm":"신�
         }
         //pageCond:조회조건 이벤트처리   
         else if(component==me.pageObj["pageCond"]) {
+            if(evt=="componentFunc") {
+                if(row=="addRow") {
+                    component.addRow();
+                } else if(row=="delRow") {
+                    component.delRow();
+                }
+            }
+            //if(evt=="change" && col=="colid") {...}
+        }
+
+        //rst:신청현황 이벤트처리   
+        else if(component==me.pageObj["rst"]) {
             if(evt=="componentFunc") {
                 if(row=="addRow") {
                     component.addRow();
@@ -96,7 +125,7 @@ me.dataDef["_pgm_data"]["form"]={"sort_seq":"3","data_id":"form","data_nm":"신�
             //if(evt=="change" && col=="colid") {...}
         }
 
-        //form:신청양식 이벤트처리   
+        //form:신청 이벤트처리   
         else if(component==me.pageObj["form"]) {
             if(evt=="componentFunc") {
                 if(row=="addRow") {
