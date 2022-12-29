@@ -38,7 +38,7 @@
     }
     #toggleDiv .bbsListDiv {
       
-        /* overflow-y: scroll; */
+        overflow-y: scroll;
     }
 
     #toggleDiv .bbsListDiv::-webkit-scrollbar {
@@ -588,8 +588,8 @@
                 me.fnShowDetail(oTR.attr("docid"));
             });
         });
-        if(me.dataSet["BBSList"].length%15 != 0) {
-            var len = 15 - (me.dataSet["BBSList"].length%15);
+        if(me.dataSet["BBSList"].length%12 != 0) {
+            var len = 12 - (me.dataSet["BBSList"].length%15);
             for (let index = 0; index < len; index++) {
                 var emptyList = $(`<tr class="bbs" style="cursor : auto;">`);
                 emptyList.append(`<td class="reg_nm"></td> `);
@@ -602,7 +602,7 @@
         }
     
         /********* pagination 시작 ***********/
-        var rowPerPage = 15;
+        var rowPerPage = 10;
         page.find('#nav').remove();
         var $BBSTable = $("#"+pageid+" .BBSTable");
         $BBSTable.after('<div id="nav">');
