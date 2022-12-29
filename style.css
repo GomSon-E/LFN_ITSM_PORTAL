@@ -352,8 +352,6 @@ body {
     #mySidenav a {
         position: absolute;
         text-decoration: none;
-
-
     }
 
     #mySidenav a:hover {
@@ -368,7 +366,7 @@ body {
         margin-left: 50px;
         border: none;
         color: #ffffff;
-
+        background-color: transparent;
     }
 
 
