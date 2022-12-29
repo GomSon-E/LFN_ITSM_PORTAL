@@ -135,8 +135,7 @@ function gfnMDI(pageContainer,tabContainer) {
 			var toTab = me.tabContainer.children("a.active")[to]();
 			if(toTab.length==0) {
 				gfnStatus("이동할 수 있는 페이지의 끝입니다.");
-				toTab = (to=="prev")?me.tabContainer.children("a").next():me.tabContainer.children("a").first(); //한바퀴 돌리고
-				console.log("처음");
+				toTab = (to=="prev")?me.tabContainer.children("a").next():me.tabContainer.children("a").first(); 
 			} 
 			if(toTab.length==0) toPage = $("#frameHome"); //그래도 없으면 frameHome으로 
 			else toPage = me.pageContainer.children(".framepage[id='"+ toTab.attr("pageidx") +"']");
@@ -328,17 +327,15 @@ function gfnMDI(pageContainer,tabContainer) {
 		// }
 		
 		//일단 닫으려는 탭으로 이동 후
-		console.log("닫으려는 페이지:"+pageidx);
+		// console.log("닫으려는 페이지:"+pageidx);
 		me.go(pageidx);
-	  //return false;
 	
 		//max상태의 창이 닫히면 새로운 창은 stat max를 넣어줘야 함
 		var pageStat = $(".framepage.active").attr("stat"); 
 
-		//Next로 Focus하고 나서
+		//prev로 Focus하고 나서
 		me.go("prev");
 		$(".framepage.active").attr("stat",pageStat);
-		console.log("중간");
 
 		//remove page
 		me.pageContainer.children(".framepage[id='"+pageidx+"']").remove();
@@ -1170,6 +1167,9 @@ function gfnComponent( pageId, containerId, componentDef, afnEH, page ) {
 					top: (window.screen.height / 2) - (height / 2)
 				});
 			}
+
+			//아이디 중복 체크
+			// [me.chkId = function]
 
 		} else if( me.componentDef.component_pgmid =="agGrid" ) {
 			me.colinfo = me.componentDef.content;
