@@ -1,5 +1,12 @@
-html, body {
+* {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+body {
     width: 100%; height: 100%;
+    background-color: #cccccc;
 }
 
 #frameset {
@@ -105,19 +112,6 @@ html, body {
     width: 672px;
 }
 
-	
-* {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-}
-
-body {
-
-    background-color: #cccccc;
-    /* font-family: 'Gothic A1', sans-serif; */
-}
-
 /* 애니메이션 */
 
 @keyframes blink-effect {
@@ -157,23 +151,147 @@ body {
     position: absolute; top: 0; left: 0;
 }
 
+/* 데스크탑 & 모바일 공통 */
+#frameGNB {
+    position: relative;
+    padding-bottom: 0; 
+}
 
+.gnb {
+    background-image: linear-gradient(to left, #58aafc, #12329b);
+    transition: margin-left .5s;
+}
 
-/*상단 메뉴 */
+nav.menu {
+    overflow: hidden;
+    background-image: linear-gradient(to left, #58aafc, #12329b);
+    height: 80px;
+    width: 100%;
+    transition: margin-left .5s;
+}
+
+.menu button {
+    float: left;
+    color: black;
+    text-align: center;
+    text-decoration: none;
+    font-size: 30px;
+}
+
+.menu-right {
+    float: right;
+    color: white;
+}
+
+.menu-right button {
+    color: #a0d2e9;
+}
+
+.alarm>span {
+    position: absolute;
+    font-size: 15px;
+}
+
+.alarm {
+    border: none;
+    background-color: transparent;
+    transition: all 0.5s;
+    padding-right: 20px;
+    position: relative;
+}
+
+.alarm:hover {
+    cursor: pointer;
+    color: #0e2d87;
+}
+
+.user {
+    border: none;
+    background-color: transparent;
+    transition: all 0.5s;
+}
+
+.user:hover {
+    cursor: pointer;
+    color: #0e2d87;
+}
+
+#mySidenav {        
+    height: 100%;
+    width: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #0e2d87;
+    background-image: linear-gradient(180deg, #0e2d87, #78c1f5);
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+    -ms-overflow-style: none;
+    /* for Internet Explorer, Edge */
+    scrollbar-width: none;
+    /* for Firefox */
+    overflow-y: scroll;
+}
+
+#mySidenav a {
+    position: absolute;
+    text-decoration: none;
+}
+
+#mySidenav a:hover {
+    color: navy;
+}
+
+#mySidenav .closebtn {
+    background-color: transparent;
+    position: absolute;
+    top: 0;
+    right: 25px;
+    margin-left: 50px;
+    border: none;
+    color: #ffffff;
+}
+
+.logoside {
+    width: 100%;
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+.logoside p {
+    font-size: 30px;
+    color: #a0d2e9;
+    background-color: navy;
+    padding: 10px 20px;
+    border-radius: 20px;
+}
+
+#main {
+    background-color: white;
+    border: 2px dashed #0e2d87;
+    transition: margin-left .5s;
+    padding: 16px;
+}
+
+/************************데스크탑 사이즈************************/
+
 @media(min-width:768px) {
 
+    /*상단 메뉴 */
     #frameGNB {
         flex: 0 0 auto;
         width: 100%;
-        position: relative;
-        padding-bottom: 0;
-     
     }
 
-    nav.menu {
-        display: flex; 
-        justify-content: space-between;
-        width: 100%;
+    .gnb {
+        overflow: hidden;
+        background-image: linear-gradient(to left, #58aafc, #12329b);
+        height: 80px;
+        transition: margin-left .5s;
     }
 
     .logo {
@@ -186,56 +304,21 @@ body {
         margin-right: 10px
     }
 
-
-    .gnb {
-        overflow: hidden;
-        background-image: linear-gradient(to left, #58aafc, #12329b);
-        height: 80px;
-        transition: margin-left .5s;
-
-    }
-
-    .menu {
-        overflow: hidden;
-        background-image: linear-gradient(to left, #58aafc, #12329b);
-        height: 80px;
+    nav.menu {
+        display: flex; 
+        justify-content: space-between;
         width: 100%;
-
     }
-
-    .menu button {
-        float: left;
-        color: black;
-        text-align: center;
-        text-decoration: none;
-        font-size: 30px;
-
-    }
-
 
     .menu-right {
-        float: right;
-        background-color: transparent;
-        color: white;
         width: 300px;
         height: 80%;
-
         background-color: rgba(0, 0, 0, 0.1);
-        border-top-left-radius: 20px;
-        border-top-right-radius: 20px;
-        border-bottom-left-radius: 20px;
-        border-bottom-right-radius: 20px;
+        border-radius: 20px;
         margin-top: 9px;
         display: flex;
         justify-content: center;
         align-items: center;
-
-    }
-
-    .menu-right button {
-        color: #a0d2e9;
-
-
     }
 
     .menu-right button.toggle {
@@ -244,7 +327,6 @@ body {
         transition: all 0.5s;
         padding-left: 5px;
         padding-right: 30px;
-
     }
 
     .menu-right button.toggle:hover {
@@ -252,147 +334,32 @@ body {
         color: #0e2d87;
     }
 
-    .alarm {
-        border: none;
-        background-color: transparent;
-        transition: all 0.5s;
-        padding-right: 20px;
-        position: relative;
-    }
-
     .alarm>span {
-        position: absolute;
         top: 3px;
         right: 7px;
-        font-size: 15px;
-    }
-
-    .alarm:hover {
-        cursor: pointer;
-        color: #0e2d87;
     }
 
     .user {
-        border: none;
-        background-color: transparent;
-        transition: all 0.5s;
         padding-left: 10px;
-    }
-
-    .user:hover {
-        cursor: pointer;
-        color: #0e2d87;
-    }
-
-    .textSearch {
-        float: left;
-
-        height: 3em;
-        width: 20em;
-        border: 2px solid #cccccc;
-        border-radius: 8px;
-        padding: 5px;
     }
 
     /*사이드 메뉴 네비 바*/
 
     #mySidenav {
-        height: 100%;
-        width: 0;
-        position: fixed;
         z-index: 2;
-        top: 0;
-        left: 0;
-        background-color: #0e2d87;
-        background-image: linear-gradient(180deg, #0e2d87, #78c1f5);
-        overflow-x: hidden;
-        transition: 0.5s;
-        padding-top: 60px;
-        -ms-overflow-style: none;
-        /* for Internet Explorer, Edge */
-        scrollbar-width: none;
-        /* for Firefox */
-        overflow-y: scroll;
-
-
     }
 
     #mySidenav::-webkit-scrollbar {
         display: none;
-
     }
-
-
-    .logoside {
-
-        width: 100%;
-        height: 200px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin-bottom: 30px;
-
-
-    }
-
-    .logoside p {
-
-        font-size: 30px;
-        color: #a0d2e9;
-        background-color: navy;
-        padding: 10px 20px;
-        border-top-left-radius: 20px;
-        border-top-right-radius: 20px;
-        border-bottom-left-radius: 20px;
-        border-bottom-right-radius: 20px;
-    }
-
-
-
-    #mySidenav a {
-        position: absolute;
-        text-decoration: none;
-    }
-
-    #mySidenav a:hover {
-        color: navy;
-    }
-
+    
     #mySidenav .closebtn {
-        position: absolute;
-        top: 0;
-        right: 25px;
         font-size: 50px;
-        margin-left: 50px;
-        border: none;
-        color: #ffffff;
-        background-color: transparent;
     }
-
-
 
     /*탭라인*/
 
     #frameMain {
-
-        transition: margin-left .5s;
-
-    }
-
-
-
-
-    /* #frameMain::-webkit-scrollbar {
-        display: none;
-
-    } */
-
-    #tabline {
-        height: 65px;
-        background-color: #fcfefe;
-    }
-
-    nav {
         transition: margin-left .5s;
     }
 
@@ -400,10 +367,6 @@ body {
 
     #main {
         height: auto;
-        background-color: white;
-        border: 2px dashed #0e2d87;
-        transition: margin-left .5s;
-        padding: 16px;
     }
 
     #frameHome {
@@ -419,43 +382,9 @@ body {
 
     /*상단 메뉴 */
 
-    #frameGNB {
-        padding-bottom: 0;
-        position: relative;
-    }
-
-    .gnb {
-        background-image: linear-gradient(to right, #58aafc, #2b4cbc);
-        transition: margin-left .5s;
-    }
-
-
-    .menu {
-        overflow: hidden;
-        background-image: linear-gradient(to right, #58aafc, #2b4cbc);
-        height: 80px;
-        width: 100%;
-
-    }
-
     .menu button {
-        float: left;
-        color: black;
-        text-align: center;
         padding: 20px 6px;
-        text-decoration: none;
-        font-size: 30px;
         margin-top: 5px;
-    }
-
-    .menu-right {
-        float: right;
-        color: white;
-
-    }
-
-    .menu-right button {
-        color: #a0d2e9;
     }
 
     .profile {
@@ -464,181 +393,31 @@ body {
         height: 60px;
         overflow: hidden;
         cursor: pointer;
-    }
-
-    .search {
-        display: none;
-        border: none;
-        background-color: transparent;
-        transition: all 0.5s;
-
-    }
-
-    .search:hover {
-        cursor: pointer;
-        color: #0e2d87;
-    }
-
-    .textSearch {
-        display: none;
-        float: left;
-        margin-top: 20px;
-        height: 30px;
-        width: 200px;
-        border: 2px solid #cccccc;
-        border-radius: 8px;
-        padding: 5px;
-    }
-
+    }                                                                           
 
     .alarm {
-        border: none;
-        background-color: transparent;
-        transition: all 0.5s;
-        position: relative;
         margin-right: 10px;
     }
 
     .alarm>span {
-        position: absolute;
         top: 17px;
         right: -7px;
-        font-size: 15px;
     }
-
-    .alarm:hover {
-        cursor: pointer;
-        color: #0e2d87;
-    }
-
-    .user {
-        border: none;
-        background-color: transparent;
-        transition: all 0.5s;
-
-
-    }
-
-
-    .useSC:hover {
-        cursor: pointer;
-        color: #0e2d87;
-    }
-
-
-
 
     /*사이드 메뉴 네비 바*/
 
-    #mySidenav {
-        height: 100%;
-        width: 0;
-        position: fixed;
+    #mySidenav {        
         z-index: 10;
-        top: 0;
-        left: 0;
-        background-color: #0e2d87;
-        background-image: linear-gradient(180deg, #0e2d87, #78c1f5);
-        overflow-x: hidden;
-        transition: 0.5s;
-        padding-top: 60px;
-        -ms-overflow-style: none;
-        /* for Internet Explorer, Edge */
-        scrollbar-width: none;
-        /* for Firefox */
-        overflow-y: scroll;
-
-
-    }
-
-    /* div::-webkit-scrollbar {
-        display: none;
-
-    } */
-
-    #mySidenav a {
-        position: absolute;
-        text-decoration: none;
-
-    }
-
-    #mySidenav a:hover {
-        color: navy;
     }
 
     #mySidenav .closebtn {
-        position: absolute;
-        top: 0;
-        right: 25px;
         font-size: 36px;
-        margin-left: 50px;
-        border: none;
-        color: #ffffff;
-
-    }
-
-
-    .logoside {
-
-        width: 100%;
-        height: 200px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin-bottom: 30px;
-
-    }
-
-    .logoside p {
-
-        font-size: 30px;
-        color: #a0d2e9;
-        background-color: navy;
-        padding: 10px 20px;
-        border-top-left-radius: 20px;
-        border-top-right-radius: 20px;
-        border-bottom-left-radius: 20px;
-        border-bottom-right-radius: 20px;
-    }
-
-
-    /*탭라인*/
-
-    #tabline {
-        height: 60px;
-        background-color: #d7e8fc;
-        transition: margin-left .5s;
     }
 
     /*콘텐츠박스*/
 
     #main {
         height: 800px;
-
-        background-color: white;
-        border: 2px dashed #0e2d87;
-
-        transition: margin-left .5s;
-        padding: 16px;
-    }
-
-
-    /*푸터*/
-
-    footer {
-        background-color: #aaaaaa;
-        color: white;
-        width: 100%;
-        height: 30px;
-        display: flex;
-        align-items: center;
-        justify-content: flex-start;
-        transition: margin-left .5s;
-
-    }
-
-    footer p {
-        margin-left: 10px;
     }
 
     .action {
