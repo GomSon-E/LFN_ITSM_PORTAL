@@ -1,70 +1,36 @@
-<link rel="stylesheet" href="/src/aweportal.css">
-<link rel="stylesheet" href="/src/awecomponent.css">
-
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <meta name="viewport"
-        content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="format-detection" content="telephone=no" />
-
     <title>LF Networks ITSM</title>
-    <script src="https://kit.fontawesome.com/b8597271c4.js" crossorigin="anonymous"></script>
-
-    <link href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@400;500;600;700;800;900&display=swap"
-        rel="stylesheet">
-
 </head>
 
 <body id="body">
 
     <header id="frameGNB">
-
         <div class="gnb">
-
             <nav class="menu">
-
                 <div class="logo">
-
                     <img src="servers.png" alt="" onclick="openNav()" width="60">
-                    <a href="#" class="mainLogo">
-                        <img class="CI" src="logo.png" alt="" width="180">
-                    </a>
+                    <img class="mainLogo" src="logo.png" alt="" width="180">
                 </div>
 
                 <div class="menu-right">
-
-
                     <button class="toggle"><i class="fas fa-toggle-off"></i></button>
-
-                    <!-- <input type="text" placeholder="Search.." class="textSearch"> -->
-                    <!-- <button class="search"><i class="fas fa-search"></i></button> -->
-
-                    <!-- <button class="apps"><i class="fas fa-th"></i></button> -->
-
                     <button class="alarm" onclick="gMDI.openPage('manageAlert', '알림 목록');">
                         <i class="far fa-comment"></i>
                         <span></span>
                     </button>
-
-                    <button class="user"><i class="fas fa-user-circle"></i></button>
-
+                    <button class="user" onclick="menuToggle();"><i class="fas fa-user-circle"></i></button>
                 </div>
-
             </nav>
         </div>
 
-
-        <div class="user" onclick="menuToggle();">
-        </div>
-
         <div class="userInfo hidden">
-
             <ul class="userInfo-item">
-
                 <div class="p-2">
                     <div class="media">
-
                         <div class="media-body">
                             <!-- 아이디 -->
                             <p id="userid" class="d-block fs-8 link-secondary">ID</p>
@@ -74,46 +40,30 @@
                                 <!-- 이름 -->
                                 <span id="usernm">usernm</span>
                                 <span>님 환영합니다.</span>
-
                             </span>
-
                         </div>
                     </div>
                 </div>
-
                 <li class="profile"><i class="fas fa-user-edit"></i> 프로필 관리</li>
                 <li class="changePwd"><i class="fas fa-pencil-alt"></i>비밀번호변경</li>
-                <!-- <li class="withdrawlUser">회원탈퇴</li> -->
                 <li class="logout"><i class="fas fa-sign-out-alt"></i>로그아웃</li>
-
             </ul>
         </div>
-
     </header>
-
-
-
 
     <div id="frameset">
 
         <!---사이드 네비바----->
-
         <div id="mySidenav">
-
-            <a href="javascript:void(0)" class="closebtn" id="closebtn" onclick="closeNav()">&times;</a>
-
+            <button class="closebtn" id="closebtn" onclick="closeNav()">&times;</button>
             <div class="logoside">
-
                 <!----로고 애니메이션----->
-
-                <a href="#" class="link">
+                <a class="link" onclick="location.reload()">
                     <img src="gear.png" alt="logo" width="200" height="200">
                     <img src="letter.png" alt="logo" width="200" height="200">
                     <img src="lfn.png" alt="logo" width="200" height="200">
                 </a>
-
             </div>
-
 
             <!------앱버튼------->
             <nav id="frameApp" style="position:absolute; width: auto; ">
@@ -123,26 +73,14 @@
                     <div class="PGM" style="display: none;"></div>
                 </div>
             </nav>
-
         </div>
 
         <!----탭밑에 컨텐츠 화면들----->
-
-
         <main id="frameMain">
             <div id="frameTab"></div>
         </main>
 
     </div>
-    <!--search-->
-    <search id="frameSearch" class="aweSearch hidden">
-    </search>
-    <!----푸터---->
-
-    <!-- <footer id="undercopy">
-
-        <p>copyright &copy; 2022 LF networks. All Right Reserved</p>
-    </footer> -->
 
     <!-- status -->
     <div id="status">
@@ -182,16 +120,16 @@
 
 </body>
 
-
 <script>
+    //mainLogo 로고 클릭시 리로드
+    $(".mainLogo").on("click", function () {
+        location.reload();
+    });
+
     function menuToggle() {
         const toggleMenu = document.querySelector(".menu");
         toggleMenu.classList.toggle("active");
     }
-</script>
-
-
-<script>
 
     /*사이드 메뉴 열기*/
 
@@ -320,53 +258,13 @@
                 console.error(`${pgmid} window.load : ${e}`);
             }
 
-            //mainLogo 로고 클릭시 리로드
-            $(".mainLogo").on("click", function () {
-                // gfnAlert("초기화","시스템 리소스 파일을 초기화합니다.")
-                location.href = "/index.html?" + date("today", "yyyymmddhh24miss");
-            });
-
             me.fnRetrieveInit();
-
-            //jqueryui modal dialog에서 select2 제대로 작동하지 않는 것에 대한 HACK
-            if ($.ui && $.ui.dialog && $.ui.dialog.prototype._allowInteraction) {
-                var ui_dialog_interaction = $.ui.dialog.prototype._allowInteraction;
-                $.ui.dialog.prototype._allowInteraction = function (e) {
-                    if ($(e.target).closest('.select2-dropdown').length) return true;
-                    return ui_dialog_interaction.apply(this, arguments);
-                };
-            }
-
-            gfnTx("aweportal.frameset", "getReq", {}, function (OUTVAR) {
-                console.log(OUTVAR);
-
-                // $("#usernicknm").text(gUserinfo.usernicknm.substr(0, 2));
-                // $("#usernm").text(gUserinfo.usernm);
-                // if (!gUserinfo.usergrp.some(e => e.role_tp == "ADM")) $("#usergrp").css("display", "none");
-                // $("#email").text(gUserinfo.email);
-            });
         }
 
         //frameset 데이터로드 : 세션사용자정보를 사용하므로 args없음 
         me.fnRetrieveInit = function () {
             gfnTx("aweportal.frameset", "retrieveInit", {}, function (OUTVAR) {
                 if (OUTVAR.rtnCd == "OK") {
-                    /*
-                    if (OUTVAR.server != "fo.lfnetworks.co.kr") {
-                        // $("#frameGNB").css("background-color", "blue"); 
-                        // KESCSS 위에 배경화면색상
-                        gUserinfo.server = "dev";
-                        console.log("개발환경입니다...");
-                        messages = io('http://192.168.0.86:9090/socket.io/messages'); //Messages 개발 서버 연결
-                        // messages          = io('http://localhost:9090/socket.io/messages'); //Messages 개발 서버 연결  
-                    } else {
-                        gUserinfo.server = "prod";
-                        console.log("운영환경입니다...!");
-                        messages = io('https://fo.lfnetworks.co.kr/socket.io/messages'); //Messages 운영 서버 연결
-                    }
-                    */
-
-
                     gds.comcd = OUTVAR.comcd;   //공통코드
                     gUserinfo.defval = OUTVAR.defval;  //사용자기본값
                     gUserinfo.usergrp = OUTVAR.usergrp; //사용자그룹
@@ -375,30 +273,19 @@
 
                     encdeckey = "lfnetworks";   //메세지 암호화 복호화 키
 
-
-
                     $("#usernicknm").text(gUserinfo.usernicknm.substr(0, 2));
                     $("#usernm").text(gUserinfo.usernm);
                     if (!gUserinfo.usergrp.some(e => e.role_tp == "ADM")) $("#usergrp").css("display", "none");
                     $("#userid").text(gUserinfo.userid);
 
                     me.fnInitMDI();
-                    me.fnInitFrameGNB();
-                    me.fnInitJoinGroupMain();
-
                     me.fnShowFrameApp();
-
-                    me.fnEHFrameStatus();
                     me.fnEHFrameGNB();
                     me.fnEHFrameApp();
                     me.fnEHFrameTabToggle();
                     me.fnEHFrameUser();
                     me.fnEHFrameSet();
-                    me.fnEHFrameLeftBar();
-                    me.fnEHFrameRightBar();
-                    me.fnEHFrameBottom();
                     me.fnEHMessageReceive();
-
                     me.fnFramesetLayout();
 
                     //비번변경해야할 경우
@@ -431,7 +318,6 @@
             var frameBottom = $("#frameBottom");
             var bottomH = 0;
 
-
             if (wW < 768) {
                 $("body").addClass("mobile");
                 me.fnShowFrameLeftBar(false);
@@ -445,8 +331,6 @@
                 frameBottom.removeClass("bottom");
                 frameBottom.addClass("dock");
             }
-
-
 
             $("#frameset").css("margin-bottom", bottomH + "px");
 
@@ -471,106 +355,13 @@
                 });
 
                 $(".gButtonsetpanel").hide();
-
-                // if (!$("#frameApp").hasClass("hidden")) $("#frameApp").addClass("hidden");
             }
-        }
-
-        //main group 유저 접속	
-        me.fnInitJoinGroupMain = function () {
-            /*
-            var args = {
-                reg_usid: gUserinfo.userid,
-                usnm: gUserinfo.usernm,
-                grpid: "main"
-            }
-            messages.emit("main", args);
-            // var args = {	
-            //     reg_usid : gUserinfo.userid,	
-            //     usnm : gUserinfo.usernm,	
-            //     grpid : gUserinfo.userid	
-            // }	
-            // messages.emit(gUserinfo.userid, args);	
-            */
         }
 
         //gMDI
         me.fnInitMDI = function () {
             gMDI = new gfnMDI($("#frameMain"), $("#frameTab")); //gMDI초기화 
             gMDI.loadHome(); //frameMain에 frameHome 로드
-
-            //frameLeft cafePortlet 로드
-            var cafePortlet = $("#frameLeft .CAFE");
-            gfnLoad("aweportal", "cafePortlet", cafePortlet, function (OUTVAR) {
-            });
-
-            //frameLeft 메세지 채널 로드 및 초기화
-            gMDI.portletChat();
-            //frameGNB 알림 로드 및 초기화	
-            gMDI.portletAlert();
-        }
-
-        me.fnInitFrameGNB = function () {
-            //banner로드
-            gfnTx("aweportal.frameset", "retrieveBanner", {}, function (OUTVAR) {
-                if (OUTVAR.rtnCd == "OK") {
-                    for (var i = 0; i < OUTVAR.list.length; i++) {
-                        var row = OUTVAR.list[i];
-                        var banner = $(`<div class="banner ${row.doc_template_id}" docid="${row.docid}" title="${row.title}"></div>`);
-                        //내용채워주고
-                        var bannerContent = $(`<span>${row.content}</span>`);
-                        bannerContent.on("click", function (e) {
-                            //광고 내용표시
-                            var oDoc = $(e.target).exactObj(".banner");
-                            var args = { docid: oDoc.attr("docid"), proc_stat: "Y" };
-                            var invar = JSON.stringify(args);
-                            gfnTx("aweportal.frameset", "updateBannerRead", { INVAR: invar }, function (OUTVAR) {
-
-                                gfnAlert("준비중", `Banner표시: [${oDoc.attr("docid")}] ${oDoc.attr("title")}`);
-                            });
-
-                            oDoc.remove();
-                        });
-                        banner.append(bannerContent);
-                        //닫기버튼 추가하고
-                        var bannerCloser = $('<i class="fas fa-times"></i>');
-                        bannerCloser.on("click", function (e) {
-                            //다시 안 열리게 업데이트
-                            var oDoc = $(e.target).exactObj(".banner");
-                            var args = { docid: oDoc.attr("docid"), proc_stat: "C" };
-                            var invar = JSON.stringify(args);
-                            gfnTx("aweportal.frameset", "updateBannerRead", { INVAR: invar }, function (OUTVAR) {
-
-                                gfnStatus("광고를 읽음처리 하였습니다.");
-                            });
-
-                            oDoc.remove();
-                        });
-                        bannerContent.after(bannerCloser);
-                        //GNB에 붙여줌
-                        if (row.doc_template_id == "bannerUp") {
-                            $("#frameGNB .gnb").before(banner);
-                        } else {
-                            $("#frameGNB .gnb").after(banner);
-                        }
-                    }
-                }
-            });
-
-            //알림
-            if (gds.notice != undefined && gds.notice.length > 0) {
-                var noticnt = $("#frameGNB button.notice i b");
-                if (noticnt.length == 0) {
-                    $("#frameGNB button.notice i").append("<b></b>");
-                    noticnt = $("#frameGNB button.notice i b");
-                }
-                noticnt.text(gds.notice.length);
-            } else {
-                $("#frameGNB button.notice i b").remove();
-            }
-
-            //사용자정보에 따른 사용자표시
-            $("#frameGNB button.user span").text(gUserinfo.usernm);
         }
 
         /*kes 여기부터*/
@@ -585,37 +376,21 @@
                     if (idx == 0) {
                         page.find("#frameApp .appMenu .PGM .app").remove();
                         var app = $("<div><h3></h3></div>");
-
                         app.addClass("app");
-
                         app.attr("app", app_pgm_nm);
-
                         page.find("#frameApp .appMenu .PGM").append(app);
-
-
-
-
-
                     }
 
-                    $($("#frameApp>.appMenu>.APP>.app")).click(function () {
+                    // Apps 메뉴 구조      
 
-                    })
-
-                    //////Apps 메뉴 구조임      
-
-                    //Apps 메뉴 버튼들
-                    //hasClass() boolean - 이미 생성된 중분류가 있는지 확인 후 대분류에 append()
+                    // Apps 메뉴 버튼들
+                    // hasClass() boolean - 이미 생성된 중분류가 있는지 확인 후 대분류에 append()
                     if (page.find("#frameApp .appMenu .PGM .app div").hasClass(row.pgm_grp_nm) == false) {
-
-
                         var grp = $("<div></div>");
 
                         grp.addClass(row.pgm_grp_nm);
-                        //grp.attr("pgmgrp", row.pgm_grp_nm);
                         grp.append("<div class='pgmgrp'>" + row.pgm_grp_nm + "</div>") //부제목 하위메뉴
                         grp.append("<ul class='box'></ul>") //하위메뉴의 하위메뉴
-                        //grp.text(row.pgm_grp_nm);
                         page.find("#frameApp .appMenu .PGM .app").append(grp);
                     }
 
@@ -643,17 +418,11 @@
                 if (idx == 0) page.find("#frameApp .appMenu .APP .app").remove();
 
                 //extract()로 중복 제거한 applist를 each()로 반복 - row값 idx 0인 경우만 showMenu로 전달
-
                 var app = $("<div app='" + row + "'></div>");
                 app.addClass("app")
                 app.text(row);
                 page.find("#frameApp .appMenu .APP").append(app);
-
-                // if (idx == 0) showMenu(row);
-
             });
-
-
 
             //event-handler(frameGNB) : frameApp menu click event 상위메뉴 클릭하면 하위메뉴 뜨게 하는것
             var content = $(".PGM").parent().attr("app")
@@ -661,30 +430,19 @@
             page.find("#frameApp .appMenu .APP .app").on("click", function (e) {
                 //Apps 을 클릭하면 하단에 pgm리스트를 표시한다.
                 showMenu($(e.target).text());
-
-
                 $(this).append($(".PGM"))
 
-                // $(this).toggleClass("selected");
-
                 if ($(".PGM").parent().attr("app") !== content) {
-
                     $(".PGM").slideDown();
                     $(this).toggleClass('selected')
                     $(this).siblings().removeClass('selected');
                     content = $(".PGM").parent().attr("app")
-
                 }
                 else {
-
                     $(".PGM").slideToggle();
                     $(this).toggleClass('selected')
-
                 }
-
             });
-
-
 
             page.find("#frameApp .appMenu .PGM").on("click", ".pgm", function (e) {
                 //pgm을 클릭하면 해당 화면을 열어준다.
@@ -700,33 +458,6 @@
             });
         }
 
-        me.fnShowFrameSearch = function () {
-            $("#frameSearch").empty();
-            var frameGNBWidth = parseInt(window.getComputedStyle(document.querySelector("nav")).width);
-            document.querySelector("#frameSearch").style.width = (frameGNBWidth - 10) + "px";
-
-            //page.find("#frameSearch .frameSearchSet").remove();
-            //page.find("#frameSearch").removeClass("hidden");
-            //var search = $("<div></div>");
-            //search.addClass("frameSearchSet");
-            var searchAll = $("<div></div>");
-            gfnLoad("aweportal", "searchAll", searchAll, function () {
-                /* 
-            search.append("<div><input class='searchBar' placeholder='&nbsp;LF Networks EP 통합검색'></div>");
-            //search.append("<div><button>아이콘</div>");
-            
-            page.find(".searchBar").off("keyup");
-            page.find(".searchBar").on("keyup",function(e){
-                if(e.keyCode==13) {
-                    gfnStatus($(e.target).val()+" enter pressed");
-                }
-            });            */
-                page.find("#frameSearch").append(searchAll);
-                page.find(".searchBar").focus();
-            });
-
-        }
-
         me.fnShowFrameLeftBar = function (bShow) {
             if (bShow == undefined) {
                 if (page.find("#frameLeft").hasClass("leftMini")) bShow = true;
@@ -734,74 +465,16 @@
             }
             if (bShow) {
                 if ($("#frameBottom nav .screen").hasClass("max")) $("#frameGNB").css("display", "block");
-                // page.find("#frameLeft .appMenu").show();
-                // page.find("#frameLeft .grp").show();
-                // page.find("#frameLeft").removeClass("leftMini");
                 $("#frameMain .btnShow").removeClass("closed");
             } else {
                 if ($("#frameBottom nav .screen").hasClass("max")) $("#frameGNB").css("display", "none");
-                // page.find("#frameLeft .appMenu").hide();
-                // page.find("#frameLeft .grp").hide();
-                // page.find("#frameLeft").addClass("leftMini");
                 $("#frameMain .btnShow").addClass("closed");
             }
         }
-
-        // me.fnShowFrameRightBar = function (bShow) {
-        //     if (bShow == undefined) {
-        //         if (page.find("#frameRight").hasClass("rightMini")) bShow = true;
-        //         else bShow = false;
-        //     }
-        //     if (bShow) {
-        //         page.find("#frameRight .info").show();
-        //         page.find("#frameRight").removeClass("rightMini");
-        //     } else {
-        //         page.find("#frameRight .info").hide();
-        //         page.find("#frameRight").addClass("rightMini");
-        //     }
-        // }
-
-        me.fnEHFrameStatus = function () {
-            /* 커서가 있으면 frameStatus메시지 위치를 변경한다. */
-            var block = false;
-            $("body #frameStatus").on({
-                mouseover: function (e) {
-                    if (!block) {
-                        if ($("#frameStatus").css("flex-direction") == "column-reverse") {
-                            block = true;
-                            $("#frameStatus").css({ top: "unset", bottom: "0.5em", "flex-direction": "column" });
-                            setTimeout(function () { block = false }, 1000);
-                        } else {
-                            $("#frameStatus").css({ top: "0.5em", bottom: "unset", "flex-direction": "column-reverse" });
-                            bLock = true;
-                            setTimeout(function () { block = false }, 1000);
-                        }
-                    }
-                }
-            })
-            /* gButtonsetpanel */
-            $(window).on({
-                click: function (e) {
-                    var oE = $(e.target);
-                    if (oE.isON(".gButtonpanelBtn") == false) {
-                        $(".gButtonsetpanel").hide();
-                    }
-                    /* framepage.active에서 btnCond, Quick Guide, Tab 클릭이 일어나면 그리드 높이를 fit하게 해줌 */
-                    if (oE.isON(".btnCond") || oE.isON(".guideBtn") || oE.isON(".commonFunc button:contains('Screen')") || oE.isON(".aweTab .tab") || oE.isON(".componentTitle")) {
-                        gfnFramepageLayout();
-                    }
-                }
-            });
-        }
-
+        
         /*kes여기까지*/
 
         me.fnEHFrameGNB = function () {
-            $("#frameGNB .gnb .CI").on({
-                click: function () {
-                    gfnHome();
-                }
-            })
 
             $("#frameGNB .gnb nav .notice").on({
                 click: function () {
@@ -817,31 +490,11 @@
                     }
                 }
             });
-            $("#frameGNB .gnb nav .remote").on({
-                click: function (e) {
-                    const url = "http://helpu.kr/LFNETWORKS/";
-                    window.open(url);
-                }
-            })
         }
 
         me.fnEHFrameApp = function () {
-
-            // $("#frameGNB .gnb nav ").on({
-            //     click: function () {
-            //         $("#frameApp").toggleClass("hidden");
-            //     }
-            // })
-            // $(window).on({  
-            //     click: function (e) {
-            //         if (!$("#frameGNB .gnb nav ").has(e.target).length && !$("#frameApp").has(e.target).length) {
-            //             $("#frameApp").addClass("hidden");
-            //         }
-            //     }
-            // });
             //메뉴표시 바깥 클릭시 메뉴 숨기기 
             document.querySelector("#frameMain").addEventListener('click', closeNav);
-
         }
 
         me.fnEHFrameTabToggle = function () {
@@ -864,29 +517,49 @@
             $("#frameGNB .gnb nav .user").on({
                 click: function (e) {
                     $(".userInfo").toggleClass("hidden");
-
-
                 }
             })
-            $(" .userInfo").on({
+            $(".userInfo").on({
                 click: function (e) {
                     var oE = $(e.target);
 
-                    if (oE.isON(".profile")) gMDI.openPage("manageProfile", "프로필 관리", function (OUTVAR) { }, "aweportal");
-                    else if (oE.isON(".changePwd")) gMDI.openPage("changePwd", "비밀번호 변경", function (OUTVAR) { }, "aweportal");
-                    else if (oE.isON(".withdrawlUser")) gMDI.openPage("withdrawlUser", "회원탈퇴", function (OUTVAR) { }, "aweportal");
+                    if (oE.isON(".profile")) gMDI.openPage("manageProfile", "프로필 관리");
+                    else if (oE.isON(".changePwd")) gMDI.openPage("changePwd", "비밀번호 변경");
+                    else if (oE.isON(".withdrawlUser")) gMDI.openPage("withdrawlUser", "회원탈퇴");
                     else if (oE.isON(".logout")) gfnLogout();
                 }
             });
             $(page).on({
                 click: function (e) {
                     if (!$("#frameGNB .gnb nav .user").has(e.target).length && !$("#frameGNB .list").has(e.target).length) {
-                        $(" .userInfo").addClass("hidden");
-
-
+                        $(".userInfo").addClass("hidden");
                     }
                 }
             });
+        }
+
+        me.fnEHMessageReceive = function () {
+            setInterval(function () {
+                var args = { usid: gUserinfo.userid };
+                var invar = JSON.stringify(args);
+                gfnTx(appid + "." + pgmid, "checkMsg", { INVAR: invar }, function (OUTVAR) {
+                    if (OUTVAR.num[0]["num"] > 0) {
+                        $(".alarm>i").removeClass("far fa-comment")
+
+                        $(".alarm>i").addClass("fas fa-comment-dots")
+
+                        $(".alarm>span").show()
+                        $(".alarm>span").text(OUTVAR.num[0]["num"])
+
+                    }
+                    else {
+                        $(".alarm>i").removeClass("fas fa-comment-dots")
+                        $(".alarm>i").addClass("far fa-comment")
+
+                        $(".alarm>span").hide()
+                    }
+                }, true)
+            }, 5000);
         }
 
         me.fnEHFrameSet = function () {
@@ -910,60 +583,6 @@
                     me.fnFramesetLayout();
                 }
             })
-        }
-
-        me.fnEHFrameLeftBar = function () {
-            $("#frameMain .btnShow").on({
-                click: function () {
-                    me.fnShowFrameLeftBar();
-                }
-            })
-        }
-
-        me.fnEHFrameRightBar = function () {
-            $("#frameMain .btnShowR").on({
-                click: function () {
-                    me.fnShowFrameRightBar();
-                }
-            })
-        }
-
-        me.fnEHFrameBottom = function () {
-            $("#frameBottom").on({
-                click: function (e) {
-                    var oE = $(e.target);
-                    if (oE.isON(".home")) gMDI.go(0);
-                    else if (oE.isON(".prev")) gMDI.go("prev");
-                    else if (oE.isON(".next")) gMDI.go("next");
-                    else if (oE.isON(".calendar")) gfnCalendar();
-                    else if (oE.isON(".screen")) gMDI.screen();
-                    else if (oE.isON(".close")) gMDI.close();
-                }
-            })
-        }
-        //여기도 페이지 리로딩 시 (리스너) 초기화 필요	
-        me.fnEHMessageReceive = function () {
-            setInterval(function () {
-                var args = { usid: gUserinfo.userid };
-                var invar = JSON.stringify(args);
-                gfnTx(appid + "." + pgmid, "checkMsg", { INVAR: invar }, function (OUTVAR) {
-                    if (OUTVAR.num[0]["num"] > 0) {
-                        $(".alarm>i").removeClass("far fa-comment")
-
-                        $(".alarm>i").addClass("fas fa-comment-dots")
-
-                        $(".alarm>span").show()
-                        $(".alarm>span").text(OUTVAR.num[0]["num"])
-
-                    }
-                    else {
-                        $(".alarm>i").removeClass("fas fa-comment-dots")
-                        $(".alarm>i").addClass("far fa-comment")
-
-                        $(".alarm>span").hide()
-                    }
-                }, true)
-            }, 5000);
         }
 
         /*-- SCRIPT autogen ---------------------------------------------------- */

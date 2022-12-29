@@ -1109,8 +1109,8 @@
     });
     
     $("#toggleDiv .toRegisterBBS").click(function() { 
+        gMDI.closeTab(me.pageid); 
         gMDI.openPage( "registerBBS", "공지사항 등록", function() {
-            gMDI.closeTab(me.pageid); 
         }, "aweportal" );
     });
     
