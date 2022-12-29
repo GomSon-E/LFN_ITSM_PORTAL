@@ -178,6 +178,10 @@ body {
     justify-content: space-between;
 	padding-top: 0.5em;
 }
+.pageNav .navTree{
+	display: flex;
+	align-items: center;
+}
 
 
 @media(max-width:768px) {

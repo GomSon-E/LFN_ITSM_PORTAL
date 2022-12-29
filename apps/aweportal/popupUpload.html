@@ -72,7 +72,7 @@
 <div class="pageTop"></div>
 <div class="pageGuide"></div>
 <div class="pageContent">
-    <div id='fileinfo'></div>--등록파일정보
+    <div id='fileinfo'></div>
     <div id="fileDropZone">
         <div id="fileDragDesc" style="margin: 10px;">여기에 파일을 끌어놓거나 클릭하여 파일을 추가하세요.</div>
     </div>
@@ -206,6 +206,7 @@ me.fnEH=function(component, evt, row, col, val) {
                                 console.log(rowData);
                                 var invar = JSON.stringify(rowData);
                                 console.log(invar);
+                                // t_file 테이블에서 삭제
                                 gfnTx(appid+"."+pgmid, "deleteFile", {"INVAR" : invar}, function(OUTVAR){
                                     if(OUTVAR.rtnCd=="OK") {
                                         me.fnGetfile(false, false);
@@ -213,8 +214,11 @@ me.fnEH=function(component, evt, row, col, val) {
                                         gfnAlert("조회오류",OUTVAR.rtnMsg);
                                     }
                                 });
-                                deleteFile(rowData.sort_seq);
+                                deleteFile(rowData.sort_seq); 
                             }
+                            var delRow = me.pageObj["filelist"].delSelectedRow(); 
+                            console.log('delRow = ');
+                            console.log(delRow);
                         }
                     });
                 }
