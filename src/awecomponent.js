@@ -2505,7 +2505,7 @@ function gfnComponent( pageId, containerId, componentDef, afnEH, page ) {
 						gfnAlert("Error","calendar initializing Error...:"+OUTVAR.rtnMsg);
 						if(typeof(afnCallback)=='function') afnCallback(OUTVAR); 
 					}
-				});			
+				}, true);			
 			} 
 			me.setVal = function(ymd,rowData) {  
 				if(typeof(ymd)=='string' && isYmd(ymd)) {
