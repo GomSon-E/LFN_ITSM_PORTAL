@@ -46,6 +46,7 @@ String DEPTCD      = (String)session.getAttribute("DEPTCD");
 String DEPTNM      = (String)session.getAttribute("DEPTNM");
 String USERAUTH    = (String)session.getAttribute("USERAUTH");  
 String MULTIORGYN  = (String)session.getAttribute("MULTIORGYN");
+// String USERSVC	   = (Strisng)session.getAttribute("USERSVC");
 
 //DB Connection
 setCtx( "LFN" );
@@ -152,6 +153,26 @@ public String getQuery(String pgmid, String qryid) {
 	} 
 	return qry;
 }
+
+// public String getQuery(String pgmid, String qryid) {
+// 	Connection conn = null;
+// 	String qry = "";
+// 	try {
+// 		//쿼리 가져옴
+// 		conn = getConn("COMMON");
+// 		String qry1 = "select content from T_PGM_SRC where pgmid = '"+pgmid+"' and srcid ='"+qryid+"'";
+// 		if(!"PROD".equals(USERSVC)){
+// 			qry1 = "select content from HIS_PGM_SRC A where pgmid = '"+pgmid+"' and srcid ='"+qryid+"' AND A.VER = (SELECT MAX(X.ver) FROM HIS_PGM_SRC X WHERE X.pgmid = '"+pgmid+"')";
+// 		}
+// 		JSONArray mRtn = executeQueryClob(conn, qry1, "content");
+//         qry = getVal(mRtn,0,"content");
+//         qry = "/* "+pgmid+"."+qryid+" */\n"+qry;
+//         closeConn(conn);
+// 	} catch (Exception e) {
+// 		qry = "";
+// 	} 
+// 	return qry;
+// }
 
 public String getQuery(Connection conn, String qryID, String contentName) {
 	String qry = "";
