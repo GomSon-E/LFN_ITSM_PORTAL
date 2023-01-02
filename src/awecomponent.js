@@ -1473,7 +1473,15 @@ function gfnComponent( pageId, containerId, componentDef, afnEH, page ) {
 						}
 					}
 					return params.data; 
-				},			
+				},	
+				onColumnResized: (params) => {
+					// console.log(`조정한 너비: ${params.column.actualWidth} px`);
+					// console.log(params);
+					// console.log(params.column.colId);
+					// console.log(this.containerId);
+					// console.log(this.gridOptions.detailCellRendererParams.pgmid);
+
+				},
 				rowData: [],
 				components:{ 
 					agGridCellRender: gfnAgGridCellRender,
