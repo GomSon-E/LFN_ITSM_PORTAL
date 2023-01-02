@@ -526,9 +526,7 @@ function gfnLogout( bChk ) {
 	} else {
 		gfnTx("aweportal.login","logout",{},function(OUTVAR){
 			if(OUTVAR.rtnCd=="OK") {  
-				var data = { status : "logout",  grpid : "main", userid : gUserinfo.userid, usernm : gUserinfo.usernm };
-				messages.emit("main", data);
-			    location.reload();
+			  location.reload();
 			}
 		}); 
 	}
