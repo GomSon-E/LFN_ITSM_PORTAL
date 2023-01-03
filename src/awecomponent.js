@@ -895,6 +895,10 @@ function gfnComponent( pageId, containerId, componentDef, afnEH, page ) {
 						var w1 = nvl(trim(colinfo.w.split(":")[1]), 100);
 						grpcontainer.css("flex-basis", `${w0}%`);
 						aweInputWrap.css("flex-basis", `${w1}%`);
+						if(w1 == 'flex'){
+							aweInputWrap.css("flex", `1 1 0`);
+						}
+
 					}
 				}
 
