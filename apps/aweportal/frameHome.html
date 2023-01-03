@@ -44,6 +44,7 @@ $(function() {
 me.dataDef["_pgm"]={"ver":2.9,"upd_dt":"2023-01-03 12:27:50","remark":"","pgmid":"frameHome","proc_mst_id":"","pgm_stat":"Y","sort_seq":93,"app_pgmid":"aweportal","shortcut":"","reg_dt":"2022-10-26 14:13:16","reg_usid":"mjw","pgm_nm":"포털메인화면","upd_usid":"sju02092","pgm_tp":"TX","pgm_grp_nm":"공통","proc_mst_nm":"","":"트랜젝션(화면)","app_pgm_nm":"FO Portal","crud":""};
 me.dataDef["_pgm_func"]=[];
 me.dataDef["_pgm_data"] = {};
+
 me.dataDef["_pgm_data"]["notice"]={"sort_seq":"1","data_id":"notice","data_nm":"공지사항","component_pgmid":"agGrid","inout_tp":null,"content":[{"sort_seq":1,"section":null,"section_icon":null,"colgrp":null,"colid":"tag","colnm":"태그","dtype":"text","etype":"raw","attr":"center","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":2,"section":null,"section_icon":null,"colgrp":null,"colid":"title","colnm":"제목","dtype":"text","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":3,"section":null,"section_icon":null,"colgrp":null,"colid":"read_cnt","colnm":"조회수","dtype":"num","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":4,"section":null,"section_icon":null,"colgrp":null,"colid":"nm","colnm":"작성자","dtype":"text","etype":"raw","attr":"center","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":5,"section":null,"section_icon":null,"colgrp":null,"colid":"reg_dt","colnm":"작성일자","dtype":"text","etype":"raw","attr":"center","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"}],"data_icon":null,"component_option":{"func":[{"funcid":"more","func_nm":"더보기","func_icon":"fas fa-search"}]}};
 me.dataDef["_pgm_data"]["calendar"]={"sort_seq":"2","data_id":"calendar","data_nm":"달력","component_pgmid":"aweCalendar","inout_tp":null,"content":null,"data_icon":null,"component_option":null};
 
@@ -61,10 +62,14 @@ me.dataDef["_pgm_data"]["calendar"]={"sort_seq":"2","data_id":"calendar","data_n
     me.fnInitExtra=function() {
     
         // LOCAL, QAS, PROD 환경 구분하기
-        var gServer = "QAS";
-        if(window.location.href.indexOf("lfnetworks.co.kr")>=0) gServer='PROD';
-        else if(window.location.href.indexOf("localhost")>=0) gServer='LOCAL';
-        console.log(`------${gServer} 환경입니다------`)
+        gUserinfo.server = "QAS";
+        if(window.location.href.indexOf("lfnetworks.co.kr")>=0) {
+            gUserinfo.server = "PROD";
+        } 
+        else if(window.location.href.indexOf("localhost")>=0) {
+            gUserinfo.server = "LOCAL";
+        }
+        console.log(`------${gUserinfo.server} 환경입니다------`);
     
         
         // 폭 맞춤
