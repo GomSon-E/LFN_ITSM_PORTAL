@@ -14,7 +14,6 @@
     padding: 40px 30px 30px 30px;
     border-radius: 10px;
     position: absolute;
-    top: 40%;
     left: 50%;
     width: 400px;
     -webkit-transform: translate(-50%, -50%);
@@ -85,7 +84,7 @@
 
 
   #logsave {
-
+    margin-bottom: 5px;
     width: 95%;
     height: auto;
 
@@ -106,20 +105,17 @@
     font-family: "Asap", sans-serif;
     cursor: pointer;
     color: #fff;
-    font-size: 16px;
+    font-size: 12px;
     text-transform: uppercase;
-    width: 100px;
-    height: 40px;
+    width: 95px;
+    height: 25px;
     border: 0;
-
-    border-radius: 5px;
+    border-radius: 9px;
     background-color: #4296fc;
-    -webkit-transition: background-color 300ms;
+    /* -webkit-transition: background-color 300ms; */
     -moz-transition: background-color 300ms;
     transition: background-color 300ms;
   }
-
-
 
   .login>button:hover {
     background-color: #8ebcf5;
@@ -208,7 +204,9 @@
       </div>
     </div>
     <!-- 비밀번호 초기화 -->
-    <a id="btn" href="#" class="pwdClear">>비밀번호 초기화</a>
+    <button><i id="btn2" href="#" class="signUp">회원가입</i></button>
+    <button><i id="btn" href="#" class="pwdClear">비밀번호 초기화</i></button>
+
     <div id="Outer">
       <div id='pwdclearform'>
         <p>아이디를 입력하면 비밀번호 초기화 메세지가 발송됩니다.</p>
@@ -224,10 +222,6 @@
         <button id="pwClearBtn2"><i class="fas fa-save" aria-hidden="true"></i>메일 발송</button>
       </div>
     </div>
-    <!-- 회원가입 -->
-    <a1 id="btn2" href="#" class="signUp">>회원가입</a1>
-    
-
   </div>
 
 
@@ -468,9 +462,9 @@
         $("#btn2").click(function () {
           // $("#Outer2").show("swing");
           var oSignup = $("<div></div>")
-          gfnLoad("aweportal","signup",oSignup,function(OUTVAR){  
-					    $("body").html( oSignup.html() ); 
-				},true);
+          gfnLoad("aweportal", "signup", oSignup, function (OUTVAR) {
+            $("body").html(oSignup.html());
+          }, true);
         });
       });
 
