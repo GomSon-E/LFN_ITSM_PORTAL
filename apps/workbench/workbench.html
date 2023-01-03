@@ -619,7 +619,6 @@ me.dataDef["_pgm_data"]["pgm_src"]={
                 me.pageObj["pgm"].importData(OUTVAR.pgm,"C");
                 me.pageObj["pgm_func"].importData(OUTVAR.pgm_func);
                 me.pageObj["pgm_data"].importData(OUTVAR.pgm_data);
-                console.log(OUTVAR.pgm_data);
                 me.pageObj["pgm_src"].importData(OUTVAR.pgm_src); 
                 // me.fnClear(); //하단 초기화 
                 
@@ -670,7 +669,7 @@ me.dataDef["_pgm_data"]["pgm_src"]={
                     if(OUTVAR.rtnCd=="OK") {
                         gfnStatus("프로그램 스펙정보를 저장하였습니다.");
                         if(prevChk){
-                            console.log("프리뷰를 출력합니다");
+                            console.log("프리뷰가 나타납니다.");
                             me.fnGetData();
                             var htmlCss = me.fnGetHTMLCSS();
                             var _script = me.fnMakeScript();/* 표준Script를 만든다. */
@@ -711,13 +710,12 @@ me.dataDef["_pgm_data"]["pgm_src"]={
                             },10);
                             prevChk = false;
                         }
+                        // qas\ 폴더에 html, jsp 파일 생성
+                        me.fnSaveFile();
                     } else {
                         gfnAlert("저장오류",OUTVAR.rtnMsg);
                     }
                 });
-                
-                // qas\ 폴더에 html, jsp 파일 생성
-                me.fnSaveFile();
             }
         });
     }
@@ -1194,13 +1192,13 @@ if("${row.funcid}".equals(func)) {
             return;
         }
         var pgm_info = me.dataSet["pgm"][0]; 
-        console.log(pgm_info);
+        // console.log(pgm_info);
 
         var html = subset(me.dataSet["pgm_src"],"srcid","HTML")[0].content;
         var jsp = subset(me.dataSet["pgm_src"],"srcid","jsp")[0].content;
         var args = { appid:pgm_info.app_pgmid, pgmid:pgm_info.pgmid, ver:pgm_info.ver, html:html, jsp:jsp };
         var invar = JSON.stringify(args);
-        console.log(`${appid}.${pgmid}`);
+        // console.log(`${appid}.${pgmid}`);
 
         gfnTx(appid+"."+pgmid,"saveFile", {INVAR:invar}, function(OUTVAR){
             if(OUTVAR.rtnCd=="OK") {
@@ -1230,7 +1228,7 @@ if("${row.funcid}".equals(func)) {
             return;
         }
         var pgm_info = me.dataSet["pgm"][0]; 
-        console.log(pgm_info);
+        // console.log(pgm_info);
 
         var html = subset(me.dataSet["pgm_src"],"srcid","HTML")[0].content;
         var jsp = subset(me.dataSet["pgm_src"],"srcid","jsp")[0].content;
@@ -1257,7 +1255,7 @@ if("${row.funcid}".equals(func)) {
         var pgm_info = me.dataSet["pgm"][0];
         var args = { appid:pgm_info.app_pgmid, pgmid:pgm_info.pgmid, ver:pgm_info.ver };
         var invar = JSON.stringify(args);
-        console.log(args);
+        // console.log(args);
         gfnConfirm("소스코드 배포확인",`html과 jsp를 생성합니다(덮어씁니다).`,function(confirm){
             console.log(`확인 결과 : ${confirm}`)
             if(!confirm) { //배포 안함
@@ -1267,17 +1265,14 @@ if("${row.funcid}".equals(func)) {
                 console.log('t 테이블에 저장합니다');
                 // T_PGM_** TABLE에 저장
                 gfnTx(appid+"."+pgmid,"deploySpec", {INVAR:invar}, function(OUTVAR){
-                    console.log('gfnTx안 invar');
-                    console.log(invar);
                     if(OUTVAR.rtnCd=="OK") {
                         gfnAlert("배포성공","WEB/WAS경로에 배포되었습니다.");
+                        // apps\ 경로에 html, jsp 파일 생성
+                        me.fnDeployFile();    
                     } else {
                         gfnAlert("배포오류",OUTVAR.rtnMsg);
                     }
                 })
-
-                // apps\ 경로에 html, jsp 파일 생성
-                me.fnDeployFile();    
             }
         })
     } 
@@ -1289,7 +1284,7 @@ if("${row.funcid}".equals(func)) {
             args.ver = ver;
             var invar = JSON.stringify(args);
             gfnTx(appid+"."+pgmid,"revert",{INVAR:invar},function(OUTVAR){
-                console.log(OUTVAR);
+                // console.log(OUTVAR);
                 if(OUTVAR.rtnCd=="OK") {
                     gParam["workbench"] = null; //조회했을때 전역변수 workbench 를 Clear해줌.
                     bEdit = false;
