@@ -350,6 +350,10 @@ body {
 .componentFunc{
 
 }
+.componentFunc > .quickGuide{
+	font-size: 1.25em;
+	font-weight: 500;
+}
 .componentFunc  > input{
 	height: 100%;
 	border-radius: 5px;
@@ -624,7 +628,7 @@ body {
 	border: 1px solid gray;
     border-radius: 5px;
     overflow: hidden;
-	width: 100%; height: 25em;
+	width: 100%; height: 20em;
 }
 /* ============================ workbenchForm - End ============================ */
 
@@ -1247,15 +1251,42 @@ span.cell-deleted {
 .aweForm > div > .aweInputWrap > input.readonly{
 	background-color: rgba(0, 0, 0, 0.1);
 }
-/* 옵션 이벤트 */
 .aweForm > div.awetarea > .aweInputWrap > textarea.readonly {
 	background-color: rgba(0, 0, 0, 0.1);
 }
 .aweForm > div > .aweInputWrap > select.readonly {
 	background-color: rgba(0, 0, 0, 0.1);
 }
+.aweForm > div > .aweInputWrap > input.center{
+	text-align: center;
+}
+.aweForm > div > .aweInputWrap > select.center{
+	text-align: center;
+}
 
 
+.aweForm > div.aweimg > .imgEdit {
+	position: absolute;
+	/* left: calc(50% + 10em - 7em);
+	top: calc(100% - 7em); */
+	width: 4em;
+	height: 4em;
+	background: white;
+	text-align: center;
+	border: 1px solid gray;
+	border-radius: 50%;
+	display: flex;
+	justify-content: center;
+	cursor: pointer;
+}
+.aweForm > div.aweimg > .imgEdit > img{
+	width: 3em;
+	height: 3em;
+	align-self: center;
+}
+.pointer{
+	cursor: pointer;
+}
 
 /*** end of aweForm *******************************************************************************/	
 
@@ -1400,98 +1431,124 @@ padding-left: 2px;
 /*** aweCardView - start *******************************************************************************/	
 .aweCardView{
 	overflow-y: scroll;	
-	display: flex; flex-direction: column;
-	align-content: flex-start;
+	display: flex; 
+	flex-direction: column;
 }
 .aweCardView::-webkit-scrollbar {
 	display: none;
 }
-.aweCardView > .cardViewWrap{
-	flex-basis: 95%;
-	display: flex; flex-direction: column;
-	/* justify-content: space-between; */
-}
-.aweCardView > .cardViewWrap > .cardWrap{
-	border: 1px solid rgb(20, 122, 225);
-    border-radius: 5px;
-	overflow: hidden;
-	box-shadow: 3px 3px 3px lightgrey;
-	background-color: white;
-	display: flex;
-    flex-direction: column;
-	margin-bottom: 0.5em;
-}
-.aweCardView > .cardViewWrap > .cardWrap:hover{
-	border: 2.5px solid rgb(20, 122, 225);
-}
-.aweCardView > .cardViewWrap > .cardWrap > .cardTop,.cardBody,.cardSub{
-	display: flex;
-}
 
-/* cardTop */
-.aweCardView > .cardViewWrap > .cardWrap > .cardTop{
-	flex-basis: 20%;
-	padding: 0.5em 1em 0em 0.5em;
-}
-.aweCardView > .cardViewWrap > .cardWrap > .cardTop > .cardTopTitle{
-	
-}
-
-/* cardBody */
-.aweCardView > .cardViewWrap > .cardWrap > .cardBody {
-	flex-basis: 60%;
-	padding: 0em 0.5em 0em 0.5em;
-	display: flex; flex-direction: row;
-}
-.aweCardView > .cardViewWrap > .cardWrap > .cardBody > .cardBodyContent{
-	font-size: 1em;
-	flex-basis: 60%;
-}
-.aweCardView > .cardViewWrap > .cardWrap > .cardBody > .cardBodyImg{
-	flex-basis: 40%;
-    overflow: hidden;
-    margin-left: auto; margin-right: auto;
-}
-.aweCardView > .cardViewWrap > .cardWrap > .cardBody > .cardBodyImg > img{
-	width: 100%;
-	height: 100%;
-	object-fit: cover;
-}
-
-/* cardSub */
-.aweCardView > .cardViewWrap > .cardWrap > .cardSub{
-	flex-basis: 20%;
-	padding: 0em 0.5em 0em 0.5em;
-}
-.aweCardView > .cardViewWrap > .cardWrap > .cardSub > .cardLSub{
-	flex: 1 1 0;
-	font-size: 0.5em;
-	margin: auto auto;
-}
-.aweCardView > .cardViewWrap > .cardWrap > .cardSub > .cardRSub{
-	flex: 1 1 0;
-	text-align: end;
-	font-size: 0.5em;
-	margin: auto auto;
-}
-
-/* pagenation */
-.aweCardView > .pagenation{
-	flex-basis: 5%;
-	text-align: center;
+.aweCardView > .cardViewContentArea {
+	/* background-color: red; */
 	display: flex;
     flex-direction: row;
-    justify-content: center;
-    align-items: flex-end;
+    flex-wrap: wrap;
+    justify-content: space-between;
+	flex-basis: 95%;
 }
-.aweCardView > .pagenation > button{
+.aweCardView > .cardViewContentArea > .cardWrap{
+	flex-basis: 49%;
+	border: 1px solid black;
+    margin-bottom: 0.5em;
+	display: flex; flex-direction: column;
+	padding: 0.5em;
+    border-radius: 10px;
+	cursor: pointer;
+}
+.aweCardView > .cardViewContentArea > .cardWrap:hover{
+	border: 1px solid rgb(20, 122, 225);
+}
+
+/* CardTop */
+.aweCardView > .cardViewContentArea > .cardWrap > .cardTop{
+	flex-basis: 20%;
+	display: flex; flex-direction: row;
+}
+.aweCardView > .cardViewContentArea > .cardWrap > .cardTop > .cardProfile{
+    height: 2.5em;
+    width: 2.5em;
+    overflow: hidden;
+    border-radius: 70%;
+    margin-right: 1em;
+}	
+.aweCardView > .cardViewContentArea > .cardWrap > .cardTop > .cardProfile > img{
+	width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.aweCardView > .cardViewContentArea > .cardWrap > .cardTop > .cardTitle{
+	flex-basis: 93%;
+	font-size: 1em;
+    margin: auto 0;
+}
+
+/* CardBody */
+.aweCardView > .cardViewContentArea > .cardWrap > .cardBody{
+	flex-basis: 80%;
+	display: flex; flex-direction: row;
+}
+.aweCardView > .cardViewContentArea > .cardWrap > .cardBody > .cardContent{
+	flex-basis: 80%;
+	font-size: 1.5em;
+    padding: 0.5em;
+}
+.aweCardView > .cardViewContentArea > .cardWrap > .cardBody > .cardImg{
+    overflow: hidden;
+    margin: 0 auto;
+}
+.aweCardView > .cardViewContentArea > .cardWrap > .cardBody > .cardImg > img{
+	width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* CardBottom */
+.aweCardView > .cardViewContentArea > .cardWrap > .cardBottom{
+	flex-basis: 10%;
+	display: flex; flex-direction: row;
+	justify-content: space-between;
+	padding: 0.5em 1em;
+}
+.aweCardView > .cardViewContentArea > .cardWrap > .cardBottom > .cardSub1{
+	
+}
+.aweCardView > .cardViewContentArea > .cardWrap > .cardBottom > .cardSub1 > i{
+	padding-right: 0.5em;
+}
+.aweCardView > .cardViewContentArea > .cardWrap > .cardBottom > .cardSub2{
+	
+}
+.aweCardView > .cardViewContentArea > .cardWrap > .cardBottom > .cardSub2 > i{
+	padding-right: 0.5em;
+}
+
+/* Pagination */
+.aweCardView > .cardViewPageArea{
+	flex-basis: 5%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+.aweCardView > .cardViewPageArea > button{
 	margin: 0em 0.3em;
+    padding: 0em 0.3em;
     background: transparent;
     border: none;
+	font-size: 1em;
 }
-.aweCardView > .pagenation > button.curPage{
+.aweCardView > .cardViewPageArea > button[funcid=goPrev]{
+	font-size: 1.2em;
+}
+.aweCardView > .cardViewPageArea > button[funcid=goNext]{
+	font-size: 1.2em;
+}
+.aweCardView > .cardViewPageArea > button.curPage{
 	color: rgb(20, 122, 225);
 	font-size: 1.5em;
+	font-weight: bold;
+}
+.aweCardView > .cardViewPageArea > button > i{
+	font-size: 1em;
 }
 
 /*** aweCardView - end *******************************************************************************/	

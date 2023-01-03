@@ -925,6 +925,19 @@ function gfnComponent( pageId, containerId, componentDef, afnEH, page ) {
 				} else if(!isNull(colinfo.option) && (inStr(colinfo.option, "emailMark") != -1)) {
 					grpcontainer.append(`<span class="intervalMark">@</span>`);
 				}
+				
+				/* img edit 옵션 추가 */
+				if((colinfo.etype == 'img') && (inStr(colinfo.option, 'edit') != '-1')){
+					var imgEditBtn = $(`<div class="imgEdit"></div>`);
+					imgEditBtn.append(`<img src="/images/imgEdit.png" alt="" class="">`);
+
+					grpcontainer.append(imgEditBtn);
+					grpcontainer.css('position', 'relative');
+					aweInputWrap.addClass("pointer")
+
+					imgEditBtn.css('top', `calc(100% - 4em - 1em)`);
+					imgEditBtn.css('left', `calc(50% + ${colinfo.w/2}em - 4em - 1em)`);	
+				}
 
 				
 
@@ -2019,149 +2032,196 @@ function gfnComponent( pageId, containerId, componentDef, afnEH, page ) {
 			me.data = []; //정의되지 않은 컬럼의 값도 get/set하고 import/export할 수 있다. 
 			me.colinfo = me.componentDef.content;  //컬럼정의정보[]	
 			me.component_option = me.componentDef.component_option;
+			me.cardComponent = me.componentDef.component_option.cardViewComponent;
 
 
-			me.initCardView = function(datas, contentCnt, curPage, curPageNation) {
-				console.log("aweCardView 실행");
-				if((datas == undefined) || isNull(datas))  datas = [];
-				if((contentCnt == undefined) || isNull(contentCnt)) contentCnt = 5;
-				if((curPage == undefined) || isNull(curPage)) curPage = 1;
-				if((curPageNation == undefined) || isNull(curPageNation)) curPageNation = 1;
-
-				// 초기 데이터 확인
-				// console.log(datas);
-				// console.log(contentCnt);
-				// console.log(me.colinfo);
-				console.log(me.component_option);
-				var cardComponent = me.component_option.cardComponent;
+			me.initCardView = function(datas, curPage, curPagination) {
+				console.log("카드뷰 입장");
 
 				// 초기화
-				$(`#${pageId} > .pageContent > .componentContainer > .aweCardView`).empty();
-
+				if((curPage == undefined) || isNull(curPage)) curPage = 1;
+				if((curPagination == undefined) || isNull(curPagination)) curPagination = 1;
+				$(`#${pageId} > .pageContent > .componentContainer > .componentBody.aweCardView`).empty();
+				
 				// 페이지 처리
-				var content_sNum = contentCnt*(curPage-1);
-				var content_eNum = content_sNum + contentCnt;
+				var pageInfo = me.makePagination(datas, curPage, curPagination);	// content_start, content_end, page_start, page_end, total_content, total_page
+				console.log(pageInfo)
 
-				var cardViewWrap = $(`<div class="cardViewWrap"></div>`)
-
-				for(var i=content_sNum; i<content_eNum; i++){
+				// 카드 생성
+				var cardViewContentArea = $(`<div class="cardViewContentArea"></div>`)
+				for(var i=pageInfo.content_start; i<=pageInfo.content_end; i++){
 					var data = datas[i];
-					if(data == undefined) break;
-					console.log(data);
-
-					// 전체 Wrap 생성
-					var cardHeight = (100/contentCnt) -1
-					var cardWrap = $(`<div class="cardWrap ${pageId}"></div>`) 
-					cardWrap.css("flex-basis", `${cardHeight}%`)
-					cardWrap.on("click", function() {
-						console.log(`${i}번 카드 클릭`)
-						afnEH(me, "evt", i, "colid", "newval" );
-					})
-
-					// cardTop 생성
-					var cardTop = $(`<div class="cardTop"></div>`)
-					if(!isNull(cardComponent.title)){
-						var title = cardComponent.title;
-						var cardTopTitle = $(`<div class="cardTopTitle">${data[title]}</div>`)
-						cardTop.append(cardTopTitle);
-					}
-
-					// cardBody 생성
-					var cardBody = $(`<div class="cardBody"></div>`)
-					if(!isNull(cardComponent.content)){
-						var content = cardComponent.content;
-						var cardBodyContent = $(`<div class="cardBodyContent">${data[content]}</div>`)
-						cardBody.append(cardBodyContent);
-					}
-					if(!isNull(cardComponent.img)){
-						// var img = cardComponent.img;
-						// var cardBodyImg = $(`<div class="cardBodyImg"><img src="${data[content]}" alt=""></div>`)
-						
-						// 테스트
-						var imgSrcSample = "https://developer.android.com/static/images/jetpack/compose/graphics-sourceimageland.jpg?hl=ko";
-						var cardBodyImg = $(`<div class="cardBodyImg"><img src="${imgSrcSample}" alt=""></div>`)
-						cardBody.append(cardBodyImg);
-					}
-
-					// cardSub 생성
-					var cardSub = $(`<div class="cardSub"></div>`)
-					if(!isNull(cardComponent.lSub)){
-						var lSub = cardComponent.lSub;
-						var cardLSub = $(`<div class="cardLSub">${data[lSub]}</div>`)
-						cardSub.append(cardLSub);
-					}
-					if(!isNull(cardComponent.rSub)){
-						var rSub = cardComponent.rSub;
-						var cardRSub = $(`<div class="cardRSub">${data[rSub]}</div>`)
-						cardSub.append(cardRSub);
+					
+					// cardTop 
+					var cardTop = $(`<div class="cardTop"></div>`);
+					// if(!isNull(me.cardComponent.cardProfile)){
+					// 	var profile_col = me.cardComponent.cardProfile;
+					// 	var cardProfile = $(`<div class="cardProfile"><img src="${data[profile_col]}" alt=""></div>`);
+					// 	// 테스트
+					// 	cardProfile = $(`<div class="cardProfile"><img src="/images/profile_sample.jpg" alt=""></div>`);
+					// 	cardTop.append(cardProfile);						
+					// }
+					if(!isNull(me.cardComponent.cardTitle)){
+						var title_col = me.cardComponent.cardTitle;
+						var cardTitle = $(`<div class="cardTitle">${data[title_col]}</div>`);
+						cardTop.append(cardTitle);
 					}
 					
-					// // carBtn 생성
-					// // var btnInfo = me.componentDef.component_option.cardVeiwFunc;
-					// // var cardBtn = $(`<div class="cardBtn"></div>`);
-					// // new gfnButtonSet(cardBtn, me.component_option.cardBtn, function(btnSet, evt, funcid, func) { 
-					// // 	console.log("버튼이 눌렸습니다.");
-					// // 	// afnEH(me, evt, i, funcid, func);
-					// // }); 
+					// cardBody 
+					var cardBody = $(`<div class="cardBody"></div>`);
+					if(!isNull(me.cardComponent.cardContent)){
+						var content_col = me.cardComponent.cardContent;
+						var cardContent = $(`<div class="cardContent">${data[content_col]}</div>`);
+						cardBody.append(cardContent);
+					}
+					// if(!isNull(me.cardComponent.cardImg)){
+					// 	var img_col = me.cardComponent.cardImg;
+					// 	var cardImg = $(`<div class="cardImg"><img src="${data[img_col]}" alt=""></div>`);
+					// 	// 테스트
+					// 	cardImg = $(`<div class="cardImg"><img src="/images/lfsqG.jpg" alt=""></div>`);
+					// 	cardImg = $(`<div class="cardImg"></div>`);
+					// 	cardBody.append(cardImg);						
+					// }
+					
+					
+					// cardBottom 
+					var cardBottom = $(`<div class="cardBottom"></div>`);
+					if(!isNull(me.cardComponent.cardSub1)){
+						var sub1_col = me.cardComponent.cardSub1;
+						var cardSub1 = $(`<div class="cardSub1">${data[sub1_col]}</div>`);
+						if(!isNull(me.cardComponent.cardSub1_icon)){
+							$(`<i class="${me.cardComponent.cardSub1_icon}"></i>`).prependTo(cardSub1);
+						}
+						cardBottom.append(cardSub1);
+					}
+					if(!isNull(me.cardComponent.cardSub2)){
+						var sub2_col = me.cardComponent.cardSub2;
+						var cardSub2 = $(`<div class="cardSub2">${data[sub2_col]}</div>`);
+						if(!isNull(me.cardComponent.cardSub2_icon)){
+							$(`<i class="${me.cardComponent.cardSub2_icon}"></i>`).prependTo(cardSub2);
+						}
+						cardBottom.append(cardSub2);
+					}
 
-
+					// Total
+					var cardWrap = $(`<div class="cardWrap"></div>`); 
 					cardWrap.append(cardTop);
 					cardWrap.append(cardBody);
-					cardWrap.append(cardSub);
-					// cardWrap.append(cardBtn);
-					
-					cardViewWrap.append(cardWrap);	
-				}
-				me.componentBody.append(cardViewWrap);	
+					cardWrap.append(cardBottom);
 
+					cardWrap.on("click", function() {
+						console.log("카드가 선택되었습니다.");
+						afnEH("", "click", `card${i}`, "", data);
+					})
 
-				// Pagenation 생성
-				var dataCnt = datas.length;
-				var totalPage = Math.ceil(dataCnt / contentCnt);
-				var showPageCnt = 5; // pagenation에 보여줄 pag 수
-				
-				var page_sNum = showPageCnt*(curPageNation-1)+1;
-				var page_eNum = page_sNum + showPageCnt;				
-				
-				// Pagenation - Main
-				var pagenation = $(`<div class="pagenation"></div>`);
-				for(var i=page_sNum; i<page_eNum; i++) {
-					if(i > totalPage) break;
-					var page = $(`<button>${i}</button>`)
-					// 현재 페이지 정보 추가
-					if(i == curPage) page.addClass("curPage");
-					pagenation.append(page);
+					cardViewContentArea.append(cardWrap);
 				}
-				// Pagenation - Previous
-				var pagePrev = $(`<button><i class="fas fa-chevron-left"></i></button>`);
-				pagePrev.on("click", function() {
-					console.log("페이지 뒤로가기");
-					if(curPage-1 < 1) {
-						console.log("첫 페이지 입니다.")
+
+				// 페이지 버튼 생성
+				var cardViewPageArea = $(`<div class="cardViewPageArea"></div>`)
+
+				var funcBtns = [];
+				var goStart = {funcid:"goStart", func_nm:"", func_icon:"fas fa-backward"};
+				var goPrev = {funcid:"goPrev", func_nm:"", func_icon:"fas fa-caret-left"};
+				var goNext = {funcid:"goNext", func_nm:"", func_icon:"fas fa-caret-right"};
+				var goEnd = {funcid:"goEnd", func_nm:"", func_icon:"fas fa-forward"};
+				funcBtns.push(goStart);
+				funcBtns.push(goPrev);
+				for(var i=pageInfo.page_start; i<=pageInfo.page_end; i++){
+					var btnInfo = {funcid: `${i}`, func_nm: i, func_icon:""};
+					funcBtns.push(btnInfo);
+				}
+				funcBtns.push(goNext);
+				funcBtns.push(goEnd);
+
+				new gfnButtonSet(cardViewPageArea, funcBtns, function(btnSet, evt, funcid, func) { 
+					// 페이지 이동 처리
+					me.changePage(datas, funcid, pageInfo);
+				});
+
+				cardViewPageArea.find(`button[funcid=${curPage}]`).addClass("curPage")
+				
+				me.componentBody.append(cardViewContentArea);
+				me.componentBody.append(cardViewPageArea);
+
+			}
+			// 페이지 이동
+			me.changePage = function(datas, funcid, pageInfo) {
+				// console.log(`현재 페이지 : ${pageInfo.curPage}, 이동할 페이지 : ${funcid}, 현재 페이지네이션 : ${pageInfo.curPagination}`);
+				var curPage = parseInt(pageInfo.curPage);
+				var curPagination = pageInfo.curPagination;
+				
+				if(funcid == 'goStart') {		// 처음으로
+					// console.log("페이지 이동 : 처음");
+					me.initCardView(datas, 1, 1);
+				}
+				else if(funcid == 'goPrev') {	// page -1
+					// console.log("페이지 이동 : -1");
+					if(curPage == 1) {
 						curPage = 1;
 					} else {
-						curPage = curPage-1;
-						if(curPage < page_sNum) curPageNation = curPageNation - 1;
+						curPage = curPage - 1;
+						if(pageInfo.page_start > curPage) {
+							curPagination = curPagination -1
+						}
 					}
-					me.initCardView(datas, contentCnt, curPage, curPageNation);
-				})
-				// Pagenation - Next
-				var pageNext = $(`<button><i class="fas fa-chevron-right"></i></button>`);
-				pageNext.on("click", function() {
-					console.log("페이지 앞으로가기");
-					if(curPage+1 > totalPage) {
-						console.log("마지막 페이지 입니다.")
-						curPage = totalPage;
+					me.initCardView(datas, curPage, curPagination);
+				}
+				else if(funcid == 'goNext') {	// page +1 
+					// console.log("페이지 이동 : +1");
+					if(curPage == pageInfo.total_page) {
+						curPage = curPage;
 					} else {
-						curPage = curPage+1;
-						if(curPage >= page_eNum) curPageNation = curPageNation + 1;
+						curPage = curPage + 1;
+						if(pageInfo.page_end < curPage) {
+							curPagination = curPagination + 1
+						}
 					}
-					me.initCardView(datas, contentCnt, curPage, curPageNation);
-				})
+					me.initCardView(datas, curPage, curPagination);
+				}
+				else if(funcid == 'goEnd') {	// 마지막으로
+					// console.log("페이지 이동 : 끝");
+					me.initCardView(datas, pageInfo.total_page, pageInfo.total_pagination);
+				}
+				else {							// 해당페이지 이동
+					// console.log(`페이지 이동 : ${funcid} 페이지로`);
+					me.initCardView(datas, funcid, pageInfo.curPagination)
+				}
+			}
+			// 페이지 정보 만들기
+			me.makePagination = function(datas, curPage, curPagination) {
+				var pagiNationInfo = {};
 
-				pagenation.prepend(pagePrev);
-				pagenation.append(pageNext);
-				me.componentBody.append(pagenation);	
+				pagiNationInfo['curPage'] = curPage;
+				pagiNationInfo['curPagination'] = curPagination;
+
+				// 컨텐츠 시작, 끝
+				var content_cnt = 6 // 한번에 보여줄 카드 수
+				var content_start = content_cnt * (curPage - 1);
+				var content_end = content_cnt * (curPage - 1) + content_cnt-1;
+				
+				pagiNationInfo['content_start'] = content_start;
+				pagiNationInfo['content_end'] = content_end;
+				
+				// 페이지 시작, 끝
+				var page_cnt =  5 // 한번에 보여줄 페이지 수 
+				var page_start = (page_cnt * (curPagination-1)) + 1;
+				var page_end = page_cnt * curPagination;
+				
+				
+				pagiNationInfo['page_start'] = page_start;
+				pagiNationInfo['page_end'] = page_end;
+				
+				// 총 컨텐츠, 총 페이지, 총 페이지네이션
+				var total_content = datas.length;
+				pagiNationInfo['total_content'] = total_content;
+				var total_page = Math.ceil(total_content / content_cnt);
+				pagiNationInfo['total_page'] = total_page;
+				var total_pagination = Math.ceil(total_page / page_cnt)
+				pagiNationInfo['total_pagination'] = total_pagination;
+
+				
+				return pagiNationInfo;
 			}
 			me.setter = function(colid,val) {      //컬럼 값세팅시 dtype,etype,attr에 따라 값정제
 				var colinf = subset(me.colinfo,"colid",colid);
@@ -2396,6 +2456,7 @@ function gfnComponent( pageId, containerId, componentDef, afnEH, page ) {
 				}
 				return true;
 			}  
+			
 
 			// me.initCardView();
 
@@ -3512,6 +3573,11 @@ function gfnControl(colinfo, afnEH, oComponent, rowid, val, rowPinned, agHack) {
 			if(!me.focusHack) {
 				me.focusHack = true;
 				me.obj.select(); 
+			}
+		}); 
+		me.obj.on("click",function(e){
+			if((me.etype == 'img') && (inStr(me.option, 'edit') != -1)){
+				console.log("이미지 에디터")
 			}
 		}); 
 
