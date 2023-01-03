@@ -170,6 +170,16 @@ nav.menu {
     transition: margin-left .5s;
 }
 
+.logo {
+    display: flex; 
+    align-items: center;
+    height: 80px;
+}
+
+.logo > img {
+    margin-right: 10px
+}
+
 .menu button {
     float: left;
     color: black;
@@ -294,16 +304,6 @@ nav.menu {
         transition: margin-left .5s;
     }
 
-    .logo {
-        display: flex; 
-        align-items: center;
-        height: 80px;
-    }
-
-    .logo > img {
-        margin-right: 10px
-    }
-
     nav.menu {
         display: flex; 
         justify-content: space-between;
@@ -383,8 +383,7 @@ nav.menu {
     /*상단 메뉴 */
 
     .menu button {
-        padding: 20px 6px;
-        margin-top: 5px;
+        display: none;
     }
 
     .profile {
@@ -393,16 +392,7 @@ nav.menu {
         height: 60px;
         overflow: hidden;
         cursor: pointer;
-    }                                                                           
-
-    .alarm {
-        margin-right: 10px;
-    }
-
-    .alarm>span {
-        top: 17px;
-        right: -7px;
-    }
+    }                                                                            
 
     /*사이드 메뉴 네비 바*/
 
