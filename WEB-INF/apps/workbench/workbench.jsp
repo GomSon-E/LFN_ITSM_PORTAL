@@ -58,7 +58,7 @@ else if("saveSpec".equals(func)) {
 		conn.setAutoCommit(false); 
 		//INVAR = {pgm, pgm_func, pgm_data, pgm_src }
 		String qry = " DECLARE lv_pgmid VARCHAR2(50) := {pgmid};";
-               qry += "   lv_ver NUMBER(6,4) := 0.02; ";
+               qry += "   lv_ver NUMBER(6,4) := 0.00; ";
                qry += "   lv_usid VARCHAR2(50) := 'admin'; ";
                qry += "   lv_dt   DATE := sysdate; ";
                qry += " BEGIN ";
@@ -99,7 +99,7 @@ else if("saveSpec".equals(func)) {
 		} 
         qry += "END;";      
 		OUTVAR.put("qry",qry);
-
+		
 		JSONObject rst = executeSVC(conn, qry); 
 		//System.out.println("97: executeSVC(conn, qry) ");
 		 

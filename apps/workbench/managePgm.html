@@ -1,19 +1,19 @@
-<style>[pgmid='managePgm'].framepage .userClass { 
-width:100%; 
-}</style>
+<!-- css start -->
+<style>
+[pgmid='managePgm'].framepage { 
+    width:100%;
+}
+</style>
 
-<!-- HTML autogen start ---------------------------------------------- -->            
+<!-- html start -->
 <div class="pageNav"></div>
 <div class="pageTop"></div>
 <div class="pageCond"></div>
-<div class="pageGuide"></div>
 <div class="pageContent">
     <div id='llist'></div>
-
 </div>
-<!-- HTML autogen end ---------------------------------------------- -->
 <script>
-/*-- SCRIPT autogen start ---------------------------------------------- */        
+/*-- _script(자동생성1) start ---------------------------------------------- */        
 $(function() {
     var appid = "workbench";
     var pgmid = "managePgm"; 
@@ -34,125 +34,30 @@ $(function() {
         me.dataDef = dataDef;
         me.pageObj = pageObj;
         me.bEdit = bEdit;
-me.dataDef["_pgm"]={"ver":1.5,"upd_dt":"2022-10-05 15:35:48","remark":"프로그램 목록을 관리한다.","pgmid":"managePgm","proc_mst_id":"","pgm_stat":"Y","sort_seq":2,"app_pgmid":"workbench","shortcut":"ZA","reg_dt":"2022-04-20 09:50:02","reg_usid":"lkh","pgm_nm":"프로그램관리","upd_usid":"kihyunlee","pgm_tp":"UX","pgm_grp_nm":"시스템개발","proc_mst_nm":"","app_pgm_nm":"개발워크벤치","":"트랜젝션(메뉴)","crud":""};
-me.dataDef["_pgm_func"]=[{"func_icon":"fas fa-search","reg_dt":"2022-04-20 09:50:02","reg_usid":"","func_nm":"조회","upd_usid":"","upd_dt":"2022-04-20 09:50:02","func_tp":"DB_R","remark":"프로그램ID는 앱에 관계없이 Unique해야함","pgmid":"managePgm","sort_seq":"1","funcid":"search","content":"조회조건을 읽어서 프로그램목록을 표시한다.","crud":"R","id":"0"},{"func_icon":"fas fa-gear","reg_dt":"2022-04-20 09:50:02","reg_usid":"","func_nm":"개발워크벤치열기","upd_usid":"","upd_dt":"2022-04-20 09:50:02","func_tp":"EH","remark":null,"pgmid":"managePgm","sort_seq":"2","funcid":"openPgm","content":"선택된 프로그램을 개발워크벤치에서 연다.","crud":"R","id":"1"},{"func_icon":"fas fa-save","reg_dt":"2022-04-20 09:50:02","reg_usid":"","func_nm":"저장","upd_usid":"","upd_dt":"2022-04-20 09:50:02","func_tp":"DB_W","remark":null,"pgmid":"managePgm","sort_seq":"3","funcid":"save","content":"프로그램 마스터정보 저장","crud":"R","id":"2"}];
+me.dataDef["_pgm"]={"ver":1.7,"upd_dt":"2023-01-03 14:51:00","remark":"프로그램 목록을 관리한다.","pgmid":"managePgm","proc_mst_id":"","pgm_stat":"Y","sort_seq":2,"app_pgmid":"workbench","shortcut":"ZA","reg_dt":"2022-10-12 11:38:06","reg_usid":"kihyunlee","pgm_nm":"프로그램관리","upd_usid":"sju02092","pgm_tp":"UX","pgm_grp_nm":"시스템개발","proc_mst_nm":"","":"트랜젝션(메뉴)","app_pgm_nm":"개발워크벤치","crud":""};
+me.dataDef["_pgm_func"]=[{"func_icon":"fas fa-search","ver":"1.66","func_nm":"조회","upd_dt":"","func_tp":"DB_R","remark":"프로그램ID는 앱에 관계없이 Unique해야함","pgmid":"managePgm","sort_seq":"1","funcid":"search","content":"조회조건을 읽어서 프로그램목록을 표시한다.","reg_dt":"","reg_usid":"","upd_usid":"","crud":"R","id":"0"},{"func_icon":"fas fa-gear","ver":"1.66","func_nm":"개발워크벤치열기","upd_dt":"","func_tp":"EH","remark":null,"pgmid":"managePgm","sort_seq":"2","funcid":"openPgm","content":"선택된 프로그램을 개발워크벤치에서 연다.","reg_dt":"","reg_usid":"","upd_usid":"","crud":"R","id":"1"},{"func_icon":"fas fa-save","ver":"1.66","func_nm":"저장","upd_dt":"","func_tp":"DB_W","remark":null,"pgmid":"managePgm","sort_seq":"3","funcid":"save","content":"프로그램 마스터정보 저장","reg_dt":"","reg_usid":"","upd_usid":"","crud":"R","id":"2"}];
 me.dataDef["_pgm_data"] = {};
-me.dataDef["_pgm_data"]["pageCond"]={
-    "sort_seq":"1",
-    "data_id":"pageCond",
-    "data_nm":"조회조건",
-    "data_icon":null,
-    "component_pgmid":"aweForm",
-    "component_option":null,
-    "inout_tp":"IN",
-    "content":[
-        {
-            "sort_seq":1,
-            "section":null,
-            "section_icon":null,
-            "colgrp":null,
-            "colid":"app_pgmid",
-            "colnm":"앱",
-            "dtype":"text",
-            "etype":"sel",
-            "attr":null,
-            "len":null,
-            "defval":null,
-            "refcd":"APP_PGMID",
-            "option":"sel:app_pgmid::cdnm",
-            "valid":null,
-            "grpFormula":null,
-            "totFormula":null,
-            "remark":null,
-            "crud":"C",
-            "colFormula":null,
-            "w":"50",
-            "h":null
-        },
-        {
-            "sort_seq":2,
-            "section":null,
-            "section_icon":"fas fa-sd-card",
-            "colgrp":null,
-            "colid":"pgmid",
-            "colnm":"프로그램ID",
-            "dtype":"text",
-            "etype":"txt",
-            "attr":"pop",
-            "len":null,
-            "defval":null,
-            "refcd":"pgmid",
-            "option":"sel:pgmid:pgm_nm:cd",
-            "valid":null,
-            "grpFormula":null,
-            "totFormula":null,
-            "remark":"프로그램ID",
-            "crud":"C",
-            "colFormula":null,
-            "w":"50"
-            ,"h":null
-        },
-    ]
-};
-me.dataDef["_pgm_data"]["llist"]={
-    "sort_seq":"2",
-    "data_id":"llist",
-    "data_nm":"프로그램목록",
-    "data_icon":null,
-    "component_pgmid":"agGrid",
-    "component_option":{"func":[{"funcid":"addRow","func_nm":"줄추가","func_icon":"fas fa-plus"},{"funcid":"delRow","func_nm":"줄삭제","func_icon":"fas fa-minus"}]},
-    "inout_tp":"INOUT",
-    "content":[
-        {"sort_seq":1,"section":null,"section_icon":null,"colgrp":null,"colid":"app_pgmid","colnm":"앱ID","dtype":"text","etype":"sel","attr":null,"len":30,"defval":"aweportal","refcd":"APP_PGMID","option":"sel:app_pgmid:app_pgm_nm:cdnm","valid":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","colFormula":null,"w":"10","h":null,"id":"0"},
-        {"sort_seq":2,"section":null,"section_icon":null,"colgrp":null,"colid":"sort_seq","colnm":"순서","dtype":"num","etype":"txt","attr":null,"defval":null,"w":"8","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"1"},
-        {"sort_seq":3,"section":null,"section_icon":null,"colgrp":null,"colid":"pgm_grp_nm","colnm":"중분류","dtype":"text","etype":"txt","attr":null,"len":30,"defval":null,"refcd":null,"option":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","w":"15","h":null,"id":"2"},
-        {"sort_seq":4,"section":null,"section_icon":null,"colgrp":null,"colid":"pgmid","colnm":"프로그램ID","dtype":"text","etype":"txt","attr":"pk","len":30,"defval":null,"refcd":null,"option":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","w":"10","h":null,"id":"3"},
-        {"sort_seq":5,"section":null,"section_icon":null,"colgrp":null,"colid":"pgm_nm","colnm":"프로그램명","dtype":"text","etype":"txt","attr":"keycol","len":30,"defval":null,"refcd":null,"option":null,"valid":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","colFormula":null,"w":"15","h":null,"id":"4"},
-        {"sort_seq":6,"section":null,"section_icon":null,"colgrp":null,"colid":"pgm_tp","colnm":"유형","dtype":"text","etype":"sel","attr":null,"len":"8","defval":"UX","refcd":"PGM_TP","option":"sel:pgm_tp::cdnm","valid":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","colFormula":null,"w":"15","h":null,"id":"5"},
-        {"sort_seq":7,"section":null,"section_icon":null,"colgrp":null,"colid":"shortcut","colnm":"바로가기","dtype":"text","etype":"txt","attr":"upper","len":null,"defval":null,"refcd":null,"option":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","w":"8","h":null,"id":"6"},
-        {"sort_seq":8,"section":null,"section_icon":null,"colgrp":null,"colid":"remark","colnm":"내용","dtype":"text","etype":"tarea","attr":null,"len":400,"defval":null,"refcd":null,"option":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","w":"6","h":null,"id":"11"},
-        {"sort_seq":9,"section":null,"section_icon":null,"colgrp":"사용권한","colid":"access_roles","colnm":"권한","dtype":"text","etype":"raw","attr":null,"defval":null,"w":"15","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"7"},
-        {"sort_seq":10,"section":null,"section_icon":null,"colgrp":"사용권한","colid":"btn_roles","colnm":"관리","dtype":"text","etype":"btn","attr":null,"defval":null,"w":"8","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"8"},
-        {"sort_seq":11,"section":null,"section_icon":null,"colgrp":null,"colid":"ver","colnm":"버전","dtype":"text","etype":"raw","attr":"readonly","len":null,"defval":"0.1","refcd":null,"option":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","w":"6","h":null,"id":"12"},
-        {"sort_seq":12,"section":null,"section_icon":null,"colgrp":null,"colid":"pgm_stat","colnm":"상태","dtype":"text","etype":"cbx","attr":"keycol","len":null,"defval":"Y","refcd":null,"option":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","w":"4","h":null,"id":"13"},
-        {"sort_seq":13,"section":null,"section_icon":null,"colgrp":"생성정보","colid":"reg_usid","colnm":"생성자","dtype":"text","etype":"raw","attr":null,"len":null,"defval":"gUserinfo.userid","refcd":null,"option":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","w":null,"h":null,"id":"14"},
-        {"sort_seq":14,"section":null,"section_icon":null,"colgrp":"생성정보","colid":"reg_dt","colnm":"생성일","dtype":"text","etype":"raw","attr":"readonly","len":null,"defval":"date()","refcd":null,"option":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","w":"15","h":null,"id":"15"},
-        {"sort_seq":15,"section":null,"section_icon":null,"colgrp":"수정정보","colid":"upd_usid","colnm":"수정자","dtype":"text","etype":"raw","attr":null,"len":null,"defval":"gUserinfo.userid","refcd":null,"option":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","w":null,"h":null,"id":"16"},
-        {"sort_seq":16,"section":null,"section_icon":null,"colgrp":"수정정보","colid":"upd_dt","colnm":"수정일","dtype":"text","etype":"raw","attr":"readonly","len":null,"defval":"date()","refcd":null,"option":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","w":"15","h":null,"id":"17"}
-    ]
-};
+me.dataDef["_pgm_data"]["pageCond"]={"sort_seq":"1","data_id":"pageCond","data_nm":"조회조건","component_pgmid":"aweForm","inout_tp":"IN","content":[{"sort_seq":1,"section":null,"section_icon":null,"colgrp":null,"colid":"app_pgmid","colnm":"앱","dtype":"text","etype":"sel","attr":null,"defval":null,"w":"50","h":null,"refcd":"APP_PGMID","option":"sel:app_pgmid::cdnm","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":2,"section":null,"section_icon":"fas fa-sd-card","colgrp":null,"colid":"pgmid","colnm":"프로그램ID","dtype":"text","etype":"txt","attr":null,"defval":null,"w":"50","h":null,"refcd":"pgmid","option":"sel:pgmid:pgm_nm:cd","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":"프로그램ID","crud":"C"}],"data_icon":null,"component_option":null};
+me.dataDef["_pgm_data"]["llist"]={"sort_seq":"2","data_id":"llist","data_nm":"프로그램목록","component_pgmid":"agGrid","inout_tp":"INOUT","content":[{"sort_seq":null,"section":null,"section_icon":null,"colgrp":null,"colid":"app_pgmid","colnm":"앱ID","dtype":"text","etype":"txt","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":null,"section":null,"section_icon":null,"colgrp":null,"colid":"sort_seq","colnm":"순서","dtype":"num","etype":"txt","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":null,"section":null,"section_icon":null,"colgrp":null,"colid":"pgm_grp_nm","colnm":"중분류","dtype":"text","etype":"txt","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":null,"section":null,"section_icon":null,"colgrp":null,"colid":"pgmid","colnm":"프로그램ID","dtype":"text","etype":"txt","attr":"pk","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":null,"section":null,"section_icon":null,"colgrp":null,"colid":"pgm_nm","colnm":"프로그램명","dtype":"text","etype":"txt","attr":"keycol ","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":null,"section":null,"section_icon":null,"colgrp":null,"colid":"pgm_tp","colnm":"유형","dtype":"text","etype":"sel","attr":null,"defval":"UX","w":null,"h":null,"refcd":"PGM_TP","option":"sel:pgm_tp::cdnm","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":null,"section":null,"section_icon":null,"colgrp":null,"colid":"shortcut","colnm":"바로가기","dtype":"text","etype":"txt","attr":"upper","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":null,"section":null,"section_icon":null,"colgrp":null,"colid":"remark","colnm":"내용","dtype":"text","etype":"tarea","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":null,"section":null,"section_icon":null,"colgrp":"사용권한","colid":"access_roles","colnm":"권한","dtype":"text","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":null,"section":null,"section_icon":null,"colgrp":"사용권한","colid":"btn_roles","colnm":"관리","dtype":"text","etype":"btn","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":null,"section":null,"section_icon":null,"colgrp":null,"colid":"ver","colnm":"버전","dtype":"text","etype":"raw","attr":"readonly ","defval":"0.1","w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":null,"section":null,"section_icon":null,"colgrp":null,"colid":"pgm_stat","colnm":"상태","dtype":"text","etype":"cbx","attr":"keycol","defval":"Y","w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":null,"section":null,"section_icon":null,"colgrp":"생성정보","colid":"reg_usid","colnm":"생성자","dtype":"text","etype":"raw","attr":null,"defval":"gUserinfo.userid","w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":null,"section":null,"section_icon":null,"colgrp":"생성정보","colid":"reg_dt","colnm":"생성일","dtype":"text","etype":"raw","attr":"readonly ","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":null,"section":null,"section_icon":null,"colgrp":"생성정보","colid":"upd_usid","colnm":"수정자","dtype":"text","etype":"raw","attr":null,"defval":"gUserinfo.userid","w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":null,"section":null,"section_icon":null,"colgrp":"생성정보","colid":"upd_dt","colnm":"수정일","dtype":"text","etype":"raw","attr":"readonly","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"}],"data_icon":null,"component_option":{"func":[{"funcid":"addRow","func_nm":"줄추가","func_icon":"fas fa-plus"},{"funcid":"delRow","func_nm":"줄삭제","func_icon":"fas fa-minus"}]}};
 
-        me.pageObj["_page"] = new gfnFramepage( me ); 
-        for(var component_id in me.dataDef["_pgm_data"]) { 
-            me.pageObj[component_id] = new gfnComponent( me.pageid, component_id, me.dataDef["_pgm_data"][component_id], me.fnEH, me); 
-        }  
-        setTimeout(function(){
-            $("#frameset").scrollTo(0); //스크롤 
-        },10);
-        if(typeof(me.fnInitExtra)=='function') me.fnInitExtra(); 
-    } 
+    me.pageObj["_page"] = new gfnFramepage( me ); 
+    for(var component_id in me.dataDef["_pgm_data"]) { 
+        me.pageObj[component_id] = new gfnComponent( me.pageid, component_id, me.dataDef["_pgm_data"][component_id], me.fnEH, me); 
+    }  
+    setTimeout(function(){
+        $("#frameset").scrollTo(0); //스크롤 
+    },10);
+    if(typeof(me.fnInitExtra)=='function') me.fnInitExtra(); 
+}
 /*-- SCRIPT autogen end ---------------------------------------------- */
 
     /* 사용자초기화 */
     me.fnInitExtra=function() {
-        //탭 설정
-        //gfnTab(pageid, "tabs", {"multi-active":"off","toggle-switch":"on"}); 
-        //사용자 컴포넌트 
-        //me.dataDef["_pgm_data"][myCompoId] = {...};
-        //me.pageObj["myCompoId"] = new gfnComponent( me.pageid, myCompoId, me.dataDef["_pgm_data"][myCompoId], me.fnEH, me); 
-        //me.pageObj["myCompoId"].userComponent = "myCompoId";
-        //사용자 컨트롤
-        //var myColinfo = {colid:...}
-        //me.pageObj["myColId"] = new gfnControl(myColinfo, me.fnEH) 
-        //me.page.find("#myCol").append(me.pageObj["myColId"].dispObj);
-        //me.pageObj["myColId"].getVal(); / myCol.setVal(val);...    
-
         // 폭 맞춤 - Window 크기 변경시
         me.pageObj["llist"].sizeColumnsToFit();
         $(window).on('resize', function(){
             me.pageObj["llist"].sizeColumnsToFit();
         });
-        
     }
     /* 이벤트핸들러 */
     me.fnEH=function(component, evt, row, col, val) { 
@@ -245,7 +150,7 @@ me.dataDef["_pgm_data"]["llist"]={
     }
 
 
-/*-- SCRIPT autogen ---------------------------------------------------- */        
+/*-- _script2(자동생성2) start ---------------------------------------------------- */        
 if(typeof(me.fnInit)=='function') me.fnInit();
 });
 

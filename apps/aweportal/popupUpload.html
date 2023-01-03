@@ -172,7 +172,7 @@ $(".modal-body").css("overflow","auto");
 
 /* 이벤트핸들러 */
 me.fnEH=function(component, evt, row, col, val) { 
-    //console.log(evt+","+row+","+col+","+val);
+    console.log(evt+","+row+","+col+","+val);
     //화면기능버튼이 눌리면 
     if (component==me.pageObj["_pageFunc"]){ 
         if(typeof(me[col])=='function') me[col](); //col=기능명 me["fnSearch"]()=me.fnSearch();
@@ -184,14 +184,14 @@ me.fnEH=function(component, evt, row, col, val) {
 
     //filelist:업로드 파일목록 이벤트처리     
     else if(component==me.pageObj["filelist"]) {
-        if(evt=="focus") {
-            if(row >=0 ) {
-                var rowData = me.pageObj.filelist.getRowData(row); 
-                rowData.currow = row; //선택된 rowid를 넘겨줌 
-                me.pageObj.fileinfo.importData(rowData);
-            }
-        }
-        else if (evt=="componentFunc") {
+        // if(evt=="focus") {
+        //     if(row >=0 ) {
+        //         var rowData = me.pageObj.filelist.getRowData(row); 
+        //         rowData.currow = row; //선택된 rowid를 넘겨줌 
+        //         me.pageObj.fileinfo.importData(rowData);
+        //     }
+        // }
+         if (evt=="componentFunc") {
             if(row=="delRow") {
                 var rows = me.pageObj.filelist.selectedRows(); // 선택한 rows 배열
                 console.log(rows);
@@ -256,6 +256,7 @@ me.fnEH=function(component, evt, row, col, val) {
                 frm.submit();
             }
             fnDownload(url,filename);
+            // gfnDownloadDirect(url, filename);
         }
         //if(evt=="change" && col=="colid") {...}
     }

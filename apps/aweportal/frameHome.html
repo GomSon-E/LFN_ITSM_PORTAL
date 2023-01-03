@@ -1,106 +1,27 @@
-<style>body.mobile {
-    display: block;
-    width: 100%;
-    min-height: 100vh;
-    /*position: relative;*/
-    overflow-y: auto;
+<!-- css start -->
+<style>
+[pgmid='frameHome'].framepage { 
+    width:100%;
 }
 
-.mobile #frameGNB {
-    position: sticky;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 10;
+[pgmid='frameHome'].framepage > .pageContent > #notice{ 
+    flex-basis:40%;
 }
-.mobile > #frameset {
-	min-width: unset !important;
-} 
-
-.mobile #frameHome .flexColumn {
-    display: block;
-    height: unset;
+[pgmid='frameHome'].framepage > .pageContent > #calendar{ 
+    flex-basis:60%;
 }
-
-.mobile #frameHome .componentBody {
-    min-height: 24em;
-}
-
-.mobile #frameHome .componentBody .ag-root-wrapper-body {
-    min-height: 24em;
-}
-
-.mobile #frameHome #graph {
-    height: unset !important;
-}
-
-#frameHome .flex50 > *  { 
-    flex:1 1 50% !important; 
-}
-
-	
-#frameHome .aweCalendar h2 {
-    margin: 0;
-}
-
-#frameHome .aweCalendar p {
-    display: none;
-}
-
-
-#frameHome .aweCalendar tbody tr { 
-    height: 5em;
-}
-
-#frameHome .aweCalendar td { 
-    vertical-align: top;
-    padding-bottom: 0;
-    min-height: 3em;
-}
-
-#frameHome .aweCalendar .cal { 
-    width: 100%;
-    text-align: right;
-    white-space: nowrap;
-}
-
-#frameHome .aweCalendar .sqty { 
-    color: #487c32;
-}
-
-#frameHome .aweCalendar .amt { 
-    color: #7c3232;
-}
-
-#frameHome .aweCalendar .factor { 
-    color: #aeaeae;
-}
-
-#frameHome .btnXls, #frameHome .btnPdf { 
-    display:none;
-}
-
-#frameHome .componentTitle {
-    font-size: 1.4em;
-}
-
 </style>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Tangerine">        
-<SCRIPT src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.3.2/chart.min.js" crossorigin="anonymous"></script>
 
-    <div class="pageContent flexRow">
-    <div style="flex:1 1 30%" class="flexColumn flex50">
-        <div style="flex:1 1 50%;" class="flexColumn">
-            <div id='notice' class="flexColumn"></div>
-        </div>
-    </div>
-    <div  style="flex:1 1 30%; " class="flexColumn flex50" >
-        <div id='list4' style="height:50%;position:relative"></div>
-    </div>
+<!-- html start -->
+<!--<div class="pageNav"></div>-->
+<!--<div class="pageTop"></div>-->
+<div class="pageCond"></div>
+<div class="pageContent">
+    <div id='notice'></div>
+    <div id='calendar'></div>
 </div>
 <script>
-/*-- SCRIPT autogen start ---------------------------------------------- */        
+/*-- _script(자동생성1) start ---------------------------------------------- */        
 $(function() {
     var appid = "aweportal";
     var pgmid = "frameHome"; 
@@ -121,108 +42,95 @@ $(function() {
         me.dataDef = dataDef;
         me.pageObj = pageObj;
         me.bEdit = bEdit;
-me.dataDef["_pgm"]={"ver":2.7,"upd_dt":"2022-10-25 16:55:22","remark":"","pgmid":"frameHome","proc_mst_id":"","pgm_stat":"Y","sort_seq":93,"app_pgmid":"aweportal","shortcut":"","reg_dt":"2022-10-25 16:55:22","reg_usid":"kihyunlee","pgm_nm":"포털메인화면","upd_usid":"kihyunlee","pgm_tp":"TX","pgm_grp_nm":"공통","proc_mst_nm":"","app_pgm_nm":"FO Portal","":"트랜젝션(화면)","crud":""};
+me.dataDef["_pgm"]={"ver":2.9,"upd_dt":"2023-01-03 12:27:50","remark":"","pgmid":"frameHome","proc_mst_id":"","pgm_stat":"Y","sort_seq":93,"app_pgmid":"aweportal","shortcut":"","reg_dt":"2022-10-26 14:13:16","reg_usid":"mjw","pgm_nm":"포털메인화면","upd_usid":"sju02092","pgm_tp":"TX","pgm_grp_nm":"공통","proc_mst_nm":"","":"트랜젝션(화면)","app_pgm_nm":"FO Portal","crud":""};
 me.dataDef["_pgm_func"]=[];
 me.dataDef["_pgm_data"] = {};
-me.dataDef["_pgm_data"]["notice"]={"sort_seq":"1","data_id":"notice","data_nm":"공지사항","data_icon":null,"component_pgmid":"agGrid","component_option":{"func":[{"funcid":"more","func_nm":"더보기","func_icon":"fas fa-search"}]},"inout_tp":"OUT","content":[{"sort_seq":1,"section":null,"section_icon":null,"colgrp":null,"colid":"tag","colnm":"태그","dtype":"text","etype":"raw","attr":"center","defval":null,"w":"7","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"0"},{"sort_seq":2,"section":null,"section_icon":null,"colgrp":null,"colid":"title","colnm":"제목","dtype":"text","etype":"raw","attr":null,"defval":null,"w":"15","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"1"},{"sort_seq":3,"section":null,"section_icon":null,"colgrp":null,"colid":"read_cnt","colnm":"조회수","dtype":"num","etype":"raw","attr":null,"defval":null,"w":"3","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"2"},{"sort_seq":4,"section":null,"section_icon":null,"colgrp":null,"colid":"nm","colnm":"작성자","dtype":"text","etype":"raw","attr":"center","defval":null,"w":"6","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"3"},{"sort_seq":5,"section":null,"section_icon":null,"colgrp":null,"colid":"reg_dt","colnm":"작성일자","dtype":"text","etype":"raw","attr":"center","defval":null,"w":"10","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"4"}]};
-me.dataDef["_pgm_data"]["csrList"]={"sort_seq":"2","data_id":"csrList","data_nm":"CSR 현황","data_icon":null,"component_pgmid":"agGrid","component_option":{"func":[{"funcid":"more","func_nm":"전체내역","func_icon":"fas fa-search"}]},"inout_tp":"OUT","content":[{"sort_seq":1,"section":null,"section_icon":null,"colgrp":null,"colid":"content_stat","colnm":"상태","dtype":"text","etype":"sel","attr":"readonly ","defval":null,"w":"5","h":null,"refcd":"RES_TP","option":"sel:cd_stat::nm","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"0"},{"sort_seq":2,"section":null,"section_icon":null,"colgrp":null,"colid":"doc_no","colnm":"CSR 번호","dtype":"text","etype":"raw","attr":null,"defval":null,"w":"5","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"1"},{"sort_seq":3,"section":null,"section_icon":null,"colgrp":null,"colid":"ref_docid","colnm":"모듈","dtype":"text","etype":"raw","attr":null,"defval":null,"w":"5","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"2"},{"sort_seq":4,"section":null,"section_icon":null,"colgrp":null,"colid":"ref_id","colnm":"화면","dtype":"text","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"3"},{"sort_seq":5,"section":null,"section_icon":null,"colgrp":null,"colid":"title","colnm":"요청제목","dtype":"text","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"4"},{"sort_seq":6,"section":null,"section_icon":null,"colgrp":null,"colid":"reg_usid","colnm":"요청자","dtype":"text","etype":"raw","attr":"hidden","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"5"},{"sort_seq":7,"section":null,"section_icon":null,"colgrp":null,"colid":"req_docid","colnm":"문서번호","dtype":"text","etype":"raw","attr":"hidden","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"6"}]};
-me.dataDef["_pgm_data"]["list2"]={"sort_seq":"3","data_id":"list2","data_nm":"상품유형별 판매현황","data_icon":null,"component_pgmid":"agGrid","component_option":{"remark":"(금액단위: 천원, VAT제외. 온라인: 판매량)","func":[{"funcid":"refresh","func_nm":"","func_icon":"fas fa-sync"}]},"inout_tp":"OUT","content":[{"sort_seq":1,"section":null,"section_icon":null,"colgrp":"상품유형","colid":"mat_tp","colnm":"  차수","dtype":"text","etype":"raw","attr":"pk","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"0"},{"sort_seq":2,"section":null,"section_icon":null,"colgrp":"당일 매출","colid":"sale_qty_today","colnm":"수량","dtype":"num","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"1"},{"sort_seq":3,"section":null,"section_icon":null,"colgrp":"당일 매출","colid":"price_amt_today","colnm":"소가액","dtype":"num","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"2"},{"sort_seq":4,"section":null,"section_icon":null,"colgrp":"당일 매출","colid":"sale_amt_today","colnm":"매출액","dtype":"num","etype":"raw","attr":"keycol","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"3"},{"sort_seq":5,"section":null,"section_icon":null,"colgrp":"당월 매출","colid":"sale_qty","colnm":"수량","dtype":"num","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"4"},{"sort_seq":6,"section":null,"section_icon":null,"colgrp":"당월 매출","colid":"sale_qty_on","colnm":"(온라인)","dtype":"num","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"5"},{"sort_seq":7,"section":null,"section_icon":null,"colgrp":"당월 매출","colid":"price_amt","colnm":"소가액","dtype":"num","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"6"},{"sort_seq":8,"section":null,"section_icon":null,"colgrp":"당월 매출","colid":"sale_amt","colnm":"매출액","dtype":"num","etype":"raw","attr":"keycol","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"7"}]};
-me.dataDef["_pgm_data"]["list4"]={"sort_seq":"4","data_id":"list4","data_nm":"월간 달력","data_icon":null,"component_pgmid":"aweCalendar","component_option":{},"inout_tp":"OUT","content":[{"sort_seq":1,"section":null,"section_icon":null,"colgrp":null,"colid":"ymd","colnm":"일자","dtype":"ymd","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"0"},{"sort_seq":2,"section":null,"section_icon":null,"colgrp":null,"colid":"qty","colnm":"판매량","dtype":"num","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"1"},{"sort_seq":3,"section":null,"section_icon":null,"colgrp":null,"colid":"amt","colnm":"판매액","dtype":"num","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"2"}]};
-me.dataDef["_pgm_data"]["list5"]={"sort_seq":"5","data_id":"list5","data_nm":"매장별 매출현황","data_icon":null,"component_pgmid":"agGrid","component_option":{"remark":"(금액단위: 천원, VAT제외. 온라인: 판매량)","func":[{"funcid":"refresh","func_nm":"","func_icon":"fas fa-sync"}]},"inout_tp":"OUT","content":[{"sort_seq":1,"section":null,"section_icon":null,"colgrp":"  구분","colid":"shop_nm","colnm":"매장","dtype":"text","etype":"raw","attr":"rowSpan keycol","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"0"},{"sort_seq":2,"section":null,"section_icon":null,"colgrp":"  구분","colid":"remark","colnm":"채널","dtype":"text","etype":"raw","attr":"keycol","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"1"},{"sort_seq":3,"section":null,"section_icon":null,"colgrp":"당일 매출","colid":"sale_qty_today","colnm":"수량","dtype":"num","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"2"},{"sort_seq":4,"section":null,"section_icon":null,"colgrp":"당일 매출","colid":"sale_qty_on_today","colnm":"(온라인)","dtype":"num","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"5"},{"sort_seq":5,"section":null,"section_icon":null,"colgrp":"당일 매출","colid":"sale_amt_today","colnm":"매출액","dtype":"num","etype":"raw","attr":"keycol","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"4"},{"sort_seq":6,"section":null,"section_icon":null,"colgrp":"당월 매출","colid":"sale_qty","colnm":"수량","dtype":"num","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"3"},{"sort_seq":7,"section":null,"section_icon":null,"colgrp":"당월 매출","colid":"sale_qty_on","colnm":"(온라인)","dtype":"num","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"7"},{"sort_seq":8,"section":null,"section_icon":null,"colgrp":"당월 매출","colid":"sale_amt","colnm":"매출액","dtype":"num","etype":"raw","attr":"keycol","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"6"}]};
-me.dataDef["_pgm_data"]["list6"]={"sort_seq":"6","data_id":"list6","data_nm":"Best 상품(2주간)","data_icon":null,"component_pgmid":"agGrid","component_option":{"gridOpt":"rn","remark":"(금액단위:천원,VAT제외)","func":[{"funcid":"refresh","func_nm":"","func_icon":"fas fa-sync"}]},"inout_tp":"OUT","content":[{"sort_seq":1,"section":null,"section_icon":null,"colgrp":null,"colid":"goods_cd","colnm":"상제품코드","dtype":"text","etype":"raw","attr":"keycol","defval":null,"w":"8","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"0"},{"sort_seq":2,"section":null,"section_icon":null,"colgrp":null,"colid":"goods_nm","colnm":"상제품명","dtype":"text","etype":"raw","attr":null,"defval":null,"w":"8","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"1"},{"sort_seq":3,"section":null,"section_icon":null,"colgrp":null,"colid":"sale_qty","colnm":"판매수량","dtype":"num","etype":"raw","attr":null,"defval":null,"w":"6","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"2"},{"sort_seq":4,"section":null,"section_icon":null,"colgrp":null,"colid":"sale_amt","colnm":"판매금액","dtype":"text","etype":"raw","attr":"keycol right","defval":null,"w":"8","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"3"},{"sort_seq":5,"section":null,"section_icon":null,"colgrp":null,"colid":"stk_qty","colnm":"재고수량","dtype":"num","etype":"raw","attr":null,"defval":null,"w":"6","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"4"},{"sort_seq":6,"section":null,"section_icon":null,"colgrp":null,"colid":"shop_cnt","colnm":"매장수","dtype":"num","etype":"raw","attr":null,"defval":null,"w":"3","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":"\" \"","remark":null,"crud":"C","id":"5"}]};
-me.dataDef["_pgm_data"]["list7"]={"sort_seq":"7","data_id":"list7","data_nm":"매장간 이동 요청","data_icon":null,"component_pgmid":"agGrid","component_option":{"remark":"*최근 일주일간 요청"},"inout_tp":"OUT","content":[{"sort_seq":1,"section":null,"section_icon":null,"colgrp":null,"colid":"req_dt","colnm":"요청일","dtype":"ymd","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"0"},{"sort_seq":2,"section":null,"section_icon":null,"colgrp":null,"colid":"rotate_nm","colnm":"요청문서명","dtype":"text","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"1"},{"sort_seq":3,"section":null,"section_icon":null,"colgrp":null,"colid":"to_whcd","colnm":"이동처","dtype":"text","etype":"raw","attr":"readonly","defval":null,"w":null,"h":null,"refcd":"SHOPCD","option":"sel:to_whcd::cdnm","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"2"},{"sort_seq":4,"section":null,"section_icon":null,"colgrp":null,"colid":"req_usid","colnm":"요청자","dtype":"text","etype":"raw","attr":"readonly","defval":null,"w":null,"h":null,"refcd":"USID","option":"sel:req_usid::cdnm","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"3"},{"sort_seq":5,"section":null,"section_icon":null,"colgrp":null,"colid":"content","colnm":"내용","dtype":"text","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"4"},{"sort_seq":6,"section":null,"section_icon":null,"colgrp":null,"colid":"qty","colnm":"수량","dtype":"num","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"5"},{"sort_seq":7,"section":null,"section_icon":null,"colgrp":null,"colid":"delay_day_cnt","colnm":"경과일수","dtype":"num","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","id":"6"}]};
 
-        me.pageObj["_page"] = new gfnFramepage( me ); 
-        for(var component_id in me.dataDef["_pgm_data"]) { 
-            me.pageObj[component_id] = new gfnComponent( me.pageid, component_id, me.dataDef["_pgm_data"][component_id], me.fnEH, me); 
-        }  
-        setTimeout(function(){
-            $("#frameset").scrollTo(0); //스크롤 
-        },10);
-        if(typeof(me.fnInitExtra)=='function') me.fnInitExtra(); 
-    } 
-/*-- SCRIPT autogen end ---------------------------------------------- */
-me.fnInitExtra=function() {
-    // LOCAL, QAS, PROD 환경 구분하기
-    gUserinfo.server = "QAS";
-    if(window.location.href.indexOf("lfnetworks.co.kr")>=0) {
-        gUserinfo.server = "PROD";
-    } 
-    else if(window.location.href.indexOf("localhost")>=0) {
-        gUserinfo.server = "LOCAL";
-    }
-    console.log(`------${gUserinfo.server} 환경입니다------`);
+me.dataDef["_pgm_data"]["notice"]={"sort_seq":"1","data_id":"notice","data_nm":"공지사항","component_pgmid":"agGrid","inout_tp":null,"content":[{"sort_seq":1,"section":null,"section_icon":null,"colgrp":null,"colid":"tag","colnm":"태그","dtype":"text","etype":"raw","attr":"center","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":2,"section":null,"section_icon":null,"colgrp":null,"colid":"title","colnm":"제목","dtype":"text","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":3,"section":null,"section_icon":null,"colgrp":null,"colid":"read_cnt","colnm":"조회수","dtype":"num","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":4,"section":null,"section_icon":null,"colgrp":null,"colid":"nm","colnm":"작성자","dtype":"text","etype":"raw","attr":"center","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":5,"section":null,"section_icon":null,"colgrp":null,"colid":"reg_dt","colnm":"작성일자","dtype":"text","etype":"raw","attr":"center","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"}],"data_icon":null,"component_option":{"func":[{"funcid":"more","func_nm":"더보기","func_icon":"fas fa-search"}]}};
+me.dataDef["_pgm_data"]["calendar"]={"sort_seq":"2","data_id":"calendar","data_nm":"달력","component_pgmid":"aweCalendar","inout_tp":null,"content":null,"data_icon":null,"component_option":null};
 
-    
-    //공지사항 데이터 가져옴
-    me.fnSearch();
-    
-    //FO달력가져오기
-    me.pageObj.list4.initCalendar(); 
-    
-}
-
-//달력 템플릿
-me.fnCalTemplate=function(data) {
-    return `<div class='cal'><span class='sqty'>${data.qty}</span> <span class='factor'>pcs</span></div><div class='cal'><span class='amt'>${data.amt}</span> <span class='factor'>M</span></div>`;
-}
-
-me.fnEH=function(component, evt, row, col, val) { 
-    //console.log(evt+","+row+","+col+","+val);
-    //화면기능버튼이 눌리면 
-    if (component==me.pageObj["_pageFunc"]){ 
-        if(typeof(me[col])=='function') me[col](); //col=기능명 me["fnSearch"]()=me.fnSearch(); 
-    }
-    //사용자 컴포넌트/컨트롤      
-    else if(component==me.pageObj["list4"]) {
-        if(evt=="componentFunc") {
-            if(row=="refresh") {
-                me.fnSearch();
-            }    
-        }
-    }    
-    //공지사항
-    else if(component==me.pageObj["notice"]) {
-        if (evt=="componentFunc") {
-            gMDI.openPage( "manageBBS", "공지사항 관리" );
-
-        //공지사항 팝업창
-        // } else if(evt=="dblclick") {
-        //     var rows = me.pageObj.notice.selectedRows();
-        //     var rowData = me.pageObj.notice.getRowData(rows);
-        //     var invar = JSON.stringify(rowData);
-        //     gfnTx("aweportal.manageBBS", "selectOneDoc", {"INVAR" : invar}, function(OUTVAR){
-        //         if(OUTVAR.rtnCd=="OK") {
-        //             gfnPopupDetailBBS(rowData.docid);
-        //         } else {
-        //             gfnAlert("조회오류",OUTVAR.rtnMsg);
-        //         }
-        //     });
-        }
+    me.pageObj["_page"] = new gfnFramepage( me ); 
+    for(var component_id in me.dataDef["_pgm_data"]) { 
+        me.pageObj[component_id] = new gfnComponent( me.pageid, component_id, me.dataDef["_pgm_data"][component_id], me.fnEH, me); 
     }  
+    setTimeout(function(){
+        $("#frameset").scrollTo(0); //스크롤 
+    },10);
+    if(typeof(me.fnInitExtra)=='function') me.fnInitExtra(); 
 }
+/*-- script(개발자작성) start ---------------------------------------------------- */ 
+    /* 사용자초기화 */
+    me.fnInitExtra=function() {
+    
+        // LOCAL, QAS, PROD 환경 구분하기
+        gUserinfo.server = "QAS";
+        if(window.location.href.indexOf("lfnetworks.co.kr")>=0) {
+            gUserinfo.server = "PROD";
+        } 
+        else if(window.location.href.indexOf("localhost")>=0) {
+            gUserinfo.server = "LOCAL";
+        }
+        console.log(`------${gUserinfo.server} 환경입니다------`);
+    
+        
+        // 폭 맞춤
+        me.pageObj["notice"].sizeColumnsToFit();
+        $(window).on('resize', function(){
+            me.pageObj["notice"].sizeColumnsToFit();
+        });  
+        
+        //FO달력가져오기
+        me.pageObj.calendar.initCalendar();  
+        
+        //화면 Open시 조회
+        me.fnSearch();
+    }
+    /* 이벤트핸들러 */
+    me.fnEH=function(component, evt, row, col, val) { 
+        //화면기능버튼이 눌리면 
+        if (component==me.pageObj["_pageFunc"]){ 
+            if(typeof(me[col])=='function') me[col](); //col=기능명 me["fnSearch"]()=me.fnSearch(); 
+        }
+        //notice:공지사항 이벤트처리   
+        else if(component==me.pageObj["notice"]) {
+            if(evt=="componentFunc") {
+                if(row=="addRow") {
+                    component.addRow();
+                } else if(row=="delRow") {
+                    component.delRow();
+                }
+            }
+            //if(evt=="change" && col=="colid") {...}
+        }
 
-me.ticker = null;
+        //calendar:월간 달력 이벤트처리   
+        else if(component==me.pageObj["calendar"]) {
+            if(evt=="componentFunc") {
+                gMDI.openPage( "manageBBS", "공지사항 관리" );
+            }
+            //if(evt=="change" && col=="colid") {...}
+        }
 
-me.fnSearch=function() { 
-    var args = {docTag:"공지사항"};
-    var invar = JSON.stringify(args);    
-    gfnTx("aweportal.manageBBS", "selectRecentDoc", {INVAR:invar}, function(OUTVAR){
-        if(OUTVAR.rtnCd=="OK") {
-            me.pageObj["notice"].importData(OUTVAR.list); 
-            if(!isNull(me.pageObj.notice.container) && me.pageObj.notice.container.css("display")!="none") me.pageObj.notice.sizeColumnsToFit();
-        } else {
-            gfnAlert("조회오류",OUTVAR.rtnMsg);
-        }    
-    });
-}
-
-
-
-
-
-
-/*-- SCRIPT autogen ---------------------------------------------------- */        
+        //사용자 컴포넌트/컨트롤
+        else if(component.userComponent=="myCompoId") {
+            //if(evt=="dblclick" && col=="colid") {...}
+        }
+    }
+    
+    // 조회
+    me.fnSearch=function() { 
+        var args = {docTag:"공지사항"};
+        var invar = JSON.stringify(args);    
+        gfnTx("aweportal.manageBBS", "selectRecentDoc", {INVAR:invar}, function(OUTVAR){
+            if(OUTVAR.rtnCd=="OK") {
+                me.pageObj["notice"].importData(OUTVAR.list); 
+                if(!isNull(me.pageObj.notice.container) && me.pageObj.notice.container.css("display")!="none") me.pageObj.notice.sizeColumnsToFit();
+            } else {
+                gfnAlert("조회오류",OUTVAR.rtnMsg);
+            }    
+        });
+    }
+/*-- _script2(자동생성2) start ---------------------------------------------------- */        
 if(typeof(me.fnInit)=='function') me.fnInit();
 });
 
