@@ -582,12 +582,14 @@ button {
 
 	#frameTab {
 		color: hsl(0 0% 100%);
-		display: flex;
+		display: -webkit-box;
 		flex-direction: row;
-		height: 60px;
-		padding-top: 15px;
+		height: 45px;
+	
+		padding-top: 13px;
 		background-color: #d7e8fc;
-		overflow: overlay;
+	
+		overflow-x: overlay;
 		-webkit-overflow-scrolling: touch;
 	}
 	

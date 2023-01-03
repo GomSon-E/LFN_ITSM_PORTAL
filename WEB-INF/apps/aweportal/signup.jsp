@@ -45,7 +45,8 @@ else if("savePwd".equals(func)) {
     try {  
         conn = getConn("LFN");
         conn.setAutoCommit(false);
-        String qry = "INSERT INTO T_USER_PWD (USID,PWD,TEMP_YN,SECU_CD,IPADDR,REG_USID,REG_DT,UPD_USID,UPD_DT) VALUES ( {usid},'6cbefd8960d511540f34779628ef4e5a55b758d3be5749cd8878a09b348c052b','Y',NULL,NULL,'admin',SYSDATE,'admin', SYSDATE);";
+        // String qry = "INSERT INTO T_USER_PWD (USID,PWD,TEMP_YN,SECU_CD,IPADDR,REG_USID,REG_DT,UPD_USID,UPD_DT) VALUES ( {usid},'6cbefd8960d511540f34779628ef4e5a55b758d3be5749cd8878a09b348c052b','Y',NULL,NULL,'admin',SYSDATE,'admin', SYSDATE);";
+        String qry = "INSERT INTO T_USER_PWD (USID,PWD,TEMP_YN,SECU_CD,IPADDR,REG_USID,REG_DT,UPD_USID,UPD_DT) VALUES ( {usid},{pwd},'Y',NULL,NULL,'admin',SYSDATE,'admin', SYSDATE);";
         String qryRun = "";
         INVAR.put("userid",USERID);
         qryRun += bindVAR(qry,INVAR);
