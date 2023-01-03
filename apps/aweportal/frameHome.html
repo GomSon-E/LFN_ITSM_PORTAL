@@ -16,44 +16,7 @@
 .mobile > #frameset {
 	min-width: unset !important;
 } 
-/* .mobile #frameMain {
-    height: calc(100% - 124.125px);
-} */
 
-/* .mobile #frameStatus {
-    z-index: 3000;
-} */
-/*
-.mobile #frameset {
-    min-height: calc(100vh - 37.125px);
-    height: unset !important;
-    display: block;
-    overflow-y: auto;
-    position: relative; 
-}
-
-.mobile #frameMain {
-    min-height: inherit;
-    height: 100%;
-    width: 100%;
-    overflow-y: visible;
-}
-
-.mobile .framepage.active {
-    display: block;
-    height: unset;
-    min-height: inherit;
-    width: 100%;
-    overflow-y: visible;
-}
-
-.mobile .framepage.active > .pageContent {
-    display: block;
-    position: relative;
-    height: unset;
-    overflow: visible;
-}
-*/
 .mobile #frameHome .flexColumn {
     display: block;
     height: unset;
@@ -129,35 +92,12 @@
     <div class="pageContent flexRow">
     <div style="flex:1 1 30%" class="flexColumn flex50">
         <div style="flex:1 1 50%;" class="flexColumn">
-            <!-- <ul id="tabs2">
-                <li refid="notice">공지사항</li> 
-                <li refid="csrList">CSR요청처리</li> 
-            </ul> -->
             <div id='notice' class="flexColumn"></div>
-            <!-- <div id='csrList' class="flexColumn"></div> -->
         </div>
-        <!-- <div style="flex:1 1 50%" class="flexColumn">
-            <ul id="tabs">
-                <li refid="list7">매장간 이동요청</li> 
-                <li refid="list5">매장별 매출현황</li> 
-            </ul>
-            <div id='list7' class="flexColumn"></div>
-            <div id='list5' class="flexColumn"></div> 
-        </div> -->      
     </div>
-    
     <div  style="flex:1 1 30%; " class="flexColumn flex50" >
         <div id='list4' style="height:50%;position:relative"></div>
     </div>
-
-
-    <!----- 11.24 원본 (차트와 달력)-->
-    <!-- <div style="flex:1 1 calc(30% - 3em);height:100%;display:block">
-        <div id='graph' style="height:50%;position:relative">
-            <canvas id="myChart" style="height:100%;width:100%;"></canvas>    
-        </div>
-        <div id='list4' style="height:50%;position:relative"></div>
-    </div> -->
 </div>
 <script>
 /*-- SCRIPT autogen start ---------------------------------------------- */        
@@ -213,37 +153,13 @@ me.fnInitExtra=function() {
     }
     console.log(`------${gUserinfo.server} 환경입니다------`);
 
-    //탭
-    gfnTab(pageid, "tabs2");
-    gfnTab(pageid, "tabs");
     
-    //화면 Open시 조회
+    //공지사항 데이터 가져옴
     me.fnSearch();
     
     //FO달력가져오기
     me.pageObj.list4.initCalendar(); 
     
-    /* SEASONS GREETING
-    var panel = gfnPanel({
-        position: "absolute",
-        left:"-180px",top:"10%",
-        width:"600px",height:"880px",
-        display:"flex",
-        "justify-content":"center",
-        "align-items":"center", 
-        background: "#eaeef0",  
-        "transform":"scale(0.3)",
-        overflow: "hidden",
-        "box-shadow":"3px 3px 3px 2px lightgrey, -3px -3px 3px 2px lightgrey"
-    });    
-    gfnLoad("aweportal","happyNewyear2022",panel,function(){
-        $("body").append(panel);
-        panel.on("click",function(){
-            gfnStatus("새해 복 많이 받으세요!");
-            panel.remove(); 
-        });
-    });
-    */
 }
 
 //달력 템플릿
@@ -257,28 +173,7 @@ me.fnEH=function(component, evt, row, col, val) {
     if (component==me.pageObj["_pageFunc"]){ 
         if(typeof(me[col])=='function') me[col](); //col=기능명 me["fnSearch"]()=me.fnSearch(); 
     }
-    //사용자 컴포넌트/컨트롤
-    else if(component==me.pageObj["list2"]) {
-        if(evt=="componentFunc") {
-            if(row=="refresh") {
-                me.fnRefresh("list2");
-            }    
-        }
-    }
-    else if(component==me.pageObj["list6"]) {
-        if(evt=="componentFunc") {
-            if(row=="refresh") {
-                me.fnRefresh("list6");
-            }    
-        }
-    }    
-    else if(component==me.pageObj["list5"]) {
-        if(evt=="componentFunc") {
-            if(row=="refresh") {
-                me.fnRefresh("list5");
-            }    
-        }
-    }       
+    //사용자 컴포넌트/컨트롤      
     else if(component==me.pageObj["list4"]) {
         if(evt=="componentFunc") {
             if(row=="refresh") {
@@ -290,6 +185,8 @@ me.fnEH=function(component, evt, row, col, val) {
     else if(component==me.pageObj["notice"]) {
         if (evt=="componentFunc") {
             gMDI.openPage( "manageBBS", "공지사항 관리" );
+
+        //공지사항 팝업창
         // } else if(evt=="dblclick") {
         //     var rows = me.pageObj.notice.selectedRows();
         //     var rowData = me.pageObj.notice.getRowData(rows);
@@ -303,26 +200,6 @@ me.fnEH=function(component, evt, row, col, val) {
         //     });
         }
     }  
-    else if(component==me.pageObj["list7"]) {
-        if(evt=="dblclick") {
-            gMDI.openPage("RTregister", "매장간 이동요청 처리", function(){}, "fo_pos"); 
-        }
-    }    
-    
-    //CSR현황
-    else if(component==me.pageObj["csrList"]) {
-        if (evt=="componentFunc") {
-            gMDI.openPage( "manageCSR", "CSR 관리" );
-        } else if(evt=="dblclick") {
-            var resPop = $("<div id='resPop' class='framepage active'></div>");
-            var resPopup = null;
-            gfnLoad("aweportal","detailCSR", resPop,function(){
-                resPopup = gfnPopup("처리내역 등록", resPop,{width:800, height:700});
-                gParam["docid"] = component.getVal(row,"req_docid");
-            });
-            gParam.fncallback = function() {};
-        }
-    }
 }
 
 me.ticker = null;
@@ -340,196 +217,6 @@ me.fnSearch=function() {
     });
 }
 
-me.fnChart=function(data) {
-    console.log(data);
-    //이미 chart가 있으면 data를 사용하여 update
-    if(!isNull(me.myChart)) {
-        var datasets = [
-            {
-                type: 'line',
-                label: '판매량(pcs)', 
-                yAxisID: 'y',
-                data: extract(data,"qty"),
-                borderColor: 'rgba(255, 99, 132, 0.8)', 
-                backgroundColor: 'rgba(255, 99, 132, 0.8)'  
-            },
-            {
-                type: 'bar',
-                label: '매출액(백만,VAT제외)', 
-                yAxisID: 'y1', 
-                data: extract(data,"amt"), 
-                borderColor: 'rgba(255, 99, 100, 0.5)', 
-                backgroundColor: 'rgba(255, 99, 100, 0.5)' 
-            },
-            {
-                type: 'line',
-                label: '전년판매량', 
-                yAxisID: 'y',
-                data: extract(data,"qtyb"),
-                borderColor: 'rgba(128, 128, 128, 0.8)', 
-                backgroundColor: 'rgba(128, 128, 128, 0.8)'  
-            },
-            {
-                type: 'bar',
-                label: '전년매출액', 
-                yAxisID: 'y1',
-                data: extract(data,"amtb"),
-                borderColor: 'rgba(128, 128, 128, 0.5)', 
-                backgroundColor: 'rgba(128, 128, 128, 0.5)'  
-            }
-        ];
-        me.myChart.data.datasets = datasets; 
-        me.myChart.update();
-        return;
-    }  
-    
-    
-    me.page.find("#myChart").children("*").remove(); 
-    var datasets = [
-            {
-                type: 'line',
-                label: '판매량(pcs)', 
-                yAxisID: 'y',
-                data: extract(data,"qty"),
-                borderColor: 'rgba(255, 99, 132, 0.8)', 
-                backgroundColor: 'rgba(255, 99, 132, 0.8)'  
-            },
-            {
-                type: 'bar',
-                label: '매출액(백만,VAT제외)', 
-                yAxisID: 'y1', 
-                data: extract(data,"amt"), 
-                borderColor: 'rgba(255, 99, 100, 0.5)', 
-                backgroundColor: 'rgba(255, 99, 100, 0.5)' 
-            },
-            {
-                type: 'line',
-                label: '전년판매량', 
-                yAxisID: 'y',
-                data: extract(data,"qtyb"),
-                borderColor: 'rgba(128, 128, 128, 0.8)', 
-                backgroundColor: 'rgba(128, 128, 128, 0.8)'  
-            },
-            {
-                type: 'bar',
-                label: '전년매출액', 
-                yAxisID: 'y1',
-                data: extract(data,"amtb"),
-                borderColor: 'rgba(128, 128, 128, 0.5)', 
-                backgroundColor: 'rgba(128, 128, 128, 0.5)'  
-            }
-        ];
-    //ymd qty amt qtyb amtb
-    var DATA_COUNT = data.length;
-    var DATA_MIN   = arrFormula(data,"min('amt')");
-    var DATA_MAX   = arrFormula(data,"max('amt')");
-    var NUMBER_CFG = {count: DATA_COUNT, min: DATA_MIN, max: DATA_MAX};
-    var DATA_LABEL = extract(data,"ymd");  
-    var data = {
-        labels: DATA_LABEL,
-        datasets: datasets, 
-    };
-    var config = { 
-        type: 'bar',
-        data: data,
-        options: {
-            responsive: true,
-            plugins: {
-                legend: {
-                    position: 'top',
-                },
-                title: {
-                    display: true,
-                    text: '당월 매출현황(전년 동월비)'
-                }
-            },
-            scales: {
-                y: {
-                    position: 'left',
-                },
-                y1: {
-                    position: 'right',
-                }
-            }
-        }, 
-    };
-
-    setTimeout(function(){
-        /* instance변수로 myChart선언 */
-        me.myChart = new Chart(
-            me.page.find("#myChart")[0],
-            config
-        );    
-    },100);
-    
-    
-    
-    
-    
-    
-    
-    var actions = [
-    {
-        name: 'Randomize',
-        handler(chart) {
-        chart.data.datasets.forEach(dataset => {
-            dataset.data = Utils.numbers({count: chart.data.labels.length, min: -100, max: 100});
-        });
-        chart.update();
-        }
-    },
-    {
-        name: 'Add Dataset',
-        handler(chart) {
-        const data = chart.data;
-        const dsColor = Utils.namedColor(chart.data.datasets.length);
-        const newDataset = {
-            label: 'Dataset ' + (data.datasets.length + 1),
-            backgroundColor: Utils.transparentize(dsColor, 0.5),
-            borderColor: dsColor,
-            borderWidth: 1,
-            data: Utils.numbers({count: data.labels.length, min: -100, max: 100}),
-        };
-        chart.data.datasets.push(newDataset);
-        chart.update();
-        }
-    },
-    {
-        name: 'Add Data',
-        handler(chart) {
-        const data = chart.data;
-        if (data.datasets.length > 0) {
-            data.labels = Utils.months({count: data.labels.length + 1});
-
-            for (var index = 0; index < data.datasets.length; ++index) {
-            data.datasets[index].data.push(Utils.rand(-100, 100));
-            }
-
-            chart.update();
-        }
-        }
-    },
-    {
-        name: 'Remove Dataset',
-        handler(chart) {
-        chart.data.datasets.pop();
-        chart.update();
-        }
-    },
-    {
-        name: 'Remove Data',
-        handler(chart) {
-        chart.data.labels.splice(-1, 1); // remove the label first
-
-        chart.data.datasets.forEach(dataset => {
-            dataset.data.pop();
-        });
-
-        chart.update();
-        }
-    }
-    ];   
-}
 
 
 

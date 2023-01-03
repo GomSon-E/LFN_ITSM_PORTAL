@@ -584,7 +584,7 @@ button {
 		color: hsl(0 0% 100%);
 		display: -webkit-box;
 		flex-direction: row;
-		height: 45px;
+		height: 60px;
 	
 		padding-top: 13px;
 		background-color: #d7e8fc;
