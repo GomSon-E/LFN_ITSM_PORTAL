@@ -181,6 +181,22 @@ nav.menu {
 .menu-right {
     float: right;
     color: white;
+    width: 300px;
+    height: 80%;
+    background-color: rgba(0, 0, 0, 0.1);
+    border-radius: 20px;
+    margin-top: 9px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: -55px;
+}
+.menu-right button.toggle {
+    border: none;
+    background-color: transparent;
+    transition: all 0.5s;
+    padding-left: 5px;
+    padding-right: 30px;
 }
 
 .menu-right button {
