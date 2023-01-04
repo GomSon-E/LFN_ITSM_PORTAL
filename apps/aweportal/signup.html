@@ -89,7 +89,7 @@
         width: 100%;
         border: 0;
         padding: 10px 10px;
-        margin: 20px -10px;
+        margin: 10px -10px;
     }
 
     .where {
@@ -112,7 +112,7 @@
         width: 100%;
         border: 0;
         padding: 10px 10px;
-        margin: 20px -10px;
+        margin: 10px -10px;
     }
 
     select::-ms-expand {
@@ -130,7 +130,7 @@
         width: 100%;
         border: 0;
         padding: 10px 10px;
-        margin: 20px -10px;
+        margin: 10px -10px;
     }
 
     .signup #checkpwd {
@@ -142,7 +142,7 @@
         width: 100%;
         border: 0;
         padding: 10px 10px;
-        margin: 20px -10px;
+        margin: 10px -10px;
     }
 
 
@@ -155,7 +155,7 @@
         width: 100%;
         border: 0;
         padding: 10px 10px;
-        margin: 20px -10px;
+        margin: 10px -10px;
     }
 
     .signup p {
@@ -174,14 +174,14 @@
     <div class="signup">
         <img src="./images/CI.jpg">
         <div name="frm" action="#" id="frm">
-            <input type="text" class="usid" name="usid" id="usid" check_result="fail" required placeholder="*아이디" />
+            <!-- <input type="text" class="usid" name="usid" id="usid" check_result="fail" required placeholder="*아이디" />
             <button type="button" class="id_overlap_button" onclick="id_overlap_check()">중복검사</button>
-            <img id="id_check_sucess" style="display: none;">
-            <!-- <div class="input_id"> 
-            <input type="text" name="usid" id="usid" onkeydown="inputIdChk" placeholder="*아이디">
-            <button type="button" onclick="fn_dbCheckId()" name="dbCheckId" class="checkId">중복확인</button>
-            <input type="hidden" name="idDuplication" value="idUnCheck">
-            </div> -->
+            <img id="id_check_sucess" style="display: none;"> -->
+
+            <input type="text" class="usid" name="usid" id="usid" check_result="fail" required placeholder="*아이디"/>
+          <input type="button" id="btnEmpnoCheck" value="중복체크" />
+            <p id="notice"></p>
+
             <input type="password" name="pwd" id="pwd" placeholder="*비밀번호">
             <!-- <input type="password" name="checkpwd" id="checkpwd" placeholder="*비밀번호 확인"> -->
             <p>* 숫자+영문+특수문자 포함 8자리 이상 입력해야 합니다.</p>
@@ -263,6 +263,29 @@
             $('.id_overlap_button').show();
             $('.usid').attr("check_result", "fail");
         })
+
+        $(document).ready(function (){   
+	   $("#btnEmpnoCheck").on("click", function(event) {
+	   var params = $("frm").serialize(); // 자동으로 폼태그 안에있는애들 주르륵
+	   
+	   		$.ajax({
+	   			url:"awegtx.jsp"
+	   			,dataType:"json"
+	   			,type:"GET"
+	   			//,data:"empno="+$("#empno").val(); //id값이 주어졌다면 이렇게 해도되나 지저분
+	   			,data:params //바로 이렇게 줘도 됨 
+	   			,cache:false //같은 요청이 있으면 db에 있는 것 바로 뿌리겠다
+	   			,success:function(data){ //성공했으면 가져오는 데이터가 있을 것
+	   				//alert(data.count); //data는 JSON 값을 받을 것 {"count":0} data.count하면 0아니면 1
+	   				if(data.count==1){ //사용중
+	   					$("#notice").css("color","red").text("이미 사용 중인 아이디입니다.");
+	   				}else{//사용가능
+	   					$("#notice").css("color","blue").text("사용 가능한 아이디입니다.");
+	   				}
+	   			}
+	   		});//ajax
+	   });//click
+   });//ready
 
 
         //회원가입 저장
