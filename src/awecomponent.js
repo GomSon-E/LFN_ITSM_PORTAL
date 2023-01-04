@@ -3616,11 +3616,11 @@ function gfnControl(colinfo, afnEH, oComponent, rowid, val, rowPinned, agHack) {
 						setTimeout(function(control,bMulti){$(control).select2({
 							multiple: true,
 							closeOnSelect : false,
-							dropdownAutoWidth : true 
+							// dropdownAutoWidth : true 
 						})},5,me.obj);
 					} else {
 						setTimeout(function(control,bMulti){$(control).select2({
-							dropdownAutoWidth : true 
+							// dropdownAutoWidth : true 
 						})},5,me.obj);
 					}
 					} 
