@@ -581,6 +581,7 @@ me.dataDef["_pgm_data"]["pgm_src"]={
                 editors[rowid].aceEdit.setTheme("ace/theme/chrome"); //chrome dark monokai
                 editors[rowid].aceEdit.session.setMode("ace/mode/javascript");
                 editors[rowid].aceEdit.setFontSize("1.2em");
+                editors[rowid].aceEdit.session.setUseWrapMode(true);
    
                 editors[rowid].aceEdit.getSession().on('change', function() { // 소스코드 편집했을 때
                     var psEditor = me.pageObj["pgm_src_edit"];
@@ -1266,7 +1267,7 @@ if("${row.funcid}".equals(func)) {
                 // T_PGM_** TABLE에 저장
                 gfnTx(appid+"."+pgmid,"deploySpec", {INVAR:invar}, function(OUTVAR){
                     if(OUTVAR.rtnCd=="OK") {
-                        gfnAlert("배포성공","WEB/WAS경로에 배포되었습니다.");
+                        gfnStatus("WEB/WAS경로에 배포되었습니다.");
                         // apps\ 경로에 html, jsp 파일 생성
                         me.fnDeployFile();    
                     } else {
