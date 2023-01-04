@@ -1428,7 +1428,11 @@
     opacity: 0.87;
     width: 16px; }
   .ag-theme-balham .ag-row-selected {
-    background-color: #b7e4ff; }
+    /* background-color: #b7e4ff;  */
+  }
+  .ag-theme-balham .ag-row-selected > div{
+    background-color: #b7e4ff; 
+  }
   .ag-theme-balham .ag-cell-range-selected:not(.ag-cell-focus) {
     background-color: rgba(0, 145, 234, 0.2); }
   .ag-theme-balham .ag-cell-range-selected-1:not(.ag-cell-focus) {

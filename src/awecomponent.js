@@ -928,7 +928,8 @@ function gfnComponent( pageId, containerId, componentDef, afnEH, page ) {
 				}
 				
 				/* img edit 옵션 추가 */
-				if((colinfo.etype == 'img') && (inStr(colinfo.option, 'edit') != '-1')){
+				if((colinfo.etype == 'img') && (inStr(nvl(colinfo.option, ""), 'edit') != -1)){
+					console.log(`테스트 : ${inStr(colinfo.option)}`);
 					var imgEditBtn = $(`<div class="imgEdit"></div>`);
 					imgEditBtn.append(`<img src="/images/imgEdit.png" alt="" class="">`);
 
@@ -939,8 +940,6 @@ function gfnComponent( pageId, containerId, componentDef, afnEH, page ) {
 					imgEditBtn.css('top', `calc(100% - 4em - 1em)`);
 					imgEditBtn.css('left', `calc(50% + ${colinfo.w/2}em - 4em - 1em)`);	
 				}
-
-				
 
                 /* 컬럼Group의 바깥크기를 지정해 줌 */
 				var colgrpWidth = 0;
@@ -2557,10 +2556,10 @@ function gfnComponent( pageId, containerId, componentDef, afnEH, page ) {
 						me.calendar.find("caption").append(yearWrap);
 						me.calendar.find("caption").append(monthWrap);
 						
-						
+						// console.log(OUTVAR.list);
 						OUTVAR.list.forEach((row,idx)=>{
 							if(idx%7==0) me.calendar.find("tbody").append("<tr></tr>");
-							var td = $(`<td id='${row.ymd}'><div id='top'><b>${row.ymd.substr(6,2)}</b><c>${nvl(row.remark,"")}</c></div></td>`);
+							var td = $(`<td id='${row.ymd}'><div id='top'><b>${row.ymd.substr(6,2)}</b><c>${nvl(row.remark,nvl(row.holi_remark, ""))}</c></div></td>`);
 							td.find("div#top").data("data",row);
 							if(me.start_dt.substr(0,6) > row.ymd.substr(0,6)) td.addClass("prevMon");
 							else if(me.start_dt.substr(0,6) < row.ymd.substr(0,6)) td.addClass("nextMon"); 
@@ -3500,6 +3499,18 @@ function gfnControl(colinfo, afnEH, oComponent, rowid, val, rowPinned, agHack) {
 				afnEH(me.colid, "click");  
 			});
 		}
+		/*  img 표시 */
+		if(me.etype == 'img'){
+			// && (inStr(me.option, 'edit') != -1)
+			if(inStr(me.option, 'edit') != -1) {
+				me.obj.on("click",function(){ 
+					afnEH(me.colid, "click");  
+				});
+			}
+		}
+		
+
+
         /* ymd, auto, pop 은 버튼이 추가됨 */				
 		if(inStr(me.attr,"ymd")>=0||inStr(me.attr,"pop")>=0) {			
 			me.dispObj = gfnSetOpts(obj, me.refcd, me.option, me.defval);
@@ -3587,11 +3598,11 @@ function gfnControl(colinfo, afnEH, oComponent, rowid, val, rowPinned, agHack) {
 				me.obj.select(); 
 			}
 		}); 
-		me.obj.on("click",function(e){
-			if((me.etype == 'img') && (inStr(me.option, 'edit') != -1)){
-				console.log("이미지 에디터")
-			}
-		}); 
+		// me.obj.on("click",function(e){
+		// 	if((me.etype == 'img') && (inStr(me.option, 'edit') != -1)){
+		// 		console.log("이미지 에디터")
+		// 	}
+		// }); 
 
 		/* 기본값 설정 */
 		if(val!=undefined) me.setVal(val,true); //값이 있으면 값이 우선
@@ -4230,6 +4241,48 @@ function gfnUpload(UUID, file_tp, ref_file_tp, afnCallback) {
 
 	/* 팝업창을 띄운다. */ 
 	var fnOpenPop = function(UUID, file_tp, ref_file_tp) {
+		var popid =  "upload"+gMDI.getNext();
+		var container = 
+		$("<div id='"+popid+"' class='framepage popupUpload' style='display:flex;flex-direction:column;'></div>");
+		$("#frameset").append(container);
+		// $('#frameset').css("pointer-events","none");
+		// $('#frameGNB').css("pointer-events","none");
+
+		/* 선언된 데이터를 업로드창으로 넘겨준다. */
+		gParam["UUID"] = UUID;
+		gParam["file_tp"] = file_tp;
+		gParam["ref_file_tp"] = ref_file_tp; 
+		 
+		gfnLoad("aweportal", "popupUpload", container, function() { 
+			var title = "파일 업로드";
+			var opt = {
+				resizable: true,
+				modal : true,
+				draggable : true,
+				minWidth : 850
+			} 
+	    	gfn["popupTemp"] = gfnPopup(title, container,{width:896,height:530, modal:true}, function(){ 
+				var filelist = [];
+				if(gParam!=undefined && gParam.rtnCd =="OK" ) { 
+					filelist = gParam.filelist;
+				}
+				if(afnCallback!=undefined) afnCallback(filelist);
+				
+			});
+		}, true); 
+	}
+	fnOpenPop(UUID, file_tp, ref_file_tp);
+}
+
+/* gfnProfileUpload 파일 업로드 창 */
+function gfnProfileUpload(UUID, file_tp, ref_file_tp, afnCallback) {
+	var UUID = UUID;
+	var file_tp = file_tp;
+	var ref_file_tp = ref_file_tp;
+
+	/* 팝업창을 띄운다. */ 
+	var fnOpenPop = function(UUID, file_tp, ref_file_tp) {
+		console.log("gfnProfileUpload")
 		var popid =  "upload"+gMDI.getNext();
 		var container = 
 		$("<div id='"+popid+"' class='framepage popupUpload' style='display:flex;flex-direction:column;'></div>");
