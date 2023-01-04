@@ -21,7 +21,7 @@
         position: absolute;
         top: 50%;
         left: 50%;
-        width: 400px;
+        width: 550px;
         -webkit-transform: translate(-50%, -50%);
         -moz-transform: translate(-50%, -50%);
         -ms-transform: translate(-50%, -50%);
@@ -64,7 +64,7 @@
         animation: wawes 7s infinite;
     }
 
-    .signup button {
+    .signup button, .signup #btnEmpnoCheck {
         font-family: "Asap", sans-serif;
         cursor: pointer;
         color: #fff;
@@ -78,28 +78,22 @@
         /* -webkit-transition: background-color 300ms; */
         -moz-transition: background-color 300ms;
         transition: background-color 300ms;
+        margin: 0 0 0 10px;
     }
 
-    .signup #usid {
+    .signup button:hover, .signup #btnEmpnoCheck:hover {
+        background-color: #8ebcf5;
+    }
+
+    .signup #usid, .signup #pwd {
         font-family: "Asap", sans-serif;
-        display: block;
         border-radius: 5px;
         font-size: 16px;
-        background: #eeeeee;
-        width: 100%;
+        background: #e8f0fe;
+        width: 70%;
         border: 0;
         padding: 10px 10px;
-        margin: 10px -10px;
-    }
-
-    .where {
-        display: block;
-        margin: 25px 15px;
-        font-size: 11px;
-        color: #000;
-        text-decoration: none;
-        font-family: verdana;
-        font-style: italic;
+        margin: 10px 10px;
     }
 
     select {
@@ -108,11 +102,12 @@
         display: block;
         border-radius: 5px;
         font-size: 16px;
-        background: #eeeeee;
-        width: 100%;
+        background: #e8f0fe;
+        width: 70%;
         border: 0;
         padding: 10px 10px;
-        margin: 10px -10px;
+        margin: 10px 10px 15px 10px;
+        height: 40PX;
     }
 
     select::-ms-expand {
@@ -120,49 +115,10 @@
         display: none;
     }
 
-
-    .signup #pwd {
-        font-family: "Asap", sans-serif;
-        display: block;
-        border-radius: 5px;
-        font-size: 16px;
-        background: #eeeeee;
-        width: 100%;
-        border: 0;
-        padding: 10px 10px;
-        margin: 10px -10px;
-    }
-
-    .signup #checkpwd {
-        font-family: "Asap", sans-serif;
-        display: block;
-        border-radius: 5px;
-        font-size: 16px;
-        background: #eeeeee;
-        width: 100%;
-        border: 0;
-        padding: 10px 10px;
-        margin: 10px -10px;
-    }
-
-
-    .signup #company {
-        font-family: "Asap", sans-serif;
-        display: block;
-        border-radius: 5px;
-        font-size: 16px;
-        background: #eeeeee;
-        width: 100%;
-        border: 0;
-        padding: 10px 10px;
-        margin: 10px -10px;
-    }
-
     .signup p {
-        /* margin-top: 1px; */
         color: #787878;
-        font-size: 1px;
-        /* margin-bottom: 1rem; */
+        font-size: 12px;
+        margin: 0 10px;
     }
 </style>
 
@@ -174,26 +130,20 @@
     <div class="signup">
         <img src="./images/CI.jpg">
         <div name="frm" action="#" id="frm">
-            <!-- <input type="text" class="usid" name="usid" id="usid" check_result="fail" required placeholder="*아이디" />
-            <button type="button" class="id_overlap_button" onclick="id_overlap_check()">중복검사</button>
-            <img id="id_check_sucess" style="display: none;"> -->
-
             <input type="text" class="usid" name="usid" id="usid" check_result="fail" required placeholder="*아이디"/>
           <input type="button" id="btnEmpnoCheck" value="중복체크" />
             <p id="notice"></p>
 
             <input type="password" name="pwd" id="pwd" placeholder="*비밀번호">
-            <!-- <input type="password" name="checkpwd" id="checkpwd" placeholder="*비밀번호 확인"> -->
             <p>* 숫자+영문+특수문자 포함 8자리 이상 입력해야 합니다.</p>
             <select>
                 <option selected>*소속회사</option>
                 <option>업체</option>
                 <option>현업</option>
             </select>
-            <!-- <input type="text" name="company" id="company" placeholder="소속회사"> -->
-            <button id="signUpBtn"><i class="fas fa-save" aria-hidden="true"></i>회원가입</button>
-            <button class="link" onclick="location.reload()"> <i class="fas fa-key"
-                    aria-hidden="true"></i>Login</button>
+            <button id="signUpBtn"><i class="fas fa-save" aria-hidden="true"></i> 회원가입</button>
+            <button id="loginBtn" class="link" onclick="location.reload()"> <i class="fas fa-key"
+                    aria-hidden="true"></i> Login</button>
         </div>
     </div>
 </div>
