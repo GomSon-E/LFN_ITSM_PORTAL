@@ -1425,7 +1425,7 @@ padding-left: 2px;
 .select-icon  .select2-search--dropdown {
 	display: none;
 }
-.select2-results {
+.select2-results [role='alert'] {
 	display: none;
 }
 /*** select2 Hack *********************************************************************************/
