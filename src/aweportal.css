@@ -283,7 +283,7 @@ button {
 	background-color: hsl(0 0% 22%);
 	margin: 0;
 	padding: 0;
-	min-width: 400px;
+	/* min-width: 400px; */
 	display: flex;
 	flex-direction: row;
 	align-content: flex-start;
@@ -549,107 +549,6 @@ button {
 
 #frameTab .APP {
 	background-color: hsl(0 0% 100%);
-}
-
-@media(max-width:768px) {
-
-	#frameGNB .userInfo::before {
-		display: none;
-	}
-
-	#frameGNB .userInfo {
-		top: 70px;	
-		right: -20px;
-		position: absolute;
-	}
-
-	/* 세로화면 */
-	#frameset {
-		flex-wrap: wrap;
-	}
-
-	#frameMain,
-	#frameLeft {
-		width: 100%;
-		margin-top: 0 !important;
-	}
-
-	#frameLeft .frameBtnSet.C,
-	#frameRight .frameBtnSet.C {
-		display: none;
-	}
-
-
-	#frameTab {
-		color: hsl(0 0% 100%);
-		display: -webkit-box;
-		flex-direction: row;
-		height: 60px;
-	
-		padding-top: 13px;
-		background-color: #d7e8fc;
-	
-		overflow-x: overlay;
-		-webkit-overflow-scrolling: touch;
-	}
-	
-	#frameTab::-webkit-scrollbar {
-		width: 0.5vw;
-		height: 7px;
-	}
-	
-	#frameTab::-webkit-scrollbar-thumb {
-		background-color: hsla(219, 97%, 15%, 0.679);
-		border-radius: 100px;
-	}
-	
-	#frameTab a {
-		height: 35px;
-		background-color: #b6d6fa;
-		color: hsl(0 0% 0%);
-		box-shadow: rgb(0 0 0 / 10%) 0 0 0.5rem 0.25rem;
-		line-height: 35px;
-		text-indent: 10px;
-		font-size: 14px;
-		display: grid;
-		grid-auto-flow: column;
-		justify-content: space-between;
-		border-radius: 20px;
-		text-decoration: none;
-		margin-left: 10px;
-		border-right: 1px solid #aaaaaa;
-		box-shadow: none;
-		margin-bottom: 10px;
-	}
-	
-	
-	#frameTab a.active {
-		background-color: white;
-		color: black;
-	}
-	
-	#frameTab a div {
-		overflow: hidden;
-		text-overflow: ellipsis;
-		display: -webkit-box;
-		-webkit-line-clamp: 1;
-		-webkit-box-orient: vertical;
-		word-wrap: break-word;
-		width: 110px;
-	}
-	
-	#frameTab a i {
-		width: 30px;
-		height: 35px;
-		text-align: center;
-		line-height: 35px;
-		color: hsl(0 0% 30%);
-		cursor: pointer;
-	}
-	
-	#frameTab .APP {
-		background-color: hsl(0 0% 100%);
-	}
 }
 
 .hidden {
@@ -1142,3 +1041,52 @@ button {
 
 
 /* frameApp ***************************************************************************/
+
+
+/*************************************** 모바일 사이즈 ***************************************/
+
+@media(max-width:768px) {
+
+	#frameGNB .userInfo::before {
+		display: none;
+	}
+
+	/* 세로화면 */
+	#frameset {
+		flex-wrap: wrap;
+	}
+
+	#frameMain,
+	#frameLeft {
+		margin-top: 0 !important;
+	}
+
+	#frameLeft .frameBtnSet.C {
+		display: none;
+	}
+
+
+	#frameTab {	
+		padding-top: 0px;
+	}
+	
+	#frameTab a {
+		height: 35px;
+		background-color: #b6d6fa;
+		line-height: 35px;
+		border-radius: 20px;
+		margin-left: 10px;
+		box-shadow: none;
+		margin-top: 6px;
+	}
+	
+	#frameTab a div {
+		width: 110px;
+	}
+	
+	#frameTab a i {
+		height: 35px;
+		line-height: 35px;
+	}
+
+}
