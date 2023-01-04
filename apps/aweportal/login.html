@@ -85,21 +85,19 @@
 
 
   #logsave {
-    margin-bottom: 5px;
+    margin-bottom: 12px;
     width: 95%;
     height: auto;
-
-
   }
 
-  #logsave #idSaveCheck {
+  #logsave #idSave {
     float: right;
-    margin-top: 13px;
+    height: 25px;
+    line-height: 25px;
   }
 
-  #logsave p {
-    float: right;
-    margin-top: 8px;
+  #logsave #idSave input {
+    vertical-align: middle;
   }
 
   .login button {
@@ -117,6 +115,10 @@
     -moz-transition: background-color 300ms;
     transition: background-color 300ms;
   }
+
+ #btn {
+  width: 120px;
+ }
 
   .login>button:hover {
     background-color: #8ebcf5;
@@ -198,13 +200,16 @@
         <input type="password" id="loginpwd" placeholder="비밀번호">
         <div id="logsave">
           <button><i class="fas fa-key" aria-hidden="true"></i> Login</button>
-          <p>아이디 저장</p> <input type="checkbox" id="idSaveCheck">
+          <div id="idSave">
+            <input type="checkbox" id="idSaveCheck">
+            아이디 저장
+          </div>
         </div>
       </div>
     </div>
     <!-- 비밀번호 초기화 -->
-    <button><i id="btn2" href="#" class="signUp">회원가입</i></button>
-    <button><i id="btn" href="#" class="pwdClear">비밀번호 초기화</i></button>
+    <button id="btn2" class="signUp">회원가입</button>
+    <button id="btn" class="pwdClear">비밀번호 초기화</button>
 
     <div id="Outer">
       <div id='pwdclearform'>
