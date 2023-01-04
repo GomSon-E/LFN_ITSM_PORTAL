@@ -348,11 +348,13 @@ body {
 }
 
 .componentFunc{
-
+	display: flex;
+    flex-direction: row;
 }
 .componentFunc > .quickGuide{
-	font-size: 1.25em;
-	font-weight: 500;
+	font-size: 1.2em;
+    font-weight: 500;
+    margin: auto 1em auto 0;
 }
 .componentFunc  > input{
 	height: 100%;
@@ -1067,58 +1069,16 @@ span.cell-deleted {
 
 
 /* CheckBox */
-.aweForm > div.awecbx > .label{
-	text-align: center;
+.aweForm > div.awecbx{
+    
 }
-.aweForm > div.awecbx > .aweInputWrap{
-	border: none;
-	flex: none;
+.aweForm > div.awecbx > .aweInputWrap.awecbx{
+    border: none;
 }
-.aweForm > div.awecbx > .aweInputWrap > span{
-	margin: auto;
+.aweForm > div.awecbx > .aweInputWrap.awecbx > input{
+    
 }
-.aweForm > div.awecbx > .aweInputWrap > label{
-	margin-left: auto; margin-right: auto;
-}
-.aweForm > div.awecbx > .aweInputWrap > input[type=checkbox]{
-	display: none;
-}
-.aweForm > div.awecbx > .aweInputWrap > input[type="checkbox"] + label {
-	display: block;
-	position: relative;
-	width: 3.3em;
-    height: 2em;
-	border: 2px solid gray;
-	border-radius: 1em;
-	background: #f3f3f3;
-	/* box-shadow: inset 0px 0px 3px 1px rgba(0, 0, 0, 0.3); */
-	cursor: pointer;
-	-webkit-transition: background 0.1s ease-in-out;
-	transition: background 0.1s ease-in-out;
-}
-.aweForm > div.awecbx > .aweInputWrap > input[type="checkbox"] + label::before {
-	content: "";
-	display: block;
-	width: 1.2em;
-	height: 1.2em;
-	border-radius: 1em;
-	background: #50565a;
-	/* box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.2); */
-	position: absolute;
-	left: 0.2em;
-	top: 0.23em;
-	-webkit-transition: all 0.2s ease-in-out;
-	transition: all 0.2s ease-in-out;
-}
-.aweForm > div.awecbx > .aweInputWrap > input[type="checkbox"]:checked + label {
-	background: #fff;
-	border: 2px solid rgb(30, 122, 225);
-}
-.aweForm > div.awecbx > .aweInputWrap > input[type="checkbox"]:checked + label::before {
-	background: rgb(30, 122, 225);
-	/* box-shadow: -2px 0px 5px rgba(0, 0, 0, 0.2); */
-	left: 1.6em;
-}
+
 
 /* Date */
 .aweForm > div.awedate > .aweInputWrap > input {
@@ -1206,45 +1166,16 @@ span.cell-deleted {
 
 /* FieldSet */
 .aweForm > fieldset{
-	flex: 1 1 0;
-	border: 1px solid gray;
-	border-radius: 10px;
-	padding: 0.5em;
-	display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
+	width: 100%;
+    border: 0.5px solid gray;
+    border-radius: 10px;
+    padding: 0.5em;
+}
+.aweForm > fieldset > legend{
+
 }
 .aweForm > fieldset > div{
-	padding-right: 0.5em;
-}
-.aweForm > fieldset > div > .aweInputWrap{
-	height: 2.5em;
-}
-.aweForm > fieldset > div > .aweInputWrap > i{
-	
-}
-.aweForm > fieldset > div > .aweInputWrap > input{
-	height: 100%;
-	padding-left: 0.5em;
-}
-.aweForm > fieldset > div > .aweInputWrap > input[type=date]{
-	font-size: 1em;
-}
-.aweForm > fieldset > div > .aweInputWrap > input[type=month]{
-	font-size: 1em;
-}
-.aweForm > fieldset > div > .aweInputWrap > input:focus{
-	outline: none;
-}
-.aweForm > fieldset > div > .aweInputWrap > select{
-	height: 100%;
-	padding-left: 0.5em;
-}
-.aweForm > fieldset > div > .aweInputWrap > select:focus{
-	outline: none;
-}
-.aweForm > fieldset > div > .aweInputWrap > span{
-	padding-left: 0.5em;
+
 }
 
 /* 옵션 이벤트 */
@@ -1263,8 +1194,6 @@ span.cell-deleted {
 .aweForm > div > .aweInputWrap > select.center{
 	text-align: center;
 }
-
-
 .aweForm > div.aweimg > .imgEdit {
 	position: absolute;
 	/* left: calc(50% + 10em - 7em);
@@ -1601,48 +1530,56 @@ padding-left: 2px;
 
 
 /* thead */
-.framepage table.calendar > thead {
+.aweCalendar > table.calendar > thead {
 	padding: 0.5em 0em;
 }
-.framepage table.calendar > thead > tr {
+.aweCalendar > table.calendar > thead > tr {
 	background-color: #d7e8fc;
 }
-.framepage table.calendar > thead > tr > th{
+.aweCalendar > table.calendar > thead > tr > th{
 	padding: 0.5em 0em;
 	border: 0.5px solid lightgray;
 }
 
 /* tbody */
-.framepage table.calendar > tbody > tr > td {
+.aweCalendar > table.calendar > tbody > tr > td {
 	border: 0.5px solid lightgray;
 	vertical-align: baseline;
 	width: 2em;
 }
-.framepage table.calendar > tbody > tr > td:hover {
+.aweCalendar > table.calendar > tbody > tr > td > div > b{
+	
+}
+.aweCalendar > table.calendar > tbody > tr > td > div > c{
+	font-size: 1em;
+    padding-left: 0.5em;
+	display: inline-block;
+}
+.aweCalendar > table.calendar > tbody > tr > td:hover {
 	border: 0.05px solid rgb(20, 122, 225);
 	background-color: rgba(20, 122, 225, 0.05);
 }
-.framepage table.calendar > tbody > tr > td:nth-child(1) > div > b {
+.aweCalendar > table.calendar > tbody > tr > td:nth-child(1) > div > b {
 	/* background-color: rgba(20, 122, 225, 0.05); */
 	color: red;
 }
-.framepage table.calendar > tbody > tr > td:last-child > div > b {
+.aweCalendar > table.calendar > tbody > tr > td:last-child > div > b {
 	/* background-color: rgba(20, 122, 225, 0.05); */
 	color: blue;
 }
-.framepage table.calendar > tbody > tr > td > div{
+.aweCalendar > table.calendar > tbody > tr > td > div{
 	padding: 0.5em 0em 0em 0.5em;
 }
-.framepage table.calendar > tbody > tr > td.prevMon {
+.aweCalendar > table.calendar > tbody > tr > td.prevMon {
 	background: rgba(0, 0, 0, 0.05);
 }
-.framepage table.calendar > tbody > tr > td.prevMon > div > b {
+.aweCalendar > table.calendar > tbody > tr > td.prevMon > div > b {
 	color: gray;
 }
-.framepage table.calendar > tbody > tr > td.nextMon {
+.aweCalendar > table.calendar > tbody > tr > td.nextMon {
 	background: rgba(0, 0, 0, 0.05);
 }
-.framepage table.calendar > tbody > tr > td.nextMon > div > b {
+.aweCalendar > table.calendar > tbody > tr > td.nextMon > div > b {
 	color: gray;
 }
 
