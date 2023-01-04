@@ -503,9 +503,13 @@
                     $(".toggle > i").toggleClass("fa-toggle-on")
                     if ($(".toggle > i").hasClass("fa-toggle-on")) {
                         $(".framepage.active").css("height", "calc(100vh - 80px)")
+                        $(".framepage.active[pgmid='workbench'] .pageContentSide").css("height","calc(100vh - 13em)");
+                        $(".framepage.active[pgmid='workbench'] .pageContentMain").css("height","calc(100vh - 13em)");
                     } 
                     else {
                         $(".framepage.active").css("height", "calc(100vh - 125px)")
+                        $(".framepage.active[pgmid='workbench'] .pageContentSide").css("height","calc(100vh - 17em)");
+                        $(".framepage.active[pgmid='workbench'] .pageContentMain").css("height","calc(100vh - 17em)");
                     }
                     $("#frameTab").toggle();
                 }

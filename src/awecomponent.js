@@ -895,6 +895,10 @@ function gfnComponent( pageId, containerId, componentDef, afnEH, page ) {
 						var w1 = nvl(trim(colinfo.w.split(":")[1]), 100);
 						grpcontainer.css("flex-basis", `${w0}%`);
 						aweInputWrap.css("flex-basis", `${w1}%`);
+						if(w1 == 'flex'){
+							aweInputWrap.css("flex", `1 1 0`);
+						}
+
 					}
 				}
 
@@ -3612,11 +3616,11 @@ function gfnControl(colinfo, afnEH, oComponent, rowid, val, rowPinned, agHack) {
 						setTimeout(function(control,bMulti){$(control).select2({
 							multiple: true,
 							closeOnSelect : false,
-							dropdownAutoWidth : true 
+							// dropdownAutoWidth : true 
 						})},5,me.obj);
 					} else {
 						setTimeout(function(control,bMulti){$(control).select2({
-							dropdownAutoWidth : true 
+							// dropdownAutoWidth : true 
 						})},5,me.obj);
 					}
 					} 
