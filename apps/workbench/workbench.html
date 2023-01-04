@@ -1266,7 +1266,7 @@ if("${row.funcid}".equals(func)) {
                 // T_PGM_** TABLE에 저장
                 gfnTx(appid+"."+pgmid,"deploySpec", {INVAR:invar}, function(OUTVAR){
                     if(OUTVAR.rtnCd=="OK") {
-                        gfnAlert("배포성공","WEB/WAS경로에 배포되었습니다.");
+                        gfnStatus("WEB/WAS경로에 배포되었습니다.");
                         // apps\ 경로에 html, jsp 파일 생성
                         me.fnDeployFile();    
                     } else {
