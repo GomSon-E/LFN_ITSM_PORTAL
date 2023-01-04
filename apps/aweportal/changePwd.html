@@ -1,45 +1,139 @@
+<!-- css start -->
 <style>
-/* [pgmid='changePwd'].framepage {
-    max-width: 1000px;
-    max-height: 1000px;
-    margin-left:300px;
-    margin-top: 5px;
-} */
+[pgmid='changePwd'].framepage { 
+    width:100%;
+}
+[pgmid='changePwd'].framepage>.pageContent>#list{
+    display:block;
+}
 
-/* [pgmid='changePwd'].framepage .pageContent { 
+
+
+
+
+[pgmid='changePwd'].framepage> .pageContent>#list>.aweForm > div > .label{
+    text-align: center;
+}
+
+
+
+[pgmid='changePwd'].framepage> .pageContent>#list>.aweForm > div.aweraw > .aweInputWrap{
+        text-align: center;
+    display: inherit;
+    background:none;
+}
+
+
+[pgmid='changePwd'].framepage> .pageContent>#list>.aweForm > div.aweraw > .aweInputWrap>.ag-cell span, .aweCol{
+    background:transparent;
+    color:gray;
+}
+
+
+[pgmid='changePwd'].framepage> .pageContent>#list>.aweForm {
+    background: #d7e8fc;
+    height: 300px;
+    display: flex;
     align-content: center;
-    justify-content: center;
-    align-items: center;
+    width: 1000px;
+    margin: 0 auto;
+    border-radius: 20px;
+    padding: 180px;
 }
 
-[pgmid='changePwd'].framepage #list {
-    max-width: 400px;
-    max-height: 400px;
+[pgmid='changePwd'].framepage> .pageContent>#list>.aweForm > div:first-child{
+    margin-bottom: 5px;
+    display: block;
 }
 
-[pgmid='changePwd'].framepage #list .colgrp {
-    height: 3em;
+
+[pgmid='changePwd'].framepage> .pageContent>#list>.aweForm > div:first-child>.label{
+background: #58aafc;
+    width: fit-content;
+    margin: 10px auto;
+    padding: 10px;
+    border-radius: 20px;
+    color: white;
 }
-*/
-[pgmid='changePwd'].framepage #list label {
-    flex: 0 0 9em;
-} 
+
+
+/*변경 비밀번호*/
+
+[pgmid='changePwd'].framepage> .pageContent>#list>.aweForm > div:nth-child(2){
+    text-align:center;
+    display: inline;
+}
+[pgmid='changePwd'].framepage> .pageContent>#list>.aweForm > div:nth-child(2)>.label{
+    display: inline;
+    margin-right: 10px;
+}
+
+[pgmid='changePwd'].framepage> .pageContent>#list>.aweForm > div:nth-child(2)>.aweInputWrap{
+     display: inline;
+    width: 200px;
+    border: 1px solid lightgray;
+    padding: 5px;
+    line-height: 3em; 
+}
+
+[pgmid='changePwd'].framepage> .pageContent>#list>.aweForm > div:nth-child(2)>.aweInputWrap>input{
+    width:200px;
+}
+
+/*비밀번호확인*/
+
+[pgmid='changePwd'].framepage> .pageContent>#list>.aweForm > div:nth-child(3){
+    text-align:center;
+    display: inline;
+}
+[pgmid='changePwd'].framepage> .pageContent>#list>.aweForm > div:nth-child(3)>.label{
+    display: inline;
+    margin-right: 10px;
+}
+
+[pgmid='changePwd'].framepage> .pageContent>#list>.aweForm > div:nth-child(3)>.aweInputWrap{
+display: inline;
+    width: 200px;
+    border: 1px solid lightgray;
+    padding: 5px;
+    line-height: 3em;
+}
+
+[pgmid='changePwd'].framepage> .pageContent>#list>.aweForm > div:nth-child(3)>.aweInputWrap>input{
+    width:200px;
+}
+
+
+[pgmid='changePwd'].framepage> .pageContent>#list>.aweForm > div:nth-child(4)>.label{
+    display:none;
+}
+
+
+[pgmid='changePwd'].framepage> .pageContent>#list>.aweForm > div:nth-child(4)>.aweInputWrap{
+margin-left: 137px;
+}
+
+[pgmid='changePwd'].framepage> .pageContent>#list>.aweForm > div:nth-child(3)>div:nth-child(3){
+    border: none;
+    font-weight: bold;
+    color: gray;
+    background:transparent;
+    margin-left: 230px;
+}
 </style>
 
-<!-- HTML autogen start ---------------------------------------------- -->            
+<!-- html start -->
 <div class="pageNav"></div>
 <div class="pageTop"></div>
 <div class="pageCond"></div>
-<div class="pageGuide"></div>
 <div class="pageContent">
-    <div id="list"></div>
+        <div id='list'></div>
 </div>
 <script	src="https://cdnjs.cloudflare.com/ajax/libs/js-sha256/0.9.0/sha256.min.js"></script>
 <script type="text/javascript" src="/lib/jquery/core.min.js"></script>
 <script type="text/javascript" src="/lib/jquery/sha256.min.js"></script>
-<!-- HTML autogen end ---------------------------------------------- -->
 <script>
-/*-- SCRIPT autogen start ---------------------------------------------- */        
+/*-- _script(자동생성1) start ---------------------------------------------- */        
 $(function() {
     var appid = "aweportal";
     var pgmid = "changePwd"; 
@@ -60,23 +154,21 @@ $(function() {
         me.dataDef = dataDef;
         me.pageObj = pageObj;
         me.bEdit = bEdit;
-me.dataDef["_pgm"]={"ver":2.2,"upd_dt":"2022-10-12 15:53:43","remark":"로그인 한 사용자의 비밀번호를 변경한다.\n변경방식: 현 비밀번호, 변경비밀번호, 비밀번호확인 입력","pgmid":"changePwd","proc_mst_id":"","pgm_stat":"Y","sort_seq":3,"app_pgmid":"aweportal","shortcut":"","reg_dt":"2022-10-12 15:53:43","reg_usid":"mjw","pgm_nm":"비밀번호 변경","upd_usid":"mjw","pgm_tp":"UX","pgm_grp_nm":"사용자","proc_mst_nm":"","app_pgm_nm":"FO Portal","":"트랜젝션(메뉴)","crud":""};
-me.dataDef["_pgm_func"]=[{"func_icon":"fas fa-save","reg_dt":"2022-10-12 15:53:43","reg_usid":"","func_nm":"저장","upd_usid":"","upd_dt":"2022-10-12 15:53:43","func_tp":"DB_W","remark":"비밀번호는 숫자+영문+특수문자 포함 8자리 이상 입력해야 합니다.","pgmid":"changePwd","sort_seq":"1","funcid":"save","content":"비밀번호 변경정보를 저장한다.","crud":"R","id":"0"}];
+me.dataDef["_pgm"]={"ver":2.5,"upd_dt":"2023-01-04 09:53:25","remark":"로그인 한 사용자의 비밀번호를 변경한다.\n변경방식: 현 비밀번호, 변경비밀번호, 비밀번호확인 입력","pgmid":"changePwd","proc_mst_id":"","pgm_stat":"Y","sort_seq":3,"app_pgmid":"aweportal","shortcut":"","reg_dt":"2022-10-12 16:47:50","reg_usid":"mjw","pgm_nm":"비밀번호 변경","upd_usid":"youjungson89","pgm_tp":"UX","pgm_grp_nm":"사용자","proc_mst_nm":"","":"트랜젝션(메뉴)","app_pgm_nm":"FO Portal","crud":""};
+me.dataDef["_pgm_func"]=[{"func_icon":"fas fa-save","ver":"2.55","func_nm":"저장","upd_dt":"","func_tp":"DB_W","remark":null,"pgmid":"changePwd","sort_seq":"1","funcid":"save","content":null,"reg_dt":"","reg_usid":"","upd_usid":"","crud":"R","id":"0"}];
 me.dataDef["_pgm_data"] = {};
-me.dataDef["_pgm_data"]["list"]={"sort_seq":"1","data_id":"list","data_nm":"비밀번호변경","data_icon":null,"component_pgmid":"aweForm","component_option":{"height":"2.5em","gridOpt":"rn chk","gridOptions":{"statusBar":"false"}},"inout_tp":"IN","content":[
-    {"sort_seq":1,"section":null,"section_icon":null,"colgrp":null,"colid":"pwd","colnm":"변경 비밀번호","dtype":"text","etype":"pwd","attr":"keycol","len":16,"defval":null,"refcd":null,"option":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","w":null,"h":null,"id":"0"},
-    {"sort_seq":2,"section":null,"section_icon":null,"colgrp":null,"colid":"checkpwd","colnm":"비밀번호 확인","dtype":"text","etype":"pwd","attr":"keycol ","len":16,"defval":null,"refcd":null,"option":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C","w":null,"h":null,"id":"1"}]};
+me.dataDef["_pgm_data"]["list"]={"sort_seq":"1","data_id":"list","data_nm":"비밀번호변경","component_pgmid":"aweForm","inout_tp":"IN","content":[{"sort_seq":null,"section":null,"section_icon":null,"colgrp":"● 비밀번호 가이드","colid":"compasG1","colnm":"비밀번호 가이드1","dtype":"text","etype":"raw","attr":null,"defval":null,"w":"50","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":"* 안전한 비밀번호로 내 정보를 보호하세요.","crud":"C"},{"sort_seq":null,"section":null,"section_icon":null,"colgrp":"● 비밀번호 가이드","colid":"compasG2","colnm":"비밀번호 가이드2","dtype":"text","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":"* 다른 아이디/사이트에서 사용한적 없는 비밀번호","crud":"C"},{"sort_seq":null,"section":null,"section_icon":null,"colgrp":"● 비밀번호 가이드","colid":"compasG3","colnm":"비밀번호 가이드3","dtype":"text","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":"* 이전에 사용한 적 없는 비밀번호가 안전합니다.","crud":"C"},{"sort_seq":null,"section":null,"section_icon":null,"colgrp":null,"colid":"pwd","colnm":"변경 비밀번호","dtype":"text","etype":"pwd","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":16,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":"변경 비밀번호","crud":"C"},{"sort_seq":null,"section":null,"section_icon":null,"colgrp":null,"colid":"checkpwd","colnm":"비밀번호 확인","dtype":"text","etype":"pwd","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":16,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":"비밀번호 확인","crud":"C"},{"sort_seq":null,"section":null,"section_icon":null,"colgrp":null,"colid":"compasG4","colnm":"비밀번호가이드","dtype":"text","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":"* 비밀번호는 숫자+영문+특수문자 포함 8자리 이상 입력해야 합니다.","crud":"C"}],"data_icon":null,"component_option":{"height":"2.5em","gridOpt":"rn chk","gridOptions":{"statusBar":"false"}}};
 
-        me.pageObj["_page"] = new gfnFramepage( me ); 
-        for(var component_id in me.dataDef["_pgm_data"]) { 
-            me.pageObj[component_id] = new gfnComponent( me.pageid, component_id, me.dataDef["_pgm_data"][component_id], me.fnEH, me); 
-        }  
-        setTimeout(function(){
-            $("#frameset").scrollTo(0); //스크롤 
-        },10);
-        if(typeof(me.fnInitExtra)=='function') me.fnInitExtra(); 
-    } 
-/*-- SCRIPT autogen end ---------------------------------------------- */
+    me.pageObj["_page"] = new gfnFramepage( me ); 
+    for(var component_id in me.dataDef["_pgm_data"]) { 
+        me.pageObj[component_id] = new gfnComponent( me.pageid, component_id, me.dataDef["_pgm_data"][component_id], me.fnEH, me); 
+    }  
+    setTimeout(function(){
+        $("#frameset").scrollTo(0); //스크롤 
+    },10);
+    if(typeof(me.fnInitExtra)=='function') me.fnInitExtra(); 
+}
+/*-- script(개발자작성) start ---------------------------------------------------- */ 
 /* 사용자초기화 */
     me.fnInitExtra=function() { 
     }
@@ -140,7 +232,7 @@ me.dataDef["_pgm_data"]["list"]={"sort_seq":"1","data_id":"list","data_nm":"비�
     }
 
 
-/*-- SCRIPT autogen ---------------------------------------------------- */        
+/*-- _script2(자동생성2) start ---------------------------------------------------- */        
 if(typeof(me.fnInit)=='function') me.fnInit();
 });
 

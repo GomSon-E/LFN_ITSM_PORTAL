@@ -157,12 +157,13 @@
         padding: 10px 10px;
         margin: 20px -10px;
     }
+
     .signup p {
-    /* margin-top: 1px; */
-    color: #787878;
-    font-size: 1px;
-    /* margin-bottom: 1rem; */
-}
+        /* margin-top: 1px; */
+        color: #787878;
+        font-size: 1px;
+        /* margin-bottom: 1rem; */
+    }
 </style>
 
 <!-- html start -->
@@ -173,7 +174,14 @@
     <div class="signup">
         <img src="./images/CI.jpg">
         <div name="frm" action="#" id="frm">
-            <input type="text" name="usid" id="usid" placeholder="*아이디">
+            <input type="text" class="usid" name="usid" id="usid" check_result="fail" required placeholder="*아이디" />
+            <button type="button" class="id_overlap_button" onclick="id_overlap_check()">중복검사</button>
+            <img id="id_check_sucess" style="display: none;">
+            <!-- <div class="input_id"> 
+            <input type="text" name="usid" id="usid" onkeydown="inputIdChk" placeholder="*아이디">
+            <button type="button" onclick="fn_dbCheckId()" name="dbCheckId" class="checkId">중복확인</button>
+            <input type="hidden" name="idDuplication" value="idUnCheck">
+            </div> -->
             <input type="password" name="pwd" id="pwd" placeholder="*비밀번호">
             <input type="password" name="checkpwd" id="checkpwd" placeholder="*비밀번호 확인">
             <p>* 숫자+영문+특수문자 포함 8자리 이상 입력해야 합니다.</p>
@@ -250,7 +258,11 @@
         }
 
         //회원가입
-
+        $('.usid').change(function () {
+            $('#id_check_sucess').hide();
+            $('.id_overlap_button').show();
+            $('.usid').attr("check_result", "fail");
+        })
 
 
         //회원가입 저장
@@ -260,6 +272,11 @@
             if ($("#usid").val() == "") {
                 alert("아이디를 입력하세요.");
                 $("#usid").focus();
+                return false;
+            }
+            if ($('.usid').attr("check_result") == "fail") {
+                alert("아이디 중복체크를 해주시기 바랍니다.");
+                $('.usid').focus();
                 return false;
             }
             if ($("#pwd").val() == "") {
@@ -285,7 +302,7 @@
         //save:저장 
         me.fnSave = function () {
 
-        console.dir("fnSave" + ":" + invar);
+            console.dir("fnSave" + ":" + invar);
             gfnConfirm("회원가입 확인", " 회원가입 하시겠습니까?", function (bConfirm) {
                 // if (!me.pageObj["frm"].chkVal'id()) return;
                 // var args = me.pageObj["frm"].exportData()[0];
