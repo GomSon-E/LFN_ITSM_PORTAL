@@ -100,7 +100,7 @@
     vertical-align: middle;
   }
 
-  button {
+  .loginBtns {
     font-family: "Asap", sans-serif;
     cursor: pointer;
     color: #fff;
@@ -120,7 +120,7 @@
   width: 120px;
  }
 
-  button:hover {
+ .loginBtns:hover {
     background-color: #8ebcf5;
   }
 
@@ -199,7 +199,7 @@
         <input type="text" id="userid" placeholder="로그인 계정(사번)">
         <input type="password" id="loginpwd" placeholder="비밀번호">
         <div id="logsave">
-          <button><i class="fas fa-key" aria-hidden="true"></i> Login</button>
+          <button class="loginBtns"><i class="fas fa-key" aria-hidden="true"></i> Login</button>
           <div id="idSave">
             <input type="checkbox" id="idSaveCheck">
             아이디 저장
@@ -208,22 +208,22 @@
       </div>
     </div>
     <!-- 비밀번호 초기화 -->
-    <button id="btn2" class="signUp">회원가입</button>
-    <button id="btn" class="pwdClear">비밀번호 초기화</button>
+    <button id="btn2" class="signUp loginBtns">회원가입</button>
+    <button id="btn" class="pwdClear loginBtns">비밀번호 초기화</button>
 
     <div id="Outer">
       <div id='pwdclearform'>
         <p>아이디를 입력하면 비밀번호 초기화 메세지가 발송됩니다.</p>
         <label>아이디</label>
         <input type="text" id="checkId" placeholder="ID">
-        <button id="pwClearBtn"><i class="fas fa-save" aria-hidden="true"></i>메세지 발송</button>
+        <button id="pwClearBtn" class="loginBtns"><i class="fas fa-save" aria-hidden="true"></i>메세지 발송</button>
       </div>
 
       <div id='pwdclearform2'>
         <p>이메일을 입력하면 비밀번호 초기화 메일이 발송됩니다.</p>
         <label>이메일</label>
         <input type="text" id="checkMail" placeholder="example@lfnetworks.co.kr">
-        <button id="pwClearBtn2"><i class="fas fa-save" aria-hidden="true"></i>메일 발송</button>
+        <button id="pwClearBtn2" class="loginBtns"><i class="fas fa-save" aria-hidden="true"></i>메일 발송</button>
       </div>
     </div>
   </div>
@@ -234,47 +234,43 @@
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sha256/0.9.0/sha256.min.js"></script>
   <script type="text/javascript" src="/lib/jquery/core.min.js"></script>
-  <script type="text/javascript" src="/lib/jquery/sha256.min.js"></script>
-  <!-- HTML autogen end ---------------------------------------------- -->
-  <script>
-    /*-- SCRIPT autogen start ---------------------------------------------- */
-    $(function () {
-      var appid = "aweportal";
-      var pgmid = "login";
-      var page = $("*[pgmid='" + pgmid + "'].framepage").last();
-      var pageid = page.attr("id");
-      var me = {}
-      var dataSet = {};
-      var dataDef = {};
-      var pageObj = {};
-      var bEdit = false;
-      me.fnInit = function () {
-        gfn[pageid] = me;
-        me.appid = appid;
-        me.pgmid = pgmid;
-        me.pageid = pageid;
-        me.page = page;
+<script>
+/*-- _script(자동생성1) start ---------------------------------------------- */        
+$(function() {
+    var appid = "ITSM";
+    var pgmid = "login"; 
+    var page = $("*[pgmid='"+pgmid+"'].framepage").last();
+    var pageid = page.attr("id"); 
+    var me = {}
+    var dataSet = {};
+    var dataDef = {};
+    var pageObj = {};
+    var bEdit = false;
+    me.fnInit = function() {
+        gfn[pageid] = me; 
+        me.appid    = appid;
+        me.pgmid    = pgmid;
+        me.pageid   = pageid;
+        me.page     = page; 
         me.dataSet = dataSet;
         me.dataDef = dataDef;
         me.pageObj = pageObj;
         me.bEdit = bEdit;
-        me.dataDef["_pgm"] = { "ver": 1.8, "upd_dt": "2022-09-27 08:37:59", "remark": "", "pgmid": "login", "proc_mst_id": "", "pgm_stat": "Y", "sort_seq": 91, "app_pgmid": "aweportal", "shortcut": "", "reg_dt": "2022-09-04 20:55:28", "reg_usid": "kihyunlee", "pgm_nm": "로그인", "upd_usid": "kihyunlee", "pgm_tp": "TX", "pgm_grp_nm": "공통", "proc_mst_nm": "", "app_pgm_nm": "FO Portal", "": "트랜젝션(화면)", "crud": "" };
-        me.dataDef["_pgm_func"] = [
-          { "func_icon": "fas fa-save", "reg_dt": "2022-08-04 23:01:25", "reg_usid": "", "func_nm": "비밀번호 재설정 전송", "upd_usid": "", "upd_dt": "2022-08-04 23:01:25", "func_tp": "DB_W", "remark": "작성한 신규 알림을 알림 메세지 혹은 팝업과 함께 전송합니다.", "pgmid": "registerAlert", "sort_seq": "3", "funcid": "save", "content": "비밀번호 재설정", "crud": "R", "id": "2" }];
-        me.dataDef["_pgm_data"] = {};
+me.dataDef["_pgm"]={"ver":2,"upd_dt":"2023-01-05 14:24:51","remark":"","pgmid":"login","proc_mst_id":"","pgm_stat":"Y","sort_seq":null,"app_pgmid":"ITSM","shortcut":"","reg_dt":"2022-10-12 16:46:05","reg_usid":"jjr","pgm_nm":"로그인","upd_usid":"jhk","pgm_tp":"TX","pgm_grp_nm":"공통","proc_mst_nm":"","":"트랜젝션(화면)","app_pgm_nm":"ITSM","crud":""};
+me.dataDef["_pgm_func"]=[];
+me.dataDef["_pgm_data"] = {};
 
-        me.pageObj["_page"] = new gfnFramepage(me);
-        for (var component_id in me.dataDef["_pgm_data"]) {
-          me.pageObj[component_id] = new gfnComponent(me.pageid, component_id, me.dataDef["_pgm_data"][component_id], me.fnEH, me);
-        }
-        setTimeout(function () {
-          $("#frameset").scrollTo(0); //스크롤 
-        }, 10);
-        if (typeof (me.fnInitExtra) == 'function') me.fnInitExtra();
-      }
-      /*-- SCRIPT autogen end ---------------------------------------------- */
-
-      /* 사용자초기화 */
+    me.pageObj["_page"] = new gfnFramepage( me ); 
+    for(var component_id in me.dataDef["_pgm_data"]) { 
+        me.pageObj[component_id] = new gfnComponent( me.pageid, component_id, me.dataDef["_pgm_data"][component_id], me.fnEH, me); 
+    }  
+    setTimeout(function(){
+        $("#frameset").scrollTo(0); //스크롤 
+    },10);
+    if(typeof(me.fnInitExtra)=='function') me.fnInitExtra(); 
+}
+/*-- script(개발자작성) start ---------------------------------------------------- */ 
+ /* 사용자초기화 */
       me.fnInitExtra = function () {
         page = $("*[pgmid='login']");
         //쿠키 아이디 세팅
@@ -392,7 +388,7 @@
           console.log(OUTVAR);
           if (OUTVAR.rtnCd == "OK") {
             gfnAlert("저장성공", "비밀번호가 초기화 되었습니다.");
-            me.fnSearchGrp();
+            // me.fnSearchGrp();
           } else {
             gfnAlert("저장오류", OUTVAR.rtnMsg);
           }
@@ -446,7 +442,7 @@
           console.log(OUTVAR);
           if (OUTVAR.rtnCd == "OK") {
             gfnAlert("저장성공", "비밀번호가 초기화 되었습니다.");
-            me.fnSearchGrp();
+            // me.fnSearchGrp();
           } else {
             gfnAlert("저장오류", OUTVAR.rtnMsg);
           }
@@ -471,9 +467,8 @@
           }, true);
         });
       });
+/*-- _script2(자동생성2) start ---------------------------------------------------- */        
+if(typeof(me.fnInit)=='function') me.fnInit();
+});
 
-      /*-- SCRIPT autogen ---------------------------------------------------- */
-      if (typeof (me.fnInit) == 'function') me.fnInit();
-    });
-
-  </script>
+</script>
