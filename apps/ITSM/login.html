@@ -256,7 +256,7 @@ $(function() {
         me.dataDef = dataDef;
         me.pageObj = pageObj;
         me.bEdit = bEdit;
-me.dataDef["_pgm"]={"ver":1.9,"upd_dt":"2023-01-04 17:27:08","remark":"","pgmid":"login","proc_mst_id":"","pgm_stat":"Y","sort_seq":null,"app_pgmid":"ITSM","shortcut":"","reg_dt":"2022-10-12 16:46:05","reg_usid":"jjr","pgm_nm":"로그인","upd_usid":"jhk","pgm_tp":"TX","pgm_grp_nm":"공통","proc_mst_nm":"","":"트랜젝션(화면)","app_pgm_nm":"ITSM","crud":""};
+me.dataDef["_pgm"]={"ver":1.9,"upd_dt":"2023-01-04 17:28:06","remark":"","pgmid":"login","proc_mst_id":"","pgm_stat":"Y","sort_seq":null,"app_pgmid":"ITSM","shortcut":"","reg_dt":"2022-10-12 16:46:05","reg_usid":"jjr","pgm_nm":"로그인","upd_usid":"jhk","pgm_tp":"TX","pgm_grp_nm":"공통","proc_mst_nm":"","app_pgm_nm":"ITSM","":"트랜젝션(화면)","crud":""};
 me.dataDef["_pgm_func"]=[];
 me.dataDef["_pgm_data"] = {};
 
@@ -462,7 +462,7 @@ me.dataDef["_pgm_data"] = {};
         $("#btn2").click(function () {
           // $("#Outer2").show("swing");
           var oSignup = $("<div></div>")
-          gfnLoad("aweportal", "signup", oSignup, function (OUTVAR) {
+          gfnLoad("ITSM", "signUp", oSignup, function (OUTVAR) {
             $("body").html(oSignup.html());
           }, true);
         });
