@@ -119,7 +119,7 @@ me.dataDef["_pgm_data"]["calendar"]={"sort_seq":"2","data_id":"calendar","data_n
     me.fnSearch=function() { 
         var args = {docTag:"공지사항"};
         var invar = JSON.stringify(args);    
-        gfnTx("aweportal.manageBBS", "selectRecentDoc", {INVAR:invar}, function(OUTVAR){
+        gfnTx("ITSM.manageBBS", "selectRecentDoc", {INVAR:invar}, function(OUTVAR){
             if(OUTVAR.rtnCd=="OK") {
                 me.pageObj["notice"].importData(OUTVAR.list); 
                 if(!isNull(me.pageObj.notice.container) && me.pageObj.notice.container.css("display")!="none") me.pageObj.notice.sizeColumnsToFit();

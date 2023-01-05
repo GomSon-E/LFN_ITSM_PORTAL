@@ -2459,7 +2459,7 @@ function gfnComponent( pageId, containerId, componentDef, afnEH, page ) {
 				me.week_cnt   = nvl(me.calOption.week_cnt,5); 
 				var args = {start_dt:me.start_dt,caltype:me.caltype,week_cnt:me.week_cnt}
 				var invar = JSON.stringify(args);
-				gfnTx("aweportal.manageCal","initCalendar",{INVAR:invar},function(OUTVAR){
+				gfnTx("ITSM.progCal","initCalendar",{INVAR:invar},function(OUTVAR){
 					if(OUTVAR.rtnCd=="OK") {
 						me.calendar = $(me.calendarTemplate);
 						
@@ -2605,7 +2605,7 @@ function gfnComponent( pageId, containerId, componentDef, afnEH, page ) {
 				me.week_cnt   = nvl(me.calOption.week_cnt,5); 
 				var args = {start_dt:me.start_dt,caltype:me.caltype,week_cnt:me.week_cnt}
 				var invar = JSON.stringify(args);
-				gfnTx("aweportal.manageCal","initSalesCalendar",{INVAR:invar},function(OUTVAR){
+				gfnTx("ITSM.progCal","initSalesCalendar",{INVAR:invar},function(OUTVAR){
 					if(OUTVAR.rtnCd=="OK") {
 						me.calendar = $(me.calendarTemplate);
 						me.calendar.find("caption").text( date(me.start_dt,"yyyymmdd","'yy.mm월") ); 
@@ -3785,6 +3785,73 @@ function gfnSetOpts(obj, refcd, option, val) {
     return fnInit(); //초기화 호출
 }
 
+/* 표준코드 검색창을 띄우고 fnCallback을 호출  *****************************************************/
+function gfnSearch(refcd, fnCallback, option, term, bForcerefresh, where) {
+	/*  refcd = 공통코드구분(grpcd값) 또는 popupSearch에 정의한 검색구분
+	            또는 결과셋을 리턴하는 함수 또는 배열
+				* gfnGetData 참조
+	    option = "선택옵션:코드컬럼:명칭컬럼:표시형식:그룹컬럼" 
+		  선택옵션- sel(선택)/multi(다중-pop에서만)/auto(1건 존재시 자동닫힘-pop에서만)
+		  코드컬럼:명칭컬럼 = 값을 리턴받을 컬럼ID
+		  검색컬럼: term이 어떤 컬럼인지 cd(코드)/nm(명칭)/cdnm(코드명칭무관)
+		  그룹컬럼: 그룹핑하여 표시할 경우 그룹컬럼ID
+		term = 검색어
+		fnCallback = 검색어를 검색한 결과를 리턴받을 콜백함수 */
+
+	/* 사용자정의 팝업을 사용하려는 경우 바로 리턴한다. */
+	if(refcd=="mypop") {
+		fnCallback(arguments); //will invoke gfnControl.searchPop  
+		return;
+	}	
+		
+	var options = option.split(":");
+	var optSel = nvl(options[0],"sel");
+	var colcd  = nvl(options[1],"cd");
+	var colnm  = nvl(options[2],"nm");
+	var disp   = nvl(options[3],"cdnm");
+	var colgrp = nvl(options[4],""); 
+	/* 팝업창을 띄운다. */ 
+	var fnOpenPop = function(refcd, list, term, afnCallback, bForcerefresh, where) {
+		if($(".framepage.popupSearch").length > 0) return;
+		var popid =  "search"+gMDI.getNext();
+		var container = $("<div id='"+popid+"' class='framepage popupSearch' style='display:flex;flex-direction:column;'></div>");
+		$("#frameset").append(container);		
+		//검색창을 불러들인 후 팝업창 호출 
+		gParam["refcd"]  = refcd; //검색구분
+		gParam["list"]  = list; //조회해놓은 데이터셋을 던진다. 
+		gParam["optSel"] = optSel; 
+		gParam["colcd"] = colcd;
+		gParam["colnm"] = colnm;
+		gParam["disp"] = disp;
+		gParam["colgrp"] = colgrp; 
+		gParam["term"] = term; //전달된 검색어를 던진다.
+		gParam["bForcerefresh"] = bForcerefresh; //전달된 검색어를 던진다.
+		gParam["where"] = where; //전달된 검색어를 던진다.
+		gfnLoad("aweportal","popupSearch",container,function(){
+			var title = "코드 검색";
+	    	gfn["popupTemp"] = gfnPopup(title, container, {}, afnCallback);
+		},true); 
+	} 
+	/* 데이터를 조회한 후 팝업을 띄운다. */
+	gParam = {}; //검색전 gParam Clear...
+	gfnGetData(refcd, function(list){
+		if(optSel=="auto" && list.length==1) {
+			var rtn = [];
+			for(var i=0; i < list.length; i++) {
+				var row = {};
+				row[colcd] = list[i].cd;
+				row[colnm] = list[i].nm;
+				$.extend(true, row, list[i]);
+				rtn.push(row);
+			}
+			gParam = $.extend(true, gParam, {rtnCd:"OK", rtnData:rtn, colcd:colcd, colnm:colnm});
+			fnCallback(gParam);
+		} else {
+			fnOpenPop(refcd, list, nvl(term,""), fnCallback, bForcerefresh, where);
+		}
+	}, disp, nvl(term,""), bForcerefresh, where);
+} 
+
 /* refcd(grpcd)에 따라 데이터를 조회하고 fnCallback을 호출  ****************************************/	
 function gfnGetData(refcd, fnCallback, disp, term, bForceRefresh, where) { 
 	if($.type(eval2(refcd))=="string") {
@@ -3806,7 +3873,7 @@ function gfnGetData(refcd, fnCallback, disp, term, bForceRefresh, where) {
 			var args = {grpcd:refcd, disp:nvl(disp,"cdnm"), term:nvl(term,"")}; 
 			if(!isNull(where)) args.where = where; 
 			var invar = JSON.stringify(args);
-			gfnTx("aweportal.popupSearch","search",{INVAR:invar},function(OUTVAR){
+			gfnTx("ITSM.popupSearch","search",{INVAR:invar},function(OUTVAR){
 				if(OUTVAR.rtnCd=="OK") {
 					if(isNull(term)) { //검색어가 없이 조회되면 검색결과를 공통코드에 넣어준다.: 다음 호출부터는 공통코드에서 가져오도록 함.
 						if(!isNull(OUTVAR.list) && OUTVAR.list.length < 1001) {

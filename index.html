@@ -104,7 +104,7 @@
 $(function() {
 	//별다른 선언없이 세션만 체크하고 페이지를 로드 
  
-	gfnTx("aweportal.login","sessionCheck",{INVAR:JSON.stringify(gUserinfo)},function(OUTVAR){
+	gfnTx("ITSM.login","sessionCheck",{INVAR:JSON.stringify(gUserinfo)},function(OUTVAR){
 		if(OUTVAR.rtnCd=="OK") {  
 			$("svg").remove(); 
 			if(OUTVAR.session=="Y") {

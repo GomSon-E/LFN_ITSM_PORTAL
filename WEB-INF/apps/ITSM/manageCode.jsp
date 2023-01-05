@@ -4,7 +4,7 @@
 //if (!aweCheck(session)) return;   
 
 JSONObject OUTVAR = new JSONObject(); 
-String appid = "aweportal";
+String appid = "ITSM";
 String pgmid   = "manageCode"; 
 String func  = request.getParameter("func"); 
 String rtnCode    = "OK";

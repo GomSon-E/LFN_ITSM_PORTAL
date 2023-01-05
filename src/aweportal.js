@@ -384,7 +384,7 @@ function gfnShowUserPanel() {
           
 					gMDI.openPage("manageProfile","프로필 관리",function(OUTVAR){ 
 						//do nothing 
-					},"aweportal");
+					},"ITSM");
 					break;
 
 				case "비밀번호 변경" :  

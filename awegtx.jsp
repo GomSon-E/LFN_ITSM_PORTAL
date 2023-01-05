@@ -5,15 +5,6 @@ try {
     String reqPgm = nvl(request.getParameter("pgm"),"");
     String[] pgm = reqPgm.split("\\.");   
 
-    //System.out.println( "sessionUser:" + USERID );
-    // if( !"aweportal.login".equals(reqPgm) && !aweCheck(session) ) {
-    //     JSONObject OUTVAR = new JSONObject();
-    //     OUTVAR.put("rtnCd","ERR");
-    //     OUTVAR.put("rtnMsg","사용자세션이 종료되었습니다. 브라우저의 새탭을 띄워 다시 접속한 후 작업을 계속하세요!");
-    //     out.println(OUTVAR.toString());    
-    //     return;
-    // }
-
     String app = pgm[0]; // aweportal
 	String pgmid = pgm[1]+".jsp"; // fileDownloer
     String func = nvl(request.getParameter("func"),"init");
