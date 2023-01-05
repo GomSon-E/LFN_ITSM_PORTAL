@@ -1,0 +1,194 @@
+<!-- css start -->
+<style>
+[pgmid='userSignUp'].framepage { 
+    width:100%;
+}
+
+/*------------------------*/
+[pgmid='userSignUp'].framepage > .pageContent{
+    padding: 0 5em;
+}
+[pgmid='userSignUp'].framepage > .pageContent > div {
+    margin: auto 0;
+    background: #d7e8fc;
+    height: 40em;
+    display: flex;
+    align-content: center;
+    width: 1000px;
+    /*border-radius: 20px;*/
+}
+[pgmid='userSignUp'].framepage > .pageContent > #profile{
+    flex-basis: 30%;
+    border-radius: 10px 0 0 10px;
+    padding: 1em 0 1em 1em;
+    
+}
+[pgmid='userSignUp'].framepage > .pageContent > #profile > .aweForm{
+    align-content: center;
+}
+[pgmid='userSignUp'].framepage > .pageContent > #profile > .aweForm > .aweimg > .aweimg{
+    border-radius: 70%;
+}
+
+
+[pgmid='userSignUp'].framepage > .pageContent > #form{
+    flex-basis: 35%;
+    border-radius: 0 10px 10px 0;
+    padding: 1em 1em 1em 0;
+}
+[pgmid='userSignUp'].framepage > .pageContent > #form > .aweForm{
+     align-content: space-between;
+}
+[pgmid='userSignUp'].framepage > .pageContent > #form > .aweForm > div > .label{
+    flex-basis: 15%;
+}
+[pgmid='userSignUp'].framepage > .pageContent > #form > .aweForm > div > .aweInputWrap {
+    background-color: #ffffff00;
+    margin-left: 4px;
+}
+[pgmid='userSignUp'].framepage > .pageContent > #form > .aweForm > div > .aweInputWrap > input {
+        padding-left: 0.5em;
+        
+        body {
+  background-color: #efefef;
+}
+
+
+
+/*------------------------*/
+
+
+</style>
+
+<!-- html start -->
+<div class="pageNav"></div>
+<div class="pageTop"></div>
+<div class="pageCond"></div>
+<div class="pageContent">
+    <div id='profile'></div>
+    <div id='form'></div>
+    <input type="file" id="fileSelector" multiple="multiple" style="display: none;"/>
+</div>
+<script>
+/*-- _script(자동생성1) start ---------------------------------------------- */        
+$(function() {
+    var appid = "ITSM";
+    var pgmid = "userSignUp"; 
+    var page = $("*[pgmid='"+pgmid+"'].framepage").last();
+    var pageid = page.attr("id"); 
+    var me = {}
+    var dataSet = {};
+    var dataDef = {};
+    var pageObj = {};
+    var bEdit = false;
+    me.fnInit = function() {
+        gfn[pageid] = me; 
+        me.appid    = appid;
+        me.pgmid    = pgmid;
+        me.pageid   = pageid;
+        me.page     = page; 
+        me.dataSet = dataSet;
+        me.dataDef = dataDef;
+        me.pageObj = pageObj;
+        me.bEdit = bEdit;
+me.dataDef["_pgm"]={"ver":4,"upd_dt":"2023-01-04 11:29:17","remark":"","pgmid":"userSignUp","proc_mst_id":"","pgm_stat":"Y","sort_seq":100,"app_pgmid":"ITSM","shortcut":"","reg_dt":"2022-12-28 11:21:45","reg_usid":"jhk","pgm_nm":"본사 및 지점(임직원)계정생성","upd_usid":"jhk","pgm_tp":"UX","pgm_grp_nm":"IT팀","proc_mst_nm":"","app_pgm_nm":"ITSM","":"트랜젝션(메뉴)","crud":""};
+me.dataDef["_pgm_func"]=[{"func_icon":"fas fa-save","ver":"3.95","func_nm":"저장","upd_dt":"","func_tp":null,"remark":null,"pgmid":"userSignUp","sort_seq":"1","funcid":"save","content":null,"reg_dt":"","reg_usid":"","upd_usid":"","crud":"R","id":"0"}];
+me.dataDef["_pgm_data"] = {};
+me.dataDef["_pgm_data"]["form"]={"sort_seq":"1","data_id":"form","data_nm":"임직원 회원가입","component_pgmid":"aweForm","inout_tp":null,"content":[{"sort_seq":null,"section":null,"section_icon":null,"colgrp":"아이디","colid":"user_id","colnm":"아이디","dtype":"text","etype":"txt","attr":null,"defval":null,"w":":25","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":"아이디를 입력해주세요.","crud":"C"},{"sort_seq":null,"section":null,"section_icon":null,"colgrp":"아이디","colid":"idChkBtn","colnm":"중복확인","dtype":"text","etype":"btn","attr":null,"defval":null,"w":":10","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":null,"section":null,"section_icon":null,"colgrp":null,"colid":"info1","colnm":null,"dtype":"text","etype":"raw","attr":"hidden pk","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":"* 공백 또는 특수문자가 포함된 아이디는 사용하실 수 없습니다.","crud":"C"},{"sort_seq":null,"section":null,"section_icon":null,"colgrp":"비밀번호","colid":"user_pw","colnm":"비밀번호","dtype":"text","etype":"pwd","attr":"hidden ","defval":null,"w":":25","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":"비밀번호","crud":"C"},{"sort_seq":null,"section":null,"section_icon":null,"colgrp":"비밀번호 확인","colid":"user_pwChk","colnm":"비밀번호 확인","dtype":"text","etype":"pwd","attr":"hidden ","defval":null,"w":":25","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":"비밀번호 확인","crud":"C"},{"sort_seq":null,"section":null,"section_icon":null,"colgrp":null,"colid":"info2","colnm":null,"dtype":"text","etype":"raw","attr":"hidden ","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":"* 비밀번호는 숫자+영문+특수문자 포함 8자리 이상 입력해야합니다.","crud":"C"},{"sort_seq":null,"section":null,"section_icon":null,"colgrp":"이름","colid":"user_nm","colnm":"이름","dtype":"text","etype":"txt","attr":null,"defval":null,"w":":25","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":"이름을 입력해주세요.","crud":"C"},{"sort_seq":null,"section":null,"section_icon":null,"colgrp":"전화번호","colid":"user_tel1","colnm":"전화번호1","dtype":"text","etype":"txt","attr":null,"defval":null,"w":":15","h":null,"refcd":null,"option":"dashMark","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":null,"section":null,"section_icon":null,"colgrp":"전화번호","colid":"user_tel2","colnm":"전화번호2","dtype":"text","etype":"txt","attr":null,"defval":null,"w":":15","h":null,"refcd":null,"option":"dashMark","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":null,"section":null,"section_icon":null,"colgrp":"전화번호","colid":"user_tel3","colnm":"전화번호3","dtype":"text","etype":"txt","attr":null,"defval":null,"w":":15","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":null,"section":null,"section_icon":null,"colgrp":"이메일","colid":"user_email1","colnm":"이메일1","dtype":"text","etype":"txt","attr":null,"defval":null,"w":":25","h":null,"refcd":null,"option":"emailMark","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":"E-mail","crud":"C"},{"sort_seq":null,"section":null,"section_icon":null,"colgrp":"이메일","colid":"user_email1","colnm":"이메일2","dtype":"text","etype":"sel","attr":null,"defval":null,"w":":25","h":null,"refcd":"EMAIL","option":"sel:email::cdnm","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":null,"section":null,"section_icon":null,"colgrp":"우편번호","colid":"addrNum","colnm":"우편번호","dtype":"text","etype":"txt","attr":null,"defval":null,"w":":25","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":"우편번호","crud":"C"},{"sort_seq":null,"section":null,"section_icon":null,"colgrp":"우편번호","colid":"addrBtn","colnm":"주소검색","dtype":"text","etype":"btn","attr":null,"defval":null,"w":":10","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":null,"section":null,"section_icon":null,"colgrp":"주소","colid":"addrMain","colnm":"주소","dtype":"text","etype":"txt","attr":null,"defval":null,"w":":25","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":"주소","crud":"C"},{"sort_seq":null,"section":null,"section_icon":null,"colgrp":"주소","colid":"addrSub","colnm":"상세주소","dtype":"text","etype":"txt","attr":null,"defval":null,"w":":25","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":"상세주소","crud":"C"},{"sort_seq":null,"section":null,"section_icon":null,"colgrp":"소속부서","colid":"user_depart","colnm":"소속부서","dtype":"text","etype":"txt","attr":null,"defval":null,"w":":25","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":"소속부서","crud":"C"},{"sort_seq":null,"section":null,"section_icon":null,"colgrp":"직책","colid":"user_position","colnm":"직책","dtype":"text","etype":"sel","attr":null,"defval":null,"w":":25","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":"직책","crud":"C"}],"data_icon":null,"component_option":null};
+me.dataDef["_pgm_data"]["profile"]={"sort_seq":"2","data_id":"profile","data_nm":"프로필사진","component_pgmid":"aweForm","inout_tp":null,"content":[{"sort_seq":1,"section":null,"section_icon":null,"colgrp":null,"colid":"profile","colnm":null,"dtype":"text","etype":"img","attr":null,"defval":"/images/profile_sample.png","w":"20","h":"20","refcd":null,"option":"edit","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":2,"section":null,"section_icon":null,"colgrp":null,"colid":"fileUploadBtn","colnm":"파일 업로드","dtype":"text","etype":"btn","attr":"hidden ","defval":null,"w":":20","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"}],"data_icon":null,"component_option":null};
+
+    me.pageObj["_page"] = new gfnFramepage( me ); 
+    for(var component_id in me.dataDef["_pgm_data"]) { 
+        me.pageObj[component_id] = new gfnComponent( me.pageid, component_id, me.dataDef["_pgm_data"][component_id], me.fnEH, me); 
+    }  
+    setTimeout(function(){
+        $("#frameset").scrollTo(0); //스크롤 
+    },10);
+    if(typeof(me.fnInitExtra)=='function') me.fnInitExtra(); 
+}
+/*-- script(개발자작성) start ---------------------------------------------------- */ 
+    /* 사용자초기화 */
+    me.fnInitExtra=function() {
+        //사용자 컴포넌트 
+        //me.dataDef["_pgm_data"][myCompoId] = {...};
+        //me.pageObj["myCompoId"] = new gfnComponent( me.pageid, myCompoId, me.dataDef["_pgm_data"][myCompoId], me.fnEH, me); 
+        //me.pageObj["myCompoId"].userComponent = "myCompoId";
+        //사용자 컨트롤
+        //var myColinfo = {colid:...}
+        //me.pageObj["myColId"] = new gfnControl(myColinfo, me.fnEH) 
+        //me.page.find("#myCol").append(me.pageObj["myColId"].dispObj);
+        //me.pageObj["myColId"].getVal(); / myCol.setVal(val);...    
+    }
+    /* 이벤트핸들러 */
+    me.fnEH=function(component, evt, row, col, val) {
+        console.log(`evt : ${evt} // row : ${row} // col : ${col} // val : ${val}`)
+        //화면기능버튼이 눌리면 
+        if (component==me.pageObj["_pageFunc"]){ 
+            if(typeof(me[col])=='function') me[col](); //col=기능명 me["fnSearch"]()=me.fnSearch(); 
+        }
+        //form:임직원 회원가입 이벤트처리   
+        else if(component==me.pageObj["form"]) {
+            if(evt=="componentFunc") {
+                if(row=="addRow") {
+                    component.addRow();
+                } else if(row=="delRow") {
+                    component.delRow();
+                }
+            }
+            if(evt=="click" && col=="addrBtn") {
+                me.pageObj["form"].getAddress(component, 'addrNum', 'addrMain', 'addrSub');
+            }
+        }
+
+        //profile:프로필사진 이벤트처리   
+        else if(component==me.pageObj["profile"]) {
+            if(evt=="componentFunc") {
+                if(row=="addRow") {
+                    component.addRow();
+                } else if(row=="delRow") {
+                    component.delRow();
+                }
+            }
+            if(evt=="click" && col=="profile") {
+                // console.log(pageid);
+                $(`#${pageid} > .pageContent > #fileSelector`).click();
+            }
+        }
+
+        //사용자 컴포넌트/컨트롤
+        else if(component.userComponent=="myCompoId") {
+            //if(evt=="dblclick" && col=="colid") {...}
+        }
+    }
+    // 프로필 이미지 변경 이벤트
+    $(".pageContent #fileSelector").on("change", function() {
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            me.pageObj["profile"].setVal("profile", e.target.result);
+        }
+        reader.readAsDataURL(event.target.files[0]);
+    });
+    //save:저장 
+    me.fnSave=function() {
+        if( !me.pageObj["pageCond"].chkValid() ) return;
+        if( !me.pageObj["list"].chkValid() ) return;
+        var args = me.pageObj["pageCond"].exportData()[0];
+        args.list = me.pageObj["list"].exportData();
+        //console.log(args);
+        var invar = JSON.stringify(args);
+        gfnTx(appid+"."+pgmid,"save",{INVAR:invar},function(OUTVAR){
+            //console.log(OUTVAR);
+            if(OUTVAR.rtnCd=="OK") {
+                gfnAlert("저장성공","입력한 정보가 저장되었습니다.");
+                me.fnSearch();
+            } else {
+                gfnAlert("저장오류",OUTVAR.rtnMsg);
+            }
+        });
+    }
+
+/*-- _script2(자동생성2) start ---------------------------------------------------- */        
+if(typeof(me.fnInit)=='function') me.fnInit();
+});
+
+</script>

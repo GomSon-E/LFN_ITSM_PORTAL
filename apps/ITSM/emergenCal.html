@@ -1,0 +1,185 @@
+<!-- css start -->
+<style>
+[pgmid='emergenCal'].framepage { 
+    width:100%;
+}
+
+
+/*[pgmid='emergenCal'].framepage >.pageContent> div> #mst > .aweForm > fieldset {*/
+/*border-color: #BDC3C7;*/
+/*background-color: #f5f7f7;*/
+/*display: flex;*/
+/*justify-content: space-around;*/
+/*}*/
+
+/*.aweForm > fieldset > div > .aweInputWrap > input{*/
+/*    border-color: #BDC3C7;*/
+/*    background-color: white;*/
+/*    border:1px solid darkgray;*/
+/*}*/
+
+/*[pgmid='emergenCal'].framepage >.pageContent> div> #mst > .aweForm > fieldset > div{*/
+/*    flex-basis: 100%;*/
+/*display: flex;*/
+/*    border: 1px dashed black;*/
+/*}*/
+
+/*[pgmid='emergenCal'].framepage >.pageContent> div> #mst > .aweForm > fieldset > div>.label{*/
+/*    margin-right:10px;*/
+/*}*/
+
+
+/*[pgmid='emergenCal'].framepage >.ag-cell.pk span, .aweCol.pk{*/
+    
+/*    background-color:transparent;*/
+/*    background-image:none;*/
+/*}*/
+
+/*[pgmid='emergenCal'].framepage >.pageContent> div> #com > .aweForm > fieldset > div>.aweInputWrap{*/
+/*    width:130px;*/
+/*}*/
+
+/*[pgmid='emergenCal'].framepage >.pageContent> div> #com > .aweForm > fieldset > div>.aweInputWrap>input{*/
+/*     width:130px;*/
+/*     border: 1px solid darkgray;*/
+/*}*/
+
+/*[pgmid='emergenCal'].framepage >.pageContent> div> #com > .aweForm > fieldset {*/
+/*    border-color: #BDC3C7;*/
+/*    background-color: #f5f7f7;*/
+/*    display: flex;*/
+/*    justify-content: space-around;*/
+/*}*/
+
+/*[pgmid='emergenCal'].framepage >.pageContent> div> #com > .aweForm > fieldset>legend{*/
+/*    display:none;*/
+/*}*/
+
+
+
+
+</style>
+
+<!-- html start -->
+<!--<div class="pageNav"></div>-->
+<!--<div class="pageTop"></div>-->
+<!--<div class="pageCond"></div>-->
+<!--<div class="pageGuide"></div>-->
+<!--<div class="pageContent flexRow">-->
+    
+<!--    <div  style="flex:1 1 100%" class="flexColumn">-->
+<!--      <div id="com"></div> -->
+<!--      <div id="list"  class="flexColumn"></div>     -->
+<!--    </div>-->
+    
+
+    
+<!--</div>-->
+<div class="pageNav"></div>
+<div class="pageTop"></div>
+<div class="pageCond"></div>
+<div class="pageContent">
+        <div id='list'></div>
+
+</div>
+<script>
+/*-- _script(자동생성1) start ---------------------------------------------- */        
+$(function() {
+    var appid = "ITSM";
+    var pgmid = "emergenCal"; 
+    var page = $("*[pgmid='"+pgmid+"'].framepage").last();
+    var pageid = page.attr("id"); 
+    var me = {}
+    var dataSet = {};
+    var dataDef = {};
+    var pageObj = {};
+    var bEdit = false;
+    me.fnInit = function() {
+        gfn[pageid] = me; 
+        me.appid    = appid;
+        me.pgmid    = pgmid;
+        me.pageid   = pageid;
+        me.page     = page; 
+        me.dataSet = dataSet;
+        me.dataDef = dataDef;
+        me.pageObj = pageObj;
+        me.bEdit = bEdit;
+me.dataDef["_pgm"]={"ver":0.2,"upd_dt":"2023-01-02 15:41:41","remark":"","pgmid":"emergenCal","proc_mst_id":"","pgm_stat":"Y","sort_seq":102,"app_pgmid":"ITSM","shortcut":"","reg_dt":"2022-12-20 14:28:43","reg_usid":"dmstjs777","pgm_nm":"업체비상연락망","upd_usid":"sju02092","pgm_tp":"UX","pgm_grp_nm":"협력업체","proc_mst_nm":"","":"트랜젝션(메뉴)","app_pgm_nm":"ITSM","crud":""};
+me.dataDef["_pgm_func"]=[{"func_icon":"fas fa-search","ver":"0.19","func_nm":"조회","upd_dt":"","func_tp":"DB_R","remark":"검색어 없이 조회시 최대 1000건만 조회됩니다.","pgmid":"emergenCal","sort_seq":"2","funcid":"search","content":"비상연락망 회사를 조회한다.","reg_dt":"","reg_usid":"","upd_usid":"","crud":"R","id":"0"}];
+me.dataDef["_pgm_data"] = {};
+me.dataDef["_pgm_data"]["list"]={"sort_seq":"1","data_id":"list","data_nm":"업체 목록","component_pgmid":"agGrid","inout_tp":"IN","content":[{"sort_seq":1,"section":null,"section_icon":null,"colgrp":null,"colid":"dep_nm","colnm":"업체명","dtype":"text","etype":"txt","attr":null,"defval":null,"w":"10","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":2,"section":null,"section_icon":null,"colgrp":null,"colid":"biz_tps","colnm":"업종","dtype":"text","etype":"txt","attr":null,"defval":null,"w":"15","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":3,"section":null,"section_icon":null,"colgrp":null,"colid":"biz_cls","colnm":"업태","dtype":"text","etype":"txt","attr":null,"defval":null,"w":"15","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":4,"section":null,"section_icon":null,"colgrp":null,"colid":"ceo_nm","colnm":"대표자명","dtype":"text","etype":"txt","attr":null,"defval":null,"w":"10","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":5,"section":null,"section_icon":null,"colgrp":null,"colid":"mng_er1","colnm":"담당자1","dtype":"text","etype":"txt","attr":null,"defval":null,"w":"10","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":6,"section":null,"section_icon":null,"colgrp":null,"colid":"mng_er2","colnm":"담당자2","dtype":"text","etype":"txt","attr":null,"defval":null,"w":"10","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":7,"section":null,"section_icon":null,"colgrp":null,"colid":"usid","colnm":"아이디","dtype":"text","etype":"txt","attr":null,"defval":null,"w":"10","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":8,"section":null,"section_icon":null,"colgrp":null,"colid":"telnum","colnm":"전화번호","dtype":"text","etype":"txt","attr":null,"defval":null,"w":"30","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":9,"section":null,"section_icon":null,"colgrp":null,"colid":"email","colnm":"이메일","dtype":"text","etype":"txt","attr":null,"defval":null,"w":"30","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":10,"section":null,"section_icon":null,"colgrp":null,"colid":"comadd","colnm":"주소","dtype":"text","etype":"txt","attr":null,"defval":null,"w":"35","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"}],"data_icon":null,"component_option":{"gridOpt":"rn chk"}};
+me.dataDef["_pgm_data"]["pageCond"]={"sort_seq":"2","data_id":"pageCond","data_nm":"업체명검색","component_pgmid":"aweForm","inout_tp":"IN","content":[{"sort_seq":1,"section":null,"section_icon":null,"colgrp":null,"colid":"dep_nm","colnm":"업체명","dtype":"text","etype":"txt","attr":null,"defval":null,"w":"10","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":2,"section":null,"section_icon":null,"colgrp":null,"colid":"biz_tps","colnm":"업종","dtype":"text","etype":"txt","attr":null,"defval":null,"w":"10","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":3,"section":null,"section_icon":null,"colgrp":null,"colid":"biz_cls","colnm":"업태","dtype":"text","etype":"txt","attr":null,"defval":null,"w":"10","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":4,"section":null,"section_icon":null,"colgrp":null,"colid":"ceo_nm","colnm":"대표자명","dtype":"text","etype":"txt","attr":null,"defval":null,"w":"10","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":5,"section":null,"section_icon":null,"colgrp":null,"colid":"mng_er1","colnm":"담당자1","dtype":"text","etype":"txt","attr":null,"defval":null,"w":"10","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":6,"section":null,"section_icon":null,"colgrp":null,"colid":"mng_er2","colnm":"담당자2","dtype":"text","etype":"txt","attr":null,"defval":null,"w":"10","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":7,"section":null,"section_icon":null,"colgrp":null,"colid":"usid","colnm":"아이디","dtype":"text","etype":"txt","attr":null,"defval":null,"w":"10","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"}],"data_icon":null,"component_option":null};
+
+    me.pageObj["_page"] = new gfnFramepage( me ); 
+    for(var component_id in me.dataDef["_pgm_data"]) { 
+        me.pageObj[component_id] = new gfnComponent( me.pageid, component_id, me.dataDef["_pgm_data"][component_id], me.fnEH, me); 
+    }  
+    setTimeout(function(){
+        $("#frameset").scrollTo(0); //스크롤 
+    },10);
+    if(typeof(me.fnInitExtra)=='function') me.fnInitExtra(); 
+}
+/*-- script(개발자작성) start ---------------------------------------------------- */ 
+    /* 사용자초기화 */
+    me.fnInitExtra=function() {
+        //사용자 컴포넌트 
+        //me.dataDef["_pgm_data"][myCompoId] = {...};
+        //me.pageObj["myCompoId"] = new gfnComponent( me.pageid, myCompoId, me.dataDef["_pgm_data"][myCompoId], me.fnEH, me); 
+        //me.pageObj["myCompoId"].userComponent = "myCompoId";
+        //사용자 컨트롤
+        //var myColinfo = {colid:...}
+        //me.pageObj["myColId"] = new gfnControl(myColinfo, me.fnEH) 
+        //me.page.find("#myCol").append(me.pageObj["myColId"].dispObj);
+        //me.pageObj["myColId"].getVal(); / myCol.setVal(val);...    
+    }
+    /* 이벤트핸들러 */
+    me.fnEH=function(component, evt, row, col, val) { 
+        //화면기능버튼이 눌리면 
+        if (component==me.pageObj["_pageFunc"]){ 
+            if(typeof(me[col])=='function') me[col](); //col=기능명 me["fnSearch"]()=me.fnSearch(); 
+        }
+        //사용자 컴포넌트/컨트롤
+        else if(component.userComponent=="myCompoId") {
+            //if(evt=="dblclick" && col=="colid") {...}
+        }
+    }
+    //save:저장 
+    me.fnSave=function() {
+        if( !me.pageObj["pageCond"].chkValid() ) return;
+        if( !me.pageObj["list"].chkValid() ) return;
+        var args = me.pageObj["pageCond"].exportData()[0];
+        args.list = me.pageObj["list"].exportData();
+        //console.log(args);
+        var invar = JSON.stringify(args);
+        gfnTx(appid+"."+pgmid,"save",{INVAR:invar},function(OUTVAR){
+            //console.log(OUTVAR);
+            if(OUTVAR.rtnCd=="OK") {
+                gfnAlert("저장성공","입력한 정보가 저장되었습니다.");
+                me.fnSearch();
+            } else {
+                gfnAlert("저장오류",OUTVAR.rtnMsg);
+            }
+        });
+    }
+
+    //search:조회 
+    me.fnSearch=function() {
+        if( !me.pageObj["pageCond"].chkValid() ) return;
+        var args = me.pageObj["pageCond"].exportData()[0];
+        //console.log(args);
+        var invar = JSON.stringify(args);
+        gfnTx(appid+"."+pgmid,"search",{INVAR:invar},function(OUTVAR){
+            //console.log(OUTVAR);
+            if(OUTVAR.rtnCd=="OK") {
+                me.pageObj["list"].importData(OUTVAR.list);
+            } else {
+                gfnAlert("조회오류",OUTVAR.rtnMsg);
+            }
+        });
+    }
+
+/*-- _script2(자동생성2) start ---------------------------------------------------- */        
+if(typeof(me.fnInit)=='function') me.fnInit();
+});
+
+</script>
