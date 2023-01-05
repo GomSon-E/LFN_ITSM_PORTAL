@@ -5,7 +5,7 @@
 
 JSONObject OUTVAR = new JSONObject(); 
 String appid = "ITSM";
-String pgmid   = "screenRight"; 
+String pgmid   = "pgnAuth"; 
 String func  = request.getParameter("func"); 
 String rtnCode    = "OK";
 String rtnMsg     = "";
