@@ -20,7 +20,7 @@ JSONObject INVAR  = getObject(invar);
         try {  
             OUTVAR.put("INVAR",INVAR); //for debug
             conn = getConn("LFN");  
-            String qry = "select * from t_doc where reg_dt > '2022-11-02' order by reg_dt desc"; 
+            String qry = "select * from CARDVIEWTEST order by read_cnt"; 
             String qryRun = bindVAR(qry,INVAR);
             OUTVAR.put("qryRun",qryRun); //for debug
             JSONArray list = selectSVC(conn, qryRun);
