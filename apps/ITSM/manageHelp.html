@@ -1,0 +1,475 @@
+<!-- css start -->
+<style>
+.ui-dialog-content {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: space-between;
+    align-items: stretch;
+}
+
+[pgmid='manageHelp'].framepage  { 
+    flex: 1 1 100%; 
+    height: unset !important;
+    width:100%; 
+} 
+
+[pgmid='manageHelp'] .btnXls, [pgmid='manageHelp'] .btnPdf  { 
+    display:none;
+}  
+
+[pgmid='manageHelp'].framepage .pageContent {
+    flex:1 1 100% !important;
+    height: unset !important;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-content: center;
+    justify-content: space-between;
+    align-items: stretch;
+}    
+[pgmid='manageHelp'].framepage #pgmInfo {
+    flex:0 0 auto !important; 
+}    
+[pgmid='manageHelp'].framepage .flexRow {
+    flex:1 1 100%; 
+    height: unset !important;
+} 
+
+[pgmid='manageHelp'] #guideList .imageUpload {
+    float: right;
+    color: white;
+    cursor: pointer;
+    background-color: #32528a;
+    border-color: #32528a;
+    border-radius: 0.25rem;
+    vertical-align: bottom;
+    font-weight: bold;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    padding: 0.1em 0.5em;
+}
+[pgmid='manageHelp'] #guideList .imageUpload:hover {
+    background-color: rgb(210, 225, 240);
+    border-color: rgb(210, 225, 240);
+    color: #32528a;
+}
+[pgmid='manageHelp'] .popup {
+  display: none;
+  position:fixed;
+  width: 100%;
+  height: 100%;
+  top:0;
+  left:0;
+  background:rgba(0,0,0,0.5);
+  z-index: 99999;
+}
+[pgmid='manageHelp'] .popup-inner {
+  position:absolute; 
+  top:50%;
+  left:50%;
+  transform:translate(-50%, -50%);
+  padding : 10px;
+  background:#fff;
+}
+.popup-close{
+  position: absolute;
+  display: block;
+  top:10px;
+  right: 10px;
+}
+
+[pgmid='manageHelp'] .slider {
+    position: relative;
+}
+[pgmid='manageHelp'] .popup-contents img{ 
+    border: 1px solid #dedede;
+}
+
+[pgmid='manageHelp'] #guideImg img{
+    width: calc(100% - 8px); 
+    margin: 3px 3px;
+    border: 1px solid #dedede;
+}
+
+[pgmid='manageHelp'] #guideImg img:hover {
+    cursor: pointer;
+}
+[pgmid='manageHelp'] #guideImg {
+    padding: 1px 1px 1px 1px;*/
+    position:relative;
+    list-style:none;
+    width:100%;
+    height:450px;
+    overflow-x:hidden; 
+    display: block;
+    margin:auto;
+}
+
+[pgmid='manageHelp'] #guideImg li {
+    display:none;
+    position:absolute;
+    left:0 !important;
+    top:0
+}
+[pgmid='manageHelp'] .imgNum {
+    font-size: 1.6em;
+    color: black;
+    font-weight: bold;
+}
+[pgmid='manageHelp'] .circle {
+    position: relative;
+    top: 3px;
+    left: 3px;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    border: 2.5px solid black;
+    background-color: white;
+    text-align: center;
+    line-height: 1.5;
+}
+[pgmid='manageHelp'] .slider > button.btn {
+    position: absolute;
+    bottom: 5px;
+    font-size: 1em;
+    font-weight: bold; 
+    color:white;
+	cursor:pointer;
+	background-color:#3e3e3a;
+	border: none;
+	border-radius:0.25rem;
+    padding:.125rem 0.5rem;
+}
+[pgmid='manageHelp'] #prev_btn {
+    display: none;
+    left: 10px;
+}
+[pgmid='manageHelp'] #next_btn {
+    display: none;
+    right: 10px;
+}
+</style>
+
+<!-- html start -->
+<div class="pageContent">
+    <div id='pgmInfo'></div>
+    <div class="flexRow">
+        <div id="guideList" style="flex:1 1 70%; height:unset; min-height: 100% !important" class="flexColumn">
+            <div class="componentTop">
+                <h3 class="componentTitle">
+                    <i class="fas fa-images"></i>
+                    <span>화면 가이드</span>
+                    <button type="button" class="imageUpload"> 이미지업로드 </button>
+                </h3>
+            </div>
+            <div class="slider" style="border: 1px solid #7b7a7a8c;">
+                <ul id="guideImg">
+                </ul>
+                <button type="button" id="prev_btn" class="btn">이전</button>
+                <button type="button" id="next_btn" class="btn">다음</button>
+                <div class="popup" data-popup="example">
+                    <div class="popup-inner">
+                      <div class="popup-contents"></div>
+                    </div>
+                </div>
+            </div>
+        </div> 
+        <div class="flexColumn" style="flex:1 1 49%; height:unset; min-height: 100% !important">
+            <div id='pgmFunc'></div>
+            <div id='pgmDetail'></div>
+            <div id='csrList' class="flexColumn"></div>
+        </div>
+    </div>        
+</div>
+<script>
+/*-- _script(자동생성1) start ---------------------------------------------- */        
+$(function() {
+    var appid = "ITSM";
+    var pgmid = "manageHelp"; 
+    var page = $("*[pgmid='"+pgmid+"'].framepage").last();
+    var pageid = page.attr("id"); 
+    var me = {}
+    var dataSet = {};
+    var dataDef = {};
+    var pageObj = {};
+    var bEdit = false;
+    me.fnInit = function() {
+        gfn[pageid] = me; 
+        me.appid    = appid;
+        me.pgmid    = pgmid;
+        me.pageid   = pageid;
+        me.page     = page; 
+        me.dataSet = dataSet;
+        me.dataDef = dataDef;
+        me.pageObj = pageObj;
+        me.bEdit = bEdit;
+me.dataDef["_pgm"]={"ver":1.4,"upd_dt":"2023-01-04 17:02:46","remark":"프로그램에 대한 매뉴얼을 등록한다.","pgmid":"manageHelp","proc_mst_id":"","pgm_stat":"Y","sort_seq":null,"app_pgmid":"ITSM","shortcut":"","reg_dt":"2022-07-18 17:58:33","reg_usid":"kihyunlee","pgm_nm":"프로그램 도움말","upd_usid":"hjkim","pgm_tp":"TX","pgm_grp_nm":"공통","proc_mst_nm":"","":"트랜젝션(화면)","app_pgm_nm":"ITSM","crud":""};
+me.dataDef["_pgm_func"]=[];
+me.dataDef["_pgm_data"] = {};
+me.dataDef["_pgm_data"]["pgmInfo"]={"sort_seq":"1","data_id":"pgmInfo","data_nm":"프로그램 명세","component_pgmid":"aweForm","inout_tp":"OUT","content":[{"sort_seq":1,"section":null,"section_icon":null,"colgrp":"프로그램","colid":"pgmid","colnm":"프로그램 ID","dtype":"text","etype":"raw","attr":null,"defval":null,"w":"10","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":2,"section":null,"section_icon":null,"colgrp":"프로그램","colid":"pgm_nm","colnm":"프로그램명","dtype":"text","etype":"raw","attr":null,"defval":null,"w":"20","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":3,"section":null,"section_icon":null,"colgrp":null,"colid":"pgm_grp_nm","colnm":"메뉴 위치","dtype":"text","etype":"raw","attr":null,"defval":null,"w":"20","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":4,"section":null,"section_icon":null,"colgrp":null,"colid":"remark","colnm":"설명","dtype":"text","etype":"tarea","attr":"readonly","defval":null,"w":"20","h":"5","refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"}],"data_icon":null,"component_option":null};
+me.dataDef["_pgm_data"]["pgmFunc"]={"sort_seq":"2","data_id":"pgmFunc","data_nm":"화면 기능 설명","component_pgmid":"agGrid","inout_tp":"OUT","content":[{"sort_seq":1,"section":null,"section_icon":null,"colgrp":null,"colid":"btn_icon","colnm":null,"dtype":"text","etype":"btn","attr":null,"defval":null,"w":"4","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":2,"section":null,"section_icon":null,"colgrp":null,"colid":"func_nm","colnm":"화면기능명","dtype":"text","etype":"raw","attr":null,"defval":null,"w":"12","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":3,"section":null,"section_icon":null,"colgrp":null,"colid":"content","colnm":"기능 설명","dtype":"text","etype":"raw","attr":null,"defval":null,"w":"35","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"}],"data_icon":null,"component_option":{"gridOptions":{"domLayout":"autoHeight"},"func":[{"funcid":"updateRemark","func_nm":"설명저장","func_icon":"fas fa-save"}]}};
+me.dataDef["_pgm_data"]["pgmDetail"]={"sort_seq":"3","data_id":"pgmDetail","data_nm":"주요 항목 설명","component_pgmid":"agGrid","inout_tp":"OUT","content":[{"sort_seq":1,"section":null,"section_icon":null,"colgrp":null,"colid":"data_nm","colnm":"구분","dtype":"text","etype":"raw","attr":"rowSpan","defval":null,"w":"12","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":2,"section":null,"section_icon":null,"colgrp":null,"colid":"colnm","colnm":"항목","dtype":"text","etype":"raw","attr":null,"defval":null,"w":"10","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":3,"section":null,"section_icon":null,"colgrp":null,"colid":"remark","colnm":"설명","dtype":"text","etype":"raw","attr":null,"defval":null,"w":"25","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"}],"data_icon":null,"component_option":{"gridOptions":{"domLayout":"autoHeight"}}};
+me.dataDef["_pgm_data"]["csrList"]={"sort_seq":"4","data_id":"csrList","data_nm":"화면변경 및 개선사항","component_pgmid":"agGrid","inout_tp":"OUT","content":[{"sort_seq":1,"section":null,"section_icon":null,"colgrp":null,"colid":"comment_tp","colnm":"유형","dtype":"text","etype":"raw","attr":null,"defval":null,"w":"10","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":2,"section":null,"section_icon":null,"colgrp":null,"colid":"comments","colnm":"코멘트","dtype":"text","etype":"pre","attr":null,"defval":null,"w":"30","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":3,"section":null,"section_icon":null,"colgrp":null,"colid":"reg_usid","colnm":"등록자ID","dtype":"text","etype":"raw","attr":null,"defval":null,"w":"8","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":4,"section":null,"section_icon":null,"colgrp":null,"colid":"reg_dt","colnm":"등록일시","dtype":"text","etype":"raw","attr":null,"defval":null,"w":"12","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"}],"data_icon":null,"component_option":{"gridOptions":{"domLayout":"autoHeight"},"func":[{"funcid":"addCSR","func_nm":"CSR등록","func_icon":"fas fa-plus"}]}};
+
+    me.pageObj["_page"] = new gfnFramepage( me ); 
+    for(var component_id in me.dataDef["_pgm_data"]) { 
+        me.pageObj[component_id] = new gfnComponent( me.pageid, component_id, me.dataDef["_pgm_data"][component_id], me.fnEH, me); 
+    }  
+    setTimeout(function(){
+        $("#frameset").scrollTo(0); //스크롤 
+    },10);
+    if(typeof(me.fnInitExtra)=='function') me.fnInitExtra(); 
+}
+/*-- script(개발자작성) start ---------------------------------------------------- */ 
+    var gPgmid = gParam["pgmid"];
+    var gDataDef = gParam["dataDef"];
+    var file_tp = "HELP_ATTCH";
+    var ref_file_tp = pgmid; 
+    /* 사용자초기화 */
+    me.fnInitExtra=function() {
+        //화면Layout 보정
+        me.pageObj.pgmInfo.col["remark"].obj.css("resize","vertical");
+        
+        
+        //프로그램 정보 가져오기 
+        var arg = {pgmid : gPgmid};
+        var invar = JSON.stringify(arg);
+        gfnTx(appid+"."+pgmid,"getPgmInfo",{INVAR:invar},function(OUTVAR){
+            if(OUTVAR.rtnCd=="OK") {
+                me.pageObj["pgmInfo"].importData(OUTVAR.list);
+                $(`#pgmInfo span[colid="pgm_grp_nm"]`).prepend(OUTVAR.list[0].nm + " -> ");
+                me.pageObj["pgmInfo"].componentTop.hide();
+                
+                //프로그램 정보 가져오기
+                me.fnPgmDetail();
+                me.fnGetPgmFunc();
+                me.fnGetCSR();
+            } else {
+                gfnAlert("조회오류",OUTVAR.rtnMsg);
+            }
+        }); 
+    
+        //이미지 가져오기
+        me.dataSet["imgList"] = [];
+        gfnTx(appid+"."+pgmid, "getImage", {INVAR : invar}, function(OUTVAR) {
+            //console.log(OUTVAR);
+            if(OUTVAR.rtnCd=="OK") {
+                $("#guideImg").html("");
+                for (let i = 0; i < OUTVAR.imgList.length; i++) {
+                    const el = OUTVAR.imgList[i];
+                    var ImgList = {
+                        file_dir: el.file_dir,
+                        file_url: el.file_url
+                    };
+                    me.dataSet["imgList"].push(ImgList);
+                    $("#guideImg").append(`<li><div class="circle"><span class="imgNum">`+ (i+1) + `</span></div><img src="`+ ImgList.file_url + `"></li>`);
+                }
+                me.fnImgSlide();
+            }
+        });
+        
+        //어드민 권한자는 메뉴얼을 등록할 수 있음
+        $("#guideList .imageUpload").hide(); 
+        me.pageObj.pgmFunc._componentFunc.setDisp("updateRemark",false);
+        //updateRemark
+        gfnTx(appid+"."+pgmid, "checkAdmin", {INVAR:{}}, function(OUTVAR) {
+            console.log(OUTVAR);
+            if(OUTVAR.rtnCd=="OK") {
+                //if(gUserinfo.userid !="admin") {
+                if( OUTVAR.list[0].adm_yn=="Y" ) { 
+                    me.pageObj.pgmInfo.col['remark'].obj.removeAttr("readonly").removeProp("readonly");
+                    me.pageObj.pgmFunc._componentFunc.setDisp("updateRemark",true); 
+                    $("#guideList .imageUpload").show(); 
+                    $("#guideList .imageUpload").on("click", function() {
+                        gfnUpload(gPgmid, file_tp, ref_file_tp, function(arrFiles) {
+                            $("#guideImg").html("");
+                            for (let i = 0; i < arrFiles.length; i++) {
+                                const el = arrFiles[i];
+                                $("#guideImg").append(`<li><div class="circle"><span class="imgNum">`+ (i+1) + `</span></div><img src="`+ el.file_url + `"></li>`);
+                            }
+                            me.fnImgSlide();
+                        });
+                    })        
+                }
+            } 
+        }); 
+    
+        //이미지 있을때 클릭이벤트 핸들링
+        $("#guideImg").on('click', function(e) {
+            $(".popup-contents").html("");
+            var oE = $(e.target);
+            var oTR = oE.exactObj("img[src]"); 
+            var url = oTR.attr("src");
+            if(url == undefined || isNull(url)) return;
+            $(".popup-contents").append(`<img src="`+ url + `">`);
+            $(".popup-inner").append(`<a class="popup-close" data-popup-close="example" href="#"><i class="fas fa-times-circle fa-2x"></i></a>`);
+        
+            $('[data-popup-close]').on('click', function(e)  {
+                var targeted_popup_class = $(this).attr('data-popup-close');
+                $('[data-popup="' + targeted_popup_class + '"]').fadeOut(150);
+            });
+            $(document).mouseup(function (e){
+                var container = $(".popup");
+                if( container.has(e.target).length === 0){
+                    container.css('display','none');
+                }
+            });
+            $(".popup").show();
+            e.preventDefault();
+        }); 
+    }
+    
+    /* 이벤트핸들러 */
+    me.fnEH=function(component, evt, row, col, val) { 
+        //화면기능버튼이 눌리면 
+        if (component==me.pageObj["_pageFunc"]){ 
+            //col=기능명 me["fnSearch"]()=me.fnSearch();
+            if(typeof(me[col])=='function') me[col](); 
+        }
+        //pgmInfo:프로그램 명세 이벤트 처리 
+        else if(component==me.pageObj["pgmInfo"]) {
+            //if(evt=="change" && col=="colid") {...}
+        }
+        
+        //pgmFunc:화면 기능 설명 이벤트처리     
+        else if(component==me.pageObj["pgmFunc"]) {
+            if(evt=="componentFunc") {
+                if(row=="updateRemark") {
+                    var args = me.pageObj.pgmInfo.exportData()[0]; 
+                    var invar = JSON.stringify(args);
+                    gfnTx(appid+"."+pgmid,"updateRemark",{INVAR:invar},function(OUTVAR){
+                        //console.log(OUTVAR);
+                        if(OUTVAR.rtnCd=="OK") {
+                            gfnAlert("성공","프로그램 설명이 저장되었습니다!");
+                        } else {
+                            gfnAlert("오류",OUTVAR.rtnMsg);
+                        }
+                    });
+                }
+            } 
+        }
+        
+        //csrList:CSR 내역 조회 및 추가 이벤트 처리  
+        else if(component==me.pageObj["csrList"]) {
+            if (evt=="componentFunc") {
+                var popid =  "csr"+gMDI.getNext();
+                var container = $("<div id='"+popid+"' class='framepage active'></div>");
+                me.page.append(container);	 
+                gParam = $.extend(true, gParam, {appid:page.appid, pgmid:page.pgmid});  
+                gfnLoad("aweportal","registerCSR",container,function(){ 
+                    gfnPopup("시스템요청", container, {width: 600, height:700}, function() {
+                        me.fnGetCSR();
+                    });
+                });
+            }
+        }
+    
+        //사용자 컴포넌트/컨트롤
+        else if(component.userComponent=="myCompoId") {
+            //if(evt=="dblclick" && col=="colid") {...}
+        }
+    }
+    
+    //화면 기능 조회
+    me.fnGetPgmFunc = function() {
+        var arg = {pgmid : gPgmid};
+        var invar = JSON.stringify(arg);
+        gfnTx(appid+"."+pgmid,"getPgmFunc",{INVAR:invar},function(OUTVAR){
+            if(OUTVAR.rtnCd=="OK") {
+                me.pageObj["pgmFunc"].importData(OUTVAR.list);
+                me.pageObj["pgmFunc"].sizeColumnsToFit();
+                setTimeout(function(){
+                    for(var i=0; i < OUTVAR.list.length; i++) {
+                        me.page.find("#pgmFunc .ag-row[row-index='"+i+"'] button[colid='btn_icon']").html("<i class='"+OUTVAR.list[i].func_icon+"'>");
+                        //console.log("#pgmFunc .ag-row[row-index='"+i+"'] button[colid='btn_icon']");
+                        //console.log("<i class='"+OUTVAR.list[i].btn_icon+"'>");
+                    }
+                },10);
+            } else {
+                gfnAlert("조회오류",OUTVAR.rtnMsg);
+            }
+        });
+    }
+    
+    //csr내역 조회
+    me.fnGetCSR= function() {
+        var arg = {pgmid : gPgmid};
+        var invar = JSON.stringify(arg);
+        gfnTx("aweportal.registerCSR","search",{INVAR:invar},function(OUTVAR){
+            if(OUTVAR.rtnCd=="OK") {
+                me.pageObj["csrList"].importData(OUTVAR.list);
+                me.pageObj["csrList"].sizeColumnsToFit();
+            } else {
+                gfnAlert("조회오류",OUTVAR.rtnMsg);
+            }
+        });
+    }
+    
+    // 이미지 슬라이드쇼
+    me.fnImgSlide= function() {
+        var time = 1;
+        var idx = idx2 = 0;
+        var slide_width = $("#guideImg").width();
+        var slide_count = $("#guideImg li").length;
+        if(slide_count > 1) {
+            $("#prev_btn").show();
+            $("#next_btn").show();
+        }
+        $("#guideImg li:first").css("display", "block");
+        if(slide_count > 1) me.page.find(".btn").show();
+    
+        $("#prev_btn").click(function() {
+            if(slide_count > 1) {
+                idx2 = (idx - 1) % slide_count;
+                if(idx2 < 0)
+                    idx2 = slide_count - 1;
+                $("#guideImg li:hidden").css("left", "-"+slide_width+"px");
+                $("#guideImg li:eq("+idx+")").animate({ left: "+="+slide_width+"px" }, time, function() {
+                    $(this).css("display", "none").css("left", "-"+slide_width+"px");
+                });
+                $("#guideImg li:eq("+idx2+")").css("display", "block").animate({ left: "+="+slide_width+"px" }, time);
+                idx = idx2;
+            }
+        });
+    
+        $("#next_btn").click(function() {
+            if(slide_count > 1) {
+                idx2 = (idx + 1) % slide_count;
+                $("#guideImg li:hidden").css("left", slide_width+"px");
+                $("#guideImg li:eq("+idx+")").animate({ left: "-="+slide_width+"px" }, time, function() {
+                    $(this).css("display", "none").css("left", slide_width+"px");
+                });
+                $("#guideImg li:eq("+idx2+")").css("display", "block").animate({ left: "-="+slide_width+"px" }, time);
+                idx = idx2;
+            }
+        });
+    }
+    
+    //주요 항목 데이터 바인딩
+    me.fnPgmDetail = function() {
+        var funcData = [];
+        var funcList = [];
+        for(var key in gDataDef._pgm_data) {
+            funcData.push(gDataDef._pgm_data[key] );
+        }
+        sort(funcData,"sort_seq");
+        for (let i = 0; i < funcData.length; i++) {
+            const el = funcData[i];
+            funcList.push({data_nm : el.data_nm, colnm : "", remark : ""});
+            for (let j = 0; j < el.content.length; j++) {
+                const e = el.content[j];
+                if(e.remark != undefined && !isNull(e.remark)) {
+                    funcList.push({data_nm : el.data_nm, colnm : e.colnm, remark : e.remark});
+                }
+            }
+        }
+        me.pageObj["pgmDetail"].importData(funcList);
+        setTimeout(function(){ me.pageObj["pgmDetail"].sizeColumnsToFit(); }, 10);
+        gDataDef._pgm_data = [];
+    } 
+/*-- _script2(자동생성2) start ---------------------------------------------------- */        
+if(typeof(me.fnInit)=='function') me.fnInit();
+});
+
+</script>
