@@ -223,6 +223,12 @@ me.dataDef["_pgm_data"]["pgm_src"]={
 
     var prevChk = false;
 
+    var fireRefreshEventOnWindow = function () {
+        var evt = document.createEvent("HTMLEvents");
+        evt.initEvent('resize', true, false);
+        window.dispatchEvent(evt);
+    };
+
     me.fnInitExtra=function() {
         me.pageObj["pgm_data_content"].componentTop.remove();
         me.pageObj["pgm_data_content"].componentBody.remove();
@@ -374,6 +380,7 @@ me.dataDef["_pgm_data"]["pgm_src"]={
 
                 me.fnEditor(row, nvl(me.pageObj["pgm_src"].getVal(row,"content"),""));
 
+                fireRefreshEventOnWindow();
             }
         } 
         // 4. WorkbenchForm
@@ -425,6 +432,7 @@ me.dataDef["_pgm_data"]["pgm_src"]={
                     $(`.${pageid}.dataInfo${row}`).remove();
                 } else if (component_id == "pgm_src") {
                     $(`.${pageid}.srcInfo${row}`).hide();
+                    fireRefreshEventOnWindow();
                 }  
             }
             else if (evt=="click" && col == "content") {
@@ -604,6 +612,7 @@ me.dataDef["_pgm_data"]["pgm_src"]={
         togBtn.toggleClass('clicked');
         $(`#${me.pageid} > .pageContent > .pageContentSide`).toggle();
         $(`#${me.pageid} > .pageContent > .pageContentMain`).toggleClass("toggle");
+        fireRefreshEventOnWindow();
     }
     // 조회
     me.fnSearch = function() { 

@@ -263,7 +263,7 @@ me.dataDef["_pgm_data"] = {};
 
         //frameset 데이터로드 : 세션사용자정보를 사용하므로 args없음 
         me.fnRetrieveInit = function () {
-            gfnTx("aweportal.frameset", "retrieveInit", {}, function (OUTVAR) {
+            gfnTx("ITSM.frameset", "retrieveInit", {}, function (OUTVAR) {
                 if (OUTVAR.rtnCd == "OK") {
                     gds.comcd = OUTVAR.comcd;   //공통코드
                     gUserinfo.defval = OUTVAR.defval;  //사용자기본값
@@ -289,7 +289,7 @@ me.dataDef["_pgm_data"] = {};
                     me.fnFramesetLayout();
 
                     //비번변경해야할 경우
-                    gfnTx("aweportal.frameset", "checkChangePwd", {}, function (OUTVAR) {
+                    gfnTx("ITSM.frameset", "checkChangePwd", {}, function (OUTVAR) {
                         //console.log(OUTVAR);
                         if (OUTVAR.rtnCd == "OK") {
                             var pwd_yn = OUTVAR.list[0].temp_yn;

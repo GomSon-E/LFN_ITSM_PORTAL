@@ -100,7 +100,7 @@
     vertical-align: middle;
   }
 
-  button {
+  .loginBtns {
     font-family: "Asap", sans-serif;
     cursor: pointer;
     color: #fff;
@@ -120,7 +120,7 @@
   width: 120px;
  }
 
-  button:hover {
+ .loginBtns:hover {
     background-color: #8ebcf5;
   }
 
@@ -199,7 +199,7 @@
         <input type="text" id="userid" placeholder="로그인 계정(사번)">
         <input type="password" id="loginpwd" placeholder="비밀번호">
         <div id="logsave">
-          <button><i class="fas fa-key" aria-hidden="true"></i> Login</button>
+          <button class="loginBtns"><i class="fas fa-key" aria-hidden="true"></i> Login</button>
           <div id="idSave">
             <input type="checkbox" id="idSaveCheck">
             아이디 저장
@@ -208,22 +208,22 @@
       </div>
     </div>
     <!-- 비밀번호 초기화 -->
-    <button id="btn2" class="signUp">회원가입</button>
-    <button id="btn" class="pwdClear">비밀번호 초기화</button>
+    <button id="btn2" class="signUp loginBtns">회원가입</button>
+    <button id="btn" class="pwdClear loginBtns">비밀번호 초기화</button>
 
     <div id="Outer">
       <div id='pwdclearform'>
         <p>아이디를 입력하면 비밀번호 초기화 메세지가 발송됩니다.</p>
         <label>아이디</label>
         <input type="text" id="checkId" placeholder="ID">
-        <button id="pwClearBtn"><i class="fas fa-save" aria-hidden="true"></i>메세지 발송</button>
+        <button id="pwClearBtn" class="loginBtns"><i class="fas fa-save" aria-hidden="true"></i>메세지 발송</button>
       </div>
 
       <div id='pwdclearform2'>
         <p>이메일을 입력하면 비밀번호 초기화 메일이 발송됩니다.</p>
         <label>이메일</label>
         <input type="text" id="checkMail" placeholder="example@lfnetworks.co.kr">
-        <button id="pwClearBtn2"><i class="fas fa-save" aria-hidden="true"></i>메일 발송</button>
+        <button id="pwClearBtn2" class="loginBtns"><i class="fas fa-save" aria-hidden="true"></i>메일 발송</button>
       </div>
     </div>
   </div>
@@ -256,7 +256,7 @@ $(function() {
         me.dataDef = dataDef;
         me.pageObj = pageObj;
         me.bEdit = bEdit;
-me.dataDef["_pgm"]={"ver":1.9,"upd_dt":"2023-01-04 17:27:08","remark":"","pgmid":"login","proc_mst_id":"","pgm_stat":"Y","sort_seq":null,"app_pgmid":"ITSM","shortcut":"","reg_dt":"2022-10-12 16:46:05","reg_usid":"jjr","pgm_nm":"로그인","upd_usid":"jhk","pgm_tp":"TX","pgm_grp_nm":"공통","proc_mst_nm":"","":"트랜젝션(화면)","app_pgm_nm":"ITSM","crud":""};
+me.dataDef["_pgm"]={"ver":2,"upd_dt":"2023-01-05 14:24:51","remark":"","pgmid":"login","proc_mst_id":"","pgm_stat":"Y","sort_seq":null,"app_pgmid":"ITSM","shortcut":"","reg_dt":"2022-10-12 16:46:05","reg_usid":"jjr","pgm_nm":"로그인","upd_usid":"jhk","pgm_tp":"TX","pgm_grp_nm":"공통","proc_mst_nm":"","":"트랜젝션(화면)","app_pgm_nm":"ITSM","crud":""};
 me.dataDef["_pgm_func"]=[];
 me.dataDef["_pgm_data"] = {};
 
@@ -323,7 +323,7 @@ me.dataDef["_pgm_data"] = {};
         var args = { userid: $("#userid").val(), loginpwd: CryptoJS.SHA256($("#loginpwd").val()).toString() };
         var invar = JSON.stringify(args);
         console.dir("fnLogin" + ":" + invar);
-        gfnTx("aweportal.login", "loginCheck", { INVAR: invar }, function (OUTVAR) {
+        gfnTx("ITSM.login", "loginCheck", { INVAR: invar }, function (OUTVAR) {
           if (OUTVAR.rtnCd == "OK") {
             gUserinfo = OUTVAR.userinfo;
             gUserinfo.temp_pwd = OUTVAR.list[0].temp_yn; //"Y"
@@ -331,7 +331,7 @@ me.dataDef["_pgm_data"] = {};
               gfnAlert("알림", "비밀번호를 변경해주세요");
             }
             var oFrameset = $("<div></div>");
-            gfnLoad("aweportal", "frameset", oFrameset, function (OUTVAR) {
+            gfnLoad("ITSM", "frameset", oFrameset, function (OUTVAR) {
               $("body").html(oFrameset.html());
             }, true);
           } else {
@@ -388,7 +388,7 @@ me.dataDef["_pgm_data"] = {};
           console.log(OUTVAR);
           if (OUTVAR.rtnCd == "OK") {
             gfnAlert("저장성공", "비밀번호가 초기화 되었습니다.");
-            me.fnSearchGrp();
+            // me.fnSearchGrp();
           } else {
             gfnAlert("저장오류", OUTVAR.rtnMsg);
           }
@@ -442,7 +442,7 @@ me.dataDef["_pgm_data"] = {};
           console.log(OUTVAR);
           if (OUTVAR.rtnCd == "OK") {
             gfnAlert("저장성공", "비밀번호가 초기화 되었습니다.");
-            me.fnSearchGrp();
+            // me.fnSearchGrp();
           } else {
             gfnAlert("저장오류", OUTVAR.rtnMsg);
           }
@@ -462,7 +462,7 @@ me.dataDef["_pgm_data"] = {};
         $("#btn2").click(function () {
           // $("#Outer2").show("swing");
           var oSignup = $("<div></div>")
-          gfnLoad("aweportal", "signup", oSignup, function (OUTVAR) {
+          gfnLoad("ITSM", "signUp", oSignup, function (OUTVAR) {
             $("body").html(oSignup.html());
           }, true);
         });

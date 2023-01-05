@@ -780,7 +780,7 @@ me.dataDef["_pgm_data"] = {};
                     me.fnDeleteBBS(docid);
                     gMDI.openPage( "manageBBS", "공지사항 관리", function(){
                         gMDI.closeTab(me.pageid)
-                    },"aweportal" );
+                    },"ITSM" );
                 }
             })
         });  
@@ -1083,7 +1083,7 @@ me.dataDef["_pgm_data"] = {};
     me.fnUpdateComm= function(comments, commid) {
         var args = {comments:comments, commid:commid};
         var invar = JSON.stringify(args);
-        gfnTx("aweportal.manageBBS", "updateComm", {INVAR : invar}, function(OUTVAR){
+        gfnTx("ITSM.manageBBS", "updateComm", {INVAR : invar}, function(OUTVAR){
             if(OUTVAR.rtnCd != "OK") {
                 gfnAlert("수정 실패", "수정에 실패하였습니다.");
                 return;
@@ -1105,13 +1105,13 @@ me.dataDef["_pgm_data"] = {};
     $("#mnBBS .toList").click(function() { 
         gMDI.openPage( "manageBBS", "공지사항 관리", function() {
             gMDI.closeTab(me.pageid); 
-        }, "aweportal" );
+        }, "ITSM" );
     });
     
     $("#toggleDiv .toRegisterBBS").click(function() { 
         gMDI.closeTab(me.pageid); 
         gMDI.openPage( "registerBBS", "공지사항 등록", function() {
-        }, "aweportal" );
+        }, "ITSM" );
     });
     
 /*-- _script2(자동생성2) start ---------------------------------------------------- */        

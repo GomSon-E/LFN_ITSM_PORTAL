@@ -283,7 +283,7 @@ me.fnShowDetail= function(docid) {
     var userid = gUserinfo.userid;
     var arg = {docid : docid};
     var invar = JSON.stringify(arg);
-    gfnTx("aweportal.manageBBS", "selectOneDoc", {INVAR : invar}, function(OUTVAR) {
+    gfnTx("ITSM.manageBBS", "selectOneDoc", {INVAR : invar}, function(OUTVAR) {
         var title = OUTVAR.list[0].title;
         if(title.length > 50) {
             title = title.substr(0, 49) + "...";
@@ -305,7 +305,7 @@ me.fnShowDetail= function(docid) {
         $(".ui-dialog-content").scrollTop(0);
         
     });
-    gfnTx("aweportal.manageBBS", "selectComm", {INVAR : invar}, function(OUTVAR){
+    gfnTx("ITSM.manageBBS", "selectComm", {INVAR : invar}, function(OUTVAR){
         for (let i = 0; i < OUTVAR.list.length; i++) {
             const el = OUTVAR.list[i];
             var CommList = {
@@ -320,7 +320,7 @@ me.fnShowDetail= function(docid) {
             me.fnDrawCommList(docid);
         };
     });
-    gfnTx("aweportal.manageBBS", "selectFile", {INVAR : invar}, function(OUTVAR) {
+    gfnTx("ITSM.manageBBS", "selectFile", {INVAR : invar}, function(OUTVAR) {
         for (let i = 0; i < OUTVAR.fList.length; i++) {
             const el = OUTVAR.fList[i];
             var FileList = {
@@ -447,7 +447,7 @@ me.fnDrawCommList= function(docid) {
             if(oTR.length != 1) return;
             gfnConfirm("삭제 확인","댓글을 삭제 하시겠습니까?", function(confirm){
                 if(confirm) {
-                    gfnTx("aweportal.manageBBS", "deleteComm", {INVAR : invar}, function(OUTVAR) {});
+                    gfnTx("ITSM.manageBBS", "deleteComm", {INVAR : invar}, function(OUTVAR) {});
                     $("#"+oTR.attr("id")).remove();
                 }
             });
@@ -501,7 +501,7 @@ me.fnInsertComm= function(docid, comments) {
     var sysdate = new Date();
     var sDate = dateFormat(sysdate);
     if(!isNull(comments)){
-        gfnTx("aweportal.manageBBS", "insertComm",{INVAR : invar}, function(OUTVAR){
+        gfnTx("ITSM.manageBBS", "insertComm",{INVAR : invar}, function(OUTVAR){
             var html = $(`<div id="updateCommDiv${OUTVAR.commid}" style="display : none; margin-bottom : 20px;">`);
             html.append(`<textarea class="updateArea${OUTVAR.commid}" placeholder="수정할 내용을 입력하세요" style="width : 90%; height : 60px; margin-bottom : 10px; resize : none;"></textarea>`);
             html.append(`<br>`);
@@ -529,7 +529,7 @@ me.fnInsertComm= function(docid, comments) {
                 if(oTR.length != 1) return;
                 gfnConfirm("삭제 확인","댓글을 삭제 하시겠습니까?", function(confirm){
                     if(confirm) {
-                        gfnTx("aweportal.manageBBS", "deleteComm", {INVAR : invar}, function(OUTVAR) {});
+                        gfnTx("ITSM.manageBBS", "deleteComm", {INVAR : invar}, function(OUTVAR) {});
                         $("#"+oTR.attr("id")).remove();
                     }
                 });
@@ -580,7 +580,7 @@ me.fnInsertComm= function(docid, comments) {
 me.fnUpdateComm= function(comments, commid) {
     var args = {comments:comments, commid:commid};
     var invar = JSON.stringify(args);
-    gfnTx("aweportal.manageBBS", "updateComm", {INVAR : invar}, function(OUTVAR){
+    gfnTx("ITSM.manageBBS", "updateComm", {INVAR : invar}, function(OUTVAR){
         if(OUTVAR.rtnCd != "OK") {
             gfnAlert("수정 실패", "수정에 실패하였습니다.");
             return;

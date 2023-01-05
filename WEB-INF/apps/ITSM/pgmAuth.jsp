@@ -5,11 +5,11 @@
 
 JSONObject OUTVAR = new JSONObject(); 
 String appid = "ITSM";
-String pgmid   = "frameHome"; 
+String pgmid   = "pgnAuth"; 
 String func  = request.getParameter("func"); 
 String rtnCode    = "OK";
 String rtnMsg     = "";
-fra
+
 try { 
 String invar = request.getParameter("INVAR");
 JSONObject INVAR  = getObject(invar); 

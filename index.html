@@ -104,7 +104,7 @@
 $(function() {
 	//별다른 선언없이 세션만 체크하고 페이지를 로드 
  
-	gfnTx("aweportal.login","sessionCheck",{INVAR:JSON.stringify(gUserinfo)},function(OUTVAR){
+	gfnTx("ITSM.login","sessionCheck",{INVAR:JSON.stringify(gUserinfo)},function(OUTVAR){
 		if(OUTVAR.rtnCd=="OK") {  
 			$("svg").remove(); 
 			if(OUTVAR.session=="Y") {
@@ -113,13 +113,13 @@ $(function() {
 				gUserinfo = OUTVAR;
 
 				var oFrameset = $("<div></div>");  
-				gfnLoad("aweportal","frameset",oFrameset,function(OUTVAR){  
+				gfnLoad("ITSM","frameset",oFrameset,function(OUTVAR){  
 					$("body").html( oFrameset.html() ); 
 				},true);
 			} else {
 				//세션이 없으면 login폼을 로드한다. 
 				var oLogin = $("<div></div>");
-				gfnLoad("aweportal","login",oLogin,function(OUTVAR){ 
+				gfnLoad("ITSM","login",oLogin,function(OUTVAR){ 
 					var ww = $(window).outerWidth();
 					if(ww <= 400) {
 						$("#splash svg").css("display","none");
