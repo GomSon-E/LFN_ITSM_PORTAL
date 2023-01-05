@@ -5,7 +5,7 @@
 
 JSONObject OUTVAR = new JSONObject(); 
 String appid = "ITSM";
-String pgmid   = "itServey"; 
+String pgmid   = "itSurvey"; 
 String func  = request.getParameter("func"); 
 String rtnCode    = "OK";
 String rtnMsg     = "";

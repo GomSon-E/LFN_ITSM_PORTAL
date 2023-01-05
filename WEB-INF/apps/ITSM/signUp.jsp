@@ -5,7 +5,7 @@
 
 JSONObject OUTVAR = new JSONObject(); 
 String appid = "aweportal";
-String pgmid   = "signup"; 
+String pgmid   = "signUp"; 
 String func  = request.getParameter("func"); 
 String rtnCode    = "OK";
 String rtnMsg     = "";
