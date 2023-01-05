@@ -63,6 +63,23 @@ if("save".equals(func)) {
         closeConn(conn);
     }
 }
+if("initCalendar".equals(func)) {
+        Connection conn = null; 
+        try {  
+            OUTVAR.put("INVAR",INVAR); //for debug
+            conn = getConn("LFN");  
+            String qry = getQuery(pgmid, "initCalendar"); 
+            String qryRun = bindVAR(qry,INVAR);
+            OUTVAR.put("qryRun",qryRun); //for debug
+            JSONArray list = selectSVC(conn, qryRun);
+            OUTVAR.put("list",list); 
+        } catch (Exception e) { 
+            rtnCode = "ERR";
+            rtnMsg = e.toString();				
+        } finally {
+            closeConn(conn);
+        }  
+    }
 // *********************************************************************************************/
 } catch (Exception e) {
 	logger.error("error occurred:"+rtnCode,e);
