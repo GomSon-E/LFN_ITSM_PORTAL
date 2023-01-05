@@ -1,0 +1,135 @@
+<!-- css start -->
+<style>
+[pgmid='frameHome'].framepage { 
+    width:100%;
+}
+[pgmid='frameHome'].framepage > .pageContent > #notice{ 
+    flex-basis:40%;
+}
+[pgmid='frameHome'].framepage > .pageContent > #calendar{ 
+    flex-basis:60%;
+}
+</style>
+
+<!-- html start -->
+<!--<div class="pageNav"></div>-->
+<!--<div class="pageTop"></div>-->
+<div class="pageCond"></div>
+<div class="pageContent">
+    <div id='notice'></div>
+    <div id='calendar'></div>
+</div>
+<script>
+/*-- _script(자동생성1) start ---------------------------------------------- */        
+$(function() {
+    var appid = "ITSM";
+    var pgmid = "frameHome"; 
+    var page = $("*[pgmid='"+pgmid+"'].framepage").last();
+    var pageid = page.attr("id"); 
+    var me = {}
+    var dataSet = {};
+    var dataDef = {};
+    var pageObj = {};
+    var bEdit = false;
+    me.fnInit = function() {
+        gfn[pageid] = me; 
+        me.appid    = appid;
+        me.pgmid    = pgmid;
+        me.pageid   = pageid;
+        me.page     = page; 
+        me.dataSet = dataSet;
+        me.dataDef = dataDef;
+        me.pageObj = pageObj;
+        me.bEdit = bEdit;
+me.dataDef["_pgm"]={"ver":3,"upd_dt":"2023-01-04 16:48:59","remark":"","pgmid":"frameHome","proc_mst_id":"","pgm_stat":"Y","sort_seq":null,"app_pgmid":"ITSM","shortcut":"","reg_dt":"2022-10-26 14:13:16","reg_usid":"mjw","pgm_nm":"포털메인화면","upd_usid":"youjungson89","pgm_tp":"TX","pgm_grp_nm":"공통","proc_mst_nm":"","":"트랜젝션(화면)","app_pgm_nm":"ITSM","crud":""};
+me.dataDef["_pgm_func"]=[];
+me.dataDef["_pgm_data"] = {};
+me.dataDef["_pgm_data"]["notice"]={"sort_seq":"1","data_id":"notice","data_nm":"공지사항","component_pgmid":"agGrid","inout_tp":null,"content":[{"sort_seq":1,"section":null,"section_icon":null,"colgrp":null,"colid":"tag","colnm":"태그","dtype":"text","etype":"raw","attr":"center","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":2,"section":null,"section_icon":null,"colgrp":null,"colid":"title","colnm":"제목","dtype":"text","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":3,"section":null,"section_icon":null,"colgrp":null,"colid":"read_cnt","colnm":"조회수","dtype":"num","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":4,"section":null,"section_icon":null,"colgrp":null,"colid":"nm","colnm":"작성자","dtype":"text","etype":"raw","attr":"center","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":5,"section":null,"section_icon":null,"colgrp":null,"colid":"reg_dt","colnm":"작성일자","dtype":"text","etype":"raw","attr":"center","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"}],"data_icon":null,"component_option":{"func":[{"funcid":"more","func_nm":"더보기","func_icon":"fas fa-search"}]}};
+me.dataDef["_pgm_data"]["calendar"]={"sort_seq":"2","data_id":"calendar","data_nm":"달력","component_pgmid":"aweCalendar","inout_tp":null,"content":null,"data_icon":null,"component_option":{"caltype":"FO_SHOP","fnTemplate":"gfn.frameHome.fnCalTemplate"}};
+
+    me.pageObj["_page"] = new gfnFramepage( me ); 
+    for(var component_id in me.dataDef["_pgm_data"]) { 
+        me.pageObj[component_id] = new gfnComponent( me.pageid, component_id, me.dataDef["_pgm_data"][component_id], me.fnEH, me); 
+    }  
+    setTimeout(function(){
+        $("#frameset").scrollTo(0); //스크롤 
+    },10);
+    if(typeof(me.fnInitExtra)=='function') me.fnInitExtra(); 
+}
+/*-- script(개발자작성) start ---------------------------------------------------- */ 
+    /* 사용자초기화 */
+    me.fnInitExtra=function() {
+    
+        // LOCAL, QAS, PROD 환경 구분하기
+        gUserinfo.server = "QAS";
+        if(window.location.href.indexOf("lfnetworks.co.kr")>=0) {
+            gUserinfo.server = "PROD";
+        } 
+        else if(window.location.href.indexOf("localhost")>=0) {
+            gUserinfo.server = "LOCAL";
+        }
+        console.log(`------${gUserinfo.server} 환경입니다------`);
+    
+        
+        // 폭 맞춤
+        me.pageObj["notice"].sizeColumnsToFit();
+        $(window).on('resize', function(){
+            me.pageObj["notice"].sizeColumnsToFit();
+        });  
+        
+        //FO달력가져오기
+        me.pageObj.calendar.initCalendar();  
+        
+        //화면 Open시 조회
+        me.fnSearch();
+    }
+    /* 이벤트핸들러 */
+    me.fnEH=function(component, evt, row, col, val) { 
+        //화면기능버튼이 눌리면 
+        if (component==me.pageObj["_pageFunc"]){ 
+            if(typeof(me[col])=='function') me[col](); //col=기능명 me["fnSearch"]()=me.fnSearch(); 
+        }
+        //notice:공지사항 이벤트처리   
+        else if(component==me.pageObj["notice"]) {
+            if(evt=="componentFunc") {
+                 gMDI.openPage( "manageBBS", "공지사항 관리" );
+            }
+            //if(evt=="change" && col=="colid") {...}
+        }
+
+        //calendar:월간 달력 이벤트처리   
+        else if(component==me.pageObj["calendar"]) {
+            if(evt=="componentFunc") {
+                gMDI.openPage( "manageBBS", "공지사항 관리" );
+            }
+            //if(evt=="change" && col=="colid") {...}
+        }
+
+        //사용자 컴포넌트/컨트롤
+        else if(component.userComponent=="myCompoId") {
+            //if(evt=="dblclick" && col=="colid") {...}
+        }
+    }
+    //달력 템플릿
+    me.fnCalTemplate=function(data) {
+        console.log("달력 템플릿 실행!");
+        return `<div class='cal'><span class='sqty'>${data.qty}</span> <span class='factor'>pcs</span></div><div class='cal'><span class='amt'>${data.amt}</span> <span class='factor'>M</span></div>`;
+    }
+    // 조회
+    me.fnSearch=function() { 
+        var args = {docTag:"공지사항"};
+        var invar = JSON.stringify(args);    
+        gfnTx("aweportal.manageBBS", "selectRecentDoc", {INVAR:invar}, function(OUTVAR){
+            if(OUTVAR.rtnCd=="OK") {
+                me.pageObj["notice"].importData(OUTVAR.list); 
+                if(!isNull(me.pageObj.notice.container) && me.pageObj.notice.container.css("display")!="none") me.pageObj.notice.sizeColumnsToFit();
+            } else {
+                gfnAlert("조회오류",OUTVAR.rtnMsg);
+            }    
+        });
+    }
+/*-- _script2(자동생성2) start ---------------------------------------------------- */        
+if(typeof(me.fnInit)=='function') me.fnInit();
+});
+
+</script>
