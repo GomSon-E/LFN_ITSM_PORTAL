@@ -156,7 +156,7 @@ me.dataDef["_pgm_data"]["cd"]={"sort_seq":"3","data_id":"cd","data_nm":"코드�
 
     //refresh:코드갱신 
     me.fnRefresh=function() { 
-        gfnTx("aweportal.frameset","retrieveInit",{}, function(OUTVAR){ 
+        gfnTx("ITSM.frameset","retrieveInit",{}, function(OUTVAR){ 
             if(OUTVAR.rtnCd=="OK") {
                 gds.comcd         = OUTVAR.comcd;   //공통코드 
                 //조회조건 refresh

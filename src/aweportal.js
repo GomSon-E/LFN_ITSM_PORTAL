@@ -87,7 +87,7 @@ function gfnLoad(app,pgm,dom,callback,bSilence) {
 
 			var args = {pgmid:pgm}
 			var invar = JSON.stringify(args);
-			gfnTx("aweportal.frameset","checkGfnTx",{INVAR:invar},function(OUTVAR){
+			gfnTx("ITSM.frameset","checkGfnTx",{INVAR:invar},function(OUTVAR){
 				console.log("pageLoaded:"+pgm);
 				console.log("checkGfnTx:");
 				console.log(OUTVAR);
@@ -144,77 +144,6 @@ function gfnCallback() {
 	logger("callback",arguments);
 }
 
-//알림 DB 저장 및 socket.io 실시간 알림 전송(수신자 배열, 앱, 메세지 키, 메세지 내용, 발신자 ID)
-function gfnNotice(empList, app, msgKey, msg, register) {
-	//3. DB 저장
-	function empSend(data) {
-		var args = {};
-		args["listAlert"] = data;
-		var invar = JSON.stringify(args);
-		gfnTx("aweportal.frameset", "alertIU", { INVAR : invar }, function(OUTVAR) {
-			if(OUTVAR.rtnCd == "OK") {
-				//socket.io 알림 전송(DB 저장 데이터셋 전송);
-				messages.emit("alert", data);
-			}
-		});
-	}
-
-	//2. 저장 데이터 가공
-	function empData(data) {
-		let temp = [];
-
-		//유저가 여려명일 때,
-		if(Object.keys(data).length > 1) {
-			data.forEach((row) => {
-				let listAlert = {};
-				listAlert = {
-					grpid       : row.usid,	//Receive USER ID
-					ref_id      : app,		//APP ID
-					ref_info_tp : msgKey,	//APP ID Specific Key
-					comments    : msg,		//Message
-					reg_usid    : register,	//Sent USER ID
-					reg_dt      : null		//SYSDATE
-				}
-				temp.push(listAlert);
-			})
-
-		//유저가 한명일 때,
-		} else if(Object.keys(data).length == 1) {
-			let listAlert = {};
-			listAlert = {
-				grpid       : data.usid,	//Receive USER ID
-				ref_id      : app,			//APP ID
-				ref_info_tp : msgKey,		//APP ID Specific Key
-				comments    : msg,			//Message
-				reg_usid    : register,		//Sent USER ID
-				reg_dt      : null			//SYSDATE
-			}
-			temp.push(listAlert);
-		}
-		empSend(temp);
-	}
-
-	//1. empList 변수 배열 체크(변수)
-	if(!Array.isArray(empList)) {
-		//배열이 아닌 경우, empList 값이 DEPT GRPID 인지, USER ID 인지 확인
-		let args = { grpid : empList };
-		let invar = JSON.stringify(args);
-		gfnTx("aweportal.frameset", "alertCheckId", { INVAR : invar }, function(OUTVAR) {
-			if(OUTVAR.rtnCd == "OK") {
-				//empList GRPID 인 경우,
-				if(OUTVAR.list.length > 0) {
-					empData(OUTVAR.list);
-				//empList USER ID인 경우,
-				} else {
-					empData( { usid : args.grpid });
-				}
-			}
-		});
-	//배열인 경우, 배열 가공
-	} else {
-		empData(empList);
-	}
-}
 //로그 저장
 function gfnLog(pgm, data, key, func, sub) {
 	var args = {
@@ -250,12 +179,6 @@ function gfnLog(pgm, data, key, func, sub) {
 			args.comments = sub;
 		}
 	}
-	var invar = JSON.stringify(args);
-	gfnTx("aweportal.systemLog", "insertUserDocLog", { INVAR : invar }, function(OUTVAR) {
-		if(OUTVAR.rtnCd == "OK") {
-			//console.log(OUTVAR);
-		};
-	})
 }
 
 function gfnStatus(msg, state) {	
@@ -442,15 +365,6 @@ function gfnHome() {
 }
 
 function gfnShowUserPanel() { 
-	/*gfnLogout();  
-	*/
-	// var userPanel = gfnPanel({width:"100%",height:"500px"},true);
-	// gfnLoad("aweportal","userinfo",userPanel,function(OUTVAR){
-	// 	var mW = 800;
-	// 	var mH = 550;
-		 
-	// 	gfnPopup("사용자정보",userPanel,opts); 
-	// });
 	var userPanel = $("<ul></ul>");
 	var menus = [
 		{ id:"manageProfile", nm:"프로필관리"},
@@ -470,7 +384,7 @@ function gfnShowUserPanel() {
           
 					gMDI.openPage("manageProfile","프로필 관리",function(OUTVAR){ 
 						//do nothing 
-					},"aweportal");
+					},"ITSM");
 					break;
 
 				case "비밀번호 변경" :  
@@ -524,7 +438,7 @@ function gfnLogout( bChk ) {
 	} else if(bChk==false) {
 		return;
 	} else {
-		gfnTx("aweportal.login","logout",{},function(OUTVAR){
+		gfnTx("ITSM.login","logout",{},function(OUTVAR){
 			if(OUTVAR.rtnCd=="OK") {  
 			  location.reload();
 			}
@@ -544,19 +458,6 @@ function gfnPersonalize(oPageInfo, pageid) { // 개인화
 	gfnAlert("Personalize","on construction.:"+oPageInfo.pgmnm);
 }
 
-function gfnCalendar() {
-	var opts = { 
-		autoOpen: true,
-		width:400,
-		height:600 
-	}
-	var oPage = $("<div></div>");
-		oPage.attr("id","calendar");
-		oPage.addClass("framepage");
-	gfnLoad("aweportal","calendar",oPage,function(){	
-		gfnPopup("시간과 달력", oPage , opts);
-	});
-}
 
 /*** 사용자기본값 가져오기 *************************************************************************************/
 function gfnDefVal(grpcd) {
@@ -575,23 +476,10 @@ function gfnDefValObj(grpcd) {
 	}
 }
 
-/*** 데이터 *************************************************************************************/
-function gfnGetImageUrl(imgno, afnCallback) {
-	var url = "./images/noimg.png";
-	if(isNull(imgno)) {
-		afnCallback( url );
-		return;
-	} else { 
-		gfnTx("aweportal.frameset","retrieveImgUrl",{imgno:imgno},function(OUTVAR){
-			if(OUTVAR.rtnCd == "OK") url = OUTVAR.url;
-			afnCallback( url );
-		},true);
-	}
-}
 function gfnGetUUID(digit, afnCallback)  {
 	var uuid = "";
 	if(!isNum(digit)||isNull(digit)) digit = 20;
-	gfnTx("aweportal.frameset","getUUID",{INVAR:{digit:digit}},function(OUTVAR){
+	gfnTx("ITSM.frameset","getUUID",{INVAR:{digit:digit}},function(OUTVAR){
 		if(OUTVAR.rtnCd == "OK") uuid = OUTVAR.uuid;
 		afnCallback( uuid );
 	},true);

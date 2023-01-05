@@ -323,7 +323,7 @@ me.dataDef["_pgm_data"] = {};
         var args = { userid: $("#userid").val(), loginpwd: CryptoJS.SHA256($("#loginpwd").val()).toString() };
         var invar = JSON.stringify(args);
         console.dir("fnLogin" + ":" + invar);
-        gfnTx("aweportal.login", "loginCheck", { INVAR: invar }, function (OUTVAR) {
+        gfnTx("ITSM.login", "loginCheck", { INVAR: invar }, function (OUTVAR) {
           if (OUTVAR.rtnCd == "OK") {
             gUserinfo = OUTVAR.userinfo;
             gUserinfo.temp_pwd = OUTVAR.list[0].temp_yn; //"Y"
@@ -331,7 +331,7 @@ me.dataDef["_pgm_data"] = {};
               gfnAlert("알림", "비밀번호를 변경해주세요");
             }
             var oFrameset = $("<div></div>");
-            gfnLoad("aweportal", "frameset", oFrameset, function (OUTVAR) {
+            gfnLoad("ITSM", "frameset", oFrameset, function (OUTVAR) {
               $("body").html(oFrameset.html());
             }, true);
           } else {

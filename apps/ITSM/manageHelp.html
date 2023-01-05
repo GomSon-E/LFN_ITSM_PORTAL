@@ -96,7 +96,7 @@
     cursor: pointer;
 }
 [pgmid='manageHelp'] #guideImg {
-    padding: 1px 1px 1px 1px;*/
+    padding: 1px 1px 1px 1px;
     position:relative;
     list-style:none;
     width:100%;
@@ -244,7 +244,6 @@ me.dataDef["_pgm_data"]["csrList"]={"sort_seq":"4","data_id":"csrList","data_nm"
                 //프로그램 정보 가져오기
                 me.fnPgmDetail();
                 me.fnGetPgmFunc();
-                me.fnGetCSR();
             } else {
                 gfnAlert("조회오류",OUTVAR.rtnMsg);
             }
@@ -349,21 +348,6 @@ me.dataDef["_pgm_data"]["csrList"]={"sort_seq":"4","data_id":"csrList","data_nm"
                 }
             } 
         }
-        
-        //csrList:CSR 내역 조회 및 추가 이벤트 처리  
-        else if(component==me.pageObj["csrList"]) {
-            if (evt=="componentFunc") {
-                var popid =  "csr"+gMDI.getNext();
-                var container = $("<div id='"+popid+"' class='framepage active'></div>");
-                me.page.append(container);	 
-                gParam = $.extend(true, gParam, {appid:page.appid, pgmid:page.pgmid});  
-                gfnLoad("aweportal","registerCSR",container,function(){ 
-                    gfnPopup("시스템요청", container, {width: 600, height:700}, function() {
-                        me.fnGetCSR();
-                    });
-                });
-            }
-        }
     
         //사용자 컴포넌트/컨트롤
         else if(component.userComponent=="myCompoId") {
@@ -386,20 +370,6 @@ me.dataDef["_pgm_data"]["csrList"]={"sort_seq":"4","data_id":"csrList","data_nm"
                         //console.log("<i class='"+OUTVAR.list[i].btn_icon+"'>");
                     }
                 },10);
-            } else {
-                gfnAlert("조회오류",OUTVAR.rtnMsg);
-            }
-        });
-    }
-    
-    //csr내역 조회
-    me.fnGetCSR= function() {
-        var arg = {pgmid : gPgmid};
-        var invar = JSON.stringify(arg);
-        gfnTx("aweportal.registerCSR","search",{INVAR:invar},function(OUTVAR){
-            if(OUTVAR.rtnCd=="OK") {
-                me.pageObj["csrList"].importData(OUTVAR.list);
-                me.pageObj["csrList"].sizeColumnsToFit();
             } else {
                 gfnAlert("조회오류",OUTVAR.rtnMsg);
             }
