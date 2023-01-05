@@ -63,7 +63,7 @@ function gfnMDI(pageContainer,tabContainer) {
 		var oPage = $("<div></div>");
 		oPage.attr("id","frameHome");
 		oPage.addClass("framepage");
-		gfnLoad("aweportal","frameHome",oPage,function(OUTVAR){
+		gfnLoad("ITSM","frameHome",oPage,function(OUTVAR){
 			me.pageContainer.children("#frameHome").remove();
 			me.pageContainer.append(oPage);
 			me.go(0);

@@ -1,0 +1,169 @@
+<!-- css start -->
+<style>
+[pgmid='comPurchaseReq'].framepage { 
+    width:100%;
+}
+</style>
+
+<!-- html start -->
+<div class="pageNav"></div>
+<div class="pageTop"></div>
+<div class="pageCond"></div>
+<div class="pageContent">
+    <div id='list'></div>
+     <div class="flexColumn" style="flex-basis: 50%">
+    <div id='mst'></div>
+    <div id='detail'></div>
+</div>
+</div>
+<script>
+/*-- _script(자동생성1) start ---------------------------------------------- */        
+$(function() {
+    var appid = "ITSM";
+    var pgmid = "comPurchaseReq"; 
+    var page = $("*[pgmid='"+pgmid+"'].framepage").last();
+    var pageid = page.attr("id"); 
+    var me = {}
+    var dataSet = {};
+    var dataDef = {};
+    var pageObj = {};
+    var bEdit = false;
+    me.fnInit = function() {
+        gfn[pageid] = me; 
+        me.appid    = appid;
+        me.pgmid    = pgmid;
+        me.pageid   = pageid;
+        me.page     = page; 
+        me.dataSet = dataSet;
+        me.dataDef = dataDef;
+        me.pageObj = pageObj;
+        me.bEdit = bEdit;
+me.dataDef["_pgm"]={"ver":0.6,"upd_dt":"2023-01-04 11:49:10","remark":"","pgmid":"comPurchaseReq","proc_mst_id":"","pgm_stat":"Y","sort_seq":30,"app_pgmid":"ITSM","shortcut":"","reg_dt":"2022-12-12 09:17:58","reg_usid":"jhk","pgm_nm":"SW/HW 구매요청","upd_usid":"youjungson89","pgm_tp":"UX","pgm_grp_nm":"협력업체","proc_mst_nm":"","":"트랜젝션(메뉴)","app_pgm_nm":"ITSM","crud":""};
+me.dataDef["_pgm_func"]=[{"func_icon":"fas fa-search","ver":"0.55","func_nm":"조회","upd_dt":"","func_tp":"DB_R","remark":"구매요청 목록을 조회합니다.","pgmid":"comPurchaseReq","sort_seq":"1","funcid":"search","content":"조회조건에 맞게 구매 요청 목록을 조회합니다.","reg_dt":"","reg_usid":"","upd_usid":"","crud":"R","id":"0"},{"func_icon":"fas fa-save","ver":"0.55","func_nm":"저장","upd_dt":"","func_tp":"DB_W","remark":"파일을 수정/저장을 합니다.","pgmid":"comPurchaseReq","sort_seq":"2","funcid":"save","content":"업로드한 파일을 수정/저장을 합니다.","reg_dt":"","reg_usid":"","upd_usid":"","crud":"R","id":"1"}];
+me.dataDef["_pgm_data"] = {};
+me.dataDef["_pgm_data"]["detail"]={"sort_seq":"1","data_id":"detail","data_nm":"요청 내역","component_pgmid":"agGrid","inout_tp":"INOUT","content":[{"sort_seq":null,"section":null,"section_icon":null,"colgrp":null,"colid":"req_pd","colnm":"요청 품목","dtype":"text","etype":"txt","attr":"readonly","defval":null,"w":null,"h":null,"refcd":null,"option":"txt","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":null,"section":null,"section_icon":null,"colgrp":null,"colid":"req_cnt","colnm":"수량","dtype":"num","etype":"txt","attr":"readonly","defval":null,"w":null,"h":null,"refcd":null,"option":"txt","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":null,"section":null,"section_icon":null,"colgrp":null,"colid":"from_due_date","colnm":"납기 일자","dtype":"ymd","etype":"txt","attr":"ymd readonly ","defval":null,"w":null,"h":null,"refcd":null,"option":"txt","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":null,"section":null,"section_icon":null,"colgrp":null,"colid":"ext_cpm","colnm":"협력 업체","dtype":"text","etype":"txt","attr":" hidden","defval":null,"w":null,"h":null,"refcd":null,"option":"txt","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":null,"section":null,"section_icon":null,"colgrp":null,"colid":"ext_er","colnm":"업체 담당자","dtype":"text","etype":"txt","attr":"readonly ","defval":null,"w":null,"h":null,"refcd":null,"option":"txt","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":null,"section":null,"section_icon":null,"colgrp":null,"colid":"file_upload","colnm":"파일 업로드","dtype":"text","etype":"btn","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":"txt","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"}],"data_icon":null,"component_option":{"gridOpt":"rn chk"}};
+me.dataDef["_pgm_data"]["list"]={"sort_seq":"2","data_id":"list","data_nm":"요청 목록","component_pgmid":"agGrid","inout_tp":null,"content":[{"sort_seq":null,"section":null,"section_icon":null,"colgrp":null,"colid":"from_req_date","colnm":"요청 일자","dtype":"ymd","etype":"txt","attr":"readonly","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":null,"section":null,"section_icon":null,"colgrp":null,"colid":"req_dpt","colnm":"요청 부서","dtype":"text","etype":"txt","attr":" readonly","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":null,"section":null,"section_icon":null,"colgrp":null,"colid":"req_er","colnm":"요청자","dtype":"text","etype":"txt","attr":"readonly","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":null,"section":null,"section_icon":null,"colgrp":null,"colid":"mng_depart","colnm":"담당 부서","dtype":"text","etype":"txt","attr":"hidden ","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":null,"section":null,"section_icon":null,"colgrp":null,"colid":"mng_er","colnm":"담당자","dtype":"text","etype":"txt","attr":"readonly","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":null,"section":null,"section_icon":null,"colgrp":null,"colid":"sw_hw","colnm":"요청 유형","dtype":"text","etype":"txt","attr":"readonly","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":null,"section":null,"section_icon":null,"colgrp":null,"colid":"req_step","colnm":"요청 단계","dtype":"text","etype":"txt","attr":" readonly","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":null,"section":null,"section_icon":null,"colgrp":null,"colid":"from_due_date","colnm":"납기 일자","dtype":"ymd","etype":"txt","attr":" readonly  ymd","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"}],"data_icon":null,"component_option":{"gridOpt":"rn chk","gridOptions":{"statusBar":"false"}}};
+me.dataDef["_pgm_data"]["mst"]={"sort_seq":"3","data_id":"mst","data_nm":"요청 확인","component_pgmid":"aweForm","inout_tp":"OUT","content":[{"sort_seq":null,"section":null,"section_icon":null,"colgrp":null,"colid":"from_req_date","colnm":"요청 일자","dtype":"ymd","etype":"txt","attr":"readonly","defval":null,"w":"10","h":null,"refcd":"DATE","option":"txt","len":12,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":null,"section":null,"section_icon":null,"colgrp":null,"colid":"req_dpt","colnm":"요청 부서","dtype":"text","etype":"txt","attr":"readonly","defval":null,"w":"10","h":null,"refcd":null,"option":"txt","len":30,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":null,"section":null,"section_icon":null,"colgrp":null,"colid":"req_er","colnm":"요청자","dtype":"text","etype":"txt","attr":"readonly","defval":null,"w":"10","h":null,"refcd":null,"option":"txt","len":12,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":null,"section":null,"section_icon":null,"colgrp":null,"colid":"sw_hw","colnm":"요청 유형","dtype":"text","etype":"txt","attr":"readonly","defval":null,"w":"10","h":null,"refcd":null,"option":"txt","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":null,"section":null,"section_icon":null,"colgrp":null,"colid":"mng_depart","colnm":"담당 부서","dtype":"text","etype":"txt","attr":"hidden readonly","defval":null,"w":"10","h":null,"refcd":null,"option":"txt","len":30,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":null,"section":null,"section_icon":null,"colgrp":null,"colid":"mng_er","colnm":"담당자","dtype":"text","etype":"txt","attr":"readonly","defval":null,"w":"10","h":null,"refcd":null,"option":"txt","len":12,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":null,"section":null,"section_icon":null,"colgrp":null,"colid":"req_title","colnm":"제목 (용도)","dtype":"text","etype":"tarea","attr":"readonly","defval":null,"w":"100","h":null,"refcd":null,"option":"txt","len":300,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"}],"data_icon":null,"component_option":null};
+me.dataDef["_pgm_data"]["pageCond"]={"sort_seq":"4","data_id":"pageCond","data_nm":"조회조건","component_pgmid":"aweForm","inout_tp":"INOUT","content":[{"sort_seq":null,"section":null,"section_icon":null,"colgrp":"요청 일자","colid":"from_req_date","colnm":"요청 일자","dtype":"ymd","etype":"date","attr":null,"defval":"date(\"today\").substr(0,8)+\"01\"","w":"16:45","h":null,"refcd":"DATE","option":"periodMark","len":12,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":null,"section":null,"section_icon":null,"colgrp":"요청 일자","colid":"to_req_date","colnm":"~","dtype":"ymd","etype":"date","attr":null,"defval":"date(\"last\")","w":"16:45","h":null,"refcd":"DATE","option":"txt","len":12,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":null,"section":null,"section_icon":null,"colgrp":null,"colid":"req_dpt","colnm":"요청 부서","dtype":"text","etype":"sel","attr":null,"defval":null,"w":"8","h":null,"refcd":null,"option":"txt","len":30,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":null,"section":null,"section_icon":null,"colgrp":null,"colid":"req_er","colnm":"요청자","dtype":"text","etype":"sel","attr":null,"defval":null,"w":"8","h":null,"refcd":null,"option":"txt","len":12,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":null,"section":null,"section_icon":null,"colgrp":null,"colid":"sw_hw","colnm":"요청 유형","dtype":"text","etype":"sel","attr":null,"defval":null,"w":"5","h":null,"refcd":null,"option":"txt","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":null,"section":null,"section_icon":null,"colgrp":null,"colid":"req_step","colnm":"요청 단계","dtype":"text","etype":"sel","attr":null,"defval":null,"w":"5","h":null,"refcd":null,"option":"txt","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":null,"section":null,"section_icon":null,"colgrp":"납기 일자","colid":"from_due_date","colnm":"납기 일자","dtype":"ymd","etype":"date","attr":null,"defval":"date(\"today\").substr(0,8)+\"01\"","w":"16:45","h":null,"refcd":"DATE","option":"periodMark","len":12,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":null,"section":null,"section_icon":null,"colgrp":"납기 일자","colid":"to_due_date","colnm":"~","dtype":"ymd","etype":"date","attr":null,"defval":"date(\"last\")","w":"16:45","h":null,"refcd":"DATE","option":"txt","len":12,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":null,"section":null,"section_icon":null,"colgrp":null,"colid":"req_pd","colnm":"요청 품목","dtype":"text","etype":"sel","attr":null,"defval":null,"w":"16","h":null,"refcd":null,"option":"txt","len":30,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":null,"section":null,"section_icon":null,"colgrp":null,"colid":"mng_depart","colnm":"담당 부서","dtype":"text","etype":"sel","attr":"hidden ","defval":null,"w":"0","h":null,"refcd":null,"option":"txt","len":30,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":null,"section":null,"section_icon":null,"colgrp":null,"colid":"mng_er","colnm":"담당자","dtype":"text","etype":"sel","attr":null,"defval":null,"w":"8","h":null,"refcd":null,"option":"txt","len":12,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":null,"section":null,"section_icon":null,"colgrp":null,"colid":"ext_er","colnm":"업체 담당자","dtype":"text","etype":"sel","attr":null,"defval":null,"w":"8","h":null,"refcd":null,"option":"txt","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":null,"section":null,"section_icon":null,"colgrp":null,"colid":"span","colnm":null,"dtype":"text","etype":"raw","attr":null,"defval":null,"w":"10","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"}],"data_icon":null,"component_option":null};
+
+    me.pageObj["_page"] = new gfnFramepage( me ); 
+    for(var component_id in me.dataDef["_pgm_data"]) { 
+        me.pageObj[component_id] = new gfnComponent( me.pageid, component_id, me.dataDef["_pgm_data"][component_id], me.fnEH, me); 
+    }  
+    setTimeout(function(){
+        $("#frameset").scrollTo(0); //스크롤 
+    },10);
+    if(typeof(me.fnInitExtra)=='function') me.fnInitExtra(); 
+}
+/*-- script(개발자작성) start ---------------------------------------------------- */ 
+    /* 사용자초기화 */
+    me.fnInitExtra=function() {
+        //사용자 컴포넌트 
+        //me.dataDef["_pgm_data"][myCompoId] = {...};
+        //me.pageObj["myCompoId"] = new gfnComponent( me.pageid, myCompoId, me.dataDef["_pgm_data"][myCompoId], me.fnEH, me); 
+        //me.pageObj["myCompoId"].userComponent = "myCompoId";
+        //사용자 컨트롤
+        //var myColinfo = {colid:...}
+        //me.pageObj["myColId"] = new gfnControl(myColinfo, me.fnEH) 
+        //me.page.find("#myCol").append(me.pageObj["myColId"].dispObj);
+        //me.pageObj["myColId"].getVal(); / myCol.setVal(val);...    
+    }
+    /* 이벤트핸들러 */
+    me.fnEH=function(component, evt, row, col, val) { 
+        //화면기능버튼이 눌리면 
+        if (component==me.pageObj["_pageFunc"]){ 
+            if(typeof(me[col])=='function') me[col](); //col=기능명 me["fnSearch"]()=me.fnSearch(); 
+        }
+        //detail:요청 내역 이벤트처리   
+        else if(component==me.pageObj["detail"]) {
+            if(evt=="componentFunc") {
+                if(row=="addRow") {
+                    component.addRow();
+                } else if(row=="delRow") {
+                    component.delRow();
+                }
+            }
+            //if(evt=="change" && col=="colid") {...}
+        }
+
+        //list:요청 목록 이벤트처리   
+        else if(component==me.pageObj["list"]) {
+            if(evt=="componentFunc") {
+                if(row=="addRow") {
+                    component.addRow();
+                } else if(row=="delRow") {
+                    component.delRow();
+                }
+            }
+            //if(evt=="change" && col=="colid") {...}
+        }
+
+        //mst:요청 확인 이벤트처리   
+        else if(component==me.pageObj["mst"]) {
+            if(evt=="componentFunc") {
+                if(row=="addRow") {
+                    component.addRow();
+                } else if(row=="delRow") {
+                    component.delRow();
+                }
+            }
+            //if(evt=="change" && col=="colid") {...}
+        }
+
+        //pageCond:조회조건 이벤트처리   
+        else if(component==me.pageObj["pageCond"]) {
+            if(evt=="componentFunc") {
+                if(row=="addRow") {
+                    component.addRow();
+                } else if(row=="delRow") {
+                    component.delRow();
+                }
+            }
+            //if(evt=="change" && col=="colid") {...}
+        }
+
+        //사용자 컴포넌트/컨트롤
+        else if(component.userComponent=="myCompoId") {
+            //if(evt=="dblclick" && col=="colid") {...}
+        }
+    }
+    //search:조회 
+    me.fnSearch=function() {
+        if( !me.pageObj["pageCond"].chkValid() ) return;
+        var args = me.pageObj["pageCond"].exportData()[0];
+        //console.log(args);
+        var invar = JSON.stringify(args);
+        gfnTx(appid+"."+pgmid,"search",{INVAR:invar},function(OUTVAR){
+            //console.log(OUTVAR);
+            if(OUTVAR.rtnCd=="OK") {
+                me.pageObj["list"].importData(OUTVAR.list);
+            } else {
+                gfnAlert("조회오류",OUTVAR.rtnMsg);
+            }
+        });
+    }
+
+    //save:저장 
+    me.fnSave=function() {
+        if( !me.pageObj["pageCond"].chkValid() ) return;
+        if( !me.pageObj["list"].chkValid() ) return;
+        var args = me.pageObj["pageCond"].exportData()[0];
+        args.list = me.pageObj["list"].exportData();
+        //console.log(args);
+        var invar = JSON.stringify(args);
+        gfnTx(appid+"."+pgmid,"save",{INVAR:invar},function(OUTVAR){
+            //console.log(OUTVAR);
+            if(OUTVAR.rtnCd=="OK") {
+                gfnAlert("저장성공","입력한 정보가 저장되었습니다.");
+                me.fnSearch();
+            } else {
+                gfnAlert("저장오류",OUTVAR.rtnMsg);
+            }
+        });
+    }
+
+/*-- _script2(자동생성2) start ---------------------------------------------------- */        
+if(typeof(me.fnInit)=='function') me.fnInit();
+});
+
+</script>
