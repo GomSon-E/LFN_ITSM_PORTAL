@@ -544,19 +544,6 @@ function gfnPersonalize(oPageInfo, pageid) { // 개인화
 	gfnAlert("Personalize","on construction.:"+oPageInfo.pgmnm);
 }
 
-function gfnCalendar() {
-	var opts = { 
-		autoOpen: true,
-		width:400,
-		height:600 
-	}
-	var oPage = $("<div></div>");
-		oPage.attr("id","calendar");
-		oPage.addClass("framepage");
-	gfnLoad("aweportal","calendar",oPage,function(){	
-		gfnPopup("시간과 달력", oPage , opts);
-	});
-}
 
 /*** 사용자기본값 가져오기 *************************************************************************************/
 function gfnDefVal(grpcd) {

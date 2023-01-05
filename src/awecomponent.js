@@ -73,19 +73,6 @@ function gfnMDI(pageContainer,tabContainer) {
 			afnCallback();
 		});
 	} 
-	//frameLeft 메세지 채널 초기화
-	me.portletChat = function() {
-		$("#frameLeft .grpChat *").remove();
-		var portletChat = $("#frameLeft .grpChat");
-		gfnLoad("aweportal", "portletChat", portletChat, function(OUTVAR) {
-		}, true);
-	}
-
-	me.portletAlert = function() {
-		var portletAlert = $("#frameAlert");
-		gfnLoad("aweportal", "portletAlert", portletAlert, function(OUTVAR) {
-		}, true);
-	}
 	
 	//한 개의 특정 페이지로 이동
 	me.goOne = function(grpid) {
@@ -183,7 +170,7 @@ function gfnMDI(pageContainer,tabContainer) {
 			oPage.attr("grpnm", grpnm);
 		}
 
-		gfnLoad("aweportal", pgmid, oPage, function(OUTVAR){
+		gfnLoad("ITSM", pgmid, oPage, function(OUTVAR){
 			var oTab = $('<a class="tab" pageidx="page'+me.idx+'" grpid="'+grpid+'"><div>'+pagenm+'</div><i class="fa fa-times closetab"></i></a>');
 			oTab.bind('mouseenter', function(){ /* 폭이 좁아져서 ...이 되면 tooltip으로 화면명 표시 */
 				var $this = $(this); 
@@ -284,25 +271,6 @@ function gfnMDI(pageContainer,tabContainer) {
 				if(OUTVAR.rtnCd != "OK") console.log(OUTVAR); 
 			});
 		});
-	}
-
-	//채널 생성(중복 x)
-	me.openChat = function(pgmid, grpid) {
-		var count = 0;
-		var container = $("<div id='" + grpid + "' class='frameChat focus'></div>");
-
-		//페이지 카운트
-		if(document.getElementById(grpid)) count++;
-
-		//페이지가 존재하는 경우, 페이지 넘버를 이전으로 돌린 후, 리턴
-		if(count > 0) return;
-		
-		//grpid 메세지 채널이 없는 경우, frameChat 메세지 채널을 삽입
-		else {
-			gfnLoad("aweportal", pgmid, container, function(OUTVAR) {
-				$("#frameChat").append(container);
-			}, true);
-		}
 	}
 
 	//한페이지 생성된 탭닫기
@@ -680,7 +648,6 @@ function gfnFramepage( page ) {
 
         pageNav.append(`<div class="commonFunc">
             <button class="icon" id="help"><i class="fas fa-question"></i></button>
-            <button class="icon" id="csr"><i class="fas fa-desktop"></i></button>
             <button class="icon" id="close"><i class="fas fa-times"></i></button>
             </div>`); 
 
@@ -701,18 +668,8 @@ function gfnFramepage( page ) {
 				var container = $("<div id='"+popid+"' class='framepage active'></div>");
 				me.page.append(container);
 				gParam = $.extend(true, gParam, { appid:page.appid, pgmid:page.pgmid, dataDef:page.dataDef });
-				gfnLoad("aweportal","manageHelp",container,function(){ 
+				gfnLoad("ITSM","manageHelp",container,function(){ 
 					gfnPopup("프로그램 이용 가이드", container, {width: 1000, height:700});
-				});
-			}
-			else if (btnMe.attr("id") == "csr") { 
-				console.log('csr 기능');
-				var popid =  "csr"+gMDI.getNext();
-				var container = $("<div id='"+popid+"' class='framepage active'></div>");
-				me.page.append(container);	 
-				gParam = $.extend(true, gParam, {appid:page.appid, pgmid:page.pgmid, dataDef:page.dataDef});  
-				gfnLoad("aweportal","registerCSR",container,function(){ 
-					gfnPopup("시스템요청", container, {width: 600, height:700});
 				});
 			}
 			else if (btnMe.attr("id") == "close") {
@@ -4065,72 +4022,6 @@ function gfnSetOpts(obj, refcd, option, val) {
     return fnInit(); //초기화 호출
 }
 
-/* 표준코드 검색창을 띄우고 fnCallback을 호출  *****************************************************/
-function gfnSearch(refcd, fnCallback, option, term, bForcerefresh, where) {
-	/*  refcd = 공통코드구분(grpcd값) 또는 popupSearch에 정의한 검색구분
-	            또는 결과셋을 리턴하는 함수 또는 배열
-				* gfnGetData 참조
-	    option = "선택옵션:코드컬럼:명칭컬럼:표시형식:그룹컬럼" 
-		  선택옵션- sel(선택)/multi(다중-pop에서만)/auto(1건 존재시 자동닫힘-pop에서만)
-		  코드컬럼:명칭컬럼 = 값을 리턴받을 컬럼ID
-		  검색컬럼: term이 어떤 컬럼인지 cd(코드)/nm(명칭)/cdnm(코드명칭무관)
-		  그룹컬럼: 그룹핑하여 표시할 경우 그룹컬럼ID
-		term = 검색어
-		fnCallback = 검색어를 검색한 결과를 리턴받을 콜백함수 */
-
-	/* 사용자정의 팝업을 사용하려는 경우 바로 리턴한다. */
-	if(refcd=="mypop") {
-		fnCallback(arguments); //will invoke gfnControl.searchPop  
-		return;
-	}	
-		
-	var options = option.split(":");
-	var optSel = nvl(options[0],"sel");
-	var colcd  = nvl(options[1],"cd");
-	var colnm  = nvl(options[2],"nm");
-	var disp   = nvl(options[3],"cdnm");
-	var colgrp = nvl(options[4],""); 
-	/* 팝업창을 띄운다. */ 
-	var fnOpenPop = function(refcd, list, term, afnCallback, bForcerefresh, where) {
-		if($(".framepage.popupSearch").length > 0) return;
-		var popid =  "search"+gMDI.getNext();
-		var container = $("<div id='"+popid+"' class='framepage popupSearch' style='display:flex;flex-direction:column;'></div>");
-		$("#frameset").append(container);		
-		//검색창을 불러들인 후 팝업창 호출 
-		gParam["refcd"]  = refcd; //검색구분
-		gParam["list"]  = list; //조회해놓은 데이터셋을 던진다. 
-		gParam["optSel"] = optSel; 
-		gParam["colcd"] = colcd;
-		gParam["colnm"] = colnm;
-		gParam["disp"] = disp;
-		gParam["colgrp"] = colgrp; 
-		gParam["term"] = term; //전달된 검색어를 던진다.
-		gParam["bForcerefresh"] = bForcerefresh; //전달된 검색어를 던진다.
-		gParam["where"] = where; //전달된 검색어를 던진다.
-		gfnLoad("aweportal","popupSearch",container,function(){
-			var title = "코드 검색";
-	    	gfn["popupTemp"] = gfnPopup(title, container, {}, afnCallback);
-		},true); 
-	} 
-	/* 데이터를 조회한 후 팝업을 띄운다. */
-	gParam = {}; //검색전 gParam Clear...
-	gfnGetData(refcd, function(list){
-		if(optSel=="auto" && list.length==1) {
-			var rtn = [];
-			for(var i=0; i < list.length; i++) {
-				var row = {};
-				row[colcd] = list[i].cd;
-				row[colnm] = list[i].nm;
-				$.extend(true, row, list[i]);
-				rtn.push(row);
-			}
-			gParam = $.extend(true, gParam, {rtnCd:"OK", rtnData:rtn, colcd:colcd, colnm:colnm});
-			fnCallback(gParam);
-		} else {
-			fnOpenPop(refcd, list, nvl(term,""), fnCallback, bForcerefresh, where);
-		}
-	}, disp, nvl(term,""), bForcerefresh, where);
-} 
 /* refcd(grpcd)에 따라 데이터를 조회하고 fnCallback을 호출  ****************************************/	
 function gfnGetData(refcd, fnCallback, disp, term, bForceRefresh, where) { 
 	if($.type(eval2(refcd))=="string") {
@@ -4191,48 +4082,6 @@ function gfnGetData(refcd, fnCallback, disp, term, bForceRefresh, where) {
 	}
 }  
 
-/* 메세지 채널을 생성하거나 생성된 채널의 정보를 관리 */
-function gfnManageChat(grpid, userid) {
-
-	//참고하는 gParam 데이터셋 초기화
-	gParam["grpid"]		= [];
-	gParam["userid"]	= [];
-
-	//팝업 생성
-	//grpid와 userid를 팝업 호출 시 전달받음
-	gParam["grpid"]	 = grpid;
-	gParam["userid"] = userid;
-
-	if($.contains(document.body, document.getElementsByClassName("manageframeChat")[0])) $("#frameset .manageframeChat").remove();
-	
-	var container = $("<div class='manageframeChat'></div>");
-	$("#frameset").append(container);
-	
-	gfnLoad("aweportal", "manageChat", container, function() {
-	}, true);
-
-	// //팝업 생성
-	// var fnOpenPop = function(grpid, userid) {
-	// 	var container = $("<div class='manageChat'></div>");
-
-	// 	//grpid와 userid를 팝업 호출 시 전달받음
-	// 	gParam["grpid"]	 = grpid;
-	// 	gParam["userid"] = userid;
-
-	// 	gfnLoad("aweportal", "manageChat", container, function() {
-	// 		var title = "메세지 채널";
-	// 		var opt = {
-	// 			resizable: true,
-	// 			modal : true,
-	// 			draggable: true,
-	// 			minWidth: 430,
-	// 		}
-	// 		gfnPopup(title, container, opt);
-	// 	}, true);
-	// }
-	// fnOpenPop(grpid, userid);
-}
-
 /* popupUpload 파일 업로드 창 */
 function gfnUpload(UUID, file_tp, ref_file_tp, afnCallback) {
 	var UUID = UUID;
@@ -4253,7 +4102,7 @@ function gfnUpload(UUID, file_tp, ref_file_tp, afnCallback) {
 		gParam["file_tp"] = file_tp;
 		gParam["ref_file_tp"] = ref_file_tp; 
 		 
-		gfnLoad("aweportal", "popupUpload", container, function() { 
+		gfnLoad("ITSM", "popupUpload", container, function() { 
 			var title = "파일 업로드";
 			var opt = {
 				resizable: true,
@@ -4295,7 +4144,7 @@ function gfnProfileUpload(UUID, file_tp, ref_file_tp, afnCallback) {
 		gParam["file_tp"] = file_tp;
 		gParam["ref_file_tp"] = ref_file_tp; 
 		 
-		gfnLoad("aweportal", "popupUpload", container, function() { 
+		gfnLoad("ITSM", "popupUpload", container, function() { 
 			var title = "파일 업로드";
 			var opt = {
 				resizable: true,
@@ -4364,7 +4213,7 @@ function gfnPopupDetailBBS(docid) {
 		/* 선언된 데이터를 업로드창으로 넘겨준다. */
 		gParam["docid"] = docid;
 
-		gfnLoad("aweportal", "detailBBS", container, function() { 
+		gfnLoad("ITSM", "detailBBS", container, function() { 
 			var title = "공지사항";
 			var opt = {
 				resizable: true,
