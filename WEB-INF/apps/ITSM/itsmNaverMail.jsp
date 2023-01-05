@@ -37,7 +37,8 @@ if("sendMsg4".equals(func)) {
     try {  
         OUTVAR.put("INVAR",INVAR);
         JSONArray usidlist = getArray(INVAR,"usidlist"); 
-        String token = "kr1AAAA3SunikDDk8fj+xwULBh0UbcUEEPl9lgcRucyyfK5hd5sPH0eZv8QOafhz7cNkbTH4Klhhl+/ye1FBGOoNSsu9O74rinnv+WQpW3eREzL1zk6ErXR/AJ3wWcup1xav4Xw/wE38td7ivOwqfzTnMCFr0GZNz51w2ntrpX2CmJeTV5w2MqS5H+XPqhnsdyRhumZywC5MRtWomTZIMc6H4i5mwS/qJlOF+jiLcPjoHMIlfHB6NadZ7vNcVxlBRzbsh+kgZr7lPE34nDKNDD40iNg8Kjvu0AiT0wdOvqhWlVcJkKv";
+        String token = "kr1AAAA21rfK8+Gq4jHV8fCkTgfIYZodBpDiIi9W+f6pS37Z7/IxO8yTmIe7eRQp+oqhRbJ7SF/SaF1ZxyiOixEitOZz+SBYeCCeypZNHY3pOd8iYmT+qhFw6hijeg0UBH02mHVNFJlYzb0vOXrf4yv4c1jgYjWO/0PfQP2e+yWKGgyIDqm++JswvYrO6NjpMyeuBlk2b5nWmJv+MTGLgGDWeV3GlfOkqFArsRsSOmlMdFJld8OPXpDfrCtOVATW1PFinNTh3DyjhCiX8LqrEYTTwFxZYBd8SfX+plJIrbBrvUYUWSu",
+    "refresh_token": "kr1AAAAg9et/NHoB76VK6bYGB5i8ni67lW/wHvpjo6h3gkzA9ehYqHo9RahpTv/XSiZf/utRGGZuYYSAcm0kQAWyza83NzpOt5Y2hC/ugwhlaEUVdxLjkCVhlAPlDFrYZdsC6UDYjBoVV4vnCCT0LWOScWEl5BW8DSjkAmfkmyHrRV6vPwCng30yNdGKrAEHAICvGRVYw==";
         // token = URLEncoder.encode(token,"UTF-8");
         
 
