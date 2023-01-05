@@ -2593,51 +2593,6 @@ function gfnComponent( pageId, containerId, componentDef, afnEH, page ) {
 				</tbody>
 			</table>`;
 
-			me.initCalendar = function(calOption=me.component_option, afnCallback) {
-				if(typeof(calOption)=='string' && isYmd(calOption)) {
-					calOption = {start_dt:calOption}
-				}
-				me.calOption  = $.extend(true,{},calOption); // {caltype:, fnTemplate, start_dt, week_cnt}
-				me.caltype    = nvl(me.calOption.caltype,"COMMON");
-				me.fnTemplate = nvl(eval2(me.calOption.fnTemplate),function(row={}){return nvl(row.remark,"")});
-				me.start_dt   = nvl(me.calOption.start_dt,date("1st","yyyymmdd"));
-				if(!isYmd(me.start_dt)) me.start_dt = date("1st","yyyymmdd");
-				me.week_cnt   = nvl(me.calOption.week_cnt,5); 
-				var args = {start_dt:me.start_dt,caltype:me.caltype,week_cnt:me.week_cnt}
-				var invar = JSON.stringify(args);
-				gfnTx("ITSM.progCal","initSalesCalendar",{INVAR:invar},function(OUTVAR){
-					if(OUTVAR.rtnCd=="OK") {
-						me.calendar = $(me.calendarTemplate);
-						me.calendar.find("caption").text( date(me.start_dt,"yyyymmdd","'yy.mm월") ); 
-						var wCnt = 0;
-						OUTVAR.list.forEach((row,idx)=>{
-							if(idx%7==0) {
-								me.calendar.find("tbody").append("<tr></tr>");
-								wCnt++;
-								var tw = $(`<th id='w${wCnt}'><div id='top'><b>w${row.yweek}</b></div></th>`);	
-								me.calendar.find("tbody tr").last().append(tw);	
-							}
-							var td = $(`<td id='${row.ymd}'><div id='top'><b>${row.ymd.substr(6,2)}</b>${nvl(row.remark,"")}</div></td>`);
-							td.find("div#top").data("data",row);
-							if(me.start_dt.substr(0,6) > row.ymd.substr(0,6)) td.addClass("prevMon");
-							else if(me.start_dt.substr(0,6) < row.ymd.substr(0,6)) td.addClass("nextMon"); 
-							else if(row.ymd == date("today","yyyymmdd")) td.addClass("today");
-							me.calendar.find("tbody tr").last().append(td);
-						});
-						me.componentBody.addClass("aweCalendar"); 
-						me.componentBody.children("*").remove();
-						me.componentBody.append(me.calendar); 
-						me.calendar.on("click","td",function(e){
-							var eTd = $(e.target).exactObj("td");
-							afnEH(me,"click",eTd.attr("id"),eTd.find("#top").data("data"),eTd.find("#cont").data("data"));
-						});
-						if(typeof(afnCallback)=='function') afnCallback(OUTVAR,me); 
-					} else {
-						gfnAlert("Error","calendar initializing Error...:"+OUTVAR.rtnMsg);
-						if(typeof(afnCallback)=='function') afnCallback(OUTVAR); 
-					}
-				});
-			} 
 			me.setVal = function(ymd,rowData) {  
 				if(typeof(ymd)=='string' && isYmd(ymd)) {
 					var td = me.calendar.find('td#'+ymd);
