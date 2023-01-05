@@ -2056,77 +2056,80 @@ function gfnComponent( pageId, containerId, componentDef, afnEH, page ) {
 				
 				// 페이지 처리
 				var pageInfo = me.makePagination(datas, curPage, curPagination);	// content_start, content_end, page_start, page_end, total_content, total_page
-				console.log(pageInfo)
 
 				// 카드 생성
 				var cardViewContentArea = $(`<div class="cardViewContentArea"></div>`)
-				for(var i=pageInfo.content_start; i<=pageInfo.content_end; i++){
-					var data = datas[i];
+				
+				new gfnCardViewSet(cardViewContentArea, datas, pageInfo,function() { 
 					
-					// cardTop 
-					var cardTop = $(`<div class="cardTop"></div>`);
-					// if(!isNull(me.cardComponent.cardProfile)){
-					// 	var profile_col = me.cardComponent.cardProfile;
-					// 	var cardProfile = $(`<div class="cardProfile"><img src="${data[profile_col]}" alt=""></div>`);
-					// 	// 테스트
-					// 	cardProfile = $(`<div class="cardProfile"><img src="/images/profile_sample.jpg" alt=""></div>`);
-					// 	cardTop.append(cardProfile);						
-					// }
-					if(!isNull(me.cardComponent.cardTitle)){
-						var title_col = me.cardComponent.cardTitle;
-						var cardTitle = $(`<div class="cardTitle">${data[title_col]}</div>`);
-						cardTop.append(cardTitle);
-					}
+				});
+				// for(var i=pageInfo.content_start; i<=pageInfo.content_end; i++){
+				// 	var data = datas[i];
 					
-					// cardBody 
-					var cardBody = $(`<div class="cardBody"></div>`);
-					if(!isNull(me.cardComponent.cardContent)){
-						var content_col = me.cardComponent.cardContent;
-						var cardContent = $(`<div class="cardContent">${data[content_col]}</div>`);
-						cardBody.append(cardContent);
-					}
-					// if(!isNull(me.cardComponent.cardImg)){
-					// 	var img_col = me.cardComponent.cardImg;
-					// 	var cardImg = $(`<div class="cardImg"><img src="${data[img_col]}" alt=""></div>`);
-					// 	// 테스트
-					// 	cardImg = $(`<div class="cardImg"><img src="/images/lfsqG.jpg" alt=""></div>`);
-					// 	cardImg = $(`<div class="cardImg"></div>`);
-					// 	cardBody.append(cardImg);						
-					// }
+				// 	// cardTop 
+				// 	var cardTop = $(`<div class="cardTop"></div>`);
+				// 	// if(!isNull(me.cardComponent.cardProfile)){
+				// 	// 	var profile_col = me.cardComponent.cardProfile;
+				// 	// 	var cardProfile = $(`<div class="cardProfile"><img src="${data[profile_col]}" alt=""></div>`);
+				// 	// 	// 테스트
+				// 	// 	cardProfile = $(`<div class="cardProfile"><img src="/images/profile_sample.jpg" alt=""></div>`);
+				// 	// 	cardTop.append(cardProfile);						
+				// 	// }
+				// 	if(!isNull(me.cardComponent.cardTitle)){
+				// 		var title_col = me.cardComponent.cardTitle;
+				// 		var cardTitle = $(`<div class="cardTitle">${data[title_col]}</div>`);
+				// 		cardTop.append(cardTitle);
+				// 	}
+					
+				// 	// cardBody 
+				// 	var cardBody = $(`<div class="cardBody"></div>`);
+				// 	if(!isNull(me.cardComponent.cardContent)){
+				// 		var content_col = me.cardComponent.cardContent;
+				// 		var cardContent = $(`<div class="cardContent">${data[content_col]}</div>`);
+				// 		cardBody.append(cardContent);
+				// 	}
+				// 	// if(!isNull(me.cardComponent.cardImg)){
+				// 	// 	var img_col = me.cardComponent.cardImg;
+				// 	// 	var cardImg = $(`<div class="cardImg"><img src="${data[img_col]}" alt=""></div>`);
+				// 	// 	// 테스트
+				// 	// 	cardImg = $(`<div class="cardImg"><img src="/images/lfsqG.jpg" alt=""></div>`);
+				// 	// 	cardImg = $(`<div class="cardImg"></div>`);
+				// 	// 	cardBody.append(cardImg);						
+				// 	// }
 					
 					
-					// cardBottom 
-					var cardBottom = $(`<div class="cardBottom"></div>`);
-					if(!isNull(me.cardComponent.cardSub1)){
-						var sub1_col = me.cardComponent.cardSub1;
-						var cardSub1 = $(`<div class="cardSub1">${data[sub1_col]}</div>`);
-						if(!isNull(me.cardComponent.cardSub1_icon)){
-							$(`<i class="${me.cardComponent.cardSub1_icon}"></i>`).prependTo(cardSub1);
-						}
-						cardBottom.append(cardSub1);
-					}
-					if(!isNull(me.cardComponent.cardSub2)){
-						var sub2_col = me.cardComponent.cardSub2;
-						var cardSub2 = $(`<div class="cardSub2">${data[sub2_col]}</div>`);
-						if(!isNull(me.cardComponent.cardSub2_icon)){
-							$(`<i class="${me.cardComponent.cardSub2_icon}"></i>`).prependTo(cardSub2);
-						}
-						cardBottom.append(cardSub2);
-					}
+				// 	// cardBottom 
+				// 	var cardBottom = $(`<div class="cardBottom"></div>`);
+				// 	if(!isNull(me.cardComponent.cardSub1)){
+				// 		var sub1_col = me.cardComponent.cardSub1;
+				// 		var cardSub1 = $(`<div class="cardSub1">${data[sub1_col]}</div>`);
+				// 		if(!isNull(me.cardComponent.cardSub1_icon)){
+				// 			$(`<i class="${me.cardComponent.cardSub1_icon}"></i>`).prependTo(cardSub1);
+				// 		}
+				// 		cardBottom.append(cardSub1);
+				// 	}
+				// 	if(!isNull(me.cardComponent.cardSub2)){
+				// 		var sub2_col = me.cardComponent.cardSub2;
+				// 		var cardSub2 = $(`<div class="cardSub2">${data[sub2_col]}</div>`);
+				// 		if(!isNull(me.cardComponent.cardSub2_icon)){
+				// 			$(`<i class="${me.cardComponent.cardSub2_icon}"></i>`).prependTo(cardSub2);
+				// 		}
+				// 		cardBottom.append(cardSub2);
+				// 	}
 
-					// Total
-					var cardWrap = $(`<div class="cardWrap"></div>`); 
-					cardWrap.append(cardTop);
-					cardWrap.append(cardBody);
-					cardWrap.append(cardBottom);
+				// 	// Total
+				// 	var cardWrap = $(`<div class="cardWrap"></div>`); 
+				// 	cardWrap.append(cardTop);
+				// 	cardWrap.append(cardBody);
+				// 	cardWrap.append(cardBottom);
 
-					cardWrap.on("click", function() {
-						console.log("카드가 선택되었습니다.");
-						afnEH("", "click", `card${i}`, "", data);
-					})
+				// 	cardWrap.on("click", function() {
+				// 		console.log("카드가 선택되었습니다.");
+				// 		afnEH("", "click", `card${i}`, "", data);
+				// 	})
 
-					cardViewContentArea.append(cardWrap);
-				}
+				// 	cardViewContentArea.append(cardWrap);
+				// }
 
 				// 페이지 버튼 생성
 				var cardViewPageArea = $(`<div class="cardViewPageArea"></div>`)
@@ -4754,7 +4757,7 @@ class gfnAgGridCellRender { //조회컬럼은 span을 사용한다.
         }
 	    return true;
 	}; 
-}
+} 
 class gfnAgGridCellEdit { //edit컬럼은 gfnControl을 사용한다.
 	init(param) {   
 		this.param = param;
@@ -4928,7 +4931,7 @@ function gfnButtonSet(btnContainer, btnInfo, afnEH) {
         // 버튼정보 변환 
         var btnOpt = me.btnInfoCovert(btnInfo); 
 		$.extend(me.opt,btnOpt); 
-		me.container.addClass(me.opt.containerClass); 
+		me.container.addClass(me.opt.containerClass);
         //기본버튼(!=extra) 완전히 Clear하고 그려줌.
     	me.container.children(".gButton").remove();
 		if(me.opt.btnNames != undefined){
@@ -4937,48 +4940,6 @@ function gfnButtonSet(btnContainer, btnInfo, afnEH) {
 				me.setDisp(me.opt.btnNames[i],me.opt["btn"+me.opt.btnNames[i]]["disp"]); 
 			}
 		}
-        
-        // Extra 추가 기능 버튼과 패널 (Functions▼)
-        if(me.opt.btnExtras.length > 0) {
-            me.btns["Extras"] = me.setButton({icon:"fas fa-bars",text:"",func:"fnExtra",funcid:"extra",disp:true});
-            
-            var oPanel = $("<ul></ul>");
-    	    oPanel.addClass("gButtonPanel"); 
-
-            for(var i = 0; i < me.opt.btnExtras.length; i++) {
-                var extraBtnItem;
-                extraBtnItem = $(`<li>${me.opt.btnExtras[i].text}</li>`);
-                extraBtnItem.addClass("gButtonsetpanelBtn");
-                extraBtnItem.attr("funcid",me.opt.btnExtras[i].funcid);
-                extraBtnItem.attr("func",me.opt.btnExtras[i].func);
-
-                // Extra 버튼 리스트 클릭이벤트
-                extraBtnItem.on("click", function(e) {
-                    var btnMe = $(this).exactObj("li.gButtonsetpanelBtn");
-                    console.log(`Extra 버튼 클릭 이벤트 발생`);
-                    me.fnEH(btnMe);
-                    oPanel.hide();
-                });
-                oPanel.append(extraBtnItem);
-            }
-            // Functions▼ 버튼에 갖다붙이기
-            me.container.append(oPanel);
-            me.extraPanel = oPanel;
-        } else {
-			if(me.btns["extra"]) me.setDisp("Extra",false); 
-		}
-
-        // 다른 곳 클릭시 none, gButtonsetpanelBtn이 아니면 닫아.
-        // $(document).click(function(e) {
-        //     console.log($(e.target));
-        //     // console.log($(e.target).parent().hasClass("gButtonsetpanel"));
-        //     // console.log($(e.target).attr("func"));
-        //     if(!$(e.target).parent().hasClass("gButtonsetpanel") && $(e.target).attr("func") != "fnExtra"){
-        //         // oPanel.hide();
-        //         console.log("사라져");
-        //     }
-        // });
-
 
 		//자기 자신을 Return
     	return me;
@@ -5020,6 +4981,133 @@ function gfnButtonSet(btnContainer, btnInfo, afnEH) {
         }
     }
 
+	me.setDisp = function(btnName,disp) {  //옵션값에 따른 버튼표시
+    	//disp: true, false, disabled, seperator
+		if(isNull(me.btns[btnName])) return;
+    	me.opt["btn"+btnName]["disp"] = disp; //옵션값 변경 
+    	if(disp==true) {
+    		me.btns[btnName].css("display","inline-block");
+    		me.btns[btnName].removeAttr("disabled");
+    	} else if(disp==false||disp==undefined) {
+    		me.btns[btnName].css("display","none"); 
+    	} else if(disp=="disabled") {
+    		me.btns[btnName].css("display","inline-block");
+    		me.btns[btnName].attr("disabled","disabled");
+    	} 
+    }
+
+
+	me.init();
+
+    return me; //선언시 버튼셋 오브젝트 초기화 실행
+}
+
+function gfnCardViewSet(cardContainer, datas, pageInfo, afnEH) {
+    var me = this;
+    me.container = $(cardContainer);
+    me.opt = {
+		btnExtras: [],
+		containerClass: "gCardViewSet"
+	};
+    me.btns = {};
+    me.extraPanel = {};
+
+    me.init = function() {
+        console.log(" [입장] : gfnCardViewSet > me.init ")
+		console.log(pageInfo);
+		console.log(datas);
+		for(var i=pageInfo.content_start; i<=pageInfo.content_end; i++){
+			var cardInfo = datas[i];
+			console.log(`content : ${i}`)
+			me.btns[i] = me.setCard(cardInfo); // 버튼 초기화
+		}
+		// if(me.opt.btnNames != undefined){
+		// 	for(var i = 0; i < me.opt.btnNames.length; i++){
+		// 		me.btns[me.opt.btnNames[i]] = me.setButton(me.opt[`btn${me.opt.btnNames[i]}`]); // 버튼 초기화
+		// 		// me.setDisp(me.opt.btnNames[i],me.opt["btn"+me.opt.btnNames[i]]["disp"]); 
+		// 	}
+		// }
+
+		//자기 자신을 Return
+    	return me;
+    }
+
+    // 버튼 그리기
+    me.setCard = function(cardInfo) {
+        var oCard;
+		oCard = $(`<button>${sBtn}</button>`); 
+		// 	// cardTop 
+		// 	var cardTop = $(`<div class="cardTop"></div>`);
+		// 	// if(!isNull(me.cardComponent.cardProfile)){
+		// 	// 	var profile_col = me.cardComponent.cardProfile;
+		// 	// 	var cardProfile = $(`<div class="cardProfile"><img src="${data[profile_col]}" alt=""></div>`);
+		// 	// 	// 테스트
+		// 	// 	cardProfile = $(`<div class="cardProfile"><img src="/images/profile_sample.jpg" alt=""></div>`);
+		// 	// 	cardTop.append(cardProfile);						
+		// 	// }
+		// 	if(!isNull(me.cardComponent.cardTitle)){
+		// 		var title_col = me.cardComponent.cardTitle;
+		// 		var cardTitle = $(`<div class="cardTitle">${data[title_col]}</div>`);
+		// 		cardTop.append(cardTitle);
+		// 	}
+			
+		// 	// cardBody 
+		// 	var cardBody = $(`<div class="cardBody"></div>`);
+		// 	if(!isNull(me.cardComponent.cardContent)){
+		// 		var content_col = me.cardComponent.cardContent;
+		// 		var cardContent = $(`<div class="cardContent">${data[content_col]}</div>`);
+		// 		cardBody.append(cardContent);
+		// 	}
+		// 	// if(!isNull(me.cardComponent.cardImg)){
+		// 	// 	var img_col = me.cardComponent.cardImg;
+		// 	// 	var cardImg = $(`<div class="cardImg"><img src="${data[img_col]}" alt=""></div>`);
+		// 	// 	// 테스트
+		// 	// 	cardImg = $(`<div class="cardImg"><img src="/images/lfsqG.jpg" alt=""></div>`);
+		// 	// 	cardImg = $(`<div class="cardImg"></div>`);
+		// 	// 	cardBody.append(cardImg);						
+		// 	// }
+			
+			
+		// 	// cardBottom 
+		// 	var cardBottom = $(`<div class="cardBottom"></div>`);
+		// 	if(!isNull(me.cardComponent.cardSub1)){
+		// 		var sub1_col = me.cardComponent.cardSub1;
+		// 		var cardSub1 = $(`<div class="cardSub1">${data[sub1_col]}</div>`);
+		// 		if(!isNull(me.cardComponent.cardSub1_icon)){
+		// 			$(`<i class="${me.cardComponent.cardSub1_icon}"></i>`).prependTo(cardSub1);
+		// 		}
+		// 		cardBottom.append(cardSub1);
+		// 	}
+		// 	if(!isNull(me.cardComponent.cardSub2)){
+		// 		var sub2_col = me.cardComponent.cardSub2;
+		// 		var cardSub2 = $(`<div class="cardSub2">${data[sub2_col]}</div>`);
+		// 		if(!isNull(me.cardComponent.cardSub2_icon)){
+		// 			$(`<i class="${me.cardComponent.cardSub2_icon}"></i>`).prependTo(cardSub2);
+		// 		}
+		// 		cardBottom.append(cardSub2);
+		// 	}
+
+		// 	// Total
+		// 	var cardWrap = $(`<div class="cardWrap"></div>`); 
+		// 	cardWrap.append(cardTop);
+		// 	cardWrap.append(cardBody);
+		// 	cardWrap.append(cardBottom);
+
+		// 	cardWrap.on("click", function() {
+		// 		console.log("카드가 선택되었습니다.");
+		// 		afnEH("", "click", `card${i}`, "", data);
+		// 	})
+
+		// 	cardViewContentArea.append(cardWrap);
+        me.container.append(oCard);
+		return oBtn;
+    }
+
+    // 클릭이벤트
+    me.fnEH = function(jBtn) {
+        afnEH(me, "click", "", "");
+    }
+    
 	me.setDisp = function(btnName,disp) {  //옵션값에 따른 버튼표시
     	//disp: true, false, disabled, seperator
 		if(isNull(me.btns[btnName])) return;
