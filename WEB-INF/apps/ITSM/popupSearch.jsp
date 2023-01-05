@@ -4,15 +4,15 @@
 //if (!aweCheck(session)) return;   
 
 JSONObject OUTVAR = new JSONObject(); 
-String appid      = "aweportal";
-String pgmid      = "popupSearch"; 
-String func       = request.getParameter("func"); 
+String appid = "ITSM";
+String pgmid   = "popupSearch"; 
+String func  = request.getParameter("func"); 
 String rtnCode    = "OK";
 String rtnMsg     = "";
 
-try {
+try { 
 String invar = request.getParameter("INVAR");
-JSONObject INVAR  = getObject(invar);
+JSONObject INVAR  = getObject(invar); 
 /***************************************************************************************************/
 if("search".equals(func)) { 
 	Connection conn = null; 
@@ -65,12 +65,12 @@ if("search".equals(func)) {
 }  
 /***************************************************************************************************/
 } catch (Exception e) {
-	logger.error("error occurred:" + rtnCode, e);
+	logger.error("error occurred:"+rtnCode,e);
 	rtnCode    = "ERR";
 	rtnMsg     = e.toString();
 } finally {
-	OUTVAR.put("rtnCd", rtnCode);
-	OUTVAR.put("rtnMsg", rtnMsg); 
+	OUTVAR.put("rtnCd",rtnCode);
+	OUTVAR.put("rtnMsg",rtnMsg); 
 	out.println(OUTVAR.toJSONString());
 }
 %>
