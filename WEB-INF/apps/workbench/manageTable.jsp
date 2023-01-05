@@ -43,12 +43,9 @@ if("searchTbl".equals(func)) {
         conn = getConn("LFN");  
         connProd = getConn("LFFODB");  
         
-        
         String qry = getQuery(pgmid, "searchTbl"); 
         String qryRun = bindVAR(qry,INVAR);
         OUTVAR.put("qryRun",qryRun); //for debug
-        
-        
         JSONArray tbl = selectSVC(conn, qryRun);
         OUTVAR.put("tbl",tbl); 
         String qry2 = getQuery(pgmid, "searchColist"); 
@@ -56,8 +53,6 @@ if("searchTbl".equals(func)) {
         OUTVAR.put("qry2Run",qry2Run); //for debug
         JSONArray colist = selectSVC(conn, qry2Run);
         OUTVAR.put("colist",colist);  
-
-        
         
         String qryCol = "SELECT COUNT(*) cnt FROM USER_TAB_COLUMNS WHERE table_name = '"+getVal(INVAR,"t_id")+"'";
         String qryRow = "SELECT COUNT(*) cnt FROM "+getVal(INVAR,"t_id");        
