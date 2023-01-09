@@ -34,10 +34,11 @@ $(function() {
         me.dataDef = dataDef;
         me.pageObj = pageObj;
         me.bEdit = bEdit;
-me.dataDef["_pgm"]={"ver":0.7,"upd_dt":"2023-01-05 10:18:05","remark":"","pgmid":"componentTest","proc_mst_id":"","pgm_stat":"Y","sort_seq":500,"app_pgmid":"ITSM","shortcut":"","reg_dt":"2022-12-12 16:48:08","reg_usid":"sju02092","pgm_nm":"컴포넌트 테스트","upd_usid":"sju02092","pgm_tp":"UX","pgm_grp_nm":"유지보수","proc_mst_nm":"","":"트랜젝션(메뉴)","app_pgm_nm":"ITSM","crud":""};
-me.dataDef["_pgm_func"]=[{"func_icon":null,"ver":"0.68","func_nm":"SET","upd_dt":"","func_tp":null,"remark":null,"pgmid":"componentTest","sort_seq":"3","funcid":"set","content":null,"reg_dt":"","reg_usid":"","upd_usid":"","crud":"R","id":"0"}];
+me.dataDef["_pgm"]={"ver":0.8,"upd_dt":"2023-01-09 17:27:54","remark":"","pgmid":"componentTest","proc_mst_id":"","pgm_stat":"Y","sort_seq":500,"app_pgmid":"ITSM","shortcut":"","reg_dt":"2022-12-12 16:48:08","reg_usid":"sju02092","pgm_nm":"컴포넌트 테스트","upd_usid":"","pgm_tp":"UX","pgm_grp_nm":"유지보수","proc_mst_nm":"","":"트랜젝션(메뉴)","app_pgm_nm":"ITSM","crud":""};
+me.dataDef["_pgm_func"]=[{"func_icon":null,"ver":"0.76","func_nm":"SET","upd_dt":"","func_tp":null,"remark":null,"pgmid":"componentTest","sort_seq":"3","funcid":"set","content":null,"reg_dt":"","reg_usid":"","upd_usid":"","crud":"R","id":"0"}];
 me.dataDef["_pgm_data"] = {};
-me.dataDef["_pgm_data"]["com1"]={"sort_seq":"1","data_id":"com1","data_nm":"카드뷰","component_pgmid":"aweCardView","inout_tp":null,"content":null,"data_icon":null,"component_option":{"cardViewComponent":{"cardProfile":"aaa","cardTitle":"reg_usid","cardContent":"title","cardImg":"aaa","cardSub1":"read_cnt","cardSub1_icon":"fas fa-eye","cardSub2":"reg_dt","cardSub2_icon":"far fa-calendar-alt"}}};
+me.dataDef["_pgm_data"]["pageCond"]={"sort_seq":"1","data_id":"pageCond","data_nm":"조회조건","component_pgmid":"aweForm","inout_tp":null,"content":[{"sort_seq":1,"section":null,"section_icon":null,"colgrp":null,"colid":"com1","colnm":"컴포넌트1","dtype":"text","etype":"sel","attr":null,"defval":null,"w":null,"h":null,"refcd":"pgmid","option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"}],"data_icon":null,"component_option":null};
+me.dataDef["_pgm_data"]["com1"]={"sort_seq":"2","data_id":"com1","data_nm":"카드뷰","component_pgmid":"aweCardView","inout_tp":null,"content":null,"data_icon":null,"component_option":{"cardViewComponent":{"cardProfile":"aaa","cardTitle":"reg_usid","cardContent":"title","cardImg":"aaa","cardSub1":"read_cnt","cardSub1_icon":"fas fa-eye","cardSub2":"reg_dt","cardSub2_icon":"far fa-calendar-alt"}}};
 
     me.pageObj["_page"] = new gfnFramepage( me ); 
     for(var component_id in me.dataDef["_pgm_data"]) { 
@@ -56,7 +57,8 @@ me.dataDef["_pgm_data"]["com1"]={"sort_seq":"1","data_id":"com1","data_nm":"카�
     /* 이벤트핸들러 */
     me.fnEH=function(component, evt, row, col, val) { 
         console.log(`evt : ${evt} // row : ${row} // col : ${col}`);
-        console.log(val)
+        console.log(val);
+        console.log(component);
         //화면기능버튼이 눌리면 
         if (component==me.pageObj["_pageFunc"]){ 
             if(typeof(me[col])=='function') me[col](); //col=기능명 me["fnSearch"]()=me.fnSearch(); 
@@ -80,7 +82,6 @@ me.dataDef["_pgm_data"]["com1"]={"sort_seq":"1","data_id":"com1","data_nm":"카�
     }
     //set:SET 
     me.fnSet=function() {
-        console.log("fn.Set 입장!")
         //REQUEST OBJ : 
         var args = {};
         //SERVICE CALL: 
