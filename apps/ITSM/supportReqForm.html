@@ -1,0 +1,278 @@
+<!-- css start -->
+<style>
+[pgmid='supportReqForm'].framepage { 
+    width:100%;
+}
+[pgmid='supportReqForm'] table {
+    border-collapse: collapse;
+    text-align: center;
+}
+[pgmid='supportReqForm'] tbody {
+    border-right: 0.5px solid #444444;
+    border-bottom: 0.5px solid #444444;
+}
+[pgmid='supportReqForm'] th {
+    border-left: 0.5px solid #444444;
+    border-top: 0.5px solid #444444;
+}
+[pgmid='supportReqForm'] td:has(p) {
+    border-left: 0.5px solid #444444;
+    border-top: 0.5px solid #444444;
+}
+[pgmid='supportReqForm'] .title {
+    font-size: 35px;
+}
+</style>
+
+<!-- html start -->
+<div class="pageNav"></div>
+<div class="pageTop"></div>
+<div class="pageCond"></div>
+<div class="pageContent">
+    
+</div>
+<script>
+/*-- _script(자동생성1) start ---------------------------------------------- */        
+$(function() {
+    var appid = "ITSM";
+    var pgmid = "supportReqForm"; 
+    var page = $("*[pgmid='"+pgmid+"'].framepage").last();
+    var pageid = page.attr("id"); 
+    var me = {}
+    var dataSet = {};
+    var dataDef = {};
+    var pageObj = {};
+    var bEdit = false;
+    me.fnInit = function() {
+        gfn[pageid] = me; 
+        me.appid    = appid;
+        me.pgmid    = pgmid;
+        me.pageid   = pageid;
+        me.page     = page; 
+        me.dataSet = dataSet;
+        me.dataDef = dataDef;
+        me.pageObj = pageObj;
+        me.bEdit = bEdit;
+me.dataDef["_pgm"]={"ver":0.2,"upd_dt":"2023-01-09 10:48:14","remark":"","pgmid":"supportReqForm","proc_mst_id":"","pgm_stat":"Y","sort_seq":null,"app_pgmid":"ITSM","shortcut":"","reg_dt":"2023-01-09 10:42:15","reg_usid":"hjkim","pgm_nm":"업무지원요청 폼","upd_usid":"hjkim","pgm_tp":"UX","pgm_grp_nm":"","proc_mst_nm":"","":"트랜젝션(메뉴)","app_pgm_nm":"ITSM","crud":""};
+me.dataDef["_pgm_func"]=[{"func_icon":null,"ver":"0.18","func_nm":"저장","upd_dt":"","func_tp":"DB_W","remark":null,"pgmid":"supportReqForm","sort_seq":"1","funcid":"save","content":null,"reg_dt":"","reg_usid":"","upd_usid":"","crud":"R","id":"0"}];
+me.dataDef["_pgm_data"] = {};
+
+    me.pageObj["_page"] = new gfnFramepage( me ); 
+    for(var component_id in me.dataDef["_pgm_data"]) { 
+        me.pageObj[component_id] = new gfnComponent( me.pageid, component_id, me.dataDef["_pgm_data"][component_id], me.fnEH, me); 
+    }  
+    setTimeout(function(){
+        $("#frameset").scrollTo(0); //스크롤 
+    },10);
+    if(typeof(me.fnInitExtra)=='function') me.fnInitExtra(); 
+}
+/*-- script(개발자작성) start ---------------------------------------------------- */ 
+    /* 사용자초기화 */
+    me.fnInitExtra=function() {
+        //사용자 컴포넌트 
+        //me.dataDef["_pgm_data"][myCompoId] = {...};
+        //me.pageObj["myCompoId"] = new gfnComponent( me.pageid, myCompoId, me.dataDef["_pgm_data"][myCompoId], me.fnEH, me); 
+        //me.pageObj["myCompoId"].userComponent = "myCompoId";
+        //사용자 컨트롤
+        //var myColinfo = {colid:...}
+        //me.pageObj["myColId"] = new gfnControl(myColinfo, me.fnEH) 
+        //me.page.find("#myCol").append(me.pageObj["myColId"].dispObj);
+        //me.pageObj["myColId"].getVal(); / myCol.setVal(val);...    
+    }
+    /* 이벤트핸들러 */
+    me.fnEH=function(component, evt, row, col, val) { 
+        //화면기능버튼이 눌리면 
+        if (component==me.pageObj["_pageFunc"]){ 
+            if(typeof(me[col])=='function') me[col](); //col=기능명 me["fnSearch"]()=me.fnSearch(); 
+        }
+        //사용자 컴포넌트/컨트롤
+        else if(component.userComponent=="myCompoId") {
+            //if(evt=="dblclick" && col=="colid") {...}
+        }
+    }
+        //save:저장 
+    me.fnSave=function() {
+        // if( !me.pageObj["pageCond"].chkValid() ) return;
+        // if( !me.pageObj["list"].chkValid() ) return;
+        // var args = me.pageObj["pageCond"].exportData()[0];
+        // args.list = me.pageObj["list"].exportData();
+        //console.log(args);
+        // var invar = JSON.stringify(args);
+        // gfnTx(appid+"."+pgmid,"save",{INVAR:invar},function(OUTVAR){
+        //     //console.log(OUTVAR);
+        //     if(OUTVAR.rtnCd=="OK") {
+        //         gfnAlert("저장성공","입력한 정보가 저장되었습니다.");
+        //         me.fnSearch();
+        //     } else {
+        //         gfnAlert("저장오류",OUTVAR.rtnMsg);
+        //     }
+        // });
+        
+        // 업무지원요청폼 생성성 
+        appendPdf();
+        savePDF();
+        // $("#pdfArea").remove();
+    }
+    function appendPdf() {
+        $("[pgmid='supportReqForm'] .pageContent").append(`<div id="pdfArea">\
+        <div style="width: 800px; height: 1131.2px;  border: 1px solid white;">\
+        <table style="width: 720px; margin: 50px 40px auto 45px">\
+        <tbody>\
+            <tr style="height: 38px">\
+                <th colspan="3" rowspan="3">\
+                    <span class="title">업무지원요청서</span>\
+                </th>\
+                <th style="width: 120px height: 38px">\
+                    <p>요청부서</p>\
+                </th>\
+                <th style="width: 120px height: 38px">\
+                    <p>담당부서</p>\
+                </th>\
+                <th style="width: 120px height: 38px">\
+                    <p>협력업체</p>\
+                </th>\
+            </tr>\
+            <tr style="height: 38px">\
+                <td style="width: 120px">\
+                    <p>온라인팀</p>\
+                </td>\
+                <td style="width: 120px">\
+                    <p>IT팀</p>\
+                </td>\
+                <td style="width: 120px">\
+                    <p>ㅇㅇㅇㅇ</p>\
+                </td>\
+            </tr>\
+            <tr style="height: 38px">\
+                <td >\
+                    <p>&nbsp;</p>\
+                </td>\
+                <td >\
+                    <p>&nbsp;</p>\
+                </td>\
+                <td>\
+                    <p>&nbsp;</p>\
+                </td>\
+            </tr>\
+            <tr style="height: 38px">\
+                <th style="width: 120px">\
+                    <p>요청일자</p>\
+                </th>\
+                <td colspan="2" >\
+                    <p>&nbsp;</p>\
+                </td>\
+                <th>\
+                    <p>완료요청일자</p>\
+                </th>\
+                <td colspan="2">\
+                    <p>&nbsp;</p>\
+                </td>\
+            </tr>\
+            <tr style="height: 38px">\
+                <th>\
+                    <p>요청부서</p>\
+                </th>\
+                <td  colspan="2">\
+                    <p>&nbsp;</p>\
+                </td>\
+                <th >\
+                    <p>요청자</p>\
+                </th>\
+                <td colspan="2">\
+                    <p>&nbsp;</p>\
+                </td>\
+            </tr>\
+            <tr style="height: 38px">\
+                <th>\
+                    <p>요청유형</p>\
+                </th>\
+                <td colspan="5">\
+                    <p>H/W</p>\
+                </td>\
+            </tr>\
+            <tr style="height: 70px">\
+                <th>\
+                    <p>요청제목</p>\
+                </th>\
+                <td style="text-align: start;" colspan="5">\
+                    <p>제목입니다</p>\
+                </td>\
+            </tr>\
+            <tr style="height: 350px;">\
+                <th >\
+                    <p>요청내용</p>\
+                </th>\
+                <td style=" text-align: start;" colspan="5">\
+                    <p>brbr</p>\
+                </td>\
+            </tr>\
+            <tr style="height: 38px">\
+                <th>\
+                    <p>검토자</p>\
+                </th>\
+                <td colspan="2">\
+                    <p>김ㅇㅇ</p>\
+                </td>\
+                <th >\
+                    <p>작업자</p>\
+                </th>\
+                <td colspan="2">\
+                    <p>이ㅇㅇ</p>\
+                </td>\
+            </tr>\
+            <tr style="height: 38px">\
+                <th>\
+                    <p>완료일자</p>\
+                </th>\
+                <td colspan="5">\
+                    <p>2022년 12월 15일</p>\
+                </td>\
+            </tr>\
+        </tbody>\
+    </table></div></div>`);
+    }
+    
+    function savePDF(){
+        // $('.req_dpt').text("IT팀")
+        // $('.com_dpt').text("")
+        // $('.req_er').text("손유정")
+        // $('.mng_er').text("김희주")
+        // $('.com_er').text("")
+        // var now = new Date();
+        // $('.req_year').eq(0).text(now.getFullYear() + '년 ')
+        // $('.req_month').eq(0).text((now.getMonth() + 1) + '월 ')
+        // $('.req_day').eq(0).text(now.getDay() + '일')
+        // $('.end_year').eq(0).text(2023  + '년 ')
+        // $('.end_month').eq(0).text(2 + '월 ')
+        // $('.end_day').eq(0).text(1 + '일')
+        // $('.req_type>strong').text("[ 소모품 ]")
+        // $('.title').text("기기 고장으로 인한 교체")
+        // $('.req_pd').eq(0).text("마우스")
+        // $('.req_cnt').eq(0).text("1")
+        // $('.req_pd').eq(1).text("키보드")
+        // $('.req_cnt').eq(1).text("1")
+    
+        //저장 영역 div id
+        html2canvas($("#pdfArea")[0] ,{	
+          allowTaint : true,	// cross-origin allow 
+          useCORS: true,		// CORS 사용한 서버로부터 이미지 로드할 것인지 여부
+          scale : 2	// 기본 96dpi에서 해상도를 두 배로 증가
+          
+        }).then(function(canvas) {	
+          // 캔버스를 이미지로 변환
+          var imgData = canvas.toDataURL('image/png');
+          var doc = new jsPDF('p', 'mm');
+          var position = 0;
+    
+          // 첫 페이지 출력
+          doc.addImage(imgData, 'PNG', 0, position, 210, 290); // margin, position, width, height
+    
+          // 파일 저장
+          doc.save('filename.pdf');
+        });
+    }
+/*-- _script2(자동생성2) start ---------------------------------------------------- */        
+if(typeof(me.fnInit)=='function') me.fnInit();
+});
+
+</script>

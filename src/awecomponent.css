@@ -176,7 +176,6 @@ body {
 .pageNav{
     display: flex;
     justify-content: space-between;
-	padding-top: 0.5em;
 }
 .pageNav .navTree{
 	display: flex;
@@ -396,11 +395,9 @@ body {
 
 /* ============================ workbenchForm - Start ============================ */
 .pageContentSide{
-	/* background-color: red; */
 	display: flex; flex-direction: column;
-	height: calc(100vh - 17em);
+	height: calc(100vh - 16em);
 	flex-basis: 35%;
-	/* margin-right: 1%; */
 }
 .pageContentSide > div{
 	background-color: white;
@@ -425,8 +422,7 @@ body {
 
 .pageContentMain{
 	background-color: white;
-    height: calc(100vh - 17em);
-	/* padding: 1em; */
+    height: calc(100vh - 16em);
     flex-basis: 65%;
 	display: flex;
 	border-radius: 10px;
@@ -465,7 +461,6 @@ body {
 	width: 100%;
 	display: flex; flex-direction: row;
 	padding: 0px 10px 0px 10px;
-	/* margin-bottom: 10px; */
 	align-items: center;
 }
 .pageContentMainTop > .pageContentMainTitle{
@@ -474,7 +469,6 @@ body {
 	font-weight:  bold;
 }
 .pageContentMainTop > .pageContentMainFunc{
-	/* background-color: green; */
 	width: 20%;
 	text-align: end;
 }
