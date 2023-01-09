@@ -3959,7 +3959,7 @@ function gfnDownloadDirect(url, filename) {
 		return;
 	}
     var file_nm = nvl(filename, url.substr(url.lastIndexOf("/")+1)); 
-    var frm = $("<form class='fileDownloader' action='/awegtx.jsp?pgm=aweportal.fileDownloader' target='_blank' " +
+    var frm = $("<form class='fileDownloader' action='/awegtx.jsp?pgm=ITSM.fileDownloader' target='_blank' " +
                 " method='POST' style='display:none'></form>");
     var args = {url:url, filename:file_nm};
     var sArgs = JSON.stringify(args);
@@ -4573,6 +4573,36 @@ function gfnButtonSet(btnContainer, btnInfo, afnEH) {
 				me.btns[me.opt.btnNames[i]] = me.setButton(me.opt[`btn${me.opt.btnNames[i]}`]); // 버튼 초기화
 				me.setDisp(me.opt.btnNames[i],me.opt["btn"+me.opt.btnNames[i]]["disp"]); 
 			}
+		}
+
+		// Extra 추가 기능 버튼과 패널 (Functions▼)
+        if(me.opt.btnExtras.length > 0) {
+            me.btns["Extras"] = me.setButton({icon:"fas fa-bars",text:"",func:"fnExtra",funcid:"extra",disp:true});
+            
+            var oPanel = $("<ul></ul>");
+    	    oPanel.addClass("gButtonPanel"); 
+
+            for(var i = 0; i < me.opt.btnExtras.length; i++) {
+                var extraBtnItem;
+                extraBtnItem = $(`<li>${me.opt.btnExtras[i].text}</li>`);
+                extraBtnItem.addClass("gButtonsetpanelBtn");
+                extraBtnItem.attr("funcid",me.opt.btnExtras[i].funcid);
+                extraBtnItem.attr("func",me.opt.btnExtras[i].func);
+
+                // Extra 버튼 리스트 클릭이벤트
+                extraBtnItem.on("click", function(e) {
+                    var btnMe = $(this).exactObj("li.gButtonsetpanelBtn");
+                    console.log(`Extra 버튼 클릭 이벤트 발생`);
+                    me.fnEH(btnMe);
+                    oPanel.hide();
+                });
+                oPanel.append(extraBtnItem);
+            }
+            // Functions▼ 버튼에 갖다붙이기
+            me.container.append(oPanel);
+            me.extraPanel = oPanel;
+        } else {
+			if(me.btns["extra"]) me.setDisp("Extra",false); 
 		}
 
 		//자기 자신을 Return
