@@ -1,7 +1,48 @@
+
+
 <!-- css start -->
 <style>
 [pgmid='purchaseReq'].framepage { 
     width:100%;
+}
+
+[pgmid='purchaseReq'] [colgrp='제목 (용도)'] {
+    position: relative;
+}
+
+[pgmid='purchaseReq'] [colgrp='제목 (용도)'] span {
+    position: absolute;
+    right: 30px;
+}
+
+[pgmid='purchaseReq'] table {
+  /* border-right: 0.5px solid #444; */
+  
+  border-collapse: collapse;
+  padding: 0 10px;
+}
+[pgmid='purchaseReq'] td:has(p) {
+  border-left: 0.5px solid #444444;
+  border-top: 0.5px solid #444444;
+  font-size: 20px;
+}
+[pgmid='purchaseReq'] td:has(p):has(strong) {
+  text-align: center;
+  background-color: #eee;
+  background-origin: border-box;
+}
+[pgmid='purchaseReq'] h1 {
+  border-bottom: none;
+  text-align: center; 
+  display: flex; 
+  align-items: center; 
+  justify-content: center;
+  font-size: 40px;
+  padding: 0;
+}
+[pgmid='purchaseReq'] p {
+  text-align: center;
+  font-size: 20px;
 }
 </style>
 
@@ -13,10 +54,13 @@
     <div class="flexColumn" style="flex-basis: 50%">
         <div id='mst'></div>
         <div id='detail'></div>
+        <div id='fileList'></div>
     </div>
     <div id='list'></div>
-
 </div>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
+<script type="text/javascript" src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 <script>
 /*-- _script(자동생성1) start ---------------------------------------------- */        
 $(function() {
@@ -39,13 +83,14 @@ $(function() {
         me.dataDef = dataDef;
         me.pageObj = pageObj;
         me.bEdit = bEdit;
-me.dataDef["_pgm"]={"ver":1.1,"upd_dt":"2023-01-05 16:48:02","remark":"","pgmid":"purchaseReq","proc_mst_id":"","pgm_stat":"Y","sort_seq":10,"app_pgmid":"ITSM","shortcut":"","reg_dt":"2022-12-09 16:00:54","reg_usid":"jhk","pgm_nm":"SW/HW 구매요청","upd_usid":"youjungson89","pgm_tp":"UX","pgm_grp_nm":"현업","proc_mst_nm":"","":"트랜젝션(메뉴)","app_pgm_nm":"ITSM","crud":""};
-me.dataDef["_pgm_func"]=[{"func_icon":"fas fa-search","ver":"1.15","func_nm":"조회","upd_dt":"","func_tp":"DB_R","remark":null,"pgmid":"purchaseReq","sort_seq":"1","funcid":"search","content":null,"reg_dt":"","reg_usid":"","upd_usid":"","crud":"R","id":"0"},{"func_icon":"fas fa-file","ver":"1.15","func_nm":"신규","upd_dt":"","func_tp":"DB_R","remark":null,"pgmid":"purchaseReq","sort_seq":"2","funcid":"new","content":null,"reg_dt":"","reg_usid":"","upd_usid":"","crud":"R","id":"1"},{"func_icon":"fas fa-save","ver":"1.15","func_nm":"저장","upd_dt":"","func_tp":"DB_W","remark":null,"pgmid":"purchaseReq","sort_seq":"3","funcid":"save","content":null,"reg_dt":"","reg_usid":"","upd_usid":"","crud":"R","id":"2"},{"func_icon":"fas fa-trash-alt","ver":"1.15","func_nm":"삭제","upd_dt":"","func_tp":"EH","remark":null,"pgmid":"purchaseReq","sort_seq":"4","funcid":"delete","content":null,"reg_dt":"","reg_usid":"","upd_usid":"","crud":"R","id":"3"}];
+me.dataDef["_pgm"]={"ver":4.4,"upd_dt":"2023-01-09 17:27:14","remark":"","pgmid":"purchaseReq","proc_mst_id":"","pgm_stat":"Y","sort_seq":10,"app_pgmid":"ITSM","shortcut":"","reg_dt":"2022-12-09 16:00:54","reg_usid":"jhk","pgm_nm":"SW/HW 구매요청","upd_usid":"youjungson89","pgm_tp":"UX","pgm_grp_nm":"현업","proc_mst_nm":"","":"트랜젝션(메뉴)","app_pgm_nm":"ITSM","crud":""};
+me.dataDef["_pgm_func"]=[{"func_icon":"fas fa-search","ver":"4.41","func_nm":"조회","upd_dt":"","func_tp":"DB_R","remark":null,"pgmid":"purchaseReq","sort_seq":"1","funcid":"search","content":null,"reg_dt":"","reg_usid":"","upd_usid":"","crud":"R","id":"0"},{"func_icon":"fas fa-file","ver":"4.41","func_nm":"신규","upd_dt":"","func_tp":"DB_R","remark":null,"pgmid":"purchaseReq","sort_seq":"2","funcid":"new","content":null,"reg_dt":"","reg_usid":"","upd_usid":"","crud":"R","id":"1"},{"func_icon":"fas fa-save","ver":"4.41","func_nm":"저장","upd_dt":"","func_tp":"DB_W","remark":null,"pgmid":"purchaseReq","sort_seq":"3","funcid":"save","content":null,"reg_dt":"","reg_usid":"","upd_usid":"","crud":"R","id":"2"},{"func_icon":"fas fa-trash-alt","ver":"4.41","func_nm":"삭제","upd_dt":"","func_tp":"EH","remark":null,"pgmid":"purchaseReq","sort_seq":"4","funcid":"delete","content":null,"reg_dt":"","reg_usid":"","upd_usid":"","crud":"R","id":"3"}];
 me.dataDef["_pgm_data"] = {};
-me.dataDef["_pgm_data"]["detail"]={"sort_seq":"1","data_id":"detail","data_nm":"요청 내역","component_pgmid":"agGrid","inout_tp":null,"content":[{"sort_seq":null,"section":null,"section_icon":null,"colgrp":null,"colid":"req_pd","colnm":"요청 품목","dtype":"text","etype":"btn","attr":"center","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":null,"section":null,"section_icon":null,"colgrp":null,"colid":"req_cnt","colnm":"수량","dtype":"num","etype":"txt","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":null,"section":null,"section_icon":null,"colgrp":null,"colid":"from_due_date","colnm":"납기 일자","dtype":"ymd","etype":"date","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":null,"section":null,"section_icon":null,"colgrp":null,"colid":"ext_cpm","colnm":"협력 업체","dtype":"text","etype":"sel","attr":"hidden","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":null,"section":null,"section_icon":null,"colgrp":null,"colid":"ext_er","colnm":"업체 담당자","dtype":"text","etype":"sel","attr":"hidden","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":null,"section":null,"section_icon":null,"colgrp":null,"colid":"file_upload","colnm":"파일 업로드","dtype":"text","etype":"btn","attr":"center","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"}],"data_icon":null,"component_option":{"gridOpt":"rn chk","func":[{"funcid":"addRow","func_nm":"줄추가","func_icon":"fas fa-plus"},{"funcid":"delRow","func_nm":"줄삭제","func_icon":"fas fa-minus"}]}};
-me.dataDef["_pgm_data"]["list"]={"sort_seq":"2","data_id":"list","data_nm":"요청 목록","component_pgmid":"agGrid","inout_tp":null,"content":[{"sort_seq":null,"section":null,"section_icon":null,"colgrp":null,"colid":"from_req_date","colnm":"요청 일자","dtype":"ymd","etype":"txt","attr":"readonly","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":null,"section":null,"section_icon":null,"colgrp":null,"colid":"req_dpt","colnm":"요청 부서","dtype":"text","etype":"txt","attr":"readonly","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":null,"section":null,"section_icon":null,"colgrp":null,"colid":"req_er","colnm":"요청자","dtype":"text","etype":"txt","attr":"readonly","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":null,"section":null,"section_icon":null,"colgrp":null,"colid":"mng_er","colnm":"담당자","dtype":"text","etype":"txt","attr":"readonly","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":null,"section":null,"section_icon":null,"colgrp":null,"colid":"sw_hw","colnm":"요청 유형","dtype":"text","etype":"txt","attr":"readonly","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":null,"section":null,"section_icon":null,"colgrp":null,"colid":"req_step","colnm":"요청 단계","dtype":"text","etype":"txt","attr":"readonly","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":null,"section":null,"section_icon":null,"colgrp":null,"colid":"from_due_date","colnm":"납기 일자","dtype":"ymd","etype":"txt","attr":"readonly","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"}],"data_icon":null,"component_option":null};
-me.dataDef["_pgm_data"]["pageCond"]={"sort_seq":"4","data_id":"pageCond","data_nm":"조회조건","component_pgmid":"aweForm","inout_tp":null,"content":[{"sort_seq":null,"section":null,"section_icon":null,"colgrp":"요청 일자","colid":"from_req_date","colnm":"요청 일자","dtype":"ymd","etype":"date","attr":null,"defval":"date(\"today\").substr(0,8)+\"01\"","w":"16:flex","h":null,"refcd":"DATE","option":"periodMark","len":12,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":null,"section":null,"section_icon":null,"colgrp":"요청 일자","colid":"to_req_date","colnm":"~","dtype":"ymd","etype":"date","attr":null,"defval":"date(\"last\")","w":"16:flex","h":null,"refcd":"DATE","option":"txt","len":12,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":null,"section":null,"section_icon":null,"colgrp":null,"colid":"sw_hw","colnm":"요청 유형","dtype":"text","etype":"sel","attr":null,"defval":null,"w":"5","h":null,"refcd":null,"option":"txt","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":null,"section":null,"section_icon":null,"colgrp":null,"colid":"req_step","colnm":"요청 단계","dtype":"text","etype":"sel","attr":null,"defval":null,"w":"5","h":null,"refcd":null,"option":"txt","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":null,"section":null,"section_icon":null,"colgrp":"납기 일자","colid":"from_due_date","colnm":"납기 일자","dtype":"ymd","etype":"date","attr":null,"defval":"date(\"today\").substr(0,8)+\"01\"","w":"16:flex","h":null,"refcd":"DATE","option":"periodMark","len":12,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":null,"section":null,"section_icon":null,"colgrp":"납기 일자","colid":"to_due_date","colnm":"~","dtype":"ymd","etype":"date","attr":null,"defval":"date(\"last\")","w":"16:flex","h":null,"refcd":"DATE","option":"txt","len":12,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":null,"section":null,"section_icon":null,"colgrp":null,"colid":"req_pd","colnm":"요청 품목","dtype":"text","etype":"sel","attr":null,"defval":null,"w":"16","h":null,"refcd":null,"option":"txt","len":30,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":null,"section":null,"section_icon":null,"colgrp":null,"colid":"mng_er","colnm":"담당자","dtype":"text","etype":"sel","attr":null,"defval":null,"w":"8","h":null,"refcd":null,"option":"txt","len":12,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":null,"section":null,"section_icon":null,"colgrp":null,"colid":"span","colnm":null,"dtype":"text","etype":"raw","attr":null,"defval":null,"w":"34","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"}],"data_icon":null,"component_option":null};
-me.dataDef["_pgm_data"]["mst"]={"sort_seq":"5","data_id":"mst","data_nm":"요청 등록","component_pgmid":"aweForm","inout_tp":null,"content":[{"sort_seq":null,"section":null,"section_icon":null,"colgrp":null,"colid":"from_req_date","colnm":"요청 일자","dtype":"text","etype":"date","attr":"readonly","defval":"date(\"today\")","w":"20","h":null,"refcd":null,"option":"txt","len":12,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":null,"section":null,"section_icon":null,"colgrp":null,"colid":"req_dpt","colnm":"요청 부서","dtype":"text","etype":"txt","attr":"readonly","defval":null,"w":"20","h":null,"refcd":null,"option":"txt","len":30,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":null,"section":null,"section_icon":null,"colgrp":null,"colid":"req_er","colnm":"요청자","dtype":"text","etype":"txt","attr":"readonly","defval":"gUserinfo.usernm","w":"20","h":null,"refcd":null,"option":"txt","len":12,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":null,"section":null,"section_icon":null,"colgrp":null,"colid":"sw_hw","colnm":"요청 유형","dtype":"text","etype":"sel","attr":null,"defval":null,"w":"20","h":null,"refcd":null,"option":"txt","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":null,"section":null,"section_icon":null,"colgrp":null,"colid":"mng_er","colnm":"담당자","dtype":"text","etype":"sel","attr":null,"defval":null,"w":"20","h":null,"refcd":null,"option":"txt","len":12,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":null,"section":null,"section_icon":null,"colgrp":null,"colid":"ext_cpm","colnm":"협력 업체","dtype":"text","etype":"sel","attr":"hidden","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":null,"section":null,"section_icon":null,"colgrp":null,"colid":"ext_er","colnm":"업체 담당자","dtype":"text","etype":"sel","attr":"hidden","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":null,"section":null,"section_icon":null,"colgrp":null,"colid":"req_title","colnm":"제목 (용도)","dtype":"text","etype":"tarea","attr":null,"defval":null,"w":"100","h":null,"refcd":null,"option":"txt","len":300,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":"150자 내로 작성해주세요,","crud":"C"}],"data_icon":null,"component_option":null};
+me.dataDef["_pgm_data"]["detail"]={"sort_seq":"1","data_id":"detail","data_nm":"요청 내역","component_pgmid":"agGrid","inout_tp":null,"content":[{"sort_seq":null,"section":null,"section_icon":null,"colgrp":null,"colid":"req_pd","colnm":"요청 품목","dtype":"text","etype":"btn","attr":"center","defval":null,"w":"50","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":null,"section":null,"section_icon":null,"colgrp":null,"colid":"req_cnt","colnm":"수량","dtype":"num","etype":"txt","attr":"fixR ","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"}],"data_icon":null,"component_option":{"gridOpt":"rn chk","func":[{"funcid":"addRow","func_nm":"줄추가","func_icon":"fas fa-plus"},{"funcid":"delRow","func_nm":"줄삭제","func_icon":"fas fa-minus"}]}};
+me.dataDef["_pgm_data"]["list"]={"sort_seq":"2","data_id":"list","data_nm":"요청 목록","component_pgmid":"agGrid","inout_tp":null,"content":[{"sort_seq":null,"section":null,"section_icon":null,"colgrp":null,"colid":"req_date","colnm":"요청 일자","dtype":"ymd","etype":"txt","attr":"readonly","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":null,"section":null,"section_icon":null,"colgrp":null,"colid":"req_dpt","colnm":"요청 부서","dtype":"text","etype":"txt","attr":"readonly","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":null,"section":null,"section_icon":null,"colgrp":null,"colid":"req_er","colnm":"요청자","dtype":"text","etype":"txt","attr":"readonly","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":null,"section":null,"section_icon":null,"colgrp":null,"colid":"mng_er","colnm":"담당자","dtype":"text","etype":"txt","attr":"readonly","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":null,"section":null,"section_icon":null,"colgrp":null,"colid":"sw_hw","colnm":"요청 유형","dtype":"text","etype":"txt","attr":"readonly","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":null,"section":null,"section_icon":null,"colgrp":null,"colid":"req_step","colnm":"요청 단계","dtype":"text","etype":"txt","attr":"readonly","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":null,"section":null,"section_icon":null,"colgrp":null,"colid":"compl_date","colnm":"납기 일자","dtype":"ymd","etype":"txt","attr":"readonly","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"}],"data_icon":null,"component_option":null};
+me.dataDef["_pgm_data"]["pageCond"]={"sort_seq":"3","data_id":"pageCond","data_nm":"조회조건","component_pgmid":"aweForm","inout_tp":null,"content":[{"sort_seq":null,"section":null,"section_icon":null,"colgrp":"요청 일자","colid":"from_req_date","colnm":"요청 일자","dtype":"ymd","etype":"date","attr":null,"defval":"date(\"today\").substr(0,8)+\"01\"","w":"16:flex","h":null,"refcd":"DATE","option":"periodMark","len":12,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":null,"section":null,"section_icon":null,"colgrp":"요청 일자","colid":"to_req_date","colnm":"~","dtype":"ymd","etype":"date","attr":null,"defval":"date(\"last\")","w":"16:flex","h":null,"refcd":"DATE","option":"txt","len":12,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":null,"section":null,"section_icon":null,"colgrp":null,"colid":"sw_hw","colnm":"요청 유형","dtype":"text","etype":"sel","attr":null,"defval":null,"w":"8","h":null,"refcd":"SM_TYPE","option":"all","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":null,"section":null,"section_icon":null,"colgrp":null,"colid":"req_step","colnm":"요청 단계","dtype":"text","etype":"sel","attr":null,"defval":null,"w":"8","h":null,"refcd":"SM_STEP","option":"all","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":null,"section":null,"section_icon":null,"colgrp":"납기 일자","colid":"from_compl_date","colnm":"납기 일자","dtype":"ymd","etype":"date","attr":null,"defval":"date(\"today\").substr(0,8)+\"01\"","w":"16:flex","h":null,"refcd":"DATE","option":"periodMark","len":12,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":null,"section":null,"section_icon":null,"colgrp":"납기 일자","colid":"to_compl_date","colnm":"~","dtype":"ymd","etype":"date","attr":null,"defval":"date(\"last\")","w":"16:flex","h":null,"refcd":"DATE","option":"txt","len":12,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":null,"section":null,"section_icon":null,"colgrp":null,"colid":"req_pd","colnm":"요청 품목","dtype":"text","etype":"sel","attr":null,"defval":null,"w":"12","h":null,"refcd":"SM_ITEM","option":"all","len":30,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":null,"section":null,"section_icon":null,"colgrp":null,"colid":"mng_er","colnm":"담당자","dtype":"text","etype":"sel","attr":null,"defval":null,"w":"8","h":null,"refcd":null,"option":"txt","len":12,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":null,"section":null,"section_icon":null,"colgrp":null,"colid":"span","colnm":null,"dtype":"text","etype":"raw","attr":null,"defval":null,"w":"32","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"}],"data_icon":null,"component_option":null};
+me.dataDef["_pgm_data"]["mst"]={"sort_seq":"4","data_id":"mst","data_nm":"요청 등록","component_pgmid":"aweForm","inout_tp":null,"content":[{"sort_seq":null,"section":null,"section_icon":null,"colgrp":null,"colid":"req_date","colnm":"요청 일자","dtype":"text","etype":"date","attr":"readonly","defval":"date(\"today\")","w":"16","h":null,"refcd":null,"option":"txt","len":12,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":null,"section":null,"section_icon":null,"colgrp":null,"colid":"req_dpt","colnm":"요청 부서","dtype":"text","etype":"txt","attr":"readonly","defval":"gUserinfo.deptnm","w":"16","h":null,"refcd":null,"option":"txt","len":30,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":null,"section":null,"section_icon":null,"colgrp":null,"colid":"req_er","colnm":"요청자","dtype":"text","etype":"txt","attr":"readonly","defval":"gUserinfo.usernm","w":"16","h":null,"refcd":null,"option":"txt","len":12,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":null,"section":null,"section_icon":null,"colgrp":null,"colid":"sw_hw","colnm":"요청 유형","dtype":"text","etype":"sel","attr":null,"defval":null,"w":"16","h":null,"refcd":"SM_TYPE","option":"sel","len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":null,"section":null,"section_icon":null,"colgrp":null,"colid":"mng_er","colnm":"담당자","dtype":"text","etype":"sel","attr":null,"defval":null,"w":"16","h":null,"refcd":null,"option":"txt","len":12,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":null,"section":null,"section_icon":null,"colgrp":null,"colid":"req_compl_date","colnm":"납기 요청 일자","dtype":"text","etype":"date","attr":null,"defval":null,"w":"16","h":null,"refcd":null,"option":"txt","len":12,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":null,"section":null,"section_icon":null,"colgrp":null,"colid":"req_title","colnm":"제목 (용도)","dtype":"text","etype":"tarea","attr":null,"defval":null,"w":"100","h":null,"refcd":null,"option":"txt","len":300,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":"150자 내로 작성해주세요.","crud":"C"}],"data_icon":null,"component_option":null};
+me.dataDef["_pgm_data"]["fileList"]={"sort_seq":"5","data_id":"fileList","data_nm":"파일 리스트","component_pgmid":"agGrid","inout_tp":null,"content":[{"sort_seq":null,"section":null,"section_icon":null,"colgrp":null,"colid":"fileid","colnm":"파일ID","dtype":"text","etype":"raw","attr":"hidden ","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":null,"section":null,"section_icon":null,"colgrp":null,"colid":"file_type","colnm":"문서 구분","dtype":"text","etype":"raw","attr":null,"defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":null,"section":null,"section_icon":null,"colgrp":null,"colid":"orgn_nm","colnm":"등록파일명","dtype":"text","etype":"raw","attr":null,"defval":null,"w":"40","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":null,"section":null,"section_icon":null,"colgrp":null,"colid":"file_ext","colnm":"확장자","dtype":"text","etype":"raw","attr":"hidden ","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":null,"section":null,"section_icon":null,"colgrp":null,"colid":"file_url","colnm":"파일주소","dtype":"text","etype":"raw","attr":"hidden ","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":null,"section":null,"section_icon":null,"colgrp":null,"colid":"file_dir","colnm":"파일경로","dtype":"text","etype":"raw","attr":"hidden ","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":null,"section":null,"section_icon":null,"colgrp":null,"colid":"file_sz","colnm":"파일크기","dtype":"num","etype":"raw","attr":"hidden ","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":null,"section":null,"section_icon":null,"colgrp":null,"colid":"sort_seq","colnm":"정렬순서","dtype":"num","etype":"txt","attr":"hidden ","defval":null,"w":null,"h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"},{"sort_seq":null,"section":null,"section_icon":null,"colgrp":null,"colid":"download","colnm":"다운로드","dtype":"text","etype":"btn","attr":"fixR ","defval":null,"w":"10","h":null,"refcd":null,"option":null,"len":null,"valid":null,"colFormula":null,"grpFormula":null,"totFormula":null,"remark":null,"crud":"C"}],"data_icon":null,"component_option":{"gridOpt":"rn chk","gridOptions":{"statusBar":"false"},"func":[{"funcid":"upload","func_nm":"파일업로드","func_icon":"fas fa-image"},{"funcid":"delRow","func_nm":"선택파일삭제","func_icon":"fas fa-minus"}]}};
 
     me.pageObj["_page"] = new gfnFramepage( me ); 
     for(var component_id in me.dataDef["_pgm_data"]) { 
@@ -57,11 +102,30 @@ me.dataDef["_pgm_data"]["mst"]={"sort_seq":"5","data_id":"mst","data_nm":"요청
     if(typeof(me.fnInitExtra)=='function') me.fnInitExtra(); 
 }
 /*-- script(개발자작성) start ---------------------------------------------------- */ 
+    var UUID = "";
+    gfnGetUUID(20, function(OUTVAR) {
+        UUID = OUTVAR;
+    });
+    var file_tp = "REQ_ATTCH";
+    var ref_file_tp = pgmid;
+
     /* 사용자초기화 */
     me.fnInitExtra=function() {
+        $("[pgmid='purchaseReq'] textarea").keyup(function() {
+            var cnt = $("[pgmid='purchaseReq'] textarea").val();
+            $("[pgmid='purchaseReq'] [colgrp='제목 (용도)'] span>span").text(cnt.length)
+            
+            if (cnt.length > 150) {
+            	// 150자 부터는 타이핑 되지 않도록
+                $(this).val($(this).val().substring(0, 150));
+            };
+        })
+        
+        $("[pgmid='purchaseReq'] textarea").parent().before("<span><span id='cntVal'>0</span>/ 150</span>")
     }
     /* 이벤트핸들러 */
     me.fnEH=function(component, evt, row, col, val) { 
+        // console.log(`evt : ${evt} /row : ${row} / col : ${col} / val : ${val}`);
         //화면기능버튼이 눌리면 
         if (component==me.pageObj["_pageFunc"]){ 
             if(typeof(me[col])=='function') me[col](); //col=기능명 me["fnSearch"]()=me.fnSearch(); 
@@ -74,6 +138,14 @@ me.dataDef["_pgm_data"]["mst"]={"sort_seq":"5","data_id":"mst","data_nm":"요청
                 } else if(row=="delRow") {
                     component.delRow();
                 }
+            }
+            else if (evt == "click" && col == "req_pd"){
+                var popid = "reqProduct" + gMDI.getNext();
+				var container = $("<div id='"+popid+"' class='framepage active'></div>");
+				$("#frameset").append(container);
+				gfnLoad("ITSM","reqProduct",container,function(){ 
+					gfnPopup("요청품목", container, {width: 1000, height:700, modal:true});
+				});
             }
             //if(evt=="change" && col=="colid") {...}
         }
@@ -109,6 +181,22 @@ me.dataDef["_pgm_data"]["mst"]={"sort_seq":"5","data_id":"mst","data_nm":"요청
                     component.addRow();
                 } else if(row=="delRow") {
                     component.delRow();
+                }
+            }
+            //if(evt=="change" && col=="colid") {...}
+        }
+        
+        //fileList:파일 리스트 이벤트처리   
+        else if(component==me.pageObj["fileList"]) {
+            if(evt=="componentFunc") {
+                if(row == "upload"){
+                    gfnUpload(UUID, file_tp, ref_file_tp, function(arrFiles) {
+                        //저장된 파일목록(arrFiles)을 사용하여 첨부파일 목록을 Refresh한다.
+                        for (let i = 0; i < arrFiles.length; i++) {
+                            const el = arrFiles[i];
+                        }
+                        me.pageObj.fileList.importData(arrFiles);
+                    });
                 }
             }
             //if(evt=="change" && col=="colid") {...}
@@ -163,17 +251,373 @@ me.dataDef["_pgm_data"]["mst"]={"sort_seq":"5","data_id":"mst","data_nm":"요청
         //console.log(args);
         var invar = JSON.stringify(args);
         console.log(invar)
-        // gfnTx(appid+"."+pgmid,"save",{INVAR:invar},function(OUTVAR){
-        //     //console.log(OUTVAR);
-        //     if(OUTVAR.rtnCd=="OK") {
-        //         gfnAlert("저장성공","입력한 정보가 저장되었습니다.");
-        //         me.fnSearch();
-        //     } else {
-        //         gfnAlert("저장오류",OUTVAR.rtnMsg);
-        //     }
-        // });
+        gfnTx(appid+"."+pgmid,"save",{INVAR:invar},function(OUTVAR){
+             console.log(OUTVAR);
+             console.log(OUTVAR.qry1);
+             console.log(OUTVAR.qry2);
+             if(OUTVAR.rtnCd=="OK") {
+                 gfnAlert("저장성공","입력한 정보가 저장되었습니다.");
+                 appendPdf();
+                 savePDF();
+                 $("#pdfArea").remove();
+                 me.fnSearch();
+             } else {
+                 gfnAlert("저장오류",OUTVAR.rtnMsg);
+             }
+         });
+    }
+    
+    function appendPdf() {
+        $("[pgmid='purchaseReq'] .pageContent").append('<div id="pdfArea" style="width: 1260px; height: 1782px; border: 1px solid white;">\
+ <div id="main" style="width: 1025.2px; margin: 150px 95px auto 85px;">\
+  <table style="width: 1025.2px;">\
+    <tbody>\
+    <tr>\
+   <td rowspan="3" style="width: 615.2px; height: 169.45px;">\
+     <h1 >\
+     <img src="images/full.png" alt="" width="100" style="margin-right: 30px;">\
+    <span>SW / HW 구매 요청서</span> \
+     </h1>\
+   </td>\
+   <td style="width: 50px; border-bottom: 0.5px solid #444444;" rowspan="3">\
+     <p><strong>승</strong></p>\
+     <p><strong>인</strong></p>\
+   </td>\
+     <td style="width: 120px;">\
+     <p><strong>요청부서</strong></p>\
+     </td>\
+     <td style="width: 120px;">\
+     <p><strong>담당부서</strong></p>\
+     </td>\
+     <td style="width: 120px; text-align: center; border-right: 0.5px solid #444444;">\
+     <p><strong>협력업체</strong></p>\
+     </td>\
+    </tr>\
+    <tr>\
+    <td style="width: 70px;">\
+    <p class="req_dpt"></p>\
+    </td>\
+    <td style="width: 70px;">\
+    <p>IT팀</p>\
+    </td>\
+    <td style="width: 94px; border-right: 0.5px solid #444444;">\
+    <p class="com_dpt"></p>\
+    </td>\
+    </tr>\
+    <tr>\
+    <td style="width: 70px; border-bottom: 0.5px solid #444444;">\
+    <p class="req_er"></p>\
+    </td>\
+    <td style="width: 70px; border-bottom: 0.5px solid #444444;">\
+    <p class="mng_er"></p>\
+    </td>\
+    <td style="width: 94px; border-bottom: 0.5px solid #444444; border-right: 0.5px solid #444444;">\
+    <p class="com_er"></p>\
+    </td>\
+    </tr>\
+    </tbody>\
+    </table>\
+    <p>&nbsp;</p>\
+    <table style="width: 1025.2px; height: 265px">\
+    <tbody>\
+    <tr style="height: 37px;">\
+    <td style="height: 37px;" width="140">\
+    <p><strong>요청일자</strong></p>\
+    </td>\
+    <td style="height: 37px;" width="140">\
+    <p><span class="req_year"></span><span class="req_month"></span><span class="req_day"></span></p>\
+    </td>\
+    <td style="height: 37px;" width="140">\
+    <p><strong>납기요청일자</strong></p>\
+    </td>\
+    <td style="height: 37px; border-right: 0.5px solid #444444;" width="150">\
+    <p><span class="end_year"></span><span class="end_month"></span><span class="end_day"></span></p>\
+    </td>\
+    </tr>\
+    <tr style="height: 37px;">\
+    <td style="height: 37px;" width="140">\
+    <p><strong>요청부서</strong></p>\
+    </td>\
+    <td style="height: 37px;" width="140">\
+    <p class="req_dpt"></p>\
+    </td>\
+    <td style="height: 37px;" width="140">\
+    <p><strong>담당부서</strong></p>\
+    </td>\
+    <td style="height: 37px; border-right: 0.5px solid #444444;" width="150">\
+    <p>IT팀</p>\
+    </td>\
+    </tr>\
+    <tr style="height: 37px;">\
+    <td style="height: 37px;" width="140">\
+    <p><strong>요청자</strong></p>\
+    </td>\
+    <td style="height: 37px;" width="140">\
+    <p class="req_er"></p>\
+    </td>\
+    <td style="height: 37px;" width="140">\
+    <p><strong>담당자</strong></p>\
+    </td>\
+    <td style="height: 37px; border-right: 0.5px solid #444444;" width="150">\
+    <p class="mng_er"></p>\
+    </td>\
+    </tr>\
+    <tr style="height: 90px;">\
+    <td style="height: 90px; border-bottom: 0.5px solid #444444;" width="150">\
+    <p><strong>제목 (용도)</strong></p>\
+    </td>\
+    <td style="height: 90px; border-bottom: 0.5px solid #444444; border-right: 0.5px solid #444444;" colspan="3" width="451">\
+    <p class="title"></p>\
+    </td>\
+    </tr>\
+    </tbody>\
+    </table>\
+    <p>&nbsp;</p>\
+    <table style="width: 1025.2px; border-right: 0.5px solid #444444; height: 933px">\
+    <tbody>\
+    <tr style="height: 37px;">\
+    <td style="height: 37px;" width="47">\
+    <p><strong>No.</strong></p>\
+    </td>\
+    <td style="height: 37px;" width="293">\
+    <p class="req_type"><strong></strong></p>\
+    </td>\
+    <td style="height: 37px; border-right: 0.5px solid #444444;" width="57">\
+    <p><strong>수량</strong></p>\
+    </td>\
+  \
+    </tr>\
+    <tr style="height: 37px;">\
+    <td style="height: 37px;" width="47">\
+    <p><strong>1</strong></p>\
+    </td>\
+    <td style="height: 37px;" width="293">\
+    <p class="req_pd"></p>\
+    </td>\
+    <td style="height: 37px;" width="57">\
+    <p class="req_cnt"></p>\
+    </td>\
+    \
+    </tr>\
+    <tr style="height: 37px;">\
+    <td style="height: 37px;" width="47">\
+    <p><strong>2</strong></p>\
+    </td>\
+    <td style="height: 37px;" width="293">\
+    <p class="req_pd"></p>\
+    </td>\
+    <td style="height: 37px;" width="57">\
+    <p class="req_cnt"></p>\
+    </td>\
+    \
+    </tr>\
+    <tr style="height: 37px;">\
+    <td style="height: 37px;" width="47">\
+    <p><strong>3</strong></p>\
+    </td>\
+    <td style="height: 37px;" width="293">\
+    <p class="req_pd"></p>\
+    </td>\
+    <td style="height: 37px;" width="57">\
+    <p class="req_cnt"></p>\
+    </td>\
+    \
+    </tr>\
+    <tr style="height: 37px;">\
+    <td style="height: 37px;" width="47">\
+    <p><strong>4</strong></p>\
+    </td>\
+    <td style="height: 37px;" width="293">\
+    <p class="req_pd"></p>\
+    </td>\
+    <td style="height: 37px;" width="57">\
+    <p class="req_cnt"></p>\
+    </td>\
+    \
+    </tr>\
+    <tr style="height: 37px;">\
+    <td style="height: 37px;" width="47">\
+    <p><strong>5</strong></p>\
+    </td>\
+    <td style="height: 37px;" width="293">\
+    <p class="req_pd"></p>\
+    </td>\
+    <td style="height: 37px;" width="57">\
+    <p class="req_cnt"></p>\
+    </td>\
+    \
+    </tr>\
+    <tr style="height: 37px;">\
+    <td style="height: 37px;" width="47">\
+    <p><strong>6</strong></p>\
+    </td>\
+    <td style="height: 37px;" width="293">\
+    <p class="req_pd"></p>\
+    </td>\
+    <td style="height: 37px;" width="57">\
+    <p class="req_cnt"></p>\
+    </td>\
+    \
+    </tr>\
+    <tr style="height: 37px;">\
+    <td style="height: 37px;" width="47">\
+    <p><strong>7</strong></p>\
+    </td>\
+    <td style="height: 37px;" width="293">\
+    <p class="req_pd"></p>\
+    </td>\
+    <td style="height: 37px;" width="57">\
+    <p class="req_cnt"></p>\
+    </td>\
+    \
+    </tr>\
+    <tr style="height: 37px;">\
+    <td style="height: 37px;" width="47">\
+    <p><strong>8</strong></p>\
+    </td>\
+    <td style="height: 37px;" width="293">\
+    <p class="req_pd"></p>\
+    </td>\
+    <td style="height: 37px;" width="57">\
+    <p class="req_cnt"></p>\
+    </td>\
+    \
+    </tr>\
+    <tr style="height: 37px;">\
+    <td style="height: 37px;" width="47">\
+    <p><strong>9</strong></p>\
+    </td>\
+    <td style="height: 37px;" width="293">\
+    <p class="req_pd"></p>\
+    </td>\
+    <td style="height: 37px;" width="57">\
+    <p class="req_cnt"></p>\
+    </td>\
+    \
+    </tr>\
+    <tr style="height: 37px;">\
+    <td style="height: 37px;" width="47">\
+    <p><strong>10</strong></p>\
+    </td>\
+    <td style="height: 37px;" width="293">\
+    <p class="req_pd"></p>\
+    </td>\
+    <td style="height: 37px;" width="57">\
+    <p class="req_cnt"></p>\
+    </td>\
+    \
+    </tr>\
+    <tr style="height: 37px;">\
+    <td style="height: 37px;" width="47">\
+    <p><strong>11</strong></p>\
+    </td>\
+    <td style="height: 37px;" width="293">\
+    <p class="req_pd"></p>\
+    </td>\
+    <td style="height: 37px;" width="57">\
+    <p class="req_cnt"></p>\
+    </td>\
+    \
+    </tr>\
+    <tr style="height: 37px;">\
+    <td style="height: 37px;" width="47">\
+    <p><strong>12</strong></p>\
+    </td>\
+    <td style="height: 37px;" width="293">\
+    <p class="req_pd"></p>\
+    </td>\
+    <td style="height: 37px;" width="57">\
+    <p class="req_cnt"></p>\
+    </td>\
+    \
+    </tr>\
+    <tr style="height: 37px;">\
+    <td style="height: 37px;" width="47">\
+    <p><strong>13</strong></p>\
+    </td>\
+    <td style="height: 37px;" width="293">\
+    <p class="req_pd"></p>\
+    </td>\
+    <td style="height: 37px;" width="57">\
+    <p class="req_cnt"></p>\
+    </td>\
+    \
+    </tr>\
+    <tr style="height: 37px;">\
+    <td style="height: 37px;" width="47">\
+    <p><strong>14</strong></p>\
+    </td>\
+    <td style="height: 37px;" width="293">\
+    <p class="req_pd"></p>\
+    </td>\
+    <td style="height: 37px;" width="57">\
+    <p class="req_cnt"></p>\
+    </td>\
+    \
+    </tr>\
+    <tr style="height: 37px;">\
+    <td style="height: 37px; border-bottom: 0.5px solid #444444;" width="47">\
+    <p><strong>15</strong></p>\
+    </td>\
+    <td style="height: 37px; border-bottom: 0.5px solid #444444;" width="293">\
+    <p class="req_pd"></p>\
+    </td>\
+    <td style="height: 37px; border-bottom: 0.5px solid #444444;" width="57">\
+    <p class="req_cnt"></p>\
+    </td>\
+    </tr>\
+    </tbody>\
+    </table>\
+    <p>&nbsp;</p>\
+    <div style="width: 1025.2px;">\
+        <p style="text-align: center; margin-top: 30px; font-size: 20px">위와 같이 구매 요청합니다.</p>\
+    </div>\
+   </div>\
+  </div>')
     }
 
+    function savePDF(){
+        var mst = me.pageObj["mst"].exportData()[0];
+        var list = me.pageObj["detail"].exportData();
+        
+        $('.req_dpt').text(mst.req_dpt)
+        $('.req_er').text(mst.req_er)
+        $('.mng_er').text("아무개")
+        $('.req_year').eq(0).text((mst.req_date + "").substr(0, 4) + "년 ")
+        $('.req_month').eq(0).text((mst.req_date + "").substr(5, 2) + "월 ")
+        $('.req_day').eq(0).text((mst.req_date + "").substr(8, 2) + "일")
+        $('.end_year').eq(0).text((mst.req_compl_date + "").substr(0, 4) + "년 ")
+        $('.end_month').eq(0).text((mst.req_compl_date + "").substr(5, 2) + "월 ")
+        $('.end_day').eq(0).text((mst.req_compl_date + "").substr(8, 2) + "일")
+        $('.req_type>strong').text("[ " + mst.sw_hw + " ]")
+        $('.title').text(mst.req_title).css("word-break", "break-all").css("word-wrap", "break-word").css("letter-spacing", "-0.5px")
+        
+        for (var i = 0; i < list.length; i++) {
+            // $('.req_pd').eq(i).text(list[i].req_pd)
+            $('.req_pd').eq(i).text("요청품목 " + i)
+            $('.req_cnt').eq(i).text(list[i].req_cnt)
+        }
+
+        //저장 영역 div id
+        html2canvas($("#pdfArea")[0] ,{	
+          allowTaint : true,	// cross-origin allow 
+          useCORS: true,		// CORS 사용한 서버로부터 이미지 로드할 것인지 여부
+          scale : 2	// 기본 96dpi에서 해상도를 두 배로 증가
+          
+        }).then(function(canvas) {	
+          // 캔버스를 이미지로 변환
+          var imgData = canvas.toDataURL('image/png');
+          var doc = new jsPDF('p', 'mm');
+          var position = 0;
+    
+          // 첫 페이지 출력
+          doc.addImage(imgData, 'PNG', 0, position, 210, 290); // margin, position, width, height
+    
+          // 파일 저장
+          doc.save('filename.pdf');
+        });
+      }
+      
     //delete:삭제 
     me.fnDelete=function() {
         //VALIDATION  : 
