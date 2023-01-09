@@ -720,7 +720,7 @@ button {
 
 .framepage H1 {
 	margin: 0;
-	background-color: #efefef;
+	/* background-color: #efefef; */
 	padding: 2em;
 	font-size: xx-large;
 	color: rgba(0, 0, 0, 0.9);
