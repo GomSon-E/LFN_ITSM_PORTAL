@@ -59,7 +59,8 @@
     animation: wawes 7s infinite;
   }
 
-  .login #userid {
+  .login #userid,
+  #loginpwd {
     font-family: "Asap", sans-serif;
     display: block;
     border-radius: 5px;
@@ -70,19 +71,6 @@
     padding: 10px 10px;
     margin: 20px -10px;
   }
-
-  .login #loginpwd {
-    font-family: "Asap", sans-serif;
-    display: block;
-    border-radius: 5px;
-    font-size: 16px;
-    background: #eeeeee;
-    width: 100%;
-    border: 0;
-    padding: 10px 10px;
-    margin: 15px -10px;
-  }
-
 
   #logsave {
     margin-bottom: 12px;
@@ -116,12 +104,23 @@
     transition: background-color 300ms;
   }
 
- #btn {
-  width: 120px;
- }
+  #btn {
+    width: 120px;
+  }
 
- .loginBtns:hover {
+  .loginBtns:hover {
     background-color: #8ebcf5;
+  }
+
+  .login #checkId,
+  #checkMail {
+    font-family: "Asap", sans-serif;
+    border-radius: 5px;
+    background: #eeeeee;
+    width: 40%;
+    border: 0;
+    padding: 5px 5px;
+    margin: 3px 15px 0px 0px;
   }
 
   @-webkit-keyframes wawes {
@@ -214,26 +213,27 @@
     <div id="Outer">
       <div id='pwdclearform'>
         <p>아이디를 입력하면 비밀번호 초기화 메세지가 발송됩니다.</p>
-        <label>아이디</label>
-        <input type="text" id="checkId" placeholder="ID">
-        <button id="pwClearBtn" class="loginBtns"><i class="fas fa-save" aria-hidden="true"></i>메세지 발송</button>
-      </div>
+        <div style="margin-bottom:10px">
+          <input type="text" id="checkId" placeholder="ID">
+          <button id="pwClearBtn" class="loginBtns">
+            <i class="fas fa-paper-plane" aria-hidden="true" style="margin-right: 5px;"></i>메세지 발송</button>
+        </div>
 
-      <div id='pwdclearform2'>
-        <p>이메일을 입력하면 비밀번호 초기화 메일이 발송됩니다.</p>
-        <label>이메일</label>
-        <input type="text" id="checkMail" placeholder="example@lfnetworks.co.kr">
-        <button id="pwClearBtn2" class="loginBtns"><i class="fas fa-save" aria-hidden="true"></i>메일 발송</button>
+        <div id='pwdclearform2'>
+          <p>이메일을 입력하면 비밀번호 초기화 메일이 발송됩니다.</p>
+          <input type="text" id="checkMail" placeholder="example@lfnetworks.co.kr">
+          <button id="pwClearBtn2" class="loginBtns">
+            <i class="fas fa-paper-plane" aria-hidden="true" style="margin-right: 5px;"></i>메일 발송</button>
+        </div>
       </div>
     </div>
-  </div>
 
 
 
 
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sha256/0.9.0/sha256.min.js"></script>
-  <script type="text/javascript" src="/lib/jquery/core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sha256/0.9.0/sha256.min.js"></script>
+    <script type="text/javascript" src="/lib/jquery/core.min.js"></script>
 <script>
 /*-- _script(자동생성1) start ---------------------------------------------- */        
 $(function() {
@@ -256,7 +256,7 @@ $(function() {
         me.dataDef = dataDef;
         me.pageObj = pageObj;
         me.bEdit = bEdit;
-me.dataDef["_pgm"]={"ver":2,"upd_dt":"2023-01-05 17:02:21","remark":"","pgmid":"login","proc_mst_id":"","pgm_stat":"Y","sort_seq":null,"app_pgmid":"ITSM","shortcut":"","reg_dt":"2022-10-12 16:46:05","reg_usid":"jjr","pgm_nm":"로그인","upd_usid":"jhk","pgm_tp":"TX","pgm_grp_nm":"공통","proc_mst_nm":"","":"트랜젝션(화면)","app_pgm_nm":"ITSM","crud":""};
+me.dataDef["_pgm"]={"ver":2.2,"upd_dt":"2023-01-06 09:47:31","remark":"","pgmid":"login","proc_mst_id":"","pgm_stat":"Y","sort_seq":null,"app_pgmid":"ITSM","shortcut":"","reg_dt":"2022-10-12 16:46:05","reg_usid":"jjr","pgm_nm":"로그인","upd_usid":"jhk","pgm_tp":"TX","pgm_grp_nm":"공통","proc_mst_nm":"","app_pgm_nm":"ITSM","":"트랜젝션(화면)","crud":""};
 me.dataDef["_pgm_func"]=[];
 me.dataDef["_pgm_data"] = {};
 
@@ -388,7 +388,7 @@ me.dataDef["_pgm_data"] = {};
           console.log(OUTVAR);
           if (OUTVAR.rtnCd == "OK") {
             gfnAlert("저장성공", "비밀번호가 초기화 되었습니다.");
-            me.fnSearchGrp();
+            // me.fnSearchGrp();
           } else {
             gfnAlert("저장오류", OUTVAR.rtnMsg);
           }
@@ -442,7 +442,7 @@ me.dataDef["_pgm_data"] = {};
           console.log(OUTVAR);
           if (OUTVAR.rtnCd == "OK") {
             gfnAlert("저장성공", "비밀번호가 초기화 되었습니다.");
-            me.fnSearchGrp();
+            // me.fnSearchGrp();
           } else {
             gfnAlert("저장오류", OUTVAR.rtnMsg);
           }
