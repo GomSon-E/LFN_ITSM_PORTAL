@@ -88,9 +88,9 @@ function gfnLoad(app,pgm,dom,callback,bSilence) {
 			var args = {pgmid:pgm}
 			var invar = JSON.stringify(args);
 			gfnTx("ITSM.frameset","checkGfnTx",{INVAR:invar},function(OUTVAR){
-				console.log("pageLoaded:"+pgm);
-				console.log("checkGfnTx:");
-				console.log(OUTVAR);
+				// console.log(`Load 된 페이지 : ${pgm}`);
+				// console.log("checkGfnTx:");
+				// console.log(OUTVAR);
 			});
 		},
 		error: function(jqx, stat, err) {
