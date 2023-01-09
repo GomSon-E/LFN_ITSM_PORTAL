@@ -93,6 +93,47 @@ else if("saveGrp".equals(func)) {
     }
 }
 
+
+    // Connection conn = null; 
+    try {  
+        Connection conn = null; 
+        conn = getConn("LFN");
+        conn.setAutoCommit(false);
+        String usid = request.getParameter("usid");
+        String qryGrp = "select count(*) from T_USER where usid=?";
+        String qryRun = "";
+        qryRun += bindVAR(qryGrp,INVAR);
+        OUTVAR.put("qryGrp",qryRun);
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        JSONObject data = null; 
+        JSONObject rst = executeSVC(conn, qryRun);  
+
+        pstmt = conn.prepareStatement(sql);
+        pstmt.setString(1, usid);
+        rs = pstmt.executeQuery();
+        rs.next();
+        int cnt = rs.getInt("cnt");  // 1      0          
+        data = new JSONObject();
+        data.put("count", cnt);   // { "count":0 }
+        if(!"OK".equals(getVal(rst,"rtnCd"))) {
+            conn.rollback();
+            rtnCode = getVal(rst,"rtnCd"); 
+            rtnMsg  = getVal(rst,"rtnMsg");
+            //System.out.println(rtnMsg);
+
+        } else { 
+            conn.commit();
+        } 
+    } catch (Exception e) {
+        rtnCode = "ERR";
+        rtnMsg = e.toString();
+    } finally {
+        closeConn(conn);
+    }
+
+
+
 /***************************************************************************************************/// *********************************************************************************************/
 } catch (Exception e) {
 	logger.error("error occurred:"+rtnCode,e);

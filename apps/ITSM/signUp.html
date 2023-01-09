@@ -120,6 +120,44 @@
         font-size: 12px;
         margin: 0 10px;
     }
+
+    @-webkit-keyframes wawes {
+    from {
+      -webkit-transform: rotate(0);
+    }
+
+    to {
+      -webkit-transform: rotate(360deg);
+    }
+  }
+
+  @-moz-keyframes wawes {
+    from {
+      -moz-transform: rotate(0);
+    }
+
+    to {
+      -moz-transform: rotate(360deg);
+    }
+  }
+
+  @keyframes wawes {
+    from {
+      -webkit-transform: rotate(0);
+      -moz-transform: rotate(0);
+      -ms-transform: rotate(0);
+      -o-transform: rotate(0);
+      transform: rotate(0);
+    }
+
+    to {
+      -webkit-transform: rotate(360deg);
+      -moz-transform: rotate(360deg);
+      -ms-transform: rotate(360deg);
+      -o-transform: rotate(360deg);
+      transform: rotate(360deg);
+    }
+  }
 </style>
 
 <!-- html start -->
@@ -169,7 +207,7 @@ $(function() {
         me.dataDef = dataDef;
         me.pageObj = pageObj;
         me.bEdit = bEdit;
-me.dataDef["_pgm"]={"ver":0.2,"upd_dt":"2023-01-05 17:22:37","remark":"","pgmid":"signUp","proc_mst_id":"","pgm_stat":"Y","sort_seq":null,"app_pgmid":"ITSM","shortcut":"","reg_dt":"2023-01-05 08:54:15","reg_usid":"jhk","pgm_nm":"회원가입","upd_usid":"jhk","pgm_tp":"UX","pgm_grp_nm":"공통","proc_mst_nm":"","app_pgm_nm":"ITSM","":"트랜젝션(메뉴)","crud":""};
+me.dataDef["_pgm"]={"ver":0.3,"upd_dt":"2023-01-06 12:00:11","remark":"","pgmid":"signUp","proc_mst_id":"","pgm_stat":"Y","sort_seq":null,"app_pgmid":"ITSM","shortcut":"","reg_dt":"2023-01-05 08:54:15","reg_usid":"jhk","pgm_nm":"회원가입","upd_usid":"jhk","pgm_tp":"UX","pgm_grp_nm":"공통","proc_mst_nm":"","":"트랜젝션(메뉴)","app_pgm_nm":"ITSM","crud":""};
 me.dataDef["_pgm_func"]=[];
 me.dataDef["_pgm_data"] = {};
 
@@ -207,6 +245,10 @@ me.dataDef["_pgm_data"] = {};
             }
         };
 
+
+
+
+
         //회원가입
         $('.usid').change(function () {
             $('#id_check_sucess').hide();
@@ -219,11 +261,11 @@ me.dataDef["_pgm_data"] = {};
 	   var params = $("frm").serialize(); // 자동으로 폼태그 안에있는애들 주르륵
 	   
 	   		$.ajax({
-	   			url:"awegtx.jsp"
+	   			url:"signUp.jsp"
 	   			,dataType:"json"
 	   			,type:"GET"
-	   			//,data:"empno="+$("#empno").val(); //id값이 주어졌다면 이렇게 해도되나 지저분
-	   			,data:params //바로 이렇게 줘도 됨 
+	   			,data:"usid="+$("#usid").val() //id값이 주어졌다면 이렇게 해도되나 지저분
+	   			// ,data:params //바로 이렇게 줘도 됨 
 	   			,cache:false //같은 요청이 있으면 db에 있는 것 바로 뿌리겠다
 	   			,success:function(data){ //성공했으면 가져오는 데이터가 있을 것
 	   				//alert(data.count); //data는 JSON 값을 받을 것 {"count":0} data.count하면 0아니면 1
