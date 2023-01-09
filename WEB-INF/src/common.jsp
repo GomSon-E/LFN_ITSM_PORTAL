@@ -143,7 +143,7 @@ public String getQuery(String pgmid, String qryid) {
 	try {
 		//쿼리 가져옴
 		conn = getConn("COMMON");
-		String qry1 = "select content from T_PGM_SRC where pgmid = '"+pgmid+"' and srcid ='"+qryid+"'";
+		String qry1 = "select content from HIS_PGM_SRC where pgmid = '"+pgmid+"' and srcid ='"+qryid+"' and ver = (select max(ver) from his_pgm_src where pgmid = '"+pgmid+"')";
 		JSONArray mRtn = executeQueryClob(conn, qry1, "content");
         qry = getVal(mRtn,0,"content");
         qry = "/* "+pgmid+"."+qryid+" */\n"+qry;

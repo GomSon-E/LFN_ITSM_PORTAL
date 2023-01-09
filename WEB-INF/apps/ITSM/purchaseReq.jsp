@@ -60,8 +60,11 @@ if("save".equals(func)) {
     try {  
         conn = getConn("LFN");
         conn.setAutoCommit(false);
-        String qry = getQuery(pgmid, "qrysave");
+        String qry = getQuery(pgmid, "save");
+        OUTVAR.put("qry1", qry);
         String qryRun = "";
+        
+        OUTVAR.put("qry2", qryRun);
         JSONArray arrList = getArray(INVAR,"list");
         for(int i = 0; i < arrList.size(); i++) {
             JSONObject row = getRow(arrList,i); 

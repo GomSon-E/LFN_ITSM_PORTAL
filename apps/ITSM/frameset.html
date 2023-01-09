@@ -12,8 +12,8 @@
         <div class="gnb">
             <nav class="menu">
                 <div class="logo">
-                    <img src="servers.png" alt="" onclick="openNav()" width="60">
-                    <img class="mainLogo" src="logo.png" alt="" width="180">
+                    <img src="images/full.png" alt="" onclick="openNav()" width="60">
+                    <img class="mainLogo" src="images/logo.png" alt="" width="180" onclick="location.reload()">
                 </div>
 
                 <div class="menu-right">
@@ -59,9 +59,9 @@
             <div class="logoside">
                 <!----로고 애니메이션----->
                 <a class="link" onclick="location.reload()">
-                    <img src="gear.png" alt="logo" width="200" height="200">
-                    <img src="letter.png" alt="logo" width="200" height="200">
-                    <img src="lfn.png" alt="logo" width="200" height="200">
+                    <img src="images/gear.png" alt="logo" width="200" height="200">
+                    <img src="images/letter.png" alt="logo" width="200" height="200">
+                    <img src="images/lfn.png" alt="logo" width="200" height="200">
                 </a>
             </div>
 
@@ -121,11 +121,6 @@
 </body>
 
 <script>
-    //mainLogo 로고 클릭시 리로드
-    $(".mainLogo").on("click", function () {
-        location.reload();
-    });
-
     function menuToggle() {
         const toggleMenu = document.querySelector(".menu");
         toggleMenu.classList.toggle("active");
@@ -218,7 +213,7 @@ $(function() {
         me.dataDef = dataDef;
         me.pageObj = pageObj;
         me.bEdit = bEdit;
-me.dataDef["_pgm"]={"ver":0.1,"upd_dt":"2023-01-05 09:37:06","remark":"","pgmid":"frameset","proc_mst_id":"","pgm_stat":"Y","sort_seq":null,"app_pgmid":"ITSM","shortcut":"","reg_dt":"2023-01-04 18:08:16","reg_usid":"sju02092","pgm_nm":"포털프레임셋","upd_usid":"jhk","pgm_tp":"TX","pgm_grp_nm":"공통","proc_mst_nm":"","":"트랜젝션(화면)","app_pgm_nm":"ITSM","crud":""};
+me.dataDef["_pgm"]={"ver":0.2,"upd_dt":"2023-01-06 10:52:17","remark":"","pgmid":"frameset","proc_mst_id":"","pgm_stat":"Y","sort_seq":null,"app_pgmid":"ITSM","shortcut":"","reg_dt":"2023-01-04 18:08:16","reg_usid":"sju02092","pgm_nm":"포털프레임셋","upd_usid":"youjungson89","pgm_tp":"TX","pgm_grp_nm":"공통","proc_mst_nm":"","app_pgm_nm":"ITSM","":"트랜젝션(화면)","crud":""};
 me.dataDef["_pgm_func"]=[];
 me.dataDef["_pgm_data"] = {};
 
@@ -503,13 +498,13 @@ me.dataDef["_pgm_data"] = {};
                     $(".toggle > i").toggleClass("fa-toggle-on")
                     if ($(".toggle > i").hasClass("fa-toggle-on")) {
                         $(".framepage.active").css("height", "calc(100vh - 80px)")
-                        $(".framepage.active[pgmid='workbench'] .pageContentSide").css("height","calc(100vh - 13em)");
-                        $(".framepage.active[pgmid='workbench'] .pageContentMain").css("height","calc(100vh - 13em)");
+                        $(".framepage.active[pgmid='workbench'] .pageContentSide").css("height","calc(100vh - 12.5em)");
+                        $(".framepage.active[pgmid='workbench'] .pageContentMain").css("height","calc(100vh - 12.5em)");
                     } 
                     else {
                         $(".framepage.active").css("height", "calc(100vh - 125px)")
-                        $(".framepage.active[pgmid='workbench'] .pageContentSide").css("height","calc(100vh - 17em)");
-                        $(".framepage.active[pgmid='workbench'] .pageContentMain").css("height","calc(100vh - 17em)");
+                        $(".framepage.active[pgmid='workbench'] .pageContentSide").css("height","calc(100vh - 16em)");
+                        $(".framepage.active[pgmid='workbench'] .pageContentMain").css("height","calc(100vh - 16em)");
                     }
                     $("#frameTab").toggle();
                 }

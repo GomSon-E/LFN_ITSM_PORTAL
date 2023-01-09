@@ -280,12 +280,12 @@ nav.menu {
     border-radius: 20px;
 }
 
-#main {
+/* #main {
     background-color: white;
     border: 2px dashed #0e2d87;
     transition: margin-left .5s;
     padding: 16px;
-}
+} */
 
 /************************데스크탑 사이즈************************/
 
@@ -365,9 +365,9 @@ nav.menu {
 
     /*콘텐츠박스*/
 
-    #main {
+    /* #main {
         height: auto;
-    }
+    } */
 
     #frameHome {
         transition: margin-left .5s;
@@ -406,9 +406,9 @@ nav.menu {
 
     /*콘텐츠박스*/
 
-    #main {
+    /* #main {
         height: 800px;
-    }
+    } */
 
     .action {
         position: fixed;
