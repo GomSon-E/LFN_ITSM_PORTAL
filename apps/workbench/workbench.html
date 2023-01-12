@@ -672,7 +672,7 @@ me.dataDef["_pgm_data"]["pgm_src"]={
                 args["pgm_data"] = me.dataSet["pgm_data"];
                 args["pgm_src"]  = me.dataSet["pgm_src"];
                 var invar = JSON.stringify(args);
-                
+
                 // HIS_PGM_** 에 저장
                 gfnTx(appid+"."+pgmid,"saveSpec",{INVAR:invar},function(OUTVAR){
                     //console.log(OUTVAR);
@@ -1141,7 +1141,7 @@ if("${row.funcid}".equals(func)) {
     // 전체 html 작성
     me.fnMakeFullCode = function(code) {
         var pgm_info = me.dataSet["pgm"][0];     
-        var row = subset(me.dataSet["pgm_src"],"srcid","HTML"); 
+        var row = subset(me.dataSet["pgm_src"],"srcid","HTML");
         if(row.length == 0) {
             var rowId = me.pageObj["pgm_src"].addRow(); 
             me.pageObj["pgm_src"].setVal(rowId,"sort_seq",toNum(rowId)+1);
@@ -1149,6 +1149,7 @@ if("${row.funcid}".equals(func)) {
             me.pageObj["pgm_src"].setVal(rowId,"srcid","HTML");
             me.pageObj["pgm_src"].setVal(rowId,"src_nm","3) HTML 통합소스 (자동생성)");
             me.pageObj["pgm_src"].setVal(rowId,"content",code); 
+            me.fnEditor(rowId,code);
         } else { 
             for(var i = 0; i < me.pageObj["pgm_src"].countRow(); i++) { 
                 var rowId = me.pageObj["pgm_src"].getNodeId(i);
@@ -1157,10 +1158,12 @@ if("${row.funcid}".equals(func)) {
                     me.pageObj["pgm_src"].setVal(rowId,"srcid","HTML");
                     me.pageObj["pgm_src"].setVal(rowId,"src_nm","3) HTML 통합소스 (자동생성)");
                     me.pageObj["pgm_src"].setVal(rowId,"content",code); 
+                    me.fnEditor(rowId,code);
                     break;
                 } 
             }
         } 
+        me.fnEditor(rowId,me.fnEditor(rowId));
         me.fnGetData(); //생성된 HTML을 dataSet으로 업데이트
     }
     /* 입력된 정보로 html소스를 화면에 뿌린다. */

@@ -3042,6 +3042,8 @@ function gfnControl(colinfo, afnEH, oComponent, rowid, val, rowPinned, agHack) {
 			obj =  $(`<input type="date"/>`); 
 		} else if(me.etype=="month") {
 			obj =  $(`<input type="month"/>`); 
+		} else if(me.etype=="minute") {
+			obj =  $(`<input type="minute"/>`); 
 		} else if(me.etype=="number") {
 			obj =  $(`<input type="text"/ placeholder="${me.remark}">`); 
 		} else if(me.etype=="none") {
@@ -3360,6 +3362,9 @@ function gfnControl(colinfo, afnEH, oComponent, rowid, val, rowPinned, agHack) {
 		} else if(me.etype=="month") {
 			// month는 일(day)를 잘라줘야한다.
 			me.obj.includeObj(".aweCol").val(me.setter(val).substring(0, 7));
+		} else if(me.etype=="minute") {
+			// 날짜 시, 분까지 나오게
+			me.obj.includeObj(".aweCol").val(me.setter(val).substring(0, 16));
 		} else if(me.etype=="number") {
 			console.log(me.setter(val));
 			console.log(typeof(me.setter(val)));
@@ -3402,6 +3407,8 @@ function gfnControl(colinfo, afnEH, oComponent, rowid, val, rowPinned, agHack) {
 		} else if(me.etype=="date") {
 			rtn = me.obj.includeObj(".aweCol").val();
 		} else if(me.etype=="month") {
+			rtn = me.obj.includeObj(".aweCol").val();
+		} else if(me.etype=="minute") {
 			rtn = me.obj.includeObj(".aweCol").val();
 		} else if(me.etype=="number") {
 			rtn = me.obj.includeObj(".aweCol").val();
