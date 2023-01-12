@@ -2,6 +2,7 @@
 <style>
 [pgmid='supportReqForm'].framepage { 
     width:100%;
+    background-color: red;
 }
 [pgmid='supportReqForm'] table {
     border-collapse: collapse;
@@ -53,9 +54,11 @@ $(function() {
         me.dataDef = dataDef;
         me.pageObj = pageObj;
         me.bEdit = bEdit;
-me.dataDef["_pgm"]={"ver":0.2,"upd_dt":"2023-01-09 10:48:14","remark":"","pgmid":"supportReqForm","proc_mst_id":"","pgm_stat":"Y","sort_seq":null,"app_pgmid":"ITSM","shortcut":"","reg_dt":"2023-01-09 10:42:15","reg_usid":"hjkim","pgm_nm":"업무지원요청 폼","upd_usid":"hjkim","pgm_tp":"UX","pgm_grp_nm":"","proc_mst_nm":"","":"트랜젝션(메뉴)","app_pgm_nm":"ITSM","crud":""};
-me.dataDef["_pgm_func"]=[{"func_icon":null,"ver":"0.18","func_nm":"저장","upd_dt":"","func_tp":"DB_W","remark":null,"pgmid":"supportReqForm","sort_seq":"1","funcid":"save","content":null,"reg_dt":"","reg_usid":"","upd_usid":"","crud":"R","id":"0"}];
+me.dataDef["_pgm"]={"ver":0.6,"upd_dt":"2023-01-12 10:07:02","remark":"","pgmid":"supportReqForm","proc_mst_id":"","pgm_stat":"Y","sort_seq":null,"app_pgmid":"ITSM","shortcut":"","reg_dt":"2023-01-09 10:42:15","reg_usid":"hjkim","pgm_nm":"업무지원요청 폼","upd_usid":"hjkim","pgm_tp":"UX","pgm_grp_nm":"","proc_mst_nm":"","":"트랜젝션(메뉴)","app_pgm_nm":"ITSM","crud":""};
+me.dataDef["_pgm_func"]=[{"func_icon":null,"ver":"0.59","func_nm":"저장","upd_dt":"","func_tp":"DB_W","remark":null,"pgmid":"supportReqForm","sort_seq":"1","funcid":"save","content":null,"reg_dt":"","reg_usid":"","upd_usid":"","crud":"R","id":"0"}];
 me.dataDef["_pgm_data"] = {};
+me.dataDef["_pgm_data"]["22"]={"sort_seq":"1","data_id":"22","data_nm":"22","component_pgmid":"aweCardView","inout_tp":null,"content":null,"data_icon":null,"component_option":null};
+me.dataDef["_pgm_data"]["11"]={"sort_seq":"2","data_id":"11","data_nm":"11","component_pgmid":"aweForm","inout_tp":null,"content":null,"data_icon":null,"component_option":null};
 
     me.pageObj["_page"] = new gfnFramepage( me ); 
     for(var component_id in me.dataDef["_pgm_data"]) { 
